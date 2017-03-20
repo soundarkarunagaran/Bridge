@@ -251,6 +251,9 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#1536 - TestEventNameConflict", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1536.testEventNameConflict);
             QUnit.test("#1536 - TestPropertyNameConflict", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1536.testPropertyNameConflict);
             QUnit.test("#1538 - TestOutParameterInIndexer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1538.testOutParameterInIndexer);
+            QUnit.test("#156 - TestArrayIndexOutOfRangeException", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156.testArrayIndexOutOfRangeException);
+            QUnit.test("#156 - Test1DArrayIndexOutOfRangeExceptionIndexAsVariable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156.test1DArrayIndexOutOfRangeExceptionIndexAsVariable);
+            QUnit.test("#156 - Test2DArrayIndexOutOfRangeExceptionIndexAsVariable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156.test2DArrayIndexOutOfRangeExceptionIndexAsVariable);
             QUnit.test("#1566 - TestMathLog10", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1566.testMathLog10);
             QUnit.test("#1566 - TestMathLogWithBase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1566.testMathLogWithBase);
             QUnit.test("#1566 - TestMathLog", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1566.testMathLog);
@@ -4985,6 +4988,44 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                     project: "Batch3",
                     className: "Bridge.ClientTest.Batch3.BridgeIssues.Bridge1538",
                     file: "Batch3\\BridgeIssues\\1500\\N1538.cs"
+                } );
+            }
+            return this.context;
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge156)],
+        statics: {
+            testArrayIndexOutOfRangeException: function (assert) {
+                var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge156).beforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156, void 0, Bridge.merge(new Bridge.Test.Runtime.TestContext(), {
+                    method: "TestArrayIndexOutOfRangeException()",
+                    line: "13"
+                } ));
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge156.testArrayIndexOutOfRangeException();
+            },
+            test1DArrayIndexOutOfRangeExceptionIndexAsVariable: function (assert) {
+                var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge156).beforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156, void 0, Bridge.merge(new Bridge.Test.Runtime.TestContext(), {
+                    method: "Test1DArrayIndexOutOfRangeExceptionIndexAsVariable()",
+                    line: "61"
+                } ));
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge156.test1DArrayIndexOutOfRangeExceptionIndexAsVariable();
+            },
+            test2DArrayIndexOutOfRangeExceptionIndexAsVariable: function (assert) {
+                var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge156).beforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge156, void 0, Bridge.merge(new Bridge.Test.Runtime.TestContext(), {
+                    method: "Test2DArrayIndexOutOfRangeExceptionIndexAsVariable()",
+                    line: "82"
+                } ));
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge156.test2DArrayIndexOutOfRangeExceptionIndexAsVariable();
+            }
+        },
+        context: null,
+        getContext: function () {
+            if (this.context == null) {
+                this.context = Bridge.merge(new Bridge.Test.Runtime.FixtureContext(), {
+                    project: "Batch3",
+                    className: "Bridge.ClientTest.Batch3.BridgeIssues.Bridge156",
+                    file: "Batch3\\BridgeIssues\\0100\\N156.cs"
                 } );
             }
             return this.context;
