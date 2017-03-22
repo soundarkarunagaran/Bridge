@@ -22068,7 +22068,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
                             }
                         } catch($async_e1) {
                             $async_e = System.Exception.create($async_e1);
-                            if ( $step >= 1 && $step <= 2 ){
+                            if ( $step >= 1 && $step <= 2 ) {
                                 ex2 = $async_e;
                                 $step = 3;
                                 $asyncBody();
@@ -22769,7 +22769,6 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
                                 }
                                 case 2: {
                                     $taskResult1 = $task1.getAwaitedResult();
-                                    
                                     Bridge.Test.NUnit.Assert.fail$1("Await should throw");
                                     $step = 5;
                                     continue;
@@ -22788,7 +22787,6 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
                                     continue;
                                 }
                                 case 5: {
-                                    
                                     Bridge.Test.NUnit.Assert.true$1(continuationRun, "Continuation should have been run after promise was rejected.");
 
                                     completeAsync();
@@ -22801,7 +22799,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
                         }
                     } catch($async_e1) {
                         $async_e = System.Exception.create($async_e1);
-                        if ( $step >= 1 && $step <= 2 ){
+                        if ( $step >= 1 && $step <= 2 ) {
                             if (Bridge.is($async_e, Bridge.PromiseException)) {
                                 ex = $async_e;
                                 $step = 3;
@@ -23241,7 +23239,6 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
                                     }
                                     case 2: {
                                         $taskResult1 = $task1.getAwaitedResult();
-                                        
                                         Bridge.Test.NUnit.Assert.fail$1("Await should throw");
                                         $step = 4;
                                         continue;
@@ -23262,7 +23259,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
                             }
                         } catch($async_e1) {
                             $async_e = System.Exception.create($async_e1);
-                            if ( $step >= 1 && $step <= 2 ){
+                            if ( $step >= 1 && $step <= 2 ) {
                                 if (Bridge.is($async_e, System.Threading.Tasks.TaskCanceledException)) {
                                     ex = $async_e;
                                     $step = 3;
