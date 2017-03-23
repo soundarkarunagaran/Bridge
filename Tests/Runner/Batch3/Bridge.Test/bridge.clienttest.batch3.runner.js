@@ -496,6 +496,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2446 - TestDoubleMinValue", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2446.testDoubleMinValue);
             QUnit.test("#2454 - TestForEachClone", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2454.testForEachClone);
             QUnit.test("#2456 - TestIsArrayFromIFrame", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2456.testIsArrayFromIFrame);
+            QUnit.test("#2458 - TestGetBaseException", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2458.testGetBaseException);
             QUnit.test("#2462 - TestReturnInAsync", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2462.testReturnInAsync);
             QUnit.test("#2467 - TestPropertyInitializerInStruct", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2467.testPropertyInitializerInStruct);
             QUnit.test("#2469 - TestLambdaLiftingWithStaticGenericMember", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2469.testLambdaLiftingWithStaticGenericMember);
@@ -10133,6 +10134,30 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                     project: "Batch3",
                     className: "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2456",
                     file: "Batch3\\BridgeIssues\\2400\\N2456.cs"
+                } );
+            }
+            return this.context;
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2458", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2458)],
+        statics: {
+            testGetBaseException: function (assert) {
+                var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2458).beforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2458, void 0, Bridge.merge(new Bridge.Test.Runtime.TestContext(), {
+                    method: "TestGetBaseException()",
+                    line: "51"
+                } ));
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge2458.testGetBaseException();
+            }
+        },
+        context: null,
+        getContext: function () {
+            if (this.context == null) {
+                this.context = Bridge.merge(new Bridge.Test.Runtime.FixtureContext(), {
+                    project: "Batch3",
+                    className: "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2458",
+                    file: "Batch3\\BridgeIssues\\2400\\N2458.cs"
                 } );
             }
             return this.context;

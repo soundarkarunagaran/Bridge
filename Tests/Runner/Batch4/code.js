@@ -6565,7 +6565,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", {"Bridge.ClientTest.Batch4.Reflectio
             var ex = new System.DivideByZeroException();
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(ex, System.DivideByZeroException), "is DivideByZeroException");
             Bridge.Test.NUnit.Assert.true$1(ex.InnerException == null, "InnerException");
-            Bridge.Test.NUnit.Assert.areEqual("Division by 0.", ex.Message);
+            Bridge.Test.NUnit.Assert.areEqual("Attempted to divide by zero.", ex.Message);
         },
         constructorWithMessageWorks: function () {
             var ex = new System.DivideByZeroException("The message");
