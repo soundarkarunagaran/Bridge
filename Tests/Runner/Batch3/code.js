@@ -16575,6 +16575,74 @@ Bridge.$N1391Result =                 r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499", {
+        statics: {
+            compareDinosByLength: function (x, y) {
+                if (x == null) {
+                    return y == null ? 0 : -1;
+                }
+
+                if (y == null) {
+                    return 1;
+                }
+
+                var retval = Bridge.compare(x.length, y.length);
+
+                return retval !== 0 ? retval : System.String.compare(x, y);
+            },
+            testArraySortComparison: function () {
+                var dinosaurs = System.Array.init(["Pachycephalosaurus", "Amargasaurus", "", null, "Mamenchisaurus", "Deinonychus"], System.String);
+                System.Array.sort(dinosaurs, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499.compareDinosByLength);
+
+                Bridge.Test.NUnit.Assert.null(dinosaurs[System.Array.index(0, dinosaurs)]);
+                Bridge.Test.NUnit.Assert.areEqual("", dinosaurs[System.Array.index(1, dinosaurs)]);
+                Bridge.Test.NUnit.Assert.areEqual("Deinonychus", dinosaurs[System.Array.index(2, dinosaurs)]);
+                Bridge.Test.NUnit.Assert.areEqual("Amargasaurus", dinosaurs[System.Array.index(3, dinosaurs)]);
+                Bridge.Test.NUnit.Assert.areEqual("Mamenchisaurus", dinosaurs[System.Array.index(4, dinosaurs)]);
+                Bridge.Test.NUnit.Assert.areEqual("Pachycephalosaurus", dinosaurs[System.Array.index(5, dinosaurs)]);
+            },
+            testArraySortComparisonWithEntity: function () {
+                var items = System.Array.init([Bridge.merge(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499.Named(), {
+                    Name: "C"
+                } ), Bridge.merge(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499.Named(), {
+                    Name: "B"
+                } ), Bridge.merge(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499.Named(), {
+                    Name: "A"
+                } )], Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499.Named);
+
+                var theLittle = "C";
+
+                System.Array.sort(items, function (x, y) {
+                        if (Bridge.referenceEquals(x.Name, theLittle)) {
+                            return -1;
+                        }
+
+                        return System.String.compare(x.Name, y.Name);
+                    });
+
+                if (!Bridge.ClientTest.Batch3.Utilities.BrowserHelper.isPhantomJs()) {
+                    Bridge.Test.NUnit.Assert.areEqual(3, items.length);
+                    Bridge.Test.NUnit.Assert.areEqual("C", items[System.Array.index(0, items)].Name);
+                    Bridge.Test.NUnit.Assert.areEqual("A", items[System.Array.index(1, items)].Name);
+                    Bridge.Test.NUnit.Assert.areEqual("B", items[System.Array.index(2, items)].Name);
+                } else {
+                    Bridge.Test.NUnit.Assert.areEqual(3, items.length);
+                    Bridge.Test.NUnit.Assert.areEqual("A", items[System.Array.index(0, items)].Name);
+                    Bridge.Test.NUnit.Assert.areEqual("B", items[System.Array.index(1, items)].Name);
+                    Bridge.Test.NUnit.Assert.areEqual("C", items[System.Array.index(2, items)].Name);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2499.Named", {
+        config: {
+            properties: {
+                Name: null
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge266A", {
         statics: {
             test: function () {
