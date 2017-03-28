@@ -55,7 +55,9 @@ cache:
   - packages -> **\packages.config
 
 # scripts that run after cloning repository
-#install:
+install:
+#  - ps: (New-Object Net.WebClient).DownloadFile('https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe', 'c:\projects\Bridge\nuget\nuget.exe')
+  - cmd: nuget sources add -Name NuGetV3 -Source  https://api.nuget.org/v3/index.json
 #  - cmd: git.exe clone -q --progress -v  --depth 20 --branch=master "https://github.com/bridgedotnet/Frameworks" "c:\projects\Frameworks"
 #  - cmd: git.exe clone -q --progress -v  --depth 20 --branch=master "https://github.com/bridgedotnet/Testing" "c:\projects\Testing"
 
@@ -79,7 +81,7 @@ build:
 
 # scripts to run before build
 before_build:
-- nuget restore "c:\projects\Bridge\.nuget\packages.config" -PackagesDirectory "c:\projects\Bridge\packages"
+- appveyor-retry nuget restore "c:\projects\Bridge\.nuget\packages.config" -PackagesDirectory "c:\projects\Bridge\packages" -DisableParallelProcessing
 - ps: >-
     # Check if commit message contains labels [skip appveyor client] or [skip ci client] to skip client tests
 
