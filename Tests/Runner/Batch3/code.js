@@ -16762,6 +16762,17 @@ Bridge.$N1391Result =                 r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2505", {
+        statics: {
+            makeArgb: function (alpha, red, green, blue) {
+                return System.Int64.clip64(Bridge.Int.clipu64((((red << 16) | (green << 8)) | blue) | (alpha << 24)).and(System.UInt64(System.Int64([-1,0]))));
+            },
+            testNegativeNumberToULong: function () {
+                Bridge.Test.NUnit.Assert.areEqual("4281808695", Bridge.ClientTest.Batch3.BridgeIssues.Bridge2505.makeArgb(255, 55, 55, 55).toString());
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge266A", {
         statics: {
             test: function () {
