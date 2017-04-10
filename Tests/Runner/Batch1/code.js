@@ -68,6 +68,9 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(arr, System.Collections.Generic.ICollection$1(System.Int32)), "is ICollection<int> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(arr, System.Collections.Generic.IEnumerable$1(System.Int32)), "is IEnumerable<int> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(arr, System.Collections.Generic.IList$1(System.Int32)), "is IList<int> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(arr, System.Collections.Generic.IReadOnlyCollection$1(System.Int32)), "is IReadOnlyCollection<int> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(arr, System.Collections.Generic.IReadOnlyList$1(System.Int32)), "is IReadOnlyList<int> should be true");
+
         },
         createWithNegativeLenghtShouldThrow: function () {
             var size = -1;
@@ -6095,7 +6098,10 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             var dict = new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))();
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(dict, System.Collections.Generic.Dictionary$2(System.Int32,System.String)), "is Dictionary<int,string> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(dict, System.Collections.Generic.IDictionary$2(System.Int32,System.String)), "is IDictionary<int,string> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(dict, System.Collections.IEnumerable), "is IEnumerable should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(dict, System.Collections.Generic.IEnumerable$1(System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))), "is IEnumerable<KeyValuePair<int,string>> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(dict, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)), "is IReadOnlyDictionary<int,string> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(dict, System.Collections.Generic.IReadOnlyCollection$1(System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))), "is IReadOnlyCollection<KeyValuePair<int, string>> should be true");
         },
         defaultConstructorWorks: function () {
             var d = new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))();
@@ -6132,9 +6138,12 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
         keysWorks: function () {
             var $t;
             var d = $asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests.f1(new (System.Collections.Generic.Dictionary$2(System.String,System.String))());
+
             var keys = d.getKeys();
-            Bridge.Test.NUnit.Assert.true(Bridge.is(keys, System.Collections.Generic.IEnumerable$1(System.String)));
+
             Bridge.Test.NUnit.Assert.true(Bridge.is(keys, System.Collections.Generic.ICollection$1(System.String)));
+            Bridge.Test.NUnit.Assert.true(Bridge.is(keys, System.Collections.Generic.IEnumerable$1(System.String)));
+            Bridge.Test.NUnit.Assert.true(Bridge.is(keys, System.Collections.IEnumerable));
             Bridge.Test.NUnit.Assert.areEqual(2, System.Array.getCount(keys, System.String));
             Bridge.Test.NUnit.Assert.true(System.Array.contains(keys, "1", System.String));
             Bridge.Test.NUnit.Assert.true(System.Array.contains(keys, "2", System.String));
@@ -6295,81 +6304,450 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             d.set("a2", 100);
             Bridge.Test.NUnit.Assert.areEqual(100, d.get("a3"));
             Bridge.Test.NUnit.Assert.areEqual(2, d.count);
+        },
+        dictionaryAsIEnumerableWorks: function () {
+            var container = $asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests.f15(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))());
+            var d = Bridge.as(container, System.Collections.Generic.IEnumerable$1(System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)));
+
+
+            // IEnumerable<KeyValuePair<TKey, TValue>>
+
+            var en = Bridge.getEnumerator(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            var el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(0, el.key, "Enumerable initial key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, el.value, "Enumerable initial value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(1, el.key, "Enumerable first key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", el.value, "Enumerable first value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(2, el.key, "Enumerable second key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", el.value, "Enumerable second value");
+            Bridge.Test.NUnit.Assert.false$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext false");
+        },
+        dictionaryAsICollectionWorks: function () {
+            var container = $asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests.f16(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))());
+            var d = Bridge.as(container, System.Collections.Generic.ICollection$1(System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)));
+
+
+            // IEnumerable<KeyValuePair<TKey, TValue>>
+
+            var en = Bridge.getEnumerator(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            var el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(0, el.key, "Enumerable initial key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, el.value, "Enumerable initial value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(1, el.key, "Enumerable first key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", el.value, "Enumerable first value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(2, el.key, "Enumerable second key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", el.value, "Enumerable second value");
+            Bridge.Test.NUnit.Assert.false$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext false");
+
+
+            // ICollection<T>
+
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.getIsReadOnly(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "IsReadOnly");
+
+            System.Array.add(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(3, "c"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            Bridge.Test.NUnit.Assert.areEqual$1(3, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Count after Add(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("c", container.get(3), "ICollection<KeyValuePair> Getter[3] after Add(3)");
+            Bridge.Test.NUnit.Assert.throws$7(System.ArgumentException, function () {
+                System.Array.add(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(1, "d"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            }, "ICollection<KeyValuePair> Add(1) should fail");
+
+            Bridge.Test.NUnit.Assert.true$1(System.Array.remove(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(3, "c"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Count after Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", container.get(1), "ICollection<KeyValuePair> Getter[1] after Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", container.get(2), "ICollection<KeyValuePair> Getter[2] after Remove(3)");
+
+            var cta = System.Array.init(3, function (){
+                return new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))();
+            }, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            System.Array.copyTo(d, cta, 0, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            Bridge.Test.NUnit.Assert.areEqual$1(1, cta[System.Array.index(0, cta)].key, "ICollection<KeyValuePair> CopyTo Getter[0] Key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", cta[System.Array.index(0, cta)].value, "ICollection<KeyValuePair> CopyTo Getter[0] Value");
+
+            Bridge.Test.NUnit.Assert.areEqual$1(2, cta[System.Array.index(1, cta)].key, "ICollection<KeyValuePair> CopyTo Getter[1] Key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", cta[System.Array.index(1, cta)].value, "ICollection<KeyValuePair> CopyTo Getter[1] Value");
+
+            Bridge.Test.NUnit.Assert.areEqual$1(0, cta[System.Array.index(2, cta)].key, "ICollection<KeyValuePair> CopyTo Getter[2] Key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, cta[System.Array.index(2, cta)].value, "ICollection<KeyValuePair> CopyTo Getter[2] Value");
+
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(1, "a"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(1, \"a\")");
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(2, "b"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(2, \"b\")");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(1, "b"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(1, \"b\")");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(3, "a"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(3, \"a\")");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(0, "a"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(0, \"a\")");
+
+            System.Array.clear(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            Bridge.Test.NUnit.Assert.areEqual$1(0, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Count after Clear");
+            Bridge.Test.NUnit.Assert.throws$7(System.Collections.Generic.KeyNotFoundException, function () {
+                var a = container.get(1);
+            }, "ICollection<KeyValuePair> Getter[1] should fail after clear");
+        },
+        dictionaryAsIDictionaryWorks: function () {
+            var $t, $t1;
+            var d = $asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests.f17(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))());
+
+            // IDictionary<TKey, TValue>
+            Bridge.Test.NUnit.Assert.areEqual$1("a", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1), "Getter[1]");
+            Bridge.Test.NUnit.Assert.throws$7(System.Collections.Generic.KeyNotFoundException, function () {
+                var r = d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(3);
+            }, "Getter[3] should fail");
+
+            d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$setItem(1, "aa");
+            Bridge.Test.NUnit.Assert.areEqual$1("aa", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1), "Getter[1] after setter");
+            d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$setItem(3, "cc");
+            Bridge.Test.NUnit.Assert.areEqual$1("cc", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(3), "Getter[3] after setter");
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$remove(3), "Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count after Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("aa", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1), "Getter[1] after Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(2), "Getter[2] after Remove(3)");
+
+            Bridge.Test.NUnit.Assert.false$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$remove(4), "Remove(4)");
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count after Remove(4)");
+            Bridge.Test.NUnit.Assert.areEqual$1("aa", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1), "Getter[1] after Remove(4)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(2), "Getter[2] after Remove(4)");
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$remove(1), "Remove(1)");
+            Bridge.Test.NUnit.Assert.areEqual$1(1, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count after Remove(1)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(2), "Getter[2] after Remove(1)");
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$remove(2), "Remove(2)");
+            Bridge.Test.NUnit.Assert.areEqual$1(0, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count after Remove(2)");
+
+            d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$add(2, "b");
+            Bridge.Test.NUnit.Assert.areEqual$1(1, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count after Add(2)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(2), "Getter[1] after Add(2)");
+
+            d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$add(1, "a");
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count after Add(1)");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1), "Getter[1] after Add(1)");
+
+            Bridge.Test.NUnit.Assert.throws$7(System.ArgumentException, function () {
+                d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$add(2, "c");
+            }, "Add(2) should fail");
+
+            var keys = d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$Keys;
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(keys, System.Collections.Generic.ICollection$1(System.Int32)), "Keys is ICollection<int>");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(keys, System.Collections.Generic.IEnumerable$1(System.Int32)), "Keys is IEnumerable<int>");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(keys, System.Collections.IEnumerable), "Keys is IEnumerable");
+
+            var count = 0;
+            $t = Bridge.getEnumerator(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$Keys, System.Int32);
+            try {
+                while ($t.moveNext()) {
+                    var key = $t.Current;
+                    Bridge.Test.NUnit.Assert.true$1(key === 1 || key === 2, "Expected key " + key);
+                    count = (count + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual$1(2, count, "Keys count");
+
+            var values = d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$Values;
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(values, System.Collections.Generic.ICollection$1(System.String)), "Values is ICollection<string>");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(values, System.Collections.Generic.IEnumerable$1(System.String)), "Values is IEnumerable<string>");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(values, System.Collections.IEnumerable), "Values is IEnumerable");
+
+            count = 0;
+            $t1 = Bridge.getEnumerator(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$Values, System.String);
+            try {
+                while ($t1.moveNext()) {
+                    var value = $t1.Current;
+                    Bridge.Test.NUnit.Assert.true$1(Bridge.referenceEquals(value, "a") || Bridge.referenceEquals(value, "b"), System.String.concat("Expected value ", value));
+                    count = (count + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t1, System.IDisposable)) {
+                    $t1.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual$1(2, count, "Values count");
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$containsKey(1), "ContainsKey(1)");
+            Bridge.Test.NUnit.Assert.false$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$containsKey(3), "ContainsKey(3)");
+
+            var v = { };
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$tryGetValue(2, v), "TryGetValue(2)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", v.v, "TryGetValue(2) value");
+            Bridge.Test.NUnit.Assert.false$1(d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$tryGetValue(0, v), "TryGetValue(0)");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, v.v, "TryGetValue(0) value");
+
+
+            // IEnumerable<KeyValuePair<TKey, TValue>>
+
+            var en = Bridge.getEnumerator(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            // #2541
+            var el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(0, el.key, "Enumerable initial key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, el.value, "Enumerable initial value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(1, el.key, "Enumerable first key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", el.value, "Enumerable first value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(2, el.key, "Enumerable second key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", el.value, "Enumerable second value");
+            Bridge.Test.NUnit.Assert.false$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext false");
+
+
+            // ICollection<T>
+
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.getIsReadOnly(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "IsReadOnly");
+
+            System.Array.add(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(3, "c"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            Bridge.Test.NUnit.Assert.areEqual$1(3, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Count after Add(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("c", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(3), "ICollection<KeyValuePair> Getter[3] after Add(3)");
+            Bridge.Test.NUnit.Assert.throws$7(System.ArgumentException, function () {
+                System.Array.add(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(1, "d"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            }, "ICollection<KeyValuePair> Add(1) should fail");
+
+            Bridge.Test.NUnit.Assert.true$1(System.Array.remove(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(3, "c"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Count after Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1), "ICollection<KeyValuePair> Getter[1] after Remove(3)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(2), "ICollection<KeyValuePair> Getter[2] after Remove(3)");
+
+            var cta = System.Array.init(3, function (){
+                return new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))();
+            }, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            System.Array.copyTo(d, cta, 0, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            Bridge.Test.NUnit.Assert.areEqual$1(1, cta[System.Array.index(0, cta)].key, "ICollection<KeyValuePair> CopyTo Getter[0] Key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", cta[System.Array.index(0, cta)].value, "ICollection<KeyValuePair> CopyTo Getter[0] Value");
+
+            Bridge.Test.NUnit.Assert.areEqual$1(2, cta[System.Array.index(1, cta)].key, "ICollection<KeyValuePair> CopyTo Getter[1] Key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", cta[System.Array.index(1, cta)].value, "ICollection<KeyValuePair> CopyTo Getter[1] Value");
+
+            Bridge.Test.NUnit.Assert.areEqual$1(0, cta[System.Array.index(2, cta)].key, "ICollection<KeyValuePair> CopyTo Getter[2] Key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, cta[System.Array.index(2, cta)].value, "ICollection<KeyValuePair> CopyTo Getter[2] Value");
+
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(1, "a"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(1, \"a\")");
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(2, "b"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(2, \"b\")");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(1, "b"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(1, \"b\")");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(3, "a"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(3, \"a\")");
+            Bridge.Test.NUnit.Assert.false$1(System.Array.contains(d, new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))(0, "a"), System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Contains(0, \"a\")");
+
+            System.Array.clear(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+            Bridge.Test.NUnit.Assert.areEqual$1(0, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "ICollection<KeyValuePair> Count after Clear");
+            Bridge.Test.NUnit.Assert.throws$7(System.Collections.Generic.KeyNotFoundException, function () {
+                var a = d.System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem(1);
+            }, "ICollection<KeyValuePair> Getter[1] should fail after clear");
+        },
+        dictionaryAsIReadOnlyDictionaryWorks: function () {
+            var $t, $t1;
+            var d = $asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests.f18(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))());
+
+            // IReadOnlyDictionary<TKey, TValue>
+            Bridge.Test.NUnit.Assert.areEqual$1("a", d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$getItem(1), "Getter[1]");
+            Bridge.Test.NUnit.Assert.throws$7(System.Collections.Generic.KeyNotFoundException, function () {
+                var r = d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$getItem(3);
+            }, "Getter[3] should fail");
+
+            var keys = d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Keys;
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(keys, System.Collections.Generic.IEnumerable$1(System.Int32)), "Keys is IEnumerable<int>");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(keys, System.Collections.IEnumerable), "Keys is IEnumerable");
+
+            var count = 0;
+            $t = Bridge.getEnumerator(d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Keys, System.Int32);
+            try {
+                while ($t.moveNext()) {
+                    var key = $t.Current;
+                    Bridge.Test.NUnit.Assert.true$1(key === 1 || key === 2, "Expected key " + key);
+                    count = (count + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual$1(2, count, "Keys count");
+
+            var values = d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Values;
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(values, System.Collections.Generic.IEnumerable$1(System.String)), "Values is IEnumerable<string>");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(values, System.Collections.IEnumerable), "Values is IEnumerable");
+
+            count = 0;
+            $t1 = Bridge.getEnumerator(d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Values, System.String);
+            try {
+                while ($t1.moveNext()) {
+                    var value = $t1.Current;
+                    Bridge.Test.NUnit.Assert.true$1(Bridge.referenceEquals(value, "a") || Bridge.referenceEquals(value, "b"), System.String.concat("Expected value ", value));
+                    count = (count + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t1, System.IDisposable)) {
+                    $t1.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual$1(2, count, "Values count");
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey(1), "ContainsKey(1)");
+            Bridge.Test.NUnit.Assert.false$1(d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey(3), "ContainsKey(3)");
+
+            var v = { };
+
+            Bridge.Test.NUnit.Assert.true$1(d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue(2, v), "TryGetValue(2)");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", v.v, "TryGetValue(2) value");
+            Bridge.Test.NUnit.Assert.false$1(d.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue(0, v), "TryGetValue(0)");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, v.v, "TryGetValue(0) value");
+
+            // IReadOnlyCollection<KeyValuePair<TKey, TValue>>
+
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count");
+
+            // IEnumerable<KeyValuePair<TKey, TValue>>
+
+            var en = Bridge.getEnumerator(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            var el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(0, el.key, "Enumerable initial key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, el.value, "Enumerable initial value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(1, el.key, "Enumerable first key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", el.value, "Enumerable first value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(2, el.key, "Enumerable second key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", el.value, "Enumerable second value");
+            Bridge.Test.NUnit.Assert.false$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext false");
+        },
+        dictionaryAsIReadOnlyCollectionWorks: function () {
+            var d = $asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests.f19(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))());
+
+            // IReadOnlyCollection<KeyValuePair<TKey, TValue>>
+
+            Bridge.Test.NUnit.Assert.areEqual$1(2, System.Array.getCount(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String)), "Count");
+
+            // IEnumerable<KeyValuePair<TKey, TValue>>
+
+            var en = Bridge.getEnumerator(d, System.Collections.Generic.KeyValuePair$2(System.Int32,System.String));
+
+            var el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(0, el.key, "Enumerable initial key");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, el.value, "Enumerable initial value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(1, el.key, "Enumerable first key");
+            Bridge.Test.NUnit.Assert.areEqual$1("a", el.value, "Enumerable first value");
+            Bridge.Test.NUnit.Assert.true$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext true");
+            el = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Current$1", "Current$1")];
+            Bridge.Test.NUnit.Assert.areEqual$1(2, el.key, "Enumerable second key");
+            Bridge.Test.NUnit.Assert.areEqual$1("b", el.value, "Enumerable second value");
+            Bridge.Test.NUnit.Assert.false$1(en.System$Collections$IEnumerator$moveNext(), "Enumerable MoveNext false");
         }
     });
 
     Bridge.ns("Bridge.ClientTest.Collections.Generic.GenericDictionaryTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.Collections.Generic.GenericDictionaryTests, {
-        f1: function (_o35) {
-            _o35.add("1", "a");
-            _o35.add("2", "b");
-            return _o35;
-        },
-        f2: function (_o36) {
-            _o36.add(1, "a");
-            _o36.add(2, "b");
-            return _o36;
-        },
-        f3: function (_o37) {
-            _o37.add(1, "a");
-            _o37.add(2, "b");
-            return _o37;
-        },
-        f4: function (_o38) {
-            _o38.add(1, "a");
-            _o38.add(2, "b");
-            return _o38;
-        },
-        f5: function (_o39) {
-            _o39.add(1, "a");
-            _o39.add(2, "b");
-            return _o39;
-        },
-        f6: function (_o40) {
-            _o40.add(1, "a");
-            _o40.add(2, "b");
-            return _o40;
-        },
-        f7: function (_o41) {
-            _o41.add(1, "a");
-            _o41.add(2, "b");
-            return _o41;
-        },
-        f8: function (_o42) {
-            _o42.add(1, "a");
-            _o42.add(2, "b");
+        f1: function (_o42) {
+            _o42.add("1", "a");
+            _o42.add("2", "b");
             return _o42;
         },
-        f9: function (_o43) {
+        f2: function (_o43) {
             _o43.add(1, "a");
             _o43.add(2, "b");
             return _o43;
         },
-        f10: function (_o44) {
-            _o44.add("1", "a");
-            _o44.add("2", "b");
+        f3: function (_o44) {
+            _o44.add(1, "a");
+            _o44.add(2, "b");
             return _o44;
         },
-        f11: function (_o45) {
+        f4: function (_o45) {
             _o45.add(1, "a");
             _o45.add(2, "b");
             return _o45;
         },
-        f12: function (_o46) {
-            _o46.add("a", 1);
-            _o46.add("b", 2);
+        f5: function (_o46) {
+            _o46.add(1, "a");
+            _o46.add(2, "b");
             return _o46;
         },
-        f13: function (_o47) {
-            _o47.add("a", Bridge.box(1, System.Int32));
-            _o47.add("b", "X");
+        f6: function (_o47) {
+            _o47.add(1, "a");
+            _o47.add(2, "b");
             return _o47;
         },
-        f14: function (_o48) {
-            _o48.add("a", 1);
-            _o48.add("b", 2);
+        f7: function (_o48) {
+            _o48.add(1, "a");
+            _o48.add(2, "b");
             return _o48;
+        },
+        f8: function (_o49) {
+            _o49.add(1, "a");
+            _o49.add(2, "b");
+            return _o49;
+        },
+        f9: function (_o50) {
+            _o50.add(1, "a");
+            _o50.add(2, "b");
+            return _o50;
+        },
+        f10: function (_o51) {
+            _o51.add("1", "a");
+            _o51.add("2", "b");
+            return _o51;
+        },
+        f11: function (_o52) {
+            _o52.add(1, "a");
+            _o52.add(2, "b");
+            return _o52;
+        },
+        f12: function (_o53) {
+            _o53.add("a", 1);
+            _o53.add("b", 2);
+            return _o53;
+        },
+        f13: function (_o54) {
+            _o54.add("a", Bridge.box(1, System.Int32));
+            _o54.add("b", "X");
+            return _o54;
+        },
+        f14: function (_o55) {
+            _o55.add("a", 1);
+            _o55.add("b", 2);
+            return _o55;
+        },
+        f15: function (_o56) {
+            _o56.add(1, "a");
+            _o56.add(2, "b");
+            return _o56;
+        },
+        f16: function (_o57) {
+            _o57.add(1, "a");
+            _o57.add(2, "b");
+            return _o57;
+        },
+        f17: function (_o58) {
+            _o58.add(1, "a");
+            _o58.add(2, "b");
+            return _o58;
+        },
+        f18: function (_o59) {
+            _o59.add(1, "a");
+            _o59.add(2, "b");
+            return _o59;
+        },
+        f19: function (_o60) {
+            _o60.add(1, "a");
+            _o60.add(2, "b");
+            return _o60;
         }
     });
 
@@ -6615,6 +6993,7 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
         },
         classImplementsInterfaces: function () {
             Bridge.Test.NUnit.Assert.true(Bridge.is(new Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary.ctor(), System.Collections.Generic.IDictionary$2(System.Int32,System.String)));
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(new Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary.ctor(), System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)), "#1626");
         },
         countWorks: function () {
             var d = new Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary.ctor();
@@ -6696,16 +7075,22 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
         },
         containsKeyWorks: function () {
             var d = new Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IDictionaryTests.f5(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            Bridge.Test.NUnit.Assert.true(Bridge.is(new Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary.ctor(), System.Collections.Generic.IDictionary$2(System.Int32,System.String)));
+
+            var di = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String));
             var di2 = Bridge.cast(d, System.Collections.Generic.IDictionary$2(System.Int32,System.String));
 
             Bridge.Test.NUnit.Assert.true(d.containsKey(9));
+            Bridge.Test.NUnit.Assert.true$1(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey(6), "#1626");
             Bridge.Test.NUnit.Assert.true(di2.System$Collections$Generic$IDictionary$2$System$Int32$System$String$containsKey(3));
 
             Bridge.Test.NUnit.Assert.false(d.containsKey(923));
+            Bridge.Test.NUnit.Assert.false$1(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey(6124), "#1626");
             Bridge.Test.NUnit.Assert.false(di2.System$Collections$Generic$IDictionary$2$System$Int32$System$String$containsKey(353));
         },
         tryGetValueWorks: function () {
             var d = new Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IDictionaryTests.f6(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            var di = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String));
             var di2 = Bridge.cast(d, System.Collections.Generic.IDictionary$2(System.Int32,System.String));
 
             var outVal = { };
@@ -6713,12 +7098,19 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             Bridge.Test.NUnit.Assert.true(d.tryGetValue(9, outVal));
             Bridge.Test.NUnit.Assert.areEqual("x", outVal.v);
 
+            Bridge.Test.NUnit.Assert.true$1(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue(6, outVal), "#1626");
+            Bridge.Test.NUnit.Assert.areEqual$1("z", outVal.v, "#1626");
+
             Bridge.Test.NUnit.Assert.true(di2.System$Collections$Generic$IDictionary$2$System$Int32$System$String$tryGetValue(3, outVal));
             Bridge.Test.NUnit.Assert.areEqual("b", outVal.v);
 
             outVal.v = "!!!";
             Bridge.Test.NUnit.Assert.false(d.tryGetValue(923, outVal));
             Bridge.Test.NUnit.Assert.areEqual(null, outVal.v);
+
+            outVal.v = "!!!";
+            Bridge.Test.NUnit.Assert.false$1(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue(6124, outVal), "#1626");
+            Bridge.Test.NUnit.Assert.areEqual$1(null, outVal.v, "#1626");
 
             outVal.v = "!!!";
             Bridge.Test.NUnit.Assert.false(di2.System$Collections$Generic$IDictionary$2$System$Int32$System$String$tryGetValue(353, outVal));
@@ -6786,68 +7178,78 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.Collections.Generic.IDictionaryTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.Collections.Generic.IDictionaryTests, {
-        f1: function (_o26) {
-            _o26.add(3, "c");
-            return _o26;
-        },
-        f2: function (_o27) {
-            _o27.add(3, "b");
-            _o27.add(6, "z");
-            _o27.add(9, "x");
-            return _o27;
-        },
-        f3: function (_o28) {
-            _o28.add(3, "b");
-            _o28.add(6, "z");
-            _o28.add(9, "x");
-            return _o28;
-        },
-        f4: function (_o29) {
-            _o29.add(3, "b");
-            _o29.add(6, "z");
-            _o29.add(9, "x");
-            return _o29;
-        },
-        f5: function (_o30) {
-            _o30.add(3, "b");
-            _o30.add(6, "z");
-            _o30.add(9, "x");
-            return _o30;
-        },
-        f6: function (_o31) {
-            _o31.add(3, "b");
-            _o31.add(6, "z");
-            _o31.add(9, "x");
-            return _o31;
-        },
-        f7: function (_o32) {
-            _o32.add(3, "b");
-            _o32.add(6, "z");
-            _o32.add(9, "x");
-            return _o32;
-        },
-        f8: function (_o33) {
-            _o33.add(3, "b");
-            _o33.add(6, "z");
-            _o33.add(9, "x");
-            _o33.add(13, "y");
+        f1: function (_o33) {
+            _o33.add(3, "c");
             return _o33;
         },
-        f9: function (_o34) {
+        f2: function (_o34) {
             _o34.add(3, "b");
             _o34.add(6, "z");
             _o34.add(9, "x");
-            _o34.add(13, "y");
             return _o34;
+        },
+        f3: function (_o35) {
+            _o35.add(3, "b");
+            _o35.add(6, "z");
+            _o35.add(9, "x");
+            return _o35;
+        },
+        f4: function (_o36) {
+            _o36.add(3, "b");
+            _o36.add(6, "z");
+            _o36.add(9, "x");
+            return _o36;
+        },
+        f5: function (_o37) {
+            _o37.add(3, "b");
+            _o37.add(6, "z");
+            _o37.add(9, "x");
+            return _o37;
+        },
+        f6: function (_o38) {
+            _o38.add(3, "b");
+            _o38.add(6, "z");
+            _o38.add(9, "x");
+            return _o38;
+        },
+        f7: function (_o39) {
+            _o39.add(3, "b");
+            _o39.add(6, "z");
+            _o39.add(9, "x");
+            return _o39;
+        },
+        f8: function (_o40) {
+            _o40.add(3, "b");
+            _o40.add(6, "z");
+            _o40.add(9, "x");
+            _o40.add(13, "y");
+            return _o40;
+        },
+        f9: function (_o41) {
+            _o41.add(3, "b");
+            _o41.add(6, "z");
+            _o41.add(9, "x");
+            _o41.add(13, "y");
+            return _o41;
         }
     });
 
     Bridge.define("Bridge.ClientTest.Collections.Generic.IDictionaryTests.MyDictionary", {
-        inherits: [System.Collections.Generic.IDictionary$2(System.Int32,System.String)],
+        inherits: [System.Collections.Generic.IDictionary$2(System.Int32,System.String),System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)],
         _backingDictionary: null,
         config: {
             properties: {
                 Keys: {
+                    get: function () {
+                        return this._backingDictionary.getKeys();
+                    }
+                },
+                System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Values: {
+                    get: function () {
+                        return this._backingDictionary.getValues();
+                    }
+                },
+                System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Keys: {
                     get: function () {
                         return this._backingDictionary.getKeys();
                     }
@@ -6870,17 +7272,22 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             },
             alias: [
             "getEnumerator", "System$Collections$Generic$IEnumerable$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$getEnumerator",
+            "getItem", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$getItem",
+            "setItem", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$setItem",
             "getItem", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$getItem",
             "setItem", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$setItem",
             "Keys", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$Keys",
             "Values", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$Values",
+            "Count", "System$Collections$Generic$IReadOnlyCollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Count",
             "Count", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Count",
             "IsReadOnly", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$IsReadOnly",
             "add", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$add",
             "copyTo", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$copyTo",
             "add$1", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$add",
             "remove$1", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$remove",
+            "containsKey", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey",
             "containsKey", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$containsKey",
+            "tryGetValue", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue",
             "tryGetValue", "System$Collections$Generic$IDictionary$2$System$Int32$System$String$tryGetValue",
             "clear", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$clear",
             "contains", "System$Collections$Generic$ICollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$contains",
@@ -7289,6 +7696,452 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
         },
         removeAt: function (index) {
             this.Items.removeAt(index);
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests", {
+        typePropertiesAreCorrect: function () {
+            Bridge.Test.NUnit.Assert.areEqual$1("System.Collections.Generic.IReadOnlyCollection`1[[System.Object, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.IReadOnlyCollection$1(System.Object)), "FullName should be correct");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.Reflection.isInterface(System.Collections.Generic.IReadOnlyCollection$1(System.Object)), "IsInterface should be true");
+
+            var interfaces = Bridge.Reflection.getInterfaces(System.Collections.Generic.IReadOnlyCollection$1(System.Object));
+            Bridge.Test.NUnit.Assert.areEqual$1(2, interfaces.length, "Interfaces length");
+            Bridge.Test.NUnit.Assert.areEqual$1(Bridge.Reflection.getTypeFullName(System.Collections.Generic.IEnumerable$1(System.Object)), Bridge.Reflection.getTypeFullName(interfaces[System.Array.index(0, interfaces)]), "Interfaces IEnumerable<object>");
+            Bridge.Test.NUnit.Assert.areEqual$1(Bridge.Reflection.getTypeFullName(System.Collections.IEnumerable), Bridge.Reflection.getTypeFullName(interfaces[System.Array.index(1, interfaces)]), "Interfaces IEnumerable");
+        },
+        arrayImplementsIReadOnlyCollection: function () {
+            Bridge.Test.NUnit.Assert.true(Bridge.is(System.Array.init(1, 0, System.Int32), System.Collections.Generic.IReadOnlyCollection$1(System.Int32)));
+        },
+        customClassThatShouldImplementIReadOnlyCollectionDoesSo: function () {
+            Bridge.Test.NUnit.Assert.true(Bridge.is(new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.MyCollection(System.Array.init(0, null, System.String)), System.Collections.Generic.IReadOnlyCollection$1(System.String)));
+        },
+        arrayCastToIReadOnlyCollectionCountWorks: function () {
+            var a = System.Array.init(["x", "y", "z"], System.String);
+
+            var c = Bridge.as(a, System.Collections.Generic.IReadOnlyCollection$1(System.String));
+            Bridge.Test.NUnit.Assert.notNull(c);
+            Bridge.Test.NUnit.Assert.areEqual(3, System.Array.getCount(c, System.String));
+        },
+        classImplementingICollectionCastToIReadOnlyCollectionCountWorks: function () {
+            Bridge.Test.NUnit.Assert.areEqual(3, System.Array.getCount(Bridge.cast(new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.MyCollection(System.Array.init(["x", "y", "z"], System.String)), System.Collections.Generic.IReadOnlyCollection$1(System.String)), System.String));
+        },
+        arrayCastToIReadOnlyCollectionContainsWorks: function () {
+            var arr = System.Array.init([new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C(1), new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C(2), new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C(3)], Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C);
+            Bridge.Test.NUnit.Assert.true(System.Linq.Enumerable.from(arr).contains(new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C(2)));
+            Bridge.Test.NUnit.Assert.false(System.Linq.Enumerable.from(arr).contains(new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C(4)));
+        },
+        classImplementingICollectionCastToIReadOnlyCollectionContainsWorks: function () {
+            var c = new Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.MyCollection(System.Array.init(["x", "y"], System.String));
+            Bridge.Test.NUnit.Assert.true(System.Linq.Enumerable.from(c).contains("x"));
+            Bridge.Test.NUnit.Assert.false(System.Linq.Enumerable.from(c).contains("z"));
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C", {
+        _i: 0,
+        ctor: function (i) {
+            this.$initialize();
+            this._i = i;
+        },
+        equals: function (o) {
+            return Bridge.is(o, Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C) && this._i === Bridge.cast(o, Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.C)._i;
+        },
+        getHashCode: function () {
+            return this._i;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyCollectionTests.MyCollection", {
+        inherits: [System.Collections.Generic.IReadOnlyCollection$1(System.String)],
+        config: {
+            properties: {
+                Items: null,
+                Count: {
+                    get: function () {
+                        return this.Items.Count;
+                    }
+                }
+            },
+            alias: [
+            "getEnumerator", "System$Collections$Generic$IEnumerable$1$System$String$getEnumerator",
+            "Count", "System$Collections$Generic$IReadOnlyCollection$1$System$String$Count"
+            ]
+        },
+        ctor: function (items) {
+            this.$initialize();
+            this.Items = new (System.Collections.Generic.List$1(System.String))(items);
+        },
+        System$Collections$IEnumerable$getEnumerator: function () {
+            return this.getEnumerator();
+        },
+        getEnumerator: function () {
+            return this.Items.getEnumerator();
+        },
+        contains: function (item) {
+            return this.Items.contains(item);
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests", {
+        typePropertiesAreCorrect: function () {
+            Bridge.Test.NUnit.Assert.areEqual$1("System.Collections.Generic.IReadOnlyDictionary`2[[System.Object, mscorlib],[System.Object, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.IReadOnlyDictionary$2(System.Object,System.Object)), "FullName should be correct");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.Reflection.isInterface(System.Collections.Generic.IReadOnlyDictionary$2(System.Object,System.Object)), "IsInterface should be true");
+
+            var interfaces = Bridge.Reflection.getInterfaces(System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String));
+            Bridge.Test.NUnit.Assert.areEqual$1(3, interfaces.length, "Interfaces length");
+            Bridge.Test.NUnit.Assert.areEqual$1(Bridge.Reflection.getTypeFullName(System.Collections.Generic.IReadOnlyCollection$1(System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))), Bridge.Reflection.getTypeFullName(interfaces[System.Array.index(0, interfaces)]), "Interfaces IReadOnlyCollection<KeyValuePair<int, string>>");
+            Bridge.Test.NUnit.Assert.areEqual$1(Bridge.Reflection.getTypeFullName(System.Collections.Generic.IEnumerable$1(System.Collections.Generic.KeyValuePair$2(System.Int32,System.String))), Bridge.Reflection.getTypeFullName(interfaces[System.Array.index(1, interfaces)]), "Interfaces IEnumerable<KeyValuePair<int, string>>");
+            Bridge.Test.NUnit.Assert.areEqual$1(Bridge.Reflection.getTypeFullName(System.Collections.IEnumerable), Bridge.Reflection.getTypeFullName(interfaces[System.Array.index(2, interfaces)]), "Interfaces IEnumerable");
+        },
+        classImplementsInterfaces: function () {
+            Bridge.Test.NUnit.Assert.true(Bridge.is(new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.ctor(), System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)));
+        },
+        countWorks: function () {
+            var d = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.ctor();
+            Bridge.Test.NUnit.Assert.areEqual(0, d.Count);
+
+            var d2 = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.f1(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            Bridge.Test.NUnit.Assert.areEqual(1, d2.Count);
+        },
+        keysWorks: function () {
+            var $t, $t1;
+            var d = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.f2(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            var actualKeys = System.Array.init([3, 6, 9], System.Int32);
+
+            var keys = d.Keys;
+            Bridge.Test.NUnit.Assert.true(Bridge.hasValue(keys));
+            var i = 0;
+
+            $t = Bridge.getEnumerator(keys, System.Int32);
+            try {
+                while ($t.moveNext()) {
+                    var key = $t.Current;
+                    Bridge.Test.NUnit.Assert.areEqual(actualKeys[System.Array.index(i, actualKeys)], key);
+                    i = (i + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual(actualKeys.length, i);
+
+            keys = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)).System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Keys;
+            Bridge.Test.NUnit.Assert.true(Bridge.hasValue(keys));
+
+            i = 0;
+            $t1 = Bridge.getEnumerator(keys, System.Int32);
+            try {
+                while ($t1.moveNext()) {
+                    var key1 = $t1.Current;
+                    Bridge.Test.NUnit.Assert.areEqual(actualKeys[System.Array.index(i, actualKeys)], key1);
+                    i = (i + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t1, System.IDisposable)) {
+                    $t1.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual(actualKeys.length, i);
+        },
+        getItemWorks: function () {
+            var d = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.f3(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            var di = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String));
+
+            Bridge.Test.NUnit.Assert.areEqual("b", d.getItem(3));
+            Bridge.Test.NUnit.Assert.areEqual("z", di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$getItem(6));
+
+            try {
+                var x = d.getItem(1);
+                Bridge.Test.NUnit.Assert.fail$1("Should throw");
+            }
+            catch ($e1) {
+                $e1 = System.Exception.create($e1);
+            }
+
+            try {
+                var x1 = di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$getItem(1);
+                Bridge.Test.NUnit.Assert.fail$1("Should throw");
+            }
+            catch ($e2) {
+                $e2 = System.Exception.create($e2);
+            }
+        },
+        valuesWorks: function () {
+            var $t, $t1;
+            var d = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.f4(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            var actualValues = System.Array.init(["b", "z", "x"], System.String);
+
+            var values = d.Values;
+            var i = 0;
+
+            Bridge.Test.NUnit.Assert.true(Bridge.hasValue(values));
+            $t = Bridge.getEnumerator(values, System.String);
+            try {
+                while ($t.moveNext()) {
+                    var val = $t.Current;
+                    Bridge.Test.NUnit.Assert.areEqual(actualValues[System.Array.index(i, actualValues)], val);
+                    i = (i + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t, System.IDisposable)) {
+                    $t.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual(actualValues.length, i);
+
+            values = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)).System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Values;
+            Bridge.Test.NUnit.Assert.true(Bridge.hasValue(values));
+
+            i = 0;
+
+            $t1 = Bridge.getEnumerator(values, System.String);
+            try {
+                while ($t1.moveNext()) {
+                    var val1 = $t1.Current;
+                    Bridge.Test.NUnit.Assert.areEqual(actualValues[System.Array.index(i, actualValues)], val1);
+                    i = (i + 1) | 0;
+                }
+            }finally {
+                if (Bridge.is($t1, System.IDisposable)) {
+                    $t1.System$IDisposable$dispose();
+                }
+            }Bridge.Test.NUnit.Assert.areEqual(actualValues.length, i);
+        },
+        containsKeyWorks: function () {
+            var d = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.f5(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            var di = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String));
+
+            Bridge.Test.NUnit.Assert.true(d.containsKey(6));
+            Bridge.Test.NUnit.Assert.true(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey(3));
+
+            Bridge.Test.NUnit.Assert.false(d.containsKey(6123));
+            Bridge.Test.NUnit.Assert.false(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey(32));
+        },
+        tryGetValueWorks: function () {
+            var d = new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.f6(new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))()));
+            var di = Bridge.cast(d, System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String));
+
+            var outVal = { };
+            Bridge.Test.NUnit.Assert.true(d.tryGetValue(6, outVal));
+            Bridge.Test.NUnit.Assert.areEqual("z", outVal.v);
+            Bridge.Test.NUnit.Assert.true(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue(3, outVal));
+            Bridge.Test.NUnit.Assert.areEqual("b", outVal.v);
+
+            outVal.v = "!!!";
+            Bridge.Test.NUnit.Assert.false(d.tryGetValue(6123, outVal));
+            Bridge.Test.NUnit.Assert.areEqual(null, outVal.v);
+            outVal.v = "!!!";
+            Bridge.Test.NUnit.Assert.false(di.System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue(32, outVal));
+            Bridge.Test.NUnit.Assert.areEqual(null, outVal.v);
+        },
+        usersTestCase_1626_Works: function () {
+            var p = Bridge.merge(new Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.Person(), {
+                Name: "Donald",
+                Age: 27
+            } );
+
+            var d = p.toDict();
+
+            Bridge.Test.NUnit.Assert.areEqual("Donald", Bridge.unbox(d.System$Collections$Generic$IReadOnlyDictionary$2$System$String$System$Object$getItem("Name")));
+            Bridge.Test.NUnit.Assert.areEqual(27, Bridge.unbox(d.System$Collections$Generic$IReadOnlyDictionary$2$System$String$System$Object$getItem("Age")));
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests, {
+        f1: function (_o1) {
+            _o1.add(3, "c");
+            return _o1;
+        },
+        f2: function (_o2) {
+            _o2.add(3, "b");
+            _o2.add(6, "z");
+            _o2.add(9, "x");
+            return _o2;
+        },
+        f3: function (_o3) {
+            _o3.add(3, "b");
+            _o3.add(6, "z");
+            _o3.add(9, "x");
+            return _o3;
+        },
+        f4: function (_o4) {
+            _o4.add(3, "b");
+            _o4.add(6, "z");
+            _o4.add(9, "x");
+            return _o4;
+        },
+        f5: function (_o5) {
+            _o5.add(3, "b");
+            _o5.add(6, "z");
+            _o5.add(9, "x");
+            return _o5;
+        },
+        f6: function (_o6) {
+            _o6.add(3, "b");
+            _o6.add(6, "z");
+            _o6.add(9, "x");
+            return _o6;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary", {
+        inherits: [System.Collections.Generic.IReadOnlyDictionary$2(System.Int32,System.String)],
+        _backingDictionary: null,
+        config: {
+            properties: {
+                Keys: {
+                    get: function () {
+                        return this._backingDictionary.getKeys();
+                    }
+                },
+                Values: {
+                    get: function () {
+                        return this._backingDictionary.getValues();
+                    }
+                },
+                Count: {
+                    get: function () {
+                        return this._backingDictionary.count;
+                    }
+                }
+            },
+            alias: [
+            "getItem", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$getItem",
+            "Keys", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Keys",
+            "Values", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$Values",
+            "containsKey", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$containsKey",
+            "tryGetValue", "System$Collections$Generic$IReadOnlyDictionary$2$System$Int32$System$String$tryGetValue",
+            "Count", "System$Collections$Generic$IReadOnlyCollection$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$Count",
+            "getEnumerator", "System$Collections$Generic$IEnumerable$1$System$Collections$Generic$KeyValuePair$2$System$Int32$System$String$getEnumerator"
+            ]
+        },
+        ctor: function () {
+            Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.MyReadOnlyDictionary.$ctor1.call(this, new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))());
+        },
+        $ctor1: function (initialValues) {
+            this.$initialize();
+            this._backingDictionary = new (System.Collections.Generic.Dictionary$2(System.Int32,System.String))(initialValues);
+        },
+        getItem: function (key) {
+            return this._backingDictionary.get(key);
+        },
+        containsKey: function (key) {
+            return this._backingDictionary.containsKey(key);
+        },
+        tryGetValue: function (key, value) {
+            return this._backingDictionary.tryGetValue(key, value);
+        },
+        getEnumerator: function () {
+            return this._backingDictionary.getEnumerator();
+        },
+        System$Collections$IEnumerable$getEnumerator: function () {
+            return this._backingDictionary.getEnumerator();
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.Person", {
+        config: {
+            properties: {
+                Name: null,
+                Age: 0
+            }
+        },
+        toDict: function () {
+            return Bridge.fn.bind(this, $asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.Person.f1)(new (System.Collections.Generic.Dictionary$2(System.String,System.Object))());
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.Person", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Collections.Generic.IReadOnlyDictionaryTests.Person, {
+        f1: function (_o7) {
+            _o7.add("Name", this.Name);
+            _o7.add("Age", Bridge.box(this.Age, System.Int32));
+            return _o7;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyListTests", {
+        typePropertiesAreCorrect: function () {
+            Bridge.Test.NUnit.Assert.areEqual$1("System.Collections.Generic.IReadOnlyList`1[[System.Object, mscorlib]]", Bridge.Reflection.getTypeFullName(System.Collections.Generic.IReadOnlyList$1(System.Object)), "FullName should be correct");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.Reflection.isInterface(System.Collections.Generic.IReadOnlyList$1(System.Object)), "IsInterface should be true");
+
+            var interfaces = Bridge.Reflection.getInterfaces(System.Collections.Generic.IReadOnlyList$1(System.Object));
+            Bridge.Test.NUnit.Assert.areEqual$1(3, interfaces.length, "Interfaces length");
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(interfaces, System.Collections.Generic.IEnumerable$1(System.Object), Function), "Interfaces should contain IEnumerable<object>");
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(interfaces, System.Collections.Generic.IReadOnlyCollection$1(System.Object), Function), "Interfaces should contain IReadOnlyCollection");
+            Bridge.Test.NUnit.Assert.true$1(System.Array.contains(interfaces, System.Collections.IEnumerable, Function), "Interfaces should contain IEnumerable");
+        },
+        customClassThatShouldImplementIReadOnlyListDoesSo: function () {
+            Bridge.Test.NUnit.Assert.true(Bridge.is(new Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.MyList(System.Array.init(0, null, System.String)), System.Collections.Generic.IReadOnlyList$1(System.String)));
+        },
+        arrayImplementsIReadOnlyList: function () {
+            Bridge.Test.NUnit.Assert.true(Bridge.is(System.Array.init(1, 0, System.Int32), System.Collections.Generic.IReadOnlyList$1(System.Int32)));
+        },
+        arrayCastToIReadOnlyListGetItemWorks: function () {
+            var l = System.Array.init(["x", "y", "z"], System.String);
+            Bridge.Test.NUnit.Assert.areEqual("y", System.Array.getItem(l, 1, System.String));
+        },
+        classImplementingIReadOnlyListGetItemWorks: function () {
+            var l = new Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.MyList(System.Array.init(["x", "y", "z"], System.String));
+            Bridge.Test.NUnit.Assert.areEqual("y", l.getItem(1));
+        },
+        classImplementingIReadOnlyListCastToIReadOnlyListGetItemWorks: function () {
+            var l = new Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.MyList(System.Array.init(["x", "y", "z"], System.String));
+            Bridge.Test.NUnit.Assert.areEqual("y", System.Array.getItem(l, 1, System.String));
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.C", {
+        _i: 0,
+        ctor: function (i) {
+            this.$initialize();
+            this._i = i;
+        },
+        equals: function (o) {
+            return Bridge.is(o, Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.C) && this._i === Bridge.cast(o, Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.C)._i;
+        },
+        getHashCode: function () {
+            return this._i;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Collections.Generic.IReadOnlyListTests.MyList", {
+        inherits: [System.Collections.Generic.IReadOnlyList$1(System.String)],
+        config: {
+            properties: {
+                Items: null,
+                Count: {
+                    get: function () {
+                        return this.Items.Count;
+                    }
+                }
+            },
+            alias: [
+            "getEnumerator", "System$Collections$Generic$IEnumerable$1$System$String$getEnumerator",
+            "Count", "System$Collections$Generic$IReadOnlyCollection$1$System$String$Count",
+            "getItem", "System$Collections$Generic$IReadOnlyList$1$System$String$getItem",
+            "setItem", "System$Collections$Generic$IReadOnlyList$1$System$String$setItem"
+            ]
+        },
+        ctor: function (items) {
+            this.$initialize();
+            this.Items = new (System.Collections.Generic.List$1(System.String))(items);
+        },
+        getItem: function (index) {
+            return this.Items.getItem(index);
+        },
+        setItem: function (index, value) {
+            this.Items.setItem(index, value);
+        },
+        System$Collections$IEnumerable$getEnumerator: function () {
+            return this.getEnumerator();
+        },
+        getEnumerator: function () {
+            return this.Items.getEnumerator();
+        },
+        contains: function (item) {
+            return this.Items.contains(item);
         }
     });
 
@@ -7964,6 +8817,8 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IList$1(System.Int32)), "is IList<int> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.ICollection$1(System.Int32)), "is ICollection<int> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IEnumerable$1(System.Int32)), "is IEnumerable<int> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IReadOnlyCollection$1(System.Int32)), "is IReadOnlyCollection<int> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IReadOnlyList$1(System.Int32)), "is IReadOnlyList<int> should be true");
         },
         defaultConstructorWorks: function () {
             var l = new (System.Collections.Generic.List$1(System.Int32))();
@@ -8327,356 +9182,414 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             Bridge.Test.NUnit.Assert.false(Bridge.referenceEquals(l, actual));
             Bridge.Test.NUnit.Assert.true(Bridge.is(actual, Array));
             Bridge.Test.NUnit.Assert.areDeepEqual(System.Array.init(["a", "b"], System.String), actual);
+        },
+        iReadOnlyCollectionCountWorks: function () {
+            var l = $asm.$.Bridge.ClientTest.Collections.Generic.ListTests.f56(new (System.Collections.Generic.List$1(System.String))());
+            Bridge.Test.NUnit.Assert.areEqual(3, System.Array.getCount(l, System.String));
+        },
+        iReadOnlyCollectionGetEnumeratorWorks: function () {
+            var l = Bridge.cast($asm.$.Bridge.ClientTest.Collections.Generic.ListTests.f57(new (System.Collections.Generic.List$1(System.String))()), System.Collections.Generic.IReadOnlyCollection$1(System.String));
+            var e = Bridge.getEnumerator(l, System.String);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("x", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("y", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.false(e.System$Collections$IEnumerator$moveNext());
+        },
+        iReadOnlyListIndexingWorks: function () {
+            var l = $asm.$.Bridge.ClientTest.Collections.Generic.ListTests.f58(new (System.Collections.Generic.List$1(System.String))());
+            Bridge.Test.NUnit.Assert.areEqual("y", System.Array.getItem(l, 1, System.String));
+        },
+        iReadOnlyListCountWorks: function () {
+            var l = $asm.$.Bridge.ClientTest.Collections.Generic.ListTests.f59(new (System.Collections.Generic.List$1(System.String))());
+            Bridge.Test.NUnit.Assert.areEqual(3, System.Array.getCount(l, System.String));
+        },
+        iReadOnlyListGetEnumeratorWorks: function () {
+            var l = Bridge.cast($asm.$.Bridge.ClientTest.Collections.Generic.ListTests.f60(new (System.Collections.Generic.List$1(System.String))()), System.Collections.Generic.IReadOnlyList$1(System.String));
+            var e = Bridge.getEnumerator(l, System.String);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("x", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("y", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.false(e.System$Collections$IEnumerator$moveNext());
         }
     });
 
     Bridge.ns("Bridge.ClientTest.Collections.Generic.ListTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.Collections.Generic.ListTests, {
-        f1: function (_o49) {
-            _o49.add("x");
-            return _o49;
-        },
-        f2: function (_o50) {
-            _o50.add("x");
-            _o50.add("y");
-            return _o50;
-        },
-        f3: function (_o51) {
-            _o51.add("x");
-            _o51.add("y");
-            return _o51;
-        },
-        f4: function (_o52) {
-            _o52.add("x");
-            _o52.add("y");
-            return _o52;
-        },
-        f5: function (_o53) {
-            _o53.add("x");
-            _o53.add("y");
-            return _o53;
-        },
-        f6: function (_o54) {
-            _o54.add("x");
-            _o54.add("y");
-            return _o54;
-        },
-        f7: function (_o55) {
-            _o55.add("x");
-            _o55.add("y");
-            return _o55;
-        },
-        f8: function (_o56) {
-            _o56.add("x");
-            _o56.add("y");
-            return _o56;
-        },
-        f9: function (_o57) {
-            _o57.add(1);
-            _o57.add(2);
-            _o57.add(3);
-            _o57.add(3);
-            _o57.add(4);
-            _o57.add(5);
-            return _o57;
-        },
-        f10: function (_o58) {
-            _o58.add(1);
-            _o58.add(2);
-            _o58.add(3);
-            _o58.add(3);
-            _o58.add(4);
-            _o58.add(5);
-            return _o58;
-        },
-        f11: function (_o59) {
-            _o59.add(1);
-            _o59.add(2);
-            _o59.add(3);
-            _o59.add(3);
-            _o59.add(4);
-            _o59.add(5);
-            return _o59;
-        },
-        f12: function (_o60) {
-            _o60.add(1);
-            _o60.add(2);
-            _o60.add(3);
-            _o60.add(3);
-            _o60.add(4);
-            _o60.add(5);
-            return _o60;
-        },
-        f13: function (_o61) {
+        f1: function (_o61) {
             _o61.add("x");
-            _o61.add("y");
             return _o61;
         },
-        f14: function (_o62) {
+        f2: function (_o62) {
             _o62.add("x");
             _o62.add("y");
             return _o62;
         },
-        f15: function (_o63) {
-            _o63.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o63.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o63.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+        f3: function (_o63) {
+            _o63.add("x");
+            _o63.add("y");
             return _o63;
         },
-        f16: function (_o64) {
-            _o64.add("0");
-            _o64.add("1");
-            _o64.add("2");
+        f4: function (_o64) {
+            _o64.add("x");
+            _o64.add("y");
             return _o64;
         },
-        f17: function (_o65) {
-            _o65.add("0");
-            _o65.add("1");
-            _o65.add("2");
+        f5: function (_o65) {
+            _o65.add("x");
+            _o65.add("y");
             return _o65;
         },
-        f18: function (_o66) {
-            _o66.add("0");
-            _o66.add("1");
-            _o66.add("2");
+        f6: function (_o66) {
+            _o66.add("x");
+            _o66.add("y");
             return _o66;
         },
-        f19: function (_o67) {
-            _o67.add("a");
-            _o67.add("b");
-            _o67.add("c");
-            _o67.add("d");
+        f7: function (_o67) {
+            _o67.add("x");
+            _o67.add("y");
             return _o67;
         },
-        f20: function (_o68) {
-            _o68.add("a");
-            _o68.add("b");
-            _o68.add("c");
-            _o68.add("d");
+        f8: function (_o68) {
+            _o68.add("x");
+            _o68.add("y");
             return _o68;
         },
-        f21: function (_o69) {
-            _o69.add("a");
-            _o69.add("b");
-            _o69.add("c");
+        f9: function (_o69) {
+            _o69.add(1);
+            _o69.add(2);
+            _o69.add(3);
+            _o69.add(3);
+            _o69.add(4);
+            _o69.add(5);
             return _o69;
         },
-        f22: function (_o70) {
-            _o70.add("a");
-            _o70.add("b");
-            _o70.add("c");
+        f10: function (_o70) {
+            _o70.add(1);
+            _o70.add(2);
+            _o70.add(3);
+            _o70.add(3);
+            _o70.add(4);
+            _o70.add(5);
             return _o70;
         },
-        f23: function (_o71) {
-            _o71.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o71.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o71.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+        f11: function (_o71) {
+            _o71.add(1);
+            _o71.add(2);
+            _o71.add(3);
+            _o71.add(3);
+            _o71.add(4);
+            _o71.add(5);
             return _o71;
         },
-        f24: function (_o72) {
-            _o72.add("a");
-            _o72.add("b");
-            _o72.add("c");
-            _o72.add("b");
+        f12: function (_o72) {
+            _o72.add(1);
+            _o72.add(2);
+            _o72.add(3);
+            _o72.add(3);
+            _o72.add(4);
+            _o72.add(5);
             return _o72;
         },
-        f25: function (_o73) {
-            _o73.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o73.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o73.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
-            _o73.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+        f13: function (_o73) {
+            _o73.add("x");
+            _o73.add("y");
             return _o73;
         },
-        f26: function (_o74) {
+        f14: function (_o74) {
             _o74.add("x");
             _o74.add("y");
             return _o74;
         },
-        f27: function (_o75) {
-            _o75.add("x");
-            _o75.add("y");
+        f15: function (_o75) {
+            _o75.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o75.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o75.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
             return _o75;
         },
-        f28: function (_o76) {
-            _o76.add("a");
-            _o76.add("b");
-            _o76.add("c");
-            _o76.add("b");
+        f16: function (_o76) {
+            _o76.add("0");
+            _o76.add("1");
+            _o76.add("2");
             return _o76;
         },
-        f29: function (_o77) {
-            _o77.add("a");
-            _o77.add("b");
-            _o77.add("c");
-            _o77.add("b");
+        f17: function (_o77) {
+            _o77.add("0");
+            _o77.add("1");
+            _o77.add("2");
             return _o77;
         },
-        f30: function (_o78) {
-            _o78.add("a");
-            _o78.add("b");
-            _o78.add("c");
-            _o78.add("a");
+        f18: function (_o78) {
+            _o78.add("0");
+            _o78.add("1");
+            _o78.add("2");
             return _o78;
         },
-        f31: function (_o79) {
+        f19: function (_o79) {
             _o79.add("a");
             _o79.add("b");
             _o79.add("c");
-            _o79.add("a");
+            _o79.add("d");
             return _o79;
         },
-        f32: function (_o80) {
+        f20: function (_o80) {
             _o80.add("a");
-            _o80.add(null);
+            _o80.add("b");
             _o80.add("c");
-            _o80.add(null);
+            _o80.add("d");
             return _o80;
         },
-        f33: function (_o81) {
-            _o81.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o81.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o81.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+        f21: function (_o81) {
+            _o81.add("a");
+            _o81.add("b");
+            _o81.add("c");
             return _o81;
         },
-        f34: function (_o82) {
+        f22: function (_o82) {
             _o82.add("a");
             _o82.add("b");
             _o82.add("c");
-            _o82.add("a");
             return _o82;
         },
-        f35: function (_o83) {
-            _o83.add("a");
-            _o83.add("b");
-            _o83.add("c");
-            _o83.add("d");
+        f23: function (_o83) {
+            _o83.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o83.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o83.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
             return _o83;
         },
-        f36: function (_o84) {
-            _o84.add(1);
-            _o84.add(3);
-            _o84.add(4);
-            _o84.add(1);
-            _o84.add(3);
-            _o84.add(2);
+        f24: function (_o84) {
+            _o84.add("a");
+            _o84.add("b");
+            _o84.add("c");
+            _o84.add("b");
             return _o84;
         },
-        f37: function (_o85) {
-            _o85.add(1);
-            _o85.add(6);
-            _o85.add(6);
-            _o85.add(4);
-            _o85.add(2);
+        f25: function (_o85) {
+            _o85.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o85.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o85.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+            _o85.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
             return _o85;
         },
-        f38: function (_o86) {
-            _o86.add(1);
-            _o86.add(6);
-            _o86.add(6);
-            _o86.add(4);
-            _o86.add(2);
+        f26: function (_o86) {
+            _o86.add("x");
+            _o86.add("y");
             return _o86;
+        },
+        f27: function (_o87) {
+            _o87.add("x");
+            _o87.add("y");
+            return _o87;
+        },
+        f28: function (_o88) {
+            _o88.add("a");
+            _o88.add("b");
+            _o88.add("c");
+            _o88.add("b");
+            return _o88;
+        },
+        f29: function (_o89) {
+            _o89.add("a");
+            _o89.add("b");
+            _o89.add("c");
+            _o89.add("b");
+            return _o89;
+        },
+        f30: function (_o90) {
+            _o90.add("a");
+            _o90.add("b");
+            _o90.add("c");
+            _o90.add("a");
+            return _o90;
+        },
+        f31: function (_o91) {
+            _o91.add("a");
+            _o91.add("b");
+            _o91.add("c");
+            _o91.add("a");
+            return _o91;
+        },
+        f32: function (_o92) {
+            _o92.add("a");
+            _o92.add(null);
+            _o92.add("c");
+            _o92.add(null);
+            return _o92;
+        },
+        f33: function (_o93) {
+            _o93.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o93.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o93.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+            return _o93;
+        },
+        f34: function (_o94) {
+            _o94.add("a");
+            _o94.add("b");
+            _o94.add("c");
+            _o94.add("a");
+            return _o94;
+        },
+        f35: function (_o95) {
+            _o95.add("a");
+            _o95.add("b");
+            _o95.add("c");
+            _o95.add("d");
+            return _o95;
+        },
+        f36: function (_o96) {
+            _o96.add(1);
+            _o96.add(3);
+            _o96.add(4);
+            _o96.add(1);
+            _o96.add(3);
+            _o96.add(2);
+            return _o96;
+        },
+        f37: function (_o97) {
+            _o97.add(1);
+            _o97.add(6);
+            _o97.add(6);
+            _o97.add(4);
+            _o97.add(2);
+            return _o97;
+        },
+        f38: function (_o98) {
+            _o98.add(1);
+            _o98.add(6);
+            _o98.add(6);
+            _o98.add(4);
+            _o98.add(2);
+            return _o98;
         },
         f39: function (x, y) {
             return ((y - x) | 0);
         },
-        f40: function (_o87) {
-            _o87.add(1);
-            _o87.add(6);
-            _o87.add(6);
-            _o87.add(4);
-            _o87.add(2);
-            return _o87;
-        },
-        f41: function (_o88) {
-            _o88.add("x");
-            _o88.add("y");
-            return _o88;
-        },
-        f42: function (_o89) {
-            _o89.add("x");
-            _o89.add("y");
-            return _o89;
-        },
-        f43: function (_o90) {
-            _o90.add("x");
-            _o90.add("y");
-            _o90.add("z");
-            return _o90;
-        },
-        f44: function (_o91) {
-            _o91.add("x");
-            _o91.add("y");
-            _o91.add("z");
-            return _o91;
-        },
-        f45: function (_o92) {
-            _o92.add("x");
-            _o92.add("y");
-            _o92.add("z");
-            return _o92;
-        },
-        f46: function (_o93) {
-            _o93.add("x");
-            _o93.add("y");
-            _o93.add("z");
-            return _o93;
-        },
-        f47: function (_o94) {
-            _o94.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o94.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o94.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
-            return _o94;
-        },
-        f48: function (_o95) {
-            _o95.add("x");
-            _o95.add("y");
-            _o95.add("z");
-            return _o95;
-        },
-        f49: function (_o96) {
-            _o96.add("a");
-            _o96.add(null);
-            _o96.add("c");
-            _o96.add(null);
-            return _o96;
-        },
-        f50: function (_o97) {
-            _o97.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o97.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o97.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
-            return _o97;
-        },
-        f51: function (_o98) {
-            _o98.add("x");
-            _o98.add("y");
-            _o98.add("z");
-            return _o98;
-        },
-        f52: function (_o99) {
-            _o99.add("x");
-            _o99.add("y");
-            _o99.add("z");
+        f40: function (_o99) {
+            _o99.add(1);
+            _o99.add(6);
+            _o99.add(6);
+            _o99.add(4);
+            _o99.add(2);
             return _o99;
         },
-        f53: function (_o100) {
-            _o100.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
-            _o100.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
-            _o100.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+        f41: function (_o100) {
+            _o100.add("x");
+            _o100.add("y");
             return _o100;
         },
-        f54: function (_o101) {
+        f42: function (_o101) {
             _o101.add("x");
             _o101.add("y");
-            _o101.add("z");
             return _o101;
         },
-        f55: function (_o102) {
+        f43: function (_o102) {
             _o102.add("x");
             _o102.add("y");
             _o102.add("z");
             return _o102;
+        },
+        f44: function (_o103) {
+            _o103.add("x");
+            _o103.add("y");
+            _o103.add("z");
+            return _o103;
+        },
+        f45: function (_o104) {
+            _o104.add("x");
+            _o104.add("y");
+            _o104.add("z");
+            return _o104;
+        },
+        f46: function (_o105) {
+            _o105.add("x");
+            _o105.add("y");
+            _o105.add("z");
+            return _o105;
+        },
+        f47: function (_o106) {
+            _o106.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o106.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o106.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+            return _o106;
+        },
+        f48: function (_o107) {
+            _o107.add("x");
+            _o107.add("y");
+            _o107.add("z");
+            return _o107;
+        },
+        f49: function (_o108) {
+            _o108.add("a");
+            _o108.add(null);
+            _o108.add("c");
+            _o108.add(null);
+            return _o108;
+        },
+        f50: function (_o109) {
+            _o109.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o109.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o109.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+            return _o109;
+        },
+        f51: function (_o110) {
+            _o110.add("x");
+            _o110.add("y");
+            _o110.add("z");
+            return _o110;
+        },
+        f52: function (_o111) {
+            _o111.add("x");
+            _o111.add("y");
+            _o111.add("z");
+            return _o111;
+        },
+        f53: function (_o112) {
+            _o112.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(1));
+            _o112.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(2));
+            _o112.add(new Bridge.ClientTest.Collections.Generic.ListTests.C(3));
+            return _o112;
+        },
+        f54: function (_o113) {
+            _o113.add("x");
+            _o113.add("y");
+            _o113.add("z");
+            return _o113;
+        },
+        f55: function (_o114) {
+            _o114.add("x");
+            _o114.add("y");
+            _o114.add("z");
+            return _o114;
+        },
+        f56: function (_o115) {
+            _o115.add("x");
+            _o115.add("y");
+            _o115.add("z");
+            return _o115;
+        },
+        f57: function (_o116) {
+            _o116.add("x");
+            _o116.add("y");
+            return _o116;
+        },
+        f58: function (_o117) {
+            _o117.add("x");
+            _o117.add("y");
+            _o117.add("z");
+            return _o117;
+        },
+        f59: function (_o118) {
+            _o118.add("x");
+            _o118.add("y");
+            _o118.add("z");
+            return _o118;
+        },
+        f60: function (_o119) {
+            _o119.add("x");
+            _o119.add("y");
+            return _o119;
         }
     });
 
@@ -8715,6 +9628,7 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IList$1(System.Int32)), "is IList<int> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.ICollection$1(System.Int32)), "is ICollection<int> should be true");
             Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IEnumerable$1(System.Int32)), "is IEnumerable<int> should be true");
+            Bridge.Test.NUnit.Assert.true$1(Bridge.is(list, System.Collections.Generic.IReadOnlyCollection$1(System.Int32)), "is IReadOnlyCollection<int> should be true");
         },
         constructorWorks: function () {
             var l = new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.Int32))(System.Array.init([41, 42, 43], System.Int32));
@@ -8965,6 +9879,36 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
         iListIsReadOnlyWorks: function () {
             var l = new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.String))(System.Array.init(0, null, System.String));
             Bridge.Test.NUnit.Assert.true(System.Array.getIsReadOnly(l, System.String));
+        },
+        iReadOnlyCollectionCountWorks: function () {
+            var l = new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.String))(System.Array.init(["x", "y", "z"], System.String));
+            Bridge.Test.NUnit.Assert.areEqual(3, System.Array.getCount(l, System.String));
+        },
+        iReadOnlyCollectionGetEnumeratorWorks: function () {
+            var l = Bridge.cast(new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.String))(System.Array.init(["x", "y"], System.String)), System.Collections.Generic.IReadOnlyCollection$1(System.String));
+            var e = Bridge.getEnumerator(l, System.String);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("x", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("y", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.false(e.System$Collections$IEnumerator$moveNext());
+        },
+        iReadOnlyListIndexingWorks: function () {
+            var l = new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.String))(System.Array.init(["x", "y", "z"], System.String));
+            Bridge.Test.NUnit.Assert.areEqual("y", System.Array.getItem(l, 1, System.String));
+        },
+        iReadOnlyListCountWorks: function () {
+            var l = new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.String))(System.Array.init(["x", "y", "z"], System.String));
+            Bridge.Test.NUnit.Assert.areEqual(3, System.Array.getCount(l, System.String));
+        },
+        iReadOnlyListGetEnumeratorWorks: function () {
+            var l = Bridge.cast(new (System.Collections.ObjectModel.ReadOnlyCollection$1(System.String))(System.Array.init(["x", "y"], System.String)), System.Collections.Generic.IReadOnlyList$1(System.String));
+            var e = Bridge.getEnumerator(l, System.String);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("x", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.true(e.System$Collections$IEnumerator$moveNext());
+            Bridge.Test.NUnit.Assert.areEqual("y", e[Bridge.geti(e, "System$Collections$Generic$IEnumerator$1$System$String$Current$1", "Current$1")]);
+            Bridge.Test.NUnit.Assert.false(e.System$Collections$IEnumerator$moveNext());
         }
     });
 
@@ -13024,12 +13968,12 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
                     try {
                         throw new Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException();
                     }
-                    catch (_e5) {
-                        _e5 = System.Exception.create(_e5);
-                        if (Bridge.is(_e5, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException) && Bridge.safe($asm.$.Bridge.ClientTest.CSharp6.TestExceptionFilter.f1)) {
+                    catch (_e12) {
+                        _e12 = System.Exception.create(_e12);
+                        if (Bridge.is(_e12, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException) && Bridge.safe($asm.$.Bridge.ClientTest.CSharp6.TestExceptionFilter.f1)) {
                             Bridge.Test.NUnit.Assert.fail$1("Flow should not be in catch block");
                         } else {
-                            throw _e5;
+                            throw _e12;
                         }
                     }
                 }
@@ -13051,15 +13995,15 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
                 try {
                     throw new Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException();
                 }
-                catch (_e6) {
-                    _e6 = System.Exception.create(_e6);
-                    if (Bridge.is(_e6, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException) && Bridge.safe(function () {
-                            return Bridge.ClientTest.CSharp6.TestExceptionFilter.log(Bridge.cast(_e6, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException), true);
+                catch (_e13) {
+                    _e13 = System.Exception.create(_e13);
+                    if (Bridge.is(_e13, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException) && Bridge.safe(function () {
+                            return Bridge.ClientTest.CSharp6.TestExceptionFilter.log(Bridge.cast(_e13, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException), true);
                         })) {
-                        var e = Bridge.cast(_e6, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException);
+                        var e = Bridge.cast(_e13, Bridge.ClientTest.CSharp6.TestExceptionFilter.MyException);
                         isCaught = true;
                     } else {
-                        throw _e6;
+                        throw _e13;
                     }
                 }
                 Bridge.Test.NUnit.Assert.true(isCaught);
@@ -13070,19 +14014,19 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
                 try {
                     Bridge.ClientTest.CSharp6.TestExceptionFilter.doSomethingThatMightFail();
                 }
-                catch (_e7) {
-                    _e7 = System.Exception.create(_e7);
-                    if (Bridge.hasValue(_e7) && Bridge.safe(function () {
+                catch (_e14) {
+                    _e14 = System.Exception.create(_e14);
+                    if (Bridge.hasValue(_e14) && Bridge.safe(function () {
                             return b;
                         })) {
                         Bridge.Test.NUnit.Assert.fail();
-                    } else if (Bridge.is(_e7, System.ArgumentNullException)) {
-                        var ex = Bridge.cast(_e7, System.ArgumentNullException);
+                    } else if (Bridge.is(_e14, System.ArgumentNullException)) {
+                        var ex = Bridge.cast(_e14, System.ArgumentNullException);
                         Bridge.Test.NUnit.Assert.areEqual("DoSomethingThatMightFail", ex.Message);
-                    } else if (Bridge.hasValue(_e7)) {
+                    } else if (Bridge.hasValue(_e14)) {
                         Bridge.Test.NUnit.Assert.fail();
                     } else {
-                        throw _e7;
+                        throw _e14;
                     }
                 }
             },
@@ -13093,19 +14037,19 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
                 try {
                     Bridge.ClientTest.CSharp6.TestExceptionFilter.doSomethingThatMightFail();
                 }
-                catch (_e8) {
-                    _e8 = System.Exception.create(_e8);
-                    if (Bridge.hasValue(_e8) && Bridge.safe(function () {
+                catch (_e15) {
+                    _e15 = System.Exception.create(_e15);
+                    if (Bridge.hasValue(_e15) && Bridge.safe(function () {
                             return ((Bridge.Int.div(a, b)) | 0) === 0;
                         })) {
                         Bridge.Test.NUnit.Assert.fail();
-                    } else if (Bridge.is(_e8, System.DivideByZeroException)) {
+                    } else if (Bridge.is(_e15, System.DivideByZeroException)) {
                         Bridge.Test.NUnit.Assert.fail();
-                    } else if (Bridge.hasValue(_e8)) {
-                        var ex = _e8;
+                    } else if (Bridge.hasValue(_e15)) {
+                        var ex = _e15;
                         Bridge.Test.NUnit.Assert.areEqual("DoSomethingThatMightFail", ex.Message);
                     } else {
-                        throw _e8;
+                        throw _e15;
                     }
                 }
             },
@@ -13117,16 +14061,16 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
                     try {
                         Bridge.ClientTest.CSharp6.TestExceptionFilter.doSomethingThatMightFail();
                     }
-                    catch (_e9) {
-                        _e9 = System.Exception.create(_e9);
-                        if (Bridge.hasValue(_e9) && Bridge.safe(function () {
+                    catch (_e16) {
+                        _e16 = System.Exception.create(_e16);
+                        if (Bridge.hasValue(_e16) && Bridge.safe(function () {
                                 return ((Bridge.Int.div(a, b)) | 0) === 0;
                             })) {
                             Bridge.Test.NUnit.Assert.fail();
-                        } else if (Bridge.is(_e9, System.DivideByZeroException)) {
+                        } else if (Bridge.is(_e16, System.DivideByZeroException)) {
                             Bridge.Test.NUnit.Assert.fail();
                         } else {
-                            throw _e9;
+                            throw _e16;
                         }
                     }
                 });
@@ -13258,28 +14202,28 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.CSharp6.TestIndexInitializer", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.CSharp6.TestIndexInitializer, {
-        f1: function (_o1) {
-            _o1.Value = 255;
-            _o1.setItem(4, 0);
-            return _o1;
+        f1: function (_o8) {
+            _o8.Value = 255;
+            _o8.setItem(4, 0);
+            return _o8;
         },
-        f2: function (_o2) {
-            _o2.set(7, "seven");
-            _o2.set(9, "nine");
-            _o2.set(13, "thirteen");
-            return _o2;
+        f2: function (_o9) {
+            _o9.set(7, "seven");
+            _o9.set(9, "nine");
+            _o9.set(13, "thirteen");
+            return _o9;
         },
-        f3: function (_o3) {
-            _o3.set(7, "seven");
-            _o3.set(9, "nine");
-            _o3.set(13, "thirteen");
-            return _o3;
+        f3: function (_o10) {
+            _o10.set(7, "seven");
+            _o10.set(9, "nine");
+            _o10.set(13, "thirteen");
+            return _o10;
         },
-        f4: function (_o4) {
-            _o4.set(7, "seven");
-            _o4.set(9, "nine");
-            _o4.set(13, "thirteen");
-            return _o4;
+        f4: function (_o11) {
+            _o11.set(7, "seven");
+            _o11.set(9, "nine");
+            _o11.set(13, "thirteen");
+            return _o11;
         }
     });
 
@@ -13863,21 +14807,21 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
 
                 c.Sub1 = Bridge.merge(new Bridge.ClientTest.DeserializationTests.SubClass1(), {
                     Owner: c,
-                    List1: function (_o15) {
-                            _o15.add(item1);
-                            _o15.add(item2);
-                            _o15.add(item3);
-                            return _o15;
+                    List1: function (_o22) {
+                            _o22.add(item1);
+                            _o22.add(item2);
+                            _o22.add(item3);
+                            return _o22;
                         }(new (System.Collections.Generic.List$1(Bridge.ClientTest.DeserializationTests.E1))())
                 } );
 
                 c.Sub2 = Bridge.merge(new Bridge.ClientTest.DeserializationTests.SubClass2(), {
                     Owner: c,
-                    List1: function (_o16) {
-                            _o16.add(l1);
-                            _o16.add(l2);
-                            _o16.add(l3);
-                            return _o16;
+                    List1: function (_o23) {
+                            _o23.add(l1);
+                            _o23.add(l2);
+                            _o23.add(l3);
+                            return _o23;
                         }(new (System.Collections.Generic.List$1(System.Char))())
                 } );
 
@@ -14012,17 +14956,17 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.DeserializationTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.DeserializationTests, {
-        f1: function (_o13) {
-            _o13.add(Bridge.ClientTest.DeserializationTests.E1.Item1);
-            _o13.add(Bridge.ClientTest.DeserializationTests.E1.Item2);
-            _o13.add(Bridge.ClientTest.DeserializationTests.E1.Item3);
-            return _o13;
+        f1: function (_o20) {
+            _o20.add(Bridge.ClientTest.DeserializationTests.E1.Item1);
+            _o20.add(Bridge.ClientTest.DeserializationTests.E1.Item2);
+            _o20.add(Bridge.ClientTest.DeserializationTests.E1.Item3);
+            return _o20;
         },
-        f2: function (_o14) {
-            _o14.set("i1", Bridge.ClientTest.DeserializationTests.E1.Item1);
-            _o14.set("i2", Bridge.ClientTest.DeserializationTests.E1.Item2);
-            _o14.set("i3", Bridge.ClientTest.DeserializationTests.E1.Item3);
-            return _o14;
+        f2: function (_o21) {
+            _o21.set("i1", Bridge.ClientTest.DeserializationTests.E1.Item1);
+            _o21.set("i2", Bridge.ClientTest.DeserializationTests.E1.Item2);
+            _o21.set("i3", Bridge.ClientTest.DeserializationTests.E1.Item3);
+            return _o21;
         }
     });
 
@@ -14087,17 +15031,17 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.DeserializationTests.ClassWithFields", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.DeserializationTests.ClassWithFields, {
-        f1: function (_o11) {
-            _o11.add(Bridge.ClientTest.DeserializationTests.E1.Item1);
-            _o11.add(Bridge.ClientTest.DeserializationTests.E1.Item2);
-            _o11.add(Bridge.ClientTest.DeserializationTests.E1.Item3);
-            return _o11;
+        f1: function (_o18) {
+            _o18.add(Bridge.ClientTest.DeserializationTests.E1.Item1);
+            _o18.add(Bridge.ClientTest.DeserializationTests.E1.Item2);
+            _o18.add(Bridge.ClientTest.DeserializationTests.E1.Item3);
+            return _o18;
         },
-        f2: function (_o12) {
-            _o12.set("i1", Bridge.ClientTest.DeserializationTests.E1.Item1);
-            _o12.set("i2", Bridge.ClientTest.DeserializationTests.E1.Item2);
-            _o12.set("i3", Bridge.ClientTest.DeserializationTests.E1.Item3);
-            return _o12;
+        f2: function (_o19) {
+            _o19.set("i1", Bridge.ClientTest.DeserializationTests.E1.Item1);
+            _o19.set("i2", Bridge.ClientTest.DeserializationTests.E1.Item2);
+            _o19.set("i3", Bridge.ClientTest.DeserializationTests.E1.Item3);
+            return _o19;
         }
     });
 
@@ -26699,11 +27643,11 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.Reflection.TypeSystemTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.Reflection.TypeSystemTests, {
-        f1: function (_o10) {
-            _o10.add(Bridge.box(42, System.Int32));
-            _o10.add("x");
-            _o10.add(Bridge.box(18, System.Int32));
-            return _o10;
+        f1: function (_o17) {
+            _o17.add(Bridge.box(42, System.Int32));
+            _o17.add("x");
+            _o17.add(Bridge.box(18, System.Int32));
+            return _o17;
         },
         f2: function () {
             System.Enum.getNames(Bridge.ClientTest.Reflection.TypeSystemTests.I1);
@@ -27181,29 +28125,29 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.SerializationTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.SerializationTests, {
-        f1: function (_o19) {
-            _o19.add(Bridge.ClientTest.SerializationTests.E1.Item1);
-            _o19.add(Bridge.ClientTest.SerializationTests.E1.Item2);
-            _o19.add(Bridge.ClientTest.SerializationTests.E1.Item3);
-            return _o19;
+        f1: function (_o26) {
+            _o26.add(Bridge.ClientTest.SerializationTests.E1.Item1);
+            _o26.add(Bridge.ClientTest.SerializationTests.E1.Item2);
+            _o26.add(Bridge.ClientTest.SerializationTests.E1.Item3);
+            return _o26;
         },
-        f2: function (_o20) {
-            _o20.set("i1", Bridge.ClientTest.SerializationTests.E1.Item1);
-            _o20.set("i2", Bridge.ClientTest.SerializationTests.E1.Item2);
-            _o20.set("i3", Bridge.ClientTest.SerializationTests.E1.Item3);
-            return _o20;
+        f2: function (_o27) {
+            _o27.set("i1", Bridge.ClientTest.SerializationTests.E1.Item1);
+            _o27.set("i2", Bridge.ClientTest.SerializationTests.E1.Item2);
+            _o27.set("i3", Bridge.ClientTest.SerializationTests.E1.Item3);
+            return _o27;
         },
-        f3: function (_o21) {
-            _o21.add(Bridge.ClientTest.SerializationTests.E1.Item1);
-            _o21.add(Bridge.ClientTest.SerializationTests.E1.Item2);
-            _o21.add(Bridge.ClientTest.SerializationTests.E1.Item3);
-            return _o21;
+        f3: function (_o28) {
+            _o28.add(Bridge.ClientTest.SerializationTests.E1.Item1);
+            _o28.add(Bridge.ClientTest.SerializationTests.E1.Item2);
+            _o28.add(Bridge.ClientTest.SerializationTests.E1.Item3);
+            return _o28;
         },
-        f4: function (_o22) {
-            _o22.add(97);
-            _o22.add(98);
-            _o22.add(99);
-            return _o22;
+        f4: function (_o29) {
+            _o29.add(97);
+            _o29.add(98);
+            _o29.add(99);
+            return _o29;
         }
     });
 
@@ -27259,17 +28203,17 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.SerializationTests.ClassWithFields", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.SerializationTests.ClassWithFields, {
-        f1: function (_o17) {
-            _o17.add(Bridge.ClientTest.SerializationTests.E1.Item1);
-            _o17.add(Bridge.ClientTest.SerializationTests.E1.Item2);
-            _o17.add(Bridge.ClientTest.SerializationTests.E1.Item3);
-            return _o17;
+        f1: function (_o24) {
+            _o24.add(Bridge.ClientTest.SerializationTests.E1.Item1);
+            _o24.add(Bridge.ClientTest.SerializationTests.E1.Item2);
+            _o24.add(Bridge.ClientTest.SerializationTests.E1.Item3);
+            return _o24;
         },
-        f2: function (_o18) {
-            _o18.set("i1", Bridge.ClientTest.SerializationTests.E1.Item1);
-            _o18.set("i2", Bridge.ClientTest.SerializationTests.E1.Item2);
-            _o18.set("i3", Bridge.ClientTest.SerializationTests.E1.Item3);
-            return _o18;
+        f2: function (_o25) {
+            _o25.set("i1", Bridge.ClientTest.SerializationTests.E1.Item1);
+            _o25.set("i2", Bridge.ClientTest.SerializationTests.E1.Item2);
+            _o25.set("i3", Bridge.ClientTest.SerializationTests.E1.Item3);
+            return _o25;
         }
     });
 
@@ -32321,20 +33265,20 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.Text.RegularExpressions.Methods.RegexIsMatchTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.Text.RegularExpressions.Methods.RegexIsMatchTests, {
-        f1: function (_o23) {
-            _o23.add({ item1: "1298-673-4192", item2: true });
-            _o23.add({ item1: "1298-673-4192", item2: true });
-            _o23.add({ item1: "A08Z-931-468A", item2: true });
-            _o23.add({ item1: "_A90-123-129X", item2: false });
-            _o23.add({ item1: "12345-KKA-1230", item2: false });
-            _o23.add({ item1: "0919-2893-1256", item2: false });
-            return _o23;
+        f1: function (_o30) {
+            _o30.add({ item1: "1298-673-4192", item2: true });
+            _o30.add({ item1: "1298-673-4192", item2: true });
+            _o30.add({ item1: "A08Z-931-468A", item2: true });
+            _o30.add({ item1: "_A90-123-129X", item2: false });
+            _o30.add({ item1: "12345-KKA-1230", item2: false });
+            _o30.add({ item1: "0919-2893-1256", item2: false });
+            return _o30;
         },
-        f2: function (_o24) {
-            _o24.add({ item1: "ID: 1234-567-8901", item2: true });
-            _o24.add({ item1: "Identifier: A170-222-777z", item2: true });
-            _o24.add({ item1: "1234-567-8901 IDENTITY: 9287-5555-1233", item2: false });
-            return _o24;
+        f2: function (_o31) {
+            _o31.add({ item1: "ID: 1234-567-8901", item2: true });
+            _o31.add({ item1: "Identifier: A170-222-777z", item2: true });
+            _o31.add({ item1: "1234-567-8901 IDENTITY: 9287-5555-1233", item2: false });
+            return _o31;
         }
     });
 
@@ -39132,18 +40076,18 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
     Bridge.ns("Bridge.ClientTest.Text.RegularExpressions.Entities.RegexEntityTests", $asm.$);
 
     Bridge.apply($asm.$.Bridge.ClientTest.Text.RegularExpressions.Entities.RegexEntityTests, {
-        f1: function (_o25) {
-            _o25.add(0, true);
-            _o25.add(1, true);
-            _o25.add(2, true);
-            _o25.add(4, true);
-            _o25.add(8, false);
-            _o25.add(16, true);
-            _o25.add(32, true);
-            _o25.add(64, false);
-            _o25.add(256, false);
-            _o25.add(512, false);
-            return _o25;
+        f1: function (_o32) {
+            _o32.add(0, true);
+            _o32.add(1, true);
+            _o32.add(2, true);
+            _o32.add(4, true);
+            _o32.add(8, false);
+            _o32.add(16, true);
+            _o32.add(32, true);
+            _o32.add(64, false);
+            _o32.add(256, false);
+            _o32.add(512, false);
+            return _o32;
         }
     });
 
