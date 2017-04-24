@@ -274,6 +274,16 @@
                 })(cfg, scope, backingField, v);
             }
 
+            var isFF = Bridge.Browser.firefoxVersion > 0
+
+            if (!alias && cfg.get) {
+                Object.defineProperty(cfg.get, isFF ? "displayName" : "name", { value: cls.$$name + "." + name + ".get", writable: true });
+            }
+
+            if (!alias && cfg.set) {
+                Object.defineProperty(cfg.set, isFF ? "displayName" : "name", { value: cls.$$name + "." + name + ".set", writable: true });
+            }
+
             Object.defineProperty(scope, name, cfg);
 
             return cfg;
@@ -2542,6 +2552,8 @@
             }
 
             Class.$$name = className;
+            Object.defineProperty(Class, "name", { value: className });
+            Object.defineProperty(Class.constructor, "name", { value: className });
             Class.$kind = prop.$kind;
 
             if (gCfg && isGenericInstance) {
@@ -2615,7 +2627,8 @@
 
             prop.$initialize = Bridge.Class._initialize;
 
-            var keys = [];
+            var keys = [],
+                isFF = Bridge.Browser.firefoxVersion > 0;
 
             for (name in prop) {
                 keys.push(name);
@@ -2632,13 +2645,18 @@
                     isCtor = true;
                 }
 
+                var member = prop[name];
                 if (isCtor) {
-                    Class[ctorName] = prop[name];
+                    Class[ctorName] = member;
                     Class[ctorName].prototype = prototype;
                     Class[ctorName].prototype.constructor = Class;
-                    prototype[ctorName] = prop[name];
+                    prototype[ctorName] = member;
                 } else {
-                    prototype[ctorName] = prop[name];
+                    prototype[ctorName] = member;
+                }
+
+                if (typeof member === "function" && name !== "$main") {
+                    Object.defineProperty(member, isFF ? "displayName" : "name", { value: className + "." + name, writable: true });
                 }
             }
 
@@ -2650,10 +2668,15 @@
 
             if (statics) {
                 for (name in statics) {
+                    var member = statics[name];
                     if (name === "ctor") {
-                        Class["$ctor"] = statics[name];
+                        Class["$ctor"] = member;
                     } else {
-                        Class[name] = statics[name];
+                        Class[name] = member;
+                    }
+
+                    if (typeof member === "function") {
+                        Object.defineProperty(member, isFF ? "displayName" : "name", { value: className + "." + name, writable: true });
                     }
                 }
             }
@@ -2734,6 +2757,10 @@
             }
 
             return Class;
+        },
+
+        toCtorString: function() {
+            return Bridge.Reflection.getTypeName(this);
         },
 
         createInheritors: function(cls, extend) {
@@ -5078,8 +5105,8 @@ Bridge.define("System.Exception", {
             this.$initialize();
             this.message = message ? message : ("Exception of type '" + Bridge.getTypeName(this) + "' was thrown.");
             this.innerException = innerException ? innerException : null;
-            this.errorStack = new Error();
-            this.data = new(System.Collections.Generic.Dictionary$2(System.Object, System.Object))();
+            this.errorStack = new Error(this.message);
+            this.data = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))();
         },
 
         getBaseException: function() {
@@ -5114,16 +5141,19 @@ Bridge.define("System.Exception", {
                 if (Bridge.is(error, System.Exception)) {
                     return error;
                 }
-
+                var ex;
                 if (error instanceof TypeError) {
-                    return new System.NullReferenceException(error.message, new Bridge.ErrorException(error));
+                    ex = new System.NullReferenceException(error.message, new Bridge.ErrorException(error));
                 } else if (error instanceof RangeError) {
-                    return new System.ArgumentOutOfRangeException(null, error.message, new Bridge.ErrorException(error));
+                    ex = new System.ArgumentOutOfRangeException(null, error.message, new Bridge.ErrorException(error));
                 } else if (error instanceof Error) {
                     return new Bridge.ErrorException(error);
                 } else {
-                    return new System.Exception(error ? error.toString() : null);
+                    ex = new System.Exception(error ? error.toString() : null);
                 }
+
+                ex.errorStack = error;
+                return ex;
             }
         }
     });
