@@ -1127,6 +1127,8 @@
 
             if (b && Bridge.isFunction(b.equals) && b.equals.length === 1) {
                 return b.equals(a);
+            } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
+                return Bridge.fn.equals.call(a, b);
             } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
                 return a.valueOf() === b.valueOf();
             } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
@@ -1320,6 +1322,10 @@
                 return b[name](a);
             }
 
+            if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
+                return Bridge.fn.equals.call(a, b);
+            }
+
             return a.equalsT ? a.equalsT(b) : b.equalsT(a);
         },
 
@@ -1415,7 +1421,7 @@
                     return false;
                 }
 
-                return this.equals === fn.equals && this.$method === fn.$method && this.$scope === fn.$scope;
+                return this.equals && (this.equals === fn.equals) && this.$method && (this.$method === fn.$method) && this.$scope && (this.$scope === fn.$scope);
             },
 
             call: function (obj, fnName) {

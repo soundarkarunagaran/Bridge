@@ -1146,6 +1146,8 @@
 
             if (b && Bridge.isFunction(b.equals) && b.equals.length === 1) {
                 return b.equals(a);
+            } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
+                return Bridge.fn.equals.call(a, b);
             } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
                 return a.valueOf() === b.valueOf();
             } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
@@ -1339,6 +1341,10 @@
                 return b[name](a);
             }
 
+            if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
+                return Bridge.fn.equals.call(a, b);
+            }
+
             return a.equalsT ? a.equalsT(b) : b.equalsT(a);
         },
 
@@ -1434,7 +1440,7 @@
                     return false;
                 }
 
-                return this.equals === fn.equals && this.$method === fn.$method && this.$scope === fn.$scope;
+                return this.equals && (this.equals === fn.equals) && this.$method && (this.$method === fn.$method) && this.$scope && (this.$scope === fn.$scope);
             },
 
             call: function (obj, fnName) {
@@ -11589,7 +11595,10 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 } else if (Bridge.isDefined(y, true)) {
                     var isBridge = x && x.$$name;
 
-                    if (!isBridge || x && x.$boxed || y && y.$boxed) {
+                    if (Bridge.isFunction(x) && Bridge.isFunction(y)) {
+                        return Bridge.fn.equals.call(x, y);
+                    }
+                    else if (!isBridge || x && x.$boxed || y && y.$boxed) {
                         return Bridge.equals(x, y);
                     }
                     else if (Bridge.isFunction(x.equalsT)) {
