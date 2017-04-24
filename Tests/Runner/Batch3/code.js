@@ -18368,6 +18368,21 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2538", {
+        statics: {
+            methods: {
+                TestArraySegment: function () {
+                    var arr = System.Array.init(65535, 0, System.Byte);
+                    var buffer = new System.ArraySegment(arr);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(65535, buffer.getCount());
+                    Bridge.Test.NUnit.Assert.AreEqual(arr, buffer.getArray());
+                    Bridge.Test.NUnit.Assert.AreEqual(0, buffer.getOffset());
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2565", {
         statics: {
             methods: {
