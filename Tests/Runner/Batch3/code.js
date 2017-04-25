@@ -18550,6 +18550,25 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2574", {
+        statics: {
+            methods: {
+                Cool: function () {
+                    return {Yes:6};
+                },
+                TestOperatorTemplate: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2574.Cool().Yes);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2574.A", {
+        fields: {
+            Yes: 7
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2587", {
         statics: {
             methods: {
