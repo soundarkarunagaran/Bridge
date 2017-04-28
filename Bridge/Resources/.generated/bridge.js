@@ -3402,13 +3402,13 @@
                             }
                         }
                     } else {
-                        var fields = Bridge.Reflection.getMembers(type, 4, 4);
+                        var fields = Bridge.Reflection.getMembers(type, 4, 20);
 
                         for (i = 0; i < fields.length; i++) {
                             raw[fields[i].n] = Bridge.Json.serialize(Bridge.Reflection.fieldAccess(fields[i], obj), settings, true, fields[i].rt);
                         }
 
-                        var properties = Bridge.Reflection.getMembers(type, 16, 28),
+                        var properties = Bridge.Reflection.getMembers(type, 16, 20),
                             camelCase = settings && settings.CamelCasePropertyNames;
 
                         for (i = 0; i < properties.length; i++) {
@@ -3634,7 +3634,7 @@
 
                     var o = Bridge.createInstance(type);
 
-                    var fields = Bridge.Reflection.getMembers(type, 4, 4),
+                    var fields = Bridge.Reflection.getMembers(type, 4, 20),
                         value,
                         i;
 
@@ -3646,7 +3646,7 @@
                         }
                     }
 
-                    var properties = Bridge.Reflection.getMembers(type, 16, 4);
+                    var properties = Bridge.Reflection.getMembers(type, 16, 20);
 
                     for (i = 0; i < properties.length; i++) {
                         var camelCase = settings && settings.CamelCasePropertyNames,
@@ -4346,20 +4346,23 @@
             }
 
             var f = function (m) {
-                if ((memberTypes & m.t) && (((bindingAttr & 4) && !m.is) || ((bindingAttr & 8) && m.is)) && (!name || m.n === name)) {
-                    if (params) {
-                        if ((m.p || []).length !== params.length) {
-                            return;
-                        }
-
-                        for (var i = 0; i < params.length; i++) {
-                            if (params[i] !== m.p[i]) {
+                if ((memberTypes & m.t) && (((bindingAttr & 4) && !m.is) || ((bindingAttr & 8) && m.is)) && (!name || ((bindingAttr & 1) === 1 ? (m.n.toUpperCase() === name.toUpperCase()) : (m.n === name)))) {
+                    if ((bindingAttr & 16) === 16 && m.a === 2 ||
+                        (bindingAttr & 32) === 32 && m.a !== 2) {
+                        if (params) {
+                            if ((m.p || []).length !== params.length) {
                                 return;
                             }
-                        }
-                    }
 
-                    result.push(m);
+                            for (var i = 0; i < params.length; i++) {
+                                if (params[i] !== m.p[i]) {
+                                    return;
+                                }
+                            }
+                        }
+
+                        result.push(m);
+                    }
                 }
             };
 
