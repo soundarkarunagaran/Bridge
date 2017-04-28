@@ -15547,7 +15547,7 @@ Bridge.$N1391Result =                     r;
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2246", {
-        Main: function () {
+        main: function Main() {
             if (Bridge.ClientTest.Batch3.BridgeIssues.Bridge2246.isExecuted) {
                 throw new System.InvalidOperationException("Double entry point execution");
             }
@@ -18591,6 +18591,24 @@ Bridge.$N1391Result =                     r;
                     if (useless === void 0) { useless = null; }
                     if (list === void 0) { list = []; }
                     return list.length;
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2591", {
+        main: function MAIN() {
+            Bridge.ClientTest.Batch3.BridgeIssues.Bridge2591.run = true;
+        },
+        statics: {
+            fields: {
+                run: false
+            },
+            methods: {
+                TestEntryPointCustomName: function () {
+                    var $t;
+                    Bridge.Test.NUnit.Assert.True(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2591.run);
+                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(($t = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2591).MAIN));
                 }
             }
         }
