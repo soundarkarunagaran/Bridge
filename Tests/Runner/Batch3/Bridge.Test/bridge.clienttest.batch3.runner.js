@@ -191,6 +191,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#1381 - TestReservedWordsNewBatch", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1381.TestReservedWordsNewBatch);
             QUnit.test("#1385 - TestIsTypedArray", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1385.TestIsTypedArray);
             QUnit.test("#1389 - TestParamsIndexer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1389.TestParamsIndexer);
+            QUnit.test("#1390 - TestFieldInitializer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1390.TestFieldInitializer);
             QUnit.test("#1391 - TestStaticCtorOrder", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391.TestStaticCtorOrder);
             QUnit.test("#1391 - TestStaticCtorOrderForClassHavingReady", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391Ready.TestStaticCtorOrderForClassHavingReady);
             QUnit.test("#1402 - TestLongClipping", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1402.TestLongClipping);
@@ -3763,13 +3764,38 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
         }
     });
 
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1390", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390)],
+        statics: {
+            methods: {
+                TestFieldInitializer: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1390, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestFieldInitializer()", $t.Line = "27", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.TestFieldInitializer();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390", $t.File = "Batch3\\BridgeIssues\\1300\\N1390.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391)],
         statics: {
             methods: {
                 TestStaticCtorOrder: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestStaticCtorOrder()", $t.Line = "41", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestStaticCtorOrder()", $t.Line = "40", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391.TestStaticCtorOrder();
                 }
             }
@@ -3794,7 +3820,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestStaticCtorOrderForClassHavingReady: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391Ready).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391Ready, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestStaticCtorOrderForClassHavingReady()", $t.Line = "57", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391Ready).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1391Ready, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestStaticCtorOrderForClassHavingReady()", $t.Line = "56", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge1391Ready.TestStaticCtorOrderForClassHavingReady();
                 }
             }

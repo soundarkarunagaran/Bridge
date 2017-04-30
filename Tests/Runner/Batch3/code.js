@@ -20,7 +20,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("content.ContentManagerBase", {
         statics: {
             fields: {
-                PNG: ".png"
+                PNG: null
+            },
+            ctors: {
+                init: function () {
+                    this.PNG = ".png";
+                }
             }
         }
     });
@@ -126,13 +131,14 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1001.Globals", {
         statics: {
             fields: {
-                myVar: 2,
+                myVar: 0,
                 myVar1: 0,
                 myVar2: 0,
                 myTextBox: null
             },
             ctors: {
                 init: function () {
+                    this.myVar = 2;
                     this.myVar1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1001.Control.test;
                     this.myVar2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1001.Globals.myVar1;
                 }
@@ -173,7 +179,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1012", {
         statics: {
             fields: {
-                DELTA: 3
+                DELTA: 0
+            },
+            ctors: {
+                init: function () {
+                    this.DELTA = 3;
+                }
             },
             methods: {
                 TestSleepZero: function () {
@@ -260,7 +271,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
             fields: {
                 None: 0,
                 Flag: 2,
-                FlagAlias: 2
+                FlagAlias: 0
+            },
+            ctors: {
+                init: function () {
+                    this.FlagAlias = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1020.CommonEnum.Flag;
+                }
             }
         },
         $utype: System.UInt32
@@ -272,7 +288,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
             fields: {
                 None: 0,
                 Flag: 1,
-                FlagAlias: 1
+                FlagAlias: 0
+            },
+            ctors: {
+                init: function () {
+                    this.FlagAlias = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1020.TestEnum.Flag;
+                }
             }
         },
         $flags: true,
@@ -1570,7 +1591,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1105.Foo1.Item", {
         statics: {
             fields: {
-                Value: "Value1"
+                Value: null
+            },
+            ctors: {
+                init: function () {
+                    this.Value = "Value1";
+                }
             }
         }
     });
@@ -2275,6 +2301,11 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         },
         fields: {
             isDisposed: false
+        },
+        ctors: {
+            init: function () {
+                this.isDisposed = false;
+            }
         }
     });
 
@@ -2288,6 +2319,9 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
             "dispose", "System$IDisposable$dispose"
         ],
         ctors: {
+            init: function () {
+                this.isDisposed = false;
+            },
             ctor: function () {
                 this.$initialize();
             },
@@ -3009,11 +3043,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge122", {
         statics: {
             fields: {
-                nx: 1,
+                nx: 0,
                 breaker: null
             },
             ctors: {
                 init: function () {
+                    this.nx = 1;
                     this.breaker = System.Array.create(0, [[1, 2], [3, 4]], System.Int32, 2, 2);
                 }
             },
@@ -3043,7 +3078,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1220.Class1$1", function (T) { return {
         statics: {
             fields: {
-                Const1: 1
+                Const1: 0
+            },
+            ctors: {
+                init: function () {
+                    this.Const1 = 1;
+                }
             }
         }
     }; });
@@ -3051,7 +3091,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1226", {
         statics: {
             fields: {
-                DELTA: 1E-15
+                DELTA: 0
+            },
+            ctors: {
+                init: function () {
+                    this.DELTA = 1E-15;
+                }
             },
             methods: {
                 AssertValue: function (expected, actual, delta, message) {
@@ -3333,12 +3378,14 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         statics: {
             fields: {
                 reservedWords: null,
-                boolean: true,
-                is: true
+                boolean: false,
+                is: false
             },
             ctors: {
                 init: function () {
                     this.reservedWords = System.Array.init(["abstract", "arguments", "as", "boolean", "break", "byte", "case", "catch", "char", "class", "continue", "const", "debugger", "default", "delete", "do", "double", "else", "enum", "eval", "export", "extends", "false", "final", "finally", "float", "for", "function", "goto", "if", "implements", "import", "in", "instanceof", "int", "interface", "let", "long", "namespace", "native", "new", "null", "package", "private", "protected", "public", "return", "short", "static", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "true", "try", "typeof", "use", "var", "void", "volatile", "window", "while", "with", "yield"], System.String);
+                    this.boolean = true;
+                    this.is = true;
                 }
             },
             methods: {
@@ -3415,73 +3462,144 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1256.ReservedFields", {
         fields: {
-            abstract: true,
-            arguments: true,
-            as: true,
-            boolean: true,
-            break: true,
-            byte: true,
-            case: true,
-            catch: true,
-            char: true,
-            class: true,
-            continue: true,
-            const: true,
-            debugger: true,
-            default: true,
-            delete: true,
-            do: true,
-            double: true,
-            else: true,
-            enum: true,
-            eval: true,
-            export: true,
-            extends: true,
-            false: true,
-            final: true,
-            finally: true,
-            float: true,
-            for: true,
-            function: true,
-            goto: true,
-            if: true,
-            implements: true,
-            import: true,
-            in: true,
-            instanceof: true,
-            int: true,
-            interface: true,
-            let: true,
-            long: true,
-            namespace: true,
-            native: true,
-            new: true,
-            null: true,
-            package: true,
-            private: true,
-            protected: true,
-            public: true,
-            return: true,
-            short: true,
-            static: true,
-            super: true,
-            switch: true,
-            synchronized: true,
-            this: true,
-            throw: true,
-            throws: true,
-            transient: true,
-            true: true,
-            try: true,
-            typeof: true,
-            use: true,
-            var: true,
-            void: true,
-            volatile: true,
-            window: true,
-            while: true,
-            with: true,
-            yield: true
+            abstract: false,
+            arguments: false,
+            as: false,
+            boolean: false,
+            break: false,
+            byte: false,
+            case: false,
+            catch: false,
+            char: false,
+            class: false,
+            continue: false,
+            const: false,
+            debugger: false,
+            default: false,
+            delete: false,
+            do: false,
+            double: false,
+            else: false,
+            enum: false,
+            eval: false,
+            export: false,
+            extends: false,
+            false: false,
+            final: false,
+            finally: false,
+            float: false,
+            for: false,
+            function: false,
+            goto: false,
+            if: false,
+            implements: false,
+            import: false,
+            in: false,
+            instanceof: false,
+            int: false,
+            interface: false,
+            let: false,
+            long: false,
+            namespace: false,
+            native: false,
+            new: false,
+            null: false,
+            package: false,
+            private: false,
+            protected: false,
+            public: false,
+            return: false,
+            short: false,
+            static: false,
+            super: false,
+            switch: false,
+            synchronized: false,
+            this: false,
+            throw: false,
+            throws: false,
+            transient: false,
+            true: false,
+            try: false,
+            typeof: false,
+            use: false,
+            var: false,
+            void: false,
+            volatile: false,
+            window: false,
+            while: false,
+            with: false,
+            yield: false
+        },
+        ctors: {
+            init: function () {
+                this.abstract = true;
+                this.arguments = true;
+                this.as = true;
+                this.boolean = true;
+                this.break = true;
+                this.byte = true;
+                this.case = true;
+                this.catch = true;
+                this.char = true;
+                this.class = true;
+                this.continue = true;
+                this.const = true;
+                this.debugger = true;
+                this.default = true;
+                this.delete = true;
+                this.do = true;
+                this.double = true;
+                this.else = true;
+                this.enum = true;
+                this.eval = true;
+                this.export = true;
+                this.extends = true;
+                this.false = true;
+                this.final = true;
+                this.finally = true;
+                this.float = true;
+                this.for = true;
+                this.function = true;
+                this.goto = true;
+                this.if = true;
+                this.implements = true;
+                this.import = true;
+                this.in = true;
+                this.instanceof = true;
+                this.int = true;
+                this.interface = true;
+                this.let = true;
+                this.long = true;
+                this.namespace = true;
+                this.native = true;
+                this.new = true;
+                this.null = true;
+                this.package = true;
+                this.private = true;
+                this.protected = true;
+                this.public = true;
+                this.return = true;
+                this.short = true;
+                this.static = true;
+                this.super = true;
+                this.switch = true;
+                this.synchronized = true;
+                this.this = true;
+                this.throw = true;
+                this.throws = true;
+                this.transient = true;
+                this.true = true;
+                this.try = true;
+                this.typeof = true;
+                this.use = true;
+                this.var = true;
+                this.void = true;
+                this.volatile = true;
+                this.window = true;
+                this.while = true;
+                this.with = true;
+                this.yield = true;
+            }
         }
     });
 
@@ -4427,6 +4545,9 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1328.ClassLink2", {
+        fields: {
+            name: null
+        },
         ctors: {
             init: function () {
                 this.name = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1328.Optional2$1(System.String))();
@@ -4441,6 +4562,9 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1328.ClassLink3", {
+        fields: {
+            Name: null
+        },
         props: {
             Url: null,
             Text: null
@@ -4557,6 +4681,9 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                 getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1328.StructLink2(); }
             }
         },
+        fields: {
+            name: null
+        },
         ctors: {
             init: function () {
                 this.name = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1328.Optional2$1(System.String))();
@@ -4596,6 +4723,9 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
             methods: {
                 getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1328.StructLink3(); }
             }
+        },
+        fields: {
+            Name: null
         },
         props: {
             Url: null,
@@ -4658,7 +4788,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1339.FooBase", {
         statics: {
             fields: {
-                Bar: "Str"
+                Bar: null
+            },
+            ctors: {
+                init: function () {
+                    this.Bar = "Str";
+                }
             }
         }
     });
@@ -6061,7 +6196,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1381", {
         statics: {
             fields: {
-                value: 4
+                value: 0
+            },
+            ctors: {
+                init: function () {
+                    this.value = 4;
+                }
             },
             methods: {
                 TestReservedWordsUseCase: function () {
@@ -6335,6 +6475,48 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         methods: {
             getItem: function (keys) {
                 return keys;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390", {
+        statics: {
+            fields: {
+                b: 0,
+                a: 0,
+                time: null,
+                MinDate: null,
+                d1: null,
+                d2: null,
+                ar1: null,
+                ar2: null,
+                order1: 0,
+                order2: 0
+            },
+            ctors: {
+                init: function () {
+                    this.time = System.DateTime.getDefaultValue();
+                    this.MinDate = System.DateTime.getDefaultValue();
+                    this.b = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.a;
+                    this.a = 5;
+                    this.time = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.MinDate;
+                    this.MinDate = new Date(1800, 1 - 1, 1);
+                    this.d1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.d2;
+                    this.d2 = 6;
+                    this.ar1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.ar2;
+                    this.ar2 = System.Array.init([1], System.Int32);
+                    this.order1 = 8;
+                    this.order2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.order1;
+                }
+            },
+            methods: {
+                TestFieldInitializer: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.b);
+                    Bridge.Test.NUnit.Assert.AreEqual(System.DateTime.getDefaultValue(), Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.time);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.d1);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.ar1);
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1390.order2);
+                }
             }
         }
     });
@@ -6958,7 +7140,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1472", {
         statics: {
             fields: {
-                time: true
+                time: false
+            },
+            ctors: {
+                init: function () {
+                    this.time = true;
+                }
             },
             methods: {
                 GetArray: function () {
@@ -7088,8 +7275,14 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1486", {
         statics: {
             fields: {
-                x: System.Int64(15),
-                y: System.UInt64(27)
+                x: System.Int64(0),
+                y: System.UInt64(0)
+            },
+            ctors: {
+                init: function () {
+                    this.x = System.Int64(15);
+                    this.y = System.UInt64(27);
+                }
             }
         },
         methods: {
@@ -7619,7 +7812,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1520", {
         statics: {
             fields: {
-                x: System.Decimal(30)
+                x: System.Decimal(0.0)
+            },
+            ctors: {
+                init: function () {
+                    this.x = System.Decimal(30);
+                }
             }
         },
         methods: {
@@ -7650,11 +7848,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1520.CustomList", {
         fields: {
             ranges: null,
-            value: System.Decimal(7)
+            value: System.Decimal(0.0)
         },
         ctors: {
             init: function () {
                 this.ranges = new (System.Collections.Generic.List$1(System.Int32))();
+                this.value = System.Decimal(7);
             }
         }
     });
@@ -7798,8 +7997,14 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1527", {
         statics: {
             fields: {
-                hello: "test",
-                SomeLiteral: "this.hello"
+                hello: null,
+                SomeLiteral: null
+            },
+            ctors: {
+                init: function () {
+                    this.hello = "test";
+                    this.SomeLiteral = "this.hello";
+                }
             },
             methods: {
                 GetValue: function () {
@@ -8411,6 +8616,11 @@ Bridge.$N1391Result =                     r;
         statics: {
             fields: {
                 Number: 0
+            },
+            ctors: {
+                init: function () {
+                    this.Number = 0;
+                }
             },
             methods: {
                 M1: function () {
@@ -9239,9 +9449,9 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1754.App", {
         fields: {
-            ID: "ID",
-            X: "X",
-            CONFIG_VAL1: "CONFIG_VAL1"
+            ID: null,
+            X: null,
+            CONFIG_VAL1: null
         },
         events: {
             SOME_EVENT: null,
@@ -9249,6 +9459,13 @@ Bridge.$N1391Result =                     r;
         },
         props: {
             PROP1: null
+        },
+        ctors: {
+            init: function () {
+                this.ID = "ID";
+                this.X = "X";
+                this.CONFIG_VAL1 = "CONFIG_VAL1";
+            }
         },
         methods: {
             FOO: function () {
@@ -10073,7 +10290,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1803.Test1", {
         statics: {
             fields: {
-                s: "Const"
+                s: null
+            },
+            ctors: {
+                init: function () {
+                    this.s = "Const";
+                }
             },
             methods: {
                 GetList: function () {
@@ -10095,7 +10317,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1803.Test2", {
         statics: {
             fields: {
-                s: 1
+                s: 0
+            },
+            ctors: {
+                init: function () {
+                    this.s = 1;
+                }
             },
             methods: {
                 GetList: function () {
@@ -10116,7 +10343,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1803.Test3", {
         fields: {
-            s: 1
+            s: 0
+        },
+        ctors: {
+            init: function () {
+                this.s = 1;
+            }
         },
         methods: {
             GetList: function () {
@@ -10158,6 +10390,9 @@ Bridge.$N1391Result =                     r;
                 getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1804.Struct1(); }
             }
         },
+        fields: {
+            nested: null
+        },
         ctors: {
             init: function () {
                 this.nested = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1804.Struct2();
@@ -10193,7 +10428,8 @@ Bridge.$N1391Result =                     r;
             }
         },
         fields: {
-            field: 0
+            field: 0,
+            nested: null
         },
         ctors: {
             init: function () {
@@ -10568,6 +10804,7 @@ Bridge.$N1391Result =                     r;
             ctors: {
                 init: function () {
                     var $t;
+                    this.id_counter = 0;
                     this.id = (($t = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1832.IncTest.id_counter + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1832.IncTest.id_counter = $t, $t));
                 }
             }
@@ -12691,6 +12928,9 @@ Bridge.$N1391Result =                     r;
         inherits: function () { return [System.IEquatable$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2011.Optional$1(T))]; },
         $kind: "struct",
         statics: {
+            fields: {
+                _missing: null
+            },
             props: {
                 Missing: {
                     get: function () {
@@ -12876,6 +13116,11 @@ Bridge.$N1391Result =                     r;
             fields: {
                 state: "new",
                 state1: "new"
+            },
+            ctors: {
+                init: function () {
+                    this.state = "new";
+                }
             },
             methods: {
                 TestClassEnumPropertiesInitialization: function () {
@@ -13634,13 +13879,25 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2077.Bridge1514", {
         statics: {
             fields: {
-                a: "hello",
-                b: "hello"
+                a: null,
+                b: null
+            },
+            ctors: {
+                init: function () {
+                    this.a = "hello";
+                    this.b = "hello";
+                }
             }
         },
         fields: {
-            c: "hello",
-            d: "hello"
+            c: null,
+            d: null
+        },
+        ctors: {
+            init: function () {
+                this.c = "hello";
+                this.d = "hello";
+            }
         },
         methods: {
             TestBoxedChar: function () {
@@ -13811,6 +14068,11 @@ Bridge.$N1391Result =                     r;
         statics: {
             fields: {
                 GetCount: 0
+            },
+            ctors: {
+                init: function () {
+                    this.GetCount = 0;
+                }
             }
         },
         fields: {
@@ -13825,6 +14087,11 @@ Bridge.$N1391Result =                     r;
                 set: function (value) {
                     this.b = value;
                 }
+            }
+        },
+        ctors: {
+            init: function () {
+                this.b = false;
             }
         }
     });
@@ -14119,10 +14386,15 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2114.TestClass1", {
         statics: {
             fields: {
-                STestField: 1
+                STestField: 0
             },
             props: {
                 "0p1": 0
+            },
+            ctors: {
+                init: function () {
+                    this.STestField = 1;
+                }
             }
         },
         fields: {
@@ -14168,13 +14440,11 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2114.TestClass2", {
         fields: {
+            TestField: 0,
+            TestField2: 0,
             f: 0
         },
         ctors: {
-            init: function () {
-                this["0a"] = 0;
-                this.testMethod(0);
-            },
             ctor: function (value) {
                 this.$initialize();
                 this["0a"] = value;
@@ -15365,6 +15635,12 @@ Bridge.$N1391Result =                     r;
             test: 0,
             runCounter: 0
         },
+        ctors: {
+            init: function () {
+                this.test = 0;
+                this.runCounter = 0;
+            }
+        },
         methods: {
             Run: function () {
                 this.runCounter = 0;
@@ -15588,6 +15864,7 @@ Bridge.$N1391Result =                     r;
             ctors: {
                 init: function () {
                     this.array = System.Array.init(["string"], System.String);
+                    this.isExecuted = false;
                 }
             },
             methods: {
@@ -15611,7 +15888,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2249.c1", {
         props: {
-            p1: "test"
+            p1: null
+        },
+        ctors: {
+            init: function () {
+                this.p1 = "test";
+            }
         }
     });
 
@@ -15708,11 +15990,21 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2279.NestedClass", {
         statics: {
             props: {
-                Value2: "test2"
+                Value2: null
+            },
+            ctors: {
+                init: function () {
+                    this.Value2 = "test2";
+                }
             }
         },
         props: {
-            Value: "test1"
+            Value: null
+        },
+        ctors: {
+            init: function () {
+                this.Value = "test1";
+            }
         }
     });
 
@@ -16932,6 +17224,7 @@ Bridge.$N1391Result =                     r;
         },
         ctors: {
             init: function () {
+                this.CreatedOn = System.DateTime.getDefaultValue();
                 this.CreatedOn = new Date();
                 this.CreatedOnNullable = new Date();
             }
@@ -16952,7 +17245,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2375.Person", {
         props: {
-            FirstName: "Test value"
+            FirstName: null
+        },
+        ctors: {
+            init: function () {
+                this.FirstName = "Test value";
+            }
         }
     });
 
@@ -17098,7 +17396,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2430", {
         statics: {
             fields: {
-                IntProp: 2
+                IntProp: 0
+            },
+            ctors: {
+                init: function () {
+                    this.IntProp = 2;
+                }
             },
             methods: {
                 TestPropertyInitializer: function () {
@@ -17659,6 +17962,7 @@ Bridge.$N1391Result =                     r;
             },
             ctors: {
                 init: function () {
+                    this.Example = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2467.MyStruct();
                     this.Example = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2467.MyStruct.$ctor1(123);
                 }
             },
@@ -17718,7 +18022,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2469.Class1$1", function (T) { return {
         statics: {
             fields: {
-                Hello: "Hello1"
+                Hello: null
+            },
+            ctors: {
+                init: function () {
+                    this.Hello = "Hello1";
+                }
             },
             methods: {
                 Method: function () {
@@ -17733,7 +18042,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2469.Class2$1", {
         statics: {
             fields: {
-                Hello: "Hello2"
+                Hello: null
+            },
+            ctors: {
+                init: function () {
+                    this.Hello = "Hello2";
+                }
             },
             methods: {
                 Method: function () {
@@ -17952,7 +18266,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.BaseClass", {
         fields: {
-            Field: 1
+            Field: 0
+        },
+        ctors: {
+            init: function () {
+                this.Field = 1;
+            }
         }
     });
 
@@ -17977,14 +18296,17 @@ Bridge.$N1391Result =                     r;
                 }
             },
             HasHdsAlwaysEnabled: false,
-            Name: "",
-            Password: "",
+            Name: null,
+            Password: null,
             Provider: null,
-            User: ""
+            User: null
         },
         ctors: {
             init: function () {
+                this.Name = "";
+                this.Password = "";
                 this.Provider = {  };
+                this.User = "";
             }
         }
     });
@@ -18661,7 +18983,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2574.A", {
         fields: {
-            Yes: 7
+            Yes: 0
+        },
+        ctors: {
+            init: function () {
+                this.Yes = 7;
+            }
         }
     });
 
@@ -18743,6 +19070,11 @@ Bridge.$N1391Result =                     r;
         statics: {
             fields: {
                 run: false
+            },
+            ctors: {
+                init: function () {
+                    this.run = false;
+                }
             },
             methods: {
                 TestEntryPointCustomName: function () {
@@ -18928,9 +19260,16 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2614.X", {
         props: {
-            Id1: System.Int64(1),
-            Id2: System.UInt64(1),
-            Id3: System.Decimal(1)
+            Id1: System.Int64(0),
+            Id2: System.UInt64(0),
+            Id3: System.Decimal(0.0)
+        },
+        ctors: {
+            init: function () {
+                this.Id1 = System.Int64(1);
+                this.Id2 = System.UInt64(1);
+                this.Id3 = System.Decimal(1);
+            }
         }
     });
 
@@ -19351,9 +19690,16 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge447", {
         statics: {
             fields: {
-                Five: 5,
-                Another: "Another",
-                Ten: System.Decimal(10.0)
+                Five: 0,
+                Another: null,
+                Ten: System.Decimal(0.0)
+            },
+            ctors: {
+                init: function () {
+                    this.Five = 5;
+                    this.Another = "Another";
+                    this.Ten = System.Decimal(10.0);
+                }
             },
             methods: {
                 CheckInlineExpression: function () {
@@ -19655,7 +20001,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge501A", {
         inherits: [System.Collections.Generic.List$1(System.Int32)],
         fields: {
-            Items: "12"
+            Items: null
+        },
+        ctors: {
+            init: function () {
+                this.Items = "12";
+            }
         }
     });
 
@@ -19750,6 +20101,11 @@ Bridge.$N1391Result =                     r;
             },
             props: {
                 QUnitAsyncDone: null
+            },
+            ctors: {
+                init: function () {
+                    this.count = 0;
+                }
             },
             methods: {
                 TestUseCase: function () {
@@ -20782,9 +21138,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge559A1", {
         fields: {
-            result: ""
+            result: null
         },
         ctors: {
+            init: function () {
+                this.result = "";
+            },
             ctor: function () {
                 this.$initialize();
                 this.result = System.String.concat(this.result, " -> Bridge559A1");
@@ -20798,9 +21157,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge559A2", {
         fields: {
-            result: ""
+            result: null
         },
         ctors: {
+            init: function () {
+                this.result = "";
+            },
             ctor: function () {
                 this.$initialize();
                 this.result = System.String.concat(this.result, " ClassA");
@@ -21330,8 +21692,14 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge588B", {
         statics: {
             fields: {
-                Valeur1: 1,
-                Valeur2: 2
+                Valeur1: 0,
+                Valeur2: 0
+            },
+            ctors: {
+                init: function () {
+                    this.Valeur1 = 1;
+                    this.Valeur2 = 2;
+                }
             }
         }
     });
@@ -21524,7 +21892,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge597A", {
         fields: {
-            _something: "HI!"
+            _something: null
+        },
+        ctors: {
+            init: function () {
+                this._something = "HI!";
+            }
         },
         methods: {
             Get: function () {
@@ -22436,6 +22809,9 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge660Optional$1", function (T) { return {
         $kind: "struct",
         statics: {
+            fields: {
+                _missing: null
+            },
             props: {
                 Missing: {
                     get: function () {
@@ -22445,6 +22821,7 @@ Bridge.$N1391Result =                     r;
             },
             ctors: {
                 init: function () {
+                    this._missing = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge660Optional$1(T))();
                     this._missing = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge660Optional$1(T)).$ctor2(Bridge.getDefaultValue(T), false);
                 }
             },
@@ -22615,7 +22992,12 @@ Bridge.$N1391Result =                     r;
             }
         },
         fields: {
-            One: 1
+            One: 0
+        },
+        ctors: {
+            init: function () {
+                this.One = 1;
+            }
         },
         methods: {
             GetOne: function () {
@@ -22832,7 +23214,12 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge690A", {
         fields: {
-            i3: 3
+            i3: 0
+        },
+        ctors: {
+            init: function () {
+                this.i3 = 3;
+            }
         },
         methods: {
             AsyncSum: function (i1, i2) {
@@ -22918,7 +23305,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge690B", {
         statics: {
             fields: {
-                i3: 17
+                i3: 0
+            },
+            ctors: {
+                init: function () {
+                    this.i3 = 17;
+                }
             },
             methods: {
                 AsyncSum: function (i1, i2) {
@@ -23625,6 +24017,9 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge733", {
         statics: {
+            fields: {
+                dateb: null
+            },
             props: {
                 DateA: null
             },
@@ -26315,7 +26710,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Inner1430_Level1.Constants", {
         statics: {
             fields: {
-                TestConst: "Hi from inner Level1"
+                TestConst: null
+            },
+            ctors: {
+                init: function () {
+                    this.TestConst = "Hi from inner Level1";
+                }
             }
         }
     });
@@ -26331,7 +26731,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Inner1430_Level1.Inner1430_Level2.Constants", {
         statics: {
             fields: {
-                TestConst: "Hi from inner Level3"
+                TestConst: null
+            },
+            ctors: {
+                init: function () {
+                    this.TestConst = "Hi from inner Level3";
+                }
             }
         }
     });
@@ -27244,8 +27649,13 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.Constants", {
         statics: {
             fields: {
-                MODULE_ISSUES: "Issues3",
+                MODULE_ISSUES: null,
                 IGNORE_DATE: null
+            },
+            ctors: {
+                init: function () {
+                    this.MODULE_ISSUES = "Issues3";
+                }
             }
         }
     });
@@ -28405,7 +28815,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.Bar", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.BaseClass],
         fields: {
-            Field00: 2
+            Field00: 0
+        },
+        ctors: {
+            init: function () {
+                this.Field00 = 2;
+            }
         }
     });
 
@@ -28426,9 +28841,12 @@ Bridge.$N1391Result =                     r;
             Port: 0,
             Server: null,
             System: null,
-            UseWebSocket: true
+            UseWebSocket: false
         },
         ctors: {
+            init: function () {
+                this.UseWebSocket = true;
+            },
             ctor: function () {
                 this.$initialize();
                 Bridge.ClientTest.Batch3.BridgeIssues.Bridge2497.ConnectOptions.ctor.call(this);
@@ -28621,7 +29039,12 @@ Bridge.$N1391Result =                     r;
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge883_3],
         statics: {
             fields: {
-                field1: 1
+                field1: 0
+            },
+            ctors: {
+                init: function () {
+                    this.field1 = 1;
+                }
             }
         }
     });
@@ -28716,7 +29139,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.Bar1", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.Bar],
         fields: {
-            Field01: 3
+            Field01: 0
+        },
+        ctors: {
+            init: function () {
+                this.Field01 = 3;
+            }
         }
     });
 
@@ -28765,7 +29193,12 @@ Bridge.$N1391Result =                     r;
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge1339.Foo2],
         statics: {
             fields: {
-                Bar: "Do"
+                Bar: null
+            },
+            ctors: {
+                init: function () {
+                    this.Bar = "Do";
+                }
             }
         }
     });
@@ -28795,7 +29228,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.Bar2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2489.Bar1],
         fields: {
-            Field02: 4
+            Field02: 0
+        },
+        ctors: {
+            init: function () {
+                this.Field02 = 4;
+            }
         }
     });
 
