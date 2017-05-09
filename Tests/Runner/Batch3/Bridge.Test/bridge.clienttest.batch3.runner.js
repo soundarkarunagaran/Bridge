@@ -530,6 +530,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2633 - TestAsyncCaptureVariable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2633.TestAsyncCaptureVariable);
             QUnit.test("#2635 - TestInitializers", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2635.TestInitializers);
             QUnit.test("#2636 - TestUsingStatic", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2636.TestUsingStatic);
+            QUnit.test("#2641 - TestJsonCamelCaseForFields", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2641.TestJsonCamelCaseForFields);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
             QUnit.test("#447 - CheckInlineCalls", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineCalls);
@@ -11050,6 +11051,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2636", $t.File = "Batch3\\BridgeIssues\\2600\\N2636.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2641", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641)],
+        statics: {
+            methods: {
+                TestJsonCamelCaseForFields: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2641, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestJsonCamelCaseForFields()", $t.Line = "19", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641.TestJsonCamelCaseForFields();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641", $t.File = "Batch3\\BridgeIssues\\2600\\N2641.cs", $t);
                 }
                 return this.context;
             }
