@@ -1,6 +1,15 @@
 /// <reference path="./bridge.d.ts" />
 
 declare module TypeScript.Issues {
+    export interface N2661C {
+        fn: {(x: TypeScript.Issues.N2661C): Function};
+    }
+    export interface N2661CFunc extends Function {
+        prototype: N2661C;
+        new (): N2661C;
+    }
+    var N2661C: N2661CFunc;
+
     export interface N1060 {
     }
     export interface N1060Func extends Function {
@@ -88,6 +97,15 @@ declare module TypeScript.Issues {
         zag(): number;
     }
 
+    export interface N2030Attribute extends System.Attribute {
+        IsUnspecified: boolean;
+    }
+    export interface N2030AttributeFunc extends Function {
+        prototype: N2030Attribute;
+        new (IsUnspecified: boolean): N2030Attribute;
+    }
+    var N2030Attribute: N2030AttributeFunc;
+
     export interface N2493Operation3 {
         Add(n: number): number;
     }
@@ -96,36 +114,6 @@ declare module TypeScript.Issues {
         new (): N2493Operation3;
     }
     var N2493Operation3: N2493Operation3Func;
-
-    export interface N1640 {
-    }
-    export interface N1640Func extends Function {
-        prototype: N1640;
-        GamePlay: TypeScript.Issues.N1640.GamePlayFunc;
-        new (): N1640;
-    }
-    var N1640: N1640Func;
-    module N1640 {
-        export interface GamePlay extends TypeScript.Issues.N1640.IGamePlay {
-            addOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
-            removeOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
-            StartGame(s: string): void;
-            Subscribe(handler: {(sender: System.Object, e: string): void}): void;
-        }
-        export interface GamePlayFunc extends Function {
-            prototype: GamePlay;
-            new (): GamePlay;
-        }
-
-        export interface IGamePlay {
-            TypeScript$Issues$N1640$IGamePlay$addOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
-            TypeScript$Issues$N1640$IGamePlay$removeOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
-            addOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
-            removeOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
-            TypeScript$Issues$N1640$IGamePlay$StartGame(s: string): void;
-            StartGame(s: string): void;
-        }
-    }
 
     export interface N2029Interface$1<T> {
         Value1: number;
@@ -256,13 +244,34 @@ declare module TypeScript.Issues {
         }
     }
 
-    export interface N2030Attribute extends System.Attribute {
-        IsUnspecified: boolean;
+    export interface N1640 {
     }
-    export interface N2030AttributeFunc extends Function {
-        prototype: N2030Attribute;
-        new (IsUnspecified: boolean): N2030Attribute;
+    export interface N1640Func extends Function {
+        prototype: N1640;
+        GamePlay: TypeScript.Issues.N1640.GamePlayFunc;
+        new (): N1640;
     }
-    var N2030Attribute: N2030AttributeFunc;
+    var N1640: N1640Func;
+    module N1640 {
+        export interface GamePlay extends TypeScript.Issues.N1640.IGamePlay {
+            addOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
+            removeOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
+            StartGame(s: string): void;
+            Subscribe(handler: {(sender: System.Object, e: string): void}): void;
+        }
+        export interface GamePlayFunc extends Function {
+            prototype: GamePlay;
+            new (): GamePlay;
+        }
+
+        export interface IGamePlay {
+            TypeScript$Issues$N1640$IGamePlay$addOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
+            TypeScript$Issues$N1640$IGamePlay$removeOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
+            addOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
+            removeOnGameEvent(value: {(sender: System.Object, e: string): void}): void;
+            TypeScript$Issues$N1640$IGamePlay$StartGame(s: string): void;
+            StartGame(s: string): void;
+        }
+    }
 
 }
