@@ -1817,6 +1817,10 @@
     globals.Bridge = core;
     globals.Bridge.caller = [];
 
+    if (globals.console) {
+        globals.Bridge.Console = globals.console;
+    }
+
     globals.System = {};
     globals.System.Diagnostics = {};
     globals.System.Diagnostics.Contracts = {};
