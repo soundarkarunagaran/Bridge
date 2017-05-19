@@ -311,7 +311,17 @@ namespace Bridge.Translator
                 {
                     var name = "f" + (this.Emitter.NamedFunctions.Count + 1);
                     var code = this.Emitter.Output.ToString().Substring(savedPos);
-                    var pair = this.Emitter.NamedFunctions.FirstOrDefault(p => p.Value == code);
+                    var codeForComare = this.RemoveTokens(code);
+
+                    var pair = this.Emitter.NamedFunctions.FirstOrDefault(p =>
+                    {
+                        if (this.Emitter.AssemblyInfo.SourceMap.Enabled)
+                        {
+                            return this.RemoveTokens(p.Value) == codeForComare;
+                        }
+
+                        return p.Value == code;
+                    });
 
                     if (pair.Key != null && pair.Value != null)
                     {
@@ -325,7 +335,7 @@ namespace Bridge.Translator
                     this.Emitter.Output.Remove(savedPos, this.Emitter.Output.Length - savedPos);
                     this.Emitter.Output.Insert(savedPos, JS.Vars.D_ + "." + BridgeTypes.ToJsName(this.Emitter.TypeInfo.Type, this.Emitter, true) + "." + name);
                 }
-                
+
                 this.Emitter.ResetLevel(oldLevel);
             }
 

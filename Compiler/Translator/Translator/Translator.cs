@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using ICSharpCode.NRefactory.Utils;
 using AssemblyDefinition = Mono.Cecil.AssemblyDefinition;
 
 namespace Bridge.Translator
@@ -172,6 +173,7 @@ namespace Bridge.Translator
             logger.Info("Before emitting done");
 
             this.Outputs = emitter.Emit();
+            this.EmitterOutputs = emitter.Outputs;
 
             logger.Info("After emitting...");
             this.Plugins.AfterEmit(emitter, this);
@@ -333,6 +335,12 @@ namespace Bridge.Translator
                 {
                     var file = CreateFileDirectory(filePath);
                     logger.Trace("Output non-minified " + file.FullName);
+
+                    if (!this.AssemblyInfo.CombineScripts && isJs)
+                    {
+                        code = this.GenerateSourceMap(file.FullName, code);
+                    }
+
                     this.SaveToFile(file.FullName, code);
                     files.Add(fileName, file.FullName);
                 }
@@ -348,6 +356,11 @@ namespace Bridge.Translator
 
                     var contentMinified = this.Minify(minifier, code, this.GetMinifierSettings(fileNameMin));
 
+                    if (!this.AssemblyInfo.CombineScripts)
+                    {
+                        contentMinified = this.GenerateSourceMap(file.FullName, contentMinified);
+                    }
+
                     this.SaveToFile(file.FullName, contentMinified);
                 }
             }
@@ -355,6 +368,56 @@ namespace Bridge.Translator
             logger.Info("Done SaveTo path = " + path);
 
             return files;
+        }
+
+        public string GenerateSourceMap(string fileName, string content, Action<SourceMapBuilder> before = null)
+        {
+            if (this.AssemblyInfo.SourceMap.Enabled)
+            {
+                var projectPath = Path.GetDirectoryName(this.Location);
+
+                SourceMapGenerator.Generate(fileName, projectPath, ref content,
+                    before,
+                    (sourceRelativePath) =>
+                    {
+                        string path = null;
+                        ParsedSourceFile sourceFile = null;
+
+                        try
+                        {
+                            path = Path.Combine(projectPath, sourceRelativePath);
+                            sourceFile = this.ParsedSourceFiles.First(pf => pf.ParsedFile.FileName == path);
+
+                            return sourceFile.SyntaxTree.TextSource ?? sourceFile.SyntaxTree.ToString(Translator.GetFormatter());
+                        }
+                        catch (Exception ex)
+                        {
+                            throw (TranslatorException)TranslatorException.Create(
+                                "Could not get ParsedSourceFile for SourceMap. Exception: {0}; projectPath: {1}; sourceRelativePath: {2}; path: {3}.",
+                                ex.ToString(), projectPath, sourceRelativePath, path);
+                        }
+
+                    },
+                    new string[0], this.SourceFiles, this.AssemblyInfo.SourceMap.Eol, this.Log);
+            }
+            return content;
+        }
+
+        private static CSharpFormattingOptions GetFormatter()
+        {
+            var formatter = FormattingOptionsFactory.CreateSharpDevelop();
+            formatter.AnonymousMethodBraceStyle = BraceStyle.NextLine;
+            formatter.MethodBraceStyle = BraceStyle.NextLine;
+            formatter.StatementBraceStyle = BraceStyle.NextLine;
+            formatter.PropertyBraceStyle = BraceStyle.NextLine;
+            formatter.ConstructorBraceStyle = BraceStyle.NextLine;
+            formatter.NewLineAfterConstructorInitializerColon = NewLinePlacement.NewLine;
+            formatter.NewLineAferMethodCallOpenParentheses = NewLinePlacement.NewLine;
+            formatter.ClassBraceStyle = BraceStyle.NextLine;
+            formatter.ArrayInitializerBraceStyle = BraceStyle.NextLine;
+            formatter.IndentPreprocessorDirectives = false;
+
+            return formatter;
         }
 
         public void RunAfterBuild()
@@ -921,12 +984,15 @@ namespace Bridge.Translator
 
             if (this.jsbuffer != null && this.jsbuffer.Length > 0)
             {
-                File.WriteAllText(filePath, this.jsbuffer.ToString(), OutputEncoding);
+                var code = this.GenerateSourceMap(filePath, this.jsbuffer.ToString());
+                File.WriteAllText(filePath, code, OutputEncoding);
             }
 
             if (this.jsminbuffer != null && this.jsminbuffer.Length > 0)
             {
-                File.WriteAllText(FileHelper.GetMinifiedJSFileName(filePath), this.jsminbuffer.ToString(), OutputEncoding);
+                var filePathMin = FileHelper.GetMinifiedJSFileName(filePath);
+                var code = this.GenerateSourceMap(filePathMin, this.jsminbuffer.ToString());
+                File.WriteAllText(filePathMin, code, OutputEncoding);
             }
 
             this.Log.Info("Done running Flush");

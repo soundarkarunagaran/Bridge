@@ -1,12 +1,12 @@
 using Bridge.Contract;
 using Bridge.Contract.Constants;
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using ICSharpCode.NRefactory.TypeSystem;
 
 namespace Bridge.Translator
 {
@@ -18,6 +18,13 @@ namespace Bridge.Translator
             {
                 return this.Emitter.Level;
             }
+        }
+
+        public virtual string RemoveTokens(string code)
+        {
+            return this.Emitter.AssemblyInfo.SourceMap.Enabled
+                        ? SourceMapGenerator.tokenRegex.Replace(code, "")
+                        : code;
         }
 
         public virtual void Indent()
@@ -33,6 +40,30 @@ namespace Bridge.Translator
         public virtual void ResetLevel(int level)
         {
             this.Emitter.ResetLevel(level);
+        }
+
+        public virtual void WriteSourceMapName(string name)
+        {
+            if (this.Emitter.AssemblyInfo.SourceMap.Enabled && !this.Emitter.EmitterOutput.Names.Contains(name))
+            {
+                this.Emitter.EmitterOutput.Names.Add(name);
+            }
+        }
+
+        public virtual void WriteSequencePoint(DomRegion region)
+        {
+            if (this.Emitter.AssemblyInfo.SourceMap.Enabled)
+            {
+                var line = region.BeginLine;
+                var column = region.BeginColumn;
+                var point = string.Format("/*##|{0},{1},{2}|##*/", this.Emitter.SourceFileNameIndex, line, column);
+
+                if (this.Emitter.LastSequencePoint != point)
+                {
+                    this.Emitter.LastSequencePoint = point;
+                    this.Write(point);
+                }
+            }
         }
 
         public virtual void WriteIndent()
@@ -737,15 +768,15 @@ namespace Bridge.Translator
             return count;
         }
 
-        public bool IsOnlyWhitespaceOnPenultimateLine(bool lastTwoLines = true)
+        public bool IsOnlyWhitespaceOnPenultimateLine(bool lastTwoLines = true, string output = null)
         {
-            return AbstractEmitterBlock.IsOnlyWhitespaceOnPenultimateLine(this.Emitter.Output, lastTwoLines);
+            return AbstractEmitterBlock.IsOnlyWhitespaceOnPenultimateLine(output ?? this.Emitter.Output.ToString(), lastTwoLines);
         }
 
-        public static bool IsOnlyWhitespaceOnPenultimateLine(StringBuilder buffer, bool lastTwoLines = true)
+        public static bool IsOnlyWhitespaceOnPenultimateLine(string buffer, bool lastTwoLines = true)
         {
             int i = buffer.Length - 1;
-            var charArray = buffer.ToString().ToCharArray();
+            var charArray = buffer.ToCharArray();
 
             while (i >= 0)
             {

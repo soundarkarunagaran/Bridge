@@ -293,6 +293,8 @@ namespace Bridge.Translator
                     typeInfo = type;
                 }
 
+                this.Emitter.SourceFileName = type.TypeDeclaration.GetParent<SyntaxTree>().FileName;
+                this.Emitter.SourceFileNameIndex = this.Emitter.SourceFiles.IndexOf(this.Emitter.SourceFileName);
                 this.Emitter.Output = this.GetOutputForType(typeInfo, null);
                 this.Emitter.TypeInfo = type;
                 type.JsName = BridgeTypes.ToJsName(type.Type, this.Emitter, true, removeScope: false);

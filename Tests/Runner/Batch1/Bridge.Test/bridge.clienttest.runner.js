@@ -21588,3 +21588,5 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
         }
     });
 });
+
+//# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAiZmlsZSI6ICJicmlkZ2UuY2xpZW50dGVzdC5ydW5uZXIuanMiLAogICJzb3VyY2VSb290IjogIiIsCiAgInNvdXJjZXMiOiBbXSwKICAibmFtZXMiOiBbXSwKICAibWFwcGluZ3MiOiAiIiwKICAic291cmNlc0NvbnRlbnQiOiBbXQp9Cg==

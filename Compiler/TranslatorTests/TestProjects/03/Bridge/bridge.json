@@ -2,5 +2,9 @@
   "output": "Bridge\\output",
   "outputBy": "Namespace",
   "cleanOutputFolderBeforeBuildPattern": "*.*",
-  "outputFormatting": "Minified"
+  "outputFormatting": "Minified",
+  "sourceMap": {
+    "enabled": true,
+    "eol": "crlf"
+  }
 }
