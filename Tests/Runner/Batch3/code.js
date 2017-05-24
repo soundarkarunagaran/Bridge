@@ -21931,6 +21931,35 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2705", {
+        statics: {
+            methods: {
+                TestCatchWithoutVariable: function () {
+                    var a = null;
+                    for (var i = 0; i < 1; i = (i + 1) | 0) {
+                        try {
+                            throw new System.Exception();
+                        }
+                        catch ($e1) {
+                            $e1 = System.Exception.create($e1);
+                            var i1 = { v : 2 };
+
+                            a = (function (i1) {
+                                return function () {
+                                    Bridge.Test.NUnit.Assert.AreEqual(2, i1.v);
+                                    Bridge.Test.NUnit.Assert.AreEqual(1, i);
+                                };
+                            })(i1);
+                        }
+                    }
+
+                    Bridge.Test.NUnit.Assert.NotNull(a);
+                    a();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge272", {
         statics: {
             methods: {
