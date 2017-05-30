@@ -73,7 +73,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#1120 - TestFlagEnumDoesNotGenerateValuesAsPowerOfTwo", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1120.TestFlagEnumDoesNotGenerateValuesAsPowerOfTwo);
             QUnit.test("#1128 - TestNestedClassesWithInterface", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1128.TestNestedClassesWithInterface);
             QUnit.test("#1130 - TestUlongDivision", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1130.TestUlongDivision);
-            QUnit.test("#1134 - TestJsonArrayParse", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1134.TestJsonArrayParse);
             QUnit.test("#1140 - TestDefaultNullable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1140.TestDefaultNullable);
             QUnit.test("#1141 - TestLongDivisionInfiniteLoopFixed", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1141.TestLongDivisionInfiniteLoopFixed);
             QUnit.test("#1144 - TestStringFormat", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1144.TestStringFormat);
@@ -204,8 +203,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#1428 - TestEqOperatorWithNull", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1428.TestEqOperatorWithNull);
             QUnit.test("#1429 - TestEqOperatorWithNull", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1429.TestEqOperatorWithNull);
             QUnit.test("#1430 - TestNestedNamespaceSupport", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1430.TestNestedNamespaceSupport);
-            QUnit.test("#1438 - TestJSONParse", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1438.TestJSONParse);
-            QUnit.test("#1438 - TestJSONParseAsArray", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1438.TestJSONParseAsArray);
             QUnit.test("#1448 - TestPlainForNonAnonymous", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1448.TestPlainForNonAnonymous);
             QUnit.test("#1448 - TestObjectLiteralProperty", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1448.TestObjectLiteralProperty);
             QUnit.test("#1448 - TestToObjectLiteralAlias", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1448.TestToObjectLiteralAlias);
@@ -539,13 +536,11 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2638A - TestG6", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2638A.TestG6);
             QUnit.test("#2638A - TestG7", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2638A.TestG7);
             QUnit.test("#2638A - TestG8", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2638A.TestG8);
-            QUnit.test("#2641 - TestJsonCamelCaseForFields", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2641.TestJsonCamelCaseForFields);
             QUnit.test("#2644 - TestMax", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2644.TestMax);
             QUnit.test("#2644 - TestMin", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2644.TestMin);
             QUnit.test("#2657 - TestRoundtripFormat", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2657.TestRoundtripFormat);
             QUnit.test("#2667 - TestOrder", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2667.TestOrder);
             QUnit.test("#2671 - TestInterfaceIndexer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2671.TestInterfaceIndexer);
-            QUnit.test("#2679 - TestTypeNameHandling", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2679.TestTypeNameHandling);
             QUnit.test("#2685 - TestPartialClasses", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2685.TestPartialClasses);
             QUnit.test("#2686 - TestCapturedReferenceVariable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2686.TestCapturedReferenceVariable);
             QUnit.test("#2686 - TestChangeableCapturedReferenceVariable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2686.TestChangeableCapturedReferenceVariable);
@@ -588,7 +583,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#483 - TestPropertyWithNameSameAsType", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge483.TestPropertyWithNameSameAsType);
             QUnit.test("#485 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge485.TestUseCase);
             QUnit.test("#495 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge495.TestUseCase);
-            QUnit.test("#501 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge501.TestUseCase);
             QUnit.test("#502 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge502.TestUseCase);
             QUnit.test("#503 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge503.TestUseCase);
             QUnit.test("#508 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge508.TestUseCase);
@@ -600,8 +594,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#532 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge532.TestUseCase);
             QUnit.test("#537 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge537.TestUseCase);
             QUnit.test("#538 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge538.TestUseCase);
-            QUnit.test("#544 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge544.TestUseCase);
-            QUnit.test("#544 - TestRelated", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge544.TestRelated);
             QUnit.test("#546 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge546.TestUseCase);
             QUnit.test("#546 - TestRelated", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge546.TestRelated);
             QUnit.test("#548 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge548.TestUseCase);
@@ -1846,31 +1838,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge1130", $t.File = "Batch3\\BridgeIssues\\1100\\N1130.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1134", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1134)],
-        statics: {
-            methods: {
-                TestJsonArrayParse: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1134).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1134, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestJsonArrayParse()", $t.Line = "10", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge1134.TestJsonArrayParse();
-                }
-            }
-        },
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge1134", $t.File = "Batch3\\BridgeIssues\\1100\\N1134.cs", $t);
                 }
                 return this.context;
             }
@@ -4057,36 +4024,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge1430", $t.File = "Batch3\\BridgeIssues\\1400\\N1430.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1438", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1438)],
-        statics: {
-            methods: {
-                TestJSONParse: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1438).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1438, 4, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestJSONParse()", $t.Line = "21", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge1438.TestJSONParse();
-                },
-                TestJSONParseAsArray: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1438).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1438, 7, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestJSONParseAsArray()", $t.Line = "35", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge1438.TestJSONParseAsArray();
-                }
-            }
-        },
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge1438", $t.File = "Batch3\\BridgeIssues\\1400\\N1438.cs", $t);
                 }
                 return this.context;
             }
@@ -11191,31 +11128,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
         }
     });
 
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2641", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641)],
-        statics: {
-            methods: {
-                TestJsonCamelCaseForFields: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2641, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestJsonCamelCaseForFields()", $t.Line = "19", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641.TestJsonCamelCaseForFields();
-                }
-            }
-        },
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2641", $t.File = "Batch3\\BridgeIssues\\2600\\N2641.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2644", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2644)],
         statics: {
@@ -11315,31 +11227,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2671", $t.File = "Batch3\\BridgeIssues\\2600\\N2671.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2679", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2679)],
-        statics: {
-            methods: {
-                TestTypeNameHandling: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2679).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2679, void 0, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestTypeNameHandling()", $t.Line = "33", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2679.TestTypeNameHandling();
-                }
-            }
-        },
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2679", $t.File = "Batch3\\BridgeIssues\\2600\\N2679.cs", $t);
                 }
                 return this.context;
             }
@@ -11936,31 +11823,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
         }
     });
 
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge501", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge501)],
-        statics: {
-            methods: {
-                TestUseCase: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge501).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge501, 5, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestUseCase()", $t.Line = "25", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge501.TestUseCase();
-                }
-            }
-        },
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge501", $t.File = "Batch3\\BridgeIssues\\0500\\N501.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge502", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge502)],
         statics: {
@@ -12190,36 +12052,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge538", $t.File = "Batch3\\BridgeIssues\\0500\\N538.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge544", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge544)],
-        statics: {
-            methods: {
-                TestUseCase: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge544).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge544, 1, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestUseCase()", $t.Line = "12", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge544.TestUseCase();
-                },
-                TestRelated: function (assert) {
-                    var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge544).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge544, 5, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestRelated()", $t.Line = "19", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge544.TestRelated();
-                }
-            }
-        },
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge544", $t.File = "Batch3\\BridgeIssues\\0500\\N544.cs", $t);
                 }
                 return this.context;
             }
