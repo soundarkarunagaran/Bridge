@@ -1,10 +1,23 @@
 {
-  // The folder to output JavaScript (.js) files
-  "output": "$(OutDir)/bridge/"
+  // The folder to output JavaScript (.js) files.
+  "output": "$(OutDir)/bridge/",
 
-  // Uncomment to add TypeScript Definition file (.d.ts) generation to your project.
-  // , "generateTypeScript": true
+  // Enable browser debugging of C# files.
+  // Default is false.
+  "sourceMap": {
+    "enabled": true
+  },
 
-  // More options available at:
+  // Set to true to disable Reflection metadata generation.
+  // Default is false.
+  "reflection": {
+    "disabled": false
+  },
+
+  // Generate TypeScript Definition (.d.ts) files.
+  // Default is false.
+  "generateTypeScript": false
+
+  // More config options available at:
   // https://github.com/bridgedotnet/Bridge/wiki/global-configuration
 }
