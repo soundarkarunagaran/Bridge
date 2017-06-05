@@ -575,6 +575,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2720 - TestAsyncAssignmentForDecimal", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2720.TestAsyncAssignmentForDecimal);
             QUnit.test("#2722 - TestEnumParsing", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2722.TestEnumParsing);
             QUnit.test("#2723 - TestAmbigiousSymbols", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2723.TestAmbigiousSymbols);
+            QUnit.test("#2738 - TestAmbigiousSymbols", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2738.TestAmbigiousSymbols);
             QUnit.test("#2745 - TestFieldInitialization", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2745.TestFieldInitialization);
             QUnit.test("#2749 - TestExtensionMethodBoxing", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2749.TestExtensionMethodBoxing);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
@@ -11640,6 +11641,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2723", $t.File = "Batch3\\BridgeIssues\\2700\\N2723.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2738", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2738)],
+        statics: {
+            methods: {
+                TestAmbigiousSymbols: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2738).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2738, 2, ($t=new Bridge.Test.Runtime.TestContext(), $t.Method = "TestAmbigiousSymbols()", $t.Line = "13", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2738.TestAmbigiousSymbols();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t=new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2738", $t.File = "Batch3\\BridgeIssues\\2700\\N2738.cs", $t);
                 }
                 return this.context;
             }
