@@ -4,8 +4,12 @@
   "outputFormatting": "Formatted",
   "fileName": "code.js",
   "outputBy": "Project",
+  "fileNameCasing": "CamelCase",
   "logging": {
     "level": "None"
+  },
+  "html": {
+    "disabled": true
   },
   "resources": [
     {
@@ -14,7 +18,7 @@
   ],
   "reflection": {
     "disabled": true,
-    "target":  "Inline" 
+    "target":  "Inline"
   },
   "test": {
     "skipResources": true,

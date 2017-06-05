@@ -42,7 +42,18 @@ namespace Bridge.Translator
             }
         }
 
-        public virtual void InjectResources(string outputPath, string projectPath, Dictionary<string, string> files)
+        internal virtual string ReadEmbeddedResource(EmbeddedResource resource)
+        {
+            using (var resourcesStream = resource.GetResourceStream())
+            {
+                using (StreamReader reader = new StreamReader(resourcesStream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
+
+        public virtual void InjectResources(string outputPath, string projectPath)
         {
             this.Log.Info("Injecting resources...");
 
@@ -56,21 +67,23 @@ namespace Bridge.Translator
                 return;
             }
 
-            if ((files == null || files.Count == 0)
+            var outputs = this.Outputs;
+
+            if (outputs.Main.Count <= 0
                 && !resourcesConfig.HasEmbedResources())
             {
                 this.Log.Info("No files nor resources to inject");
                 return;
             }
 
-            var resourcesToEmbed = this.PrepareAndExtractResources(outputPath, projectPath, files);
+            var resourcesToEmbed = this.PrepareAndExtractResources(outputPath, projectPath);
 
             this.EmbeddResources(resourcesToEmbed);
 
             this.Log.Info("Done injecting resources");
         }
 
-        private Dictionary<BridgeResourceInfo, byte[]> PrepareAndExtractResources(string outputPath, string projectPath, Dictionary<string, string> files)
+        private Dictionary<BridgeResourceInfo, byte[]> PrepareAndExtractResources(string outputPath, string projectPath)
         {
             var resourcesToEmbed = new Dictionary<BridgeResourceInfo, byte[]>();
 
@@ -129,22 +142,23 @@ namespace Bridge.Translator
                 // There are no resources defined in the config so let's just grab files
                 this.Log.Trace("Preparing output files for resources");
 
-                foreach (var file in files)
+                foreach (var file in this.Outputs.GetOutputs())
                 {
                     try
                     {
-                        this.Log.Trace("Reading output file " + file.Value);
-                        var content = File.ReadAllBytes(file.Value);
+                        this.Log.Trace("Reading output file " + file.Name);
 
                         var info = new BridgeResourceInfo
                         {
-                            Name = file.Key,
-                            FileName = file.Key,
+                            Name = file.Name,
+                            FileName = file.Name,
                             Path = null
                         };
 
+                        var content = file.Content.GetContentAsBytes();
+
                         resourcesToEmbed.Add(info, content);
-                        this.Log.Trace("Read " + content.Length + " bytes");
+                        this.Log.Trace("Read " + content.Length + " bytes for " + info.Name);
                     }
                     catch (Exception ex)
                     {
@@ -352,6 +366,8 @@ namespace Bridge.Translator
                 this.EnsureDirectoryExists(resourceOutputDirName);
 
                 File.WriteAllBytes(path, code);
+
+                this.AddResourceOutput(resource, code);
 
                 this.Log.Trace("Done writing resource into file");
             }

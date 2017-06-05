@@ -2,8 +2,11 @@
   "output": "Bridge\\output",
   "cleanOutputFolderBeforeBuildPattern": "*.*",
   "outputFormatting": "Formatted",
-
-  "combineScripts":  true
+  "locales": "en-US",
+  "combineScripts":  true,
+  "html": {
+    "title": "This is title from Html config"
+  }
   //"sourceMap": {
   //  "enabled": true,
   //  "eol": "crlf"

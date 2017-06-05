@@ -6,11 +6,15 @@
   "outputBy": "Project",
   "localesOutput": "locales",
   "locales": "ru-RU;en-US;es*",
+  "fileNameCasing": "CamelCase",
+  "sourceMap": true,
+  "html": {
+    "disabled": true
+  },
   "reflection": {
     "disabled": true,
-    "target":  "Inline" 
+    "target":  "Inline"
   },
-  "sourceMap":  true,
   "test": {
     "skipCombine": true
   },

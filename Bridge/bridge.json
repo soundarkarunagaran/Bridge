@@ -4,12 +4,16 @@
   "outputFormatting": "Formatted",
   "outputBy": "ClassPath",
   "generateDocumentation": "None",
+  "fileNameCasing": "CamelCase",
   "logging": {
     "level": "None"
   },
   "assembly": {
     "disableInitAssembly": true,
     "enableReservedNamespaces": true
+  },
+  "html": {
+    "disabled": true
   },
   "resources": [
     {

@@ -644,5 +644,83 @@ namespace Bridge.Translator
 
             return true;
         }
+
+        internal static bool AddOutputItem(List<TranslatorOutputItem> target, string fileName, TranslatorOutputItemContent content, TranslatorOutputKind outputKind, string location = null)
+        {
+            var fileHelper = new FileHelper();
+
+            var outputType = fileHelper.GetOutputType(fileName);
+
+            TranslatorOutputItem output = null;
+
+            bool isMinJs = fileHelper.IsMinJS(fileName);
+
+            var searchName = fileName;
+
+            if (isMinJs)
+            {
+                searchName = fileHelper.GetNonMinifiedJSFileName(fileName);
+            }
+
+            output = target.FirstOrDefault(x => string.Compare(x.Name, searchName, StringComparison.InvariantCultureIgnoreCase) == 0);
+
+            if (output != null)
+            {
+                bool isAdded;
+
+                if (isMinJs)
+                {
+                    isAdded = output.MinifiedVersion == null;
+
+                    output.MinifiedVersion = new TranslatorOutputItem
+                    {
+                        Name = fileName,
+                        OutputType = outputType,
+                        OutputKind = outputKind | TranslatorOutputKind.Minified,
+                        Location = location,
+                        Content = content,
+                        IsMinified = true
+                    };
+                }
+                else
+                {
+                    isAdded = output.IsEmpty;
+                    output.IsEmpty = false;
+                }
+
+                return isAdded;
+            }
+
+            output = new TranslatorOutputItem
+            {
+                Name = searchName,
+                OutputType = outputType,
+                OutputKind = outputKind,
+                Location = location
+            };
+
+            if (isMinJs)
+            {
+                output.IsEmpty = true;
+
+                output.MinifiedVersion = new TranslatorOutputItem
+                {
+                    Name = fileName,
+                    OutputType = outputType,
+                    OutputKind = outputKind | TranslatorOutputKind.Minified,
+                    Location = location,
+                    Content = content,
+                    IsMinified = true
+                };
+            }
+            else
+            {
+                output.Content = content;
+            }
+
+            target.Add(output);
+
+            return true;
+        }
     }
 }

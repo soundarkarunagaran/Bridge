@@ -20,6 +20,7 @@ namespace Bridge.Translator
             this.Loader = new ModuleLoader();
             this.Output = DEFAULT_OUTPUT;
             this.SourceMap = new SourceMapConfig();
+            this.Html = new HtmlConfig();
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Bridge.Translator
             }
         }
 
-        private FileNameCaseConvert jsFileCasing = FileNameCaseConvert.CamelCase;
+        private FileNameCaseConvert jsFileCasing = FileNameCaseConvert.None;
 
         /// <summary>
         /// The option to manage JavaScript file name case converting for class grouping.
@@ -297,6 +298,12 @@ namespace Bridge.Translator
 
         [Newtonsoft.Json.JsonConverter(typeof(SourceMapConfigConverter))]
         public SourceMapConfig SourceMap
+        {
+            get; set;
+        }
+
+        [Newtonsoft.Json.JsonConverter(typeof(HtmlConfigConverter))]
+        public HtmlConfig Html
         {
             get; set;
         }

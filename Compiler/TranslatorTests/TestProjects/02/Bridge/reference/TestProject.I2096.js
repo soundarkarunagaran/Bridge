@@ -1,7 +1,7 @@
 /**
  * @version   : 16.0.0-beta2 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @date      : 2017-05-22
+ * @date      : 2017-06-05
  * @copyright : Copyright 2008-2017 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
@@ -16,6 +16,65 @@ The text after the content marked will be compared
 // --- B depends on A
 // This is resource from referenced project C for testing issue #2717
 // --- C depends on B
+Bridge.merge(new System.Globalization.CultureInfo("en-US", true), {
+    englishName: "English (United States)",
+    nativeName: "English (United States)",
+
+    numberFormat: Bridge.merge(new System.Globalization.NumberFormatInfo(), {
+        nanSymbol: "NaN",
+        negativeSign: "-",
+        positiveSign: "+",
+        negativeInfinitySymbol: "-Infinity",
+        positiveInfinitySymbol: "Infinity",
+        percentSymbol: "%",
+        percentGroupSizes: [3],
+        percentDecimalDigits: 2,
+        percentDecimalSeparator: ".",
+        percentGroupSeparator: ",",
+        percentPositivePattern: 0,
+        percentNegativePattern: 0,
+        currencySymbol: "$",
+        currencyGroupSizes: [3],
+        currencyDecimalDigits: 2,
+        currencyDecimalSeparator: ".",
+        currencyGroupSeparator: ",",
+        currencyNegativePattern: 0,
+        currencyPositivePattern: 0,
+        numberGroupSizes: [3],
+        numberDecimalDigits: 2,
+        numberDecimalSeparator: ".",
+        numberGroupSeparator: ",",
+        numberNegativePattern: 1
+    }),
+
+    dateTimeFormat: Bridge.merge(new System.Globalization.DateTimeFormatInfo(), {
+        abbreviatedDayNames: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+        abbreviatedMonthGenitiveNames: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],
+        abbreviatedMonthNames: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec",""],
+        amDesignator: "AM",
+        dateSeparator: "/",
+        dayNames: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+        firstDayOfWeek: 0,
+        fullDateTimePattern: "dddd, MMMM d, yyyy h:mm:ss tt",
+        longDatePattern: "dddd, MMMM d, yyyy",
+        longTimePattern: "h:mm:ss tt",
+        monthDayPattern: "MMMM d",
+        monthGenitiveNames: ["January","February","March","April","May","June","July","August","September","October","November","December",""],
+        monthNames: ["January","February","March","April","May","June","July","August","September","October","November","December",""],
+        pmDesignator: "PM",
+        rfc1123: "ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
+        shortDatePattern: "M/d/yyyy",
+        shortestDayNames: ["Su","Mo","Tu","We","Th","Fr","Sa"],
+        shortTimePattern: "h:mm tt",
+        sortableDateTimePattern: "yyyy'-'MM'-'dd'T'HH':'mm':'ss",
+        sortableDateTimePattern1: "yyyy'-'MM'-'dd",
+        timeSeparator: ":",
+        universalSortableDateTimePattern: "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
+        yearMonthPattern: "MMMM yyyy",
+        roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.uzzz"
+    })
+});
+
 // Should be at the top (issue 1193). Beginning of Test 02 project output itself (after referenced resources)
 
 /**
@@ -94,4 +153,3 @@ Bridge.assembly("TestProject.I2096", function ($asm, globals) {
     $m($n[5].TestClassB, function () { return {"att":1048576,"a":4,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Value1","t":16,"rt":$n[0].Int32,"g":{"a":2,"n":"get_Value1","t":8,"rt":$n[0].Int32,"fg":"Value1"},"s":{"a":2,"n":"set_Value1","t":8,"p":[$n[0].Int32],"rt":$n[0].Void,"fs":"Value1"},"fn":"Value1"}]}; });
     $m($n[6].TestClassA, function () { return {"att":1048576,"a":4,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Value1","t":16,"rt":$n[0].Int32,"g":{"a":2,"n":"get_Value1","t":8,"rt":$n[0].Int32,"fg":"Value1"},"s":{"a":2,"n":"set_Value1","t":8,"p":[$n[0].Int32],"rt":$n[0].Void,"fs":"Value1"},"fn":"Value1"}]}; });
 });
-
