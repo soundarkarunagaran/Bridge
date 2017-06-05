@@ -48,6 +48,9 @@ echo f | xcopy /f /y "%root%Test\Bridge.Test\bin\%build%\*.nupkg"               
 :: Frameworks
 ::------------------------------------------------------------------------------------------::
 
+:: Bridge.Newtonsoft.Json
+echo f | xcopy /f /y "%root%Bridge.Newtonsoft.Json\Newtonsoft.Json\bin\%build%\*.nupkg"	%output%
+
 :: Bridge.AngularJS
 echo f | xcopy /f /y "%root%Frameworks\AngularJS\bin\%build%\*.nupkg"               %output%
 
