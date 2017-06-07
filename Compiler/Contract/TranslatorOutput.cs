@@ -127,6 +127,33 @@ namespace Bridge.Contract
             get; set;
         }
 
+        public bool HasGeneratedSourceMap
+        {
+            get; set;
+        }
+
+        private Uri fullPath;
+        public Uri FullPath
+        {
+            get
+            {
+                if (fullPath == null)
+                {
+                    throw new InvalidOperationException(
+                        "Cannot get FullPath of output item as it has not been set ("
+                        + string.Format("[{0}, {1}, {2}]", this.Location, this.Name, this.OutputType)
+                        + ")");
+                }
+
+                return fullPath;
+            }
+            set
+            {
+                fullPath = value;
+            }
+        }
+
+
         public TranslatorOutputType OutputType
         {
             get; set;
@@ -194,10 +221,15 @@ namespace Bridge.Contract
                 path = item.Name;
             }
 
-            //System.Diagnostics.Debugger.Launch();
-
             if (basePath != null)
             {
+                if (!string.IsNullOrEmpty(basePath) && basePath[basePath.Length - 1] != '\\')
+                {
+                    basePath = basePath + '\\';
+                }
+
+                basePath = Path.GetFullPath(basePath);
+
                 path = MakeRelative(path, basePath);
             }
 
@@ -378,6 +410,8 @@ namespace Bridge.Contract
         Locale = 4,
         ProjectOutput = 8,
         PluginOutput = 16,
-        Minified = 32
+        Minified = 32,
+        Combined = 64,
+        Metadata = 128
     }
 }

@@ -356,12 +356,32 @@ namespace Bridge.Translator
 
         public bool CheckIfRequiresSourceMap(TranslatorOutputItem output)
         {
-            return output.OutputType == TranslatorOutputType.JavaScript
+            return !output.IsEmpty
+                && output.OutputType == TranslatorOutputType.JavaScript
                 && output.OutputKind.HasFlag(TranslatorOutputKind.ProjectOutput)
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.Locale)
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.PluginOutput)
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.Reference)
-                && !output.OutputKind.HasFlag(TranslatorOutputKind.Resource);
+                && !output.OutputKind.HasFlag(TranslatorOutputKind.Resource)
+                && !output.OutputKind.HasFlag(TranslatorOutputKind.Metadata);
+        }
+
+        public TranslatorOutputItem FindTranslatorOutputItem(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                return null;
+            }
+
+            foreach (var output in this.Outputs.GetOutputs())
+            {
+                if (output.FullPath.LocalPath == filePath)
+                {
+                    return output;
+                }
+            }
+
+            return null;
         }
 
         public string GenerateSourceMap(string fileName, string content, Action<SourceMapBuilder> before = null)

@@ -113,35 +113,47 @@ namespace Bridge.Translator
             translator.Plugins.AfterOutput(translator, outputPath, !bridgeOptions.ExtractCore);
             logger.Info("Done plugins AfterOutput");
 
-            var htmlTitle = translator.AssemblyInfo.Html.Title;
-
-            if (string.IsNullOrEmpty(htmlTitle))
-            {
-                htmlTitle = translator.GetAssemblyTitle();
-            }
-
-            var htmlGenerator = new HtmlGenerator(
-                translator.Log,
-                translator.AssemblyInfo,
-                translator.Outputs,
-                htmlTitle
-                );
-
-            htmlGenerator.GenerateHtml(outputPath);
+            this.GenerateHtml(outputPath);
 
             logger.Info("Done post processing");
 
             return outputPath;
         }
 
+        private void GenerateHtml(string outputPath)
+        {
+            var htmlTitle = Translator.AssemblyInfo.Html.Title;
+
+            if (string.IsNullOrEmpty(htmlTitle))
+            {
+                htmlTitle = Translator.GetAssemblyTitle();
+            }
+
+            var htmlGenerator = new HtmlGenerator(
+                Translator.Log,
+                Translator.AssemblyInfo,
+                Translator.Outputs,
+                htmlTitle
+                );
+
+            htmlGenerator.GenerateHtml(outputPath);
+        }
+
         private string GetDefaultFileName(BridgeOptions bridgeOptions)
         {
-            if (bridgeOptions.DefaultFileName == null)
+            var defaultFileName = this.Translator.AssemblyInfo.FileName;
+
+            if (string.IsNullOrEmpty(defaultFileName))
+            {
+                defaultFileName = bridgeOptions.DefaultFileName;
+            }
+
+            if (string.IsNullOrEmpty(defaultFileName))
             {
                 return AssemblyInfo.DEFAULT_FILENAME;
             }
 
-            return Path.GetFileNameWithoutExtension(bridgeOptions.DefaultFileName);
+            return Path.GetFileNameWithoutExtension(defaultFileName);
         }
 
         private string GetOutputFolder(bool basePathOnly = false, bool strict = false)
@@ -149,37 +161,36 @@ namespace Bridge.Translator
             var bridgeOptions = this.BridgeOptions;
             string basePath = bridgeOptions.IsFolderMode ? bridgeOptions.Folder : Path.GetDirectoryName(bridgeOptions.ProjectLocation);
 
-            if (basePathOnly)
+            if (!basePathOnly)
             {
-                return new ConfigHelper().ConvertPath(basePath);
+                string assemblyOutput = string.Empty;
+
+                if (this.Translator != null)
+                {
+                    assemblyOutput = this.Translator.AssemblyInfo.Output;
+                }
+                else if (this.TranslatorConfiguration != null)
+                {
+                    assemblyOutput = this.TranslatorConfiguration.Output;
+                }
+                else if (strict)
+                {
+                    throw new InvalidOperationException("Could not get output folder as assembly configuration is still null");
+                }
+                else
+                {
+                    this.Logger.Warn("Could not get assembly output folder");
+                }
+
+                basePath = string.IsNullOrWhiteSpace(assemblyOutput)
+                    ? Path.Combine(basePath, Path.GetDirectoryName(bridgeOptions.OutputLocation))
+                    : Path.Combine(basePath, assemblyOutput);
             }
 
-            string assemblyOutput = string.Empty;
+            basePath = new ConfigHelper().ConvertPath(basePath);
+            basePath = Path.GetFullPath(basePath);
 
-            if (this.Translator != null)
-            {
-                assemblyOutput = this.Translator.AssemblyInfo.Output;
-            }
-            else if (this.TranslatorConfiguration != null)
-            {
-                assemblyOutput = this.TranslatorConfiguration.Output;
-            }
-            else if (strict)
-            {
-                throw new InvalidOperationException("Could not get output folder as assembly configuration is still null");
-            }
-            else
-            {
-                this.Logger.Warn("Could not get assembly output folder");
-            }
-
-            string outputPath = string.IsNullOrWhiteSpace(assemblyOutput)
-                ? Path.Combine(basePath, Path.GetDirectoryName(bridgeOptions.OutputLocation))
-                : Path.Combine(basePath, assemblyOutput);
-
-            outputPath = new ConfigHelper().ConvertPath(outputPath);
-
-            return outputPath;
+            return basePath;
         }
 
         private IAssemblyInfo ReadConfiguration()
@@ -345,7 +356,14 @@ namespace Bridge.Translator
                 {
                     translator.ReadFolderFiles();
 
-                    translator.DefaultNamespace = bridgeOptions.DefaultFileName;
+                    if (!string.IsNullOrEmpty(assemblyConfig.FileName))
+                    {
+                        translator.DefaultNamespace = Path.GetFileNameWithoutExtension(assemblyConfig.FileName);
+                    }
+                    else
+                    {
+                        translator.DefaultNamespace = bridgeOptions.DefaultFileName;
+                    }
                 }
                 else
                 {
