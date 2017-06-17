@@ -2550,7 +2550,10 @@
                             if (Class.$$inherits && Class.$$inherits.length > 0 && Class.$$inherits[0].$staticInit) {
                                 Class.$$inherits[0].$staticInit();
                             }
-                            Class.$base.ctor.call(this);
+
+                            if (Class.$base.ctor) {
+                                Class.$base.ctor.call(this);
+                            }
                         }
                     };
                 }
