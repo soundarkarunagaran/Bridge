@@ -567,6 +567,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2689 - TestAsyncBinaryExpression9", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2689.TestAsyncBinaryExpression9);
             QUnit.test("#2689 - TestAsyncBinaryExpression10", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2689.TestAsyncBinaryExpression10);
             QUnit.test("#2692 - TestUnusedGotoLabel", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2692.TestUnusedGotoLabel);
+            QUnit.test("#2693 - TestListCapacity", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2693.TestListCapacity);
             QUnit.test("#2703 - TestDoubleGetHashCode", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2703.TestDoubleGetHashCode);
             QUnit.test("#2703 - TestSingleGetHashCode", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2703.TestSingleGetHashCode);
             QUnit.test("#2705 - TestCatchWithoutVariable", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2705.TestCatchWithoutVariable);
@@ -11477,6 +11478,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2692", $t.File = "Batch3\\BridgeIssues\\2600\\N2692.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2693", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2693)],
+        statics: {
+            methods: {
+                TestListCapacity: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2693).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2693, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestListCapacity()", $t.Line = "12", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2693.TestListCapacity();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2693", $t.File = "Batch3\\BridgeIssues\\2600\\N2693.cs", $t);
                 }
                 return this.context;
             }
