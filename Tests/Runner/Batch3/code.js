@@ -23179,6 +23179,31 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855", {
+        statics: {
+            methods: {
+                TestVirtualNestedClasses: function () {
+                    var sub1 = new (Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.Sub1"))();
+                    var b = new (Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass"))();
+                    var sub1_1 = new (Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.Sub1"))();
+
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass")));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(sub1, Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.Sub1")));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(sub1, Bridge.virtual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.I1")));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(sub1_1, Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.Sub1")));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(sub1_1, Bridge.virtual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.I1")));
+
+                    var p = new (Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.Person"))();
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(p, Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.Person")));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(p, Bridge.virtual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.Person.IPerson")));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(p, Bridge.virtualc("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass")));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(p, Bridge.virtual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2855.BaseClass.I1")));
+
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2859", {
         statics: {
             methods: {
