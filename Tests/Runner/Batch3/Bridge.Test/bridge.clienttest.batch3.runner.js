@@ -604,6 +604,8 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2871 - TestCloneOnAssignment", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2871.TestCloneOnAssignment);
             QUnit.test("#2874 - TestExternalOverriding", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2874.TestExternalOverriding);
             QUnit.test("#2886 - Test2DArrayDefValue", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2886.Test2DArrayDefValue);
+            QUnit.test("#2903 - TestGetInvocationList", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2903.TestGetInvocationList);
+            QUnit.test("#2904 - TestGetInvocationList", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2904.TestGetInvocationList);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
             QUnit.test("#447 - CheckInlineCalls", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineCalls);
@@ -12273,6 +12275,56 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2886", $t.File = "Batch3\\BridgeIssues\\2800\\N2886.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2903", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2903)],
+        statics: {
+            methods: {
+                TestGetInvocationList: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2903).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2903, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetInvocationList()", $t.Line = "35", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2903.TestGetInvocationList();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2903", $t.File = "Batch3\\BridgeIssues\\2900\\N2903.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2904", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904)],
+        statics: {
+            methods: {
+                TestGetInvocationList: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2904, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetInvocationList()", $t.Line = "42", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904.TestGetInvocationList();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904", $t.File = "Batch3\\BridgeIssues\\2900\\N2904.cs", $t);
                 }
                 return this.context;
             }
