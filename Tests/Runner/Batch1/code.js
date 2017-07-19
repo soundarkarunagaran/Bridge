@@ -33817,7 +33817,7 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
                 Bridge.ClientTestHelper.DateHelper.AssertDate$1(dt, System.DateTimeKind.Unspecified, System.Int64([-1929740288,147801652]), 2012, 8, 12);
             },
             ParseExactWorks: function () {
-                var dt = System.DateTime.parseExact("2012-12-08", "yyyy-dd-MM");
+                var dt = System.DateTime.parseExact("2012-12-08", "yyyy-dd-MM", null);
                 Bridge.ClientTestHelper.DateHelper.AssertDate$1(dt, System.DateTimeKind.Unspecified, System.Int64([-1929740288,147801652]), 2012, 8, 12);
             },
             ParseExactReturnsNullIfTheInputIsInvalid: function () {
@@ -34205,7 +34205,7 @@ Bridge.assembly("Bridge.ClientTest", {"Bridge.ClientTest.Batch1.Reflection.Resou
 
     Bridge.apply($asm.$.Bridge.ClientTest.SimpleTypes.JsDateTimeTests, {
         f1: function () {
-            var dt = System.DateTime.parseExact("X", "yyyy-dd-MM");
+            var dt = System.DateTime.parseExact("X", "yyyy-dd-MM", null);
         },
         f2: function () {
             var dt = System.DateTime.parseExact("X", "yyyy-dd-MM", System.Globalization.CultureInfo.invariantCulture);

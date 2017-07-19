@@ -60,11 +60,8 @@
             },
 
             toUniversalTime: function (d) {
-                d.kind = (d.kind !== undefined) ? d.kind : 0
-                d.ticks = (d.ticks !== undefined) ? d.ticks : System.Int64(d.getTime() + d.getTimezoneOffset() * 60 * 1000).mul(10000).add(System.DateTime.minOffset);
-
-                var d1,
-                    ticks = d.ticks;
+                var ticks = System.DateTime.getTicks(d),
+                    d1;
 
                 // Assuming d is Local time, so adjust to UTC
                 if (d.kind !== 1) {
@@ -173,12 +170,7 @@
             },
 
             specifyKind: function (d, kind) {
-                kind = (kind !== undefined) ? kind : 0
-
-                var d = new Date(d.getTime());
-                d.kind = kind;
-
-                return d;
+                return System.DateTime.create$2(System.DateTime.getTicks(d), kind);
             },
 
             isUseGenitiveForm: function (format, index, tokenLen, patternToMatch) {
@@ -239,9 +231,9 @@
                     f = f.charAt(1);
                 }
 
-                var needRemoveDot = false;
+                var removeDot = false;
 
-                f = f.replace(/(\\.|'[^']*'|"[^"]*"|d{1,4}|M{1,4}|yyyy|yy|y|HH?|hh?|mm?|ss?|tt?|u|f{1,7}|F{1,7}|z{1,3}|\:|\/)/g,
+                f = f.replace(/(\\.|'[^']*'|"[^"]*"|d{1,4}|M{1,4}|yyyy|yy|y|HH?|hh?|mm?|ss?|tt?|u|f{1,7}|F{1,7}|K|z{1,3}|\:|\/)/g,
                     function (match, group, index) {
                         var part = match;
 
@@ -356,27 +348,30 @@
                                 }
 
                                 break;
-                             case "F":
-                             case "FF":
-                             case "FFF":
-                             case "FFFF":
-                             case "FFFFF":
-                             case "FFFFFF":
-                             case "FFFFFFF":
-                                 part = millisecond.toString();
-                                 if (part.length < 3) {
-                                     part = Array(4 - part.length).join("0") + part;
-                                 }
+                            case "F":
+                            case "FF":
+                            case "FFF":
+                            case "FFFF":
+                            case "FFFFF":
+                            case "FFFFFF":
+                            case "FFFFFFF":
+                                part = millisecond.toString();
 
-                                 part = part.substr(0, match.length);
+                                if (part.length < 3) {
+                                    part = Array(4 - part.length).join("0") + part;
+                                }
 
-                                 var c = '0';
-                                 var i = part.length - 1;
-                                 for (; i >= 0 && part.charAt(i) === c; i--);
-                                 part = part.substring(0, i + 1);
-                                 needRemoveDot = part.length == 0;
+                                part = part.substr(0, match.length);
 
-                                 break;
+                                var c = '0',
+                                    i = part.length - 1;
+
+                                for (; i >= 0 && part.charAt(i) === c; i--);
+                                part = part.substring(0, i + 1);
+
+                                removeDot = part.length == 0;
+
+                                break;
                             case "f":
                             case "ff":
                             case "fff":
@@ -387,7 +382,7 @@
                                 part = millisecond.toString();
 
                                 if (part.length < 3) {
-                                     part = Array(4 - part.length).join("0") + part;
+                                    part = Array(4 - part.length).join("0") + part;
                                 }
 
                                 var ln = match === "u" ? 7 : match.length;
@@ -403,6 +398,7 @@
                                 part = ((part >= 0) ? "-" : "+") + Math.floor(Math.abs(part));
 
                                 break;
+                            case "K":
                             case "zz":
                             case "zzz":
                                 if (kind === 0) {
@@ -411,9 +407,9 @@
                                     part = "Z";
                                 } else {
                                     part = timezoneOffset / 60;
-                                    part = ((part >= 0) ? "-" : "+") + System.String.alignString(Math.floor(Math.abs(part)).toString(), 2, "0", 2);
+                                    part = ((part > 0) ? "-" : "+") + System.String.alignString(Math.floor(Math.abs(part)).toString(), 2, "0", 2);
 
-                                    if (match === "zzz") {
+                                    if (match === "zzz" || match === "K") {
                                         part += df.timeSeparator + System.String.alignString(Math.floor(Math.abs(timezoneOffset % 60)).toString(), 2, "0", 2);
                                     }
                                 }
@@ -436,8 +432,14 @@
                         return part;
                     });
 
-                if (needRemoveDot && System.String.endsWith(f, ".")) {
-                    f = f.substring(0, f.length - 1);
+                if (removeDot) {
+                    if (System.String.endsWith(f, ".")) {
+                        f = f.substring(0, f.length - 1);
+                    } else if (System.String.endsWith(f, ".Z")) {
+                        f = f.substring(0, f.length - 2) + "Z";
+                    } else if (kind === 2 && f.match(/\.([+-])/g) !== null) {
+                        f = f.replace(/\.([+-])/g, '$1');
+                    }
                 }
 
                 return f;
@@ -510,7 +512,10 @@
                     invalid = false,
                     inQuotes = false,
                     tokenMatched,
-                    formats;
+                    formats,
+                    kind = 0,
+                    adjust = false,
+                    offset = 0;
 
                 if (str == null) {
                     throw new System.ArgumentNullException("str");
@@ -533,6 +538,12 @@
                         token += c;
                         index++;
                     } else {
+                        var nextChar = format.charAt(index + 1);
+                        if (c === '.' && str.charAt(idx) !== c && (nextChar === 'F' || nextChar === 'f')) {
+                            index++;
+                            c = nextChar;
+                        }
+
                         while ((format.charAt(index) === c) && (index < format.length)) {
                             token += c;
                             index++;
@@ -679,7 +690,7 @@
                             if (ff.length > 3) {
                                 ff = ff.substring(0, 3);
                             }
-                        } else if (token === "fffffff" || token === "ffffff" || token === "fffff" || token === "ffff" || token === "fff" || token === "ff" || token === "f") {
+                        } else if (token.match(/f{1,7}/) !== null) {
                             ff = this.subparseInt(str, idx, token.length, 7);
 
                             if (ff == null) {
@@ -692,6 +703,16 @@
 
                             if (ff.length > 3) {
                                 ff = ff.substring(0, 3);
+                            }
+                        } else if (token.match(/F{1,7}/) !== null) {
+                            ff = this.subparseInt(str, idx, 0, 7);
+
+                            if (ff !== null) {
+                                idx += ff.length;
+
+                                if (ff.length > 3) {
+                                    ff = ff.substring(0, 3);
+                                }
                             }
                         } else if (token === "t") {
                             if (str.substring(idx, idx + 1).toLowerCase() === am.charAt(0).toLowerCase()) {
@@ -742,21 +763,31 @@
 
                             idx += zzh.length;
 
+                            offset = zzh * 60 * 60 * 1000;
+
                             if (neg) {
-                                zzh = -zzh;
+                                offset = -offset;
                             }
-                        } else if (token === "zzz") {
+                        } else if (token === "zzz" || token === "K") {
                             if (str.substring(idx, idx + 1) === "Z") {
-                                utc = true;
+                                kind = 2;
+                                adjust = true;
                                 idx += 1;
 
                                 break;
                             }
 
                             name = str.substring(idx, idx + 6);
-                            idx += 6;
 
-                            if (name.length !== 6) {
+                            if (name === "") {
+                                kind = 0;
+
+                                break;
+                            }
+
+                            idx += name.length;
+
+                            if (name.length !== 6 && name.length !== 5) {
                                 invalid = true;
 
                                 break;
@@ -775,7 +806,7 @@
                             }
 
                             zzi = 1;
-                            zzh = this.subparseInt(name, zzi, 1, 2);
+                            zzh = this.subparseInt(name, zzi, 1, name.length === 6 ? 2 : 1);
 
                             if (zzh == null || zzh > 14) {
                                 invalid = true;
@@ -784,10 +815,6 @@
                             }
 
                             zzi += zzh.length;
-
-                            if (neg) {
-                                zzh = -zzh;
-                            }
 
                             if (name.charAt(zzi) !== df.timeSeparator) {
                                 invalid = true;
@@ -804,6 +831,14 @@
 
                                 break;
                             }
+
+                            offset = zzh * 60 * 60 * 1000 + zzm * 60 * 1000;
+
+                            if (neg) {
+                                offset = -offset;
+                            }
+
+                            kind = 2;
                         } else {
                             tokenMatched = false;
                         }
@@ -814,9 +849,7 @@
 
                         if (!inQuotes && name === ":" && (token === df.timeSeparator || token === ":")) {
 
-                        } else if ((!inQuotes && ((token === ":" && name !== df.timeSeparator) ||
-                            (token === "/" && name !== df.dateSeparator))) ||
-                            (name !== token && token !== "'" && token !== '"' && token !== "\\")) {
+                        } else if ((!inQuotes && ((token === ":" && name !== df.timeSeparator) || (token === "/" && name !== df.dateSeparator))) || (name !== token && token !== "'" && token !== '"' && token !== "\\")) {
                             invalid = true;
 
                             break;
@@ -881,11 +914,20 @@
                     }
                 }
 
-                if (zzh === 0 && zzm === 0 && !utc) {
-                    return System.DateTime.create(year, month, date, hh, mm, ss, ff, 0);
+                var d = System.DateTime.create(year, month, date, hh, mm, ss, ff, kind);
+
+                if (kind === 2) {
+                    if (adjust === true) {
+                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
+                        d.kind = kind;
+                    } else if (offset !== 0) {
+                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
+                        d = System.DateTime.addMilliseconds(d, -offset);
+                        d.kind = kind;
+                    }
                 }
 
-                return System.DateTime.create(year, month, date, hh - zzh, mm - zzm, ss, ff, 1);
+                return d;
             },
 
             subparseInt: function (str, index, min, max) {
