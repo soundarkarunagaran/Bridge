@@ -23924,6 +23924,16 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2957", {
+        statics: {
+            methods: {
+                TestNameof: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.NS2.Program.Test();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2961", {
         statics: {
             methods: {
@@ -31670,6 +31680,18 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.NS1.Base");
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.NS1.Base.Wrong", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                Something1: 0,
+                Something2: 1
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Person383", {
         props: {
             Name: null
@@ -34274,6 +34296,19 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.MyType", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.MyOtherType]
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.NS2.Program", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.NS1.Base],
+        statics: {
+            methods: {
+                Test: function () {
+                    var test = "Something1";
+
+                    Bridge.Test.NUnit.Assert.AreEqual("Something1", test);
+                }
+            }
+        }
     });
 
     Bridge.define("Derived2723.Classes2723.B2723", {
