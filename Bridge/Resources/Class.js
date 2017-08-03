@@ -125,6 +125,7 @@
 
                 for (var i = 0; i < keys.length; i++) {
                     var name = keys[i];
+
                     if (reserved.indexOf(name) === -1) {
                         to[name] = obj[name];
                     }
@@ -138,32 +139,40 @@
                     Bridge.apply(to, obj.methods);
                 }
 
-                var config = {};
+                var config = {},
+                    write = false;
+
                 if (obj.props) {
                     config.properties = obj.props;
-                }
-                else if (obj.properties) {
+                    write = true;
+                } else if (obj.properties) {
                     config.properties = obj.properties;
+                    write = true;
                 }
 
                 if (obj.events) {
                     config.events = obj.events;
+                    write = true;
                 }
 
                 if (obj.alias) {
                     config.alias = obj.alias;
+                    write = true;
                 }
 
                 if (obj.ctors) {
                     if (obj.ctors.init) {
                         config.init = obj.ctors.init;
+                        write = true;
                         delete obj.ctors.init;
                     }
 
                     Bridge.apply(to, obj.ctors);
                 }
 
-                to.$config = config;
+                if (write) {
+                    to.$config = config;
+                }
             };
 
             if (obj.main) {
@@ -491,8 +500,25 @@
                     if (name === "ctor") {
                         Class["$ctor"] = member;
                     } else {
+                        if (prop.$kind === "enum" && !Bridge.isFunction(member) && name.charAt(0) !== "$") {
+                            Class.$names = Class.$names || [];
+                            Class.$names.push({name: name, value: member});
+                        }
+
                         Class[name] = member;
                     }
+                }
+
+                if (prop.$kind === "enum" && Class.$names) {
+                    Class.$names = Class.$names.sort(function (i1, i2) {
+                        if (Bridge.isFunction(i1.value.eq)) {
+                            return i1.value.sub(i2.value).sign();
+                        }
+
+                        return i1.value - i2.value;
+                    }).map(function(i) {
+                        return i.name;
+                    });
                 }
             }
 
