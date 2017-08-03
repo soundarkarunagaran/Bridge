@@ -23894,10 +23894,50 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943", {
+        statics: {
+            fields: {
+                passed: false
+            },
+            ctors: {
+                init: function () {
+                    this.passed = true;
+                }
+            },
+            methods: {
+                TestStaticCtorGenericClass: function () {
+                    Bridge.Test.NUnit.Assert.True(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943.passed);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943.A$1", function (T) { return {
+        statics: {
+            ctors: {
+                ctor: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943.passed = false;
+                }
+            }
+        }
+    }; });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943.C", {
+        statics: {
+            ctors: {
+                ctor: function () {
+                    var msg = "Static ctor of Bridge2943.C should not be invoked";
+                    Bridge.Test.NUnit.Assert.Fail(msg);
+                    throw new System.Exception(msg);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2944", {
         statics: {
             methods: {
-                TestRefThis: function () {
+                TestGenericsNaming: function () {
                     Bridge.Test.NUnit.Assert.AreEqual(9, Bridge2944_A$1(System.Int32).Get());
                 }
             }
@@ -34117,6 +34157,10 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2874.Derived25", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2874.Derived1]
     });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943.A$1.B", function (T) { return {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2943.A$1(T)]
+    }; });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2962.Class2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2962.Class1],
