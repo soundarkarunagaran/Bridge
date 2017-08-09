@@ -23874,6 +23874,53 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939", {
+        statics: {
+            fields: {
+                Disposable: null,
+                pass: false
+            },
+            props: {
+                Something: {
+                    get: function () {
+                        var $t;
+                        $t = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.Disposable;
+                        try {
+                            return 1;
+                        }
+                        finally {
+                            if (Bridge.hasValue($t)) {
+                                $t.System$IDisposable$dispose();
+                            }
+                        }
+                    }
+                }
+            },
+            ctors: {
+                init: function () {
+                    this.Disposable = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.ADisposable();
+                }
+            },
+            methods: {
+                TestUsingForIdentifier: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.pass = false;
+                    var t = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.Something;
+                    Bridge.Test.NUnit.Assert.True(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.pass);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.ADisposable", {
+        inherits: [System.IDisposable],
+        alias: ["dispose", "System$IDisposable$dispose"],
+        methods: {
+            dispose: function () {
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939.pass = true;
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge294", {
         fields: {
             Name: null
