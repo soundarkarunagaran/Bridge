@@ -23707,7 +23707,7 @@ Bridge.$N1391Result =                     r;
                         i = (i + 5) | 0;
                     });
 
-                    test.OnRegister(System.Object.empty);
+                    test.OnRegister({});
                     Bridge.Test.NUnit.Assert.AreEqual(6, i);
                 }
             }
@@ -23749,7 +23749,7 @@ Bridge.$N1391Result =                     r;
                     test.addRegister(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904.Test_RegisterCommon);
                     test.addRegister(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904.Test_RegisterCommon);
 
-                    test.OnRegister(System.Object.empty);
+                    test.OnRegister({});
                     Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2904.temp);
                 }
             }
@@ -23872,6 +23872,40 @@ Bridge.$N1391Result =                     r;
                 return s;
             }
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923", {
+        statics: {
+            events: {
+                Test: null
+            },
+            ctors: {
+                init: function () {
+                    Bridge.event(this, "Test", $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923.f1);
+                }
+            },
+            methods: {
+                InvokeEvent: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923.Test(null, {});
+                },
+                TestEventInitializer: function () {
+                    var i = 0;
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923.addTest(function (sender, ev) {
+                        i = 5;
+                    });
+
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923.InvokeEvent();
+
+                    Bridge.Test.NUnit.Assert.AreEqual(5, i);
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2923, {
+        f1: function (sender, e) { }
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2931", {
@@ -25531,7 +25565,7 @@ Bridge.$N1391Result =                     r;
 
                 evt = Bridge.fn.combine(evt, Bridge.fn.bind(this, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge520.Source.f2));
 
-                evt(this, new System.Object());
+                evt(this, {});
             }
         }
     });
