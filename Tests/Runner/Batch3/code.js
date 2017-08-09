@@ -23874,6 +23874,43 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937", {
+        statics: {
+            methods: {
+                TestAssignmentConversion: function () {
+                    var e = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter.C;
+
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter.C, Bridge.unbox(Bridge.box(e, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter))), "e C");
+                    Bridge.Test.NUnit.Assert.AreEqual("C", System.Enum.toString(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter, e), "e ToString()");
+
+                    var r = Bridge.box((e = (e - 2) | 0), Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter.A, Bridge.unbox(r), "r A");
+                    Bridge.Test.NUnit.Assert.AreEqual("A", r.toString(), "r A ToString()");
+                    Bridge.Test.NUnit.Assert.AreEqual("Letter", Bridge.Reflection.getTypeName(Bridge.getType(r)), "r A Type");
+                    Bridge.Test.NUnit.Assert.AreEqual("A", r.toString());
+
+                    r = Bridge.box((e = (e - 1) | 0), Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.unbox(r), "r -1");
+                    Bridge.Test.NUnit.Assert.AreEqual("-1", r.toString(), "r -1 ToString()");
+                    Bridge.Test.NUnit.Assert.AreEqual("Letter", Bridge.Reflection.getTypeName(Bridge.getType(r)), "r -1 Type");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937.Letter", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                A: 0,
+                B: 1,
+                C: 2
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2939", {
         statics: {
             fields: {
