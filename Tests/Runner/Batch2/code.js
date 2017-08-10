@@ -111,7 +111,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var ol = System.Int64(5);
                     var oi = Bridge.box(5, System.Int32);
                     var varNull = null;
-                    var varUndefined = temp[System.Array.index("this-prop-undefined", temp)];
+                    var varUndefined = temp["this-prop-undefined"];
 
                     Bridge.Test.NUnit.Assert.False(varNull === varUndefined, "varNull == varUndefined");
                     Bridge.Test.NUnit.Assert.True(varNull === null, "varNull == null");

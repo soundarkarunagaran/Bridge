@@ -601,6 +601,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2847 - TestAsyncSwitch", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2847.TestAsyncSwitch);
             QUnit.test("#2855 - TestVirtualNestedClasses", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2855.TestVirtualNestedClasses);
             QUnit.test("#2859 - TestContractAssertWithThis", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2859.TestContractAssertWithThis);
+            QUnit.test("#2863 - TestIndexChecking", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2863.TestIndexChecking);
             QUnit.test("#2871 - TestCloneOnAssignment", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2871.TestCloneOnAssignment);
             QUnit.test("#2874 - TestExternalOverriding", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2874.TestExternalOverriding);
             QUnit.test("#2886 - Test2DArrayDefValue", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2886.Test2DArrayDefValue);
@@ -12228,6 +12229,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2859", $t.File = "Batch3\\BridgeIssues\\2800\\N2859.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2863", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2863)],
+        statics: {
+            methods: {
+                TestIndexChecking: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2863).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2863, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestIndexChecking()", $t.Line = "32", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2863.TestIndexChecking();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2863", $t.File = "Batch3\\BridgeIssues\\2800\\N2863.cs", $t);
                 }
                 return this.context;
             }
