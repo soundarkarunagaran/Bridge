@@ -24031,6 +24031,33 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2935", {
+        statics: {
+            methods: {
+                TestStringAsEnumerableChar: function () {
+                    var $t;
+                    var s = "Hello";
+                    var numerable = Bridge.as(s, System.Collections.Generic.IEnumerable$1(System.Char));
+
+                    Bridge.Test.NUnit.Assert.NotNull(numerable);
+
+                    var i = 0;
+                    $t = Bridge.getEnumerator(numerable, System.Char);
+                    try {
+                        while ($t.moveNext()) {
+                            var c = $t.Current;
+                            Bridge.Test.NUnit.Assert.AreEqual(s.charCodeAt(i), c);
+                            i = (i + 1) | 0;
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$dispose();
+                        }
+                    }}
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2937", {
         statics: {
             methods: {

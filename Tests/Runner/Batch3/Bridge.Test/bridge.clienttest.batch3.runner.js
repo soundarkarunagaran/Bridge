@@ -617,6 +617,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2923 - TestEventInitializer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2923.TestEventInitializer);
             QUnit.test("#2931 - TestAsyncVarInitializer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2931.TestAsyncVarInitializer);
             QUnit.test("#2932 - TestEnumBaseType", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2932.TestEnumBaseType);
+            QUnit.test("#2935 - TestStringAsEnumerableChar", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2935.TestStringAsEnumerableChar);
             QUnit.test("#2937 - TestAssignmentConversion", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2937.TestAssignmentConversion);
             QUnit.test("#2939 - TestUsingForIdentifier", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2939.TestUsingForIdentifier);
             QUnit.test("#2940 - TestReflectionBoxing", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2940.TestReflectionBoxing);
@@ -12630,6 +12631,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2932", $t.File = "Batch3\\BridgeIssues\\2900\\N2932.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2935", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2935)],
+        statics: {
+            methods: {
+                TestStringAsEnumerableChar: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2935).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2935, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestStringAsEnumerableChar()", $t.Line = "11", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2935.TestStringAsEnumerableChar();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2935", $t.File = "Batch3\\BridgeIssues\\2900\\N2935.cs", $t);
                 }
                 return this.context;
             }
