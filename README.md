@@ -95,11 +95,11 @@ If you're using Visual Studio for Windoes, the easiest way to get started is by 
 
 From within Visual Studio, go to the `Tools > Extensions and Updates...`.
 
-![Visual Studio Extensions and Updates](https://cloud.githubusercontent.com/assets/62210/13193691/10876f0a-d73a-11e5-809d-69b090da6769.png)
+![Bridge for Visual Studio](https://user-images.githubusercontent.com/62210/29292228-932ebb7e-8103-11e7-952a-3088274acf10.png)
 
 From the options on the left side, be sure to select **Online**, then search for **Bridge**. Clicking **Download** will install Bridge for Visual Studio. After installation is complete, Visual Studio may require a restart. 
 
-![Bridge for Visual Studio](https://cloud.githubusercontent.com/assets/62210/13193692/10964c46-d73a-11e5-8350-700236c98016.png)
+![Visual Studio Extensions and Updates](https://user-images.githubusercontent.com/62210/29292229-93406b44-8103-11e7-90a0-30232486a5a7.png)
 
 Once installation is complete you will have a new **Bridge.NET** project type. When creating new Bridge enabled projects, select this project type. 
 ### NuGet
