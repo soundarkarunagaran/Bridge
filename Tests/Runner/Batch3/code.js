@@ -24910,6 +24910,54 @@ Bridge.$N1391Result =                     r;
         $kind: "interface"
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3046", {
+        statics: {
+            methods: {
+                TestAsyncUsing: function () {
+                    var $step = 0,
+                        $jumpFromFinally, 
+                        done, 
+                        test, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        done = Bridge.Test.NUnit.Assert.Async();
+                                        test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3046.Test();
+                                        try {
+                                            Bridge.Test.NUnit.Assert.NotNull(test);
+                                        }
+                                        finally {
+                                            if (Bridge.hasValue(test)) {
+                                                test.System$IDisposable$dispose();
+                                            }
+                                        }
+
+                                        done();
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
+                                }
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3046.Test", {
+        inherits: [System.IDisposable],
+        alias: ["dispose", "System$IDisposable$dispose"],
+        methods: {
+            dispose: function () { }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge305", {
         inherits: [System.Collections.Generic.IEnumerable$1(System.String)],
         props: {
