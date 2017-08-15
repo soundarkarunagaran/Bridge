@@ -1,7 +1,7 @@
 /**
  * Bridge Test library - a common classes shared across all test Batches
  * @version 1.2.3.4
- * @compiler Bridge.NET 16.0.1
+ * @compiler Bridge.NET 16.1.0
  */
 Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
     "use strict";
@@ -150,6 +150,17 @@ Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
             methods: {
                 Greeting: function () {
                     return "Hi";
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTestHelper.NumberHelper", {
+        statics: {
+            methods: {
+                AssertNumber: function (expected, actual, message) {
+                    Bridge.Test.NUnit.Assert.AreEqual(expected.toString(), actual.toString(), System.String.concat(message, " representation"));
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.Reflection.getTypeName(Bridge.getType(expected)), Bridge.Reflection.getTypeName(Bridge.getType(actual)), System.String.concat(message, " type"));
                 }
             }
         }

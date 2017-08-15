@@ -741,8 +741,8 @@
                 obj = Bridge.unbox(obj, true);
             }
 
-            var ctor = obj.constructor;
-            if (type.constructor === Function && obj instanceof type || ctor === type) {
+            var ctor = Bridge.Reflection.convertType(obj.constructor);
+            if (type.constructor === Function && obj instanceof type || ctor === type || Bridge.isObject(type)) {
                 return true;
             }
 
@@ -809,7 +809,7 @@
 
         as: function (obj, type, allowNull) {
             if (Bridge.is(obj, type, false, allowNull)) {
-                return obj.$boxed && type !== Object && type !== System.Object ? obj.v : obj;
+                return obj != null && obj.$boxed && type !== Object && type !== System.Object ? obj.v : obj;
             }
             return null;
         },
