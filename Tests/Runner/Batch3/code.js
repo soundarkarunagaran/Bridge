@@ -24990,6 +24990,20 @@ Bridge.$N1391Result =                     r;
         }
     }; });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3076", {
+        statics: {
+            methods: {
+                TestGuidStringify: function () {
+                    var guid = System.Guid.newGuid();
+                    Bridge.Test.NUnit.Assert.AreEqual(System.String.concat("\"", guid.toString(), "\""), JSON.stringify(guid));
+
+                    var obj = { guid: guid };
+                    Bridge.Test.NUnit.Assert.AreEqual(System.String.format("{{\"guid\":\"{0}\"}}", guid.toString()), JSON.stringify(obj));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
