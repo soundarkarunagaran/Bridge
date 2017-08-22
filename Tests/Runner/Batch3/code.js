@@ -24980,6 +24980,17 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3064", {
+        statics: {
+            methods: {
+                TestObjectInitializationMode: function () {
+                    var obj = { Number: 0 };
+                    Bridge.Test.NUnit.Assert.AreStrictEqual(0, obj.Number);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge306Component$1", function (TProps) { return {
         statics: {
             methods: {
