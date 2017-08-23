@@ -1,7 +1,7 @@
 /**
  * Bridge Test library - a common classes shared across all test Batches
  * @version 1.2.3.4
- * @compiler Bridge.NET 16.1.0
+ * @compiler Bridge.NET 16.2.0
  */
 Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
     "use strict";
@@ -179,7 +179,7 @@ Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
 
                     for (var i = 0; i < lines.length; i = (i + 1) | 0) {
                         if (i !== 0) {
-                            s = System.String.concat(s, '\n');
+                            s = System.String.concat(s, "\n");
                         }
 
                         s = System.String.concat(s, lines[System.Array.index(i, lines)]);
@@ -195,7 +195,7 @@ Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
                         return null;
                     }
 
-                    return System.String.concat(s, '\n');
+                    return System.String.concat(s, "\n");
                 }
             }
         }

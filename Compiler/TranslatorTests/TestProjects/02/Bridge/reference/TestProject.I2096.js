@@ -1,7 +1,7 @@
 /**
- * @version   : 16.1.0 - Bridge.NET
+ * @version   : 16.2.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @date      : 2017-08-14
+ * @date      : 2017-08-22
  * @copyright : Copyright 2008-2017 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
@@ -72,6 +72,18 @@ Bridge.merge(new System.Globalization.CultureInfo("en-US", true), {
         universalSortableDateTimePattern: "yyyy'-'MM'-'dd HH':'mm':'ss'Z'",
         yearMonthPattern: "MMMM yyyy",
         roundtripFormat: "yyyy'-'MM'-'dd'T'HH':'mm':'ss.fffffffzzz"
+    }),
+
+    TextInfo: Bridge.merge(new System.Globalization.TextInfo(), {
+        ANSICodePage: 1252,
+        CultureName: "en-US",
+        EBCDICCodePage: 37,
+        IsRightToLeft: false,
+        LCID: 1033,
+        listSeparator: ",",
+        MacCodePage: 10000,
+        OEMCodePage: 437,
+        IsReadOnly: true
     })
 });
 
@@ -82,7 +94,7 @@ Bridge.merge(new System.Globalization.CultureInfo("en-US", true), {
  * @version 1.0.0.0
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2015 Object.NET, Inc.
- * @compiler Bridge.NET 16.1.0
+ * @compiler Bridge.NET 16.2.0
  */
 Bridge.assembly("TestProject.I2096", function ($asm, globals) {
     "use strict";

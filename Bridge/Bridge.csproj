@@ -91,6 +91,7 @@
       <Link>Internal\Html5\TypedArray\Uint8ClampedArray.cs</Link>
     </Compile>
     <Compile Include="Attributes\Convention.cs" />
+    <Compile Include="System\AsyncCallback.cs" />
     <Compile Include="System\Attributes\CLSCompliantAttribute.cs" />
     <Compile Include="System\Attributes\DataContractAttribute.cs" />
     <Compile Include="System\Attributes\DataMemberAttribute.cs" />
@@ -150,7 +151,9 @@
     <Compile Include="System\ComponentModel\DataAnnotations\ValidationResult.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\Validator.cs" />
     <Compile Include="System\ComponentModel\EditorBrowsableAttribute.cs" />
+    <Compile Include="System\IAsyncResult.cs" />
     <Compile Include="System\DateTimeKind.cs" />
+    <Compile Include="System\Globalization\TextInfo.cs" />
     <Compile Include="System\SerializableAttribute.cs" />
     <Compile Include="Attributes\UnboxAttribute.cs" />
     <Compile Include="Attributes\GlobalMethodsAttribute.cs" />
@@ -320,6 +323,13 @@
     <Compile Include="System\StringComparison.cs" />
     <Compile Include="System\StringSplitOptions.cs" />
     <Compile Include="System\AggregateException.cs" />
+    <Compile Include="System\Text\UTF32Encoding.cs" />
+    <Compile Include="System\Text\UTF7Encoding.cs" />
+    <Compile Include="System\Text\UTF8Encoding.cs" />
+    <Compile Include="System\Text\UnicodeEncoding.cs" />
+    <Compile Include="System\Text\ASCIIEncoding.cs" />
+    <Compile Include="System\Text\EncodingInfo.cs" />
+    <Compile Include="System\Text\Encoding.cs" />
     <Compile Include="System\Type.cs" />
     <Compile Include="System\Text\RegularExpressions\Capture.cs" />
     <Compile Include="System\Text\RegularExpressions\CaptureCollection.cs" />
@@ -452,9 +462,12 @@
     <Content Include="Resources\.generated\system\environment.js" />
     <Content Include="Resources\.generated\system\formattableString.js" />
     <Content Include="Resources\.generated\system\formattableStringImpl.js" />
+    <Content Include="Resources\.generated\system\globalization\textInfo.js" />
     <Content Include="Resources\.generated\system\guid.js" />
     <Content Include="Resources\.generated\system\random.js" />
     <Content Include="Resources\.generated\system\runtime\compilerServices\formattableStringFactory.js" />
+    <Content Include="Resources\.generated\system\text\encoding.js" />
+    <Content Include="Resources\.generated\system\text\regularExpressions\regex.js" />
     <Content Include="Resources\.generated\system\threading\timer.js" />
     <Content Include="Resources\.generated\system\version.js" />
     <Content Include="Resources\.generated\system\version\parseFailureKind.js" />
