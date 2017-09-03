@@ -25112,6 +25112,22 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3089", {
+        statics: {
+            methods: {
+                method: function () {
+                    return "test";
+                },
+                TestOperatorTemplate: function () {
+                    var c = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3089.method());
+                    Bridge.Test.NUnit.Assert.AreEqual("test", c);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3089.C");
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
