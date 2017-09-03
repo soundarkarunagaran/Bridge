@@ -25089,6 +25089,29 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3088", {
+        statics: {
+            methods: {
+                TestBaseProperty: function () {
+                    for (var i = 0; i < 2; i = (i + 1) | 0) {
+                        var a = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3088.A();
+                        Bridge.Test.NUnit.Assert.AreEqual(2, a.x);
+                    }
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3088.Base", {
+        props: {
+            x: {
+                get: function () {
+                    return 1;
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
@@ -35143,6 +35166,17 @@ Bridge.$N1391Result =                     r;
             Property: {
                 set: function (value) {
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3086.sb.append(System.String.concat("B Set! ", value));
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3088.A", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3088.Base],
+        props: {
+            x: {
+                get: function () {
+                    return ((Bridge.ensureBaseProperty(this, "x").$Bridge$ClientTest$Batch3$BridgeIssues$Bridge3088$Base$x + 1) | 0);
                 }
             }
         }
