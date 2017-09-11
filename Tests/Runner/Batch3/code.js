@@ -25159,6 +25159,19 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3111", {
+        statics: {
+            methods: {
+                TestNullableFloatMul: function () {
+                    var a = 0.9;
+                    var b = 1.0;
+                    var c = System.Nullable.mul(a, b);
+                    Bridge.Test.NUnit.Assert.AreEqual(0.9, c);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3112", {
         statics: {
             methods: {

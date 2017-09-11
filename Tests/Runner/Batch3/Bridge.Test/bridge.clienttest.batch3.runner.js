@@ -650,6 +650,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3107 - TestEventHandlersInvocation", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3107.TestEventHandlersInvocation);
             QUnit.test("#3107 - TestEventHandlersInvocation2", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3107.TestEventHandlersInvocation2);
             QUnit.test("#3107 - TestEventHandlersInvocation3", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3107.TestEventHandlersInvocation3);
+            QUnit.test("#3111 - TestNullableFloatMul", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3111.TestNullableFloatMul);
             QUnit.test("#3112 - TestUsingScopeWitinLoopInLambda", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3112.TestUsingScopeWitinLoopInLambda);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
@@ -13498,6 +13499,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3107", $t.File = "Batch3\\BridgeIssues\\3100\\N3107.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3111", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3111)],
+        statics: {
+            methods: {
+                TestNullableFloatMul: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3111).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3111, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestNullableFloatMul()", $t.Line = "10", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3111.TestNullableFloatMul();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3111", $t.File = "Batch3\\BridgeIssues\\3100\\N3111.cs", $t);
                 }
                 return this.context;
             }
