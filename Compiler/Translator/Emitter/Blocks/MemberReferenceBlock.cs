@@ -82,7 +82,7 @@ namespace Bridge.Translator
                 this.MemberReferenceExpression.Target.AcceptVisitor(this.Emitter);
                 return;
             }
-            var target = BridgeTypes.ToJsName(member.Member.DeclaringType, this.Emitter);
+            var target = BridgeTypes.ToJsName(member.Member.DeclaringType, this.Emitter, ignoreLiteralName: false);
             this.NoTarget = string.IsNullOrWhiteSpace(target);
 
             if (member.Member.IsStatic
@@ -1056,7 +1056,15 @@ namespace Bridge.Translator
                     }
                     else
                     {
-                        this.Write(this.Emitter.GetEntityName(member.Member));
+                        var memberName = this.Emitter.GetEntityName(member.Member);
+                        if (isRefArg)
+                        {
+                            this.WriteScript(memberName);
+                        }
+                        else
+                        {
+                            this.WriteIdentifier(memberName);
+                        }
                     }
                 }
 

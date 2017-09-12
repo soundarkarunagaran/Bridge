@@ -21,8 +21,10 @@ namespace Bridge.Translator
         public const string Bridge_ASSEMBLY_DOT = Bridge_ASSEMBLY + ".";
         public const string BridgeResourcesPlusSeparatedFormatList = "Bridge.Resources.list";
         public const string BridgeResourcesJsonFormatList = "Bridge.Resources.json";
+        public const string BridgeResourcesCombinedPrefix = "Bridge.Resources.Parts.";
         public const string LocalesPrefix = "Bridge.Resources.Locales.";
         public const string DefaultLocalesOutputName = "Bridge.Locales.js";
+        public const string BridgeConsoleName = "bridge.console.js";
         public const string SupportedProjectType = "Library";
         public const string DefaultRootNamespace = "ClassLibrary";
         public const string SystemAssemblyName = "mscorlib";
@@ -157,7 +159,7 @@ namespace Bridge.Translator
 
 
             var resolver = new MemberResolver(this.ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), this.AssemblyDefinition);
-            resolver = this.Preconvert(resolver);
+            resolver = this.Preconvert(resolver, config);
 
             this.InspectTypes(resolver, config);
 
@@ -193,19 +195,19 @@ namespace Bridge.Translator
             logger.Info("Translating done");
         }
 
-        protected virtual MemberResolver Preconvert(MemberResolver resolver)
+        protected virtual MemberResolver Preconvert(MemberResolver resolver, IAssemblyInfo config)
         {
             bool needRecompile = false;
             foreach (var sourceFile in this.ParsedSourceFiles)
             {
                 var syntaxTree = sourceFile.SyntaxTree;
-
-                var detecter = new PreconverterDetecter(resolver);
+                var tempEmitter = new TempEmitter { AssemblyInfo = config };
+                var detecter = new PreconverterDetecter(resolver, tempEmitter);
                 syntaxTree.AcceptVisitor(detecter);
 
                 if (detecter.Found)
                 {
-                    var fixer = new PreconverterFixer(resolver);
+                    var fixer = new PreconverterFixer(resolver, tempEmitter);
                     var astNode = syntaxTree.AcceptVisitor(fixer);
                     syntaxTree = astNode != null ? (SyntaxTree)astNode : syntaxTree;
                     sourceFile.SyntaxTree = syntaxTree;
@@ -389,6 +391,15 @@ namespace Bridge.Translator
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.Reference)
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.Resource)
                 && !output.OutputKind.HasFlag(TranslatorOutputKind.Metadata);
+        }
+
+        public bool CheckIfRequiresSourceMap(BridgeResourceInfoPart resourcePart)
+        {
+            var fileHelper = new FileHelper();
+
+            return resourcePart != null
+                && resourcePart.Assembly == null // i.e. this assembly output
+                && fileHelper.IsJS(resourcePart.Name);
         }
 
         public TranslatorOutputItem FindTranslatorOutputItem(string filePath)
