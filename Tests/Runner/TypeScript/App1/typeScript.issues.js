@@ -67,9 +67,9 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
             },
             $ctor1: function (initialValues) {
                 if (initialValues === void 0) { initialValues = []; }
+                var $t;
 
                 TypeScript.Issues.N2031DictionaryMap$2(T1,T2).ctor.call(this);
-                var $t;
                 $t = Bridge.getEnumerator(initialValues);
                 try {
                     while ($t.moveNext()) {
@@ -81,13 +81,13 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
                         $t.System$IDisposable$dispose();
                     }
                 }}
-    },
-    methods: {
-        Add: function (t1, t2) {
-            this._forward.add(t1, t2);
-            this._reverse.add(t2, t1);
+        },
+        methods: {
+            Add: function (t1, t2) {
+                this._forward.add(t1, t2);
+                this._reverse.add(t2, t1);
+            }
         }
-    }
     }; });
 
     Bridge.define("TypeScript.Issues.N2031DictionaryMap$2.Indexer$2", function (T1, T2, T3, T4) { return {
@@ -281,6 +281,13 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
         }
     });
 
+    Bridge.define("TypeScript.Issues.N3061");
+
+    Bridge.define("TypeScript.Issues.N3061.IVehicle", {
+        inherits: function () { return [System.IEquatable$1(TypeScript.Issues.N3061.IVehicle)]; },
+        $kind: "interface"
+    });
+
     Bridge.define("TypeScript.Issues.N1640.GamePlay", {
         inherits: [TypeScript.Issues.N1640.IGamePlay],
         events: {
@@ -317,6 +324,42 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
         methods: {
             zag: function () {
                 return 1;
+            }
+        }
+    });
+
+    Bridge.define("TypeScript.Issues.N3061.Car", {
+        inherits: function () { return [TypeScript.Issues.N3061.IVehicle,System.IEquatable$1(TypeScript.Issues.N3061.Car)]; },
+        props: {
+            Horses: 0
+        },
+        alias: [
+            "Horses", "TypeScript$Issues$N3061$IVehicle$Horses",
+            "equalsT$1", "System$IEquatable$1$TypeScript$Issues$N3061$IVehicle$equalsT"
+        ],
+        methods: {
+            equalsT$1: function (vehicle) {
+                return this.equalsT(Bridge.cast(vehicle, TypeScript.Issues.N3061.Car));
+            }
+        }
+    });
+
+    Bridge.define("TypeScript.Issues.N3061.Tractor", {
+        inherits: [TypeScript.Issues.N3061.Car],
+        alias: ["equalsT", "System$IEquatable$1$TypeScript$Issues$N3061$Car$equalsT"],
+        methods: {
+            equalsT: function (car) {
+                return this.Horses === car.Horses;
+            }
+        }
+    });
+
+    Bridge.define("TypeScript.Issues.N3061.Truck", {
+        inherits: [TypeScript.Issues.N3061.Car],
+        alias: ["equalsT", "System$IEquatable$1$TypeScript$Issues$N3061$Car$equalsT"],
+        methods: {
+            equalsT: function (car) {
+                return this.Horses === car.Horses;
             }
         }
     });

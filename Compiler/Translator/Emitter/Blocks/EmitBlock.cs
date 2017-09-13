@@ -86,6 +86,11 @@ namespace Bridge.Translator
                 fileName = this.Emitter.AssemblyInfo.FileName;
             }
 
+            if (fileName.IsEmpty() && this.Emitter.Translator.ProjectProperties.AssemblyName != null)
+            {
+                fileName = this.Emitter.Translator.ProjectProperties.AssemblyName;
+            }
+
             if (fileName.IsEmpty())
             {
                 fileName = AssemblyInfo.DEFAULT_FILENAME;
@@ -255,6 +260,7 @@ namespace Bridge.Translator
 
                 this.Emitter.Translator.EmitNode = type.TypeDeclaration;
                 var typeDef = type.Type.GetDefinition();
+                this.Emitter.Rules = Rules.Get(this.Emitter, typeDef);
 
                 bool isNative;
                 if (typeDef.Kind == TypeKind.Interface && this.Emitter.Validator.IsExternalInterface(typeDef, out isNative))

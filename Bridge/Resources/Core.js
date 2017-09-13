@@ -1,6 +1,8 @@
     var core = {
         global: globals,
 
+        isNode: (new Function("try {return this===global;}catch(e){return false;}"))(),
+
         emptyFn: function () { },
 
         identity: function (x) {
@@ -225,9 +227,9 @@
             var scopeType = Bridge.getType(scope),
                 descriptors = scopeType.$descriptors || [];
 
-            descriptors.$propMap = descriptors.$propMap || {};
+            scope.$propMap = scope.$propMap || {};
 
-            if (descriptors.$propMap[name]) {
+            if (scope.$propMap[name]) {
                 return scope;
             }
 
@@ -248,7 +250,7 @@
                 }
             }
 
-            descriptors.$propMap[name] = true;
+            scope.$propMap[name] = true;
 
             return scope;
         },
@@ -1077,7 +1079,7 @@
         },
 
         toList: function (ienumerable, T) {
-            return new (System.Collections.Generic.List$1(T || System.Object))(ienumerable);
+            return new (System.Collections.Generic.List$1(T || System.Object).$ctor1)(ienumerable);
         },
 
         arrayTypes: [globals.Array, globals.Uint8Array, globals.Int8Array, globals.Int16Array, globals.Uint16Array, globals.Int32Array, globals.Uint32Array, globals.Float32Array, globals.Float64Array, globals.Uint8ClampedArray],
@@ -1166,6 +1168,10 @@
             } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
                 return Bridge.fn.equals.call(a, b);
             } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
+                if (a.kind !== undefined && a.ticks !== undefined && b.kind !== undefined && b.ticks !== undefined) {
+                    return a.ticks.equals(b.ticks);
+                }
+
                 return a.valueOf() === b.valueOf();
             } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
                 return true;
@@ -1295,6 +1301,10 @@
 
                 return a < b ? -1 : (a > b ? 1 : 0);
             } else if (Bridge.isDate(a)) {
+                if (a.kind !== undefined && a.ticks !== undefined) {
+                    return Bridge.compare(a.ticks, b.ticks);
+                }
+
                 return Bridge.compare(a.valueOf(), b.valueOf());
             }
 
@@ -1353,6 +1363,10 @@
             } else if (Bridge.isNumber(a) || Bridge.isString(a) || Bridge.isBoolean(a)) {
                 return a === b;
             } else if (Bridge.isDate(a)) {
+                if (a.kind !== undefined && a.ticks !== undefined) {
+                    return a.ticks.equals(b.ticks);
+                }
+
                 return a.valueOf() === b.valueOf();
             }
 
@@ -1666,14 +1680,17 @@
             },
 
             $build: function (handlers) {
+                if (!handlers || handlers.length === 0) {
+                    return null;
+                }
+
                 var fn = function () {
-                    var list = fn.$invocationList,
-                        result = null,
+                    var result = null,
                         i,
                         handler;
 
-                    for (i = 0; i < list.length; i++) {
-                        handler = list[i];
+                    for (i = 0; i < handlers.length; i++) {
+                        handler = handlers[i];
                         result = handler.apply(null, arguments);
                     }
 
@@ -1681,10 +1698,7 @@
                 };
 
                 fn.$invocationList = handlers ? Array.prototype.slice.call(handlers, 0) : [];
-
-                if (fn.$invocationList.length === 0) {
-                    return null;
-                }
+                handlers = fn.$invocationList.slice();               
 
                 return fn;
             },
