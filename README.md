@@ -6,7 +6,6 @@
 [![Build Status](https://travis-ci.org/bridgedotnet/Bridge.svg?branch=master)](https://travis-ci.org/bridgedotnet/Bridge)
 [![NuGet Status](https://img.shields.io/nuget/v/Bridge.svg)](https://www.nuget.org/packages/Bridge)
 [![Join the chat at https://gitter.im/bridgedotnet/Bridge](https://badges.gitter.im/bridgedotnet/Bridge.svg)](https://gitter.im/bridgedotnet/Bridge?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![CLA assistant](https://cla-assistant.io/readme/badge/bridgedotnet/Bridge)](https://cla-assistant.io/bridgedotnet/Bridge)
 
 [Bridge.NET](http://bridge.net/) is an open source C#-to-JavaScript Compiler.
 
@@ -58,6 +57,8 @@ Run the sample above at [Deck.NET](https://deck.net/5c58693ae7b44ac969f576545cac
 A great place to start if you're new to Bridge is reviewing the [Getting Started](https://github.com/bridgedotnet/Bridge/wiki) wiki.
 
 The easiest place to see Bridge in action is [Deck.NET](https://deck.net/). 
+
+[![Video Tutorial](https://user-images.githubusercontent.com/62210/30412015-ee0e9ccc-98d1-11e7-9a28-3bc02b900190.png)](http://www.youtube.com/watch?v=s-FTRi13QHQ)
 
 ## Sample
 
