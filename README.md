@@ -7,16 +7,16 @@
 [![NuGet Status](https://img.shields.io/nuget/v/Bridge.svg)](https://www.nuget.org/packages/Bridge)
 [![Join the chat at https://gitter.im/bridgedotnet/Bridge](https://badges.gitter.im/bridgedotnet/Bridge.svg)](https://gitter.im/bridgedotnet/Bridge?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-[Bridge.NET](http://bridge.net/) is an open source C#-to-JavaScript Compiler.
+[Bridge.NET](http://bridge.net/) is an open source C#-to-JavaScript Compiler. Write your application in C# and run on billions of devices.
 
 Compile your C#...
 
 ```csharp
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-        var msg = "Hello, world!";
+        var msg = "Hello, World!";
         
         Console.WriteLine(msg);
     }
@@ -26,16 +26,16 @@ class Program
 into JavaScript
 
 ```js
-Bridge.define("Program", {
-    main: function Main(args) {
-        var msg = "Hello, world!";
+Bridge.define("Demo.Program", {
+    main: function Main () {
+        var msg = "Hello, World!";
 
         System.Console.WriteLine(msg);
     }
 });
 ```
 
-Run the sample above at [Deck.NET](https://deck.net/5c58693ae7b44ac969f576545cac7f0c).
+Run the sample above at [Deck.NET](https://deck.net/helloworld).
 
 ## TL;DR
 
