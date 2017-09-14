@@ -92,7 +92,7 @@ A full list of installation options available at [bridge.net/download/](http://b
 
 ### Bridge for Visual Studio
 
-If you're using Visual Studio for Windoes, the easiest way to get started is by adding the Bridge.NET for Visual Studio [extension](https://visualstudiogallery.msdn.microsoft.com/dca5c80f-a0df-4944-8343-9c905db84757).
+If you're using Visual Studio for Windows, the easiest way to get started is by adding the Bridge.NET for Visual Studio [extension](https://visualstudiogallery.msdn.microsoft.com/dca5c80f-a0df-4944-8343-9c905db84757).
 
 From within Visual Studio, go to the `Tools > Extensions and Updates...`.
 
