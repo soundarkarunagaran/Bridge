@@ -58,7 +58,7 @@ A great place to start if you're new to Bridge is reviewing the [Getting Started
 
 The easiest place to see Bridge in action is [Deck.NET](https://deck.net/). 
 
-[![Video Tutorial](https://user-images.githubusercontent.com/62210/30412015-ee0e9ccc-98d1-11e7-9a28-3bc02b900190.png)](http://www.youtube.com/watch?v=s-FTRi13QHQ)
+[![Video Tutorial](https://user-images.githubusercontent.com/62210/30412015-ee0e9ccc-98d1-11e7-9a28-3bc02b900190.png)](https://www.youtube.com/watch?v=cEUR1UthE2c)
 
 ## Sample
 
