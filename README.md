@@ -6,18 +6,17 @@
 [![Build Status](https://travis-ci.org/bridgedotnet/Bridge.svg?branch=master)](https://travis-ci.org/bridgedotnet/Bridge)
 [![NuGet Status](https://img.shields.io/nuget/v/Bridge.svg)](https://www.nuget.org/packages/Bridge)
 [![Join the chat at https://gitter.im/bridgedotnet/Bridge](https://badges.gitter.im/bridgedotnet/Bridge.svg)](https://gitter.im/bridgedotnet/Bridge?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![CLA assistant](https://cla-assistant.io/readme/badge/bridgedotnet/Bridge)](https://cla-assistant.io/bridgedotnet/Bridge)
 
-[Bridge.NET](http://bridge.net/) is an open source C#-to-JavaScript Compiler.
+[Bridge.NET](http://bridge.net/) is an open source C#-to-JavaScript Compiler. Write your application in C# and run on billions of devices.
 
 Compile your C#...
 
 ```csharp
-class Program
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main()
     {
-        var msg = "Hello, world!";
+        var msg = "Hello, World!";
         
         Console.WriteLine(msg);
     }
@@ -27,16 +26,16 @@ class Program
 into JavaScript
 
 ```js
-Bridge.define("Program", {
-    main: function Main(args) {
-        var msg = "Hello, world!";
+Bridge.define("Demo.Program", {
+    main: function Main () {
+        var msg = "Hello, World!";
 
         System.Console.WriteLine(msg);
     }
 });
 ```
 
-Run the sample above at [Deck.NET](https://deck.net/5c58693ae7b44ac969f576545cac7f0c).
+Run the sample above at [Deck.NET](https://deck.net/helloworld).
 
 ## TL;DR
 
@@ -58,6 +57,8 @@ Run the sample above at [Deck.NET](https://deck.net/5c58693ae7b44ac969f576545cac
 A great place to start if you're new to Bridge is reviewing the [Getting Started](https://github.com/bridgedotnet/Bridge/wiki) wiki.
 
 The easiest place to see Bridge in action is [Deck.NET](https://deck.net/). 
+
+[![Video Tutorial](https://user-images.githubusercontent.com/62210/30412015-ee0e9ccc-98d1-11e7-9a28-3bc02b900190.png)](https://www.youtube.com/watch?v=cEUR1UthE2c)
 
 ## Sample
 
@@ -91,7 +92,7 @@ A full list of installation options available at [bridge.net/download/](http://b
 
 ### Bridge for Visual Studio
 
-If you're using Visual Studio for Windoes, the easiest way to get started is by adding the Bridge.NET for Visual Studio [extension](https://visualstudiogallery.msdn.microsoft.com/dca5c80f-a0df-4944-8343-9c905db84757).
+If you're using Visual Studio for Windows, the easiest way to get started is by adding the Bridge.NET for Visual Studio [extension](https://visualstudiogallery.msdn.microsoft.com/dca5c80f-a0df-4944-8343-9c905db84757).
 
 From within Visual Studio, go to the `Tools > Extensions and Updates...`.
 
