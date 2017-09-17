@@ -4,7 +4,7 @@ A description of the issue.
 
 http://deck.net/ <-- Replace with a link to your Deck
 
-```c#
+```csharp
 public class Program
 {
     public static void Main()
