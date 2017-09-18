@@ -25380,6 +25380,35 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134", {
+        statics: {
+            methods: {
+                TestInterfaceOptionalParams: function () {
+                    var work = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134.SomeWork();
+
+                    var result = work.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3134$ISomeWork$Exec(System.Boolean, void 0);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("empty", result);
+
+                    var af = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134.f1;
+                    var result1 = work.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3134$ISomeWork$Exec(System.Boolean, af);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("not empty", result1);
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134, {
+        f1: function (f) { }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134.ISomeWork", {
+        $kind: "interface"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
@@ -35402,6 +35431,17 @@ Bridge.$N1391Result =                     r;
                 get: function () {
                     return ((Bridge.ensureBaseProperty(this, "x").$Bridge$ClientTest$Batch3$BridgeIssues$Bridge3088$Base$x + 1) | 0);
                 }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134.SomeWork", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3134.ISomeWork],
+        alias: ["Exec", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3134$ISomeWork$Exec"],
+        methods: {
+            Exec: function (T, progress) {
+                if (progress === void 0) { progress = null; }
+                return (!Bridge.staticEquals(progress, null)) ? "not empty" : "empty";
             }
         }
     });
