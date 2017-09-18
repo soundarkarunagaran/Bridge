@@ -1,5 +1,5 @@
 /**
- * @version   : 16.3.0 - Bridge.NET
+ * @version   : 16.3.1 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
  * @copyright : Copyright 2008-2017 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
@@ -19,7 +19,7 @@
     var core = {
         global: globals,
 
-        isNode: (new Function("try {return this===global;}catch(e){return false;}"))(),
+        isNode: Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]',
 
         emptyFn: function () { },
 
@@ -3099,8 +3099,8 @@
     // @source systemAssemblyVersion.js
 
     Bridge.init(function () {
-        Bridge.SystemAssembly.version = "16.3.0";
-        Bridge.SystemAssembly.compiler = "16.3.0";
+        Bridge.SystemAssembly.version = "16.3.1";
+        Bridge.SystemAssembly.compiler = "16.3.1";
     });
 
     Bridge.define("Bridge.Utils.SystemAssemblyVersion");
@@ -9735,19 +9735,19 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             },
 
             gt: function (a, b) {
-                return Bridge.hasValue$1(a, b) ? (a > b) : false;
+                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) > System.DateTime.getTicks(b)) : false;
             },
 
             gte: function (a, b) {
-                return Bridge.hasValue$1(a, b) ? (a >= b) : false;
+                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) >= System.DateTime.getTicks(b)) : false;
             },
 
             lt: function (a, b) {
-                return Bridge.hasValue$1(a, b) ? (a < b) : false;
+                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) < System.DateTime.getTicks(b)) : false;
             },
 
             lte: function (a, b) {
-                return Bridge.hasValue$1(a, b) ? (a <= b) : false;
+                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) <= System.DateTime.getTicks(b)) : false;
             }
         }
     });
@@ -13450,7 +13450,16 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 }
 
                 if (this._size > 0) {
-                    System.Array.sort(this._items, comparison);
+                    if (this._items.length === this._size) {
+                        System.Array.sort(this._items, comparison);
+                    } else {
+                        var newItems = System.Array.init(this._size, function (){
+                            return Bridge.getDefaultValue(T);
+                        }, T);
+                        System.Array.copy(this._items, 0, newItems, 0, this._size);
+                        System.Array.sort(newItems, comparison);
+                        System.Array.copy(newItems, 0, this._items, 0, this._size);
+                    }
                 }
             },
             toArray: function () {
@@ -17504,6 +17513,10 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
         },
 
         getAbsoluteUri: function () {
+            return this.absoluteUri;
+        },
+
+        toJSON: function () {
             return this.absoluteUri;
         }
     });
@@ -27274,7 +27287,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return null;
                 }
 
-                return new Uint8Array(outputBytes);
+                return outputBytes;
             },
             Decode$2: function (bytes, index, count, chars, charIndex) {
                 var position = index;
@@ -27459,7 +27472,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return null;
                 }
 
-                return new Uint8Array(outputBytes);
+                return outputBytes;
             },
             Decode$2: function (bytes, index, count, chars, charIndex) {
                 var position = index;
@@ -27693,7 +27706,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return null;
                 }
 
-                return new Uint8Array(outputBytes);
+                return outputBytes;
             },
             Decode$2: function (bytes, index, count, chars, charIndex) {
                 var position = index;
@@ -27852,7 +27865,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                 writtenBytes.v = arr.length;
 
-                return new Uint8Array(arr);
+                return arr;
             },
             Decode$2: function (bytes, index, count, chars, charIndex) {
                 var _base64ToArrayBuffer = $asm.$.System.Text.UTF7Encoding.f2;
@@ -28025,7 +28038,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return null;
                 }
 
-                return new Uint8Array(outputBytes);
+                return outputBytes;
             },
             Decode$2: function (bytes, index, count, chars, charIndex) {
                 this._hasError = false;
