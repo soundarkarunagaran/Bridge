@@ -25650,6 +25650,38 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3151", {
+        statics: {
+            methods: {
+                TestLeftAssigmentForDelegates: function () {
+                    var msg = null;
+                    var ht = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3151.SomeClass();
+
+                    ht.setItem("", Bridge.fn.combine(ht.getItem(""), function () {
+                        msg = "test";
+                    }));
+                    ht.getItem("")();
+
+                    Bridge.Test.NUnit.Assert.AreEqual("test", msg);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3151.SomeClass", {
+        fields: {
+            action: null
+        },
+        methods: {
+            getItem: function (key) {
+                return this.action;
+            },
+            setItem: function (key, value) {
+                this.action = value;
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
