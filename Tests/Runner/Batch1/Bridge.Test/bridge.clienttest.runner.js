@@ -1181,6 +1181,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Function - TestConstructorArgumentsInArray", Bridge.Test.Runtime.BridgeClientTestRunner.FunctionTests.TestConstructorArgumentsInArray);
             QUnit.test("Mixin - TestGlobalMethods", Bridge.Test.Runtime.BridgeClientTestRunner.MixinTests.TestGlobalMethods);
             QUnit.test("Mixin - TestMixin", Bridge.Test.Runtime.BridgeClientTestRunner.MixinTests.TestMixin);
+            QUnit.test("Mixin - TestMixin_N3156", Bridge.Test.Runtime.BridgeClientTestRunner.MixinTests.TestMixin_N3156);
             QUnit.module("Guid");
             QUnit.test("Guid - TypePropertiesAreCorrect", Bridge.Test.Runtime.BridgeClientTestRunner.GuidTests.TypePropertiesAreCorrect);
             QUnit.test("Guid - DefaultValueWorks", Bridge.Test.Runtime.BridgeClientTestRunner.GuidTests.DefaultValueWorks);
@@ -15303,6 +15304,11 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                     var $t;
                     var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MixinTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MixinTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestMixin()", $t.Line = "34", $t));
                     t.Fixture.TestMixin();
+                },
+                TestMixin_N3156: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MixinTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MixinTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestMixin_N3156()", $t.Line = "64", $t));
+                    t.Fixture.TestMixin_N3156();
                 }
             }
         },
