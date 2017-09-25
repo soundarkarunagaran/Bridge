@@ -38,11 +38,8 @@
             },
 
             toLocalTime: function (d) {
-                d.kind = (d.kind !== undefined) ? d.kind : 0
-                d.ticks = (d.ticks !== undefined) ? d.ticks : System.Int64(d.getTime()).mul(10000);
-
                 var d1,
-                    ticks = d.ticks;
+                    ticks = System.DateTime.getTicks(d);
 
                 if (d.kind !== 2) {
                     ticks = d.ticks.sub(System.Int64(d.getTimezoneOffset() * 60 * 1000).mul(10000));
@@ -768,6 +765,19 @@
                             if (neg) {
                                 offset = -offset;
                             }
+                        } else if (token === "Z") {
+                            var ch = str.substring(idx, idx + 1);
+                            if (ch === "Z" || ch === "z") {
+                                kind = 2;
+                                adjust = true;
+                                idx += 1;
+                            }
+                            else {
+                                invalid = true;
+                            }
+
+                            break;
+
                         } else if (token === "zzz" || token === "K") {
                             if (str.substring(idx, idx + 1) === "Z") {
                                 kind = 2;
