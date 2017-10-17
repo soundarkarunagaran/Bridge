@@ -25778,15 +25778,10 @@ Bridge.$N1391Result =                     r;
                     var person = { };
 
                     person.EmployeeId = 5;
-                    person.Name = "Employee One";
-
                     person.CustomerId = 3;
-                    person.Name = "Customer One";
 
                     Bridge.Test.NUnit.Assert.AreEqual(person.EmployeeId, 5);
-                    Bridge.Test.NUnit.Assert.AreEqual(person.Name, "Employee One");
                     Bridge.Test.NUnit.Assert.AreEqual(person.CustomerId, 3);
-                    Bridge.Test.NUnit.Assert.AreEqual(person.Name, "Customer One");
                 }
             }
         }
