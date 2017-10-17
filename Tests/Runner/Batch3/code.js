@@ -24399,10 +24399,8 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNullCast: function () { /// The result of the expression is always 'null'
-
-
                     Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))));
-                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false);
+                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false); /// The result of the expression is always 'null'
                 }
             }
         }
@@ -25754,6 +25752,68 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
+
+    /**
+     * This issue involves getting whether the intersection results in an
+     object with Type1 and Type2 properties, so we just check if the
+     resulting intersection is that.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200", {
+        statics: {
+            methods: {
+                /**
+                 * The test itself.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200
+                 * @return  {void}
+                 */
+                TestEventTemplate: function () {
+                    var person = { };
+
+                    person.EmployeeId = 5;
+                    person.Name = "Employee One";
+
+                    person.CustomerId = 3;
+                    person.Name = "Customer One";
+
+                    Bridge.Test.NUnit.Assert.AreEqual(person.EmployeeId, 5);
+                    Bridge.Test.NUnit.Assert.AreEqual(person.Name, "Employee One");
+                    Bridge.Test.NUnit.Assert.AreEqual(person.CustomerId, 3);
+                    Bridge.Test.NUnit.Assert.AreEqual(person.Name, "Customer One");
+                }
+            }
+        }
+    });
+
+    /**
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200.Customer
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200.Customer", {
+        props: {
+            CustomerId: 0,
+            Name: null
+        }
+    });
+
+    /**
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200.Employee
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3200.Employee", {
+        props: {
+            EmployeeId: 0,
+            Name: null
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
@@ -26826,8 +26886,6 @@ Bridge.$N1391Result =                     r;
             }
         }
     });
-
-    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
 
     /**
      * This test will check whether TypedArray types are emitted to JavaScript
