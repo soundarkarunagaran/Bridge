@@ -25894,6 +25894,16 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3195", {
+        methods: {
+            TestGuidTryParse: function () {
+                var t = { v : new System.Guid() };
+                var result = System.Guid.tryParse(null, t);
+                Bridge.Test.NUnit.Assert.False(result);
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3197", {
         methods: {
             TestUsingStatic: function () {
