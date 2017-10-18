@@ -1,6 +1,6 @@
 using System.Reflection;
 
-[assembly: AssemblyVersion("16.3")]
+[assembly: AssemblyVersion("16.4")]
 [assembly: AssemblyFileVersion("16.4.0")]
 // Remember to update NuGet.Build.Package.targets with the same version value
 // <DefaultPackageVersion>16.4.0</DefaultPackageVersion>
