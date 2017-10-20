@@ -531,7 +531,7 @@ Bridge.assembly("Bridge", function ($asm, globals) {
     Bridge.init(function () { Bridge.Console.initConsoleFunctions(); });
 });
 /**
- * @compiler Bridge.NET 16.4.0
+ * @compiler Bridge.NET 16.4.1
  */
 Bridge.assembly("TestProject", function ($asm, globals) {
     "use strict";
