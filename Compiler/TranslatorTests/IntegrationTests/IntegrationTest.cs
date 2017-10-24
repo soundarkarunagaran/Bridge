@@ -104,6 +104,7 @@ namespace Bridge.Translator.Tests
         [TestCase("19", true, true, TestName = "IntegrationTest 19 - Linked files feature #531 #562")]
 #endif
         [TestCase("20", true, true, TestName = "IntegrationTest 20 - Auto property rule")]
+        [TestCase("22", true, true, TestName = "IntegrationTest 22 - Global Methods with nested classes")]
         public void Test(string folder, bool isToBuild, bool useSpecialFileCompare, string markedContentFiles = null)
         {
             var logDir = Path.GetDirectoryName(Helpers.FileHelper.GetExecutingAssemblyPath());
