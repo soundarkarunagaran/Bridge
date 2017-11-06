@@ -26102,7 +26102,7 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
-     * ObjectLiteral test calss with a constructor
+     * ObjectLiteral test class with a constructor
      *
      * @public
      * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3240.Person
