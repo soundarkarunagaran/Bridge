@@ -26579,6 +26579,70 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * This tests consists in just creating an instance of an object with
+     the ObjectLiteral's CreateMode.Constructor setting and ensure it
+     outputs functional JavaScript.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251", {
+        statics: {
+            methods: {
+                /**
+                 * Create an instance of the subject struct and ensure it exists and
+                 is not null.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251
+                 * @return  {void}
+                 */
+                TestStructObjectLiteral: function () {
+                    var key = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251.PlaceKey.$ctor1(0);
+                    Bridge.Test.NUnit.Assert.NotNull(key, "Instance of CreateMode.Constructor ObjectLiteral class generated and not null.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Subject struct using Constructor create mode of ObjectLiteral
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251.PlaceKey
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251.PlaceKey", {
+        $kind: "struct",
+        $literal: true,
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251.PlaceKey(); }
+            }
+        },
+        ctors: {
+            $ctor1: function (i) {
+                var $this = { };
+                $this.$getType = function () { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251.PlaceKey; };
+                (function (){
+                }).call($this);
+                return $this;
+            },
+            ctor: function () {
+                var $this = { };
+                $this.$getType = function () { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3251.PlaceKey; };
+                (function (){
+                }).call($this);
+                return $this;
+            }
+        },
+        methods: {
+            $clone: function (to) { return this; }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
