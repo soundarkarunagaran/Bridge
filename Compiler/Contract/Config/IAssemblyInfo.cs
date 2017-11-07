@@ -1,3 +1,4 @@
+using Bridge.Contract.Constants;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -99,7 +100,8 @@ namespace Bridge.Contract
         /// Deletes files from output directory using pattern "*.js|*.d.ts" before build (before extracting scripts after translation).
         /// It is useful to replace BeforeBuild event if it just contain commands to clean the output folder.
         /// </summary>
-        bool CleanOutputFolderBeforeBuild
+        [JsonConverter(typeof(StringBoolJsonConverter), "*" + Files.Extensions.JS + "|*" + Files.Extensions.DTS)]
+        string CleanOutputFolderBeforeBuild
         {
             get; set;
         }
@@ -212,6 +214,18 @@ namespace Bridge.Contract
         CompilerRule Rules
         {
             get; set;
+        }
+
+        string ReferencesPath
+        {
+            get;
+            set;
+        }
+
+        string[] References
+        {
+            get;
+            set;
         }
     }
  }

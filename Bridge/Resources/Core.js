@@ -80,7 +80,6 @@
             }
 
             if (Bridge.isArray(o)) {
-                var arr = [];
                 for (var i = 0; i < o.length; i++) {
                     var item = o[i];
 
@@ -95,9 +94,8 @@
                         item = item.$clone();
                     }
 
-                    arr[i] = item;
+                    o[i] = item;
                 }
-                o = arr;
             }
 
             if (o && !noclone && o.$clone) {
@@ -854,6 +852,24 @@
 
             return obj;
         },
+
+        copyProperties: function (to, from) {
+            var names = Bridge.getPropertyNames(from, false),
+                i;
+
+            for (i = 0; i < names.length; i++) {
+                var name = names[i],
+                    own = from.hasOwnProperty(name),
+                    dcount = name.split("$").length;
+
+                if (own && (dcount === 1 || dcount === 2 && name.match("\$\d+$"))) {
+                    to[name] = from[name];
+                }
+                
+            }
+
+            return to;
+        }, 
 
         merge: function (to, from, callback, elemFactory) {
             if (to == null) {
