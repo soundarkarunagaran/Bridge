@@ -69,7 +69,7 @@ namespace Bridge.Contract
                { WrapProperty("CheckForOverflowUnderflow"), GetString(this.CheckForOverflowUnderflow) },
                { WrapProperty("Configuration"), GetString(this.Configuration) },
                { WrapProperty("DefineConstants"), GetString(this.DefineConstants) },
-               { WrapProperty("OutDir"), GetString(this.OutDir) },
+               { WrapProperty("OutDir"), GetString(this.OutDir, ".") },
                { WrapProperty("OutputPath"), GetString(this.OutputPath) },
                { WrapProperty("OutputType"), GetString(this.OutputType) },
                { WrapProperty("Platform"), GetString(this.Platform) },
@@ -128,9 +128,9 @@ namespace Bridge.Contract
             return "$(" + name + ")";
         }
 
-        protected string GetString(string s)
+        protected string GetString(string s, string def = "")
         {
-            return s != null ? s : "";
+            return s != null ? s : def;
         }
 
         protected string GetString(bool? b)

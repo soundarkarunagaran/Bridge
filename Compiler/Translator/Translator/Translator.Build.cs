@@ -159,6 +159,12 @@ namespace Bridge.Translator
                         AddPackageAssembly(list, packageLib);
                     }
                 }
+
+                if (!string.IsNullOrWhiteSpace(this.BridgeLocation) && !list.Any(p => Path.GetFileName(p).Equals("bridge.dll", StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    var path = Path.IsPathRooted(this.BridgeLocation) ? this.BridgeLocation : Path.GetFullPath((new Uri(Path.Combine(this.Location, this.BridgeLocation))).LocalPath);
+                    list.Add(path);
+                }
             }
 
             var arr = referencesPathes.ToArray();
@@ -223,7 +229,12 @@ namespace Bridge.Translator
                     }
                 }
 
-                Bridge.Translator.TranslatorException.Throw(sb.ToString());
+                if (File.Exists(this.AssemblyLocation))
+                {
+                    File.Delete(this.AssemblyLocation);
+                }
+
+                Bridge.Translator.TranslatorException.Throw(sb.ToString());                
             }
 
             this.Log.Info("Building assembly done");
