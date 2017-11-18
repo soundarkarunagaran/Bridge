@@ -688,6 +688,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3258 - TestUnaryImplicitOperator", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3258.TestUnaryImplicitOperator);
             QUnit.test("#3264 - TestGenericAlias", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3264.TestGenericAlias);
             QUnit.test("#3265 - TestGenericAlias", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3265.TestGenericAlias);
+            QUnit.test("#3269 - TestTypeParameterInference", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3269.TestTypeParameterInference);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
             QUnit.test("#447 - CheckInlineCalls", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineCalls);
@@ -14404,6 +14405,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3265", $t.File = "Batch3\\BridgeIssues\\3200\\N3265.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3269", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269)],
+        statics: {
+            methods: {
+                TestTypeParameterInference: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3269, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestTypeParameterInference()", $t.Line = "99", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269.TestTypeParameterInference();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269", $t.File = "Batch3\\BridgeIssues\\3200\\N3269.cs", $t);
                 }
                 return this.context;
             }
