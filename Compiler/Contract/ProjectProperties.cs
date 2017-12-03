@@ -1,9 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Bridge.Contract
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
+    [Serializable]
     public class ProjectProperties
     {
         public string AssemblyName

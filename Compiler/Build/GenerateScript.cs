@@ -117,76 +117,36 @@ namespace Bridge.Build
 
 #endif
 
+        private class Executor : MarshalByRefObject
+        {
+            public bool Execute(dynamic options, TaskLoggingHelper log)
+            {
+                return (bool)typeof(Bridge.Translator.TranslatorProcessor).GetMethod("TaskRun").Invoke(null, new object[] { options, log });
+            }
+        }
+
         public override bool Execute()
         {
-            var success = true;
-
 #if DEBUG
             if (AttachDebugger)
             {
                 System.Diagnostics.Debugger.Launch();
             };
 #endif
-            var logger = new Translator.Logging.Logger(null, false, LoggerLevel.Info, true, new VSLoggerWriter(this.Log), new FileLoggerWriter());
 
-            logger.Trace("Executing Bridge.Build.Task...");
-
-            var bridgeOptions = this.GetBridgeOptions();
-
-            var processor = new TranslatorProcessor(bridgeOptions, logger);
-
+            AppDomain ad = null;
             try
             {
-                processor.PreProcess();
-
-                processor.Process();
-
-                processor.PostProcess();
+                var setup = new AppDomainSetup { ApplicationBase = Path.GetDirectoryName(typeof(BridgeCompilerTask).Assembly.Location) };
+                ad = AppDomain.CreateDomain("BridgeCompilerTask", null, setup);
+                var executor = (Executor)ad.CreateInstanceAndUnwrap(typeof(Executor).Assembly.FullName, typeof(Executor).FullName);
+                return executor.Execute(this.GetBridgeOptions(), Log);
             }
-            catch (EmitterException ex)
+            finally
             {
-                if (logger != null)
-                {
-                    logger.Error(ex.ToString());
-                }
-                else
-                {
-                    this.Log.LogError(null, null, null, ex.FileName, ex.StartLine + 1, ex.StartColumn + 1, ex.EndLine + 1, ex.EndColumn + 1, ex.ToString());
-                }
-
-                success = false;
+                if (ad != null)
+                    AppDomain.Unload(ad);
             }
-            catch (Exception ex)
-            {
-                var ee = processor.Translator != null ? processor.Translator.CreateExceptionFromLastNode() : null;
-
-                if (ee != null)
-                {
-                    if (logger != null)
-                    {
-                        logger.Error(ee.ToString());
-                    }
-
-                    this.Log.LogError(null, null, null, ee.FileName, ee.StartLine + 1, ee.StartColumn + 1, ee.EndLine + 1, ee.EndColumn + 1, ee.ToString());
-                }
-                else
-                {
-                    if (logger != null)
-                    {
-                        logger.Error(ex.ToString());
-                    }
-                    else
-                    {
-                        this.Log.LogError(ex.ToString());
-                    }
-                }
-
-                success = false;
-            }
-
-            processor = null;
-
-            return success;
         }
 
         private Bridge.Translator.BridgeOptions GetBridgeOptions()

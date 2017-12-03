@@ -1,7 +1,7 @@
 using Bridge.Contract;
 using Bridge.Translator.Logging;
 using Bridge.Translator.Utils;
-
+using Microsoft.Build.Utilities;
 using System;
 using System.IO;
 using System.Linq;
@@ -13,13 +13,13 @@ namespace Bridge.Translator
     {
         public BridgeOptions BridgeOptions { get; private set; }
 
-        public Logger Logger { get; private set; }
+        public Logging.Logger Logger { get; private set; }
 
         public IAssemblyInfo TranslatorConfiguration { get; private set; }
 
         public Translator Translator { get; private set; }
 
-        public TranslatorProcessor(BridgeOptions bridgeOptions, Logger logger)
+        public TranslatorProcessor(BridgeOptions bridgeOptions, Logging.Logger logger)
         {
             this.BridgeOptions = bridgeOptions;
             this.Logger = logger;
@@ -51,6 +51,107 @@ namespace Bridge.Translator
 
             bridgeOptions.ProjectProperties.OutputPath = pathHelper.ConvertPath(bridgeOptions.ProjectProperties.OutputPath);
             bridgeOptions.ProjectProperties.OutDir = pathHelper.ConvertPath(bridgeOptions.ProjectProperties.OutDir);
+        }
+
+        private static BridgeOptions GetTaskOptions(dynamic taskOptions)
+        {
+            var options = new BridgeOptions();
+
+            options.ProjectLocation = taskOptions.ProjectLocation;
+            options.OutputLocation = taskOptions.OutputLocation;
+            options.DefaultFileName = taskOptions.DefaultFileName;
+            options.BridgeLocation = taskOptions.BridgeLocation;
+            options.Rebuild = taskOptions.Rebuild;
+            options.ExtractCore = taskOptions.ExtractCore;
+            options.Folder = taskOptions.Folder;
+            options.Recursive = taskOptions.Recursive;
+            options.Lib = taskOptions.Lib;
+            options.NoCompilation = taskOptions.NoCompilation;
+            options.NoTimeStamp = taskOptions.NoTimeStamp;
+            options.FromTask = taskOptions.FromTask;
+            options.Name = taskOptions.Name;
+            options.Sources = taskOptions.Sources;
+
+            options.ProjectProperties = new ProjectProperties()
+            {
+                AssemblyName = taskOptions.ProjectProperties.AssemblyName,
+                OutputPath = taskOptions.ProjectProperties.OutputPath,
+                OutDir = taskOptions.ProjectProperties.OutDir,
+                RootNamespace = taskOptions.ProjectProperties.RootNamespace,
+                Configuration = taskOptions.ProjectProperties.Configuration,
+                Platform = taskOptions.ProjectProperties.Platform,
+                DefineConstants = taskOptions.ProjectProperties.DefineConstants,
+                CheckForOverflowUnderflow = taskOptions.ProjectProperties.CheckForOverflowUnderflow,
+                OutputType = taskOptions.ProjectProperties.OutputType
+            };
+
+            return options;
+        }
+
+        public static bool TaskRun(dynamic taskOptions, TaskLoggingHelper log)
+        {
+            var success = true;
+
+            var logger = new Bridge.Translator.Logging.Logger(null, false, LoggerLevel.Info, true, new VSLoggerWriter(log), new FileLoggerWriter());
+
+            logger.Trace("Executing Bridge.Build.Task...");
+
+            var bridgeOptions = GetTaskOptions(taskOptions);
+
+            var processor = new TranslatorProcessor(bridgeOptions, logger);
+
+            try
+            {
+                processor.PreProcess();
+
+                processor.Process();
+
+                processor.PostProcess();
+            }
+            catch (EmitterException ex)
+            {
+                if (logger != null)
+                {
+                    logger.Error(ex.ToString());
+                }
+                else
+                {
+                    log.LogError(null, null, null, ex.FileName, ex.StartLine + 1, ex.StartColumn + 1, ex.EndLine + 1, ex.EndColumn + 1, ex.ToString());
+                }
+
+                success = false;
+            }
+            catch (Exception ex)
+            {
+                var ee = processor.Translator != null ? processor.Translator.CreateExceptionFromLastNode() : null;
+
+                if (ee != null)
+                {
+                    if (logger != null)
+                    {
+                        logger.Error(ee.ToString());
+                    }
+
+                    log.LogError(null, null, null, ee.FileName, ee.StartLine + 1, ee.StartColumn + 1, ee.EndLine + 1, ee.EndColumn + 1, ee.ToString());
+                }
+                else
+                {
+                    if (logger != null)
+                    {
+                        logger.Error(ex.ToString());
+                    }
+                    else
+                    {
+                        log.LogError(ex.ToString());
+                    }
+                }
+
+                success = false;
+            }
+
+            processor = null;
+
+            return success;
         }
 
         public void Process()

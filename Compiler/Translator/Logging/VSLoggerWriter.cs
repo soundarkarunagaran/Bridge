@@ -2,7 +2,7 @@
 using Microsoft.Build.Utilities;
 using System;
 
-namespace Bridge.Build
+namespace Bridge.Translator.Logging
 {
     public class VSLoggerWriter : ILogger
     {

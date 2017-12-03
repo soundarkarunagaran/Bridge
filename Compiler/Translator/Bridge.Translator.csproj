@@ -57,6 +57,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="Microsoft.CodeAnalysis, Version=2.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeAnalysis.Common.2.2.0\lib\netstandard1.3\Microsoft.CodeAnalysis.dll</HintPath>
       <Private>True</Private>
@@ -299,6 +301,7 @@
     <Compile Include="Logging\ConsoleLoggerWriter.cs" />
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\FileLoggerWriter.cs" />
+    <Compile Include="Logging\VSLoggerWriter.cs" />
     <Compile Include="SourceMaps\ISourceMapRecorder.cs" />
     <Compile Include="SourceMaps\SourceLocation.cs" />
     <Compile Include="SourceMaps\SourceMapBuilder.cs" />

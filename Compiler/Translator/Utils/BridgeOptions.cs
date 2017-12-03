@@ -5,6 +5,7 @@ using Bridge.Contract;
 
 namespace Bridge.Translator
 {
+    [Serializable]
     public class BridgeOptions
     {
         public string Name { get; set; }

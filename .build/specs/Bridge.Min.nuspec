@@ -29,6 +29,7 @@
 
     <!--tools-->
     <file src="../../Compiler/Build/bin/Release/Bridge.Build.dll" target="tools/Bridge.Builder.v16.dll" />
+	<file src="../../Compiler/Build/bin/Release/Bridge.Build.dll" target="tools/Bridge.Build.dll" />
     <file src="../../Compiler/Build/bin/Release/Bridge.Contract.dll" target="tools/Bridge.Contract.dll" />
     <file src="../../Compiler/Build/bin/Release/Bridge.Translator.dll" target="tools/Bridge.Translator.dll" />
     <file src="../../Compiler/Builder/bin/Release/bridge.exe" target="tools/bridge.exe" />
