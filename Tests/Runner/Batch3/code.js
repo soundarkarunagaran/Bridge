@@ -19068,6 +19068,59 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
+
+    /**
+     * This test consists in checking whether Bridge can translate
+     instantiation of the System.ComponentModel.BrowsableAttribute.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600", {
+        statics: {
+            methods: {
+                /**
+                 * Checks whether it is possible to fetch the BrowsableAttribute from
+                 a class using it.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600
+                 * @return  {void}
+                 */
+                TestBrowsableAttribute: function () {
+                    var props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.Properties, 16, 28)).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.f1);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, props.count(), "Found one match of the BrowsableAttribute in the checked class.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Prop1", props.first().n, "Matching property with BrowsableAttribute is the 'Prop1' one.");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600, {
+        f1: function (p) {
+            return System.Attribute.getCustomAttributes(p, System.ComponentModel.BrowsableAttribute).length > 0;
+        }
+    });
+
+    /**
+     * Class using the Browsable attribute in one of its properties.
+     *
+     * @private
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.Properties
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.Properties", {
+        props: {
+            Prop1: 0,
+            Prop2: 0
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2610", {
         statics: {
             methods: {
@@ -25904,8 +25957,6 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
-
     /**
      * This tests consists in ensuring static references from 'using static'
      are handled correctly by Bridge to nested references.
@@ -26966,6 +27017,184 @@ Bridge.$N1391Result =                     r;
      */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3273.MyUnusedAssemblyAttribute", {
         inherits: [System.Attribute]
+    });
+
+    /**
+     * The test here consists in instantiating a class using an interface
+     reference and ensure it is, client-side, reaching the type it
+     refers to.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292", {
+        statics: {
+            methods: {
+                /**
+                 * Tests whether instantiating the driver classes sets their
+                 'consistent' state to true.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292
+                 * @return  {void}
+                 */
+                TestImplicitOpCallForInterfaces: function () {
+                    Bridge.Test.NUnit.Assert.True(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassDriver(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe).op_Implicit(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe())).Consistent, "Implicit generics operator works with class referencing.");
+                    Bridge.Test.NUnit.Assert.True(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.InterfaceDriver(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe).op_Implicit(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe())).Consistent, "Implicit generics operator works with interface referencing.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Driver class that works by referencing the actual class.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassDriver
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassDriver", {
+        props: {
+            Consistent: false
+        },
+        ctors: {
+            ctor: function (errorIfFailed) {
+                this.$initialize();
+                var probe = errorIfFailed;
+
+                // We check here whether the object initializing it is of
+                // ClassProbe. We don't check against IInterfaceProbe here
+                // even though it inherits due to covariance-related
+                // limitations
+                this.Consistent = Bridge.is(probe, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe));
+            }
+        }
+    });
+
+    /**
+     * Basic interface used as base of all.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe", {
+        $kind: "interface"
+    });
+
+    /**
+     * A class implementing generics that will use the class samples
+     above in order to trigger the issue.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1
+     * @param   {Function}    [name]
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1", function (T) { return {
+        $kind: "struct",
+        statics: {
+            methods: {
+                op_Implicit: function (source) {
+                    return new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(T)).$ctor1(source);
+                },
+                getDefaultValue: function () { return new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(T))(); }
+            }
+        },
+        props: {
+            Value: Bridge.getDefaultValue(T)
+        },
+        ctors: {
+            $ctor1: function (value) {
+                this.$initialize();
+                this.Value = value;
+            },
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            getHashCode: function () {
+                var h = Bridge.addHash([5573393263, this.Value]);
+                return h;
+            },
+            equals: function (o) {
+                if (!Bridge.is(o, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(T))) {
+                    return false;
+                }
+                return Bridge.equals(this.Value, o.Value);
+            },
+            $clone: function (to) { return this; }
+        }
+    }; });
+
+    /**
+     * Driver class that breaks by referencing the interface.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.InterfaceDriver
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.InterfaceDriver", {
+        props: {
+            Consistent: false
+        },
+        ctors: {
+            ctor: function (errorIfFailed) {
+                this.$initialize();
+                var probe = errorIfFailed;
+
+                // We check here whether the object initializing it is of
+                // ClassProbe. We don't check against ClassProbe here
+                // even though it inherits due to covariance-related
+                // limitations
+                this.Consistent = Bridge.is(probe, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.GenericsClass$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe));
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking whether System.DateTime tests works
+     with current date and max/min values.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3293
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3293", {
+        statics: {
+            methods: {
+                /**
+                 * Tests the comparison variations between datetime values.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3293
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3293
+                 * @return  {void}
+                 */
+                TestDateTimeComparisons: function () {
+                    var minTim = System.DateTime.getMinValue();
+                    var now = System.DateTime.getNow();
+                    var maxTim = System.DateTime.getMaxValue();
+
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.gt(now, minTim), "Now is greater than minTime.");
+                    Bridge.Test.NUnit.Assert.False(System.DateTime.lt(now, minTim), "Now is not greater than minimum time.");
+
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.lt(now, maxTim), "Now is smaller than maxTime.");
+                    Bridge.Test.NUnit.Assert.False(System.DateTime.gt(now, maxTim), "Now is not smaller than maxTime.");
+
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.gte(now, minTim), "Now is greater than or equal minTime.");
+                    Bridge.Test.NUnit.Assert.False(System.DateTime.lte(now, minTim), "Now is not greater than or equal minimum time.");
+
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.lte(now, maxTim), "Now is smaller than or equal maxTime.");
+                    Bridge.Test.NUnit.Assert.False(System.DateTime.gte(now, maxTim), "Now is not smaller than or equal maxTime.");
+
+                    Bridge.Test.NUnit.Assert.True(!Bridge.equals(now, minTim), "Now is different than minimum time.");
+                    Bridge.Test.NUnit.Assert.False(Bridge.equals(now, minTim), "Now is not equal to minimum time.");
+                    Bridge.Test.NUnit.Assert.True(!Bridge.equals(now, maxTim), "Now is different than maximum time.");
+                    Bridge.Test.NUnit.Assert.False(Bridge.equals(now, maxTim), "Now is not equal to maximum time.");
+                }
+            }
+        }
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
@@ -37206,6 +37435,17 @@ Bridge.$N1391Result =                     r;
         $kind: "interface"
     }; });
 
+    /**
+     * A class to use the interface
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe]
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
         methods: {
@@ -37891,6 +38131,7 @@ Bridge.$N1391Result =                     r;
     $m($n[2].Bridge2550.B, function () { return {"td":$n[2].Bridge2550,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; });
     $m($n[2].Bridge2550.IA, function () { return {"td":$n[2].Bridge2550,"att":162,"a":2,"m":[{"ab":true,"a":2,"n":"A","t":16,"rt":$n[1].Int32,"g":{"ab":true,"a":2,"n":"get_A","t":8,"rt":$n[1].Int32,"fg":"Bridge$ClientTest$Batch3$BridgeIssues$Bridge2550$IA$A","box":function ($v) { return Bridge.box($v, System.Int32);}},"fn":"Bridge$ClientTest$Batch3$BridgeIssues$Bridge2550$IA$A"}]}; });
     $m($n[2].Bridge2584.Class1, function () { return {"td":$n[2].Bridge2584,"att":1048579,"a":1,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"field1","t":4,"rt":$n[1].Int32,"sn":"field1","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":3,"n":"field2","t":4,"rt":$n[1].Int32,"sn":"field2","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":1,"n":"field3","t":4,"rt":$n[1].Int32,"sn":"field3","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":4,"n":"field4","t":4,"rt":$n[1].Int32,"sn":"field4","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":2,"n":"s_field1","is":true,"t":4,"rt":$n[1].Int32,"sn":"s_field1","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":3,"n":"s_field2","is":true,"t":4,"rt":$n[1].Int32,"sn":"s_field2","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":1,"n":"s_field3","is":true,"t":4,"rt":$n[1].Int32,"sn":"s_field3","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":4,"n":"s_field4","is":true,"t":4,"rt":$n[1].Int32,"sn":"s_field4","box":function ($v) { return Bridge.box($v, System.Int32);}}]}; });
+    $m($n[2].Bridge2600.Properties, function () { return {"td":$n[2].Bridge2600,"att":1048579,"a":1,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"at":[new System.ComponentModel.BrowsableAttribute(false)],"a":2,"n":"Prop1","t":16,"rt":$n[1].Int32,"g":{"a":2,"n":"get_Prop1","t":8,"rt":$n[1].Int32,"fg":"Prop1","box":function ($v) { return Bridge.box($v, System.Int32);}},"s":{"a":2,"n":"set_Prop1","t":8,"p":[$n[1].Int32],"rt":$n[1].Void,"fs":"Prop1"},"fn":"Prop1"},{"a":2,"n":"Prop2","t":16,"rt":$n[1].Int32,"g":{"a":2,"n":"get_Prop2","t":8,"rt":$n[1].Int32,"fg":"Prop2","box":function ($v) { return Bridge.box($v, System.Int32);}},"s":{"a":2,"n":"set_Prop2","t":8,"p":[$n[1].Int32],"rt":$n[1].Void,"fs":"Prop2"},"fn":"Prop2"}]}; });
     $m($n[2].Bridge2735, function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"CreatePersonDefinition","is":true,"t":8,"sn":"CreatePersonDefinition","rt":$n[1].Void},{"a":2,"n":"TestExternalInheritanceWithoutCtor","is":true,"t":8,"sn":"TestExternalInheritanceWithoutCtor","rt":$n[1].Void}]}; });
     $m($n[2].Bridge2738, function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"LogDates","is":true,"t":8,"pi":[{"n":"a","pt":$n[1].DateTime,"ps":0},{"n":"b","pt":$n[1].DateTime,"ps":1}],"sn":"LogDates","rt":$n[1].Void,"p":[$n[1].DateTime,$n[1].DateTime]},{"a":2,"n":"TestAmbigiousSymbols","is":true,"t":8,"sn":"TestAmbigiousSymbols","rt":$n[1].Void}]}; });
     $m($n[2].Bridge2898, function () { return {"att":1048577,"a":2,"m":[{"a":2,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":".ctor","t":1,"p":[$n[1].Int32],"pi":[{"n":"_x","pt":$n[1].Int32,"ps":0}],"sn":"$ctor1"},{"a":2,"n":"Run","t":8,"pi":[{"n":"a","pt":$n[1].String,"ps":0},{"n":"b","pt":$n[1].String,"ps":1}],"sn":"Run","rt":$n[1].Void,"p":[$n[1].String,$n[1].String]},{"a":2,"n":"Run1","t":8,"pi":[{"n":"a","pt":$n[1].String,"ps":0},{"n":"b","pt":$n[1].String,"ps":1},{"n":"_x","pt":$n[1].Int32,"ps":2}],"sn":"Run1","rt":$n[1].Void,"p":[$n[1].String,$n[1].String,$n[1].Int32]},{"a":2,"n":"TestCreateDelegate","is":true,"t":8,"sn":"TestCreateDelegate","rt":$n[1].Void},{"a":1,"n":"a","is":true,"t":4,"rt":$n[1].String,"sn":"a"},{"a":1,"n":"b","is":true,"t":4,"rt":$n[1].String,"sn":"b"},{"a":1,"n":"x","t":4,"rt":$n[1].Int32,"sn":"x","box":function ($v) { return Bridge.box($v, System.Int32);}}]}; });
