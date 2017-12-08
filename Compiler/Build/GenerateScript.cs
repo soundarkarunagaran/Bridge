@@ -119,9 +119,9 @@ namespace Bridge.Build
 
         private class Executor : MarshalByRefObject
         {
-            public bool Execute(dynamic options, TaskLoggingHelper log)
+            public bool Execute(Bridge.Translator.BridgeOptions options, TaskLoggingHelper log)
             {
-                return (bool)typeof(Bridge.Translator.TranslatorProcessor).GetMethod("TaskRun").Invoke(null, new object[] { options, log });
+                return TranslatorProcessor.TaskRun(options, log);
             }
         }
 
