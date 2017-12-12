@@ -45,7 +45,8 @@ namespace Bridge.Translator
             { "System.IO.FileSystem.Primitives", new AssemblyName("System.IO.FileSystem.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a") },
             { "System.Security.Cryptography.Primitives", new AssemblyName("System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a") },
             { "System.Xml.XPath.XDocument", new AssemblyName("System.Xml.XPath.XDocument, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a") },
-            { "System.Diagnostics.FileVersionInfo", new AssemblyName("System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a") }
+            { "System.Diagnostics.FileVersionInfo", new AssemblyName("System.Diagnostics.FileVersionInfo, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a") },
+            { "System.Reflection.Metadata", new AssemblyName("System.Reflection.Metadata, Version=1.3.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a") }
         };
 
         protected class AssemblyResolver
