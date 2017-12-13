@@ -62,6 +62,7 @@
     <file src="../../Compiler/Build/bin/Release/System.IO.FileSystem.dll" target="tools/System.IO.FileSystem.dll" />
     <file src="../../Compiler/Build/bin/Release/System.IO.FileSystem.Primitives.dll" target="tools/System.IO.FileSystem.Primitives.dll" />
     <file src="../../Compiler/Build/bin/Release/System.Reflection.Metadata.dll" target="tools/System.Reflection.Metadata.dll" />
+    <file src="../../Compiler/Build/bin/Release/System.Runtime.InteropServices.RuntimeInformation.dll" target="tools/System.Runtime.InteropServices.RuntimeInformation.dll" />
     <file src="../../Compiler/Translator/bin/Release/System.Security.Cryptography.Algorithms.dll" target="tools/System.Security.Cryptography.Algorithms.dll" />
     <file src="../../Compiler/Translator/bin/Release/System.Security.Cryptography.Encoding.dll" target="tools/System.Security.Cryptography.Encoding.dll" />
     <file src="../../Compiler/Translator/bin/Release/System.Security.Cryptography.Primitives.dll" target="tools/System.Security.Cryptography.Primitives.dll" />
