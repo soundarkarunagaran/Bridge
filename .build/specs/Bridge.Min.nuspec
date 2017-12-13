@@ -37,6 +37,9 @@
     <file src="../../Compiler/Build/bin/Release/ICSharpCode.NRefactory.Cecil.dll" target="tools/ICSharpCode.NRefactory.Cecil.dll" />
     <file src="../../Compiler/Build/bin/Release/ICSharpCode.NRefactory.CSharp.dll" target="tools/ICSharpCode.NRefactory.CSharp.dll" />
     <file src="../../Compiler/Build/bin/Release/ICSharpCode.NRefactory.dll" target="tools/ICSharpCode.NRefactory.dll" />
+    <file src="../../Compiler/Build/bin/Release/Microsoft.Build.dll" target="tools/Microsoft.Build.dll" />
+    <file src="../../Compiler/Build/bin/Release/Microsoft.Build.Framework.dll" target="tools/Microsoft.Build.Framework.dll" />
+    <file src="../../Compiler/Build/bin/Release/Microsoft.Build.Utilities.Core.dll" target="tools/Microsoft.Build.Utilities.Core.dll" />
     <file src="../../Compiler/Build/bin/Release/Microsoft.CodeAnalysis.CSharp.dll" target="tools/Microsoft.CodeAnalysis.CSharp.dll" />
     <file src="../../Compiler/Build/bin/Release/Microsoft.CodeAnalysis.dll" target="tools/Microsoft.CodeAnalysis.dll" />
     <file src="../../Compiler/Build/bin/Release/Mono.Cecil.dll" target="tools/Mono.Cecil.dll" />
