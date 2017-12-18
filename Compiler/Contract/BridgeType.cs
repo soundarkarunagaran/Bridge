@@ -277,7 +277,7 @@ namespace Bridge.Contract
         public static string GetGlobalTarget(ITypeDefinition typeDefinition, AstNode node, bool removeGlobal = false)
         {
             string globalTarget = null;
-            var globalMethods = typeDefinition.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute");
+            var globalMethods = typeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute");
 
             if (globalMethods != null)
             {
@@ -286,7 +286,7 @@ namespace Bridge.Contract
             }
             else
             {
-                var mixin = typeDefinition.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.MixinAttribute");
+                var mixin = typeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.MixinAttribute");
 
                 if (mixin != null)
                 {
@@ -326,7 +326,7 @@ namespace Bridge.Contract
                 }
             }
 
-            if (itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+            if (itypeDef != null && itypeDef.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
             {
                 throw new EmitterException(emitter.Translator.EmitNode, "Type " + type.FullName + " is marked as not usable from script");
             }
@@ -623,9 +623,9 @@ namespace Bridge.Contract
             var def = type.Type.GetDefinition();
             if (def != null && type.Module == null)
             {
-                if (def.Attributes.Count > 0)
+                if (def.GetBridgeAttributes().Any())
                 {
-                    var attr = def.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ModuleAttribute");
+                    var attr = def.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ModuleAttribute");
 
                     if (attr != null)
                     {
@@ -637,9 +637,9 @@ namespace Bridge.Contract
                 {
                     var asm = def.ParentAssembly;
 
-                    if (asm.AssemblyAttributes.Count > 0)
+                    if (asm.GetBridgeAttributes().Count() > 0)
                     {
-                        var attr = asm.AssemblyAttributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ModuleAttribute");
+                        var attr = asm.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ModuleAttribute");
 
                         if (attr != null)
                         {

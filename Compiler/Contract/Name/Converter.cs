@@ -429,7 +429,7 @@ namespace Bridge.Contract
                 case ConventionTarget.External:
                     string externalAttr = "Bridge.ExternalAttribute";
                     var has =
-                        typeDef.Attributes.Any(
+                        typeDef.GetBridgeAttributes().Any(
                             attr =>
                                 attr.Constructor != null &&
                                 attr.Constructor.DeclaringType.FullName == externalAttr);
@@ -437,7 +437,7 @@ namespace Bridge.Contract
                     if (!has && typeDef.DeclaringTypeDefinition != null)
                     {
                         has =
-                            typeDef.DeclaringTypeDefinition.Attributes.Any(
+                            typeDef.DeclaringTypeDefinition.GetBridgeAttributes().Any(
                                 attr =>
                                     attr.Constructor != null &&
                                     attr.Constructor.DeclaringType.FullName == externalAttr);
@@ -446,7 +446,7 @@ namespace Bridge.Contract
                     if (!has)
                     {
                         has =
-                            typeDef.ParentAssembly.AssemblyAttributes.Any(
+                            typeDef.ParentAssembly.GetBridgeAttributes().Any(
                                 attr =>
                                     attr.Constructor != null &&
                                     attr.Constructor.DeclaringType.FullName == externalAttr);
@@ -666,7 +666,7 @@ namespace Bridge.Contract
             }
             else
             {
-                IAttribute[] assemblyAttrs = assembly.AssemblyAttributes.Where(a => a.AttributeType.FullName == NameConvertor.ConventionAttrName).ToArray();
+                IAttribute[] assemblyAttrs = assembly.GetBridgeAttributes().Where(a => a.AttributeType.FullName == NameConvertor.ConventionAttrName).ToArray();
                 assemblyRules = new NameRule[assemblyAttrs.Length];
                 for (int i = 0; i < assemblyAttrs.Length; i++)
                 {

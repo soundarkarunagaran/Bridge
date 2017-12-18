@@ -63,7 +63,7 @@ namespace Bridge.Contract
 
         private static bool HasAttribute(ICustomAttributeProvider customAttributeProvider, params string[] names)
         {
-            return customAttributeProvider != null && customAttributeProvider.CustomAttributes.Any(a => CheckName(a, names));
+            return customAttributeProvider != null && customAttributeProvider.GetBridgeAttributes().Any(a => CheckName(a, names));
         }
 
         #region Serializable attribute
@@ -82,7 +82,7 @@ namespace Bridge.Contract
 
         public static bool HasSerializableAttribute(ITypeDefinition type)
         {
-            return type != null && type.Attributes.Any(a => CheckName(a, ATTRIBUTE_SERIALIZABLE_LONG_NAMES));
+            return type != null && type.GetBridgeAttributes().Any(a => CheckName(a, ATTRIBUTE_SERIALIZABLE_LONG_NAMES));
         }
 
         #endregion Serializable attribute

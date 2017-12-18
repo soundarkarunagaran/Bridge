@@ -24,20 +24,17 @@ namespace Bridge.Translator
 
         protected virtual bool HasAttribute(EntityDeclaration type, string name)
         {
-            foreach (var i in type.Attributes)
+            foreach (var j in type.GetBridgeAttributes())
             {
-                foreach (var j in i.Attributes)
+                if (j.Type.ToString() == name)
                 {
-                    if (j.Type.ToString() == name)
-                    {
-                        return true;
-                    }
+                    return true;
+                }
 
-                    var resolveResult = this.Resolver.ResolveNode(j, null);
-                    if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (name + "Attribute"))
-                    {
-                        return true;
-                    }
+                var resolveResult = this.Resolver.ResolveNode(j, null);
+                if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (name + "Attribute"))
+                {
+                    return true;
                 }
             }
 
@@ -46,19 +43,16 @@ namespace Bridge.Translator
 
         protected virtual bool TryGetAttribute(EntityDeclaration type, string attributeName, out NRAttribute attribute)
         {
-            foreach (var i in type.Attributes)
+            foreach (var i in type.GetBridgeAttributes())
             {
-                foreach (var j in i.Attributes)
+                if (i.Type.ToString() == attributeName)
                 {
-                    if (j.Type.ToString() == attributeName)
-                    {
-                        attribute = j;
-                        return true;
-                    }
-
-                    // FIXME: Will not try to get the attribute via Resolver.ResolveNode() (see above): it returns a
-                    //        different type, without minimum information needed to make a full NRAttribute -fzm
+                    attribute = i;
+                    return true;
                 }
+
+                // FIXME: Will not try to get the attribute via Resolver.ResolveNode() (see above): it returns a
+                //        different type, without minimum information needed to make a full NRAttribute -fzm
             }
 
             attribute = default(NRAttribute);
@@ -174,8 +168,8 @@ namespace Bridge.Translator
             {
                 var parameter = type as ITypeParameter;
                 if (parameter != null && (
-                    parameter.Owner.Attributes.Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute") ||
-                    parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.Attributes.Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute")))
+                    parameter.Owner.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute") ||
+                    parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute")))
                 {
                     return null;
                 }

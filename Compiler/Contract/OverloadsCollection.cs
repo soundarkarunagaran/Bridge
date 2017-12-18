@@ -779,7 +779,7 @@ namespace Bridge.Contract
                             return false;
                         }
 
-                        if (p.IsIndexer && canGet && p.Getter.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute"))
+                        if (p.IsIndexer && canGet && p.Getter.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute"))
                         {
                             return false;
                         }

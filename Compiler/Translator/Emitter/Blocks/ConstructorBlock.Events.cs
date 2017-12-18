@@ -68,133 +68,169 @@ namespace Bridge.Translator
             var isGenericType = this.IsGenericType();
             var isGenericMethod = this.IsGenericMethod(method);
 
-            foreach (var attrSection in method.Attributes)
+            foreach (var attr in method.GetBridgeAttributes())
             {
-                foreach (var attr in attrSection.Attributes)
+                var resolveResult = this.Emitter.Resolver.ResolveNode(attr, this.Emitter) as InvocationResolveResult;
+
+                if (resolveResult != null)
                 {
-                    var resolveResult = this.Emitter.Resolver.ResolveNode(attr, this.Emitter) as InvocationResolveResult;
-
-                    if (resolveResult != null)
+                    if (resolveResult.Type.FullName == CS.Attributes.READY_ATTRIBUTE_NAME)
                     {
-                        if (resolveResult.Type.FullName == CS.Attributes.READY_ATTRIBUTE_NAME)
-                        {
-                            hasReadyAttribute = true;
+                        hasReadyAttribute = true;
 
-                            if (isGenericType || isGenericMethod)
+                        if (isGenericType || isGenericMethod)
+                        {
+                            LogAutoStartupWarning(method);
+                            continue;
+                        }
+                    }
+
+                    var baseTypes = resolveResult.Type.GetAllBaseTypes().ToArray();
+
+                    if (baseTypes.Any(t => t.FullName == "Bridge.AdapterAttribute"))
+                    {
+                        if (methodGroup.Value.Count > 1)
+                        {
+                            throw new EmitterException(attr, "Overloaded method cannot be event handler");
+                        }
+
+                        var staticFlagField = resolveResult.Type.GetFields(f => f.Name == "StaticOnly");
+
+                        if (staticFlagField.Count() > 0)
+                        {
+                            var staticValue = staticFlagField.First().ConstantValue;
+
+                            if (staticValue is bool && ((bool)staticValue) && !method.HasModifier(Modifiers.Static))
                             {
-                                LogAutoStartupWarning(method);
-                                continue;
+                                throw new EmitterException(attr, resolveResult.Type.FullName + " can be applied for static methods only");
                             }
                         }
 
-                        var baseTypes = resolveResult.Type.GetAllBaseTypes().ToArray();
+                        string eventName = methodGroup.Key;
+                        var eventField = resolveResult.Type.GetFields(f => f.Name == "Event");
 
-                        if (baseTypes.Any(t => t.FullName == "Bridge.AdapterAttribute"))
+                        if (eventField.Count() > 0)
                         {
-                            if (methodGroup.Value.Count > 1)
+                            eventName = eventField.First().ConstantValue.ToString();
+                        }
+
+                        string format = null;
+                        string formatName = this.StaticBlock ? "Format" : "FormatScope";
+                        var formatField = resolveResult.Type.GetFields(f => f.Name == formatName, GetMemberOptions.IgnoreInheritedMembers);
+
+                        if (formatField.Count() > 0)
+                        {
+                            format = formatField.First().ConstantValue.ToString();
+                        }
+                        else
+                        {
+                            for (int i = baseTypes.Length - 1; i >= 0; i--)
                             {
-                                throw new EmitterException(attr, "Overloaded method cannot be event handler");
-                            }
+                                formatField = baseTypes[i].GetFields(f => f.Name == formatName);
 
-                            var staticFlagField = resolveResult.Type.GetFields(f => f.Name == "StaticOnly");
-
-                            if (staticFlagField.Count() > 0)
-                            {
-                                var staticValue = staticFlagField.First().ConstantValue;
-
-                                if (staticValue is bool && ((bool)staticValue) && !method.HasModifier(Modifiers.Static))
+                                if (formatField.Count() > 0)
                                 {
-                                    throw new EmitterException(attr, resolveResult.Type.FullName + " can be applied for static methods only");
+                                    format = formatField.First().ConstantValue.ToString();
+                                    break;
                                 }
                             }
+                        }
 
-                            string eventName = methodGroup.Key;
-                            var eventField = resolveResult.Type.GetFields(f => f.Name == "Event");
+                        bool isCommon = false;
+                        var commonField = resolveResult.Type.GetFields(f => f.Name == "IsCommonEvent");
 
-                            if (eventField.Count() > 0)
+                        if (commonField.Count() > 0)
+                        {
+                            isCommon = Convert.ToBoolean(commonField.First().ConstantValue);
+                        }
+
+                        if (isCommon)
+                        {
+                            var eventArg = attr.Arguments.First();
+                            var primitiveArg = eventArg as ICSharpCode.NRefactory.CSharp.PrimitiveExpression;
+
+                            if (primitiveArg != null)
                             {
-                                eventName = eventField.First().ConstantValue.ToString();
-                            }
-
-                            string format = null;
-                            string formatName = this.StaticBlock ? "Format" : "FormatScope";
-                            var formatField = resolveResult.Type.GetFields(f => f.Name == formatName, GetMemberOptions.IgnoreInheritedMembers);
-
-                            if (formatField.Count() > 0)
-                            {
-                                format = formatField.First().ConstantValue.ToString();
+                                eventName = primitiveArg.Value.ToString();
                             }
                             else
                             {
-                                for (int i = baseTypes.Length - 1; i >= 0; i--)
-                                {
-                                    formatField = baseTypes[i].GetFields(f => f.Name == formatName);
+                                var memberArg = eventArg as MemberReferenceExpression;
 
-                                    if (formatField.Count() > 0)
+                                if (memberArg != null)
+                                {
+                                    var memberResolveResult = this.Emitter.Resolver.ResolveNode(memberArg, this.Emitter) as MemberResolveResult;
+
+                                    if (memberResolveResult != null)
                                     {
-                                        format = formatField.First().ConstantValue.ToString();
-                                        break;
+                                        eventName = this.Emitter.GetEntityName(memberResolveResult.Member);
                                     }
                                 }
                             }
+                        }
 
-                            bool isCommon = false;
-                            var commonField = resolveResult.Type.GetFields(f => f.Name == "IsCommonEvent");
+                        int selectorIndex = isCommon ? 1 : 0;
+                        string selector = null;
 
-                            if (commonField.Count() > 0)
+                        if (attr.Arguments.Count > selectorIndex)
+                        {
+                            selector = ((ICSharpCode.NRefactory.CSharp.PrimitiveExpression)(attr.Arguments.ElementAt(selectorIndex))).Value.ToString();
+                        }
+                        else
+                        {
+                            var resolvedmethod = resolveResult.Member as IMethod;
+
+                            if (resolvedmethod.Parameters.Count > selectorIndex)
                             {
-                                isCommon = Convert.ToBoolean(commonField.First().ConstantValue);
+                                selector = resolvedmethod.Parameters[selectorIndex].ConstantValue.ToString();
                             }
+                        }
 
-                            if (isCommon)
+                        if (attr.Arguments.Count > (selectorIndex + 1))
+                        {
+                            var memberResolveResult = this.Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), this.Emitter) as MemberResolveResult;
+
+                            if (memberResolveResult != null && memberResolveResult.Member.GetBridgeAttributes().Any())
                             {
-                                var eventArg = attr.Arguments.First();
-                                var primitiveArg = eventArg as ICSharpCode.NRefactory.CSharp.PrimitiveExpression;
+                                var template = this.Emitter.Validator.GetAttribute(memberResolveResult.Member.GetBridgeAttributes(), "Bridge.TemplateAttribute");
 
-                                if (primitiveArg != null)
+                                if (template != null)
                                 {
-                                    eventName = primitiveArg.Value.ToString();
+                                    selector = string.Format(template.PositionalArguments.First().ConstantValue.ToString(), selector);
                                 }
-                                else
-                                {
-                                    var memberArg = eventArg as MemberReferenceExpression;
+                            }
+                        }
+                        else
+                        {
+                            var resolvedmethod = resolveResult.Member as IMethod;
 
-                                    if (memberArg != null)
+                            if (resolvedmethod.Parameters.Count > (selectorIndex + 1))
+                            {
+                                var templateType = resolvedmethod.Parameters[selectorIndex + 1].Type;
+                                var templateValue = Convert.ToInt32(resolvedmethod.Parameters[selectorIndex + 1].ConstantValue);
+
+                                var fields = templateType.GetFields(f =>
+                                {
+                                    var field = f as DefaultResolvedField;
+
+                                    if (field != null && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == templateValue)
                                     {
-                                        var memberResolveResult = this.Emitter.Resolver.ResolveNode(memberArg, this.Emitter) as MemberResolveResult;
-
-                                        if (memberResolveResult != null)
-                                        {
-                                            eventName = this.Emitter.GetEntityName(memberResolveResult.Member);
-                                        }
+                                        return true;
                                     }
-                                }
-                            }
 
-                            int selectorIndex = isCommon ? 1 : 0;
-                            string selector = null;
+                                    var field1 = f as DefaultUnresolvedField;
 
-                            if (attr.Arguments.Count > selectorIndex)
-                            {
-                                selector = ((ICSharpCode.NRefactory.CSharp.PrimitiveExpression)(attr.Arguments.ElementAt(selectorIndex))).Value.ToString();
-                            }
-                            else
-                            {
-                                var resolvedmethod = resolveResult.Member as IMethod;
+                                    if (field1 != null && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == templateValue)
+                                    {
+                                        return true;
+                                    }
 
-                                if (resolvedmethod.Parameters.Count > selectorIndex)
+                                    return false;
+                                }, GetMemberOptions.IgnoreInheritedMembers);
+
+                                if (fields.Count() > 0)
                                 {
-                                    selector = resolvedmethod.Parameters[selectorIndex].ConstantValue.ToString();
-                                }
-                            }
-
-                            if (attr.Arguments.Count > (selectorIndex + 1))
-                            {
-                                var memberResolveResult = this.Emitter.Resolver.ResolveNode(attr.Arguments.ElementAt(selectorIndex + 1), this.Emitter) as MemberResolveResult;
-
-                                if (memberResolveResult != null && memberResolveResult.Member.Attributes.Count > 0)
-                                {
-                                    var template = this.Emitter.Validator.GetAttribute(memberResolveResult.Member.Attributes, "Bridge.TemplateAttribute");
+                                    var template = this.Emitter.Validator.GetAttribute(fields.First().GetBridgeAttributes(), "Bridge.TemplateAttribute");
 
                                     if (template != null)
                                     {
@@ -202,48 +238,9 @@ namespace Bridge.Translator
                                     }
                                 }
                             }
-                            else
-                            {
-                                var resolvedmethod = resolveResult.Member as IMethod;
-
-                                if (resolvedmethod.Parameters.Count > (selectorIndex + 1))
-                                {
-                                    var templateType = resolvedmethod.Parameters[selectorIndex + 1].Type;
-                                    var templateValue = Convert.ToInt32(resolvedmethod.Parameters[selectorIndex + 1].ConstantValue);
-
-                                    var fields = templateType.GetFields(f =>
-                                    {
-                                        var field = f as DefaultResolvedField;
-
-                                        if (field != null && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == templateValue)
-                                        {
-                                            return true;
-                                        }
-
-                                        var field1 = f as DefaultUnresolvedField;
-
-                                        if (field1 != null && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == templateValue)
-                                        {
-                                            return true;
-                                        }
-
-                                        return false;
-                                    }, GetMemberOptions.IgnoreInheritedMembers);
-
-                                    if (fields.Count() > 0)
-                                    {
-                                        var template = this.Emitter.Validator.GetAttribute(fields.First().Attributes, "Bridge.TemplateAttribute");
-
-                                        if (template != null)
-                                        {
-                                            selector = string.Format(template.PositionalArguments.First().ConstantValue.ToString(), selector);
-                                        }
-                                    }
-                                }
-                            }
-
-                            list.Add(string.Format(format, eventName, selector, this.Emitter.GetEntityName(method)));
                         }
+
+                        list.Add(string.Format(format, eventName, selector, this.Emitter.GetEntityName(method)));
                     }
                 }
             }

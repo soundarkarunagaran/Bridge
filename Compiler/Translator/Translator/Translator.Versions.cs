@@ -122,7 +122,7 @@ namespace Bridge.Translator
         {
             string assemblyDescription = null;
 
-            var assemblyDescriptionAttribute = this.AssemblyDefinition.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyDescriptionAttribute");
+            var assemblyDescriptionAttribute = this.AssemblyDefinition.GetBridgeAttributes().FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyDescriptionAttribute");
 
             if (assemblyDescriptionAttribute != null
                 && assemblyDescriptionAttribute.HasConstructorArguments)
@@ -142,7 +142,7 @@ namespace Bridge.Translator
         {
             string assemblyTitle = null;
 
-            var assemblyTitleAttribute = this.AssemblyDefinition.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyTitleAttribute");
+            var assemblyTitleAttribute = this.AssemblyDefinition.GetBridgeAttributes().FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyTitleAttribute");
 
             if (assemblyTitleAttribute != null
                 && assemblyTitleAttribute.HasConstructorArguments)

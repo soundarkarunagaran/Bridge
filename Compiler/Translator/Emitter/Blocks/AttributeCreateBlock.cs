@@ -406,7 +406,7 @@ namespace Bridge.Translator
                 {
                     if (itype != null)
                     {
-                        var oattr = this.Emitter.Validator.GetAttribute(itype.Attributes, Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
+                        var oattr = this.Emitter.Validator.GetAttribute(itype.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
                         if (oattr.PositionalArguments.Count > 0)
                         {
                             var value = oattr.PositionalArguments.First().ConstantValue;

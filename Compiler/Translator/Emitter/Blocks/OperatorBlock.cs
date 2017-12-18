@@ -25,15 +25,12 @@ namespace Bridge.Translator
 
         protected void EmitOperatorDeclaration(OperatorDeclaration operatorDeclaration)
         {
-            foreach (var attrSection in operatorDeclaration.Attributes)
+            foreach (var attr in operatorDeclaration.GetBridgeAttributes())
             {
-                foreach (var attr in attrSection.Attributes)
+                var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                if (rr.Type.FullName == "Bridge.ExternalAttribute")
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                    if (rr.Type.FullName == "Bridge.ExternalAttribute")
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
 

@@ -211,7 +211,7 @@ namespace Bridge.Translator
                         return methodRef == null ? $"System.Nullable.{name.ToLowerCamelCase()}" : string.Format(template, methodRef, name.ToLowerCamelCase());
                     }
 
-                    var attr = methodDef.Attributes.First(a => a.AttributeType.FullName == "Bridge.TemplateAttribute");
+                    var attr = methodDef.GetBridgeAttributes().First(a => a.AttributeType.FullName == "Bridge.TemplateAttribute");
                     bool delegated = false;
                     if (attr != null && attr.NamedArguments.Count > 0)
                     {
@@ -384,7 +384,7 @@ namespace Bridge.Translator
                         isArgument = (block.Emitter.Validator.IsExternalType(memberDeclaringTypeDefinition) || block.Emitter.Validator.IsExternalType(parent_rr.Member))
                                      && !(memberDeclaringTypeDefinition.Namespace == CS.NS.SYSTEM || memberDeclaringTypeDefinition.Namespace.StartsWith(CS.NS.SYSTEM + "."));
 
-                        var attr = parent_rr.Member.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.UnboxAttribute");
+                        var attr = parent_rr.Member.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.UnboxAttribute");
                          
                         if (attr != null)
                         {
@@ -392,7 +392,7 @@ namespace Bridge.Translator
                         }
                         else
                         {
-                            attr = memberDeclaringTypeDefinition.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.UnboxAttribute");
+                            attr = memberDeclaringTypeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.UnboxAttribute");
 
                             if (attr != null)
                             {

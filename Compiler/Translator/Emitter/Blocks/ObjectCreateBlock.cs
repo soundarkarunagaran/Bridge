@@ -158,7 +158,7 @@ namespace Bridge.Translator
                 else
                 {
                     var ctorMember = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
-                    var expandParams = ctorMember.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                    var expandParams = ctorMember.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
                     bool applyCtor = false;
 
                     if (expandParams)
@@ -467,7 +467,7 @@ namespace Bridge.Translator
                     if (itemrr != null)
                     {
                         var oc = OverloadsCollection.Create(this.Emitter, itemrr.Member);
-                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.Attributes.Any(attr => attr.AttributeType.FullName == "Bridge.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
+                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.GetBridgeAttributes().Any(attr => attr.AttributeType.FullName == "Bridge.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
 
                         name = oc.GetOverloadName(isObjectLiteral: forceObjectLiteral);
                     }

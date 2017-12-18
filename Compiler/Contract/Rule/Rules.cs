@@ -59,7 +59,7 @@ namespace Bridge.Contract
             }
             else
             {
-                IAttribute[] assemblyAttrs = assembly.AssemblyAttributes.Where(a => a.AttributeType.FullName == Rules.attributeName).ToArray();
+                IAttribute[] assemblyAttrs = assembly.GetBridgeAttributes().Where(a => a.AttributeType.FullName == Rules.attributeName).ToArray();
                 assemblyRules = new CompilerRule[assemblyAttrs.Length];
                 for (int i = 0; i < assemblyAttrs.Length; i++)
                 {

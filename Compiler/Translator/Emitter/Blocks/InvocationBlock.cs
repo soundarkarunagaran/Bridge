@@ -66,7 +66,7 @@ namespace Bridge.Translator
                 return false;
             }
             var result = new List<string>();
-            foreach (var a in entity.Attributes)
+            foreach (var a in entity.GetBridgeAttributes())
             {
                 var type = a.AttributeType.GetDefinition();
                 if (type != null && type.FullName.Equals("System.Diagnostics.ConditionalAttribute", StringComparison.Ordinal))

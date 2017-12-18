@@ -202,7 +202,7 @@ namespace Bridge.Translator
                 return null;
             }
 
-            var inlineAttr = emitter.GetAttribute(method.Attributes, Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
+            var inlineAttr = emitter.GetAttribute(method.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
             var ignoreAccessor = emitter.Validator.IsExternalType(method);
 
             return new IndexerAccessor

@@ -368,7 +368,7 @@ namespace Bridge.Translator
             if (this.TypeInfo.IsEnum)
             {
                 if (this.Emitter.GetTypeDefinition(this.TypeInfo.Type)
-                        .CustomAttributes.Any(attr => attr.AttributeType.FullName == "System.FlagsAttribute"))
+                        .GetBridgeAttributes().Any(attr => attr.AttributeType.FullName == "System.FlagsAttribute"))
                 {
                     this.EnsureComma();
                     this.Write(JS.Fields.FLAGS + ": true");
@@ -409,7 +409,7 @@ namespace Bridge.Translator
         }
 
         protected virtual void EmitClassEnd()
-        {            
+        {
             this.WriteNewLine();
             this.EndBlock();
 
@@ -525,15 +525,12 @@ namespace Bridge.Translator
             {
                 foreach (var method in methodGroup.Value)
                 {
-                    foreach (var attrSection in method.Attributes)
+                    foreach (var attr in method.GetBridgeAttributes())
                     {
-                        foreach (var attr in attrSection.Attributes)
+                        var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                        if (rr.Type.FullName == attrName)
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                            if (rr.Type.FullName == attrName)
-                            {
-                                throw new EmitterException(attr, "Instance method cannot be Init method");
-                            }
+                            throw new EmitterException(attr, "Instance method cannot be Init method");
                         }
                     }
                 }
@@ -548,63 +545,60 @@ namespace Bridge.Translator
                 {
                     MemberResolveResult rrMember = null;
                     IMethod rrMethod = null;
-                    foreach (var attrSection in method.Attributes)
+                    foreach (var attr in method.GetBridgeAttributes())
                     {
-                        foreach (var attr in attrSection.Attributes)
+                        var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                        if (rr.Type.FullName == attrName)
                         {
-                            var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                            if (rr.Type.FullName == attrName)
+                            InitPosition? initPosition = null;
+                            if (attr.HasArgumentList)
                             {
-                                InitPosition? initPosition = null;
-                                if (attr.HasArgumentList)
+                                if (attr.Arguments.Count > 0)
                                 {
-                                    if (attr.Arguments.Count > 0)
+                                    var argExpr = attr.Arguments.First();
+                                    var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
+                                    if (argrr.ConstantValue is int)
                                     {
-                                        var argExpr = attr.Arguments.First();
-                                        var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
-                                        if (argrr.ConstantValue is int)
-                                        {
-                                            initPosition = (InitPosition)argrr.ConstantValue;
-                                        }
-                                    }
-                                    else
-                                    {
-                                        initPosition = InitPosition.After;
+                                        initPosition = (InitPosition)argrr.ConstantValue;
                                     }
                                 }
                                 else
                                 {
                                     initPosition = InitPosition.After;
                                 }
+                            }
+                            else
+                            {
+                                initPosition = InitPosition.After;
+                            }
 
-                                if (initPosition == value)
+                            if (initPosition == value)
+                            {
+                                if (rrMember == null)
                                 {
-                                    if (rrMember == null)
+                                    rrMember = this.Emitter.Resolver.ResolveNode(method, this.Emitter) as MemberResolveResult;
+                                    rrMethod = rrMember != null ? rrMember.Member as IMethod : null;
+                                }
+
+                                if (rrMethod != null)
+                                {
+                                    if (rrMethod.TypeParameters.Count > 0)
                                     {
-                                        rrMember = this.Emitter.Resolver.ResolveNode(method, this.Emitter) as MemberResolveResult;
-                                        rrMethod = rrMember != null ? rrMember.Member as IMethod : null;
+                                        throw new EmitterException(method, "Init method cannot be generic");
                                     }
 
-                                    if (rrMethod != null)
+                                    if (rrMethod.Parameters.Count > 0)
                                     {
-                                        if (rrMethod.TypeParameters.Count > 0)
-                                        {
-                                            throw new EmitterException(method, "Init method cannot be generic");
-                                        }
-
-                                        if (rrMethod.Parameters.Count > 0)
-                                        {
-                                            throw new EmitterException(method, "Init method should not have parameters");
-                                        }
-
-                                        if (rrMethod.ReturnType.Kind != TypeKind.Void
-                                            && !rrMethod.ReturnType.IsKnownType(KnownTypeCode.Void))
-                                        {
-                                            throw new EmitterException(method, "Init method should not return anything");
-                                        }
-
-                                        list.Add(fn(method, rrMethod));
+                                        throw new EmitterException(method, "Init method should not have parameters");
                                     }
+
+                                    if (rrMethod.ReturnType.Kind != TypeKind.Void
+                                        && !rrMethod.ReturnType.IsKnownType(KnownTypeCode.Void))
+                                    {
+                                        throw new EmitterException(method, "Init method should not return anything");
+                                    }
+
+                                    list.Add(fn(method, rrMethod));
                                 }
                             }
                         }

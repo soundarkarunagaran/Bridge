@@ -96,7 +96,7 @@ namespace Bridge.Translator
 
                 if (i_rr != null && !i_rr.IsExpandedForm)
                 {
-                    var tpl = this.Emitter.GetAttribute(memberResult.Member.Attributes, JS.NS.BRIDGE + ".TemplateAttribute");
+                    var tpl = this.Emitter.GetAttribute(memberResult.Member.GetBridgeAttributes(), JS.NS.BRIDGE + ".TemplateAttribute");
 
                     if (tpl != null && tpl.PositionalArguments.Count == 2)
                     {

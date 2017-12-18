@@ -32,10 +32,10 @@ namespace Bridge.Translator
 
             var rr = this.Emitter.Resolver.ResolveNode(this.MethodDeclaration, this.Emitter) as MemberResolveResult;
 
-            if(rr != null)
+            if (rr != null)
             {
                 this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
-            }            
+            }
         }
 
         protected override void EndEmit()
@@ -51,36 +51,33 @@ namespace Bridge.Translator
 
         protected void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            foreach (var attrSection in methodDeclaration.Attributes)
+            foreach (var attr in methodDeclaration.GetBridgeAttributes())
             {
-                foreach (var attr in attrSection.Attributes)
+                var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
+                if (rr.Type.FullName == "Bridge.ExternalAttribute")
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                    if (rr.Type.FullName == "Bridge.ExternalAttribute")
-                    {
-                        return;
-                    }
-                    else if (rr.Type.FullName == "Bridge.InitAttribute")
-                    {
-                        InitPosition initPosition = InitPosition.After;
+                    return;
+                }
+                else if (rr.Type.FullName == "Bridge.InitAttribute")
+                {
+                    InitPosition initPosition = InitPosition.After;
 
-                        if (attr.HasArgumentList)
+                    if (attr.HasArgumentList)
+                    {
+                        if (attr.Arguments.Any())
                         {
-                            if (attr.Arguments.Any())
+                            var argExpr = attr.Arguments.First();
+                            var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
+                            if (argrr.ConstantValue is int)
                             {
-                                var argExpr = attr.Arguments.First();
-                                var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
-                                if (argrr.ConstantValue is int)
-                                {
-                                    initPosition = (InitPosition)argrr.ConstantValue;
-                                }
+                                initPosition = (InitPosition)argrr.ConstantValue;
                             }
                         }
+                    }
 
-                        if (initPosition > 0)
-                        {
-                            return;
-                        }
+                    if (initPosition > 0)
+                    {
+                        return;
                     }
                 }
             }

@@ -114,16 +114,13 @@ namespace Bridge.Translator
             var methodDeclaration = node.GetParent<MethodDeclaration>();
             if (methodDeclaration != null)
             {
-                foreach (var attrSection in methodDeclaration.Attributes)
+                foreach (var attr in methodDeclaration.GetBridgeAttributes())
                 {
-                    foreach (var attr in attrSection.Attributes)
+                    var rr = this.emitter.Resolver.ResolveNode(attr.Type, this.emitter);
+                    if (rr.Type.FullName == "Bridge.InitAttribute")
                     {
-                        var rr = this.emitter.Resolver.ResolveNode(attr.Type, this.emitter);
-                        if (rr.Type.FullName == "Bridge.InitAttribute")
-                        {
-                            this._usedVariables.Add(null);
-                            return;
-                        }
+                        this._usedVariables.Add(null);
+                        return;
                     }
                 }
             }

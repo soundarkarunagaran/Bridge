@@ -166,42 +166,39 @@ namespace Bridge.Translator
                         return false;
                     }
 
-                    if (method.Attributes.Count == 0)
+                    if (!method.GetBridgeAttributes().Any())
                     {
                         return true;
                     }
 
-                    foreach (var attrSection in method.Attributes)
+                    foreach (var attr in method.GetBridgeAttributes())
                     {
-                        foreach (var attr in attrSection.Attributes)
+                        var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
+                        if (rr.Type.FullName == "Bridge.InitAttribute")
                         {
-                            var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
-                            if (rr.Type.FullName == "Bridge.InitAttribute")
-                            {
-                                if (!attr.HasArgumentList)
-                                {
-                                    return true;
-                                }
-
-                                var expr = attr.Arguments.First();
-
-                                var argrr = emitter.Resolver.ResolveNode(expr, emitter);
-                                if (argrr.ConstantValue is int)
-                                {
-                                    var value = (InitPosition)argrr.ConstantValue;
-
-                                    if (value == InitPosition.Before || value == InitPosition.Top)
-                                    {
-                                        return false;
-                                    }
-                                }
-
-                                return true;
-                            }
-                            else
+                            if (!attr.HasArgumentList)
                             {
                                 return true;
                             }
+
+                            var expr = attr.Arguments.First();
+
+                            var argrr = emitter.Resolver.ResolveNode(expr, emitter);
+                            if (argrr.ConstantValue is int)
+                            {
+                                var value = (InitPosition)argrr.ConstantValue;
+
+                                if (value == InitPosition.Before || value == InitPosition.Top)
+                                {
+                                    return false;
+                                }
+                            }
+
+                            return true;
+                        }
+                        else
+                        {
+                            return true;
                         }
                     }
                 }
@@ -368,7 +365,7 @@ namespace Bridge.Translator
             var name = this.Namespace;
 
             var bridgeType = emitter.BridgeTypes.Get(this.Key);
-            var cas = bridgeType.TypeDefinition.CustomAttributes;
+            var cas = bridgeType.TypeDefinition.GetBridgeAttributes();
 
             // Search for an 'NamespaceAttribute' entry
             foreach (var ca in cas)

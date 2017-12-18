@@ -224,13 +224,13 @@ namespace Bridge.Translator
 
             foreach (var attribute in attrList)
             {
-                if (type.CustomAttributes.Any(ca => ca.AttributeType.Name == attribute))
+                if (type.GetBridgeAttributes().Any(ca => ca.AttributeType.Name == attribute))
                 {
-                    var FAt = type.CustomAttributes.First(ca => ca.AttributeType.Name == attribute);
+                    var FAt = type.GetBridgeAttributes().First(ca => ca.AttributeType.Name == attribute);
 
                     foreach (var nestedType in type.NestedTypes)
                     {
-                        if (!nestedType.CustomAttributes.Any(ca => ca.AttributeType.Name == attribute))
+                        if (!nestedType.GetBridgeAttributes().Any(ca => ca.AttributeType.Name == attribute))
                         {
                             nestedType.CustomAttributes.Add(FAt);
                         }

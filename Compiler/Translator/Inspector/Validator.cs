@@ -180,17 +180,17 @@ namespace Bridge.Translator
             string externalAttr = Translator.Bridge_ASSEMBLY + ".ExternalAttribute";
             string nonScriptableAttr = Translator.Bridge_ASSEMBLY + ".NonScriptableAttribute";
 
-            var has = this.HasAttribute(type.CustomAttributes, externalAttr)
-                      || this.HasAttribute(type.CustomAttributes, nonScriptableAttr);
+            var has = this.HasAttribute(type.GetBridgeAttributes(), externalAttr)
+                      || this.HasAttribute(type.GetBridgeAttributes(), nonScriptableAttr);
 
             if (!has && type.DeclaringType != null)
             {
-                has = this.HasAttribute(type.DeclaringType.CustomAttributes, externalAttr) || this.HasAttribute(type.DeclaringType.CustomAttributes, nonScriptableAttr);
+                has = this.HasAttribute(type.DeclaringType.GetBridgeAttributes(), externalAttr) || this.HasAttribute(type.DeclaringType.GetBridgeAttributes(), nonScriptableAttr);
             }
 
             if (!has)
             {
-                has = this.HasAttribute(type.Module.Assembly.CustomAttributes, externalAttr);
+                has = this.HasAttribute(type.Module.Assembly.GetBridgeAttributes(), externalAttr);
             }
 
             if (!has)
@@ -207,8 +207,8 @@ namespace Bridge.Translator
             string nonScriptableAttr = Translator.Bridge_ASSEMBLY + ".NonScriptableAttribute";
 
             return
-                this.HasAttribute(entity.Attributes, externalAttr)
-                || this.HasAttribute(entity.Attributes, nonScriptableAttr);
+                this.HasAttribute(entity.GetBridgeAttributes(), externalAttr)
+                || this.HasAttribute(entity.GetBridgeAttributes(), nonScriptableAttr);
         }
 
         public virtual bool IsBridgeClass(TypeDefinition type)
@@ -228,16 +228,16 @@ namespace Bridge.Translator
         {
             string externalAttr = Translator.Bridge_ASSEMBLY + ".ExternalAttribute";
 
-            var has = typeDefinition.Attributes.Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
+            var has = typeDefinition.GetBridgeAttributes().Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
 
             if (!has && typeDefinition.DeclaringTypeDefinition != null)
             {
-                has = this.HasAttribute(typeDefinition.DeclaringTypeDefinition.Attributes, externalAttr);
+                has = this.HasAttribute(typeDefinition.DeclaringTypeDefinition.GetBridgeAttributes(), externalAttr);
             }
 
             if (!has)
             {
-                has = typeDefinition.ParentAssembly.AssemblyAttributes.Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
+                has = typeDefinition.ParentAssembly.GetBridgeAttributes().Any(attr => attr.Constructor != null && attr.Constructor.DeclaringType.FullName == externalAttr);
             }
 
             if (!has)
@@ -257,7 +257,7 @@ namespace Bridge.Translator
         {
             string virtualAttr = Translator.Bridge_ASSEMBLY + ".VirtualAttribute";
             CustomAttribute attr = attr =
-                    typeDefinition.CustomAttributes.FirstOrDefault(
+                    typeDefinition.GetBridgeAttributes().FirstOrDefault(
                         a => a.AttributeType.FullName == virtualAttr);
 
             if (attr == null && typeDefinition.DeclaringType != null)
@@ -267,7 +267,7 @@ namespace Bridge.Translator
 
             if (attr == null)
             {
-                attr = typeDefinition.Module.Assembly.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+                attr = typeDefinition.Module.Assembly.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
             }
 
             bool isVirtual = false;
@@ -307,7 +307,7 @@ namespace Bridge.Translator
             if (typeDefinition.GetDefinition() != null)
             {
                 attr =
-                    typeDefinition.GetDefinition().Attributes.FirstOrDefault(
+                    typeDefinition.GetDefinition().GetBridgeAttributes().FirstOrDefault(
                         a => a.AttributeType.FullName == virtualAttr);
             }
 
@@ -318,7 +318,7 @@ namespace Bridge.Translator
 
             if (attr == null)
             {
-                attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
+                attr = typeDefinition.ParentAssembly.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == virtualAttr);
             }
 
             bool isVirtual = false;
@@ -354,11 +354,11 @@ namespace Bridge.Translator
         public virtual bool IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition, out bool isNative)
         {
             string externalAttr = Translator.Bridge_ASSEMBLY + ".ExternalInterfaceAttribute";
-            var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+            var attr = typeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
             if (attr == null)
             {
-                attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+                attr = typeDefinition.ParentAssembly.GetBridgeAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
             }
 
             isNative = attr != null && attr.PositionalArguments.Count == 1 && (bool)attr.PositionalArguments[0].ConstantValue;
@@ -374,11 +374,11 @@ namespace Bridge.Translator
         public virtual IExternalInterface IsExternalInterface(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition typeDefinition)
         {
             string externalAttr = Translator.Bridge_ASSEMBLY + ".ExternalInterfaceAttribute";
-            var attr = typeDefinition.Attributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+            var attr = typeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
 
             if (attr == null)
             {
-                attr = typeDefinition.ParentAssembly.AssemblyAttributes.FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+                attr = typeDefinition.ParentAssembly.GetBridgeAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
             }
 
             if (attr != null)
@@ -416,7 +416,7 @@ namespace Bridge.Translator
         {
             string attrName = Translator.Bridge_ASSEMBLY + ".ImmutableAttribute";
 
-            return this.HasAttribute(type.CustomAttributes, attrName);
+            return this.HasAttribute(type.GetBridgeAttributes(), attrName);
         }
 
         public virtual bool HasAttribute(IEnumerable<CustomAttribute> attributes, string name)
@@ -457,12 +457,12 @@ namespace Bridge.Translator
 
         public virtual bool IsObjectLiteral(TypeDefinition type)
         {
-            return this.HasAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
+            return this.HasAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         public int GetObjectInitializationMode(TypeDefinition type)
         {
-            var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
+            var attr = type.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
 
             if (attr != null)
             {
@@ -482,7 +482,7 @@ namespace Bridge.Translator
 
         public int GetObjectCreateMode(TypeDefinition type)
         {
-            var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
+            var attr = type.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
 
             if (attr != null)
             {
@@ -505,7 +505,7 @@ namespace Bridge.Translator
 
         public virtual bool IsObjectLiteral(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type)
         {
-            return this.HasAttribute(type.Attributes, Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
+            return this.HasAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
         }
 
         private Stack<TypeDefinition> _stack = new Stack<TypeDefinition>();
@@ -517,9 +517,9 @@ namespace Bridge.Translator
                 return null;
             }
 
-            var nsAtrr = excludeNs ? null : this.GetAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".NamespaceAttribute");
+            var nsAtrr = excludeNs ? null : this.GetAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".NamespaceAttribute");
             bool hasNs = nsAtrr != null && nsAtrr.ConstructorArguments.Count > 0;
-            var nameAttr = this.GetAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".NameAttribute");
+            var nameAttr = this.GetAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".NameAttribute");
 
             string name = null;
             bool changeCase = false;
@@ -594,7 +594,7 @@ namespace Bridge.Translator
                 return name;
             }
 
-            if (this.HasAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute"))
+            if (this.HasAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute"))
             {
                 var mode = this.GetObjectCreateMode(type);
                 if (emitter.Validator.IsExternalType(type) && mode == 0)
@@ -608,14 +608,14 @@ namespace Bridge.Translator
 
         public virtual string GetCustomConstructor(TypeDefinition type)
         {
-            string ctor = this.GetAttributeValue(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ConstructorAttribute");
+            string ctor = this.GetAttributeValue(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ConstructorAttribute");
 
             if (!string.IsNullOrEmpty(ctor))
             {
                 return ctor;
             }
 
-            if (this.HasAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute") && this.GetObjectCreateMode(type) == 0)
+            if (this.HasAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute") && this.GetObjectCreateMode(type) == 0)
             {
                 return "{ }";
             }
@@ -706,44 +706,35 @@ namespace Bridge.Translator
 
         public virtual void CheckFileName(TypeDefinition type, ITranslator translator)
         {
-            if (type.HasCustomAttributes)
+            var attr = this.GetAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".FileNameAttribute");
+
+            if (attr != null)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".FileNameAttribute");
+                var typeInfo = this.EnsureTypeInfo(type, translator);
 
-                if (attr != null)
+                var obj = this.GetAttributeArgumentValue(attr, 0);
+
+                if (obj is string)
                 {
-                    var typeInfo = this.EnsureTypeInfo(type, translator);
-
-                    var obj = this.GetAttributeArgumentValue(attr, 0);
-
-                    if (obj is string)
-                    {
-                        typeInfo.FileName = obj.ToString();
-                    }
+                    typeInfo.FileName = obj.ToString();
                 }
             }
         }
 
         public virtual void CheckModule(TypeDefinition type, ITranslator translator)
         {
-            if (type.HasCustomAttributes)
-            {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ModuleAttribute");
+            var attr = this.GetAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ModuleAttribute");
 
-                if (attr != null)
-                {
-                    this.ReadModuleFromAttribute(type, translator, attr);
-                }
+            if (attr != null)
+            {
+                this.ReadModuleFromAttribute(type, translator, attr);
             }
 
-            if (type.Module.Assembly.HasCustomAttributes)
-            {
-                var attr = this.GetAttribute(type.Module.Assembly.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ModuleAttribute");
+            attr = this.GetAttribute(type.Module.Assembly.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ModuleAttribute");
 
-                if (attr != null)
-                {
-                    this.ReadModuleFromAttribute(type, translator, attr);
-                }
+            if (attr != null)
+            {
+                this.ReadModuleFromAttribute(type, translator, attr);
             }
         }
 
@@ -830,28 +821,25 @@ namespace Bridge.Translator
 
         public virtual void CheckModuleDependenies(TypeDefinition type, ITranslator translator)
         {
-            if (type.HasCustomAttributes)
+            var attr = this.GetAttribute(type.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ModuleDependencyAttribute");
+
+            if (attr != null)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ModuleDependencyAttribute");
+                var typeInfo = this.EnsureTypeInfo(type, translator);
 
-                if (attr != null)
+                if (attr.ConstructorArguments.Count > 0)
                 {
-                    var typeInfo = this.EnsureTypeInfo(type, translator);
+                    ModuleDependency dependency = new ModuleDependency();
+                    var obj = this.GetAttributeArgumentValue(attr, 0);
+                    dependency.DependencyName = obj is string ? obj.ToString() : "";
 
-                    if (attr.ConstructorArguments.Count > 0)
+                    if (attr.ConstructorArguments.Count > 1)
                     {
-                        ModuleDependency dependency = new ModuleDependency();
-                        var obj = this.GetAttributeArgumentValue(attr, 0);
-                        dependency.DependencyName = obj is string ? obj.ToString() : "";
-
-                        if (attr.ConstructorArguments.Count > 1)
-                        {
-                            obj = this.GetAttributeArgumentValue(attr, 1);
-                            dependency.VariableName = obj is string ? obj.ToString() : "";
-                        }
-
-                        typeInfo.Dependencies.Add(dependency);
+                        obj = this.GetAttributeArgumentValue(attr, 1);
+                        dependency.VariableName = obj is string ? obj.ToString() : "";
                     }
+
+                    typeInfo.Dependencies.Add(dependency);
                 }
             }
         }
@@ -898,7 +886,7 @@ namespace Bridge.Translator
                 return false;
             }
 
-            if (this.HasAttribute(entity.Attributes, CS.Attributes.ACCESSORSINDEXER_ATTRIBUTE_NAME))
+            if (this.HasAttribute(entity.GetBridgeAttributes(), CS.Attributes.ACCESSORSINDEXER_ATTRIBUTE_NAME))
             {
                 return true;
             }

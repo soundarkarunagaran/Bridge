@@ -310,7 +310,7 @@ namespace Bridge.Translator
             var globalTarget = member != null ? this.Emitter.IsGlobalTarget(member.Member) : null;
 
             if (member != null &&
-                member.Member.Attributes.Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+                member.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
             {
                 throw new EmitterException(this.MemberReferenceExpression, "Member " + member.ToString() + " is marked as not usable from script");
             }
@@ -417,7 +417,7 @@ namespace Bridge.Translator
 
                 if (i_rr != null && !i_rr.IsExpandedForm)
                 {
-                    var tpl = this.Emitter.GetAttribute(member.Member.Attributes, JS.NS.BRIDGE + ".TemplateAttribute");
+                    var tpl = this.Emitter.GetAttribute(member.Member.GetBridgeAttributes(), JS.NS.BRIDGE + ".TemplateAttribute");
 
                     if (tpl != null && tpl.PositionalArguments.Count == 2)
                     {

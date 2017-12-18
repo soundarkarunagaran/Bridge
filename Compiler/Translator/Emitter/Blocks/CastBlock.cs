@@ -414,7 +414,7 @@ namespace Bridge.Translator
 
             if (type != null)
             {
-                attributes = type.Attributes;
+                attributes = type.GetBridgeAttributes();
             }
             else
             {
@@ -422,7 +422,7 @@ namespace Bridge.Translator
 
                 if (paramType != null)
                 {
-                    attributes = paramType.GetDefinition().Attributes;
+                    attributes = paramType.GetDefinition().GetBridgeAttributes();
                 }
             }
 

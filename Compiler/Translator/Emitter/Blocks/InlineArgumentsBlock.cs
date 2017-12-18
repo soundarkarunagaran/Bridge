@@ -298,7 +298,7 @@ namespace Bridge.Translator
                     paramsName = paramsParam.Name;
                     paramsType = paramsParam.Type;
                 }
-                expandParams = argsInfo.ResolveResult.Member.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                expandParams = argsInfo.ResolveResult.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
             }
             else if (argsInfo.Method != null)
             {
@@ -309,7 +309,7 @@ namespace Bridge.Translator
                     paramsName = paramsParam.Name;
                     paramsType = paramsParam.Type;
                 }
-                expandParams = argsInfo.Method.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                expandParams = argsInfo.Method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
             }
 
             if (paramsName != null)

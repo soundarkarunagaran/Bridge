@@ -76,7 +76,7 @@ namespace Bridge.Translator
                 var rr = this.Emitter.Resolver.ResolveNode(this.InvocationExpression, this.Emitter) as CSharpInvocationResolveResult;
                 if (rr != null)
                 {
-                    expandParams = rr.Member.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                    expandParams = rr.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
                     wrapByBrackets = rr.IsExpandedForm && !expandParams;
                 }
             }

@@ -252,7 +252,7 @@ namespace Bridge.Translator
 
                         if (method != null)
                         {
-                            var expandParams = method.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                            var expandParams = method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
                             foreach (var prm in method.Parameters)
                             {
                                 if (prm.IsOptional)

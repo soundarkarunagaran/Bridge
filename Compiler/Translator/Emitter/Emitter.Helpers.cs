@@ -87,23 +87,20 @@ namespace Bridge.Translator
             return JsonConvert.SerializeObject(value);
         }
 
-        protected virtual ICSharpCode.NRefactory.CSharp.Attribute GetAttribute(AstNodeCollection<AttributeSection> attributes, string name)
+        protected virtual ICSharpCode.NRefactory.CSharp.Attribute GetAttribute(IEnumerable<ICSharpCode.NRefactory.CSharp.Attribute> attributes, string name)
         {
             string fullName = name + "Attribute";
-            foreach (var i in attributes)
+            foreach (var j in attributes)
             {
-                foreach (var j in i.Attributes)
+                if (j.Type.ToString() == name)
                 {
-                    if (j.Type.ToString() == name)
-                    {
-                        return j;
-                    }
+                    return j;
+                }
 
-                    var resolveResult = this.Resolver.ResolveNode(j, this);
-                    if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == fullName)
-                    {
-                        return j;
-                    }
+                var resolveResult = this.Resolver.ResolveNode(j, this);
+                if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == fullName)
+                {
+                    return j;
                 }
             }
 
@@ -138,7 +135,7 @@ namespace Bridge.Translator
 
         protected virtual bool HasDelegateAttribute(MethodDeclaration method)
         {
-            return this.GetAttribute(method.Attributes, "Delegate") != null;
+            return this.GetAttribute(method.GetBridgeAttributes(), "Delegate") != null;
         }
 
         public virtual Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node)
@@ -289,7 +286,7 @@ namespace Bridge.Translator
 
             if (member != null)
             {
-                var attr = member.Attributes.FirstOrDefault(a =>
+                var attr = member.GetBridgeAttributes().FirstOrDefault(a =>
                 {
                     return a.AttributeType.FullName == attrName;
                 });
@@ -317,7 +314,7 @@ namespace Bridge.Translator
 
         public virtual IEnumerable<string> GetScript(EntityDeclaration method)
         {
-            var attr = this.GetAttribute(method.Attributes, Bridge.Translator.Translator.Bridge_ASSEMBLY + ".Script");
+            var attr = this.GetAttribute(method.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".Script");
 
             return this.GetScriptArguments(attr);
         }
@@ -368,7 +365,7 @@ namespace Bridge.Translator
         public virtual NameSemantic GetNameSemantic(IEntity member)
         {
             NameSemantic result;
-            if(this.entityNameCache.TryGetValue(member, out result))
+            if (this.entityNameCache.TryGetValue(member, out result))
             {
                 return result;
             }
@@ -423,9 +420,9 @@ namespace Bridge.Translator
                 {
                     var iparam = rr.Variable as IParameter;
 
-                    if (iparam != null && iparam.Attributes != null)
+                    if (iparam != null && iparam.GetBridgeAttributes() != null)
                     {
-                        var attr = iparam.Attributes.FirstOrDefault(a => a.AttributeType.FullName == Bridge.Translator.Translator.Bridge_ASSEMBLY + ".NameAttribute");
+                        var attr = iparam.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == Bridge.Translator.Translator.Bridge_ASSEMBLY + ".NameAttribute");
 
                         if (attr != null)
                         {
@@ -479,7 +476,7 @@ namespace Bridge.Translator
 
         public Tuple<bool, string> IsGlobalTarget(IMember member)
         {
-            var attr = this.GetAttribute(member.Attributes, Bridge.Translator.Translator.Bridge_ASSEMBLY + ".GlobalTargetAttribute");
+            var attr = this.GetAttribute(member.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".GlobalTargetAttribute");
 
             return attr != null ? new Tuple<bool, string>(true, (string)attr.PositionalArguments.First().ConstantValue) : null;
         }
@@ -493,7 +490,7 @@ namespace Bridge.Translator
                 return this.GetInline(mrr.Member);
             }
 
-            var attr = this.GetAttribute(method.Attributes, Bridge.Translator.Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
+            var attr = this.GetAttribute(method.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
 
             return attr != null && attr.Arguments.Count > 0 ? ((string)((PrimitiveExpression)attr.Arguments.First()).Value) : null;
         }
@@ -519,7 +516,7 @@ namespace Bridge.Translator
 
             if (entity != null)
             {
-                var attr = entity.Attributes.FirstOrDefault(a =>
+                var attr = entity.GetBridgeAttributes().FirstOrDefault(a =>
                 {
                     return a.AttributeType.FullName == attrName;
                 });
@@ -535,12 +532,12 @@ namespace Bridge.Translator
 
                         if (inlineCode != null)
                         {
-                            inlineCode = Helpers.DelegateToTemplate(inlineCode, (IMethod) entity, this);
+                            inlineCode = Helpers.DelegateToTemplate(inlineCode, (IMethod)entity, this);
                         }
                     }
                 }
 
-                if(inlineCode == null)
+                if (inlineCode == null)
                 {
                     inlineCode = attr != null && attr.PositionalArguments.Count > 0 ? attr.PositionalArguments[0].ConstantValue.ToString() : null;
                 }
@@ -562,7 +559,7 @@ namespace Bridge.Translator
 
             if (entity != null)
             {
-                var attr = entity.Attributes.FirstOrDefault(a =>
+                var attr = entity.GetBridgeAttributes().FirstOrDefault(a =>
                 {
                     return a.AttributeType.FullName == attrName;
                 });
@@ -587,8 +584,8 @@ namespace Bridge.Translator
                 string value = "";
                 if (arg is PrimitiveExpression)
                 {
-                    PrimitiveExpression expr = (PrimitiveExpression) arg;
-                    value = (string) expr.Value;
+                    PrimitiveExpression expr = (PrimitiveExpression)arg;
+                    value = (string)expr.Value;
                 }
                 else
                 {
@@ -627,7 +624,7 @@ namespace Bridge.Translator
 
             if (isConst)
             {
-                var attr = this.GetAttribute(member.Attributes, Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InlineConstAttribute");
+                var attr = this.GetAttribute(member.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InlineConstAttribute");
 
                 if (attr != null)
                 {

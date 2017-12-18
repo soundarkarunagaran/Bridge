@@ -18,7 +18,7 @@ namespace Bridge.Translator
         public static JObject ConstructTypeMetadata(ITypeDefinition type, IEmitter emitter, bool ifHasAttribute, SyntaxTree tree)
         {
             var properties = ifHasAttribute ? new JObject() : MetadataUtils.GetCommonTypeProperties(type, emitter);
-            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(type.Attributes, emitter, tree).ToList();
+            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(type.GetBridgeAttributes(), emitter, tree).ToList();
             if (scriptableAttributes.Count != 0)
             {
                 JArray attrArr = new JArray();
@@ -41,7 +41,7 @@ namespace Bridge.Translator
                     properties.Add("m", new JArray(members));
                 }
 
-                var aua = type.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "System.AttributeUsageAttribute");
+                var aua = type.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "System.AttributeUsageAttribute");
                 if (aua != null)
                 {
                     var inherited = true;
@@ -184,7 +184,7 @@ namespace Bridge.Translator
         private static IList<string> FindConditionalSymbols(IEntity entity)
         {
             var result = new List<string>();
-            foreach (var a in entity.Attributes)
+            foreach (var a in entity.GetBridgeAttributes())
             {
                 var type = a.AttributeType.GetDefinition();
                 if (type != null && type.FullName.Equals("System.Diagnostics.ConditionalAttribute", StringComparison.Ordinal))
@@ -219,12 +219,12 @@ namespace Bridge.Translator
                 return false;
             }
 
-            if (member.Attributes.Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+            if (member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
             {
                 return false;
             }
 
-            bool? reflectable = MetadataUtils.ReflectableValue(member.Attributes, member, emitter);
+            bool? reflectable = MetadataUtils.ReflectableValue(member.GetBridgeAttributes(), member, emitter);
 
             if (reflectable != null)
             {
@@ -233,7 +233,7 @@ namespace Bridge.Translator
 
             if (member.DeclaringTypeDefinition != null)
             {
-                reflectable = MetadataUtils.ReflectableValue(member.DeclaringTypeDefinition.Attributes, member, emitter);
+                reflectable = MetadataUtils.ReflectableValue(member.DeclaringTypeDefinition.GetBridgeAttributes(), member, emitter);
             }
 
             if (reflectable != null)
@@ -252,7 +252,7 @@ namespace Bridge.Translator
             {
                 memberAccessibility = new[] { ifHasAttribute ? MemberAccessibility.None : MemberAccessibility.All };
 
-                if (ifHasAttribute && MetadataUtils.GetScriptableAttributes(member.Attributes, emitter, tree).Any())
+                if (ifHasAttribute && MetadataUtils.GetScriptableAttributes(member.GetBridgeAttributes(), emitter, tree).Any())
                 {
                     memberAccessibility = new[] { MemberAccessibility.All };
                 }
@@ -261,7 +261,7 @@ namespace Bridge.Translator
             return MetadataUtils.IsMemberReflectable(member, memberAccessibility);
         }
 
-        private static bool? ReflectableValue(IList<IAttribute> attributes, IMember member, IEmitter emitter)
+        private static bool? ReflectableValue(IEnumerable<IAttribute> attributes, IMember member, IEmitter emitter)
         {
             var attr = attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ReflectableAttribute");
 
@@ -443,7 +443,7 @@ namespace Bridge.Translator
         {
             var result = new JObject();
 
-            var attr = MetadataUtils.GetScriptableAttributes(p.Attributes, emitter, tree).ToList();
+            var attr = MetadataUtils.GetScriptableAttributes(p.GetBridgeAttributes(), emitter, tree).ToList();
             if (attr.Count > 0)
             {
                 JArray attrArr = new JArray();
@@ -493,7 +493,7 @@ namespace Bridge.Translator
             result.Add("pt", new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)));
             result.Add("ps", p.Owner.Parameters.IndexOf(p));
 
-            var nameAttr = p.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.NameAttribute");
+            var nameAttr = p.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.NameAttribute");
             if (nameAttr != null)
             {
                 var value = nameAttr.PositionalArguments.First().ConstantValue;
@@ -530,7 +530,7 @@ namespace Bridge.Translator
                 var method = (IMethod)m;
                 var inline = emitter.GetInline(method);
 
-                if (string.IsNullOrEmpty(inline) && method.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
+                if (string.IsNullOrEmpty(inline) && method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
                 {
                     properties.Add("exp", true);
                 }
@@ -816,7 +816,7 @@ namespace Bridge.Translator
             IAttribute customCtor = null;
             if (typeDef != null)
             {
-                customCtor = emitter.Validator.GetAttribute(typeDef.Attributes, Translator.Bridge_ASSEMBLY + ".ConstructorAttribute");
+                customCtor = emitter.Validator.GetAttribute(typeDef.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ConstructorAttribute");
             }
 
             if (string.IsNullOrEmpty(inline) && customCtor == null)
@@ -839,7 +839,7 @@ namespace Bridge.Translator
                 properties.Add("sm", true);
             }
 
-            if (string.IsNullOrEmpty(inline) && constructor.Attributes.Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
+            if (string.IsNullOrEmpty(inline) && constructor.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
             {
                 properties.Add("exp", true);
             }
@@ -898,7 +898,7 @@ namespace Bridge.Translator
         private static JObject GetCommonMemberInfoProperties(IMember m, IEmitter emitter, bool includeDeclaringType, bool isGenericSpecialization, SyntaxTree tree)
         {
             var result = new JObject();
-            var attr = MetadataUtils.GetScriptableAttributes(m.Attributes, emitter, tree).ToList();
+            var attr = MetadataUtils.GetScriptableAttributes(m.GetBridgeAttributes(), emitter, tree).ToList();
             if (attr.Count > 0)
             {
                 JArray attrArr = new JArray();
@@ -959,7 +959,7 @@ namespace Bridge.Translator
             }
 
             var itypeDef = type.GetDefinition();
-            if (itypeDef != null && itypeDef.Attributes.Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+            if (itypeDef != null && itypeDef.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
             {
                 return JS.Types.System.Object.NAME;
             }

@@ -65,7 +65,7 @@ namespace Bridge.Translator
                 if (resolveResult != null && resolveResult.Type != null)
                 {
                     var def = resolveResult.Type.GetDefinition();
-                    external = def != null && def.ParentAssembly.AssemblyAttributes.Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute");
+                    external = def != null && def.ParentAssembly.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute");
                 }
             }
 
@@ -213,7 +213,7 @@ namespace Bridge.Translator
             foreach (var item in fieldDeclaration.Variables)
             {
                 var rr = this.Resolver.ResolveNode(item, null) as MemberResolveResult;
-                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.Attributes.Any(a => a.AttributeType.FullName == Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InlineConstAttribute"))
+                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InlineConstAttribute"))
                 {
                     continue;
                 }
@@ -549,16 +549,16 @@ namespace Bridge.Translator
 
 
             var fieldAttributeName = "Bridge.FieldAttribute";
-            var autoPropertyToField = member.Attributes.Any(a => a.AttributeType.FullName == fieldAttributeName);
+            var autoPropertyToField = member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == fieldAttributeName);
 
             if (!autoPropertyToField)
             {
-                autoPropertyToField = member.DeclaringTypeDefinition.Attributes.Any(a => a.AttributeType.FullName == fieldAttributeName);
+                autoPropertyToField = member.DeclaringTypeDefinition.GetBridgeAttributes().Any(a => a.AttributeType.FullName == fieldAttributeName);
             }
 
             if (!autoPropertyToField && checkAssembly)
             {
-                autoPropertyToField = member.DeclaringTypeDefinition.ParentAssembly.AssemblyAttributes.Any(a => a.AttributeType.FullName == fieldAttributeName);
+                autoPropertyToField = member.DeclaringTypeDefinition.ParentAssembly.GetBridgeAttributes().Any(a => a.AttributeType.FullName == fieldAttributeName);
             }
 
             return autoPropertyToField;

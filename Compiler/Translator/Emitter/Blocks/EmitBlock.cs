@@ -343,7 +343,7 @@ namespace Bridge.Translator
                 bool isGlobal = false;
                 if (typeDef != null)
                 {
-                    isGlobal = typeDef.Attributes.Any(a => a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute" || a.AttributeType.FullName == "Bridge.MixinAttribute");
+                    isGlobal = typeDef.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute" || a.AttributeType.FullName == "Bridge.MixinAttribute");
                 }
 
                 if (typeDef.FullName != "System.Object")
@@ -430,7 +430,7 @@ namespace Bridge.Translator
                 this.Emitter.Output = this.GetOutputForType(null, output, true);
                 this.Emitter.MetaDataOutputName = this.Emitter.EmitterOutput.FileName;
             }
-            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(this.Emitter.Resolver.Compilation.MainAssembly.AssemblyAttributes, this.Emitter, null).ToList();
+            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(this.Emitter.Resolver.Compilation.MainAssembly.GetBridgeAttributes(), this.Emitter, null).ToList();
             bool hasMeta = metas.Count > 0 || scriptableAttributes.Count > 0;
 
             if (hasMeta)
@@ -555,7 +555,7 @@ namespace Bridge.Translator
                 return true;
             }
 
-            var skip = typeDef.Attributes.Any(a =>
+            var skip = typeDef.GetBridgeAttributes().Any(a =>
                     a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute" ||
                     a.AttributeType.FullName == "Bridge.NonScriptableAttribute" ||
                     a.AttributeType.FullName == "Bridge.MixinAttribute");
@@ -642,7 +642,7 @@ namespace Bridge.Translator
                         continue;
                     }
 
-                    var attr = typeDef.Attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ReflectableAttribute");
+                    var attr = typeDef.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ReflectableAttribute");
 
                     if (attr == null)
                     {
