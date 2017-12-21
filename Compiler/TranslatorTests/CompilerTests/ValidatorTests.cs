@@ -192,8 +192,7 @@ namespace Bridge.Translator.Tests
                     parentType,
                     (ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type) =>
                     {
-                        var v = new Validator();
-                        v.IsVirtualType(type);
+                        AttributeRegistry.IsVirtual(type);
                     },
                     (type) =>
                     {
@@ -208,8 +207,7 @@ namespace Bridge.Translator.Tests
                     parentType,
                     (Mono.Cecil.TypeDefinition type) =>
                     {
-                        var v = new Validator();
-                        return v.IsExternalType(type);
+                        return AttributeRegistry.IsExternal(type);
                     },
                     expected,
                     (type) => string.Format("Type {0} should {1}be recognized as external", type, expected ? "" : "not ")
@@ -222,8 +220,7 @@ namespace Bridge.Translator.Tests
                     parentType,
                     (ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type) =>
                     {
-                        var v = new Validator();
-                        return v.IsVirtualType(type);
+                        return AttributeRegistry.IsVirtual(type);
                     },
                     expected,
                     (type) => string.Format("Type {0} should be {1}recognized as [Virtual] (via ITypeDefinition)", type, expected ? "" : "not ")
@@ -233,7 +230,7 @@ namespace Bridge.Translator.Tests
                     parentType,
                     (Mono.Cecil.TypeDefinition type) =>
                     {
-                        return Validator.IsVirtualTypeStatic(type);
+                        return AttributeRegistry.IsVirtual(type);
                     },
                     expected,
                     (type) => string.Format("Type {0} should be {1}recognized as [Virtual] (via TypeDefinition)", type, expected ? "" : "not ")

@@ -87,7 +87,6 @@ namespace Bridge.Translator
                 {
                     if (methodGroup.Value.Count > 1)
                     {
-                        // TODO: maybe try to load correct adapter attribute?
                         throw new EmitterException(method.Declaration.NameToken, "Overloaded method cannot be event handler");
                     }
                 }

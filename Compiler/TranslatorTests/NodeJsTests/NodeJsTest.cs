@@ -43,9 +43,10 @@ namespace Bridge.Translator.Tests
             string nodePath = FindNodeJs(currentDir, logger);
             logger.Info("Node path:" + nodePath);
 
-            CopyBridgeandRunJsFiles(nodePath, logger);
+            string testFilePath;
+            CopyBridgeandRunJsFiles(logger, out testFilePath);
 
-            var exitCode = RunNodeJs(nodePath, logger);
+            var exitCode = RunNodeJs(nodePath, testFilePath, logger);
 
             logger.Info("Exited NodeJS with code:" + exitCode);
 
@@ -54,9 +55,10 @@ namespace Bridge.Translator.Tests
             logger.Info("NodeJS test complete");
         }
 
-        private void CopyBridgeandRunJsFiles(string nodeJsExeFilePath, ILogger logger)
+        private void CopyBridgeandRunJsFiles(ILogger logger, out string folder)
         {
-            var folder = Path.GetDirectoryName(nodeJsExeFilePath);
+            folder = Path.Combine(".", "TestRun");
+            Directory.CreateDirectory(folder);
 
             var bridgeJsFileName = Path.Combine(folder, BRIDGE_JS_FILE_NAME);
 
@@ -86,7 +88,7 @@ namespace Bridge.Translator.Tests
 
             try
             {
-                nodePath = Helpers.FileHelper.FindFile(NODEJS_EXECUTEABLE_FILE_NAME);
+                nodePath = Helpers.FileHelper.FindFileInPath(NODEJS_EXECUTEABLE_FILE_NAME);
             }
             catch (Exception ex)
             {
@@ -94,6 +96,18 @@ namespace Bridge.Translator.Tests
                 logger.Error(message);
             }
 
+            if (string.IsNullOrEmpty(nodePath))
+            {
+                try
+                {
+                    nodePath = Helpers.FileHelper.FindFile(NODEJS_EXECUTEABLE_FILE_NAME);
+                }
+                catch (Exception ex)
+                {
+                    message = ex.ToString();
+                    logger.Error(message);
+                }
+            }
             if (nodePath == null)
             {
                 Assert.Fail("Did not find {0} starting search from {1}. {2}", NODEJS_EXECUTEABLE_FILE_NAME, currentDir, message);
@@ -130,15 +144,15 @@ namespace Bridge.Translator.Tests
             }
         }
 
-        private int RunNodeJs(string path, ILogger logger)
+        private int RunNodeJs(string path, string testFilePath, ILogger logger)
         {
             logger.Info("Running NodeJS...");
 
             var info = new ProcessStartInfo()
             {
                 FileName = GetProcessPath(path),
-                Arguments = GetProcessArguments(path),
-                WorkingDirectory = Path.GetDirectoryName(path),
+                Arguments = GetProcessArguments(testFilePath),
+                WorkingDirectory = testFilePath,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 CreateNoWindow = true,

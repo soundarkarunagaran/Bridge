@@ -336,20 +336,24 @@ namespace Bridge.Translator
             }
 
             var bridgeType = emitter.BridgeTypes.Get(this.Key);
+            var name = this.Namespace;
 
             var typeName = emitter.Validator.GetCustomTypeName(bridgeType.TypeDefinition, emitter, nons);
-            var i = typeName.LastIndexOf(".");
-            if (i >= 0)
+            if (typeName != null)
             {
-                return typeName.Substring(0, i);
+                var i = typeName.LastIndexOf(".");
+                if (i >= 0)
+                {
+                    name = typeName.Substring(0, i);
+                }
             }
 
-            if (!nons)
+            if (name == null && !nons)
             {
-                return emitter.Translator.DefaultNamespace;
+                name = emitter.Translator.DefaultNamespace;
             }
 
-            return null;
+            return name;
         }
     }
 }

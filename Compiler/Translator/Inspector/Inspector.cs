@@ -237,11 +237,11 @@ namespace Bridge.Translator
                 return;
             }
 
-            var rr = this.Emitter.Resolver.ResolveNode(tpDecl, this.Emitter);
+            var rr = Resolver.ResolveNode(tpDecl, this.Emitter);
             if (rr.Type != null)
             {
                 var nsName = rr.Type.GetDefinition().GetNamespace();
-                if (Bridge.Translator.Inspector.IsConflictingNamespace(nsName.Item1))
+                if (nsName != null && Bridge.Translator.Inspector.IsConflictingNamespace(nsName.Item1))
                 {
                     throw new EmitterException(tpDecl.NameToken, "Custom attribute '[" + rr.Type.FullName +
                                                      "]' uses reserved namespace name 'Bridge'."

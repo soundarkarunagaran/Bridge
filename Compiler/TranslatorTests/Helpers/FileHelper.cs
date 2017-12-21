@@ -39,9 +39,9 @@ namespace Bridge.Translator.Tests.Helpers
         {
             var doc = XDocument.Load(projectFileFullName, LoadOptions.SetLineInfo);
 
-//            var opnodes = from n in doc.Descendants()
-//                          where n.Name.LocalName == "OutputPath"
-//                          select n;
+            //            var opnodes = from n in doc.Descendants()
+            //                          where n.Name.LocalName == "OutputPath"
+            //                          select n;
 
             var properties = new Dictionary<string, string>
             {
@@ -177,6 +177,20 @@ namespace Bridge.Translator.Tests.Helpers
             {
                 output.Write(buffer, 0, len);
             }
+        }
+
+        public static string FindFileInPath(string fileName)
+        {
+            var paths = Environment.GetEnvironmentVariable("PATH").Split(';');
+            foreach (var path in paths)
+            {
+                var filePath = Path.Combine(path, fileName);
+                if (File.Exists(filePath))
+                {
+                    return filePath;
+                }
+            }
+            return null;
         }
     }
 }
