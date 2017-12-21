@@ -757,7 +757,7 @@ namespace Bridge.Contract
         public static string ObjectLiteralSignature(IType type, IEmitter emitter)
         {
             var typeDef = type.GetDefinition();
-            var isObjectLiteral = typeDef != null && typeDef.GetObjectLiteralMode().HasValue;
+            var isObjectLiteral = typeDef != null && typeDef.IsObjectLiteral();
 
             if (isObjectLiteral)
             {

@@ -626,12 +626,11 @@ namespace Bridge.Translator
 
                 if (symbol.ContainingType != null && symbol.ContainingType.TypeKind == TypeKind.Enum && symbol is IFieldSymbol)
                 {
-                    string enumAttr = Translator.Bridge_ASSEMBLY + ".EnumAttribute";
                     enumMode = 7;
 
                     foreach (var attr in symbol.ContainingType.GetAttributes())
                     {
-                        if (attr.AttributeClass != null && attr.AttributeClass.FullyQualifiedName() == enumAttr && attr.ConstructorArguments.Any())
+                        if (attr.AttributeClass != null && attr.AttributeClass.FullyQualifiedName() == CS.Attributes.ENUM && attr.ConstructorArguments.Any())
                         {
                             enumMode = (int)attr.ConstructorArguments.First().Value;
                             break;
@@ -639,7 +638,7 @@ namespace Bridge.Translator
                     }
                 }
 
-                var nameAttr = SyntaxHelper.GetInheritedAttribute(symbol, Bridge.Translator.Translator.Bridge_ASSEMBLY + ".NameAttribute");
+                var nameAttr = SyntaxHelper.GetInheritedAttribute(symbol, CS.Attributes.NAME);
                 bool isIgnore = symbol.ContainingType != null && SyntaxHelper.IsExternalType(symbol.ContainingType);
 
                 name = symbol.Name;
@@ -694,24 +693,20 @@ namespace Bridge.Translator
 
         private static bool IsExternalType(INamedTypeSymbol symbol)
         {
-            string externalAttr = Translator.Bridge_ASSEMBLY + ".ExternalAttribute";
-            string virtualAttr = Translator.Bridge_ASSEMBLY + ".VirtualAttribute";
-            string objectLiteralAttr = Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute";
-
-            var result = SyntaxHelper.HasAttribute(symbol.GetAttributes(), externalAttr)
-                   || SyntaxHelper.HasAttribute(symbol.GetAttributes(), objectLiteralAttr)
-                   || SyntaxHelper.HasAttribute(symbol.ContainingAssembly.GetAttributes(), externalAttr);
+            var result = SyntaxHelper.HasAttribute(symbol.GetAttributes(), CS.Attributes.EXTERNAL)
+                   || SyntaxHelper.HasAttribute(symbol.GetAttributes(), CS.Attributes.OBJECT_LITERAL)
+                   || SyntaxHelper.HasAttribute(symbol.ContainingAssembly.GetAttributes(), CS.Attributes.EXTERNAL);
 
             if (result)
             {
                 return true;
             }
 
-            var attr = symbol.GetAttributes().FirstOrDefault(a => a.AttributeClass != null && a.AttributeClass.FullyQualifiedName() == virtualAttr);
+            var attr = symbol.GetAttributes().FirstOrDefault(a => a.AttributeClass != null && a.AttributeClass.FullyQualifiedName() == CS.Attributes.VIRTUAL);
 
             if (attr == null)
             {
-                attr = symbol.ContainingAssembly.GetAttributes().FirstOrDefault(a => a.AttributeClass != null && a.AttributeClass.FullyQualifiedName() == virtualAttr);
+                attr = symbol.ContainingAssembly.GetAttributes().FirstOrDefault(a => a.AttributeClass != null && a.AttributeClass.FullyQualifiedName() == CS.Attributes.VIRTUAL);
             }
 
             if (attr != null)

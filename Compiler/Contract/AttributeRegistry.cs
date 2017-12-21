@@ -32,7 +32,7 @@ namespace Bridge.Contract
                 return false;
             }
 
-            if (entity.HasAttribute(CS.Attributes.ACCESSORSINDEXER_ATTRIBUTE_NAME))
+            if (entity.HasAttribute(CS.Attributes.ACCESSORS_INDEXER))
             {
                 return true;
             }
@@ -42,7 +42,7 @@ namespace Bridge.Contract
 
         public static bool? HasGlobalMethodsAttribute(this IEntity entity)
         {
-            var globalMethods = entity.GetAttribute("Bridge.GlobalMethodsAttribute");
+            var globalMethods = entity.GetAttribute(CS.Attributes.GLOBAL_METHODS);
             if (globalMethods == null)
             {
                 return null;
@@ -53,7 +53,7 @@ namespace Bridge.Contract
 
         public static string GetMixin(this IEntity entity)
         {
-            var mixin = entity.GetAttribute("Bridge.MixinAttribute");
+            var mixin = entity.GetAttribute(CS.Attributes.MIXIN);
 
             if (mixin == null || mixin.PositionalArguments.Count == 0)
             {
@@ -70,19 +70,19 @@ namespace Bridge.Contract
 
         public static bool IsNonScriptable(this IEntity entity)
         {
-            return entity.HasAttribute("Bridge.NonScriptableAttribute");
+            return entity.HasAttribute(CS.Attributes.NON_SCRIPTABLE);
         }
 
         public static Module GetModule(this ITypeDefinition typeDefinition)
         {
-            var attr = typeDefinition.GetAttribute("Bridge.ModuleAttribute");
+            var attr = typeDefinition.GetAttribute(CS.Attributes.MODULE);
             if (attr != null)
             {
                 return ReadModuleFromAttribute(attr);
             }
 
             var asm = typeDefinition.ParentAssembly;
-            attr = asm.GetAttribute("Bridge.ModuleAttribute");
+            attr = asm.GetAttribute(CS.Attributes.MODULE);
             if (attr != null)
             {
                 return ReadModuleFromAttribute(attr);
@@ -93,14 +93,14 @@ namespace Bridge.Contract
 
         public static Module GetModule(this TypeDefinition typeDefinition)
         {
-            var attr = typeDefinition.GetAttribute("Bridge.ModuleAttribute");
+            var attr = typeDefinition.GetAttribute(CS.Attributes.MODULE);
             if (attr != null)
             {
                 return ReadModuleFromAttribute(attr);
             }
 
             var asm = typeDefinition.Module.Assembly;
-            attr = asm.GetAttribute("Bridge.ModuleAttribute");
+            attr = asm.GetAttribute(CS.Attributes.MODULE);
             if (attr != null)
             {
                 return ReadModuleFromAttribute(attr);
@@ -111,7 +111,7 @@ namespace Bridge.Contract
 
         public static ModuleDependency GetModuleDependency(this TypeDefinition typeDefinition)
         {
-            var attr = typeDefinition.GetAttribute("Bridge.ModuleDependencyAttribute");
+            var attr = typeDefinition.GetAttribute(CS.Attributes.MODULE_DEPENDENCY);
             if (attr == null || !attr.HasConstructorArguments)
             {
                 return null;
@@ -291,19 +291,19 @@ namespace Bridge.Contract
 
         public static bool IsIgnoreGeneric(this ITypeDefinition type)
         {
-            return type.HasAttribute("Bridge.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
+            return type.HasAttribute(CS.Attributes.IGNORE_GENERIC) || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
         }
         public static bool IsIgnoreGeneric(this IEntity type)
         {
-            return type.HasAttribute("Bridge.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
+            return type.HasAttribute(CS.Attributes.IGNORE_GENERIC) || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
         }
         public static bool IsIgnoreGeneric(this TypeDefinition type)
         {
-            return type.HasAttribute("Bridge.IgnoreGenericAttribute") || type.DeclaringType != null && IsIgnoreGeneric(type.DeclaringType);
+            return type.HasAttribute(CS.Attributes.IGNORE_GENERIC) || type.DeclaringType != null && IsIgnoreGeneric(type.DeclaringType);
         }
         public static bool IsIgnoreGeneric(this IType type, bool allowInTypeScript = false)
         {
-            var attr = type.GetDefinition().GetAttribute("Bridge.IgnoreGenericAttribute");
+            var attr = type.GetDefinition().GetAttribute(CS.Attributes.IGNORE_GENERIC);
 
             if (attr != null)
             {
@@ -337,7 +337,7 @@ namespace Bridge.Contract
                 return true;
             }
 
-            var attr = typeDef.GetAttribute("Bridge.ConstructorAttribute");
+            var attr = typeDef.GetAttribute(CS.Attributes.CONSTRUCTOR);
             if (attr != null)
             {
                 var inline = attr.PositionalArguments[0].ConstantValue.ToString();
@@ -347,16 +347,16 @@ namespace Bridge.Contract
                 }
             }
 
-            return typeDef.HasAttribute("Bridge.IgnoreCastAttribute") || typeDef.HasAttribute("Bridge.ObjectLiteralAttribute");
+            return typeDef.HasAttribute(CS.Attributes.IGNORE_CAST) || typeDef.HasAttribute(CS.Attributes.OBJECT_LITERAL);
         }
 
         public static bool IsScript(this MethodDefinition method)
         {
-            return method.HasAttribute(CS.NS.BRIDGE + ".ScriptAttribute");
+            return method.HasAttribute(CS.Attributes.SCRIPT);
         }
         public static bool IsScript(this IMethod method)
         {
-            return method.HasAttribute(CS.NS.BRIDGE + ".ScriptAttribute");
+            return method.HasAttribute(CS.Attributes.SCRIPT);
         }
 
         public static bool HasNameAttribute(this IEntity method)
@@ -365,7 +365,7 @@ namespace Bridge.Contract
         }
         public static string GetNameAttribute(this IEntity method, string originalName = null, bool changeReservedStatics = true)
         {
-            var attr = method.GetAttribute(CS.NS.BRIDGE + ".NameAttribute", true);
+            var attr = method.GetAttribute(CS.Attributes.NAME, true);
             if (attr == null || attr.PositionalArguments.Count == 0)
             {
                 return null;
@@ -396,7 +396,7 @@ namespace Bridge.Contract
         }
         public static NameRule GetNameAttributeAsRule(this IEntity method)
         {
-            var attr = method.GetAttribute(CS.NS.BRIDGE + ".NameAttribute", true);
+            var attr = method.GetAttribute(CS.Attributes.NAME, true);
             if (attr == null || attr.PositionalArguments.Count == 0)
             {
                 return null;
@@ -417,7 +417,7 @@ namespace Bridge.Contract
         }
         public static string GetNameAttribute(this IParameter method)
         {
-            var attr =  method.GetAttribute(CS.NS.BRIDGE + ".NameAttribute");
+            var attr = method.GetAttribute(CS.Attributes.NAME);
             if (attr == null || attr.PositionalArguments.Count == 0)
             {
                 return null;
@@ -427,15 +427,15 @@ namespace Bridge.Contract
 
         public static NameRule GetConvention(this IEntity method, NameRuleLevel level)
         {
-            return ToNameRule(method.GetAttribute(CS.NS.BRIDGE + ".ConventionAttribute"), level);
+            return ToNameRule(method.GetAttribute(CS.Attributes.CONVENTION), level);
         }
         public static IEnumerable<NameRule> GetConventions(this IEntity entity, NameRuleLevel level)
         {
-            return entity.GetAttributes(CS.NS.BRIDGE + ".ConventionAttribute").Select(a => ToNameRule(a, level));
+            return entity.GetAttributes(CS.Attributes.CONVENTION).Select(a => ToNameRule(a, level));
         }
         public static IEnumerable<NameRule> GetConventions(this IAssembly assembly, NameRuleLevel level)
         {
-            return assembly.GetAttributes(CS.NS.BRIDGE + ".ConventionAttribute").Select(a => ToNameRule(a, level));
+            return assembly.GetAttributes(CS.Attributes.CONVENTION).Select(a => ToNameRule(a, level));
         }
         private static NameRule ToNameRule(IAttribute attribute, NameRuleLevel level = NameRuleLevel.None)
         {
@@ -497,15 +497,15 @@ namespace Bridge.Contract
 
         public static CompilerRule GetRule(this IEntity entity, CompilerRuleLevel level)
         {
-            return ToRule(entity.GetAttribute(CS.NS.BRIDGE + ".RulesAttribute", true), level);
+            return ToRule(entity.GetAttribute(CS.Attributes.RULES, true), level);
         }
         public static IEnumerable<CompilerRule> GetRules(this IEntity entity, CompilerRuleLevel level)
         {
-            return entity.GetAttributes(CS.NS.BRIDGE + ".RulesAttribute", true).Select(a => ToRule(a, level));
+            return entity.GetAttributes(CS.Attributes.RULES, true).Select(a => ToRule(a, level));
         }
         public static IEnumerable<CompilerRule> GetRules(this IAssembly assembly, CompilerRuleLevel level)
         {
-            return assembly.GetAttributes(CS.NS.BRIDGE + ".RulesAttribute").Select(a => ToRule(a, level));
+            return assembly.GetAttributes(CS.Attributes.RULES).Select(a => ToRule(a, level));
         }
         private static CompilerRule ToRule(IAttribute attribute, CompilerRuleLevel level = CompilerRuleLevel.None)
         {
@@ -563,7 +563,7 @@ namespace Bridge.Contract
             }
 
             var attr = entity.GetReflectableAttribute();
-            if (attr!= null)
+            if (attr != null)
             {
                 if (attr.PositionalArguments.Count == 0)
                 {
@@ -604,7 +604,7 @@ namespace Bridge.Contract
                             for (int i = 0; i < attr.PositionalArguments.Count; i++)
                             {
                                 object v = attr.PositionalArguments[i].ConstantValue;
-                                list.Add((MemberAccessibility) (int) v);
+                                list.Add((MemberAccessibility)(int)v);
                             }
                             return IsMemberReflectable(member, list.ToArray());
                         }
@@ -616,25 +616,25 @@ namespace Bridge.Contract
                             if (rr is ArrayCreateResolveResult)
                             {
                                 return IsMemberReflectable(member,
-                                    ((ArrayCreateResolveResult) rr).InitializerElements
-                                    .Select(ie => (int) ie.ConstantValue)
+                                    ((ArrayCreateResolveResult)rr).InitializerElements
+                                    .Select(ie => (int)ie.ConstantValue)
                                     .Cast<MemberAccessibility>().ToArray());
                             }
 
                             if (value is bool)
                             {
-                                return (bool) attr.PositionalArguments.First().ConstantValue;
+                                return (bool)attr.PositionalArguments.First().ConstantValue;
                             }
 
                             if (value is int)
                             {
-                                return IsMemberReflectable(member, new[] {(MemberAccessibility) (int) value});
+                                return IsMemberReflectable(member, new[] { (MemberAccessibility)(int)value });
                             }
 
                             if (value is int[])
                             {
                                 return IsMemberReflectable(member,
-                                    ((int[]) value).Cast<MemberAccessibility>().ToArray());
+                                    ((int[])value).Cast<MemberAccessibility>().ToArray());
                             }
                         }
                     }
@@ -761,13 +761,13 @@ namespace Bridge.Contract
         }
         private static IAttribute GetReflectableAttribute(this IEntity entity)
         {
-            var attr = entity.GetAttribute("Bridge.ReflectableAttribute");
+            var attr = entity.GetAttribute(CS.Attributes.REFLECTABLE);
             if (attr != null)
             {
                 return attr;
             }
             // fallback to potentially inherited attribute
-            attr = entity.GetAttribute("Bridge.ReflectableAttribute", true);
+            attr = entity.GetAttribute(CS.Attributes.REFLECTABLE, true);
             if (attr != null && (bool)attr.NamedArguments.First(arg => arg.Key.Name == "Inherits").Value.ConstantValue)
             {
                 return attr;
@@ -777,19 +777,19 @@ namespace Bridge.Contract
 
         public static bool HasReadyAttribute(this IEntity entity)
         {
-            return entity.HasAttribute(CS.Attributes.READY_ATTRIBUTE_NAME);
+            return entity.HasAttribute(CS.Attributes.READY);
         }
 
         public static bool ExpandParams(this IEntity entity)
         {
-            return entity.HasAttribute("Bridge.ExpandParamsAttribute");
+            return entity.HasAttribute(CS.Attributes.EXPAND_PARAMS);
         }
 
         public static bool IsExternal(this IEntity entity)
         {
-            return entity.HasAttribute("Bridge.ExternalAttribute")
-                || entity.HasAttribute("Bridge.IgnoreAttribute")
-                || entity.HasAttribute("Bridge.NonScriptableAttribute")
+            return entity.HasAttribute(CS.Attributes.EXTERNAL)
+                || entity.HasAttribute(CS.Attributes.IGNORE)
+                || entity.HasAttribute(CS.Attributes.NON_SCRIPTABLE)
                 || IsVirtual(entity as ITypeDefinition)
                 || (entity.DeclaringTypeDefinition != null && IsExternal(entity.DeclaringTypeDefinition))
                 || (entity.DeclaringTypeDefinition != null && IsExternal(entity.DeclaringTypeDefinition.ParentAssembly))
@@ -797,9 +797,9 @@ namespace Bridge.Contract
         }
         public static bool IsExternal(this TypeDefinition entity)
         {
-            return entity.HasAttribute("Bridge.ExternalAttribute")
-                || entity.HasAttribute("Bridge.IgnoreAttribute")
-                || entity.HasAttribute("Bridge.NonScriptableAttribute")
+            return entity.HasAttribute(CS.Attributes.EXTERNAL)
+                || entity.HasAttribute(CS.Attributes.IGNORE)
+                || entity.HasAttribute(CS.Attributes.NON_SCRIPTABLE)
                 || IsVirtual(entity)
                 || (entity.DeclaringType != null && IsExternal(entity.DeclaringType))
                 || (entity.DeclaringType != null && IsExternal(entity.Module.Assembly))
@@ -807,17 +807,16 @@ namespace Bridge.Contract
         }
         public static bool IsExternal(this AssemblyDefinition entity)
         {
-            return entity.HasAttribute("Bridge.ExternalAttribute")
-                || entity.HasAttribute("Bridge.IgnoreAttribute")
-                || entity.HasAttribute("Bridge.NonScriptableAttribute")
-            ;
+            return entity.HasAttribute(CS.Attributes.EXTERNAL)
+                   || entity.HasAttribute(CS.Attributes.IGNORE)
+                   || entity.HasAttribute(CS.Attributes.NON_SCRIPTABLE);
         }
         public static bool IsExternal(this IAssembly entity)
         {
-            return entity.HasAttribute("Bridge.ExternalAttribute");
+            return entity.HasAttribute(CS.Attributes.EXTERNAL);
         }
 
-        public static bool IsVirtual(this ITypeDefinition typeDef)
+        public static bool IsVirtual(this IEntity typeDef)
         {
             if (typeDef == null)
             {
@@ -833,24 +832,26 @@ namespace Bridge.Contract
             }
             return typeDef != null && IsVirtualType(typeDef);
         }
-        private static bool IsVirtualType(ITypeDefinition typeDefinition)
+
+        private static bool IsVirtualType(IEntity entity)
         {
-            var attr = typeDefinition.GetAttribute("Bridge.VirtualAttribute");
-            if (attr == null && typeDefinition.DeclaringType != null)
+            var attr = entity.GetAttribute(CS.Attributes.VIRTUAL);
+            if (attr == null && entity.DeclaringType != null)
             {
-                return IsVirtualType(typeDefinition.DeclaringType.GetDefinition());
+                return IsVirtualType(entity.DeclaringType.GetDefinition());
             }
 
             if (attr == null)
             {
-                attr = typeDefinition.ParentAssembly.GetAttribute("Bridge.VirtualAttribute");
+                attr = entity.ParentAssembly.GetAttribute(CS.Attributes.VIRTUAL);
             }
 
             bool isVirtual = false;
 
             if (attr != null)
             {
-                if (attr.PositionalArguments.Count == 0)
+                var typeDefinition = entity as ITypeDefinition;
+                if (attr.PositionalArguments.Count == 0 || typeDefinition == null)
                 {
                     isVirtual = true;
                 }
@@ -877,7 +878,7 @@ namespace Bridge.Contract
         }
         private static bool IsVirtualType(TypeDefinition typeDefinition)
         {
-            var attr = typeDefinition.GetAttribute("Bridge.VirtualAttribute");
+            var attr = typeDefinition.GetAttribute(CS.Attributes.VIRTUAL);
             if (attr == null && typeDefinition.DeclaringType != null)
             {
                 return IsVirtualType(typeDefinition.DeclaringType);
@@ -885,7 +886,7 @@ namespace Bridge.Contract
 
             if (attr == null)
             {
-                attr = typeDefinition.Module.Assembly.GetAttribute("Bridge.VirtualAttribute");
+                attr = typeDefinition.Module.Assembly.GetAttribute(CS.Attributes.VIRTUAL);
             }
 
             bool isVirtual = false;
@@ -920,17 +921,17 @@ namespace Bridge.Contract
 
         public static bool HasFlagsAttribute(this ITypeDefinition entity)
         {
-            return entity.HasAttribute("System.FlagsAttribute");
+            return entity.HasAttribute(CS.Attributes.FLAGS);
         }
 
         public static bool HasInitPosition(this IEntity entity)
         {
-            return entity.HasAttribute("Bridge.InitAttribute");
+            return entity.HasAttribute(CS.Attributes.INIT);
         }
 
         public static InitPosition? GetInitPosition(this IEntity entity)
         {
-            var attr = entity.GetAttribute("Bridge.InitAttribute");
+            var attr = entity.GetAttribute(CS.Attributes.INIT);
             if (attr == null)
             {
                 return null;
@@ -947,7 +948,7 @@ namespace Bridge.Contract
 
         public static AttributeUsageAttribute GetAttributeUsage(this IEntity entity)
         {
-            var aua = entity.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == "System.AttributeUsageAttribute");
+            var aua = entity.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == CS.Attributes.ATTRIBUTE_USAGE);
             if (aua == null || aua.PositionalArguments.Count == 0)
             {
                 return null;
@@ -972,7 +973,7 @@ namespace Bridge.Contract
 
         public static IEnumerable<string> GetScript(this IEntity entity)
         {
-            var attr = entity.GetAttribute("Bridge.ScriptAttribute");
+            var attr = entity.GetAttribute(CS.Attributes.SCRIPT);
             if (attr != null && attr.PositionalArguments.Count > 0)
             {
                 return attr.PositionalArguments[0].ConstantValue as IEnumerable<string>;
@@ -1099,7 +1100,7 @@ namespace Bridge.Contract
 
             return adapters;
         }
-        private static string GetEventNameFromAttributeParameter(ResolveResult argument,  IEmitter emitter)
+        private static string GetEventNameFromAttributeParameter(ResolveResult argument, IEmitter emitter)
         {
             // for string parameters we directly accept the name
             if (argument.ConstantValue is string)
@@ -1143,7 +1144,7 @@ namespace Bridge.Contract
             foreach (var attr in allAttrs)
             {
                 var baseTypes = attr.AttributeType.GetAllBaseTypes().ToArray();
-                if (baseTypes.Any(t => t.FullName == "Bridge.AdapterAttribute"))
+                if (baseTypes.Any(t => t.FullName == CS.Attributes.ADAPTER))
                 {
                     adapters.Add(attr);
                 }
@@ -1155,7 +1156,7 @@ namespace Bridge.Contract
         {
             int result = 7;
 
-            var attr = type.GetAttribute("Bridge.EnumAttribute");
+            var attr = type.GetAttribute(CS.Attributes.ENUM);
             if (attr != null && attr.PositionalArguments.Count > 0)
             {
                 result = (int)attr.PositionalArguments.First().ConstantValue;
@@ -1166,7 +1167,7 @@ namespace Bridge.Contract
 
         public static int? GetObjectLiteralMode(this ITypeDefinition type)
         {
-            var attr = type.GetAttribute("Bridge.ObjectLiteralAttribute");
+            var attr = type.GetAttribute(CS.Attributes.OBJECT_LITERAL);
             if (attr == null || attr.PositionalArguments.Count < 1)
             {
                 return null;
@@ -1183,7 +1184,7 @@ namespace Bridge.Contract
 
         public static string GetCastCode(this ITypeDefinition type)
         {
-            var attr = type.GetAttribute("Bridge.CastAttribute");
+            var attr = type.GetAttribute(CS.Attributes.CAST);
             if (attr == null || attr.PositionalArguments.Count < 1)
             {
                 return null;
@@ -1193,7 +1194,7 @@ namespace Bridge.Contract
 
         public static bool HasTemplate(this IEntity type)
         {
-            return type.HasAttribute("Bridge.TemplateAttribute");
+            return type.HasAttribute(CS.Attributes.TEMPLATE);
         }
         public static string GetTemplate(this IEntity type, IEmitter emitter)
         {
@@ -1204,14 +1205,14 @@ namespace Bridge.Contract
         {
             delegated = false;
 
-            var attr = type.GetAttribute("Bridge.TemplateAttribute");
+            var attr = type.GetAttribute(CS.Attributes.TEMPLATE);
             if (attr == null)
             {
                 return null;
             }
 
             string inlineCode = null;
-            var namedArg = attr.NamedArguments.FirstOrDefault(arg => arg.Key.Name == CS.Attributes.Template.PROPERTY_FN);
+            var namedArg = attr.NamedArguments.FirstOrDefault(arg => arg.Key.Name == CS.Attributes.TEMPLATE_PROPERTY_FN);
             if (namedArg.Key != null)
             {
                 delegated = true;
@@ -1237,7 +1238,7 @@ namespace Bridge.Contract
 
         public static bool? UnboxingAllowed(this IEntity type)
         {
-            var attr = type.GetAttribute("Bridge.UnboxAttribute", true);
+            var attr = type.GetAttribute(CS.Attributes.UNBOX, true);
             if (attr == null || attr.PositionalArguments.Count < 1)
             {
                 return null;
@@ -1254,12 +1255,12 @@ namespace Bridge.Contract
 
         public static bool HasScript(this IEntity type)
         {
-            return type.HasAttribute("Bridge.ScriptAttribute");
+            return type.HasAttribute(CS.Attributes.SCRIPT);
         }
 
         public static bool IsInlineMethod(this IEntity type)
         {
-            var attr = type.GetAttribute("Bridge.TemplateAttribute");
+            var attr = type.GetAttribute(CS.Attributes.TEMPLATE);
             if (attr == null)
             {
                 return false;
@@ -1292,7 +1293,7 @@ namespace Bridge.Contract
             return attributes.Where(a =>
             {
                 var typeDef = a.AttributeType.GetDefinition();
-                return typeDef != null && !IsConditionallyRemoved(a, tree) && typeDef.IsExternal() &&
+                return typeDef != null && !IsConditionallyRemoved(a, tree) && !typeDef.IsExternal() &&
                        !typeDef.IsNonScriptable();
             });
         }
@@ -1304,7 +1305,7 @@ namespace Bridge.Contract
                 return false;
             }
 
-            var result = entity.GetAttributes("System.Diagnostics.ConditionalAttribute")
+            var result = entity.GetAttributes(CS.Attributes.CONDITIONAL)
                 .Where(a => a.PositionalArguments.Count > 0)
                 .Select(a => a.PositionalArguments[0].ConstantValue as string)
                 .Where(s => s != null)
@@ -1346,7 +1347,7 @@ namespace Bridge.Contract
             foreach (var a in entity.GetAttributes())
             {
                 var type = a.AttributeType.GetDefinition();
-                if (type != null && type.FullName.Equals("System.Diagnostics.ConditionalAttribute", StringComparison.Ordinal))
+                if (type != null && type.FullName.Equals(CS.Attributes.CONDITIONAL, StringComparison.Ordinal))
                 {
                     if (a.PositionalArguments.Count > 0)
                     {
@@ -1377,7 +1378,7 @@ namespace Bridge.Contract
 
             if (isConst)
             {
-                var attr = member.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.InlineConstAttribute");
+                var attr = member.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == CS.Attributes.INLINE_CONST);
                 if (attr != null)
                 {
                     return true;
@@ -1391,7 +1392,7 @@ namespace Bridge.Contract
         {
             string assemblyDescription = null;
 
-            var assemblyDescriptionAttribute = provider.GetAttributes().FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyDescriptionAttribute");
+            var assemblyDescriptionAttribute = provider.GetAttributes().FirstOrDefault(x => x.AttributeType.FullName == CS.Attributes.ASSEMBLY_DESCRIPTION);
 
             if (assemblyDescriptionAttribute != null
                 && assemblyDescriptionAttribute.HasConstructorArguments)
@@ -1411,7 +1412,7 @@ namespace Bridge.Contract
         {
             string assemblyDescription = null;
 
-            var assemblyDescriptionAttribute = provider.GetAttributes().FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyTitleAttribute");
+            var assemblyDescriptionAttribute = provider.GetAttributes().FirstOrDefault(x => x.AttributeType.FullName == CS.Attributes.ASSEMBLY_TITLE);
 
             if (assemblyDescriptionAttribute != null
                 && assemblyDescriptionAttribute.HasConstructorArguments)
@@ -1437,19 +1438,19 @@ namespace Bridge.Contract
             // List of attribute names that are meant to be inherited by sub-classes.
             var attrList = new List<string>
             {
-                "FileNameAttribute",
-                "ModuleAttribute",
-                "NamespaceAttribute"
+                CS.Attributes.FILENAME,
+                CS.Attributes.MODULE,
+                CS.Attributes.NAMESPACE
             };
 
             foreach (var attributeName in attrList)
             {
-                var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.Name == attributeName);
+                var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == attributeName);
                 if (attr != null)
                 {
                     foreach (var nestedType in type.NestedTypes)
                     {
-                        if (nestedType.CustomAttributes.All(ca => ca.AttributeType.Name != attributeName))
+                        if (nestedType.CustomAttributes.All(ca => ca.AttributeType.FullName != attributeName))
                         {
                             nestedType.CustomAttributes.Add(attr);
                         }
@@ -1460,7 +1461,7 @@ namespace Bridge.Contract
 
         public static Tuple<bool, string> IsGlobalTarget(this IMember member)
         {
-            var attr = member.GetAttributes(true).FirstOrDefault(a => a.AttributeType.FullName == "Bridge.GlobalTargetAttribute" && a.PositionalArguments.Count > 0);
+            var attr = member.GetAttributes(true).FirstOrDefault(a => a.AttributeType.FullName == CS.Attributes.GLOBAL_TARGET && a.PositionalArguments.Count > 0);
             if (attr == null)
             {
                 return null;
@@ -1470,7 +1471,7 @@ namespace Bridge.Contract
 
         public static int? GetPriority(this ICustomAttributeProvider priority)
         {
-            var attr = priority.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.GlobalTargetAttribute" && a.ConstructorArguments.Count > 0);
+            var attr = priority.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == CS.Attributes.PRIORITY && a.ConstructorArguments.Count > 0);
             if (attr == null)
             {
                 return null;
@@ -1480,12 +1481,11 @@ namespace Bridge.Contract
 
         public static bool IsExternalInterface(this ITypeDefinition typeDefinition, out bool isNative)
         {
-            string externalAttr = "Bridge.ExternalInterfaceAttribute";
-            var attr = typeDefinition.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+            var attr = typeDefinition.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == CS.Attributes.EXTERNAL_INTERFACE));
 
             if (attr == null)
             {
-                attr = typeDefinition.ParentAssembly.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+                attr = typeDefinition.ParentAssembly.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == CS.Attributes.EXTERNAL_INTERFACE));
             }
 
             isNative = attr != null && attr.PositionalArguments.Count == 1 && (bool)attr.PositionalArguments[0].ConstantValue;
@@ -1500,12 +1500,11 @@ namespace Bridge.Contract
 
         public static IExternalInterface IsExternalInterface(this ITypeDefinition typeDefinition)
         {
-            string externalAttr = "Bridge.ExternalInterfaceAttribute";
-            var attr = typeDefinition.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+            var attr = typeDefinition.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == CS.Attributes.EXTERNAL_INTERFACE));
 
             if (attr == null)
             {
-                attr = typeDefinition.ParentAssembly.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == externalAttr));
+                attr = typeDefinition.ParentAssembly.GetAttributes().FirstOrDefault(a => a.Constructor != null && (a.Constructor.DeclaringType.FullName == CS.Attributes.EXTERNAL_INTERFACE));
             }
 
             if (attr != null)
@@ -1541,21 +1540,21 @@ namespace Bridge.Contract
 
         public static bool IsImmutableType(this ICustomAttributeProvider type)
         {
-            return type.HasAttribute("Bridge.ImmutableAttribute");
+            return type.HasAttribute(CS.Attributes.IMMUTABLE);
         }
         public static bool IsImmutableType(this IEntity type)
         {
-            return type.HasAttribute("Bridge.ImmutableAttribute");
+            return type.HasAttribute(CS.Attributes.IMMUTABLE);
         }
 
         public static int GetObjectCreateMode(this IEntity type)
         {
-            var attr = type.GetAttribute("Bridge.ObjectLiteralAttribute");
+            var attr = type.GetAttribute(CS.Attributes.OBJECT_LITERAL);
             if (attr != null)
             {
                 foreach (var t in attr.PositionalArguments)
                 {
-                    if (t.Type.FullName == "Bridge.ObjectCreateMode")
+                    if (t.Type.FullName == CS.Types.Bridge_ObjectCreateMode)
                     {
                         return (int)t.ConstantValue;
                     }
@@ -1566,17 +1565,16 @@ namespace Bridge.Contract
 
         public static bool HasFieldAttribute(this IMember member, bool checkAssembly = true)
         {
-            var fieldAttributeName = "Bridge.FieldAttribute";
-            var autoPropertyToField = member.HasAttribute(fieldAttributeName);
+            var autoPropertyToField = member.HasAttribute(CS.Attributes.FIELD);
 
             if (!autoPropertyToField)
             {
-                autoPropertyToField = member.DeclaringTypeDefinition.HasAttribute(fieldAttributeName);
+                autoPropertyToField = member.DeclaringTypeDefinition.HasAttribute(CS.Attributes.FIELD);
             }
 
             if (!autoPropertyToField && checkAssembly)
             {
-                autoPropertyToField = member.DeclaringTypeDefinition.ParentAssembly.HasAttribute(fieldAttributeName);
+                autoPropertyToField = member.DeclaringTypeDefinition.ParentAssembly.HasAttribute(CS.Attributes.FIELD);
             }
 
             return autoPropertyToField;
@@ -1584,7 +1582,7 @@ namespace Bridge.Contract
 
         public static Tuple<string, bool> GetNamespace(this ICustomAttributeProvider provider)
         {
-            var attr = provider.GetAttribute("Bridge.NamespaceAttribute");
+            var attr = provider.GetAttribute(CS.Attributes.NAMESPACE);
             if (attr == null || !attr.HasConstructorArguments)
             {
                 return null;
@@ -1604,7 +1602,7 @@ namespace Bridge.Contract
         }
         public static Tuple<string, bool> GetNamespace(this IEntity provider)
         {
-            var attr = provider.GetAttribute("Bridge.NamespaceAttribute");
+            var attr = provider.GetAttribute(CS.Attributes.NAMESPACE);
             if (attr == null || attr.PositionalArguments.Count == 0)
             {
                 return null;
@@ -1625,7 +1623,7 @@ namespace Bridge.Contract
 
         public static string GetFileName(this ICustomAttributeProvider provider)
         {
-            var attr = provider.GetAttribute("Bridge.FileNameAttribute");
+            var attr = provider.GetAttribute(CS.Attributes.FILENAME);
             if (attr == null || !attr.HasConstructorArguments)
             {
                 return null;
@@ -1641,7 +1639,7 @@ namespace Bridge.Contract
 
         public static Tuple<string, bool> GetName(this ICustomAttributeProvider provider)
         {
-            var attr = provider.GetAttribute("Bridge.NameAttribute");
+            var attr = provider.GetAttribute(CS.Attributes.NAME);
             if (attr == null || !attr.HasConstructorArguments)
             {
                 return null;
@@ -1662,7 +1660,7 @@ namespace Bridge.Contract
 
         public static string GetCustomConstructor(this IEntity provider)
         {
-            var attr = provider.GetAttribute("Bridge.ConstructorAttribute");
+            var attr = provider.GetAttribute(CS.Attributes.CONSTRUCTOR);
             if (attr != null && attr.PositionalArguments.Count > 0)
             {
                 return (string)attr.PositionalArguments[0].ConstantValue;
@@ -1677,7 +1675,7 @@ namespace Bridge.Contract
         }
         public static string GetCustomConstructor(this TypeDefinition provider)
         {
-            var attr = provider.GetAttribute("Bridge.ConstructorAttribute");
+            var attr = provider.GetAttribute(CS.Attributes.CONSTRUCTOR);
             if (attr != null && attr.ConstructorArguments.Count > 0)
             {
                 return (string)attr.ConstructorArguments[0].Value;
@@ -1693,12 +1691,12 @@ namespace Bridge.Contract
 
         public static int GetObjectCreateMode(this ICustomAttributeProvider type)
         {
-            var attr = type.GetAttribute("Bridge.ObjectLiteralAttribute");
+            var attr = type.GetAttribute(CS.Attributes.OBJECT_LITERAL);
             if (attr != null && attr.HasConstructorArguments)
             {
                 foreach (var t in attr.ConstructorArguments)
                 {
-                    if (t.Type.FullName == "Bridge.ObjectCreateMode")
+                    if (t.Type.FullName == CS.Types.Bridge_ObjectCreateMode)
                     {
                         return (int)t.Value;
                     }
@@ -1709,12 +1707,12 @@ namespace Bridge.Contract
 
         public static int GetObjectInitializationMode(this ICustomAttributeProvider type)
         {
-            var attr = type.GetAttribute("Bridge.ObjectLiteralAttribute");
+            var attr = type.GetAttribute(CS.Attributes.OBJECT_LITERAL);
             if (attr != null && attr.HasConstructorArguments)
             {
                 foreach (CustomAttributeArgument t in attr.ConstructorArguments)
                 {
-                    if (t.Type.FullName == "Bridge.ObjectInitializationMode")
+                    if (t.Type.FullName == CS.Types.Bridge_ObjectInitializationMode)
                     {
                         return (int)t.Value;
                     }
@@ -1725,11 +1723,11 @@ namespace Bridge.Contract
 
         public static bool IsObjectLiteral(this ICustomAttributeProvider type)
         {
-            return type.HasAttribute("Bridge.ObjectLiteralAttribute");
+            return type.HasAttribute(CS.Attributes.OBJECT_LITERAL);
         }
         public static bool IsObjectLiteral(this IEntity type)
         {
-            return type.HasAttribute("Bridge.ObjectLiteralAttribute");
+            return type.HasAttribute(CS.Attributes.OBJECT_LITERAL);
         }
 
         #region Attribute Helpers

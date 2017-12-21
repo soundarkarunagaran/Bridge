@@ -338,14 +338,11 @@ namespace Bridge.Translator
             var bridgeType = emitter.BridgeTypes.Get(this.Key);
             var name = this.Namespace;
 
-            var typeName = emitter.Validator.GetCustomTypeName(bridgeType.TypeDefinition, emitter, nons);
+            var typeName = emitter.Validator.GetCustomTypeName(bridgeType.TypeDefinition, emitter, false);
             if (typeName != null)
             {
                 var i = typeName.LastIndexOf(".");
-                if (i >= 0)
-                {
-                    name = typeName.Substring(0, i);
-                }
+                name = i >= 0 ? typeName.Substring(0, i) : null;
             }
 
             if (name == null && !nons)

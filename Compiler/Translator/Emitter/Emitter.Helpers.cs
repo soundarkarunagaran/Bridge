@@ -87,52 +87,6 @@ namespace Bridge.Translator
             return JsonConvert.SerializeObject(value);
         }
 
-        protected virtual ICSharpCode.NRefactory.CSharp.Attribute GetAttribute(IEnumerable<ICSharpCode.NRefactory.CSharp.Attribute> attributes, string name)
-        {
-            string fullName = name + "Attribute";
-            foreach (var j in attributes)
-            {
-                if (j.Type.ToString() == name)
-                {
-                    return j;
-                }
-
-                var resolveResult = this.Resolver.ResolveNode(j, this);
-                if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == fullName)
-                {
-                    return j;
-                }
-            }
-
-            return null;
-        }
-
-        public virtual CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
-        {
-            foreach (var attr in attributes)
-            {
-                if (attr.AttributeType.FullName == name)
-                {
-                    return attr;
-                }
-            }
-
-            return null;
-        }
-
-        public virtual IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name)
-        {
-            foreach (var attr in attributes)
-            {
-                if (attr.AttributeType.FullName == name)
-                {
-                    return attr;
-                }
-            }
-
-            return null;
-        }
-
         public virtual Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node)
         {
             var member = LiftNullableMember(node);

@@ -1064,7 +1064,7 @@ namespace Bridge.Translator
                 List<StatementSyntax> statements = new List<StatementSyntax>();
                 statements.Add(CreateIfForCatch(node.Catches, 0, instance));
 
-                var catchDeclaration = SyntaxFactory.CatchDeclaration(SyntaxFactory.ParseTypeName(CS.Types.System.Exception.NAME), SyntaxFactory.Identifier(instance));
+                var catchDeclaration = SyntaxFactory.CatchDeclaration(SyntaxFactory.ParseTypeName(CS.Types.System_Exception), SyntaxFactory.Identifier(instance));
                 catches.Add(SyntaxFactory.CatchClause(catchDeclaration, null, SyntaxFactory.Block(statements)));
             }
 

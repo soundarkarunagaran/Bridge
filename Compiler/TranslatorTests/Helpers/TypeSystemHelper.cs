@@ -102,7 +102,8 @@ namespace Bridge.Translator.Tests.Helpers
 
         public IType SubstituteType(TypeDescriptor type)
         {
-            var typeDefinition = Substitute.For<ITypeDefinition>();
+            var typeDefinition = Substitute.For<ITypeDefinition, IEntity>();
+            var entity = typeDefinition as IEntity;
 
             var typeFullName = type.FullName;
             var typeKind = TypeKind.Array;
@@ -114,6 +115,9 @@ namespace Bridge.Translator.Tests.Helpers
             typeDefinition.IsPublic.Returns(true);
             typeDefinition.DeclaringType.Returns((IType)null);
             typeDefinition.DeclaringTypeDefinition.Returns((ITypeDefinition)null);
+            typeDefinition.GetDefinition().Returns(typeDefinition);
+            entity.DeclaringType.Returns((IType) null);
+            entity.DeclaringTypeDefinition.Returns((ITypeDefinition) null);
 
             if (type.Attributes != null)
             {
@@ -136,6 +140,7 @@ namespace Bridge.Translator.Tests.Helpers
             t.Name.Returns(GetTypeName(typeFullName));
             t.Namespace.Returns(GetTypeNamespace(typeFullName));
             t.Kind.Returns(typeKind);
+            t.DeclaringType.Returns((IType)null);
 
             return t;
         }

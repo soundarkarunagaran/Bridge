@@ -246,13 +246,9 @@ namespace Bridge.Contract
             if (rule.Target != ConventionTarget.All)
             {
                 var typeDef = entity as ITypeDefinition;
-                string externalAttr = "Bridge.ExternalAttribute";
-                string virtualAttr = "Bridge.VirtualAttribute";
-
                 if (typeDef == null && rule.Target.HasFlag(ConventionTarget.External))
                 {
-                    acceptable = entity.GetAttribute(new FullTypeName(externalAttr), false) != null ||
-                                 entity.GetAttribute(new FullTypeName(virtualAttr), false) != null;
+                    acceptable = entity.IsExternal() ||entity.IsVirtual();
 
                     if (!acceptable)
                     {
@@ -420,7 +416,7 @@ namespace Bridge.Contract
                     acceptable = typeDef.Kind == TypeKind.Delegate;
                     break;
                 case ConventionTarget.ObjectLiteral:
-                    acceptable = semantic.IsObjectLiteral || typeDef.GetAttribute(new FullTypeName("Bridge.ObjectLiteralAttribute"), false) != null;
+                    acceptable = semantic.IsObjectLiteral || typeDef.IsObjectLiteral();
                     break;
                 case ConventionTarget.Anonymous:
                     acceptable = typeDef.Kind == TypeKind.Anonymous;

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 using Bridge.Contract;
+using Bridge.Contract.Constants;
 using Bridge.Translator.Tests.Helpers;
 
 
@@ -53,9 +54,9 @@ namespace Bridge.Translator.Tests
             {
                 var types = new[]
                 {
-                    new TypeDescriptor("SomeClass1", attributeName: "Bridge.GlobalMethodsAttribute"),
-                    new TypeDescriptor("SomeClass2", attributeName: "Bridge.NonScriptableAttribute"),
-                    new TypeDescriptor("SomeClass3", attributeName: "Bridge.MixinAttribute")
+                    new TypeDescriptor("SomeClass1", attributeName: CS.Attributes.GLOBAL_METHODS),
+                    new TypeDescriptor("SomeClass2", attributeName: CS.Attributes.NON_SCRIPTABLE),
+                    new TypeDescriptor("SomeClass3", attributeName: CS.Attributes.MIXIN)
                 };
 
                 var block = GetEmitBlock(true, null, types);
@@ -68,7 +69,7 @@ namespace Bridge.Translator.Tests
             [TestCase]
             public void GetReflectableTypes_NotEnabled()
             {
-                var block = GetEmitBlock(false, null, true, "SomeClass", "Bridge.ReflectableAttribute");
+                var block = GetEmitBlock(false, null, true, "SomeClass", CS.Attributes.REFLECTABLE);
                 var reflectableTypes = block.GetReflectableTypes();
 
                 Assert.NotNull(reflectableTypes);
@@ -97,7 +98,7 @@ namespace Bridge.Translator.Tests
 
             private void TestByOneReflectableAttribute(string typeName, bool inThisAssembly, bool hasArgument, object argument = null, TypeAccessibility? typeAccessibility = null)
             {
-                var attribute = hasArgument ? "Bridge.ReflectableAttribute" : null;
+                var attribute = hasArgument ? CS.Attributes.REFLECTABLE : null;
 
                 var block = GetEmitBlock(true, typeAccessibility, inThisAssembly, typeName, attribute, argument != null ? new object[] { argument} : null);
                 var reflectableTypes = block.GetReflectableTypes();

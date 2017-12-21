@@ -197,7 +197,7 @@ namespace Bridge.Translator
                 return null;
             }
 
-            var nsAtrr = excludeNs ? null : type.GetNamespace();;
+            var nsAtrr = excludeNs ? null : type.GetNamespace();
             bool hasNs = nsAtrr != null;
             var nameAttr = type.GetName();
 

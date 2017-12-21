@@ -1022,16 +1022,6 @@ namespace Bridge.Translator
             throw new NotImplementedException();
         }
 
-        public CustomAttribute GetAttribute(IEnumerable<CustomAttribute> attributes, string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IAttribute GetAttribute(IEnumerable<IAttribute> attributes, string name)
-        {
-            throw new NotImplementedException();
-        }
-
         public TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
         {
             throw new NotImplementedException();
