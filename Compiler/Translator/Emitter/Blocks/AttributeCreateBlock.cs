@@ -215,9 +215,7 @@ namespace Bridge.Translator
                         if (enumMode >= 3 && enumMode < 7)
                         {
                             string enumStringName = mrr.Member.Name;
-                            var attr = mrr.Member.GetNameAttribute();
-
-                            if (attr != null)
+                            if (mrr.Member.HasNameAttribute())
                             {
                                 enumStringName = block.Emitter.GetEntityName(mrr.Member);
                             }

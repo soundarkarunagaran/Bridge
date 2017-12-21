@@ -80,155 +80,25 @@ namespace Bridge.Translator
                 }
             }
 
-            var adapters = method.Symbol.GetAdapterAttributes();
-
-            foreach (var attr in adapters)
+            try
             {
-                if (methodGroup.Value.Count > 1)
+                var adapters = method.Symbol.GetAdapters(methodGroup.Key, StaticBlock, Emitter);
+                if (adapters.Count > 0)
                 {
-                    // TODO: maybe try to load correct adapter attribute?
-                    throw new EmitterException(method.Declaration.NameToken, "Overloaded method cannot be event handler");
-                }
-
-
-                // If the attribute defines a 'public const bool StaticOnly = true' the attribute can only be applied to static methods
-                var staticFlagField = attr.AttributeType.GetFields(f => f.Name == "StaticOnly").FirstOrDefault();
-                if (staticFlagField != null)
-                {
-                    var staticValue = staticFlagField.ConstantValue;
-
-                    if (staticValue is bool && ((bool)staticValue) && !method.Symbol.IsStatic)
+                    if (methodGroup.Value.Count > 1)
                     {
-                        throw new EmitterException(method.Declaration.NameToken, attr.AttributeType.FullName + " can be applied for static methods only");
+                        // TODO: maybe try to load correct adapter attribute?
+                        throw new EmitterException(method.Declaration.NameToken, "Overloaded method cannot be event handler");
                     }
                 }
-
-                // if the adapter defines a 'public const string Event = "{something}"'
-                // this becomes the event name
-                string eventName = methodGroup.Key;
-                var eventField = attr.AttributeType.GetFields(f => f.Name == "Event");
-                if (eventField.Any())
-                {
-                    eventName = eventField.First().ConstantValue.ToString();
-                }
-
-                // The adapter can define a string-format on how the event is registered
-                string format = null;
-                string formatName = this.StaticBlock ? "Format" : "FormatScope";
-                var formatField = attr.AttributeType.GetFields(f => f.Name == formatName, GetMemberOptions.IgnoreInheritedMembers);
-                if (formatField.Any())
-                {
-                    format = formatField.First().ConstantValue.ToString();
-                }
-                else
-                {
-                    var baseTypes = attr.AttributeType.GetAllBaseTypes().ToArray();
-                    for (int i = baseTypes.Length - 1; i >= 0; i--)
-                    {
-                        formatField = baseTypes[i].GetFields(f => f.Name == formatName);
-
-                        if (formatField.Any())
-                        {
-                            format = formatField.First().ConstantValue.ToString();
-                            break;
-                        }
-                    }
-                }
-
-                // If an attribute defines 'public const bool IsCommonEvent=true' 
-                // then the first parameter of the attribute constructor defines the name of the event
-                bool isCommon = false;
-                var commonField = attr.AttributeType.GetFields(f => f.Name == "IsCommonEvent");
-                if (commonField.Count() > 0)
-                {
-                    isCommon = Convert.ToBoolean(commonField.First().ConstantValue);
-                    if (isCommon)
-                    {
-                        var commonEventName = GetEventNameFromAttributeParameter(attr.PositionalArguments[0]);
-                        if (commonEventName != null)
-                        {
-                            eventName = commonEventName;
-                        }
-                    }
-                }
-
-                // the next parameter is the selector to which the event is subscribed
-                // the selector is a string-format template which is filled with value defiend by the last parameter
-                var selectorIndex = isCommon ? 1 : 0;
-                var selector = (attr.PositionalArguments.ElementAt(selectorIndex)).ConstantValue.ToString();
-
-                // find the matchine enum value
-                var type = attr.PositionalArguments[selectorIndex + 1].Type;
-                var fields = type.GetFields(f =>
-                {
-                    var field = f as DefaultResolvedField;
-
-                    if (field != null && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == Convert.ToInt32(attr.PositionalArguments[0].ConstantValue))
-                    {
-                        return true;
-                    }
-
-                    var field1 = f as DefaultUnresolvedField;
-
-                    if (field1 != null && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == Convert.ToInt32(attr.PositionalArguments[0].ConstantValue))
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }, GetMemberOptions.IgnoreInheritedMembers).FirstOrDefault();
-
-                if (fields != null)
-                {
-                    // load the template from this enum field
-                    var template = fields.GetTemplate(Emitter);
-                    if (template != null)
-                    {
-                        selector = string.Format(template, selector);
-                    }
-                }
-
-                list.Add(string.Format(format, eventName, selector, this.Emitter.GetEntityName(method.Symbol)));
+                list.AddRange(adapters);
+            }
+            catch (Exception e)
+            {
+                throw new EmitterException(method.Declaration.NameToken, e.Message);
             }
         }
 
-        private string GetEventNameFromAttributeParameter(ResolveResult argument)
-        {
-            // for string parameters we directly accept the name
-            if (argument.ConstantValue is string)
-            {
-                return argument.ConstantValue.ToString();
-            }
-
-            // another possibilitiy is having an enum, in this case we need to find the 
-            // matching enum field and we will use the field name 
-            var type = argument.Type;
-            var fields = type.GetFields(f =>
-            {
-                var field = f as DefaultResolvedField;
-
-                if (field != null && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == Convert.ToInt32(argument.ConstantValue))
-                {
-                    return true;
-                }
-
-                var field1 = f as DefaultUnresolvedField;
-
-                if (field1 != null && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == Convert.ToInt32(argument.ConstantValue))
-                {
-                    return true;
-                }
-
-                return false;
-            }, GetMemberOptions.IgnoreInheritedMembers).FirstOrDefault();
-
-            if (fields != null)
-            {
-                return this.Emitter.GetEntityName(fields);
-            }
-
-            return null;
-        }
 
         private void LogWarning(string message)
         {

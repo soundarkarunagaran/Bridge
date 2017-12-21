@@ -538,13 +538,13 @@ namespace Bridge.Translator
                 }
             }
 
-            if (!MetadataUtils.IsReflectable(member, this._emitter, hasAttr, this._syntaxTree))
+            if (!member.IsReflectable(hasAttr, this._syntaxTree))
             {
                 return -1;
             }
 
             int i = 0;
-            foreach (var m in member.DeclaringTypeDefinition.Members.Where(m => MetadataUtils.IsReflectable(m, this._emitter, hasAttr, this._syntaxTree))
+            foreach (var m in member.DeclaringTypeDefinition.Members.Where(m => m.IsReflectable(hasAttr, this._syntaxTree))
                                                                     .OrderBy(m => m, MemberOrderer.Instance))
             {
                 if (m.Equals(member.MemberDefinition ?? member))

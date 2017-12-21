@@ -29,13 +29,7 @@ namespace Bridge.Contract
 
             if (entity is IMember)
             {
-                var attr = entity.GetRule();
-
-                if (attr != null)
-                {
-                    memberRule = Rules.ToRule(attr, CompilerRuleLevel.Member);
-                }
-
+                memberRule = entity.GetRule(CompilerRuleLevel.Member);
                 var typeDef = entity.DeclaringTypeDefinition;
 
                 if (typeDef != null)
@@ -58,8 +52,7 @@ namespace Bridge.Contract
             }
             else
             {
-                assemblyRules = assembly.GetRules()
-                    .Select(r => ToRule(r, CompilerRuleLevel.Assembly))
+                assemblyRules = assembly.GetRules(CompilerRuleLevel.Assembly)
                     .ToArray();
 
                 if(emitter != null)
@@ -148,49 +141,6 @@ namespace Bridge.Contract
             return resultRule;
         }
 
-        private static CompilerRule ToRule(IAttribute attribute, CompilerRuleLevel level = CompilerRuleLevel.None)
-        {
-            var rule = new CompilerRule();
-
-            foreach (var argument in attribute.NamedArguments)
-            {
-                var member = argument.Key;
-                var value = argument.Value;
-
-                switch (member.Name)
-                {
-                    case nameof(CompilerRule.Lambda):
-                        rule.Lambda = (LambdaRule)(int)value.ConstantValue;
-                        break;
-
-                    case nameof(CompilerRule.Boxing):
-                        rule.Boxing = (BoxingRule)(int)value.ConstantValue;
-                        break;
-
-                    case nameof(CompilerRule.ArrayIndex):
-                        rule.ArrayIndex = (ArrayIndexRule)(int)value.ConstantValue;
-                        break;
-
-                    case nameof(CompilerRule.Integer):
-                        rule.Integer = (IntegerRule)(int)value.ConstantValue;
-                        break;
-
-                    case nameof(CompilerRule.AnonymousType):
-                        rule.AnonymousType = (AnonymousTypeRule)(int)value.ConstantValue;
-                        break;
-
-                    case nameof(CompilerRule.AutoProperty):
-                        rule.AutoProperty = (AutoPropertyRule)(int)value.ConstantValue;
-                        break;
-
-                    default:
-                        throw new NotSupportedException($"Property {member.Name} is not supported in {attribute.AttributeType.FullName}");
-                }
-            }
-
-            rule.Level = level;
-            return rule;
-        }
 
         private static CompilerRule[] GetVirtualMemberRules(IEmitter emitter, IEntity entity)
         {
@@ -225,7 +175,7 @@ namespace Bridge.Contract
             List<CompilerRule> rules = new List<CompilerRule>();
             while (td != null)
             {
-                rules.AddRange(td.GetRules().Select(r=> ToRule(r, CompilerRuleLevel.Class)));
+                rules.AddRange(td.GetRules(CompilerRuleLevel.Class));
                 td = td.DeclaringTypeDefinition;
             }
 

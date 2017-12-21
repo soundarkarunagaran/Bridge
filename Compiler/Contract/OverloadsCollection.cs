@@ -1121,26 +1121,25 @@ namespace Bridge.Contract
                 name = JS.Funcs.CONSTRUCTOR;
             }
 
-            var attr = definition.GetNameAttribute();
+            var hasNameAttribute = definition.HasNameAttribute();
 
             var iProperty = definition as IProperty;
 
-            if (attr == null && iProperty != null && !IsField)
+            if (!hasNameAttribute && iProperty != null && !IsField)
             {
                 var acceessor = this.IsSetter ? iProperty.Setter : iProperty.Getter;
 
                 if (acceessor != null)
                 {
-                    attr = acceessor.GetNameAttribute();
-
-                    if (attr != null)
+                    hasNameAttribute = acceessor.HasNameAttribute();
+                    if (hasNameAttribute)
                     {
                         name = this.Emitter.GetEntityName(acceessor);
                     }
                 }
             }
 
-            if (attr != null)
+            if (hasNameAttribute)
             {
                 if (!(iProperty != null || definition is IEvent))
                 {
@@ -1148,12 +1147,12 @@ namespace Bridge.Contract
                 }
             }
 
-            if (attr != null && definition.ImplementedInterfaceMembers.Count > 0)
+            if (hasNameAttribute && definition.ImplementedInterfaceMembers.Count > 0)
             {
                 if (this.Members.Where(member => member.ImplementedInterfaceMembers.Count > 0)
                         .Any(member => definition.ImplementedInterfaceMembers.Any(implementedInterfaceMember => member.ImplementedInterfaceMembers.Any(m => m.DeclaringTypeDefinition == implementedInterfaceMember.DeclaringTypeDefinition))))
                 {
-                    attr = null;
+                    hasNameAttribute = false;
                 }
             }
 
@@ -1170,7 +1169,7 @@ namespace Bridge.Contract
                 }
             }
 
-            if (attr != null || skipSuffix)
+            if (hasNameAttribute || skipSuffix)
             {
                 return prefix != null ? prefix + name : name;
             }

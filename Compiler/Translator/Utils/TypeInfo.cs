@@ -167,14 +167,8 @@ namespace Bridge.Translator
                         return false;
                     }
 
-                    var init = declarationAndSymbol.Symbol.GetInitAttribute();
-                    if (init == null || init.PositionalArguments.Count == 0)
-                    {
-                        return true;
-                    }
-
-                    var value = (InitPosition)(int)init.PositionalArguments[0].ConstantValue;
-                    if (value == InitPosition.Before || value == InitPosition.Top)
+                    var init = declarationAndSymbol.Symbol.GetInitPosition();
+                    if (init.HasValue && (init.Value == InitPosition.Before || init.Value == InitPosition.Top))
                     {
                         return false;
                     }

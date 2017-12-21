@@ -523,8 +523,7 @@ namespace Bridge.Translator
             {
                 foreach (var method in methodGroup.Value)
                 {
-                    var attr = method.Symbol.GetInitAttribute();
-                    if (attr != null)
+                    if (method.Symbol.HasInitPosition())
                     {
                         throw new EmitterException(method.Declaration.NameToken, "Instance method cannot be Init method");
                     }
@@ -538,38 +537,26 @@ namespace Bridge.Translator
             {
                 foreach (var method in methodGroup.Value)
                 {
-                    var attr = method.Symbol.GetInitAttribute();
-                    if (attr != null)
+                    var initPosition = method.Symbol.GetInitPosition();
+                    if (initPosition.HasValue && initPosition.Value == value)
                     {
-                        InitPosition? initPosition = null;
-                        if (attr.PositionalArguments.Count > 0)
+                        if (method.Symbol.TypeParameters.Count > 0)
                         {
-                            initPosition = (InitPosition)attr.PositionalArguments[0].ConstantValue;
+                            throw new EmitterException(method.Declaration, "Init method cannot be generic");
                         }
-                        else
+
+                        if (method.Symbol.Parameters.Count > 0)
                         {
-                            initPosition = InitPosition.After;
+                            throw new EmitterException(method.Declaration, "Init method should not have parameters");
                         }
-                        if (initPosition == value)
+
+                        if (method.Symbol.ReturnType.Kind != TypeKind.Void
+                            && !method.Symbol.ReturnType.IsKnownType(KnownTypeCode.Void))
                         {
-                            if (method.Symbol.TypeParameters.Count > 0)
-                            {
-                                throw new EmitterException(method.Declaration, "Init method cannot be generic");
-                            }
-
-                            if (method.Symbol.Parameters.Count > 0)
-                            {
-                                throw new EmitterException(method.Declaration, "Init method should not have parameters");
-                            }
-
-                            if (method.Symbol.ReturnType.Kind != TypeKind.Void
-                                && !method.Symbol.ReturnType.IsKnownType(KnownTypeCode.Void))
-                            {
-                                throw new EmitterException(method.Declaration, "Init method should not return anything");
-                            }
-
-                            list.Add(fn(method.Declaration, method.Symbol));
+                            throw new EmitterException(method.Declaration, "Init method should not return anything");
                         }
+
+                        list.Add(fn(method.Declaration, method.Symbol));
                     }
                 }
             }

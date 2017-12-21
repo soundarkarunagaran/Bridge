@@ -115,7 +115,7 @@ namespace Bridge.Translator
             if (methodDeclaration != null)
             {
                 var rr = (MemberResolveResult)emitter.Resolver.ResolveNode(methodDeclaration, this.emitter);
-                if (rr != null && rr.Member.GetInitAttribute() != null)
+                if (rr != null && rr.Member.HasInitPosition())
                 {
                     this._usedVariables.Add(null);
                     return;

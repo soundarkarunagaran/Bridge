@@ -562,31 +562,15 @@ namespace Bridge.Translator
                 if (enumMode >= 3 && enumMode < 7)
                 {
                     initializerIsString = true;
-                    string enumStringName = member.Member.Name;
-                    var attr = member.Member.GetNameAttribute();
+                    var attrName = member.Member.GetNameAttribute();
 
-                    if (attr != null)
+                    if (attrName != null)
                     {
-                        var value = attr.PositionalArguments.First().ConstantValue;
-                        string name = null;
-                        if (value is string)
-                        {
-                            name = value.ToString();
-                            name = Helpers.ConvertNameTokens(name, enumStringName);
-                        }
-                        else if (value is bool)
-                        {
-                            name = (bool)value ? Object.Net.Utilities.StringUtils.ToLowerCamelCase(member.Member.Name) : member.Member.Name;
-                        }
-
-                        if (member.Member.IsStatic && Helpers.IsReservedStaticName(name, false))
-                        {
-                            name = Helpers.ChangeReservedWord(name);
-                        }
-                        initializer = new PrimitiveExpression(name);
+                        initializer = new PrimitiveExpression(attrName);
                     }
                     else
                     {
+                        string enumStringName = member.Member.Name;
                         switch (enumMode)
                         {
                             case 3:
@@ -725,7 +709,7 @@ namespace Bridge.Translator
         {
             if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == Translator.Bridge_ASSEMBLY + ".ReflectableAttribute")
             {
-                var config = ((AssemblyInfo)this.AssemblyInfo).ReflectionInternal;
+                var config = this.AssemblyInfo.Reflection;
 
                 if (attr.Arguments.Count > 0)
                 {

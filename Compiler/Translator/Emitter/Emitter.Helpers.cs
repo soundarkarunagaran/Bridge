@@ -279,23 +279,10 @@ namespace Bridge.Translator
 
             if (member != null)
             {
-                var attr = member.GetInitAttribute();
-
-                if (attr != null)
+                var initPosition = member.GetInitPosition();
+                if (initPosition.HasValue && initPosition.Value > Contract.InitPosition.After)
                 {
-                    if (attr.PositionalArguments.Count > 0)
-                    {
-                        var argExpr = attr.PositionalArguments.First();
-                        if (argExpr.ConstantValue is int)
-                        {
-                            var value = (InitPosition)argExpr.ConstantValue;
-
-                            if (value > 0)
-                            {
-                                return true;
-                            }
-                        }
-                    }
+                    return true;
                 }
             }
 
@@ -323,25 +310,8 @@ namespace Bridge.Translator
                 return null;
             }
 
-            var attr = member.GetNameAttribute();
             bool isIgnore = member.DeclaringTypeDefinition != null && member.DeclaringTypeDefinition.IsExternal();
-            string name;
-
-            if (attr != null)
-            {
-                var value = attr.PositionalArguments.First().ConstantValue;
-                if (value is string)
-                {
-                    name = this.GetEntityName(member);
-                    if (!isIgnore && member.IsStatic && Helpers.IsReservedStaticName(name, false))
-                    {
-                        name = Helpers.ChangeReservedWord(name);
-                    }
-                    return name;
-                }
-            }
-
-            return null;
+            return member.GetNameAttribute(this.GetEntityName(member), !isIgnore);
         }
 
         Dictionary<IEntity, NameSemantic> entityNameCache = new Dictionary<IEntity, NameSemantic>();
@@ -405,15 +375,7 @@ namespace Bridge.Translator
 
                     if (iparam != null)
                     {
-                        var attr = iparam.GetNameAttribute();
-                        if (attr != null)
-                        {
-                            var value = attr.PositionalArguments.First().ConstantValue;
-                            if (value is string)
-                            {
-                                name = value.ToString();
-                            }
-                        }
+                        name = iparam.GetNameAttribute() ?? name;
                     }
                 }
             }

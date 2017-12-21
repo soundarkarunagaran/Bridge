@@ -528,20 +528,9 @@ namespace Bridge.Contract
         {
             var rules = new List<NameRule>();
 
-            var nameAttr = semantic.Entity.GetNameAttribute();
-            if (nameAttr != null)
+            var rule = semantic.Entity.GetNameAttributeAsRule();
+            if (rule != null)
             {
-                var rule = new NameRule();
-                rule.Level = NameRuleLevel.Member;
-                var value = nameAttr.PositionalArguments.First().ConstantValue;
-                if (value is bool)
-                {
-                    rule.Notation = (bool) value ? Notation.LowerCamelCase : Notation.None;
-                }
-                else if (value is string)
-                {
-                    rule.CustomName = (string)value;
-                }
                 semantic.IsCustomName = true;
                 rules.Add(rule);
             }
@@ -558,59 +547,6 @@ namespace Bridge.Contract
             return rules;
         }
 
-        private static NameRule ToRule(IAttribute attribute, NameRuleLevel level = NameRuleLevel.None)
-        {
-            var rule = new NameRule();
-
-            if (attribute.PositionalArguments.Count > 0)
-            {
-                rule.Notation = (Notation)(int)attribute.PositionalArguments[0].ConstantValue;
-            }
-
-            if (attribute.PositionalArguments.Count > 1)
-            {
-                rule.Target = (ConventionTarget)(int)attribute.PositionalArguments[1].ConstantValue;
-            }
-
-            foreach (var argument in attribute.NamedArguments)
-            {
-                var member = argument.Key;
-                var value = argument.Value;
-
-                switch (member.Name)
-                {
-                    case "Notation":
-                        rule.Notation = (Notation) (int) value.ConstantValue;
-                        break;
-
-                    case "Target":
-                        rule.Target = (ConventionTarget)(int)value.ConstantValue;
-                        break;
-
-                    case "Member":
-                        rule.Member = (ConventionMember)(int)value.ConstantValue;
-                        break;
-
-                    case "Accessibility":
-                        rule.Accessibility = (ConventionAccessibility)(int)value.ConstantValue;
-                        break;
-
-                    case "Filter":
-                        rule.Filter = value.ConstantValue as string;
-                        break;
-
-                    case "Priority":
-                        rule.Priority = (int)value.ConstantValue;
-                        break;
-
-                    default:
-                        throw new NotSupportedException($"Property {member.Name} is not supported in {attribute.AttributeType.FullName}");
-                }
-            }
-
-            rule.Level = level;
-            return rule;
-        }
 
         private static List<NameRule> GetAttributeRules(NameSemantic semantic)
         {
@@ -621,13 +557,7 @@ namespace Bridge.Contract
 
             if (semantic.Entity is IMember)
             {
-                var attr = semantic.Entity.GetConventionAttribute();
-
-                if (attr != null)
-                {
-                    memberRule = NameConvertor.ToRule(attr, NameRuleLevel.Member);
-                }
-
+                memberRule = semantic.Entity.GetConvention(NameRuleLevel.Member);
                 var typeDef = semantic.Entity.DeclaringTypeDefinition;
 
                 if (typeDef != null)
@@ -650,7 +580,7 @@ namespace Bridge.Contract
             }
             else
             {
-                assemblyRules = assembly.GetConventionAttributes().Select(r => ToRule(r, NameRuleLevel.Assembly)).ToArray();
+                assemblyRules = assembly.GetConventions(NameRuleLevel.Assembly).ToArray();
 
                 Array.Sort(assemblyRules, (item1, item2) => -item1.Priority.CompareTo(item2.Priority));
 
@@ -721,9 +651,7 @@ namespace Bridge.Contract
             var rules = new List<NameRule>();
             while (td != null)
             {
-                rules.AddRange(td.GetConventionAttributes()
-                    .Select(a=> ToRule(a, NameRuleLevel.Class))
-                );
+                rules.AddRange(td.GetConventions(NameRuleLevel.Class));
                 td = td.DeclaringTypeDefinition;
             }
 

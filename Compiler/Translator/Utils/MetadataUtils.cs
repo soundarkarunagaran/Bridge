@@ -32,7 +32,7 @@ namespace Bridge.Translator
 
             if (type.Kind == TypeKind.Class || type.Kind == TypeKind.Struct || type.Kind == TypeKind.Interface || type.Kind == TypeKind.Enum)
             {
-                var members = type.Members.Where(m => MetadataUtils.IsReflectable(m, emitter, ifHasAttribute, tree))
+                var members = type.Members.Where(m => m.IsReflectable(ifHasAttribute, tree))
                                           .OrderBy(m => m, MemberOrderer.Instance)
                                           .Select(m => MetadataUtils.ConstructMemberInfo(m, emitter, false, false, tree))
                                           .ToList();
@@ -65,7 +65,7 @@ namespace Bridge.Translator
 
             if (type.Kind == TypeKind.Class || type.Kind == TypeKind.Anonymous)
             {
-                var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).Where(m => MetadataUtils.IsReflectable(m, emitter, false, null))
+                var members = type.GetMembers(null, GetMemberOptions.IgnoreInheritedMembers).Where(m => m.IsReflectable(false, null))
                                           .OrderBy(m => m, MemberOrderer.Instance)
                                           .Select(m => MetadataUtils.ConstructMemberInfo(m, emitter, false, false, null))
                                           .ToList();
@@ -135,210 +135,6 @@ namespace Bridge.Translator
             return type.TypeParameterCount > 0 && !type.IsIgnoreGeneric();
         }
 
-        public static bool IsReflectable(IMember member, IEmitter emitter, bool ifHasAttribute, SyntaxTree tree)
-        {
-            if (member.IsExplicitInterfaceImplementation)
-            {
-                return false;
-            }
-
-            if (member.IsNonScriptable())
-            {
-                return false;
-            }
-
-            bool? reflectable = MetadataUtils.ReflectableValue(member, member, emitter);
-
-            if (reflectable != null)
-            {
-                return reflectable.Value;
-            }
-
-            if (member.DeclaringTypeDefinition != null)
-            {
-                reflectable = MetadataUtils.ReflectableValue(member.DeclaringTypeDefinition, member, emitter);
-            }
-
-            if (reflectable != null)
-            {
-                return reflectable.Value;
-            }
-
-            var memberAccessibility = emitter.AssemblyInfo.Reflection.MemberAccessibility;
-
-            if (memberAccessibility == null || memberAccessibility.Length == 0)
-            {
-                memberAccessibility = ((AssemblyInfo)emitter.AssemblyInfo).ReflectionInternal.MemberAccessibility;
-            }
-
-            if (memberAccessibility == null || memberAccessibility.Length == 0)
-            {
-                memberAccessibility = new[] { ifHasAttribute ? MemberAccessibility.None : MemberAccessibility.All };
-
-                if (ifHasAttribute && member.GetScriptableAttributes(tree).Any())
-                {
-                    memberAccessibility = new[] { MemberAccessibility.All };
-                }
-            }
-
-            return MetadataUtils.IsMemberReflectable(member, memberAccessibility);
-        }
-
-        private static bool? ReflectableValue(IEntity attributeProvider, IMember member, IEmitter emitter)
-        {
-            var attr = attributeProvider.GetReflectableAttribute();
-            if (attr != null)
-            {
-                if (attr.PositionalArguments.Count == 0)
-                {
-                    return true;
-                }
-
-                if (attr.PositionalArguments.Count > 1)
-                {
-                    var list = new List<MemberAccessibility>();
-                    for (int i = 0; i < attr.PositionalArguments.Count; i++)
-                    {
-                        object v = attr.PositionalArguments[i].ConstantValue;
-                        list.Add((MemberAccessibility)(int)v);
-                    }
-
-                    return MetadataUtils.IsMemberReflectable(member, list.ToArray());
-                }
-                else
-                {
-                    var rr = attr.PositionalArguments.First();
-                    var value = rr.ConstantValue;
-
-                    if (rr is ArrayCreateResolveResult)
-                    {
-                        return MetadataUtils.IsMemberReflectable(member, ((ArrayCreateResolveResult)rr).InitializerElements.Select(ie => (int)ie.ConstantValue).Cast<MemberAccessibility>().ToArray());
-                    }
-
-                    if (value is bool)
-                    {
-                        return (bool)attr.PositionalArguments.First().ConstantValue;
-                    }
-
-                    if (value is int)
-                    {
-                        return MetadataUtils.IsMemberReflectable(member, new[] { (MemberAccessibility)(int)value });
-                    }
-
-                    if (value is int[])
-                    {
-                        return MetadataUtils.IsMemberReflectable(member, ((int[])value).Cast<MemberAccessibility>().ToArray());
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        private static bool IsMemberReflectable(IMember member, MemberAccessibility[] memberReflectability)
-        {
-            if (member.IsExplicitInterfaceImplementation)
-            {
-                return false;
-            }
-
-            foreach (var memberAccessibility in memberReflectability)
-            {
-                if (memberAccessibility == MemberAccessibility.All)
-                {
-                    return true;
-                }
-
-                if (memberAccessibility == MemberAccessibility.None)
-                {
-                    return false;
-                }
-
-                var accesibiliy = new List<string>();
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Public))
-                {
-                    accesibiliy.Add("Public");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Private))
-                {
-                    accesibiliy.Add("Private");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Internal))
-                {
-                    accesibiliy.Add("Internal");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Protected))
-                {
-                    accesibiliy.Add("Protected");
-                }
-
-                if (accesibiliy.Count > 0)
-                {
-                    if (member.Accessibility == Accessibility.ProtectedOrInternal)
-                    {
-                        if (!(accesibiliy.Contains("Protected") || accesibiliy.Contains("Internal")))
-                        {
-                            continue;
-                        }
-                    }
-                    else if (!accesibiliy.Contains(member.Accessibility.ToString()))
-                    {
-                        continue;
-                    }
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Instance) && member.IsStatic)
-                {
-                    continue;
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Static) && !member.IsStatic)
-                {
-                    continue;
-                }
-
-                var kind = new List<string>();
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Constructor))
-                {
-                    kind.Add("Constructor");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Field))
-                {
-                    kind.Add("Field");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Event))
-                {
-                    kind.Add("Event");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Method))
-                {
-                    kind.Add("Method");
-                }
-
-                if (memberAccessibility.HasFlag(MemberAccessibility.Property))
-                {
-                    kind.Add("Property");
-                }
-
-                if (kind.Count > 0 && !kind.Contains(member.SymbolKind.ToString()))
-                {
-                    continue;
-                }
-
-                return true;
-            }
-
-            return false;
-        }
-
         private static JObject ConstructParameterInfo(IParameter p, IEmitter emitter, bool includeDeclaringType, bool isGenericSpecialization, SyntaxTree tree)
         {
             var result = new JObject();
@@ -396,17 +192,12 @@ namespace Bridge.Translator
             var nameAttr = p.GetNameAttribute();
             if (nameAttr != null)
             {
-                var value = nameAttr.PositionalArguments.First().ConstantValue;
-                if (value is string)
+                var name = Helpers.ConvertNameTokens(nameAttr, p.Name);
+                if (Helpers.IsReservedWord(emitter, name))
                 {
-                    var name = Helpers.ConvertNameTokens(value.ToString(), p.Name);
-                    if (Helpers.IsReservedWord(emitter, name))
-                    {
-                        name = Helpers.ChangeReservedWord(name);
-                    }
-
-                    result.Add("sn", name);
+                    name = Helpers.ChangeReservedWord(name);
                 }
+                result.Add("sn", name);
             }
 
             return result;
@@ -506,7 +297,7 @@ namespace Bridge.Translator
                 }
                 properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(method.ReturnType, emitter, isGenericSpecialization)));
 
-                var attr = AttributeRegistry.GetScriptableAttributes(method.GetBridgeReturnTypeAttributes(), tree).ToArray();
+                var attr = method.GetScriptableAttributes(true, tree);
                 if (attr.Any())
                 {
                     JArray attrArr = new JArray();

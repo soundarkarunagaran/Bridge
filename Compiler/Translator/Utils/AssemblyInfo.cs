@@ -14,7 +14,6 @@ namespace Bridge.Translator
             this.DefineConstants = new List<string>();
             this.Logging = new LoggingOptions();
             this.Reflection = new ReflectionConfig();
-            this.ReflectionInternal = new ReflectionConfig();
             this.Assembly = new AssemblyConfig();
             this.Resources = new ResourceConfig();
             this.Loader = new ModuleLoader();
@@ -270,11 +269,6 @@ namespace Bridge.Translator
         }
 
         public IReflectionConfig Reflection
-        {
-            get; set;
-        }
-
-        internal IReflectionConfig ReflectionInternal
         {
             get; set;
         }

@@ -575,31 +575,23 @@ namespace Bridge.Translator
         public IType[] GetReflectableTypes()
         {
             var config = this.Emitter.AssemblyInfo.Reflection;
-            var configInternal = ((AssemblyInfo)this.Emitter.AssemblyInfo).ReflectionInternal;
             //bool? enable = config.Disabled.HasValue ? !config.Disabled : (configInternal.Disabled.HasValue ? !configInternal.Disabled : true);
             bool? enable = null;
             if (config.Disabled.HasValue && !config.Disabled.Value)
             {
                 enable = true;
             }
-            else if (configInternal.Disabled.HasValue)
-            {
-                enable = !configInternal.Disabled.Value;
-            }
             else if(!config.Disabled.HasValue)
             {
                 enable = true;
             }
 
-            TypeAccessibility? typeAccessibility = config.TypeAccessibility.HasValue ? config.TypeAccessibility : (configInternal.TypeAccessibility.HasValue ? configInternal.TypeAccessibility : null);
-            string filter = !string.IsNullOrEmpty(config.Filter) ? config.Filter : (!string.IsNullOrEmpty(configInternal.Filter) ? configInternal.Filter : null);
+            TypeAccessibility? typeAccessibility = config.TypeAccessibility.HasValue ? config.TypeAccessibility : null;
+            string filter = !string.IsNullOrEmpty(config.Filter) ? config.Filter : null;
 
             var hasSettings = !string.IsNullOrEmpty(config.Filter) ||
                               config.MemberAccessibility != null ||
-                              config.TypeAccessibility.HasValue ||
-                              !string.IsNullOrEmpty(configInternal.Filter) ||
-                              configInternal.MemberAccessibility != null ||
-                              configInternal.TypeAccessibility.HasValue;
+                              config.TypeAccessibility.HasValue;
 
             if (enable.HasValue && !enable.Value)
             {
@@ -641,37 +633,18 @@ namespace Bridge.Translator
                         continue;
                     }
 
-                    var attr = typeDef.GetReflectableAttribute();
-                    if (attr != null)
+                    if (typeDef.IsReflectable(false, null) && thisAssembly)
                     {
-                        if (attr.PositionalArguments.Count == 0)
-                        {
-                            if (thisAssembly)
-                            {
-                                reflectTypes.Add(type);
-                                continue;
-                            }
-                        }
-                        else
-                        {
-                            var value = attr.PositionalArguments.First().ConstantValue;
-
-                            if ((!(value is bool) || (bool)value) && thisAssembly)
-                            {
-                                reflectTypes.Add(type);
-                            }
-
-                            continue;
-                        }
+                        reflectTypes.Add(type);
+                        continue;
                     }
 
-                    if (external && attr == null)
+                    if (external)
                     {
                         if (!string.IsNullOrWhiteSpace(filter) && EmitBlock.MatchFilter(type, filter, thisAssembly, result))
                         {
                             reflectTypes.Add(type);
                         }
-
                         continue;
                     }
                 }

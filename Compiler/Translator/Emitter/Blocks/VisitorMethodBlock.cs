@@ -61,24 +61,10 @@ namespace Bridge.Translator
                 {
                     return;
                 }
-                var initPositionAttr = rr.Member.GetInitAttribute();
-                if (initPositionAttr != null)
+                var initPosition = rr.Member.GetInitPosition();
+                if (initPosition.HasValue && initPosition.Value > InitPosition.After)
                 {
-                    InitPosition initPosition = InitPosition.After;
-
-                    if (initPositionAttr.PositionalArguments.Count > 0)
-                    {
-                        var argExpr = initPositionAttr.PositionalArguments.First().ConstantValue;
-                        if (argExpr is int)
-                        {
-                            initPosition = (InitPosition)argExpr;
-                        }
-                    }
-
-                    if (initPosition > 0)
-                    {
-                        return;
-                    }
+                    return;
                 }
             }
 
