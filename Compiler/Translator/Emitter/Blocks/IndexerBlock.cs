@@ -11,12 +11,6 @@ namespace Bridge.Translator
 {
     public class IndexerAccessor
     {
-        public IAttribute InlineAttr
-        {
-            get;
-            set;
-        }
-
         public string InlineCode
         {
             get;
@@ -92,8 +86,8 @@ namespace Bridge.Translator
             if (memberResolveResult != null)
             {
                 var resolvedMember = memberResolveResult.Member;
-                isIgnore = this.Emitter.Validator.IsExternalType(resolvedMember.DeclaringTypeDefinition);
-                isAccessorsIndexer = this.Emitter.Validator.IsAccessorsIndexer(resolvedMember);
+                isIgnore = resolvedMember.DeclaringTypeDefinition.IsExternal();
+                isAccessorsIndexer = resolvedMember.IsAccessorsIndexer();
 
                 var property = resolvedMember as IProperty;
                 if (property != null)
@@ -103,7 +97,7 @@ namespace Bridge.Translator
                 }
             }
 
-            if (current != null && current.InlineAttr != null)
+            if (current != null && current.InlineCode != null)
             {
                 this.EmitInlineIndexer(indexerExpression, current);
             }
@@ -128,7 +122,7 @@ namespace Bridge.Translator
             }
 
             var itypeDef = resolveResult.Member.DeclaringTypeDefinition;
-            var externalInterface = this.Emitter.Validator.IsExternalInterface(itypeDef);
+            var externalInterface = itypeDef.IsExternalInterface();
             bool variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
                 itypeDef.TypeParameters != null &&
                 itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
@@ -202,13 +196,11 @@ namespace Bridge.Translator
                 return null;
             }
 
-            var inlineAttr = emitter.GetAttribute(method.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
-            var ignoreAccessor = emitter.Validator.IsExternalType(method);
+            var ignoreAccessor = method.IsExternal();
 
             return new IndexerAccessor
             {
                 IgnoreAccessor = ignoreAccessor,
-                InlineAttr = inlineAttr,
                 InlineCode = emitter.GetInline(method),
                 Method = method
             };
@@ -233,7 +225,7 @@ namespace Bridge.Translator
                 inlineCode = inlineCode.Substring(6);
             }
 
-            if (!hasThis && current.InlineAttr != null)
+            if (!hasThis && current.InlineCode != null)
             {
                 this.Emitter.IsAssignment = false;
                 this.Emitter.IsUnaryAccessor = false;
@@ -333,8 +325,7 @@ namespace Bridge.Translator
                 }
                 else
                 {
-                    var ei =
-                        this.Emitter.Validator.IsExternalInterface(memberResolveResult.Member.DeclaringTypeDefinition);
+                    var ei = memberResolveResult.Member.DeclaringTypeDefinition.IsExternalInterface();
 
                     if (ei != null)
                     {
@@ -345,7 +336,7 @@ namespace Bridge.Translator
                     {
                         nativeImplementation =
                             memberResolveResult.Member.DeclaringTypeDefinition.ParentAssembly.AssemblyName == CS.NS.BRIDGE ||
-                            !this.Emitter.Validator.IsExternalType(memberResolveResult.Member.DeclaringTypeDefinition);
+                            !memberResolveResult.Member.DeclaringTypeDefinition.IsExternal();
                     }
 
                     if (ei != null && ei.IsSimpleImplementation)

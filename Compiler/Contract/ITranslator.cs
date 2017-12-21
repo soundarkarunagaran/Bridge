@@ -132,12 +132,6 @@ namespace Bridge.Contract
             set;
         }
 
-        List<string> DefineConstants
-        {
-            get;
-            set;
-        }
-
         IEnumerable<AssemblyDefinition> References
         {
             get;

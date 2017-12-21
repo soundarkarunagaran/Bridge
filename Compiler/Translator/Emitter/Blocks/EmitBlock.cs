@@ -264,7 +264,7 @@ namespace Bridge.Translator
                 this.Emitter.Rules = Rules.Get(this.Emitter, typeDef);
 
                 bool isNative;
-                if (typeDef.Kind == TypeKind.Interface && this.Emitter.Validator.IsExternalInterface(typeDef, out isNative))
+                if (typeDef.Kind == TypeKind.Interface && typeDef.IsExternalInterface(out isNative))
                 {
                     this.Emitter.Translator.Plugins.AfterTypeEmit(this.Emitter, type);
                     continue;
@@ -272,10 +272,10 @@ namespace Bridge.Translator
 
                 if (type.IsObjectLiteral)
                 {
-                    var mode = this.Emitter.Validator.GetObjectCreateMode(this.Emitter.GetTypeDefinition(type.Type));
+                    var mode = type.Type.GetDefinition().GetObjectCreateMode();
                     var ignore = mode == 0 && !type.Type.GetMethods(null, GetMemberOptions.IgnoreInheritedMembers).Any(m => !m.IsConstructor && !m.IsAccessor);
 
-                    if (this.Emitter.Validator.IsExternalType(typeDef) || ignore)
+                    if (typeDef.IsExternal() || ignore)
                     {
                         this.Emitter.Translator.Plugins.AfterTypeEmit(this.Emitter, type);
                         continue;
@@ -343,7 +343,7 @@ namespace Bridge.Translator
                 bool isGlobal = false;
                 if (typeDef != null)
                 {
-                    isGlobal = typeDef.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute" || a.AttributeType.FullName == "Bridge.MixinAttribute");
+                    isGlobal = typeDef.HasGlobalMethodsAttribute().HasValue || typeDef.GetMixin() != null;
                 }
 
                 if (typeDef.FullName != "System.Object")
@@ -356,8 +356,8 @@ namespace Bridge.Translator
                     }
                 }
 
-                var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(typeDef);
-                var isPlainMode = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(this.Emitter.BridgeTypes.Get(type.Key).TypeDefinition) == 0;
+                var isObjectLiteral = typeDef.IsObjectLiteral();
+                var isPlainMode = isObjectLiteral && this.Emitter.BridgeTypes.Get(type.Key).TypeDefinition.GetObjectCreateMode() == 0;
 
                 if (isPlainMode)
                 {
@@ -430,8 +430,8 @@ namespace Bridge.Translator
                 this.Emitter.Output = this.GetOutputForType(null, output, true);
                 this.Emitter.MetaDataOutputName = this.Emitter.EmitterOutput.FileName;
             }
-            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(this.Emitter.Resolver.Compilation.MainAssembly.GetBridgeAttributes(), this.Emitter, null).ToList();
-            bool hasMeta = metas.Count > 0 || scriptableAttributes.Count > 0;
+            var scriptableAttributes = this.Emitter.Resolver.Compilation.MainAssembly.GetScriptableAttributes().ToArray();
+            bool hasMeta = metas.Count > 0 || scriptableAttributes.Any();
 
             if (hasMeta)
             {
@@ -452,7 +452,7 @@ namespace Bridge.Translator
                     var metaData = meta.Value;
                     string typeArgs = "";
 
-                    if (meta.Key.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(meta.Key, this.Emitter))
+                    if (meta.Key.TypeArguments.Count > 0 && !meta.Key.IsIgnoreGeneric())
                     {
                         StringBuilder arr_sb = new StringBuilder();
                         var comma = false;
@@ -480,7 +480,7 @@ namespace Bridge.Translator
                     this.Emitter.NamespacesCache = null;
                 }
 
-                if (scriptableAttributes.Count > 0)
+                if (scriptableAttributes.Any())
                 {
                     JArray attrArr = new JArray();
                     foreach (var a in scriptableAttributes)
@@ -547,18 +547,17 @@ namespace Bridge.Translator
 
         private bool SkipFromReflection(ITypeDefinition typeDef, BridgeType bridgeType)
         {
-            var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(typeDef);
-            var isPlainMode = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(bridgeType.TypeDefinition) == 0;
+            var isObjectLiteral = typeDef.IsObjectLiteral();
+            var isPlainMode = isObjectLiteral && bridgeType.TypeDefinition.GetObjectCreateMode() == 0;
 
             if (isPlainMode)
             {
                 return true;
             }
 
-            var skip = typeDef.GetBridgeAttributes().Any(a =>
-                    a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute" ||
-                    a.AttributeType.FullName == "Bridge.NonScriptableAttribute" ||
-                    a.AttributeType.FullName == "Bridge.MixinAttribute");
+            var skip = typeDef.HasGlobalMethodsAttribute().HasValue
+                       || typeDef.IsNonScriptable()
+                       || typeDef.GetMixin() != null;
 
             if (!skip && typeDef.FullName != "System.Object")
             {
@@ -626,7 +625,7 @@ namespace Bridge.Translator
                 var typeDef = type.GetDefinition();
                 //var thisAssembly = bridgeType.Value.TypeInfo != null;
                 var thisAssembly = bridgeType.Value.TypeDefinition?.Module.Assembly.Equals(thisAssemblyDef) ?? false;
-                var external = typeDef != null && this.Emitter.Validator.IsExternalType(typeDef);
+                var external = typeDef != null && typeDef.IsExternal();
 
                 if (enable.HasValue && enable.Value && !hasSettings && thisAssembly)
                 {
@@ -642,30 +641,7 @@ namespace Bridge.Translator
                         continue;
                     }
 
-                    var attr = typeDef.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ReflectableAttribute");
-
-                    if (attr == null)
-                    {
-                        attr = Helpers.GetInheritedAttribute(typeDef, "Bridge.ReflectableAttribute");
-
-                        if (attr != null)
-                        {
-                            if (attr.NamedArguments.Count > 0 && attr.NamedArguments.Any(arg => arg.Key.Name == "Inherits"))
-                            {
-                                var inherits = attr.NamedArguments.First(arg => arg.Key.Name == "Inherits");
-
-                                if (!(bool) inherits.Value.ConstantValue)
-                                {
-                                    attr = null;
-                                }
-                            }
-                            else
-                            {
-                                attr = null;
-                            }
-                        }
-                    }
-
+                    var attr = typeDef.GetReflectableAttribute();
                     if (attr != null)
                     {
                         if (attr.PositionalArguments.Count == 0)

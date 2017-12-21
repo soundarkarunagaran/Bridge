@@ -388,7 +388,7 @@ namespace Bridge.Translator
 
             var localName = symbol.Name;
 
-            if (SyntaxHelper.IsCSharpKeyword(localName))
+            if (localName.IsCSharpKeyword())
             {
                 localName = "@" + localName;
             }

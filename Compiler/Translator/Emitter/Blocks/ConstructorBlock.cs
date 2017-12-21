@@ -279,8 +279,8 @@ namespace Bridge.Translator
         {
             var baseType = this.Emitter.GetBaseTypeDefinition();
             var typeDef = this.Emitter.GetTypeDefinition();
-            var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(typeDef);
-            var isPlainMode = this.Emitter.Validator.GetObjectCreateMode(typeDef) == 0;
+            var isObjectLiteral = typeDef.IsObjectLiteral();
+            var isPlainMode = typeDef.GetObjectCreateMode() == 0;
 
             var ctorWrappers = isObjectLiteral ? new string[0] : this.EmitInitMembers().ToArray();
 
@@ -294,7 +294,7 @@ namespace Bridge.Translator
                 return;
             }
 
-            bool forceDefCtor = isObjectLiteral && this.Emitter.Validator.GetObjectCreateMode(typeDef) == 1 && this.TypeInfo.Ctors.Count == 0;
+            bool forceDefCtor = isObjectLiteral && typeDef.GetObjectCreateMode() == 1 && this.TypeInfo.Ctors.Count == 0;
 
             if (typeDef.IsValueType || forceDefCtor || (this.TypeInfo.Ctors.Count == 0 && ctorWrappers.Length > 0))
             {
@@ -318,10 +318,10 @@ namespace Bridge.Translator
             foreach (var ctor in this.TypeInfo.Ctors)
             {
                 var oldRules = this.Emitter.Rules;
-
+                MemberResolveResult rr = null;
                 if (ctor.Body.HasChildren)
                 {
-                    var rr = this.Emitter.Resolver.ResolveNode(ctor, this.Emitter) as MemberResolveResult;
+                    rr = this.Emitter.Resolver.ResolveNode(ctor, this.Emitter) as MemberResolveResult;
                     if (rr != null)
                     {
                         this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
@@ -381,8 +381,8 @@ namespace Bridge.Translator
 
                     this.Write("var " + JS.Vars.D_THIS + " = ");
 
-                    var isBaseObjectLiteral = baseType != null && this.Emitter.Validator.IsObjectLiteral(baseType);
-                    if (isBaseObjectLiteral && baseType != null && (!this.Emitter.Validator.IsExternalType(baseType) || this.Emitter.Validator.IsBridgeClass(baseType)) ||
+                    var isBaseObjectLiteral = baseType != null && baseType.IsObjectLiteral();
+                    if (isBaseObjectLiteral && baseType != null && (!baseType.IsExternal() || this.Emitter.Validator.IsBridgeClass(baseType)) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
                     {
                         this.EmitBaseConstructor(ctor, ctorName, true);
@@ -476,7 +476,7 @@ namespace Bridge.Translator
 
                 if (!isObjectLiteral)
                 {
-                    if (baseType != null && (!this.Emitter.Validator.IsExternalType(baseType) || this.Emitter.Validator.IsBridgeClass(baseType)) ||
+                    if (baseType != null && (!baseType.IsExternal() || this.Emitter.Validator.IsBridgeClass(baseType)) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
                     {
                         if (requireNewLine)
@@ -493,7 +493,11 @@ namespace Bridge.Translator
                     }
                 }
 
-                var script = this.Emitter.GetScript(ctor);
+                IEnumerable<string> script = null;
+                if (rr != null && rr.Member != null)
+                {
+                    script = rr.Member.GetScript();
+                }
                 var hasAdditionalIndent = false;
 
                 if (script == null)
@@ -716,7 +720,7 @@ namespace Bridge.Translator
             {
                 var baseType = this.Emitter.GetBaseTypeDefinition();
                 var baseName = JS.Funcs.CONSTRUCTOR;
-                isBaseObjectLiteral = this.Emitter.Validator.IsObjectLiteral(baseType);
+                isBaseObjectLiteral = baseType.IsObjectLiteral();
 
                 if (ctor.Initializer != null && !ctor.Initializer.IsNull)
                 {

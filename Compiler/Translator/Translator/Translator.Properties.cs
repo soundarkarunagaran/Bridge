@@ -173,12 +173,6 @@ namespace Bridge.Translator
             set;
         }
 
-        public List<string> DefineConstants
-        {
-            get;
-            set;
-        }
-
         public bool FromTask
         {
             get;

@@ -63,7 +63,7 @@ namespace Bridge.Translator
             }
 
             var type = isTypeParam ? null : this.Emitter.GetTypeDefinition(objectCreateExpression.Type);
-            var isObjectLiteral = type != null && this.Emitter.Validator.IsObjectLiteral(type);
+            var isObjectLiteral = type != null && type.IsObjectLiteral();
 
             if (type != null && type.BaseType != null && type.BaseType.FullName == "System.MulticastDelegate")
             {
@@ -113,7 +113,7 @@ namespace Bridge.Translator
                 }
             }
 
-            var customCtor = isTypeParam ? "" : (this.Emitter.Validator.GetCustomConstructor(type) ?? "");
+            var customCtor = isTypeParam ? "" : (type.GetCustomConstructor() ?? "");
 
             AstNodeCollection<Expression> elements = null;
 
@@ -123,7 +123,7 @@ namespace Bridge.Translator
             }
 
             var isPlainObjectCtor = Regex.Match(customCtor, @"\s*\{\s*\}\s*").Success;
-            var isPlainMode = type != null && this.Emitter.Validator.GetObjectCreateMode(type) == 0;
+            var isPlainMode = type != null && type.GetObjectCreateMode() == 0;
 
             if (inlineCode == null && isPlainObjectCtor && isPlainMode)
             {
@@ -158,7 +158,7 @@ namespace Bridge.Translator
                 else
                 {
                     var ctorMember = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
-                    var expandParams = ctorMember.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                    var expandParams = ctorMember.ExpandParams();
                     bool applyCtor = false;
 
                     if (expandParams)
@@ -181,7 +181,7 @@ namespace Bridge.Translator
 
                         var typerr = this.Emitter.Resolver.ResolveNode(objectCreateExpression.Type, this.Emitter).Type;
                         var td = typerr.GetDefinition();
-                        var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, this.Emitter) || td != null && Validator.IsVirtualTypeStatic(td);
+                        var isGeneric = typerr.TypeArguments.Count > 0 && !typerr.IsIgnoreGeneric() || td != null && td.IsVirtual();
 
                         if (isGeneric && !applyCtor)
                         {
@@ -200,7 +200,7 @@ namespace Bridge.Translator
                         this.Write(customCtor);
                     }
 
-                    if (!isTypeParam && !this.Emitter.Validator.IsExternalType(type) && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
+                    if (!isTypeParam && !type.IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
                     {
                         this.WriteDot();
                         var name = OverloadsCollection.Create(this.Emitter, ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member).GetOverloadName();
@@ -412,7 +412,7 @@ namespace Bridge.Translator
         {
             bool needComma = false;
             List<string> names = new List<string>();
-            var isObjectLiteral = this.Emitter.Validator.IsObjectLiteral(type);
+            var isObjectLiteral = type.IsObjectLiteral();
 
             if (!withCtor && rr != null && this.ObjectCreateExpression.Arguments.Count > 0)
             {
@@ -467,7 +467,7 @@ namespace Bridge.Translator
                     if (itemrr != null)
                     {
                         var oc = OverloadsCollection.Create(this.Emitter, itemrr.Member);
-                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.GetBridgeAttributes().Any(attr => attr.AttributeType.FullName == "Bridge.NameAttribute") && !this.Emitter.Validator.IsObjectLiteral(itemrr.Member.DeclaringTypeDefinition);
+                        bool forceObjectLiteral = itemrr.Member is IProperty && !itemrr.Member.HasNameAttribute() && !itemrr.Member.DeclaringTypeDefinition.IsObjectLiteral();
 
                         name = oc.GetOverloadName(isObjectLiteral: forceObjectLiteral);
                     }
@@ -522,7 +522,7 @@ namespace Bridge.Translator
                     }
                     else if (type != null)
                     {
-                        mode = this.Emitter.Validator.GetObjectInitializationMode(type);
+                        mode = type.GetObjectInitializationMode();
                     }
                 }
 

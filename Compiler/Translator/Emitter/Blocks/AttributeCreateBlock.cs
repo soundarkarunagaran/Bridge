@@ -39,7 +39,7 @@ namespace Bridge.Translator
 
             string inlineCode = this.Emitter.GetInline(attribute.Constructor);
 
-            var customCtor = this.Emitter.Validator.GetCustomConstructor(type) ?? "";
+            var customCtor = attribute.AttributeType.GetDefinition().GetCustomConstructor() ?? "";
             var hasInitializer = attribute.NamedArguments.Count > 0;
 
             if (inlineCode == null && Regex.Match(customCtor, @"\s*\{\s*\}\s*").Success)
@@ -52,7 +52,7 @@ namespace Bridge.Translator
                     this.WriteObjectInitializer(attribute.NamedArguments, type, attribute);
                     this.WriteSpace();
                 }
-                else if (this.Emitter.Validator.IsObjectLiteral(type))
+                else if (type.IsObjectLiteral())
                 {
                     this.WriteObjectInitializer(null, type, attribute);
                     this.WriteSpace();
@@ -84,7 +84,7 @@ namespace Bridge.Translator
                         this.Write(customCtor);
                     }
 
-                    if (!this.Emitter.Validator.IsExternalType(type) && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType ? 0 : 1))
+                    if (!attribute.AttributeType.GetDefinition().IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType ? 0 : 1))
                     {
                         this.WriteDot();
                         var name = OverloadsCollection.Create(this.Emitter, attribute.Constructor).GetOverloadName();
@@ -203,9 +203,9 @@ namespace Bridge.Translator
 
                     if (typeDef != null)
                     {
-                        var enumMode = Helpers.EnumEmitMode(typeDef);
+                        var enumMode = typeDef.EnumEmitMode();
 
-                        if ((block.Emitter.Validator.IsExternalType(typeDef) && enumMode == -1) || enumMode == 2)
+                        if ((typeDef.IsExternal() && enumMode == -1) || enumMode == 2)
                         {
                             block.WriteScript(mrr.ConstantValue);
 
@@ -215,8 +215,7 @@ namespace Bridge.Translator
                         if (enumMode >= 3 && enumMode < 7)
                         {
                             string enumStringName = mrr.Member.Name;
-                            var attr = Helpers.GetInheritedAttribute(mrr.Member,
-                                Translator.Bridge_ASSEMBLY + ".NameAttribute");
+                            var attr = mrr.Member.GetNameAttribute();
 
                             if (attr != null)
                             {
@@ -390,7 +389,7 @@ namespace Bridge.Translator
                 }
             }
 
-            if (this.Emitter.Validator.IsObjectLiteral(type))
+            if (type.IsObjectLiteral())
             {
                 var key = BridgeTypes.GetTypeDefinitionKey(type);
                 var tinfo = this.Emitter.Types.FirstOrDefault(t => t.Key == key);
@@ -406,15 +405,10 @@ namespace Bridge.Translator
                 {
                     if (itype != null)
                     {
-                        var oattr = this.Emitter.Validator.GetAttribute(itype.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ObjectLiteralAttribute");
-                        if (oattr.PositionalArguments.Count > 0)
+                        var objectLiteralMode = itype.GetObjectLiteralMode();
+                        if (objectLiteralMode.HasValue)
                         {
-                            var value = oattr.PositionalArguments.First().ConstantValue;
-
-                            if (value is int)
-                            {
-                                mode = (int)value;
-                            }
+                            mode = objectLiteralMode.Value;
                         }
                     }
                 }

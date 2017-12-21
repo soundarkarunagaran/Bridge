@@ -75,7 +75,7 @@ namespace Bridge.Translator
             if (resolveResult is TypeResolveResult)
             {
                 this.Write(BridgeTypes.ToJsName(resolveResult.Type, this.Emitter));
-                /*if (this.Emitter.Validator.IsExternalType(resolveResult.Type.GetDefinition()) || resolveResult.Type.Kind == TypeKind.Enum)
+                /*if (AttributeRegistry.IsExternal(resolveResult.Type.GetDefinition()) || resolveResult.Type.Kind == TypeKind.Enum)
                 {
                     this.Write(BridgeTypes.ToJsName(resolveResult.Type, this.Emitter));
                 }
@@ -96,12 +96,7 @@ namespace Bridge.Translator
 
                 if (i_rr != null && !i_rr.IsExpandedForm)
                 {
-                    var tpl = this.Emitter.GetAttribute(memberResult.Member.GetBridgeAttributes(), JS.NS.BRIDGE + ".TemplateAttribute");
-
-                    if (tpl != null && tpl.PositionalArguments.Count == 2)
-                    {
-                        inlineCode = tpl.PositionalArguments[1].ConstantValue.ToString();
-                    }
+                    inlineCode = memberResult.Member.GetTemplate(this.Emitter);
                 }
             }
 
@@ -147,7 +142,7 @@ namespace Bridge.Translator
                 if (memberResult.Member.IsStatic)
                 {
                     this.Write(BridgeTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter, ignoreLiteralName: false));
-                    /*if (!this.Emitter.Validator.IsExternalType(memberResult.Member.DeclaringTypeDefinition) && memberResult.Member.DeclaringTypeDefinition.Kind != TypeKind.Enum)
+                    /*if (!AttributeRegistry.IsExternal(memberResult.Member.DeclaringTypeDefinition) && memberResult.Member.DeclaringTypeDefinition.Kind != TypeKind.Enum)
                     {
                         this.Write("(Bridge.get(" + BridgeTypes.ToJsName(memberResult.Member.DeclaringType, this.Emitter) + "))");
                     }
@@ -288,7 +283,7 @@ namespace Bridge.Translator
                 }
             }
 
-            if (memberResult != null && memberResult.Member.SymbolKind == SymbolKind.Field && this.Emitter.IsMemberConst(memberResult.Member) && this.Emitter.IsInlineConst(memberResult.Member))
+            if (memberResult != null && memberResult.Member.SymbolKind == SymbolKind.Field && memberResult.Member.IsMemberConst() && memberResult.Member.IsInlineConst())
             {
                 this.WriteScript(memberResult.ConstantValue);
                 return;

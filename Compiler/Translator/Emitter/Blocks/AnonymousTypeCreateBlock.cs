@@ -50,7 +50,7 @@ namespace Bridge.Translator
                 }
 
                 if (member_rr != null && member_rr.Member.DeclaringTypeDefinition != null &&
-                    this.Emitter.Validator.IsObjectLiteral(member_rr.Member.DeclaringTypeDefinition))
+                    member_rr.Member.DeclaringTypeDefinition.GetObjectLiteralMode().HasValue)
                 {
                     this.VisitPlainAnonymousTypeCreateExpression();
                 }

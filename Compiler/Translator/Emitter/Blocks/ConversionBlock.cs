@@ -201,27 +201,22 @@ namespace Bridge.Translator
                 if (inline != null)
                 {
                     bool isNullable = NullableType.IsNullable(type);
+                    string template;
 
                     if (isNullable)
                     {
-                        string template = "System.Nullable.{1}Fn({0})";
+                        template = "System.Nullable.{1}Fn({0})";
                         var methodRef = ConversionBlock.GetInlineMethod(emitter, name, returnType,
                             NullableType.GetUnderlyingType(type), expression);
 
                         return methodRef == null ? $"System.Nullable.{name.ToLowerCamelCase()}" : string.Format(template, methodRef, name.ToLowerCamelCase());
                     }
 
-                    var attr = methodDef.GetBridgeAttributes().First(a => a.AttributeType.FullName == "Bridge.TemplateAttribute");
                     bool delegated = false;
-                    if (attr != null && attr.NamedArguments.Count > 0)
+                    template = methodDef.GetTemplate(emitter, out delegated, false);
+                    if (template != null)
                     {
-                        var namedArg = attr.NamedArguments.FirstOrDefault(arg => arg.Key.Name == CS.Attributes.Template.PROPERTY_FN);
-
-                        if (namedArg.Key != null)
-                        {
-                            inline = namedArg.Value.ConstantValue.ToString();
-                            delegated = true;
-                        }
+                        inline = template;
                     }
 
                     var writer = new Writer
@@ -381,22 +376,20 @@ namespace Bridge.Translator
                     if (parent_rr != null)
                     {
                         var memberDeclaringTypeDefinition = parent_rr.Member.DeclaringTypeDefinition;
-                        isArgument = (block.Emitter.Validator.IsExternalType(memberDeclaringTypeDefinition) || block.Emitter.Validator.IsExternalType(parent_rr.Member))
+                        isArgument = (memberDeclaringTypeDefinition.IsExternal() || parent_rr.Member.IsExternal())
                                      && !(memberDeclaringTypeDefinition.Namespace == CS.NS.SYSTEM || memberDeclaringTypeDefinition.Namespace.StartsWith(CS.NS.SYSTEM + "."));
 
-                        var attr = parent_rr.Member.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.UnboxAttribute");
-                         
-                        if (attr != null)
+                        var unboxingAllowed = parent_rr.Member.UnboxingAllowed();
+                        if (unboxingAllowed.HasValue)
                         {
-                            isArgument = (bool)attr.PositionalArguments.First().ConstantValue;
+                            isArgument = unboxingAllowed.Value;
                         }
                         else
                         {
-                            attr = memberDeclaringTypeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.UnboxAttribute");
-
-                            if (attr != null)
+                            unboxingAllowed = memberDeclaringTypeDefinition.UnboxingAllowed();
+                            if (unboxingAllowed.HasValue)
                             {
-                                isArgument = (bool)attr.PositionalArguments.First().ConstantValue;
+                                isArgument = unboxingAllowed.Value;
                             }
                         }
                     }
@@ -646,9 +639,9 @@ namespace Bridge.Translator
 
         public static bool IsBoxable(IType type, IEmitter emitter)
         {
-            if (type.Kind == TypeKind.Enum && emitter.Validator.IsExternalType(type.GetDefinition()))
+            if (type.Kind == TypeKind.Enum && type.GetDefinition().IsExternal())
             {
-                var enumMode = Helpers.EnumEmitMode(type);
+                var enumMode = type.GetDefinition().EnumEmitMode();
                 if (enumMode >= 3 && enumMode < 7 || enumMode == 2)
                 {
                     return false;
@@ -724,7 +717,7 @@ namespace Bridge.Translator
                 }
                 else
                 {
-                    if (method.DeclaringTypeDefinition != null && (block.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition) || Helpers.IsIgnoreCast(method.DeclaringTypeDefinition, block.Emitter)))
+                    if (method.DeclaringTypeDefinition != null && (method.DeclaringTypeDefinition.IsExternal() || method.DeclaringTypeDefinition.IsIgnoreCast()))
                     {
                         // Still returns true if Nullable.lift( was written.
                         return level;

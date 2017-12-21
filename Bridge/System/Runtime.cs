@@ -42,8 +42,6 @@ namespace System
     {
         public extern AttributeUsageAttribute(AttributeTargets validOn);
 
-        internal extern AttributeUsageAttribute(AttributeTargets validOn, bool allowMultiple, bool inherited);
-
         /// <summary>Gets or sets a Boolean value indicating whether more than one instance of the indicated attribute can be specified for a single program element.</summary>
         /// <returns>true if more than one instance is allowed to be specified; otherwise, false. The default is false.</returns>
         public extern bool AllowMultiple

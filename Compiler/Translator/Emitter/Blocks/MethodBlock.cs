@@ -44,7 +44,7 @@ namespace Bridge.Translator
             }
         }
 
-        protected virtual void EmitMethods(Dictionary<string, List<MethodDeclaration>> methods, Dictionary<string, List<EntityDeclaration>> properties, Dictionary<OperatorType, List<OperatorDeclaration>> operators)
+        protected virtual void EmitMethods(Dictionary<string, List<MethodDeclarationAndSymbol>> methods, Dictionary<string, List<EntityDeclaration>> properties, Dictionary<OperatorType, List<OperatorDeclaration>> operators)
         {
             int pos = this.Emitter.Output.Length;
             var writerInfo = this.SaveWriter();
@@ -111,7 +111,7 @@ namespace Bridge.Translator
                 {
                     string structName = BridgeTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
                     if (this.TypeInfo.Type.TypeArguments.Count > 0 &&
-                        !Helpers.IsIgnoreGeneric(this.TypeInfo.Type, this.Emitter))
+                        !TypeInfo.Type.IsIgnoreGeneric())
                     {
                         structName = "(" + structName + ")";
                     }
@@ -188,7 +188,7 @@ namespace Bridge.Translator
             var typeDef = this.Emitter.GetTypeDefinition();
             string structName = BridgeTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
 
-            bool immutable = this.Emitter.Validator.IsImmutableType(typeDef);
+            bool immutable = typeDef.IsImmutableType();
 
             if (!immutable)
             {
@@ -294,7 +294,7 @@ namespace Bridge.Translator
                 this.Write(JS.Funcs.CLONE + ": function (to) ");
                 this.BeginBlock();
                 this.Write("var s = to || new ");
-                if (this.TypeInfo.Type.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(this.TypeInfo.Type, this.Emitter))
+                if (this.TypeInfo.Type.TypeArguments.Count > 0 && !TypeInfo.Type.IsIgnoreGeneric())
                 {
                     structName = "(" + structName + ")";
                 }
@@ -367,28 +367,28 @@ namespace Bridge.Translator
             this.EndBlock();
         }
 
-        protected virtual void EmitMethodsGroup(List<MethodDeclaration> group)
+        protected virtual void EmitMethodsGroup(List<MethodDeclarationAndSymbol> group)
         {
             if (group.Count == 1)
             {
-                if ((!group[0].Body.IsNull || this.Emitter.GetScript(group[0]) != null) && (!this.StaticBlock || !Helpers.IsEntryPointMethod(this.Emitter, group[0])))
+                if ((!group[0].Declaration.Body.IsNull || group[0].Symbol.GetScript() != null) && (!this.StaticBlock || !Helpers.IsEntryPointMethod(this.Emitter, group[0].Declaration)))
                 {
-                    this.Emitter.VisitMethodDeclaration(group[0]);
+                    this.Emitter.VisitMethodDeclaration(group[0].Declaration);
                 }
             }
             else
             {
                 var typeDef = this.Emitter.GetTypeDefinition();
-                var name = group[0].Name;
+                var name = group[0].Declaration.Name;
                 var methodsDef = typeDef.Methods.Where(m => m.Name == name);
                 this.Emitter.MethodsGroup = methodsDef;
                 this.Emitter.MethodsGroupBuilder = new Dictionary<int, StringBuilder>();
 
                 foreach (var method in group)
                 {
-                    if (!method.Body.IsNull && (!this.StaticBlock || !Helpers.IsEntryPointMethod(this.Emitter, group[0])))
+                    if (!method.Declaration.Body.IsNull && (!this.StaticBlock || !Helpers.IsEntryPointMethod(this.Emitter, group[0].Declaration)))
                     {
-                        this.Emitter.VisitMethodDeclaration(method);
+                        this.Emitter.VisitMethodDeclaration(method.Declaration);
                     }
                 }
 

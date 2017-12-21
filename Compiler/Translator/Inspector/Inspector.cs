@@ -22,82 +22,6 @@ namespace Bridge.Translator
             this.Emitter = new TempEmitter { AssemblyInfo = this.AssemblyInfo };
         }
 
-        protected virtual bool HasAttribute(EntityDeclaration type, string name)
-        {
-            foreach (var j in type.GetBridgeAttributes())
-            {
-                if (j.Type.ToString() == name)
-                {
-                    return true;
-                }
-
-                var resolveResult = this.Resolver.ResolveNode(j, null);
-                if (resolveResult != null && resolveResult.Type != null && resolveResult.Type.FullName == (name + "Attribute"))
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        protected virtual bool TryGetAttribute(EntityDeclaration type, string attributeName, out NRAttribute attribute)
-        {
-            foreach (var i in type.GetBridgeAttributes())
-            {
-                if (i.Type.ToString() == attributeName)
-                {
-                    attribute = i;
-                    return true;
-                }
-
-                // FIXME: Will not try to get the attribute via Resolver.ResolveNode() (see above): it returns a
-                //        different type, without minimum information needed to make a full NRAttribute -fzm
-            }
-
-            attribute = default(NRAttribute);
-            return false;
-        }
-
-        protected virtual bool IsObjectLiteral(EntityDeclaration declaration)
-        {
-            return this.HasAttribute(declaration, Translator.Bridge_ASSEMBLY + ".ObjectLiteral");
-        }
-
-        protected virtual bool IsNonScriptable(EntityDeclaration declaration)
-        {
-            return this.HasAttribute(declaration, Translator.Bridge_ASSEMBLY + ".NonScriptable");
-        }
-
-        protected virtual bool HasExternal(EntityDeclaration declaration)
-        {
-            return this.HasAttribute(declaration, Translator.Bridge_ASSEMBLY + ".External") ||
-                   this.HasAttribute(declaration, Translator.Bridge_ASSEMBLY + ".Ignore") ||
-                   this.IsVirtual(declaration as TypeDeclaration);
-        }
-
-        protected virtual bool IsVirtual(TypeDeclaration typeDeclaration)
-        {
-            if (typeDeclaration == null)
-            {
-                return false;
-            }
-
-            var resolveResult = this.Resolver.ResolveNode(typeDeclaration, null);
-            var typeDef = resolveResult?.Type?.GetDefinition();
-            return typeDef != null && Validator.IsVirtualTypeStatic(typeDef);
-        }
-
-        protected virtual bool HasTemplate(EntityDeclaration declaration)
-        {
-            return this.HasAttribute(declaration, Translator.Bridge_ASSEMBLY + ".Template");
-        }
-
-        protected virtual bool HasScript(EntityDeclaration declaration)
-        {
-            return this.HasAttribute(declaration, Translator.Bridge_ASSEMBLY + ".Script");
-        }
-
         private Expression GetDefaultFieldInitializer(AstType type)
         {
             return new PrimitiveExpression(Inspector.GetDefaultFieldValue(type, this.Resolver), "?");
@@ -168,8 +92,8 @@ namespace Bridge.Translator
             {
                 var parameter = type as ITypeParameter;
                 if (parameter != null && (
-                    parameter.Owner.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute") ||
-                    parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute")))
+                    parameter.Owner.IsIgnoreGeneric()||
+                    parameter.Owner.DeclaringTypeDefinition != null && parameter.Owner.DeclaringTypeDefinition.IsIgnoreGeneric()))
                 {
                     return null;
                 }
@@ -241,7 +165,7 @@ namespace Bridge.Translator
                 return string.Format("{0}()", JS.Types.System.DateTime.GET_DEFAULT_VALUE);
             }
 
-            var isGeneric = type.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(type, emitter);
+            var isGeneric = type.TypeArguments.Count > 0 && !type.IsIgnoreGeneric();
 
             return string.Concat("new ", isGeneric ? "(" : "", BridgeTypes.ToJsName(type, emitter), isGeneric ? ")" : "", "()");
         }
@@ -313,16 +237,16 @@ namespace Bridge.Translator
                 return;
             }
 
-            ICSharpCode.NRefactory.CSharp.Attribute nsAt;
-            if (this.TryGetAttribute(tpDecl, "Namespace", out nsAt))
+            var rr = this.Emitter.Resolver.ResolveNode(tpDecl, this.Emitter);
+            if (rr.Type != null)
             {
-                var nsName = nsAt.Arguments.FirstOrNullObject().ToString().Trim('"');
-                if (Bridge.Translator.Inspector.IsConflictingNamespace(nsName))
+                var nsName = rr.Type.GetDefinition().GetNamespace();
+                if (Bridge.Translator.Inspector.IsConflictingNamespace(nsName.Item1))
                 {
-                    throw new EmitterException(nsAt, "Custom attribute '[" + nsAt.ToString() +
-                        "]' uses reserved namespace name 'Bridge'."
-                        + Bridge.Translator.Emitter.NEW_LINE
-                        + "This name is reserved for Bridge.NET core.");
+                    throw new EmitterException(tpDecl.NameToken, "Custom attribute '[" + rr.Type.FullName +
+                                                     "]' uses reserved namespace name 'Bridge'."
+                                                     + Bridge.Translator.Emitter.NEW_LINE
+                                                     + "This name is reserved for Bridge.NET core.");
                 }
             }
         }

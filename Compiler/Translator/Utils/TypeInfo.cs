@@ -10,8 +10,8 @@ namespace Bridge.Translator
     {
         public TypeInfo()
         {
-            this.StaticMethods = new Dictionary<string, List<MethodDeclaration>>();
-            this.InstanceMethods = new Dictionary<string, List<MethodDeclaration>>();
+            this.StaticMethods = new Dictionary<string, List<MethodDeclarationAndSymbol>>();
+            this.InstanceMethods = new Dictionary<string, List<MethodDeclarationAndSymbol>>();
             this.StaticProperties = new Dictionary<string, List<EntityDeclaration>>();
             this.InstanceProperties = new Dictionary<string, List<EntityDeclaration>>();
             this.FieldsDeclarations = new Dictionary<string, FieldDeclaration>();
@@ -108,13 +108,13 @@ namespace Bridge.Translator
             protected set;
         }
 
-        public Dictionary<string, List<MethodDeclaration>> StaticMethods
+        public Dictionary<string, List<MethodDeclarationAndSymbol>> StaticMethods
         {
             get;
             protected set;
         }
 
-        public Dictionary<string, List<MethodDeclaration>> InstanceMethods
+        public Dictionary<string, List<MethodDeclarationAndSymbol>> InstanceMethods
         {
             get;
             protected set;
@@ -159,48 +159,27 @@ namespace Bridge.Translator
 
             if (this.StaticMethods.Any(group =>
             {
-                foreach (var method in group.Value)
+                foreach (var declarationAndSymbol in group.Value)
                 {
+                    var method = declarationAndSymbol.Declaration;
                     if (Helpers.IsEntryPointMethod(emitter, method))
                     {
                         return false;
                     }
 
-                    if (!method.GetBridgeAttributes().Any())
+                    var init = declarationAndSymbol.Symbol.GetInitAttribute();
+                    if (init == null || init.PositionalArguments.Count == 0)
                     {
                         return true;
                     }
 
-                    foreach (var attr in method.GetBridgeAttributes())
+                    var value = (InitPosition)(int)init.PositionalArguments[0].ConstantValue;
+                    if (value == InitPosition.Before || value == InitPosition.Top)
                     {
-                        var rr = emitter.Resolver.ResolveNode(attr.Type, emitter);
-                        if (rr.Type.FullName == "Bridge.InitAttribute")
-                        {
-                            if (!attr.HasArgumentList)
-                            {
-                                return true;
-                            }
-
-                            var expr = attr.Arguments.First();
-
-                            var argrr = emitter.Resolver.ResolveNode(expr, emitter);
-                            if (argrr.ConstantValue is int)
-                            {
-                                var value = (InitPosition)argrr.ConstantValue;
-
-                                if (value == InitPosition.Before || value == InitPosition.Top)
-                                {
-                                    return false;
-                                }
-                            }
-
-                            return true;
-                        }
-                        else
-                        {
-                            return true;
-                        }
+                        return false;
                     }
+
+                    return true;
                 }
 
                 return false;
@@ -226,7 +205,7 @@ namespace Bridge.Translator
 
             if (this.StaticMethods.Any(group =>
             {
-                return group.Value.Any(method => Helpers.IsEntryPointMethod(emitter, method));
+                return group.Value.Any(method => Helpers.IsEntryPointMethod(emitter, method.Declaration));
             }))
             {
                 return true;
@@ -362,51 +341,21 @@ namespace Bridge.Translator
                 throw new System.ArgumentNullException("emitter");
             }
 
-            var name = this.Namespace;
-
             var bridgeType = emitter.BridgeTypes.Get(this.Key);
-            var cas = bridgeType.TypeDefinition.GetBridgeAttributes();
 
-            // Search for an 'NamespaceAttribute' entry
-            foreach (var ca in cas)
+            var typeName = emitter.Validator.GetCustomTypeName(bridgeType.TypeDefinition, emitter, nons);
+            var i = typeName.LastIndexOf(".");
+            if (i >= 0)
             {
-                if (ca.AttributeType.Name == "NameAttribute" && ca.ConstructorArguments.Count > 0)
-                {
-                    var constructorArgumentValue = ca.ConstructorArguments[0].Value as string;
-
-                    if (constructorArgumentValue != null)
-                    {
-                        name = constructorArgumentValue.Contains(".") ? constructorArgumentValue.Substring(0, constructorArgumentValue.LastIndexOf(".")) : null;
-
-                        break;
-                    }
-                }
-
-                if (ca.AttributeType.Name == "NamespaceAttribute" && ca.ConstructorArguments.Count > 0)
-                {
-                    var constructorArgumentValue = ca.ConstructorArguments[0].Value as string;
-
-                    if (!string.IsNullOrWhiteSpace(constructorArgumentValue))
-                    {
-                        name = constructorArgumentValue;
-                    }
-
-                    if (ca.ConstructorArguments[0].Value is bool)
-                    {
-                        if (!(bool)ca.ConstructorArguments[0].Value)
-                        {
-                            name = null;
-                        }
-                    }
-                }
+                return typeName.Substring(0, i);
             }
 
-            if (name == null && !nons)
+            if (!nons)
             {
-                name = emitter.Translator.DefaultNamespace;
+                return emitter.Translator.DefaultNamespace;
             }
 
-            return name;
+            return null;
         }
     }
 }

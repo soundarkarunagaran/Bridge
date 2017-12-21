@@ -120,8 +120,9 @@ namespace Bridge.Translator
         protected virtual void EmitCastExpression(Expression expression, AstType type, string method)
         {
             var itype = this.Emitter.BridgeTypes.ToType(type);
-            bool isCastAttr;
-            string castCode = this.GetCastCode(expression, type, out isCastAttr);
+            
+            string castCode = this.GetCastCode(expression, type);
+            bool isCastAttr = castCode != null;
 
             var enumType = itype;
             if (NullableType.IsNullable(enumType))
@@ -134,14 +135,14 @@ namespace Bridge.Translator
             if (castToEnum)
             {
                 itype = enumType.GetDefinition().EnumUnderlyingType;
-                var enumMode = Helpers.EnumEmitMode(enumType);
+                var enumMode = enumType.GetDefinition().EnumEmitMode();
                 if (enumMode >= 3 && enumMode < 7)
                 {
                     itype = this.Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
                 }
             }
 
-            if (expression is NullReferenceExpression || (method != CS.Ops.IS && Helpers.IsIgnoreCast(type, this.Emitter)))
+            if (expression is NullReferenceExpression || (method != CS.Ops.IS && itype.GetDefinition().IsIgnoreCast()))
             {
                 if (expression is ParenthesizedExpression)
                 {
@@ -157,7 +158,7 @@ namespace Bridge.Translator
 
             if (expressionrr.Type.Kind == TypeKind.Enum)
             {
-                var enumMode = Helpers.EnumEmitMode(expressionrr.Type);
+                var enumMode = expressionrr.Type.GetDefinition().EnumEmitMode();
                 if (enumMode >= 3 && enumMode < 7 && Helpers.IsIntegerType(itype, this.Emitter.Resolver))
                 {
                    throw new EmitterException(this.CastExpression, "Enum underlying type is string and cannot be casted to number");
@@ -267,7 +268,7 @@ namespace Bridge.Translator
             }
 
             var typeDef = itype.Kind == TypeKind.TypeParameter ? null : this.Emitter.GetTypeDefinition(type, true);
-            if (typeDef != null && method == CS.Ops.IS && itype.Kind != TypeKind.Interface && this.Emitter.Validator.IsObjectLiteral(typeDef) && this.Emitter.Validator.GetObjectCreateMode(typeDef) == 0)
+            if (typeDef != null && method == CS.Ops.IS && itype.Kind != TypeKind.Interface && typeDef.IsObjectLiteral() && typeDef.GetObjectCreateMode() == 0)
             {
                 throw new EmitterException(type, $"ObjectLiteral type ({itype.FullName}) with Plain mode cannot be used in 'is' operator. Please define cast logic in Cast attribute or use Constructor mode.");
             }
@@ -382,10 +383,9 @@ namespace Bridge.Translator
             }
         }
 
-        protected virtual string GetCastCode(Expression expression, AstType astType, out bool isCastAttr)
+        protected virtual string GetCastCode(Expression expression, AstType astType)
         {
             var resolveResult = this.Emitter.Resolver.ResolveNode(astType, this.Emitter) as TypeResolveResult;
-            isCastAttr = false;
 
             if (resolveResult == null)
             {
@@ -409,12 +409,12 @@ namespace Bridge.Translator
                 return inline;
             }
 
-            IEnumerable<IAttribute> attributes = null;
             var type = resolveResult.Type.GetDefinition();
 
+            string castCode = null;
             if (type != null)
             {
-                attributes = type.GetBridgeAttributes();
+                castCode = type.GetCastCode();
             }
             else
             {
@@ -422,22 +422,11 @@ namespace Bridge.Translator
 
                 if (paramType != null)
                 {
-                    attributes = paramType.GetDefinition().GetBridgeAttributes();
+                    castCode = paramType.GetDefinition().GetCastCode();
                 }
             }
 
-            if (attributes != null)
-            {
-                var attribute = this.Emitter.GetAttribute(attributes, Translator.Bridge_ASSEMBLY + ".CastAttribute");
-
-                if (attribute != null)
-                {
-                    isCastAttr = true;
-                    return attribute.PositionalArguments[0].ConstantValue.ToString();
-                }
-            }
-
-            return null;
+            return castCode;
         }
 
         private void EmitArray(IType iType)

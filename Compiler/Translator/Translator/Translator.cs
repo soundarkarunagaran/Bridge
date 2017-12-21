@@ -76,7 +76,6 @@ namespace Bridge.Translator
         {
             this.Location = location;
             this.Validator = this.CreateValidator();
-            this.DefineConstants = new List<string>() { "BRIDGE" };
             this.ProjectProperties = new ProjectProperties();
             this.FileHelper = new FileHelper();
             this.Outputs = new TranslatorOutput();

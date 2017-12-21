@@ -5,6 +5,7 @@ using Mono.Cecil;
 using Object.Net.Utilities;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -277,29 +278,21 @@ namespace Bridge.Contract
         public static string GetGlobalTarget(ITypeDefinition typeDefinition, AstNode node, bool removeGlobal = false)
         {
             string globalTarget = null;
-            var globalMethods = typeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.GlobalMethodsAttribute");
-
-            if (globalMethods != null)
+            var globalMethods = typeDefinition.HasGlobalMethodsAttribute();
+            if (globalMethods.HasValue)
             {
-                var value = globalMethods.PositionalArguments.Count > 0 && (bool)globalMethods.PositionalArguments.First().ConstantValue;
-                globalTarget = !removeGlobal || value ? JS.Types.Bridge.Global.NAME : "";
+                globalTarget = !removeGlobal || globalMethods.Value ? JS.Types.Bridge.Global.NAME : "";
             }
             else
             {
-                var mixin = typeDefinition.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.MixinAttribute");
-
-                if (mixin != null)
+                try
                 {
-                    var value = mixin.PositionalArguments.First().ConstantValue;
-                    if (value != null)
-                    {
-                        globalTarget = value.ToString();
-                    }
-
-                    if (string.IsNullOrEmpty(globalTarget))
-                    {
-                        throw new EmitterException(node, string.Format("The argument to the [MixinAttribute] for the type {0} must not be null or empty.", typeDefinition.FullName));
-                    }
+                    var mixin = typeDefinition.GetMixin();
+                    globalTarget = mixin;
+                }
+                catch (InvalidDataException e)
+                {
+                    throw new EmitterException(node, e.Message);
                 }
             }
 
@@ -326,7 +319,7 @@ namespace Bridge.Contract
                 }
             }
 
-            if (itypeDef != null && itypeDef.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+            if (itypeDef != null && itypeDef.IsNonScriptable())
             {
                 throw new EmitterException(emitter.Translator.EmitNode, "Type " + type.FullName + " is marked as not usable from script");
             }
@@ -371,8 +364,8 @@ namespace Bridge.Contract
 
             if (ignoreLiteralName)
             {
-                var isObjectLiteral = itypeDef != null && emitter.Validator.IsObjectLiteral(itypeDef);
-                var isPlainMode = isObjectLiteral && emitter.Validator.GetObjectCreateMode(emitter.GetTypeDefinition(type)) == 0;
+                var isObjectLiteral = itypeDef != null && itypeDef.IsObjectLiteral();
+                var isPlainMode = isObjectLiteral && emitter.GetTypeDefinition(type).GetObjectCreateMode() == 0;
 
                 if (isPlainMode)
                 {
@@ -396,7 +389,7 @@ namespace Bridge.Contract
             var typeParam = type as ITypeParameter;
             if (typeParam != null)
             {
-                if (skipMethodTypeParam && (typeParam.OwnerType == SymbolKind.Method) || Helpers.IsIgnoreGeneric(typeParam.Owner, emitter))
+                if (skipMethodTypeParam && (typeParam.OwnerType == SymbolKind.Method) || typeParam.Owner.IsIgnoreGeneric())
                 {
                     return JS.Types.System.Object.NAME;
                 }
@@ -443,7 +436,7 @@ namespace Bridge.Contract
             }
 
             var tDef = type.GetDefinition();
-            var skipSuffix = tDef != null && tDef.ParentAssembly.AssemblyName != CS.NS.BRIDGE && emitter.Validator.IsExternalType(tDef) && Helpers.IsIgnoreGeneric(tDef);
+            var skipSuffix = tDef != null && tDef.ParentAssembly.AssemblyName != CS.NS.BRIDGE && tDef.IsExternal() && tDef.IsIgnoreGeneric();
 
             if (!hasTypeDef && !isCustomName && type.TypeArguments.Count > 0 && !skipSuffix)
             {
@@ -461,7 +454,7 @@ namespace Bridge.Contract
                 name = OverloadsCollection.NormalizeInterfaceName(name);
             }
 
-            if (type.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(type, emitter) && !asDefinition)
+            if (type.TypeArguments.Count > 0 && !type.IsIgnoreGeneric() && !asDefinition)
             {
                 if (isAlias)
                 {
@@ -559,14 +552,14 @@ namespace Bridge.Contract
             if (!ignoreVirtual && !isAlias)
             {
                 var td = type.GetDefinition();
-                if (td != null && emitter.Validator.IsVirtualType(td))
+                if (td != null && td.IsVirtual())
                 {
                     string fnName = td.Kind == TypeKind.Interface ? JS.Types.Bridge.GET_INTERFACE : JS.Types.Bridge.GET_CLASS;
                     name = fnName + "(\"" + name + "\")";
                 }
                 else if (!isAlias && itypeDef != null && itypeDef.Kind == TypeKind.Interface)
                 {
-                    var externalInterface = emitter.Validator.IsExternalInterface(itypeDef);
+                    var externalInterface = itypeDef.IsExternalInterface();
                     if (externalInterface != null && externalInterface.IsVirtual)
                     {
                         name = JS.Types.Bridge.GET_INTERFACE + "(\"" + name + "\")";
@@ -623,111 +616,8 @@ namespace Bridge.Contract
             var def = type.Type.GetDefinition();
             if (def != null && type.Module == null)
             {
-                if (def.GetBridgeAttributes().Any())
-                {
-                    var attr = def.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ModuleAttribute");
-
-                    if (attr != null)
-                    {
-                        BridgeTypes.ReadModuleFromAttribute(type, attr);
-                    }
-                }
-
-                if (type.Module == null)
-                {
-                    var asm = def.ParentAssembly;
-
-                    if (asm.GetBridgeAttributes().Count() > 0)
-                    {
-                        var attr = asm.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ModuleAttribute");
-
-                        if (attr != null)
-                        {
-                            BridgeTypes.ReadModuleFromAttribute(type, attr);
-                        }
-                    }
-                }
+                type.Module = def.GetModule();
             }
-        }
-
-        private static void ReadModuleFromAttribute(BridgeType type, IAttribute attr)
-        {
-            Module module = null;
-
-            if (attr.PositionalArguments.Count == 1)
-            {
-                var obj = attr.PositionalArguments[0].ConstantValue;
-
-                if (obj is bool)
-                {
-                    module = new Module((bool)obj);
-                }
-                else if (obj is string)
-                {
-                    module = new Module(obj.ToString());
-                }
-                else if (obj is int)
-                {
-                    module = new Module("", (ModuleType) (int) obj);
-                }
-                else
-                {
-                    module = new Module();
-                }
-            }
-            else if (attr.PositionalArguments.Count == 2)
-            {
-                if (attr.PositionalArguments[0].ConstantValue is string)
-                {
-                    var name = attr.PositionalArguments[0].ConstantValue;
-                    var preventName = attr.PositionalArguments[1].ConstantValue;
-
-                    module = new Module(name != null ? name.ToString() : "", (bool)preventName);
-                }
-                else if (attr.PositionalArguments[1].ConstantValue is bool)
-                {
-                    var mtype = attr.PositionalArguments[0].ConstantValue;
-                    var preventName = attr.PositionalArguments[1].ConstantValue;
-
-                    module = new Module("", (ModuleType)(int)mtype, (bool)preventName);
-                }
-                else
-                {
-                    var mtype = attr.PositionalArguments[0].ConstantValue;
-                    var name = attr.PositionalArguments[1].ConstantValue;
-
-                    module = new Module(name != null ? name.ToString() : "", (ModuleType)(int)mtype);
-                }
-            }
-            else if (attr.PositionalArguments.Count == 3)
-            {
-                var mtype = attr.PositionalArguments[0].ConstantValue;
-                var name = attr.PositionalArguments[1].ConstantValue;
-                var preventName = attr.PositionalArguments[2].ConstantValue;
-
-                module = new Module(name != null ? name.ToString() : "", (ModuleType)(int)mtype, (bool)preventName);
-            }
-            else
-            {
-                module = new Module();
-            }
-
-            if (attr.NamedArguments.Count > 0)
-            {
-                foreach (var namedArgument in attr.NamedArguments)
-                {
-                    if (namedArgument.Key.Name == "Name")
-                    {
-                        module.Name = namedArgument.Value.ConstantValue != null ? (string)namedArgument.Value.ConstantValue : "";
-                    }
-                    else if (namedArgument.Key.Name == "ExportAsNamespace")
-                    {
-                        module.ExportAsNamespace = namedArgument.Value.ConstantValue != null ? (string)namedArgument.Value.ConstantValue : "";
-                    }
-                }
-            }
-
-            type.Module = module;
         }
 
         public static string AddModule(string name, BridgeType type, bool excludeNs, bool isNested, out bool isCustomName)
@@ -867,7 +757,7 @@ namespace Bridge.Contract
         public static string ObjectLiteralSignature(IType type, IEmitter emitter)
         {
             var typeDef = type.GetDefinition();
-            var isObjectLiteral = typeDef != null && emitter.Validator.IsObjectLiteral(typeDef);
+            var isObjectLiteral = typeDef != null && typeDef.GetObjectLiteralMode().HasValue;
 
             if (isObjectLiteral)
             {
@@ -1085,7 +975,7 @@ namespace Bridge.Contract
                 name += Helpers.PrefixDollar(type.TypeArguments.Count);
             }
 
-            if (!asDefinition && type.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(type, emitter, true))
+            if (!asDefinition && type.TypeArguments.Count > 0 && !type.IsIgnoreGeneric(true))
             {
                 StringBuilder sb = new StringBuilder(name);
                 bool needComma = false;

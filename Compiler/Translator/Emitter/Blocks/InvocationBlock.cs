@@ -59,40 +59,6 @@ namespace Bridge.Translator
             }
         }
 
-        public static bool IsConditionallyRemoved(InvocationExpression invocationExpression, IEntity entity)
-        {
-            if (entity == null)
-            {
-                return false;
-            }
-            var result = new List<string>();
-            foreach (var a in entity.GetBridgeAttributes())
-            {
-                var type = a.AttributeType.GetDefinition();
-                if (type != null && type.FullName.Equals("System.Diagnostics.ConditionalAttribute", StringComparison.Ordinal))
-                {
-                    if (a.PositionalArguments.Count > 0)
-                    {
-                        var symbol = a.PositionalArguments[0].ConstantValue as string;
-                        if (symbol != null)
-                        {
-                            result.Add(symbol);
-                        }
-                    }
-                }
-            }
-
-            if (result.Count > 0)
-            {
-                var syntaxTree = invocationExpression.GetParent<SyntaxTree>();
-                if (syntaxTree != null)
-                {
-                    return !result.Intersect(syntaxTree.ConditionalSymbols).Any();
-                }
-            }
-
-            return false;
-        }
 
         protected void VisitInvocationExpression()
         {
@@ -123,7 +89,7 @@ namespace Bridge.Translator
             var targetResolve = this.Emitter.Resolver.ResolveNode(invocationExpression, this.Emitter);
             var csharpInvocation = targetResolve as CSharpInvocationResolveResult;
             MemberReferenceExpression targetMember = invocationExpression.Target as MemberReferenceExpression;
-            bool isObjectLiteral = csharpInvocation != null && csharpInvocation.Member.DeclaringTypeDefinition != null ? this.Emitter.Validator.IsObjectLiteral(csharpInvocation.Member.DeclaringTypeDefinition) : false;
+            bool isObjectLiteral = csharpInvocation != null && csharpInvocation.Member.DeclaringTypeDefinition != null ? csharpInvocation.Member.DeclaringTypeDefinition.IsObjectLiteral() : false;
 
             var interceptor = this.Emitter.Plugins.OnInvocation(this, this.InvocationExpression, targetResolve as InvocationResolveResult);
 
@@ -227,6 +193,9 @@ namespace Bridge.Translator
             {
                 var member = targetMember != null ? this.Emitter.Resolver.ResolveNode(targetMember.Target, this.Emitter) : null;
 
+                var syntaxTree = invocationExpression.GetParent<SyntaxTree>();
+                var conditionals = syntaxTree == null ? null : syntaxTree.ConditionalSymbols;
+
                 if (targetResolve != null)
                 {
                     InvocationResolveResult invocationResult;
@@ -259,7 +228,7 @@ namespace Bridge.Translator
                             invocationResult = null;
                         }
 
-                        if (this.IsEmptyPartialInvoking(csharpInvocation.Member as IMethod) || IsConditionallyRemoved(invocationExpression, csharpInvocation.Member))
+                        if (this.IsEmptyPartialInvoking(csharpInvocation.Member as IMethod) || AttributeRegistry.IsConditionallyRemoved(csharpInvocation.Member, conditionals))
                         {
                             this.Emitter.SkipSemiColon = true;
                             this.Emitter.ReplaceAwaiterByVar = oldValue;
@@ -272,7 +241,7 @@ namespace Bridge.Translator
                     {
                         invocationResult = targetResolve as InvocationResolveResult;
 
-                        if (invocationResult != null && (this.IsEmptyPartialInvoking(invocationResult.Member as IMethod) || IsConditionallyRemoved(invocationExpression, invocationResult.Member)))
+                        if (invocationResult != null && (this.IsEmptyPartialInvoking(invocationResult.Member as IMethod) || AttributeRegistry.IsConditionallyRemoved(invocationResult.Member, conditionals)))
                         {
                             this.Emitter.SkipSemiColon = true;
                             this.Emitter.ReplaceAwaiterByVar = oldValue;
@@ -333,7 +302,7 @@ namespace Bridge.Translator
                                         this.Write(overloads.GetOverloadName());
                                     }
 
-                                    var isIgnoreClass = resolvedMethod.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(resolvedMethod.DeclaringTypeDefinition);
+                                    var isIgnoreClass = resolvedMethod.DeclaringTypeDefinition != null && resolvedMethod.DeclaringTypeDefinition.IsExternal();
                                     int openPos = this.Emitter.Output.Length;
                                     this.WriteOpenParentheses();
 
@@ -345,7 +314,7 @@ namespace Bridge.Translator
                                         this.Emitter.Comma = true;
                                     }
 
-                                    if (!isIgnoreClass && !Helpers.IsIgnoreGeneric(resolvedMethod, this.Emitter) && argsInfo.HasTypeArguments)
+                                    if (!isIgnoreClass && !resolvedMethod.IsIgnoreGeneric() && argsInfo.HasTypeArguments)
                                     {
                                         this.EnsureComma(false);
                                         new TypeExpressionListBlock(this.Emitter, argsInfo.TypeArguments).Emit();
@@ -441,7 +410,7 @@ namespace Bridge.Translator
             {
                 var baseType = this.Emitter.GetBaseMethodOwnerTypeDefinition(targetMember.MemberName, targetMember.TypeArguments.Count);
 
-                bool isIgnore = this.Emitter.Validator.IsExternalType(baseType);
+                bool isIgnore = baseType.IsExternal();
 
                 bool needComma = false;
 
@@ -464,7 +433,7 @@ namespace Bridge.Translator
                 {
                     MemberResolveResult memberResult = (MemberResolveResult)resolveResult;
                     baseMethod = OverloadsCollection.Create(this.Emitter, memberResult.Member).GetOverloadName();
-                    isIgnoreGeneric = Helpers.IsIgnoreGeneric(memberResult.Member, this.Emitter);
+                    isIgnoreGeneric = memberResult.Member.IsIgnoreGeneric();
                 }
                 else
                 {
@@ -558,7 +527,10 @@ namespace Bridge.Translator
                     }
                 }
 
-                if (this.IsEmptyPartialInvoking(method) || IsConditionallyRemoved(invocationExpression, method))
+                var tree = invocationExpression.GetParent<SyntaxTree>();
+                var conditionals = tree == null ? null : tree.ConditionalSymbols;
+
+                if (this.IsEmptyPartialInvoking(method) || method.IsConditionallyRemoved(conditionals))
                 {
                     this.Emitter.SkipSemiColon = true;
                     this.Emitter.ReplaceAwaiterByVar = oldValue;
@@ -566,7 +538,7 @@ namespace Bridge.Translator
                     return;
                 }
 
-                bool isIgnore = method != null && method.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition);
+                bool isIgnore = method != null && method.DeclaringTypeDefinition != null && method.DeclaringTypeDefinition.IsExternal();
 
                 bool needExpand = false;
                 if (method != null)
@@ -633,7 +605,7 @@ namespace Bridge.Translator
 
                     if (invocationResult != null)
                     {
-                        isIgnoreGeneric = Helpers.IsIgnoreGeneric(invocationResult.Member, this.Emitter);
+                        isIgnoreGeneric = invocationResult.Member.IsIgnoreGeneric();
                     }
 
                     if (needExpand && isIgnore)
@@ -702,7 +674,7 @@ namespace Bridge.Translator
         private bool IsNativeMethod(IMethod resolvedMethod)
         {
             return resolvedMethod.DeclaringTypeDefinition != null &&
-                   this.Emitter.Validator.IsExternalType(resolvedMethod.DeclaringTypeDefinition);
+                   resolvedMethod.DeclaringTypeDefinition.IsExternal();
         }
     }
 }

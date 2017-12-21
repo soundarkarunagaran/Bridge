@@ -298,7 +298,7 @@ namespace Bridge.Translator
                     paramsName = paramsParam.Name;
                     paramsType = paramsParam.Type;
                 }
-                expandParams = argsInfo.ResolveResult.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                expandParams = argsInfo.ResolveResult.Member.ExpandParams();
             }
             else if (argsInfo.Method != null)
             {
@@ -309,7 +309,7 @@ namespace Bridge.Translator
                     paramsName = paramsParam.Name;
                     paramsType = paramsParam.Type;
                 }
-                expandParams = argsInfo.Method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                expandParams = argsInfo.Method.ExpandParams();
             }
 
             if (paramsName != null)
@@ -670,9 +670,9 @@ namespace Bridge.Translator
                             {
                                 isSimple = true;
                                 var enumType = NullableType.GetUnderlyingType(type);
-                                if (type.Kind == TypeKind.Enum && this.Emitter.Validator.IsExternalType(type.GetDefinition()))
+                                if (type.Kind == TypeKind.Enum && type.GetDefinition().IsExternal())
                                 {
-                                    var enumMode = Helpers.EnumEmitMode(type);
+                                    var enumMode = type.GetDefinition().EnumEmitMode();
                                     if (enumMode >= 3 && enumMode < 7)
                                     {
                                         enumType = this.Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
@@ -690,7 +690,7 @@ namespace Bridge.Translator
 
                                 if (thisValue != null)
                                 {
-                                    if (type.Kind == TypeKind.TypeParameter && !Helpers.IsIgnoreGeneric(((ITypeParameter)type).Owner, this.Emitter))
+                                    if (type.Kind == TypeKind.TypeParameter && !((ITypeParameter)type).Owner.IsIgnoreGeneric())
                                     {
                                         thisValue = thisValue + ", " + type.Name;
                                     }
@@ -1199,9 +1199,9 @@ namespace Bridge.Translator
             if (needName)
             {
                 var enumType = type;
-                if (type.Kind == TypeKind.Enum && this.Emitter.Validator.IsExternalType(type.GetDefinition()))
+                if (type.Kind == TypeKind.Enum && type.GetDefinition().IsExternal())
                 {
-                    var enumMode = Helpers.EnumEmitMode(type);
+                    var enumMode = type.GetDefinition().EnumEmitMode();
                     if (enumMode >= 3 && enumMode < 7)
                     {
                         enumType = this.Emitter.Resolver.Compilation.FindType(KnownTypeCode.String);
@@ -1234,7 +1234,7 @@ namespace Bridge.Translator
                     s = "null";
                 }
 
-                if (type.Kind == TypeKind.TypeParameter && !Helpers.IsIgnoreGeneric(((ITypeParameter)type).Owner, this.Emitter))
+                if (type.Kind == TypeKind.TypeParameter && !((ITypeParameter)type).Owner.IsIgnoreGeneric())
                 {
                     s = s + ", " + type.Name;
                 }

@@ -155,10 +155,10 @@ namespace Bridge.Translator
 
                 if (prop != null)
                 {
-                    var isIgnore = memberArgResolverResult.Member.DeclaringTypeDefinition != null && this.Emitter.Validator.IsExternalType(memberArgResolverResult.Member.DeclaringTypeDefinition);
-                    var inlineAttr = prop.Getter != null ? this.Emitter.GetAttribute(prop.Getter.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".TemplateAttribute") : null;
-                    var ignoreAccessor = prop.Getter != null && this.Emitter.Validator.IsExternalType(prop.Getter);
-                    var isAccessorsIndexer = this.Emitter.Validator.IsAccessorsIndexer(memberArgResolverResult.Member);
+                    var isIgnore = memberArgResolverResult.Member.DeclaringTypeDefinition != null && memberArgResolverResult.Member.DeclaringTypeDefinition.IsExternal();
+                    var inlineAttr = prop.Getter != null ? prop.Getter.GetTemplate(Emitter) : null;
+                    var ignoreAccessor = prop.Getter != null && prop.Getter.IsExternal();
+                    var isAccessorsIndexer = memberArgResolverResult.Member.IsAccessorsIndexer();
 
                     isAccessor = prop.IsIndexer;
 
@@ -407,10 +407,10 @@ namespace Bridge.Translator
 
             if (memberArgResolverResult != null && memberArgResolverResult.Member is IProperty)
             {
-                var isIgnore = this.Emitter.Validator.IsExternalType(memberArgResolverResult.Member.DeclaringTypeDefinition);
-                var inlineAttr = this.Emitter.GetAttribute(memberArgResolverResult.Member.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
-                var ignoreAccessor = this.Emitter.Validator.IsExternalType(((IProperty)memberArgResolverResult.Member).Getter);
-                var isAccessorsIndexer = this.Emitter.Validator.IsAccessorsIndexer(memberArgResolverResult.Member);
+                var isIgnore = memberArgResolverResult.Member.DeclaringTypeDefinition.IsExternal();
+                var inlineAttr = memberArgResolverResult.Member.GetTemplate(Emitter);
+                var ignoreAccessor = ((IProperty)memberArgResolverResult.Member).Getter.IsExternal();
+                var isAccessorsIndexer = memberArgResolverResult.Member.IsAccessorsIndexer();
 
                 isAccessor = ((IProperty)memberArgResolverResult.Member).IsIndexer;
 
@@ -681,7 +681,7 @@ namespace Bridge.Translator
                         new ArgumentsInfo(this.Emitter, this.UnaryOperatorExpression, orr, method), inline).Emit();
                     }
                 }
-                else if (!this.Emitter.Validator.IsExternalType(method.DeclaringTypeDefinition))
+                else if (!method.DeclaringTypeDefinition.IsExternal())
                 {
                     this.Write(BridgeTypes.ToJsName(method.DeclaringType, this.Emitter));
                     this.WriteDot();

@@ -1,5 +1,7 @@
-﻿using Bridge.Contract;
+﻿using System.Collections.Generic;
+using Bridge.Contract;
 using ICSharpCode.NRefactory.CSharp;
+using ICSharpCode.NRefactory.Semantics;
 
 namespace Bridge.Translator
 {
@@ -25,13 +27,10 @@ namespace Bridge.Translator
 
         protected void EmitOperatorDeclaration(OperatorDeclaration operatorDeclaration)
         {
-            foreach (var attr in operatorDeclaration.GetBridgeAttributes())
+            var rr = this.Emitter.Resolver.ResolveNode(operatorDeclaration, this.Emitter) as MemberResolveResult;
+            if (rr != null && rr.Member != null && rr.Member.IsExternal())
             {
-                var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                if (rr.Type.FullName == "Bridge.ExternalAttribute")
-                {
-                    return;
-                }
+                return;
             }
 
             XmlToJsDoc.EmitComment(this, operatorDeclaration);
@@ -61,7 +60,12 @@ namespace Bridge.Translator
 
             this.WriteSpace();
 
-            var script = this.Emitter.GetScript(operatorDeclaration);
+            IEnumerable<string> script = null;
+            if (rr != null && rr.Member != null && rr.Member.IsExternal())
+            {
+                script = rr.Member.GetScript();
+            }
+
 
             if (script == null)
             {

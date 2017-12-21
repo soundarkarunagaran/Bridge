@@ -453,16 +453,12 @@ namespace Bridge.Translator
                 return this.priorityMap[type];
             }
 
-            var attr = type.GetBridgeAttributes().FirstOrDefault(a =>
-            {
-                return a.AttributeType.FullName == "Bridge.PriorityAttribute";
-            });
+            var attr = type.GetPriority();
 
-            if (attr != null)
+            if (attr.HasValue)
             {
-                var attrp = System.Convert.ToInt32(attr.ConstructorArguments[0].Value);
-                this.priorityMap[type] = attrp;
-                return attrp;
+                this.priorityMap[type] = attr.Value;
+                return attr.Value;
             }
 
             var baseType = this.GetBaseTypeDefinition(type);

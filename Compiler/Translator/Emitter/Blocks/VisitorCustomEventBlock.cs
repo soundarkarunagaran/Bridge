@@ -1,6 +1,8 @@
-﻿using Bridge.Contract;
+﻿using System.Collections.Generic;
+using Bridge.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
+using ICSharpCode.NRefactory.TypeSystem;
 
 namespace Bridge.Translator
 {
@@ -69,7 +71,12 @@ namespace Bridge.Translator
                 this.WriteCloseParentheses();
                 this.WriteSpace();
 
-                var script = this.Emitter.GetScript(accessor);
+                var accessorMethod = remover ? ((IEvent)m_rr.Member).RemoveAccessor : ((IEvent)m_rr.Member).AddAccessor;
+                IEnumerable<string> script = null;
+                if (accessorMethod != null)
+                {
+                    script = accessorMethod.GetScript();
+                }
 
                 if (script == null)
                 {

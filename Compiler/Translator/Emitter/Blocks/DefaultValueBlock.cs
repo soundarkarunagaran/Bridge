@@ -38,7 +38,7 @@ namespace Bridge.Translator
 
             if (resolveResult.Type.Kind == TypeKind.Enum)
             {
-                var enumMode = Helpers.EnumEmitMode(resolveResult.Type);
+                var enumMode = resolveResult.Type.GetDefinition().EnumEmitMode();
                 var isString = enumMode >= 3 && enumMode <= 6;
                 return isString ? "null" : "0";
             }

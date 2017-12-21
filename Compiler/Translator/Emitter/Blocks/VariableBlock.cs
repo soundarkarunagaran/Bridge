@@ -70,7 +70,7 @@ namespace Bridge.Translator
                 {
                     var typeDef = this.Emitter.GetTypeDefinition(this.VariableDeclarationStatement.Type, true);
 
-                    if (typeDef != null && typeDef.IsValueType && !this.Emitter.Validator.IsExternalType(typeDef))
+                    if (typeDef != null && typeDef.IsValueType && !typeDef.IsExternal())
                     {
                         hasInitializer = true;
                     }
@@ -117,7 +117,7 @@ namespace Bridge.Translator
                     else
                     {
                         var typerr = this.Emitter.Resolver.ResolveNode(this.VariableDeclarationStatement.Type, this.Emitter).Type;
-                        var isGeneric = typerr.TypeArguments.Count > 0 && !Helpers.IsIgnoreGeneric(typerr, this.Emitter);
+                        var isGeneric = typerr.TypeArguments.Count > 0 && !typerr.IsIgnoreGeneric();
                         this.Write(string.Concat("new ", isGeneric ? "(" : "", BridgeTypes.ToJsName(this.VariableDeclarationStatement.Type, this.Emitter), isGeneric ? ")" : "", "()"));
                     }
                     this.Emitter.ReplaceAwaiterByVar = oldValue;

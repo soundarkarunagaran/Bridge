@@ -64,11 +64,11 @@ namespace Bridge.Translator
 
                 if (item.ParameterModifier == ParameterModifier.Out || item.ParameterModifier == ParameterModifier.Ref)
                 {
-                    this.Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(ReflectionHelper.FindType(this.Emitter.Resolver.Compilation, TypeCode.Object), name)] = vName + ".v";
+                    this.Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(this.Emitter.Resolver.Compilation.FindType(TypeCode.Object), name)] = vName + ".v";
                 }
                 else
                 {
-                    this.Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(ReflectionHelper.FindType(this.Emitter.Resolver.Compilation, TypeCode.Object), name)] = vName;
+                    this.Emitter.LocalsMap[rr != null ? rr.Variable : new DefaultVariable(this.Emitter.Resolver.Compilation.FindType(TypeCode.Object), name)] = vName;
                 }
             });
 
@@ -252,7 +252,7 @@ namespace Bridge.Translator
 
                         if (method != null)
                         {
-                            var expandParams = method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute");
+                            var expandParams = method.ExpandParams();
                             foreach (var prm in method.Parameters)
                             {
                                 if (prm.IsOptional)

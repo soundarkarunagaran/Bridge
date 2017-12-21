@@ -60,8 +60,8 @@ namespace Bridge.Translator
                 if (memberResolveResult != null)
                 {
                     var resolvedMember = memberResolveResult.Member;
-                    isIgnore = block.Emitter.Validator.IsExternalType(resolvedMember.DeclaringTypeDefinition);
-                    isAccessorsIndexer = block.Emitter.Validator.IsAccessorsIndexer(resolvedMember);
+                    isIgnore = resolvedMember.DeclaringTypeDefinition.IsExternal();
+                    isAccessorsIndexer = resolvedMember.IsAccessorsIndexer();
 
                     var property = resolvedMember as IProperty;
                     if (property != null)
@@ -71,7 +71,7 @@ namespace Bridge.Translator
                     }
                 }
 
-                if (!(current != null && current.InlineAttr != null) && !(!(isIgnore || (current != null && current.IgnoreAccessor)) || isAccessorsIndexer))
+                if (!(current != null && current.InlineCode != null) && !(!(isIgnore || (current != null && current.IgnoreAccessor)) || isAccessorsIndexer))
                 {
                     block.Write(JS.Types.System.Int64.TONUMBER);
                     block.Write("(");

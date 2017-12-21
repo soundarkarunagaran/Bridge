@@ -504,7 +504,7 @@ namespace Bridge.Translator
 
                         if (paramsArg == null && (parameters.Count > i) && parameters[i].IsParams)
                         {
-                            if (member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition))
+                            if (member.DeclaringTypeDefinition == null || !member.DeclaringTypeDefinition.IsExternal())
                             {
                                 paramsArg = namedArg.Expression;
                             }
@@ -516,7 +516,7 @@ namespace Bridge.Translator
                     {
                         if (paramsArg == null && (parameters.Count > i) && parameters[i].IsParams)
                         {
-                            if (member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(member.DeclaringTypeDefinition))
+                            if (member.DeclaringTypeDefinition == null || !member.DeclaringTypeDefinition.IsExternal())
                             {
                                 paramsArg = arg;
                             }
@@ -635,7 +635,7 @@ namespace Bridge.Translator
                         
                         if (paramsArg == null && parameters.FirstOrDefault(p => p.Name == namedArg.Name).IsParams)
                         {
-                            if (resolveResult.Member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(resolveResult.Member.DeclaringTypeDefinition))
+                            if (resolveResult.Member.DeclaringTypeDefinition == null || !resolveResult.Member.DeclaringTypeDefinition.IsExternal())
                             {
                                 paramsArg = namedArg.Expression;
                             }
@@ -647,7 +647,7 @@ namespace Bridge.Translator
                     {
                         if (paramsArg == null && (parameters.Count > (i + shift)) && parameters[i + shift].IsParams)
                         {
-                            if (resolveResult.Member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsExternalType(resolveResult.Member.DeclaringTypeDefinition))
+                            if (resolveResult.Member.DeclaringTypeDefinition == null || !resolveResult.Member.DeclaringTypeDefinition.IsExternal())
                             {
                                 paramsArg = arg;
                             }

@@ -114,14 +114,11 @@ namespace Bridge.Translator
             var methodDeclaration = node.GetParent<MethodDeclaration>();
             if (methodDeclaration != null)
             {
-                foreach (var attr in methodDeclaration.GetBridgeAttributes())
+                var rr = (MemberResolveResult)emitter.Resolver.ResolveNode(methodDeclaration, this.emitter);
+                if (rr != null && rr.Member.GetInitAttribute() != null)
                 {
-                    var rr = this.emitter.Resolver.ResolveNode(attr.Type, this.emitter);
-                    if (rr.Type.FullName == "Bridge.InitAttribute")
-                    {
-                        this._usedVariables.Add(null);
-                        return;
-                    }
+                    this._usedVariables.Add(null);
+                    return;
                 }
             }
 
@@ -206,7 +203,7 @@ namespace Bridge.Translator
 
         private void CheckMember(IMember member)
         {
-            if (member != null && member.IsStatic && member.DeclaringTypeDefinition.TypeParameterCount > 0 && !Helpers.IsIgnoreGeneric(member.DeclaringTypeDefinition) && Helpers.HasTypeParameters(member.DeclaringType))
+            if (member != null && member.IsStatic && member.DeclaringTypeDefinition.TypeParameterCount > 0 && !member.DeclaringTypeDefinition.IsIgnoreGeneric() && Helpers.HasTypeParameters(member.DeclaringType))
             {
                 var ivar = new TypeVariable(member.DeclaringType);
                 if (!_usedVariables.Contains(ivar))
@@ -236,9 +233,9 @@ namespace Bridge.Translator
             if (this._usedVariables.Count == 0)
             {
                 var rr = this.emitter.Resolver.ResolveNode(memberReferenceExpression, this.emitter);
-                
+
                 var member = rr as MemberResolveResult;
-                
+
                 if (member != null)
                 {
                     CheckMember(member.Member);
@@ -267,8 +264,8 @@ namespace Bridge.Translator
             if (this._usedVariables.Count == 0)
             {
                 var member = rr as MemberResolveResult;
-                
-                if (member != null && member.Member.IsStatic && member.Member.DeclaringTypeDefinition.TypeParameterCount > 0 && member.Member.DeclaringTypeDefinition.Equals(this.emitter.TypeInfo.Type.GetDefinition()) && !Helpers.IsIgnoreGeneric(member.Member.DeclaringTypeDefinition))
+
+                if (member != null && member.Member.IsStatic && member.Member.DeclaringTypeDefinition.TypeParameterCount > 0 && member.Member.DeclaringTypeDefinition.Equals(this.emitter.TypeInfo.Type.GetDefinition()) && !member.Member.DeclaringTypeDefinition.IsIgnoreGeneric())
                 {
                     var ivar = new TypeVariable(member.Member.DeclaringType);
                     if (!_usedVariables.Contains(ivar))

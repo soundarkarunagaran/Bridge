@@ -45,7 +45,7 @@ namespace Bridge.Translator
             {
                 MemberResolveResult member = resolveResult as MemberResolveResult;
                 bool nativeImplementation = true;
-                var externalInterface = member != null && this.Emitter.Validator.IsExternalInterface(member.Member.DeclaringTypeDefinition, out nativeImplementation);
+                var externalInterface = member != null && member.Member.DeclaringTypeDefinition.IsExternalInterface(out nativeImplementation);
                 bool isField = externalInterface && memberTargetrr != null && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
 
                 if (externalInterface && !nativeImplementation && !(targetrr is ThisResolveResult || targetrr is TypeResolveResult || targetrr is LocalResolveResult || isField))
@@ -104,7 +104,7 @@ namespace Bridge.Translator
         private void WriteInterfaceMember(string interfaceTempVar, MemberResolveResult resolveResult, bool isSetter, string prefix = null)
         {
             var itypeDef = resolveResult.Member.DeclaringTypeDefinition;
-            var externalInterface = this.Emitter.Validator.IsExternalInterface(itypeDef);
+            var externalInterface = itypeDef.IsExternalInterface();
             bool variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
                 itypeDef.TypeParameters != null &&
                 itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
@@ -194,7 +194,7 @@ namespace Bridge.Translator
             }
 
             var memberTargetrr = targetrr as MemberResolveResult;
-            if (memberTargetrr != null && memberTargetrr.Type.Kind == TypeKind.Enum && memberTargetrr.Member is DefaultResolvedField && Helpers.EnumEmitMode(memberTargetrr.Type) == 2)
+            if (memberTargetrr != null && memberTargetrr.Type.Kind == TypeKind.Enum && memberTargetrr.Member is DefaultResolvedField && memberTargetrr.Type.GetDefinition().EnumEmitMode() == 2)
             {
                 isConstTarget = true;
             }
@@ -307,10 +307,10 @@ namespace Bridge.Translator
             }
 
             MemberResolveResult member = resolveResult as MemberResolveResult;
-            var globalTarget = member != null ? this.Emitter.IsGlobalTarget(member.Member) : null;
+            var globalTarget = member != null ? member.Member.IsGlobalTarget() : null;
 
             if (member != null &&
-                member.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+                member.Member.IsNonScriptable())
             {
                 throw new EmitterException(this.MemberReferenceExpression, "Member " + member.ToString() + " is marked as not usable from script");
             }
@@ -417,12 +417,7 @@ namespace Bridge.Translator
 
                 if (i_rr != null && !i_rr.IsExpandedForm)
                 {
-                    var tpl = this.Emitter.GetAttribute(member.Member.GetBridgeAttributes(), JS.NS.BRIDGE + ".TemplateAttribute");
-
-                    if (tpl != null && tpl.PositionalArguments.Count == 2)
-                    {
-                        inline = tpl.PositionalArguments[1].ConstantValue.ToString();
-                    }
+                    inline = member.Member.GetTemplate(Emitter);
                 }
             }
 
@@ -453,7 +448,7 @@ namespace Bridge.Translator
                 }
                 else
                 {
-                    var ei = this.Emitter.Validator.IsExternalInterface(itypeDef);
+                    var ei = itypeDef.IsExternalInterface();
 
                     if (ei != null)
                     {
@@ -462,7 +457,7 @@ namespace Bridge.Translator
                     else
                     {
                         nativeImplementation = member.Member.DeclaringTypeDefinition.ParentAssembly.AssemblyName == CS.NS.BRIDGE ||
-                                               !this.Emitter.Validator.IsExternalType(member.Member.DeclaringTypeDefinition);
+                                               !member.Member.DeclaringTypeDefinition.IsExternal();
                     }
 
                     if (ei != null && ei.IsSimpleImplementation)
@@ -604,7 +599,7 @@ namespace Bridge.Translator
                 return;
             }
 
-            if (member != null && member.Member.SymbolKind == SymbolKind.Field && this.Emitter.IsMemberConst(member.Member) && this.Emitter.IsInlineConst(member.Member))
+            if (member != null && member.Member.SymbolKind == SymbolKind.Field && member.Member.IsMemberConst() && member.Member.IsInlineConst())
             {
                 var parentExpression = memberReferenceExpression.Parent as MemberReferenceExpression;
                 bool wrap = false;
@@ -653,9 +648,9 @@ namespace Bridge.Translator
 
                     if (typeDef != null)
                     {
-                        var enumMode = Helpers.EnumEmitMode(typeDef);
+                        var enumMode = typeDef.EnumEmitMode();
 
-                        if ((this.Emitter.Validator.IsExternalType(typeDef) && enumMode == -1) || enumMode == 2)
+                        if ((typeDef.IsExternal() && enumMode == -1) || enumMode == 2)
                         {
                             this.WriteScript(member.ConstantValue);
 
@@ -793,7 +788,7 @@ namespace Bridge.Translator
 
                     bool isProperty = false;
 
-                    if (member != null && member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || !this.Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition)))
+                    if (member != null && member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || !member.Member.DeclaringTypeDefinition.IsObjectLiteral()))
                     {
                         isProperty = true;
                         bool writeTargetVar = false;
@@ -897,7 +892,7 @@ namespace Bridge.Translator
 
                 var targetResolveResult = targetrr as MemberResolveResult;
 
-                if (targetResolveResult == null || this.Emitter.IsGlobalTarget(targetResolveResult.Member) == null)
+                if (targetResolveResult == null || targetResolveResult.Member.IsGlobalTarget() == null)
                 {
                     if (isRefArg)
                     {
@@ -935,9 +930,9 @@ namespace Bridge.Translator
                         this.Write(inline);
                     }
                 }
-                else if (member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || (!this.Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition) || member.Member.IsStatic)))
+                else if (member.Member.SymbolKind == SymbolKind.Property && (member.Member.DeclaringTypeDefinition == null || (!member.Member.DeclaringTypeDefinition.IsObjectLiteral() || member.Member.IsStatic)))
                 {
-                    if (member.Member is IProperty && targetrr != null && targetrr.Type.GetDefinition() != null && this.Emitter.Validator.IsObjectLiteral(targetrr.Type.GetDefinition()) && !this.Emitter.Validator.IsObjectLiteral(member.Member.DeclaringTypeDefinition))
+                    if (member.Member is IProperty && targetrr != null && targetrr.Type.GetDefinition() != null && targetrr.Type.GetDefinition().IsObjectLiteral() && !member.Member.DeclaringTypeDefinition.IsObjectLiteral())
                     {
                         this.Write(this.Emitter.GetLiteralEntityName(member.Member));
                     }
@@ -978,9 +973,9 @@ namespace Bridge.Translator
                 }
                 else if (member.Member.SymbolKind == SymbolKind.Field)
                 {
-                    bool isConst = this.Emitter.IsMemberConst(member.Member);
+                    bool isConst = member.Member.IsMemberConst();
 
-                    if (isConst && this.Emitter.IsInlineConst(member.Member))
+                    if (isConst && member.Member.IsInlineConst())
                     {
                         this.WriteScript(Bridge.Translator.Emitter.ConvertConstant(member.ConstantValue, memberReferenceExpression, this.Emitter));
                     }
@@ -1100,7 +1095,7 @@ namespace Bridge.Translator
 
             bool needComma = false;
 
-            if (!Helpers.IsIgnoreGeneric(method, emitter))
+            if (!method.IsIgnoreGeneric())
             {
                 foreach (var typeArgument in method.TypeArguments)
                 {

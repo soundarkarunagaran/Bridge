@@ -1,7 +1,4 @@
-using Bridge.Contract;
-using System.Text;
-
-namespace Bridge.Translator
+﻿namespace Bridge.Contract
 {
     public class ExternalInterface : IExternalInterface
     {

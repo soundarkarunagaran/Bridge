@@ -374,9 +374,9 @@ namespace Bridge.Translator
         {
             this.Log.Trace("EnsureDefineConstants...");
 
-            if (this.DefineConstants == null)
+            if (AssemblyInfo.DefineConstants == null)
             {
-                this.DefineConstants = new List<string>();
+                AssemblyInfo.DefineConstants = new List<string>();
             }
 
             if (this.ProjectProperties.DefineConstants == null && this.ShouldReadProjectFile)
@@ -416,11 +416,11 @@ namespace Bridge.Translator
 
             if (!string.IsNullOrWhiteSpace(this.ProjectProperties.DefineConstants))
             {
-                this.DefineConstants.AddRange(
+                AssemblyInfo.DefineConstants.AddRange(
                     this.ProjectProperties.DefineConstants.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()));
             }
-
-            this.DefineConstants = this.DefineConstants.Distinct().ToList();
+            AssemblyInfo.DefineConstants.Add("BRIDGE");
+            AssemblyInfo.DefineConstants = AssemblyInfo.DefineConstants.Distinct().ToList();
 
             this.Log.Trace("EnsureDefineConstants done");
         }

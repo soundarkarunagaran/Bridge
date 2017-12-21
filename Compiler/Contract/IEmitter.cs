@@ -122,8 +122,6 @@ namespace Bridge.Contract
 
         bool IsForbiddenInvocation(InvocationExpression node);
 
-        System.Collections.Generic.IEnumerable<string> GetScript(ICSharpCode.NRefactory.CSharp.EntityDeclaration method);
-
         int GetPriority(Mono.Cecil.TypeDefinition type);
 
         Mono.Cecil.TypeDefinition GetTypeDefinition();
@@ -157,10 +155,6 @@ namespace Bridge.Contract
             get;
             set;
         }
-
-        bool IsInlineConst(ICSharpCode.NRefactory.TypeSystem.IMember member);
-
-        bool IsMemberConst(ICSharpCode.NRefactory.TypeSystem.IMember member);
 
         bool IsNativeMember(string fullName);
 
@@ -404,8 +398,6 @@ namespace Bridge.Contract
             get;
             set;
         }
-
-        Tuple<bool, string> IsGlobalTarget(IMember member);
 
         BridgeTypes BridgeTypes
         {

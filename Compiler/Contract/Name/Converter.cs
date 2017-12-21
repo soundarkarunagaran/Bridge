@@ -134,7 +134,6 @@ namespace Bridge.Contract
 
     public static class NameConvertor
     {
-        private const string ConventionAttrName = "Bridge.ConventionAttribute";
 
         private static readonly List<NameRule> defaultRules = new List<NameRule>
         {
@@ -229,7 +228,7 @@ namespace Bridge.Contract
 
             if (semantic.Entity is IMember)
             {
-                bool isIgnore = semantic.Entity.DeclaringTypeDefinition != null && semantic.Emitter.Validator.IsExternalType(semantic.Entity.DeclaringTypeDefinition);
+                bool isIgnore = semantic.Entity.DeclaringTypeDefinition != null && semantic.Entity.DeclaringTypeDefinition.IsExternal();
                 if (!isIgnore && semantic.Entity.IsStatic && Helpers.IsReservedStaticName(name, false))
                 {
                     name = Helpers.ChangeReservedWord(name);
@@ -427,32 +426,17 @@ namespace Bridge.Contract
                     acceptable = typeDef.Kind == TypeKind.Anonymous;
                     break;
                 case ConventionTarget.External:
-                    string externalAttr = "Bridge.ExternalAttribute";
-                    var has =
-                        typeDef.GetBridgeAttributes().Any(
-                            attr =>
-                                attr.Constructor != null &&
-                                attr.Constructor.DeclaringType.FullName == externalAttr);
-
+                    var has = typeDef.IsExternal();
                     if (!has && typeDef.DeclaringTypeDefinition != null)
                     {
-                        has =
-                            typeDef.DeclaringTypeDefinition.GetBridgeAttributes().Any(
-                                attr =>
-                                    attr.Constructor != null &&
-                                    attr.Constructor.DeclaringType.FullName == externalAttr);
+                        has = typeDef.DeclaringTypeDefinition.IsExternal();
                     }
 
                     if (!has)
                     {
-                        has =
-                            typeDef.ParentAssembly.GetBridgeAttributes().Any(
-                                attr =>
-                                    attr.Constructor != null &&
-                                    attr.Constructor.DeclaringType.FullName == externalAttr);
+                        has = typeDef.ParentAssembly.IsExternal();
                     }
                     acceptable = has;
-
                     break;
                 default:
                     break;
@@ -500,7 +484,7 @@ namespace Bridge.Contract
             int enumMode = -1;
             if (semantic.Entity is IField && semantic.Entity.DeclaringType.Kind == TypeKind.Enum)
             {
-                enumMode = Helpers.EnumEmitMode(semantic.Entity.DeclaringType);
+                enumMode = semantic.Entity.DeclaringType.GetDefinition().EnumEmitMode();
                 semantic.EnumMode = enumMode;
             }
 
@@ -544,7 +528,7 @@ namespace Bridge.Contract
         {
             var rules = new List<NameRule>();
 
-            var nameAttr = Helpers.GetInheritedAttribute(semantic.Entity, "Bridge.NameAttribute");
+            var nameAttr = semantic.Entity.GetNameAttribute();
             if (nameAttr != null)
             {
                 var rule = new NameRule();
@@ -637,7 +621,7 @@ namespace Bridge.Contract
 
             if (semantic.Entity is IMember)
             {
-                var attr = Helpers.GetInheritedAttribute(semantic.Entity, NameConvertor.ConventionAttrName);
+                var attr = semantic.Entity.GetConventionAttribute();
 
                 if (attr != null)
                 {
@@ -666,12 +650,7 @@ namespace Bridge.Contract
             }
             else
             {
-                IAttribute[] assemblyAttrs = assembly.GetBridgeAttributes().Where(a => a.AttributeType.FullName == NameConvertor.ConventionAttrName).ToArray();
-                assemblyRules = new NameRule[assemblyAttrs.Length];
-                for (int i = 0; i < assemblyAttrs.Length; i++)
-                {
-                    assemblyRules[i] = NameConvertor.ToRule(assemblyAttrs[i], NameRuleLevel.Assembly);
-                }
+                assemblyRules = assembly.GetConventionAttributes().Select(r => ToRule(r, NameRuleLevel.Assembly)).ToArray();
 
                 Array.Sort(assemblyRules, (item1, item2) => -item1.Priority.CompareTo(item2.Priority));
 
@@ -739,15 +718,12 @@ namespace Bridge.Contract
             }
 
             var td = typeDef;
-            List<NameRule> rules = new List<NameRule>();
+            var rules = new List<NameRule>();
             while (td != null)
             {
-                IAttribute[] classAttrs = td.GetAttributes(new FullTypeName(NameConvertor.ConventionAttrName)).ToArray();
-                for (int i = 0; i < classAttrs.Length; i++)
-                {
-                    rules.Add(NameConvertor.ToRule(classAttrs[i], NameRuleLevel.Class));
-                }
-
+                rules.AddRange(td.GetConventionAttributes()
+                    .Select(a=> ToRule(a, NameRuleLevel.Class))
+                );
                 td = td.DeclaringTypeDefinition;
             }
 

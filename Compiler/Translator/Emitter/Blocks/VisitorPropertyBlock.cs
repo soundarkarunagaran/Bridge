@@ -1,4 +1,5 @@
-﻿using Bridge.Contract;
+﻿using System.Collections.Generic;
+using Bridge.Contract;
 using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
@@ -45,10 +46,7 @@ namespace Bridge.Translator
         protected override void DoEmit()
         {
             var memberResult = this.Emitter.Resolver.ResolveNode(this.PropertyDeclaration, this.Emitter) as MemberResolveResult;
-
-            if (memberResult != null &&
-                memberResult.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute")
-                )
+            if (memberResult != null && memberResult.Member.IsExternal())
             {
                 return;
             }
@@ -59,7 +57,7 @@ namespace Bridge.Translator
 
         public virtual void EmitPropertyMethod(PropertyDeclaration propertyDeclaration, Accessor accessor, IMethod method, bool setter, bool isObjectLiteral)
         {
-            if ((!accessor.IsNull || method != null && Helpers.IsScript(method)) && this.Emitter.GetInline(accessor) == null)
+            if ((!accessor.IsNull || method != null && method.IsScript()) && this.Emitter.GetInline(accessor) == null)
             {
                 this.EnsureComma();
 
@@ -96,7 +94,12 @@ namespace Bridge.Translator
                 this.WriteCloseParentheses();
                 this.WriteSpace();
 
-                var script = this.Emitter.GetScript(accessor);
+                var accessorMethod = setter ? ((IProperty)m_rr.Member).Setter : ((IProperty)m_rr.Member).Getter;
+                IEnumerable<string> script = null;
+                if (accessorMethod != null)
+                {
+                    script = accessorMethod.GetScript();
+                }
 
                 if (script == null)
                 {

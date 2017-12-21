@@ -201,43 +201,13 @@ namespace Bridge.Translator
 
                 if (type.HasNestedTypes)
                 {
-                    Translator.InheritAttributes(type);
+                    type.InheritAttributesToNestedTypes();
                     this.AddNestedTypes(type.NestedTypes);
                 }
             }
         }
 
-        /// <summary>
-        /// Makes any existing nested types (classes?) inherit the FileName attribute of the specified type.
-        /// Does not override a nested type's FileName attribute if present.
-        /// </summary>
-        /// <param name="type"></param>
-        protected static void InheritAttributes(TypeDefinition type)
-        {
-            // List of attribute names that are meant to be inherited by sub-classes.
-            var attrList = new List<string>
-            {
-                "FileNameAttribute",
-                "ModuleAttribute",
-                "NamespaceAttribute"
-            };
-
-            foreach (var attribute in attrList)
-            {
-                if (type.GetBridgeAttributes().Any(ca => ca.AttributeType.Name == attribute))
-                {
-                    var FAt = type.GetBridgeAttributes().First(ca => ca.AttributeType.Name == attribute);
-
-                    foreach (var nestedType in type.NestedTypes)
-                    {
-                        if (!nestedType.GetBridgeAttributes().Any(ca => ca.AttributeType.Name == attribute))
-                        {
-                            nestedType.CustomAttributes.Add(FAt);
-                        }
-                    }
-                }
-            }
-        }
+      
 
         protected virtual List<AssemblyDefinition> InspectReferences()
         {
@@ -325,9 +295,9 @@ namespace Bridge.Translator
 
                 var parser = new ICSharpCode.NRefactory.CSharp.CSharpParser();
 
-                if (this.DefineConstants != null && this.DefineConstants.Count > 0)
+                if (AssemblyInfo.DefineConstants != null && AssemblyInfo.DefineConstants.Count > 0)
                 {
-                    foreach (var defineConstant in this.DefineConstants)
+                    foreach (var defineConstant in AssemblyInfo.DefineConstants)
                     {
                         parser.CompilerSettings.ConditionalSymbols.Add(defineConstant);
                     }

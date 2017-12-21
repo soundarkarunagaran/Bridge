@@ -133,11 +133,6 @@ namespace Bridge.Translator
             return null;
         }
 
-        protected virtual bool HasDelegateAttribute(MethodDeclaration method)
-        {
-            return this.GetAttribute(method.GetBridgeAttributes(), "Delegate") != null;
-        }
-
         public virtual Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node)
         {
             var member = LiftNullableMember(node);
@@ -174,8 +169,8 @@ namespace Bridge.Translator
                 member = memberResolveResult.Member;
             }
 
-            bool isInlineMethod = this.IsInlineMethod(member);
-            var inlineCode = isInlineMethod ? null : this.GetInline(member);
+            bool isInlineMethod = IsInlineMethod(member);
+            var inlineCode = isInlineMethod ? null : GetInline(member);
             var isStatic = member.IsStatic;
 
             if (!string.IsNullOrEmpty(inlineCode) && member is IProperty)
@@ -282,14 +277,9 @@ namespace Bridge.Translator
 
             var member = memberResolveResult.Member;
 
-            string attrName = Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InitAttribute";
-
             if (member != null)
             {
-                var attr = member.GetBridgeAttributes().FirstOrDefault(a =>
-                {
-                    return a.AttributeType.FullName == attrName;
-                });
+                var attr = member.GetInitAttribute();
 
                 if (attr != null)
                 {
@@ -310,13 +300,6 @@ namespace Bridge.Translator
             }
 
             return false;
-        }
-
-        public virtual IEnumerable<string> GetScript(EntityDeclaration method)
-        {
-            var attr = this.GetAttribute(method.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".Script");
-
-            return this.GetScriptArguments(attr);
         }
 
         public virtual string GetEntityNameFromAttr(IEntity member, bool setter = false)
@@ -340,8 +323,8 @@ namespace Bridge.Translator
                 return null;
             }
 
-            var attr = Helpers.GetInheritedAttribute(member, Bridge.Translator.Translator.Bridge_ASSEMBLY + ".NameAttribute");
-            bool isIgnore = member.DeclaringTypeDefinition != null && this.Validator.IsExternalType(member.DeclaringTypeDefinition);
+            var attr = member.GetNameAttribute();
+            bool isIgnore = member.DeclaringTypeDefinition != null && member.DeclaringTypeDefinition.IsExternal();
             string name;
 
             if (attr != null)
@@ -420,10 +403,9 @@ namespace Bridge.Translator
                 {
                     var iparam = rr.Variable as IParameter;
 
-                    if (iparam != null && iparam.GetBridgeAttributes() != null)
+                    if (iparam != null)
                     {
-                        var attr = iparam.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == Bridge.Translator.Translator.Bridge_ASSEMBLY + ".NameAttribute");
-
+                        var attr = iparam.GetNameAttribute();
                         if (attr != null)
                         {
                             var value = attr.PositionalArguments.First().ConstantValue;
@@ -474,13 +456,6 @@ namespace Bridge.Translator
             return null;
         }
 
-        public Tuple<bool, string> IsGlobalTarget(IMember member)
-        {
-            var attr = this.GetAttribute(member.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".GlobalTargetAttribute");
-
-            return attr != null ? new Tuple<bool, string>(true, (string)attr.PositionalArguments.First().ConstantValue) : null;
-        }
-
         public virtual string GetInline(EntityDeclaration method)
         {
             var mrr = this.Resolver.ResolveNode(method, this) as MemberResolveResult;
@@ -490,19 +465,11 @@ namespace Bridge.Translator
                 return this.GetInline(mrr.Member);
             }
 
-            var attr = this.GetAttribute(method.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".TemplateAttribute");
-
-            return attr != null && attr.Arguments.Count > 0 ? ((string)((PrimitiveExpression)attr.Arguments.First()).Value) : null;
+            return null;
         }
 
         public virtual string GetInline(IEntity entity)
         {
-            string attrName = Bridge.Translator.Translator.Bridge_ASSEMBLY + ".TemplateAttribute";
-            // Moving these two `is` into the end of the methos (where it's actually used) leads
-            // to incorrect JavaScript being generated
-            bool isProp = entity is IProperty;
-            bool isEvent = entity is IEvent;
-
             if (entity.SymbolKind == SymbolKind.Property)
             {
                 var prop = (IProperty)entity;
@@ -516,38 +483,7 @@ namespace Bridge.Translator
 
             if (entity != null)
             {
-                var attr = entity.GetBridgeAttributes().FirstOrDefault(a =>
-                {
-                    return a.AttributeType.FullName == attrName;
-                });
-
-                string inlineCode = null;
-                if (attr != null && entity is IMethod && attr.PositionalArguments.Count == 0 &&
-                    attr.NamedArguments.Count > 0)
-                {
-                    var namedArg = attr.NamedArguments.FirstOrDefault(arg => arg.Key.Name == CS.Attributes.Template.PROPERTY_FN);
-                    if (namedArg.Value != null)
-                    {
-                        inlineCode = namedArg.Value.ConstantValue as string;
-
-                        if (inlineCode != null)
-                        {
-                            inlineCode = Helpers.DelegateToTemplate(inlineCode, (IMethod)entity, this);
-                        }
-                    }
-                }
-
-                if (inlineCode == null)
-                {
-                    inlineCode = attr != null && attr.PositionalArguments.Count > 0 ? attr.PositionalArguments[0].ConstantValue.ToString() : null;
-                }
-
-                if (!string.IsNullOrEmpty(inlineCode) && (isProp || isEvent))
-                {
-                    inlineCode = inlineCode.Replace("{value}", "{0}");
-                }
-
-                return inlineCode;
+                return entity.GetTemplate(this);
             }
 
             return null;
@@ -555,18 +491,10 @@ namespace Bridge.Translator
 
         protected virtual bool IsInlineMethod(IEntity entity)
         {
-            string attrName = Bridge.Translator.Translator.Bridge_ASSEMBLY + ".TemplateAttribute";
-
             if (entity != null)
             {
-                var attr = entity.GetBridgeAttributes().FirstOrDefault(a =>
-                {
-                    return a.AttributeType.FullName == attrName;
-                });
-
-                return attr != null && attr.PositionalArguments.Count == 0 && attr.NamedArguments.Count == 0;
+                return entity.IsInlineMethod();
             }
-
             return false;
         }
 
@@ -607,33 +535,6 @@ namespace Bridge.Translator
             return fullName.StartsWith(Bridge.Translator.Translator.Bridge_ASSEMBLY_DOT, StringComparison.Ordinal) || fullName.StartsWith("System.", StringComparison.Ordinal);
         }
 
-        public virtual bool IsMemberConst(IMember member)
-        {
-            var field = member as IField;
-            if (field != null)
-            {
-                return field.IsConst && member.DeclaringType.Kind != TypeKind.Enum;
-            }
-
-            return false;
-        }
-
-        public virtual bool IsInlineConst(IMember member)
-        {
-            bool isConst = IsMemberConst(member);
-
-            if (isConst)
-            {
-                var attr = this.GetAttribute(member.GetBridgeAttributes(), Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InlineConstAttribute");
-
-                if (attr != null)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
 
         public virtual void InitEmitter()
         {

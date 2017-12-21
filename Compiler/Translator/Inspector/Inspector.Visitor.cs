@@ -53,11 +53,12 @@ namespace Bridge.Translator
             ValidateNamespace(typeDeclaration);
 
             var rr = this.Resolver.ResolveNode(typeDeclaration, null);
+            var typeDef = rr.Type.GetDefinition();
             var fullName = rr.Type.ReflectionName;
             var partialType = this.Types.FirstOrDefault(t => t.Key == fullName);
             var add = true;
             var ignored = this.IgnoredTypes.Contains(fullName);
-            var external = this.HasExternal(typeDeclaration);
+            var external = typeDef.IsExternal();
 
             if (!external)
             {
@@ -65,11 +66,11 @@ namespace Bridge.Translator
                 if (resolveResult != null && resolveResult.Type != null)
                 {
                     var def = resolveResult.Type.GetDefinition();
-                    external = def != null && def.ParentAssembly.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute");
+                    external = def != null && def.ParentAssembly.IsExternal();
                 }
             }
 
-            if ((external || ignored || this.IsNonScriptable(typeDeclaration)) && !this.IsObjectLiteral(typeDeclaration))
+            if ((external || ignored || typeDef.IsNonScriptable()) && !typeDef.IsObjectLiteral())
             {
                 if (partialType != null)
                 {
@@ -105,7 +106,7 @@ namespace Bridge.Translator
                     Namespace = this.Namespace,
                     IsEnum = typeDeclaration.ClassType == ClassType.Enum,
                     IsStatic = typeDeclaration.ClassType == ClassType.Enum || typeDeclaration.HasModifier(Modifiers.Static),
-                    IsObjectLiteral = this.IsObjectLiteral(typeDeclaration),
+                    IsObjectLiteral = typeDef.IsObjectLiteral(),
                     Type = rr.Type
                 };
             }
@@ -213,7 +214,7 @@ namespace Bridge.Translator
             foreach (var item in fieldDeclaration.Variables)
             {
                 var rr = this.Resolver.ResolveNode(item, null) as MemberResolveResult;
-                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == Bridge.Translator.Translator.Bridge_ASSEMBLY + ".InlineConstAttribute"))
+                if (fieldDeclaration.HasModifier(Modifiers.Const) && rr != null && rr.Member.IsInlineConst())
                 {
                     continue;
                 }
@@ -306,7 +307,8 @@ namespace Bridge.Translator
 
         public override void VisitConstructorDeclaration(ConstructorDeclaration constructorDeclaration)
         {
-            if (this.HasTemplate(constructorDeclaration) || constructorDeclaration.HasModifier(Modifiers.Extern) && !this.HasScript(constructorDeclaration))
+            var rr = (MemberResolveResult)this.Resolver.ResolveNode(constructorDeclaration, null);
+            if (rr.Member.HasTemplate() || constructorDeclaration.HasModifier(Modifiers.Extern) && !rr.Member.HasScript())
             {
                 return;
             }
@@ -327,7 +329,8 @@ namespace Bridge.Translator
 
         public override void VisitOperatorDeclaration(OperatorDeclaration operatorDeclaration)
         {
-            if (this.HasTemplate(operatorDeclaration))
+            var rr = (MemberResolveResult)this.Resolver.ResolveNode(operatorDeclaration, null);
+            if (rr.Member.HasTemplate())
             {
                 return;
             }
@@ -379,7 +382,9 @@ namespace Bridge.Translator
 
         public override void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            if (methodDeclaration.HasModifier(Modifiers.Abstract) || this.HasTemplate(methodDeclaration))
+            var rr = (MemberResolveResult)this.Resolver.ResolveNode(methodDeclaration, null);
+
+            if (methodDeclaration.HasModifier(Modifiers.Abstract) || rr.Member.HasTemplate())
             {
                 return;
             }
@@ -388,22 +393,19 @@ namespace Bridge.Translator
 
             bool isStatic = methodDeclaration.HasModifier(Modifiers.Static);
 
-            Dictionary<string, List<MethodDeclaration>> dict = isStatic
+            var dict = isStatic
                 ? CurrentType.StaticMethods
                 : CurrentType.InstanceMethods;
 
             var key = methodDeclaration.Name;
+            var memberrr = (MemberResolveResult)Resolver.ResolveNode(methodDeclaration, null);
 
-            if (dict.ContainsKey(key))
+            List<MethodDeclarationAndSymbol> list; 
+            if (!dict.TryGetValue(key, out list))
             {
-                dict[key].Add(methodDeclaration);
+                dict[key] = list = new List<MethodDeclarationAndSymbol>(); 
             }
-            else
-            {
-                dict.Add(key, new List<MethodDeclaration>(new[] { methodDeclaration }));
-            }
-
-            var memberrr = Resolver.ResolveNode(methodDeclaration, null) as MemberResolveResult;
+            list.Add(new MethodDeclarationAndSymbol(memberrr.Member as IMethod, methodDeclaration));
 
             if (OverloadsCollection.NeedCreateAlias(memberrr))
             {
@@ -481,8 +483,8 @@ namespace Bridge.Translator
                 config.Alias.Add(new TypeConfigItem { Entity = propertyDeclaration });
             }
 
-            if (!this.HasExternal(propertyDeclaration)
-                && !this.HasTemplate(propertyDeclaration.Getter))
+            if (!rr.Member.IsExternal()
+                && !((IProperty)rr.Member).Getter.HasTemplate())
             {
                 Expression initializer = this.GetDefaultFieldInitializer(propertyDeclaration.ReturnType);
                 TypeConfigInfo info = isStatic ? this.CurrentType.StaticConfig : this.CurrentType.InstanceConfig;
@@ -498,13 +500,13 @@ namespace Bridge.Translator
                     }
                     else
                     {
-                        autoPropertyToField = this.HasFieldAttribute(rr.Member);
+                        autoPropertyToField = rr.Member.HasFieldAttribute();
 
                         if (!autoPropertyToField && rr.Member.ImplementedInterfaceMembers.Count > 0)
                         {
                             foreach (var interfaceMember in rr.Member.ImplementedInterfaceMembers)
                             {
-                                autoPropertyToField = this.HasFieldAttribute(interfaceMember, false);
+                                autoPropertyToField = interfaceMember.HasFieldAttribute(false);
 
                                 if (autoPropertyToField)
                                 {
@@ -544,59 +546,6 @@ namespace Bridge.Translator
             }
         }
 
-        private bool HasFieldAttribute(IMember member, bool checkAssembly = true)
-        {
-
-
-            var fieldAttributeName = "Bridge.FieldAttribute";
-            var autoPropertyToField = member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == fieldAttributeName);
-
-            if (!autoPropertyToField)
-            {
-                autoPropertyToField = member.DeclaringTypeDefinition.GetBridgeAttributes().Any(a => a.AttributeType.FullName == fieldAttributeName);
-            }
-
-            if (!autoPropertyToField && checkAssembly)
-            {
-                autoPropertyToField = member.DeclaringTypeDefinition.ParentAssembly.GetBridgeAttributes().Any(a => a.AttributeType.FullName == fieldAttributeName);
-            }
-
-            return autoPropertyToField;
-        }
-
-        private void CheckFieldProperty(PropertyDeclaration propertyDeclaration, MemberResolveResult resolvedProperty)
-        {
-            if (this.HasExternal(propertyDeclaration) || this.CurrentType.IsObjectLiteral)
-            {
-                return;
-            }
-
-            if (resolvedProperty != null && resolvedProperty.Member != null)
-            {
-                var possiblyWrongGetter = !propertyDeclaration.Getter.IsNull
-                        && !propertyDeclaration.Getter.Body.IsNull
-                        && !this.HasTemplate(propertyDeclaration.Getter)
-                        && !this.HasScript(propertyDeclaration.Getter);
-
-                var possiblyWrongSetter = !propertyDeclaration.Setter.IsNull
-                    && !propertyDeclaration.Setter.Body.IsNull
-                    && !this.HasTemplate(propertyDeclaration.Setter)
-                    && !this.HasScript(propertyDeclaration.Setter);
-
-                if (possiblyWrongGetter || possiblyWrongSetter)
-                {
-                    var message = string.Format(
-                            Bridge.Translator.Constants.Messages.Exceptions.FIELD_PROPERTY_MARKED_ADVISE,
-                            resolvedProperty.Member.ToString(),
-                            possiblyWrongGetter ? "getter" : string.Empty,
-                            possiblyWrongSetter ? (possiblyWrongGetter ? " and " : string.Empty) + "setter" : string.Empty
-                        );
-
-                    throw new EmitterException(propertyDeclaration, message);
-                }
-            }
-        }
-
         public override void VisitDelegateDeclaration(DelegateDeclaration delegateDeclaration)
         {
         }
@@ -608,13 +557,13 @@ namespace Bridge.Translator
             var initializerIsString = false;
             if (member != null)
             {
-                var enumMode = Helpers.EnumEmitMode(member.Member.DeclaringTypeDefinition);
+                var enumMode = member.Member.DeclaringTypeDefinition.EnumEmitMode();
 
                 if (enumMode >= 3 && enumMode < 7)
                 {
                     initializerIsString = true;
                     string enumStringName = member.Member.Name;
-                    var attr = Helpers.GetInheritedAttribute(member.Member, Translator.Bridge_ASSEMBLY + ".NameAttribute");
+                    var attr = member.Member.GetNameAttribute();
 
                     if (attr != null)
                     {

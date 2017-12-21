@@ -661,7 +661,7 @@ namespace Bridge.Contract
 
             if (typeDef != null)
             {
-                var isExternalType = this.Emitter.Validator.IsExternalType(typeDef);
+                var isExternalType = typeDef.IsExternal();
                 bool externalFound = false;
                 var methods = typeDef.Methods.Where(m =>
                 {
@@ -695,7 +695,7 @@ namespace Bridge.Contract
 
                         if (!isExternalType)
                         {
-                            var isExtern = !m.HasBody && !m.IsAbstract || this.Emitter.Validator.IsExternalType(m);
+                            var isExtern = !m.HasBody && !m.IsAbstract || m.IsExternal();
                             if (isExtern)
                             {
                                 return false;
@@ -779,7 +779,7 @@ namespace Bridge.Contract
                             return false;
                         }
 
-                        if (p.IsIndexer && canGet && p.Getter.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExternalAttribute"))
+                        if (p.IsIndexer && canGet && p.Getter.IsExternal())
                         {
                             return false;
                         }
@@ -799,8 +799,8 @@ namespace Bridge.Contract
 
                         if (!eq && p.IsIndexer)
                         {
-                            var getterIgnore = canGet && this.Emitter.Validator.IsExternalType(p.Getter);
-                            var setterIgnore = canSet && this.Emitter.Validator.IsExternalType(p.Setter);
+                            var getterIgnore = canGet && p.Getter.IsExternal();
+                            var setterIgnore = canSet && p.Setter.IsExternal();
                             var getterName = canGet ? Helpers.GetPropertyRef(p, this.Emitter, false, true, true) : null;
                             var setterName = canSet ? Helpers.GetPropertyRef(p, this.Emitter, true, true, true) : null;
 
@@ -1063,7 +1063,7 @@ namespace Bridge.Contract
                     var typeDef = im.DeclaringTypeDefinition;
                     var type = im.DeclaringType;
 
-                    return typeDef != null && !Helpers.IsIgnoreGeneric(typeDef) && type != null &&
+                    return typeDef != null && !typeDef.IsIgnoreGeneric() && type != null &&
                            type.TypeArguments.Count > 0 && Helpers.IsTypeParameterType(type);
                 }))
             {
@@ -1092,7 +1092,7 @@ namespace Bridge.Contract
                 var typeDef = explicitInterfaceMember.DeclaringTypeDefinition;
                 var type = explicitInterfaceMember.DeclaringType;
 
-                return typeDef != null && !Helpers.IsIgnoreGeneric(typeDef) && type != null && type.TypeArguments.Count > 0 && Helpers.IsTypeParameterType(type);
+                return typeDef != null && !typeDef.IsIgnoreGeneric() && type != null && type.TypeArguments.Count > 0 && Helpers.IsTypeParameterType(type);
             }
 
             return true;
@@ -1110,7 +1110,7 @@ namespace Bridge.Contract
                 interfaceMember = definition;
             }
 
-            if (interfaceMember != null && !skipInterfaceName && !this.Emitter.Validator.IsObjectLiteral(interfaceMember.DeclaringTypeDefinition))
+            if (interfaceMember != null && !skipInterfaceName && !interfaceMember.DeclaringTypeDefinition.GetObjectLiteralMode().HasValue)
             {
                 return OverloadsCollection.GetInterfaceMemberName(this.Emitter, interfaceMember, null, prefix, withoutTypeParams, this.IsSetter);
             }
@@ -1121,7 +1121,7 @@ namespace Bridge.Contract
                 name = JS.Funcs.CONSTRUCTOR;
             }
 
-            var attr = Helpers.GetInheritedAttribute(definition, "Bridge.NameAttribute");
+            var attr = definition.GetNameAttribute();
 
             var iProperty = definition as IProperty;
 
@@ -1131,7 +1131,7 @@ namespace Bridge.Contract
 
                 if (acceessor != null)
                 {
-                    attr = Helpers.GetInheritedAttribute(acceessor, "Bridge.NameAttribute");
+                    attr = acceessor.GetNameAttribute();
 
                     if (attr != null)
                     {
@@ -1158,8 +1158,7 @@ namespace Bridge.Contract
             }
 
             bool skipSuffix = false;
-            if (definition.DeclaringTypeDefinition != null &&
-                this.Emitter.Validator.IsExternalType(definition.DeclaringTypeDefinition))
+            if (definition.DeclaringTypeDefinition != null && definition.DeclaringTypeDefinition.IsExternal())
             {
                 if (definition.DeclaringTypeDefinition.Kind == TypeKind.Interface)
                 {

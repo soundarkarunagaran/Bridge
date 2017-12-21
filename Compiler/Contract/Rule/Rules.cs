@@ -9,7 +9,6 @@ namespace Bridge.Contract
 {
     public class Rules
     {
-        private static string attributeName = "Bridge.RulesAttribute";
 
         public static CompilerRule Default = new CompilerRule
         {
@@ -30,7 +29,7 @@ namespace Bridge.Contract
 
             if (entity is IMember)
             {
-                var attr = Helpers.GetInheritedAttribute(entity, attributeName);
+                var attr = entity.GetRule();
 
                 if (attr != null)
                 {
@@ -59,12 +58,9 @@ namespace Bridge.Contract
             }
             else
             {
-                IAttribute[] assemblyAttrs = assembly.GetBridgeAttributes().Where(a => a.AttributeType.FullName == Rules.attributeName).ToArray();
-                assemblyRules = new CompilerRule[assemblyAttrs.Length];
-                for (int i = 0; i < assemblyAttrs.Length; i++)
-                {
-                    assemblyRules[i] = Rules.ToRule(assemblyAttrs[i], CompilerRuleLevel.Assembly);
-                }
+                assemblyRules = assembly.GetRules()
+                    .Select(r => ToRule(r, CompilerRuleLevel.Assembly))
+                    .ToArray();
 
                 if(emitter != null)
                 {
@@ -229,12 +225,7 @@ namespace Bridge.Contract
             List<CompilerRule> rules = new List<CompilerRule>();
             while (td != null)
             {
-                IAttribute[] classAttrs = td.GetAttributes(new FullTypeName(Rules.attributeName)).ToArray();
-                for (int i = 0; i < classAttrs.Length; i++)
-                {
-                    rules.Add(Rules.ToRule(classAttrs[i], CompilerRuleLevel.Class));
-                }
-
+                rules.AddRange(td.GetRules().Select(r=> ToRule(r, CompilerRuleLevel.Class)));
                 td = td.DeclaringTypeDefinition;
             }
 

@@ -18,13 +18,13 @@ namespace Bridge.Translator
         public static JObject ConstructTypeMetadata(ITypeDefinition type, IEmitter emitter, bool ifHasAttribute, SyntaxTree tree)
         {
             var properties = ifHasAttribute ? new JObject() : MetadataUtils.GetCommonTypeProperties(type, emitter);
-            var scriptableAttributes = MetadataUtils.GetScriptableAttributes(type.GetBridgeAttributes(), emitter, tree).ToList();
-            if (scriptableAttributes.Count != 0)
+            var scriptableAttributes = type.GetScriptableAttributes(tree).ToArray();
+            if (scriptableAttributes.Any())
             {
                 JArray attrArr = new JArray();
                 foreach (var a in scriptableAttributes)
                 {
-                    attrArr.Add(MetadataUtils.ConstructAttribute(a, type, emitter));
+                    attrArr.Add(ConstructAttribute(a, type, emitter));
                 }
 
                 properties.Add("at", attrArr);
@@ -41,39 +41,15 @@ namespace Bridge.Translator
                     properties.Add("m", new JArray(members));
                 }
 
-                var aua = type.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "System.AttributeUsageAttribute");
+                var aua = type.GetAttributeUsage();
                 if (aua != null)
                 {
-                    var inherited = true;
-                    var allowMultiple = false;
-
-                    if (aua.PositionalArguments.Count == 3)
-                    {
-                        allowMultiple = (bool)aua.PositionalArguments[1].ConstantValue;
-                        inherited = (bool)aua.PositionalArguments[2].ConstantValue;
-                    }
-
-                    if (aua.NamedArguments.Count > 0)
-                    {
-                        foreach (var arg in aua.NamedArguments)
-                        {
-                            if (arg.Key.Name == "AllowMultiple")
-                            {
-                                allowMultiple = (bool)arg.Value.ConstantValue;
-                            }
-                            else if (arg.Key.Name == "Inherited")
-                            {
-                                inherited = (bool)arg.Value.ConstantValue;
-                            }
-                        }
-                    }
-
-                    if (!inherited)
+                    if (!aua.Inherited)
                     {
                         properties.Add("ni", true);
                     }
 
-                    if (allowMultiple)
+                    if (aua.AllowMultiple)
                     {
                         properties.Add("am", true);
                     }
@@ -147,69 +123,16 @@ namespace Bridge.Translator
             return new JRaw(str);
         }
 
-        public static IEnumerable<IAttribute> GetScriptableAttributes(IEnumerable<IAttribute> attributes, IEmitter emitter, SyntaxTree tree)
-        {
-            return attributes.Where(a =>
-            {
-                var typeDef = a.AttributeType.GetDefinition();
-                return typeDef != null && !MetadataUtils.IsConditionallyRemoved(a, emitter.Translator, tree) && !emitter.Validator.IsExternalType(typeDef) &&
-                       !Helpers.IsNonScriptable(typeDef);
-            });
-        }
 
-        private static bool IsConditionallyRemoved(IAttribute attr, ITranslator translator, SyntaxTree tree)
-        {
-            var typeDef = attr.AttributeType.GetDefinition();
-            if (typeDef != null)
-            {
-                var symbols = MetadataUtils.FindConditionalSymbols(typeDef);
-
-                if (symbols.Count > 0)
-                {
-                    if (tree != null)
-                    {
-                        return !symbols.Intersect(tree.ConditionalSymbols).Any();
-                    }
-                    else
-                    {
-                        return !symbols.Intersect(translator.DefineConstants).Any();
-                    }
-                }
-
-                return false;
-            }
-            return false;
-        }
-
-        private static IList<string> FindConditionalSymbols(IEntity entity)
-        {
-            var result = new List<string>();
-            foreach (var a in entity.GetBridgeAttributes())
-            {
-                var type = a.AttributeType.GetDefinition();
-                if (type != null && type.FullName.Equals("System.Diagnostics.ConditionalAttribute", StringComparison.Ordinal))
-                {
-                    if (a.PositionalArguments.Count > 0)
-                    {
-                        var symbol = a.PositionalArguments[0].ConstantValue as string;
-                        if (symbol != null)
-                        {
-                            result.Add(symbol);
-                        }
-                    }
-                }
-            }
-            return result;
-        }
 
         public static bool IsJsGeneric(IMethod method, IEmitter emitter)
         {
-            return method.TypeParameters.Count > 0 && !Helpers.IsIgnoreGeneric(method, emitter);
+            return method.TypeParameters.Count > 0 && !method.IsIgnoreGeneric();
         }
 
         public static bool IsJsGeneric(ITypeDefinition type, IEmitter emitter)
         {
-            return type.TypeParameterCount > 0 && !Helpers.IsIgnoreGeneric(type);
+            return type.TypeParameterCount > 0 && !type.IsIgnoreGeneric();
         }
 
         public static bool IsReflectable(IMember member, IEmitter emitter, bool ifHasAttribute, SyntaxTree tree)
@@ -219,12 +142,12 @@ namespace Bridge.Translator
                 return false;
             }
 
-            if (member.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+            if (member.IsNonScriptable())
             {
                 return false;
             }
 
-            bool? reflectable = MetadataUtils.ReflectableValue(member.GetBridgeAttributes(), member, emitter);
+            bool? reflectable = MetadataUtils.ReflectableValue(member, member, emitter);
 
             if (reflectable != null)
             {
@@ -233,7 +156,7 @@ namespace Bridge.Translator
 
             if (member.DeclaringTypeDefinition != null)
             {
-                reflectable = MetadataUtils.ReflectableValue(member.DeclaringTypeDefinition.GetBridgeAttributes(), member, emitter);
+                reflectable = MetadataUtils.ReflectableValue(member.DeclaringTypeDefinition, member, emitter);
             }
 
             if (reflectable != null)
@@ -252,7 +175,7 @@ namespace Bridge.Translator
             {
                 memberAccessibility = new[] { ifHasAttribute ? MemberAccessibility.None : MemberAccessibility.All };
 
-                if (ifHasAttribute && MetadataUtils.GetScriptableAttributes(member.GetBridgeAttributes(), emitter, tree).Any())
+                if (ifHasAttribute && member.GetScriptableAttributes(tree).Any())
                 {
                     memberAccessibility = new[] { MemberAccessibility.All };
                 }
@@ -261,32 +184,9 @@ namespace Bridge.Translator
             return MetadataUtils.IsMemberReflectable(member, memberAccessibility);
         }
 
-        private static bool? ReflectableValue(IEnumerable<IAttribute> attributes, IMember member, IEmitter emitter)
+        private static bool? ReflectableValue(IEntity attributeProvider, IMember member, IEmitter emitter)
         {
-            var attr = attributes.FirstOrDefault(a => a.AttributeType.FullName == "Bridge.ReflectableAttribute");
-
-            if (attr == null)
-            {
-                attr = Helpers.GetInheritedAttribute(member, "Bridge.ReflectableAttribute");
-
-                if (attr != null)
-                {
-                    if (attr.NamedArguments.Count > 0 && attr.NamedArguments.Any(arg => arg.Key.Name == "Inherits"))
-                    {
-                        var inherits = attr.NamedArguments.First(arg => arg.Key.Name == "Inherits");
-
-                        if (!(bool)inherits.Value.ConstantValue)
-                        {
-                            attr = null;
-                        }
-                    }
-                    else
-                    {
-                        attr = null;
-                    }
-                }
-            }
-
+            var attr = attributeProvider.GetReflectableAttribute();
             if (attr != null)
             {
                 if (attr.PositionalArguments.Count == 0)
@@ -443,8 +343,8 @@ namespace Bridge.Translator
         {
             var result = new JObject();
 
-            var attr = MetadataUtils.GetScriptableAttributes(p.GetBridgeAttributes(), emitter, tree).ToList();
-            if (attr.Count > 0)
+            var attr = p.GetScriptableAttributes(tree).ToArray();
+            if (attr.Any())
             {
                 JArray attrArr = new JArray();
                 foreach (var a in attr)
@@ -493,7 +393,7 @@ namespace Bridge.Translator
             result.Add("pt", new JRaw(MetadataUtils.GetTypeName(p.Type, emitter, isGenericSpecialization)));
             result.Add("ps", p.Owner.Parameters.IndexOf(p));
 
-            var nameAttr = p.GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.NameAttribute");
+            var nameAttr = p.GetNameAttribute();
             if (nameAttr != null)
             {
                 var value = nameAttr.PositionalArguments.First().ConstantValue;
@@ -530,7 +430,7 @@ namespace Bridge.Translator
                 var method = (IMethod)m;
                 var inline = emitter.GetInline(method);
 
-                if (string.IsNullOrEmpty(inline) && method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
+                if (string.IsNullOrEmpty(inline) && method.ExpandParams())
                 {
                     properties.Add("exp", true);
                 }
@@ -606,8 +506,8 @@ namespace Bridge.Translator
                 }
                 properties.Add("rt", new JRaw(MetadataUtils.GetTypeName(method.ReturnType, emitter, isGenericSpecialization)));
 
-                var attr = MetadataUtils.GetScriptableAttributes(method.ReturnTypeAttributes, emitter, tree).ToList();
-                if (attr.Count > 0)
+                var attr = AttributeRegistry.GetScriptableAttributes(method.GetBridgeReturnTypeAttributes(), tree).ToArray();
+                if (attr.Any())
                 {
                     JArray attrArr = new JArray();
                     foreach (var a in attr)
@@ -686,8 +586,8 @@ namespace Bridge.Translator
                     }
                 }
 
-                var inlineGetter = canGet && (emitter.GetInline(prop.Getter) != null || Helpers.IsScript(prop.Getter));
-                var inlineSetter = canSet && (emitter.GetInline(prop.Setter) != null || Helpers.IsScript(prop.Setter));
+                var inlineGetter = canGet && (emitter.GetInline(prop.Getter) != null || prop.Getter.IsScript());
+                var inlineSetter = canSet && (emitter.GetInline(prop.Setter) != null || prop.Setter.IsScript());
 
                 if (inlineGetter || inlineSetter || prop.IsIndexer)
                 {
@@ -794,7 +694,7 @@ namespace Bridge.Translator
         {
             var properties = MetadataUtils.GetCommonMemberInfoProperties(constructor, emitter, includeDeclaringType, isGenericSpecialization, tree);
 
-            if (Helpers.IsNonScriptable(constructor))
+            if (constructor.IsNonScriptable())
             {
                 return null;
             }
@@ -813,10 +713,10 @@ namespace Bridge.Translator
 
             var inline = emitter.GetInline(constructor);
             var typeDef = constructor.DeclaringTypeDefinition;
-            IAttribute customCtor = null;
+            string customCtor = null;
             if (typeDef != null)
             {
-                customCtor = emitter.Validator.GetAttribute(typeDef.GetBridgeAttributes(), Translator.Bridge_ASSEMBLY + ".ConstructorAttribute");
+                customCtor = typeDef.GetCustomConstructor();
             }
 
             if (string.IsNullOrEmpty(inline) && customCtor == null)
@@ -839,7 +739,7 @@ namespace Bridge.Translator
                 properties.Add("sm", true);
             }
 
-            if (string.IsNullOrEmpty(inline) && constructor.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
+            if (string.IsNullOrEmpty(inline) && constructor.ExpandParams())
             {
                 properties.Add("exp", true);
             }
@@ -857,7 +757,7 @@ namespace Bridge.Translator
             }
             else if (customCtor != null)
             {
-                inline = customCtor.PositionalArguments[0].ConstantValue.ToString();
+                inline = customCtor;
                 if (Regex.Match(inline, @"\s*\{\s*\}\s*").Success)
                 {
                     var names = constructor.Parameters.Select(p => p.Name);
@@ -898,8 +798,8 @@ namespace Bridge.Translator
         private static JObject GetCommonMemberInfoProperties(IMember m, IEmitter emitter, bool includeDeclaringType, bool isGenericSpecialization, SyntaxTree tree)
         {
             var result = new JObject();
-            var attr = MetadataUtils.GetScriptableAttributes(m.GetBridgeAttributes(), emitter, tree).ToList();
-            if (attr.Count > 0)
+            var attr = m.GetScriptableAttributes(tree).ToArray();
+            if (attr.Any())
             {
                 JArray attrArr = new JArray();
                 foreach (var a in attr)
@@ -953,13 +853,13 @@ namespace Bridge.Translator
         internal static string GetTypeName(IType type, IEmitter emitter, bool isGenericSpecialization, bool asDefinition = false)
         {
             var typeParam = type as ITypeParameter;
-            if (typeParam != null && (typeParam.OwnerType == SymbolKind.Method || Helpers.IsIgnoreGeneric(typeParam.Owner, emitter)))
+            if (typeParam != null && (typeParam.OwnerType == SymbolKind.Method || typeParam.Owner.IsIgnoreGeneric()))
             {
                 return JS.Types.System.Object.NAME;
             }
 
             var itypeDef = type.GetDefinition();
-            if (itypeDef != null && itypeDef.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.NonScriptableAttribute"))
+            if (itypeDef != null && itypeDef.IsNonScriptable())
             {
                 return JS.Types.System.Object.NAME;
             }

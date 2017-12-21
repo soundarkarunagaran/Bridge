@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Bridge.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
@@ -49,7 +50,7 @@ namespace Bridge.Translator
             {
                 prop = rr.Member as IProperty;
 
-                if (prop != null && this.Emitter.Validator.IsExternalType(prop))
+                if (prop != null && prop.IsExternal())
                 {
                     return;
                 }
@@ -61,7 +62,7 @@ namespace Bridge.Translator
 
         protected virtual void EmitIndexerMethod(IndexerDeclaration indexerDeclaration, IProperty prop, Accessor accessor, IMethod propAccessor, bool setter)
         {
-            var isIgnore = propAccessor != null && this.Emitter.Validator.IsExternalType(propAccessor);
+            var isIgnore = propAccessor != null && propAccessor.IsExternal();
 
             if (!accessor.IsNull && this.Emitter.GetInline(accessor) == null && !isIgnore)
             {
@@ -85,13 +86,13 @@ namespace Bridge.Translator
 
                 string accName = null;
 
+                var member_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(indexerDeclaration, this.Emitter);
                 if (prop != null)
                 {
                     accName = this.Emitter.GetEntityNameFromAttr(prop, setter);
 
                     if (string.IsNullOrEmpty(accName))
                     {
-                        var member_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(indexerDeclaration, this.Emitter);
 
                         var overloads = OverloadsCollection.Create(this.Emitter, indexerDeclaration, setter);
                         accName = overloads.GetOverloadName(false, Helpers.GetSetOrGet(setter), OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr));
@@ -114,7 +115,12 @@ namespace Bridge.Translator
                 }
                 this.WriteSpace();
 
-                var script = this.Emitter.GetScript(accessor);
+                var accessorMethod = setter ? ((IProperty)member_rr.Member).Setter : ((IProperty)member_rr.Member).Getter;
+                IEnumerable<string> script = null;
+                if (accessorMethod != null)
+                {
+                    script = accessorMethod.GetScript();
+                }
 
                 if (script == null)
                 {

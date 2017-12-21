@@ -203,116 +203,7 @@ namespace Bridge.Contract
 
             return null;
         }
-
-        public static bool IsIgnoreGeneric(ITypeDefinition type)
-        {
-            return type.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute") || type.DeclaringTypeDefinition != null && Helpers.IsIgnoreGeneric(type.DeclaringTypeDefinition);
-        }
-
-        public static bool IsIgnoreGeneric(TypeDefinition type)
-        {
-            return type.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute") || type.DeclaringType != null && Helpers.IsIgnoreGeneric(type.DeclaringType);
-        }
-
-        public static bool IsIgnoreGeneric(IType type, IEmitter emitter, bool allowInTypeScript = false)
-        {
-            var attr = type.GetDefinition().GetBridgeAttributes().FirstOrDefault(a => a.AttributeType.FullName == "Bridge.IgnoreGenericAttribute");
-
-            if (attr != null)
-            {
-                var member = allowInTypeScript ? attr.NamedArguments.FirstOrDefault(arg => arg.Key.Name == "AllowInTypeScript").Value : null;
-
-                if (member != null)
-                {
-                    return !(bool)member.ConstantValue;
-                }
-
-                return true;
-            }
-
-            return type.DeclaringType != null && Helpers.IsIgnoreGeneric(type.DeclaringType, emitter, allowInTypeScript);
-        }
-
-        public static bool IsIgnoreGeneric(IEntity member, IEmitter emitter)
-        {
-            return emitter.Validator.HasAttribute(member.GetBridgeAttributes(), "Bridge.IgnoreGenericAttribute");
-        }
-
-        public static bool IsIgnoreGeneric(MethodDeclaration method, IEmitter emitter)
-        {
-            MemberResolveResult resolveResult = emitter.Resolver.ResolveNode(method, emitter) as MemberResolveResult;
-            if (resolveResult != null && resolveResult.Member != null)
-            {
-                return Helpers.IsIgnoreGeneric(resolveResult.Member, emitter);
-            }
-
-            return false;
-        }
-
-        public static bool IsIgnoreCast(AstType astType, IEmitter emitter)
-        {
-            if (emitter.AssemblyInfo.IgnoreCast)
-            {
-                return true;
-            }
-
-            var typeDef = emitter.BridgeTypes.ToType(astType).GetDefinition();
-
-            if (typeDef == null)
-            {
-                return false;
-            }
-
-            if (typeDef.Kind == TypeKind.Delegate)
-            {
-                return true;
-            }
-
-            var ctorAttr = emitter.Validator.GetAttribute(typeDef.GetBridgeAttributes(), "Bridge.ConstructorAttribute");
-
-            if (ctorAttr != null)
-            {
-                var inline = ctorAttr.PositionalArguments[0].ConstantValue.ToString();
-                if (Regex.Match(inline, @"\s*\{\s*\}\s*").Success)
-                {
-                    return true;
-                }
-            }
-
-            return emitter.Validator.HasAttribute(typeDef.GetBridgeAttributes(), "Bridge.IgnoreCastAttribute") ||
-                   emitter.Validator.HasAttribute(typeDef.GetBridgeAttributes(), "Bridge.ObjectLiteralAttribute");
-        }
-
-        public static bool IsIgnoreCast(ITypeDefinition typeDef, IEmitter emitter)
-        {
-            if (emitter.AssemblyInfo.IgnoreCast)
-            {
-                return true;
-            }
-
-            if (typeDef == null)
-            {
-                return false;
-            }
-
-            if (typeDef.Kind == TypeKind.Delegate)
-            {
-                return true;
-            }
-
-            var ctorAttr = emitter.Validator.GetAttribute(typeDef.GetBridgeAttributes(), "Bridge.ConstructorAttribute");
-
-            if (ctorAttr != null)
-            {
-                var inline = ctorAttr.PositionalArguments[0].ConstantValue.ToString();
-                if (Regex.Match(inline, @"\s*\{\s*\}\s*").Success)
-                {
-                    return true;
-                }
-            }
-
-            return emitter.Validator.HasAttribute(typeDef.GetBridgeAttributes(), "Bridge.IgnoreCastAttribute");
-        }
+        
 
         public static bool IsIntegerType(IType type, IMemberResolver resolver)
         {
@@ -521,12 +412,12 @@ namespace Bridge.Contract
                 return true;
             }
 
-            var typeDef = emitter.GetTypeDefinition(type);
-            if (emitter.Validator.IsExternalType(typeDef) || emitter.Validator.IsImmutableType(typeDef))
+            if (type.GetDefinition().IsExternal() || type.GetDefinition().IsImmutableType())
             {
                 return true;
             }
 
+            var typeDef = emitter.GetTypeDefinition(type);
             var mutableFields = type.GetFields(f => !f.IsReadOnly && !f.IsConst, GetMemberOptions.IgnoreInheritedMembers);
             var autoProps = typeDef.Properties.Where(Helpers.IsAutoProperty);
             var autoEvents = type.GetEvents(null, GetMemberOptions.IgnoreInheritedMembers);
@@ -538,24 +429,16 @@ namespace Bridge.Contract
             return false;
         }
 
-        public static bool IsScript(IMethod method)
-        {
-            return method.Attributes.Any(a => a.AttributeType.FullName == CS.NS.BRIDGE + ".ScriptAttribute");
-        }
 
-        public static bool IsScript(MethodDefinition method)
-        {
-            return method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == CS.NS.BRIDGE + ".ScriptAttribute");
-        }
 
         public static bool IsAutoProperty(IProperty propertyDeclaration)
         {
-            if (propertyDeclaration.CanGet && Helpers.IsScript(propertyDeclaration.Getter))
+            if (propertyDeclaration.CanGet && propertyDeclaration.Getter.IsScript())
             {
                 return false;
             }
 
-            if (propertyDeclaration.CanSet && Helpers.IsScript(propertyDeclaration.Setter))
+            if (propertyDeclaration.CanSet && propertyDeclaration.Setter.IsScript())
             {
                 return false;
             }
@@ -566,12 +449,12 @@ namespace Bridge.Contract
 
         public static bool IsAutoProperty(PropertyDefinition propDef)
         {
-            if (propDef.GetMethod != null && Helpers.IsScript(propDef.GetMethod))
+            if (propDef.GetMethod != null && propDef.GetMethod.IsScript())
             {
                 return false;
             }
 
-            if (propDef.SetMethod != null && Helpers.IsScript(propDef.SetMethod))
+            if (propDef.SetMethod != null && propDef.SetMethod.IsScript())
             {
                 return false;
             }
@@ -580,7 +463,7 @@ namespace Bridge.Contract
             {
                 return false;
             }
-            if (AttributeHelper.HasCompilerGeneratedAttribute(propDef.GetMethod))
+            if (propDef.GetMethod.IsCompilerGenerated())
             {
                 return true;
             }
@@ -776,9 +659,9 @@ namespace Bridge.Contract
 
         public static object GetEnumValue(IEmitter emitter, IType type, object constantValue)
         {
-            var enumMode = Helpers.EnumEmitMode(type);
+            var enumMode = type.GetDefinition().EnumEmitMode();
 
-            if ((emitter.Validator.IsExternalType(type.GetDefinition()) && enumMode == -1) || enumMode == 2)
+            if ((type.GetDefinition().IsExternal() && enumMode == -1) || enumMode == 2)
             {
                 return constantValue;
             }
@@ -793,9 +676,7 @@ namespace Bridge.Contract
                 }
 
                 string enumStringName = member.Name;
-                var attr = emitter.GetAttribute(member.GetBridgeAttributes(), "Bridge.NameAttribute");
-
-                if (attr != null)
+                if (member.HasNameAttribute())
                 {
                     enumStringName = emitter.GetEntityName(member);
                 }
@@ -981,105 +862,7 @@ namespace Bridge.Contract
             }
         }
 
-        public static IAttribute GetInheritedAttribute(IEntity entity, string attrName)
-        {
-            if (entity is IMember)
-            {
-                return Helpers.GetInheritedAttribute((IMember)entity, attrName);
-            }
 
-            foreach (var attr in entity.GetBridgeAttributes())
-            {
-                if (attr.AttributeType.FullName == attrName)
-                {
-                    return attr;
-                }
-            }
-            return null;
-        }
-
-        public static IAttribute GetInheritedAttribute(IMember member, string attrName)
-        {
-            foreach (var attr in member.GetBridgeAttributes())
-            {
-                if (attr.AttributeType.FullName == attrName)
-                {
-                    return attr;
-                }
-            }
-
-            if (member.IsOverride)
-            {
-                member = InheritanceHelper.GetBaseMember(member);
-
-                if (member != null)
-                {
-                    return Helpers.GetInheritedAttribute(member, attrName);
-                }
-            }
-            else if (member.ImplementedInterfaceMembers != null && member.ImplementedInterfaceMembers.Count > 0)
-            {
-                foreach (var interfaceMember in member.ImplementedInterfaceMembers)
-                {
-                    var attr = Helpers.GetInheritedAttribute(interfaceMember, attrName);
-                    if (attr != null)
-                    {
-                        return attr;
-                    }
-                }
-            }
-
-            return null;
-        }
-
-        public static IAttribute GetInheritedAttribute(ITypeDefinition typeDef, string attrName)
-        {
-            foreach (var attr in typeDef.GetBridgeAttributes())
-            {
-                if (attr.AttributeType.FullName == attrName)
-                {
-                    return attr;
-                }
-            }
-
-            var baseType = typeDef.DirectBaseTypes.Where(t => t.Kind != TypeKind.Interface).FirstOrDefault();
-
-            if (baseType != null)
-            {
-                return Helpers.GetInheritedAttribute(baseType.GetDefinition(), attrName);
-            }
-
-            return null;
-        }
-
-        public static CustomAttribute GetInheritedAttribute(IEmitter emitter, IMemberDefinition member, string attrName)
-        {
-            foreach (var attr in member.GetBridgeAttributes())
-            {
-                if (attr.AttributeType.FullName == attrName)
-                {
-                    return attr;
-                }
-            }
-
-            var methodDefinition = member as MethodDefinition;
-            if (methodDefinition != null)
-            {
-                var isOverride = methodDefinition.IsVirtual && methodDefinition.IsReuseSlot;
-
-                if (isOverride)
-                {
-                    member = Helpers.GetBaseMethod(methodDefinition, emitter);
-
-                    if (member != null)
-                    {
-                        return Helpers.GetInheritedAttribute(emitter, member, attrName);
-                    }
-                }
-            }
-
-            return null;
-        }
 
         public static string GetTypedArrayName(IType elementType)
         {
@@ -1132,16 +915,6 @@ namespace Bridge.Contract
             return s;
         }
 
-        public static bool IsNonScriptable(ITypeDefinition type)
-        {
-            return Helpers.GetInheritedAttribute(type, "Bridge.NonScriptableAttribute") != null;
-        }
-
-        public static bool IsNonScriptable(IEntity entity)
-        {
-            return Helpers.GetInheritedAttribute(entity, "Bridge.NonScriptableAttribute") != null;
-        }
-
         public static bool IsEntryPointMethod(IEmitter emitter, MethodDeclaration methodDeclaration)
         {
             var member_rr = emitter.Resolver.ResolveNode(methodDeclaration, emitter) as MemberResolveResult;
@@ -1157,16 +930,7 @@ namespace Bridge.Contract
                 !method.IsAbstract &&
                 Helpers.IsEntryPointCandidate(method))
             {
-                bool isReady = false;
-                foreach (var attr in method.GetBridgeAttributes())
-                {
-                    if (attr.AttributeType.FullName == CS.Attributes.READY_ATTRIBUTE_NAME)
-                    {
-                        isReady = true;
-                        break;
-                    }
-                }
-
+                bool isReady = method.HasReadyAttribute();
                 if (!isReady)
                 {
                     return true;
@@ -1218,7 +982,7 @@ namespace Bridge.Contract
         public static bool IsTypeParameterType(IType type)
         {
             var typeDef = type.GetDefinition();
-            if (typeDef != null && Helpers.IsIgnoreGeneric(typeDef))
+            if (typeDef != null && typeDef.IsIgnoreGeneric())
             {
                 return false;
             }
@@ -1237,7 +1001,7 @@ namespace Bridge.Contract
                 foreach (var typeArgument in type.TypeArguments)
                 {
                     var typeDef = typeArgument.GetDefinition();
-                    if (typeDef != null && Helpers.IsIgnoreGeneric(typeDef))
+                    if (typeDef != null && typeDef.IsIgnoreGeneric())
                     {
                         continue;
                     }
@@ -1258,56 +1022,21 @@ namespace Bridge.Contract
             return Helpers.validIdentifier.IsMatch(name);
         }
 
-        public static int EnumEmitMode(ITypeDefinition type)
-        {
-            string enumAttr = "Bridge.EnumAttribute";
-            int result = 7;
-            type.GetBridgeAttributes().Any(attr =>
-            {
-                if (attr.Constructor != null && attr.Constructor.DeclaringType.FullName == enumAttr && attr.PositionalArguments.Count > 0)
-                {
-                    result = (int)attr.PositionalArguments.First().ConstantValue;
-                    return true;
-                }
-
-                return false;
-            });
-
-            return result;
-        }
-
-        public static int EnumEmitMode(IType type)
-        {
-            string enumAttr = "Bridge.EnumAttribute";
-            int result = 7;
-            type.GetDefinition().GetBridgeAttributes().Any(attr =>
-            {
-                if (attr.Constructor != null && attr.Constructor.DeclaringType.FullName == enumAttr && attr.PositionalArguments.Count > 0)
-                {
-                    result = (int)attr.PositionalArguments.First().ConstantValue;
-                    return true;
-                }
-
-                return false;
-            });
-
-            return result;
-        }
 
         public static bool IsValueEnum(IType type)
         {
-            return Helpers.EnumEmitMode(type) == 2;
+            return type.GetDefinition().EnumEmitMode() == 2;
         }
 
         public static bool IsNameEnum(IType type)
         {
-            var enumEmitMode = Helpers.EnumEmitMode(type);
+            var enumEmitMode = type.GetDefinition().EnumEmitMode();
             return enumEmitMode == 1 || enumEmitMode > 6;
         }
 
         public static bool IsStringNameEnum(IType type)
         {
-            var mode = Helpers.EnumEmitMode(type);
+            var mode = type.GetDefinition().EnumEmitMode();
             return mode >= 3 && mode <= 6;
         }
 
@@ -1394,7 +1123,7 @@ namespace Bridge.Contract
                 comma = true;
             }
 
-            if (!Helpers.IsIgnoreGeneric(method, emitter) && method.TypeArguments.Count > 0)
+            if (!method.IsIgnoreGeneric() && method.TypeArguments.Count > 0)
             {
                 foreach (var typeParameter in method.TypeArguments)
                 {
@@ -1427,7 +1156,7 @@ namespace Bridge.Contract
                 sb.Append("{");
 
                 if (parameter.IsParams &&
-                    method.GetBridgeAttributes().Any(a => a.AttributeType.FullName == "Bridge.ExpandParamsAttribute"))
+                    method.ExpandParams())
                 {
                     sb.Append("*");
                 }

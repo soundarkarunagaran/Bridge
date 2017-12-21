@@ -41,7 +41,7 @@ namespace Bridge.Translator.TypeScript
             }
         }
 
-        protected virtual void EmitMethods(Dictionary<string, List<MethodDeclaration>> methods, Dictionary<string, List<EntityDeclaration>> properties, Dictionary<OperatorType, List<OperatorDeclaration>> operators)
+        protected virtual void EmitMethods(Dictionary<string, List<MethodDeclarationAndSymbol>> methods, Dictionary<string, List<EntityDeclaration>> properties, Dictionary<OperatorType, List<OperatorDeclaration>> operators)
         {
             var names = new List<string>(properties.Keys);
             var fields = this.StaticBlock ? this.TypeInfo.StaticConfig.Fields : this.TypeInfo.InstanceConfig.Fields;
@@ -80,9 +80,9 @@ namespace Bridge.Translator.TypeScript
 
                 foreach (var method in group)
                 {
-                    if ((!method.Body.IsNull || this.Emitter.GetScript(method) != null) || this.Emitter.TypeInfo.TypeDeclaration.ClassType == ClassType.Interface)
+                    if ((!method.Declaration.Body.IsNull || method.Symbol.GetScript() != null) || this.Emitter.TypeInfo.TypeDeclaration.ClassType == ClassType.Interface)
                     {
-                        new MethodBlock(this.Emitter, method).Emit();
+                        new MethodBlock(this.Emitter, method.Declaration).Emit();
                     }
                 }
             }

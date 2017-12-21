@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Bridge.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Bridge.Translator
 {
     public class VisitorMethodBlock : AbstractMethodBlock
     {
+        private IMember _member;
         public VisitorMethodBlock(IEmitter emitter, MethodDeclaration methodDeclaration)
             : base(emitter, methodDeclaration)
         {
@@ -34,6 +36,7 @@ namespace Bridge.Translator
 
             if (rr != null)
             {
+                _member = rr.Member;
                 this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
             }
         }
@@ -51,27 +54,24 @@ namespace Bridge.Translator
 
         protected void VisitMethodDeclaration(MethodDeclaration methodDeclaration)
         {
-            foreach (var attr in methodDeclaration.GetBridgeAttributes())
+            var rr = this.Emitter.Resolver.ResolveNode(methodDeclaration, this.Emitter) as MemberResolveResult;
+            if (rr != null && rr.Member != null)
             {
-                var rr = this.Emitter.Resolver.ResolveNode(attr.Type, this.Emitter);
-                if (rr.Type.FullName == "Bridge.ExternalAttribute")
+                if (rr.Member.IsExternal())
                 {
                     return;
                 }
-                else if (rr.Type.FullName == "Bridge.InitAttribute")
+                var initPositionAttr = rr.Member.GetInitAttribute();
+                if (initPositionAttr != null)
                 {
                     InitPosition initPosition = InitPosition.After;
 
-                    if (attr.HasArgumentList)
+                    if (initPositionAttr.PositionalArguments.Count > 0)
                     {
-                        if (attr.Arguments.Any())
+                        var argExpr = initPositionAttr.PositionalArguments.First().ConstantValue;
+                        if (argExpr is int)
                         {
-                            var argExpr = attr.Arguments.First();
-                            var argrr = this.Emitter.Resolver.ResolveNode(argExpr, this.Emitter);
-                            if (argrr.ConstantValue is int)
-                            {
-                                initPosition = (InitPosition)argrr.ConstantValue;
-                            }
+                            initPosition = (InitPosition)argExpr;
                         }
                     }
 
@@ -93,9 +93,8 @@ namespace Bridge.Translator
             var overloads = OverloadsCollection.Create(this.Emitter, methodDeclaration);
             XmlToJsDoc.EmitComment(this, this.MethodDeclaration);
             var isEntryPoint = Helpers.IsEntryPointMethod(this.Emitter, this.MethodDeclaration);
-            var member_rr = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(this.MethodDeclaration, this.Emitter);
 
-            string name = overloads.GetOverloadName(false, null, OverloadsCollection.ExcludeTypeParameterForDefinition(member_rr));
+            string name = overloads.GetOverloadName(false, null, OverloadsCollection.ExcludeTypeParameterForDefinition(_member));
 
             if (isEntryPoint)
             {
@@ -117,7 +116,7 @@ namespace Bridge.Translator
             }
             else
             {
-                var nm = Helpers.GetFunctionName(this.Emitter.AssemblyInfo.NamedFunctions, member_rr.Member, this.Emitter);
+                var nm = Helpers.GetFunctionName(this.Emitter.AssemblyInfo.NamedFunctions, _member, this.Emitter);
                 if (nm != null)
                 {
                     this.Write(nm);
@@ -125,11 +124,15 @@ namespace Bridge.Translator
                 }
             }
 
-            this.EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration.TypeParameters.Count > 0 && Helpers.IsIgnoreGeneric(methodDeclaration, this.Emitter) ? null : methodDeclaration.TypeParameters, methodDeclaration);
+            this.EmitMethodParameters(methodDeclaration.Parameters, methodDeclaration.TypeParameters.Count > 0 && (_member != null && _member.IsIgnoreGeneric()) ? null : methodDeclaration.TypeParameters, methodDeclaration);
 
             this.WriteSpace();
 
-            var script = this.Emitter.GetScript(methodDeclaration);
+            IEnumerable<string> script = null;
+            if (rr != null && rr.Member != null)
+            {
+                script = rr.Member.GetScript();
+            }
 
             if (script == null)
             {

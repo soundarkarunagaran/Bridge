@@ -139,10 +139,14 @@ namespace Bridge.Translator
                 {
                     prms = this.MethodDeclaration.Parameters;
 
-                    if (this.MethodDeclaration.TypeParameters.Count > 0 &&
-                        !Helpers.IsIgnoreGeneric(this.MethodDeclaration, this.Emitter))
+                   
+                    if (this.MethodDeclaration.TypeParameters.Count > 0)
                     {
-                        tprms = this.MethodDeclaration.TypeParameters;
+                        var resolveResult = Emitter.Resolver.ResolveNode(this.MethodDeclaration, this.Emitter) as MemberResolveResult;
+                        if (resolveResult == null || resolveResult.Member == null || !resolveResult.Member.IsIgnoreGeneric())
+                        {
+                            tprms = this.MethodDeclaration.TypeParameters;
+                        }
                     }
                 }
                 else if (this.LambdaExpression != null)

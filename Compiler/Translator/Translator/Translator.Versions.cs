@@ -95,7 +95,7 @@ namespace Bridge.Translator
                 versionContext = new VersionContext();
 
                 versionContext.Assembly = GetVersionFromFileVersionInfo(GetAssemblyVersion());
-                versionContext.Assembly.Description = GetAssemblyDescription();
+                versionContext.Assembly.Description = AssemblyDefinition.GetAssemblyDescription();
 
                 versionContext.Bridge = GetVersionFromFileVersionInfo(GetBridgeAssemblyVersion());
 
@@ -118,45 +118,7 @@ namespace Bridge.Translator
                     };
         }
 
-        private string GetAssemblyDescription()
-        {
-            string assemblyDescription = null;
-
-            var assemblyDescriptionAttribute = this.AssemblyDefinition.GetBridgeAttributes().FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyDescriptionAttribute");
-
-            if (assemblyDescriptionAttribute != null
-                && assemblyDescriptionAttribute.HasConstructorArguments)
-            {
-                assemblyDescription = assemblyDescriptionAttribute.ConstructorArguments[0].Value as string;
-            }
-
-            if (assemblyDescription != null)
-            {
-                assemblyDescription = assemblyDescription.Trim();
-            }
-
-            return assemblyDescription;
-        }
-
-        internal string GetAssemblyTitle()
-        {
-            string assemblyTitle = null;
-
-            var assemblyTitleAttribute = this.AssemblyDefinition.GetBridgeAttributes().FirstOrDefault(x => x.AttributeType.FullName == "System.Reflection.AssemblyTitleAttribute");
-
-            if (assemblyTitleAttribute != null
-                && assemblyTitleAttribute.HasConstructorArguments)
-            {
-                assemblyTitle = assemblyTitleAttribute.ConstructorArguments[0].Value as string;
-            }
-
-            if (assemblyTitle != null)
-            {
-                assemblyTitle = assemblyTitle.Trim();
-            }
-
-            return assemblyTitle;
-        }
+      
 
         private void LogProductInfo()
         {

@@ -1,9 +1,25 @@
+using System;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using System.Collections.Generic;
 
 namespace Bridge.Contract
 {
+    /// <summary>
+    /// This class wraps a method declaration and it's resolved method symbol. 
+    /// </summary>
+    public class MethodDeclarationAndSymbol
+    {
+        public IMethod Symbol { get; set; }
+        public MethodDeclaration Declaration { get; set; }
+
+        public MethodDeclarationAndSymbol(IMethod symbol, MethodDeclaration declaration)
+        {
+            Symbol = symbol;
+            Declaration = declaration;
+        }
+    }
+
     public interface ITypeInfo
     {
         string Key
@@ -69,12 +85,12 @@ namespace Bridge.Contract
             get;
         }
 
-        Dictionary<string, List<MethodDeclaration>> StaticMethods
+        Dictionary<string, List<MethodDeclarationAndSymbol>> StaticMethods
         {
             get;
         }
 
-        Dictionary<string, List<MethodDeclaration>> InstanceMethods
+        Dictionary<string, List<MethodDeclarationAndSymbol>> InstanceMethods
         {
             get;
         }

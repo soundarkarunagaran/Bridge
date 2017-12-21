@@ -115,7 +115,7 @@ namespace Bridge.Translator
 
             if (string.IsNullOrEmpty(htmlTitle))
             {
-                htmlTitle = Translator.GetAssemblyTitle();
+                htmlTitle = Translator.AssemblyDefinition.GetAssemblyTitle();
             }
 
             var htmlGenerator = new HtmlGenerator(
@@ -323,14 +323,15 @@ namespace Bridge.Translator
 
             if (bridgeOptions.ProjectProperties.DefineConstants != null)
             {
-                translator.DefineConstants.AddRange(bridgeOptions.ProjectProperties.DefineConstants.Split(';').Select(s => s.Trim()).Where(s => s != ""));
-                translator.DefineConstants = translator.DefineConstants.Distinct().ToList();
+                translator.AssemblyInfo.DefineConstants.AddRange(bridgeOptions.ProjectProperties.DefineConstants.Split(';').Select(s => s.Trim()).Where(s => s != ""));
+                translator.AssemblyInfo.DefineConstants.Add("BRIDGE");
+                translator.AssemblyInfo.DefineConstants = translator.AssemblyInfo.DefineConstants.Distinct().ToList();
             }
 
             translator.Log.Trace("Translator properties:");
             translator.Log.Trace("\tBridgeLocation:" + translator.BridgeLocation);
             translator.Log.Trace("\tBuildArguments:" + translator.BuildArguments);
-            translator.Log.Trace("\tDefineConstants:" + (translator.DefineConstants != null ? string.Join(" ", translator.DefineConstants) : ""));
+            translator.Log.Trace("\tDefineConstants:" + (translator.AssemblyInfo.DefineConstants != null ? string.Join(" ", translator.AssemblyInfo.DefineConstants) : ""));
             translator.Log.Trace("\tRebuild:" + translator.Rebuild);
             translator.Log.Trace("\tProjectProperties:" + translator.ProjectProperties);
 
