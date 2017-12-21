@@ -112,6 +112,8 @@ namespace Bridge.Translator.Tests.Helpers
             typeDefinition.Namespace.Returns(GetTypeNamespace(typeFullName));
             typeDefinition.Kind.Returns(typeKind);
             typeDefinition.IsPublic.Returns(true);
+            typeDefinition.DeclaringType.Returns((IType)null);
+            typeDefinition.DeclaringTypeDefinition.Returns((ITypeDefinition)null);
 
             if (type.Attributes != null)
             {
@@ -153,7 +155,6 @@ namespace Bridge.Translator.Tests.Helpers
                 typeInfo.Name.Returns(type.Name);
                 typeInfo.Namespace.Returns(type.Namespace);
                 typeInfo.Key.Returns(key);
-
                 bridgeType.TypeInfo.Returns(typeInfo);
             }
             else

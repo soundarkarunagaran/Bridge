@@ -55,7 +55,7 @@ namespace Bridge.Contract
         {
             var mixin = entity.GetAttribute("Bridge.MixinAttribute");
 
-            if (mixin == null)
+            if (mixin == null || mixin.PositionalArguments.Count == 0)
             {
                 return null;
             }
@@ -1050,39 +1050,50 @@ namespace Bridge.Contract
                 // the next parameter is the selector to which the event is subscribed
                 // the selector is a string-format template which is filled with value defiend by the last parameter
                 var selectorIndex = isCommon ? 1 : 0;
-                var selector = (attr.PositionalArguments.ElementAt(selectorIndex)).ConstantValue.ToString();
+                string selector = null;
 
-                // find the matchine enum value
-                var type = attr.PositionalArguments[selectorIndex + 1].Type;
-                var fields = type.GetFields(f =>
+                if (attr.PositionalArguments.Count > selectorIndex)
                 {
-                    var field = f as DefaultResolvedField;
-
-                    if (field != null && field.ConstantValue != null && Convert.ToInt32(field.ConstantValue.ToString()) == Convert.ToInt32(attr.PositionalArguments[0].ConstantValue))
-                    {
-                        return true;
-                    }
-
-                    var field1 = f as DefaultUnresolvedField;
-
-                    if (field1 != null && field1.ConstantValue != null && Convert.ToInt32(field1.ConstantValue.ToString()) == Convert.ToInt32(attr.PositionalArguments[0].ConstantValue))
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }, GetMemberOptions.IgnoreInheritedMembers).FirstOrDefault();
-
-                if (fields != null)
-                {
-                    // load the template from this enum field
-                    var template = fields.GetTemplate(emitter);
-                    if (template != null)
-                    {
-                        selector = string.Format(template, selector);
-                    }
+                    selector = (attr.PositionalArguments.ElementAt(selectorIndex)).ConstantValue.ToString();
                 }
 
+                // find the matchine enum value
+                if (attr.PositionalArguments.Count > (selectorIndex + 1))
+                {
+                    var type = attr.PositionalArguments[selectorIndex + 1].Type;
+                    var fields = type.GetFields(f =>
+                    {
+                        var field = f as DefaultResolvedField;
+
+                        if (field != null && field.ConstantValue != null &&
+                            Convert.ToInt32(field.ConstantValue.ToString()) ==
+                            Convert.ToInt32(attr.PositionalArguments[0].ConstantValue))
+                        {
+                            return true;
+                        }
+
+                        var field1 = f as DefaultUnresolvedField;
+
+                        if (field1 != null && field1.ConstantValue != null &&
+                            Convert.ToInt32(field1.ConstantValue.ToString()) ==
+                            Convert.ToInt32(attr.PositionalArguments[0].ConstantValue))
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    }, GetMemberOptions.IgnoreInheritedMembers).FirstOrDefault();
+
+                    if (fields != null)
+                    {
+                        // load the template from this enum field
+                        var template = fields.GetTemplate(emitter);
+                        if (template != null)
+                        {
+                            selector = string.Format(template, selector);
+                        }
+                    }
+                }
                 adapters.Add(string.Format(format, eventName, selector, emitter.GetEntityName(method)));
             }
 
