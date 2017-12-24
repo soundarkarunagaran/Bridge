@@ -408,13 +408,10 @@ namespace Bridge.Translator
 
             if (proto)
             {
-                var baseType = this.Emitter.GetBaseMethodOwnerTypeDefinition(targetMember.MemberName, targetMember.TypeArguments.Count);
-
-                bool isIgnore = baseType.IsExternal();
-
                 bool needComma = false;
 
-                var resolveResult = this.Emitter.Resolver.ResolveNode(targetMember, this.Emitter);
+                var resolveResult = (MemberResolveResult)this.Emitter.Resolver.ResolveNode(targetMember, this.Emitter);
+                var baseType = resolveResult.Member.DeclaringTypeDefinition;
 
                 string name = null;
 
@@ -447,7 +444,7 @@ namespace Bridge.Translator
                 this.WriteOpenParentheses();
                 this.WriteThis();
                 this.Emitter.Comma = true;
-                if (!isIgnore && !isIgnoreGeneric && argsInfo.HasTypeArguments)
+                if (!baseType.IsExternal() && !isIgnoreGeneric && argsInfo.HasTypeArguments)
                 {
                     new TypeExpressionListBlock(this.Emitter, argsInfo.TypeArguments).Emit();
                 }

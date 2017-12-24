@@ -2,7 +2,6 @@ using Bridge.Contract;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.PatternMatching;
 using ICSharpCode.NRefactory.TypeSystem;
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -565,7 +564,7 @@ namespace Bridge.Translator
             }
         }
 
-        public IEnumerable<MethodDefinition> MethodsGroup
+        public IEnumerable<IMethod> MethodsGroup
         {
             get
             {
@@ -696,19 +695,6 @@ namespace Bridge.Translator
         }
 
         public IPlugins Plugins
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IEnumerable<AssemblyDefinition> References
         {
             get
             {
@@ -916,7 +902,7 @@ namespace Bridge.Translator
             }
         }
 
-        public IDictionary<string, TypeDefinition> TypeDefinitions
+        public IDictionary<string, ITypeDefinition> TypeDefinitions
         {
             get
             {
@@ -1022,21 +1008,6 @@ namespace Bridge.Translator
             throw new NotImplementedException();
         }
 
-        public TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TypeDefinition GetBaseTypeDefinition()
-        {
-            throw new NotImplementedException();
-        }
-
-        public TypeDefinition GetBaseTypeDefinition(TypeDefinition type)
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetEntityName(IEntity member)
         {
             throw new NotImplementedException();
@@ -1097,7 +1068,7 @@ namespace Bridge.Translator
             throw new NotImplementedException();
         }
 
-        public int GetPriority(TypeDefinition type)
+        public int GetPriority(ITypeDefinition type)
         {
             throw new NotImplementedException();
         }
@@ -1112,17 +1083,17 @@ namespace Bridge.Translator
             throw new NotImplementedException();
         }
 
-        public TypeDefinition GetTypeDefinition()
+        public ITypeDefinition GetTypeDefinition()
         {
             throw new NotImplementedException();
         }
 
-        public TypeDefinition GetTypeDefinition(IType type)
+        public ITypeDefinition GetTypeDefinition(IType type)
         {
             throw new NotImplementedException();
         }
 
-        public TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
+        public ITypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
             throw new NotImplementedException();
         }
@@ -1132,7 +1103,7 @@ namespace Bridge.Translator
             throw new NotImplementedException();
         }
 
-        public string GetTypeName(ITypeDefinition type, TypeDefinition typeDefinition)
+        public string GetTypeName(ITypeDefinition type)
         {
             throw new NotImplementedException();
         }

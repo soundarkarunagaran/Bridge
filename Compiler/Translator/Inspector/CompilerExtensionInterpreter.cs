@@ -293,25 +293,6 @@ namespace Bridge.Translator
                                     break;
                             }
 
-
-                            if (details.Parameter == null && details.Target == AttributeTarget.Parameter)
-                            {
-                                throw new EmitterException(invocation, string.Format(
-                                    "Could not find parameter with name '{0}' in method '{1}'",
-                                    targetName ?? "<empty>", details.Entity.FullName));
-                            }
-                            else if ((details.Target == AttributeTarget.Getter ||
-                                      details.Target == AttributeTarget.Setter) && !(details.Entity is IProperty))
-                            {
-                                throw new EmitterException(invocation,
-                                    "Getter and setter targets are only allowed for properties");
-                            }
-                            else if (details.Target == AttributeTarget.ReturnValue && !(details.Entity is IMethod))
-                            {
-                                throw new EmitterException(invocation,
-                                    "Return type targets are only allowed for properties");
-                            }
-
                             return details;
                         }
                     case "Constructor":

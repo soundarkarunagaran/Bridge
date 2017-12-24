@@ -3,21 +3,27 @@ using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
-using Mono.Cecil;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using ICSharpCode.NRefactory.CSharp.Resolver;
 using ArrayType = ICSharpCode.NRefactory.TypeSystem.ArrayType;
 
 namespace Bridge.Contract
 {
     public static partial class Helpers
     {
+        public static bool IsValueType(this ITypeDefinition type)
+        {
+            return (type.Kind == TypeKind.Struct || type.Kind == TypeKind.Enum);
+        }
+
+        public static bool IsDefaultStructConstructor(this IMethod method)
+        {
+            return method.Parameters.Count == 0 && method.DeclaringTypeDefinition.Kind == TypeKind.Struct;
+        }
+
         public static void AcceptChildren(this AstNode node, IAstVisitor visitor)
         {
             foreach (AstNode child in node.Children)
@@ -26,50 +32,51 @@ namespace Bridge.Contract
             }
         }
 
+        public static ITypeDefinition GetBaseClassDefinition(this IType type)
+        {
+            if (type.FullName == "System.Object")
+            {
+                return null;
+            }
+            return type.DirectBaseTypes.Select(t => t.GetDefinition() ).FirstOrDefault(t => t != null && t.Kind != TypeKind.Interface);
+
+        }
+
         public static string ReplaceSpecialChars(string name)
         {
             return name.Replace('`', JS.Vars.D).Replace('/', '.').Replace("+", ".");
         }
 
-        public static bool HasGenericArgument(GenericInstanceType type, TypeDefinition searchType, IEmitter emitter, bool deep)
+        public static bool HasGenericArgument(IType type, ITypeDefinition searchType, IEmitter emitter, bool deep)
         {
-            foreach (var gArg in type.GenericArguments)
+            foreach (var gArg in type.TypeArguments)
             {
-                var orig = gArg;
-
-                var gArgDef = gArg;
-                if (gArgDef.IsGenericInstance)
+                var typeDefinition = gArg.GetDefinition();
+                if (typeDefinition != null)
                 {
-                    gArgDef = gArgDef.GetElementType();
-                }
-
-                TypeDefinition gTypeDef = null;
-                try
-                {
-                    gTypeDef = Helpers.ToTypeDefinition(gArgDef, emitter);
-                }
-                catch
-                {
-                }
-
-                if (gTypeDef == searchType)
-                {
-                    return true;
-                }
-
-                if (deep && gTypeDef != null && (Helpers.IsSubclassOf(gTypeDef, searchType, emitter) ||
-                    (searchType.IsInterface && Helpers.IsImplementationOf(gTypeDef, searchType, emitter))))
-                {
-                    return true;
-                }
-
-                if (orig.IsGenericInstance)
-                {
-                    var result = Helpers.HasGenericArgument((GenericInstanceType)orig, searchType, emitter, deep);
-
-                    if (result)
+                    // types equal directly
+                    if (typeDefinition.FullTypeName.Equals(searchType.FullTypeName))
                     {
                         return true;
+                    }
+
+                    // or in case of deep type searching we check if the type argument 
+                    // is a subclass or a class implementing the interface
+                    if (deep && IsAssignableFrom(typeDefinition, searchType, emitter))
+                    {
+                        return true;
+                    }
+
+                    // if the type argument itself is again generic, search there too: 
+                    // e.g.     interface ITest<X> { }
+                    // class Test : List< ITest<X> >
+                    if (gArg.TypeArguments.Count > 0)
+                    {
+                        var result = HasGenericArgument(gArg, searchType, emitter, deep);
+                        if (result)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -77,133 +84,51 @@ namespace Bridge.Contract
             return false;
         }
 
-        public static bool IsTypeArgInSubclass(TypeDefinition thisTypeDefinition, TypeDefinition typeArgDefinition, IEmitter emitter, bool deep = true)
+        public static bool IsTypeArgInSubclass(ITypeDefinition thisTypeDefinition, ITypeDefinition typeArgDefinition, IEmitter emitter, bool deep = true)
         {
-            foreach (TypeReference interfaceReference in thisTypeDefinition.Interfaces)
+            foreach (var interfaceReference in thisTypeDefinition.GetAllBaseTypes().Where(t=>t.Kind == TypeKind.Interface))
             {
-                var gBaseType = interfaceReference as GenericInstanceType;
-                if (gBaseType != null && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
+                if (interfaceReference.TypeArguments.Count > 0 && Helpers.HasGenericArgument(interfaceReference, typeArgDefinition, emitter, deep))
                 {
                     return true;
                 }
             }
 
-            if (thisTypeDefinition.BaseType != null)
+            var baseType = thisTypeDefinition.GetBaseClassDefinition();
+            if (baseType != null)
             {
-                TypeDefinition baseTypeDefinition = null;
-
-                var gBaseType = thisTypeDefinition.BaseType as GenericInstanceType;
-                if (gBaseType != null && Helpers.HasGenericArgument(gBaseType, typeArgDefinition, emitter, deep))
+                if (baseType.TypeParameterCount > 0 && Helpers.HasGenericArgument(baseType, typeArgDefinition, emitter, deep))
                 {
                     return true;
                 }
 
-                try
+                if (deep)
                 {
-                    baseTypeDefinition = Helpers.ToTypeDefinition(thisTypeDefinition.BaseType, emitter);
-                }
-                catch
-                {
-                }
-
-                if (baseTypeDefinition != null && deep)
-                {
-                    return Helpers.IsTypeArgInSubclass(baseTypeDefinition, typeArgDefinition, emitter);
+                    return Helpers.IsTypeArgInSubclass(baseType, typeArgDefinition, emitter);
                 }
             }
             return false;
         }
 
-        public static bool IsSubclassOf(TypeDefinition thisTypeDefinition, TypeDefinition typeDefinition, IEmitter emitter)
+        public static bool IsAssignableFrom(ITypeDefinition thisTypeDefinition, ITypeDefinition typeDefinition, IEmitter emitter)
         {
-            if (thisTypeDefinition.BaseType != null)
+            if (thisTypeDefinition.FullTypeName.Equals(typeDefinition.FullTypeName))
             {
-                TypeDefinition baseTypeDefinition = null;
-
-                try
-                {
-                    baseTypeDefinition = Helpers.ToTypeDefinition(thisTypeDefinition.BaseType, emitter);
-                }
-                catch
-                {
-                }
-
-                if (baseTypeDefinition != null)
-                {
-                    return (baseTypeDefinition == typeDefinition || Helpers.IsSubclassOf(baseTypeDefinition, typeDefinition, emitter));
-                }
+                return true;
             }
-            return false;
-        }
 
-        public static bool IsImplementationOf(TypeDefinition thisTypeDefinition, TypeDefinition interfaceTypeDefinition, IEmitter emitter)
-        {
-            foreach (TypeReference interfaceReference in thisTypeDefinition.Interfaces)
+            // get all base types and look for matching type
+            var allBaseTypes = thisTypeDefinition.GetAllBaseTypeDefinitions();
+            foreach (var baseType in allBaseTypes)
             {
-                var iref = interfaceReference;
-                if (interfaceReference.IsGenericInstance)
-                {
-                    iref = interfaceReference.GetElementType();
-                }
-
-                if (iref == interfaceTypeDefinition)
-                {
-                    return true;
-                }
-
-                TypeDefinition interfaceDefinition = null;
-
-                try
-                {
-                    interfaceDefinition = Helpers.ToTypeDefinition(iref, emitter);
-                }
-                catch
-                {
-                }
-
-                if (interfaceDefinition != null && Helpers.IsImplementationOf(interfaceDefinition, interfaceTypeDefinition, emitter))
+                if (baseType.FullTypeName.Equals(typeDefinition.FullTypeName))
                 {
                     return true;
                 }
             }
+
             return false;
         }
-
-        public static bool IsAssignableFrom(TypeDefinition thisTypeDefinition, TypeDefinition typeDefinition, IEmitter emitter)
-        {
-            return (thisTypeDefinition == typeDefinition
-                    || (typeDefinition.IsClass && !typeDefinition.IsValueType && Helpers.IsSubclassOf(typeDefinition, thisTypeDefinition, emitter))
-                    || (typeDefinition.IsInterface && Helpers.IsImplementationOf(typeDefinition, thisTypeDefinition, emitter)));
-        }
-
-        public static TypeDefinition ToTypeDefinition(TypeReference reference, IEmitter emitter)
-        {
-            if (reference == null)
-            {
-                return null;
-            }
-
-            try
-            {
-                if (reference.IsGenericInstance)
-                {
-                    reference = reference.GetElementType();
-                }
-
-                if (emitter.TypeDefinitions.ContainsKey(reference.FullName))
-                {
-                    return emitter.TypeDefinitions[reference.FullName];
-                }
-
-                return reference.Resolve();
-            }
-            catch
-            {
-            }
-
-            return null;
-        }
-        
 
         public static bool IsIntegerType(IType type, IMemberResolver resolver)
         {
@@ -595,27 +520,6 @@ namespace Bridge.Contract
             }
 
             return attrName;
-        }
-
-        public static List<MethodDefinition> GetMethods(TypeDefinition typeDef, IEmitter emitter, List<MethodDefinition> list = null)
-        {
-            if (list == null)
-            {
-                list = new List<MethodDefinition>(typeDef.Methods);
-            }
-            else
-            {
-                list.AddRange(typeDef.Methods);
-            }
-
-            var baseTypeDefinition = Helpers.ToTypeDefinition(typeDef.BaseType, emitter);
-
-            if (baseTypeDefinition != null)
-            {
-                Helpers.GetMethods(baseTypeDefinition, emitter, list);
-            }
-
-            return list;
         }
 
         public static bool IsReservedWord(IEmitter emitter, string word)

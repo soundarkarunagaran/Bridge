@@ -107,12 +107,6 @@ namespace Bridge.Translator
             }
         }
 
-        protected Dictionary<string, TypeDefinition> TypeDefinitions
-        {
-            get;
-            set;
-        }
-
         public Dictionary<string, ITypeInfo> TypeInfoDefinitions
         {
             get;

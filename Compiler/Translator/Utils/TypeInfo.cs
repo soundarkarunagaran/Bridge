@@ -338,7 +338,7 @@ namespace Bridge.Translator
             var bridgeType = emitter.BridgeTypes.Get(this.Key);
             var name = this.Namespace;
 
-            var typeName = emitter.Validator.GetCustomTypeName(bridgeType.TypeDefinition, emitter, false);
+            var typeName = emitter.Validator.GetCustomTypeName(bridgeType.Type.GetDefinition(), emitter, false);
             if (typeName != null)
             {
                 var i = typeName.LastIndexOf(".");

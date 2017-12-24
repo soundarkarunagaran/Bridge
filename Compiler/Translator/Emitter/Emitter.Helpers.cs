@@ -3,8 +3,6 @@ using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
-using ICSharpCode.NRefactory.TypeSystem.Implementation;
-using Mono.Cecil;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -15,50 +13,6 @@ namespace Bridge.Translator
 {
     public partial class Emitter
     {
-        protected virtual HashSet<string> CreateNamespaces()
-        {
-            var result = new HashSet<string>();
-
-            foreach (string typeName in this.TypeDefinitions.Keys)
-            {
-                int index = typeName.LastIndexOf('.');
-
-                if (index >= 0)
-                {
-                    this.RegisterNamespace(typeName.Substring(0, index), result);
-                }
-            }
-
-            return result;
-        }
-
-        protected virtual void RegisterNamespace(string ns, ICollection<string> repository)
-        {
-            if (String.IsNullOrEmpty(ns) || repository.Contains(ns))
-            {
-                return;
-            }
-
-            string[] parts = ns.Split('.');
-            StringBuilder builder = new StringBuilder();
-
-            foreach (string part in parts)
-            {
-                if (builder.Length > 0)
-                {
-                    builder.Append('.');
-                }
-
-                builder.Append(part);
-                string item = builder.ToString();
-
-                if (!repository.Contains(item))
-                {
-                    repository.Add(item);
-                }
-            }
-        }
-
         public static object ConvertConstant(object value, Expression expression, IEmitter emitter)
         {
             try
@@ -290,10 +244,9 @@ namespace Bridge.Translator
             return semantic.Name;
         }
 
-        public string GetTypeName(ITypeDefinition type, TypeDefinition typeDefinition)
+        public string GetTypeName(ITypeDefinition typeDefinition)
         {
-            var semantic = NameSemantic.Create(type, this);
-            semantic.TypeDefinition = typeDefinition;
+            var semantic = NameSemantic.Create(typeDefinition, this);
             return semantic.Name;
         }
 

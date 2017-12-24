@@ -1,6 +1,5 @@
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 
@@ -20,13 +19,13 @@ namespace Bridge.Contract
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.AssignmentOperatorType AssignmentType
+        AssignmentOperatorType AssignmentType
         {
             get;
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.UnaryOperatorType UnaryOperatorType
+        UnaryOperatorType UnaryOperatorType
         {
             get;
             set;
@@ -50,13 +49,13 @@ namespace Bridge.Contract
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.SwitchStatement AsyncSwitch
+        SwitchStatement AsyncSwitch
         {
             get;
             set;
         }
 
-        System.Collections.Generic.List<string> AsyncVariables
+        List<string> AsyncVariables
         {
             get;
             set;
@@ -72,11 +71,9 @@ namespace Bridge.Contract
 
         int CompareTypeInfosByPriority(ITypeInfo x, ITypeInfo y);
 
-        bool IsInheritedFrom(ITypeInfo x, ITypeInfo y);
-
         void SortTypesByInheritance();
 
-        System.Collections.Generic.List<IPluginDependency> CurrentDependencies
+        List<IPluginDependency> CurrentDependencies
         {
             get;
             set;
@@ -90,45 +87,37 @@ namespace Bridge.Contract
             set;
         }
 
-        Mono.Cecil.TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount);
+        string GetEntityName(EntityDeclaration entity);
 
-        Mono.Cecil.TypeDefinition GetBaseTypeDefinition();
-
-        Mono.Cecil.TypeDefinition GetBaseTypeDefinition(Mono.Cecil.TypeDefinition type);
-
-        string GetEntityName(ICSharpCode.NRefactory.CSharp.EntityDeclaration entity);
-
-        string GetParameterName(ICSharpCode.NRefactory.CSharp.ParameterDeclaration entity);
+        string GetParameterName(ParameterDeclaration entity);
 
         NameSemantic GetNameSemantic(IEntity member);
 
-        string GetEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member);
+        string GetEntityName(IEntity member);
 
-        string GetTypeName(ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type, TypeDefinition typeDefinition);
+        string GetTypeName(ITypeDefinition typeDefinition);
 
-        string GetLiteralEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member);
+        string GetLiteralEntityName(IEntity member);
 
-        string GetInline(ICSharpCode.NRefactory.CSharp.EntityDeclaration method);
+        string GetInline(EntityDeclaration method);
 
-        string GetInline(ICSharpCode.NRefactory.TypeSystem.IEntity entity);
+        string GetInline(IEntity entity);
 
-        Tuple<bool, bool, string> GetInlineCode(ICSharpCode.NRefactory.CSharp.InvocationExpression node);
+        Tuple<bool, bool, string> GetInlineCode(InvocationExpression node);
 
-        Tuple<bool, bool, string> GetInlineCode(ICSharpCode.NRefactory.CSharp.MemberReferenceExpression node);
+        Tuple<bool, bool, string> GetInlineCode(MemberReferenceExpression node);
 
         bool IsForbiddenInvocation(InvocationExpression node);
 
-        int GetPriority(Mono.Cecil.TypeDefinition type);
+        ITypeDefinition GetTypeDefinition();
 
-        Mono.Cecil.TypeDefinition GetTypeDefinition();
+        ITypeDefinition GetTypeDefinition(AstType reference, bool safe = false);
 
-        Mono.Cecil.TypeDefinition GetTypeDefinition(ICSharpCode.NRefactory.CSharp.AstType reference, bool safe = false);
-
-        Mono.Cecil.TypeDefinition GetTypeDefinition(IType type);
+        ITypeDefinition GetTypeDefinition(IType type);
 
         string GetTypeHierarchy();
 
-        ICSharpCode.NRefactory.CSharp.AstNode IgnoreBlock
+        AstNode IgnoreBlock
         {
             get;
             set;
@@ -166,7 +155,7 @@ namespace Bridge.Contract
             set;
         }
 
-        System.Collections.Generic.List<IJumpInfo> JumpStatements
+        List<IJumpInfo> JumpStatements
         {
             get;
             set;
@@ -196,25 +185,25 @@ namespace Bridge.Contract
             set;
         }
 
-        System.Collections.Generic.Dictionary<string, ICSharpCode.NRefactory.CSharp.AstType> Locals
+        Dictionary<string, AstType> Locals
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<IVariable, string> LocalsMap
+        Dictionary<IVariable, string> LocalsMap
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<string, string> LocalsNamesMap
+        Dictionary<string, string> LocalsNamesMap
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Stack<System.Collections.Generic.Dictionary<string, ICSharpCode.NRefactory.CSharp.AstType>> LocalsStack
+        Stack<Dictionary<string, AstType>> LocalsStack
         {
             get;
             set;
@@ -226,19 +215,19 @@ namespace Bridge.Contract
             set;
         }
 
-        System.Collections.Generic.IEnumerable<Mono.Cecil.MethodDefinition> MethodsGroup
+        IEnumerable<IMethod> MethodsGroup
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<int, System.Text.StringBuilder> MethodsGroupBuilder
+        Dictionary<int, System.Text.StringBuilder> MethodsGroupBuilder
         {
             get;
             set;
         }
 
-        ICSharpCode.NRefactory.CSharp.AstNode NoBraceBlock
+        AstNode NoBraceBlock
         {
             get;
             set;
@@ -286,12 +275,6 @@ namespace Bridge.Contract
             set;
         }
 
-        System.Collections.Generic.IEnumerable<Mono.Cecil.AssemblyDefinition> References
-        {
-            get;
-            set;
-        }
-
         bool ReplaceAwaiterByVar
         {
             get;
@@ -310,7 +293,7 @@ namespace Bridge.Contract
             set;
         }
 
-        System.Collections.Generic.IList<string> SourceFiles
+        IList<string> SourceFiles
         {
             get;
             set;
@@ -324,24 +307,19 @@ namespace Bridge.Contract
 
         string ToJavaScript(object value);
 
-        System.Collections.Generic.IDictionary<string, Mono.Cecil.TypeDefinition> TypeDefinitions
-        {
-            get;
-        }
-
         ITypeInfo TypeInfo
         {
             get;
             set;
         }
 
-        System.Collections.Generic.Dictionary<string, ITypeInfo> TypeInfoDefinitions
+        Dictionary<string, ITypeInfo> TypeInfoDefinitions
         {
             get;
             set;
         }
 
-        System.Collections.Generic.List<ITypeInfo> Types
+        List<ITypeInfo> Types
         {
             get;
             set;
@@ -352,7 +330,7 @@ namespace Bridge.Contract
             get;
         }
 
-        System.Collections.Generic.Stack<IWriter> Writers
+        Stack<IWriter> Writers
         {
             get;
             set;

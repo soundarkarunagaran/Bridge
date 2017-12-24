@@ -5,6 +5,7 @@ using Object.Net.Utilities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ICSharpCode.NRefactory.TypeSystem;
 
 namespace Bridge.Translator.TypeScript
 {
@@ -82,7 +83,7 @@ namespace Bridge.Translator.TypeScript
         {
             var typeDef = this.Emitter.GetTypeDefinition();
             string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, false);
-            this.IsGeneric = typeDef.GenericParameters.Count > 0;
+            this.IsGeneric = typeDef.TypeParameterCount > 0;
 
             if (name.IsEmpty())
             {
@@ -190,7 +191,7 @@ namespace Bridge.Translator.TypeScript
                     this.BeginBlock();
                     this.Write("<");
                     var comma = false;
-                    foreach (var p in typeDef.GenericParameters)
+                    foreach (var p in typeDef.TypeParameters)
                     {
                         if (comma)
                         {
@@ -203,7 +204,7 @@ namespace Bridge.Translator.TypeScript
 
                     this.WriteOpenParentheses();
                     comma = false;
-                    foreach (var p in typeDef.GenericParameters)
+                    foreach (var p in typeDef.TypeParameters)
                     {
                         if (comma)
                         {
@@ -251,7 +252,7 @@ namespace Bridge.Translator.TypeScript
 
                     var typeDef = this.Emitter.GetTypeDefinition(nestedType.Type);
 
-                    if (typeDef.IsInterface || typeDef.IsObjectLiteral())
+                    if (typeDef.Kind == TypeKind.Interface || typeDef.IsObjectLiteral())
                     {
                         continue;
                     }
@@ -269,7 +270,7 @@ namespace Bridge.Translator.TypeScript
                         this.Write(defName);
                     }
 
-                    if (typeDef.IsEnum)
+                    if (typeDef.Kind == TypeKind.Enum)
                     {
                         var parentTypeDef = this.Emitter.GetTypeDefinition();
                         string parentName = this.Emitter.Validator.GetCustomTypeName(parentTypeDef, this.Emitter, false);

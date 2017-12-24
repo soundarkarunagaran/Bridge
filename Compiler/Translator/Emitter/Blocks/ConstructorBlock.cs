@@ -277,8 +277,8 @@ namespace Bridge.Translator
 
         protected virtual void EmitCtorForInstantiableClass()
         {
-            var baseType = this.Emitter.GetBaseTypeDefinition();
-            var typeDef = this.Emitter.GetTypeDefinition();
+            var typeDef = TypeInfo.Type.GetDefinition();
+            var baseType = TypeInfo.Type.GetBaseClassDefinition();
             var isObjectLiteral = typeDef.IsObjectLiteral();
             var isPlainMode = typeDef.GetObjectCreateMode() == 0;
 
@@ -296,7 +296,7 @@ namespace Bridge.Translator
 
             bool forceDefCtor = isObjectLiteral && typeDef.GetObjectCreateMode() == 1 && this.TypeInfo.Ctors.Count == 0;
 
-            if (typeDef.IsValueType || forceDefCtor || (this.TypeInfo.Ctors.Count == 0 && ctorWrappers.Length > 0))
+            if (typeDef.Kind == TypeKind.Struct || forceDefCtor || (this.TypeInfo.Ctors.Count == 0 && ctorWrappers.Length > 0))
             {
                 this.TypeInfo.Ctors.Add(new ConstructorDeclaration
                 {
@@ -384,7 +384,7 @@ namespace Bridge.Translator
                     var isBaseObjectLiteral = baseType != null && baseType.IsObjectLiteral();
                     if (isBaseObjectLiteral && baseType != null && (!baseType.IsExternal() || this.Emitter.Validator.IsBridgeClass(baseType)) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
-                    {
+                    { 
                         this.EmitBaseConstructor(ctor, ctorName, true);
                     }
                     else if (isBaseObjectLiteral && baseType != null && ctor.Initializer != null &&
@@ -606,7 +606,7 @@ namespace Bridge.Translator
                         requireNewLine = false;
                     }
 
-                    var baseType = this.Emitter.GetBaseTypeDefinition();
+                    var baseType = this.TypeInfo.Type.GetBaseClassDefinition();
                     string name = null;
                     if (this.TypeInfo.GetBaseTypes(this.Emitter).Any())
                     {
@@ -718,7 +718,7 @@ namespace Bridge.Translator
 
             if (initializer.ConstructorInitializerType == ConstructorInitializerType.Base)
             {
-                var baseType = this.Emitter.GetBaseTypeDefinition();
+                var baseType = this.TypeInfo.Type.GetBaseClassDefinition();
                 var baseName = JS.Funcs.CONSTRUCTOR;
                 isBaseObjectLiteral = baseType.IsObjectLiteral();
 

@@ -6,7 +6,6 @@ using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -84,7 +83,7 @@ namespace Bridge.Translator
                         this.Write(customCtor);
                     }
 
-                    if (!attribute.AttributeType.GetDefinition().IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType ? 0 : 1))
+                    if (!attribute.AttributeType.GetDefinition().IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType() ? 0 : 1))
                     {
                         this.WriteDot();
                         var name = OverloadsCollection.Create(this.Emitter, attribute.Constructor).GetOverloadName();
@@ -341,7 +340,7 @@ namespace Bridge.Translator
             return inlineCode;
         }
 
-        protected virtual List<string> WriteObjectInitializer(IList<KeyValuePair<IMember, ResolveResult>> expressions, TypeDefinition type, IAttribute attr)
+        protected virtual List<string> WriteObjectInitializer(IList<KeyValuePair<IMember, ResolveResult>> expressions, ITypeDefinition type, IAttribute attr)
         {
             bool needComma = false;
             List<string> names = new List<string>();

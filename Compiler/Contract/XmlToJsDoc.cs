@@ -770,12 +770,12 @@ namespace Bridge.Contract
 
             var name = type.Namespace;
 
-            var hasTypeDef = bridgeType != null && bridgeType.TypeDefinition != null;
+            var hasTypeDef = bridgeType != null && bridgeType.Type.GetDefinition() != null;
             bool isNested = false;
             if (hasTypeDef)
             {
-                var typeDef = bridgeType.TypeDefinition;
-                if (typeDef.IsNested)
+                var typeDef = bridgeType.Type.GetDefinition();
+                if (typeDef.DeclaringType != null)
                 {
                     name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.GetParentNames(emitter, typeDef);
                     isNested = true;

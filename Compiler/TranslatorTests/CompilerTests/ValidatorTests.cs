@@ -157,19 +157,6 @@ namespace Bridge.Translator.Tests
     {
         class CheckTypeTests : AssemblyDefinitionTests
         {
-            protected void CheckTypeShouldFailTest(string parentType, Func<Mono.Cecil.TypeDefinition, string> expectedMessageMethod)
-            {
-                ShouldFailTest(
-                    parentType,
-                    (type) =>
-                    {
-                        var v = new Validator();
-                        v.CheckType(type, null);
-                    },
-                    expectedMessageMethod
-                );
-            }
-
             protected void CheckTypeShouldFailTest(string parentType, string expectedMessageFormat)
             {
                 ShouldFailTest(
@@ -205,7 +192,7 @@ namespace Bridge.Translator.Tests
             {
                 CheckTypeResultTest(
                     parentType,
-                    (Mono.Cecil.TypeDefinition type) =>
+                    (ICSharpCode.NRefactory.TypeSystem.ITypeDefinition type) =>
                     {
                         return AttributeRegistry.IsExternal(type);
                     },
@@ -224,16 +211,6 @@ namespace Bridge.Translator.Tests
                     },
                     expected,
                     (type) => string.Format("Type {0} should be {1}recognized as [Virtual] (via ITypeDefinition)", type, expected ? "" : "not ")
-                );
-
-                CheckTypeResultTest(
-                    parentType,
-                    (Mono.Cecil.TypeDefinition type) =>
-                    {
-                        return AttributeRegistry.IsVirtual(type);
-                    },
-                    expected,
-                    (type) => string.Format("Type {0} should be {1}recognized as [Virtual] (via TypeDefinition)", type, expected ? "" : "not ")
                 );
             }
         }

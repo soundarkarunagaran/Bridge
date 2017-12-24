@@ -121,7 +121,6 @@
     <Compile Include="Config\MemberReflectability.cs" />
     <Compile Include="Config\OverflowMode.cs" />
     <Compile Include="EmitterException.cs" />
-    <Compile Include="Helpers.Cecil.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="IAbstractEmitterBlock.cs" />
     <Compile Include="Config\IAssemblyInfo.cs" />

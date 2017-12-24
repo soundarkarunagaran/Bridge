@@ -108,6 +108,13 @@ namespace Bridge.Translator.Tests.Helpers
             var typeFullName = type.FullName;
             var typeKind = TypeKind.Array;
 
+            var assembly = Substitute.For<IAssembly>();
+            if (!type.InThisAssembly)
+            {
+                assembly.FullAssemblyName.Returns("ExternalAssembly");
+            }
+
+            typeDefinition.ParentAssembly.Returns(assembly);
             typeDefinition.FullName.Returns(typeFullName);
             typeDefinition.Name.Returns(GetTypeName(typeFullName));
             typeDefinition.Namespace.Returns(GetTypeNamespace(typeFullName));

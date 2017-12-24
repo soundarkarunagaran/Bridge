@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using ICSharpCode.NRefactory.Semantics;
@@ -94,7 +95,92 @@ namespace Bridge.Translator
 
                 if (cecilType != null)
                 {
-                    result.Add("att", (int)cecilType.Attributes);
+                    TypeAttributes att = TypeAttributes.NotPublic;
+
+                    switch (cecilType.Kind)
+                    {
+                        case TypeKind.Class:
+                            att |= TypeAttributes.Class;
+                            break;
+                        case TypeKind.Interface:
+                            att |= TypeAttributes.Interface;
+                            break;
+                    }
+                    if (cecilType.DeclaringType != null)
+                    {
+                        if (cecilType.IsPublic)
+                        {
+                            att |= TypeAttributes.NestedPublic;
+                        }
+                        else if (cecilType.IsPrivate)
+                        {
+                            att |= TypeAttributes.NestedPrivate;
+                        }
+                        if (cecilType.IsProtected)
+                        {
+                            att |= TypeAttributes.NestedFamily;
+                        }
+                        if (cecilType.IsInternal)
+                        {
+                            att |= TypeAttributes.NestedAssembly;
+                        }
+                    }
+                    else if (cecilType.IsPublic)
+                    {
+                        att |= TypeAttributes.Public;
+                    }
+
+                    var layoutType = cecilType.GetLayoutKind();
+                    if (layoutType.HasValue)
+                    {
+                        switch (layoutType)
+                        {
+                            case LayoutKind.Sequential:
+                                att |= TypeAttributes.SequentialLayout;
+                                break;
+                            case LayoutKind.Explicit:
+                                att |= TypeAttributes.ExplicitLayout;
+                                break;
+                        }
+                    }
+                    else if(cecilType.Kind == TypeKind.Struct)
+                    {
+                        att |= TypeAttributes.SequentialLayout;
+                    }
+
+                    if (cecilType.IsAbstract)
+                    {
+                        att |= TypeAttributes.Abstract;
+                    }
+                    if (cecilType.IsSealed || cecilType.Kind == TypeKind.Enum)
+                    {
+                        att |= TypeAttributes.Sealed;
+                    }
+
+                    //SpecialName = 1024,
+                    //RTSpecialName = 2048,
+                    //Import = 4096,
+
+                    if(cecilType.IsSerializable())
+                    {
+                        att |= TypeAttributes.Serializable;
+                    }
+
+                    //WindowsRuntime = 16384,
+                    //UnicodeClass = 65536,
+                    //AutoClass = 131072,
+                    //StringFormatMask = 196608,
+                    //HasSecurity = 262144,
+
+                    if (cecilType.Kind != TypeKind.Interface && cecilType.Kind != TypeKind.Enum
+                        && cecilType.Methods.All(m => !m.IsConstructor || !m.IsStatic))
+                    {
+                        att |= TypeAttributes.BeforeFieldInit;
+                    }
+
+                    //Forwarder = 2097152
+
+                    result.Add("att", (int)att);
                 }
 
                 if (typedef.Accessibility != Accessibility.None)
@@ -333,7 +419,7 @@ namespace Bridge.Translator
             else if (m is IProperty)
             {
                 var typeDef = m.DeclaringTypeDefinition;
-                var monoProp = typeDef != null ? emitter.BridgeTypes.Get(typeDef).TypeDefinition.Properties.FirstOrDefault(p => p.Name == m.Name) : null;
+                var monoProp = typeDef != null ? typeDef.Properties.FirstOrDefault(p => p.Name == m.Name) : null;
 
                 var prop = (IProperty)m;
                 var canGet = prop.CanGet;
@@ -341,8 +427,8 @@ namespace Bridge.Translator
 
                 if (monoProp != null)
                 {
-                    canGet = monoProp.GetMethod != null;
-                    canSet = monoProp.SetMethod != null;
+                    canGet = monoProp.Getter != null;
+                    canSet = monoProp.Setter != null;
                 }
 
                 properties.Add("t", (int)MemberTypes.Property);

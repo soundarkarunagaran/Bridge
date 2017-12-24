@@ -3,7 +3,6 @@ using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
-using Mono.Cecil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,7 +64,7 @@ namespace Bridge.Translator
             var type = isTypeParam ? null : this.Emitter.GetTypeDefinition(objectCreateExpression.Type);
             var isObjectLiteral = type != null && type.IsObjectLiteral();
 
-            if (type != null && type.BaseType != null && type.BaseType.FullName == "System.MulticastDelegate")
+            if (type != null && type.Kind == TypeKind.Delegate)
             {
                 bool wrap = false;
                 var parent = objectCreateExpression.Parent as InvocationExpression;
@@ -200,7 +199,8 @@ namespace Bridge.Translator
                         this.Write(customCtor);
                     }
 
-                    if (!isTypeParam && !type.IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
+                    
+                    if (!isTypeParam && !type.IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsDefaultStructConstructor() && !m.IsStatic) > (type.IsValueType() || isObjectLiteral ? 0 : 1))
                     {
                         this.WriteDot();
                         var name = OverloadsCollection.Create(this.Emitter, ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member).GetOverloadName();
@@ -408,7 +408,7 @@ namespace Bridge.Translator
             return inlineCode;
         }
 
-        protected virtual void WriteObjectInitializer(IEnumerable<Expression> expressions, TypeDefinition type, InvocationResolveResult rr, bool withCtor)
+        protected virtual void WriteObjectInitializer(IEnumerable<Expression> expressions, ITypeDefinition type, InvocationResolveResult rr, bool withCtor)
         {
             bool needComma = false;
             List<string> names = new List<string>();

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System;
 using System.Threading.Tasks;
+using ICSharpCode.NRefactory.TypeSystem;
 
 namespace Bridge.Translator
 {
@@ -107,7 +108,6 @@ namespace Bridge.Translator
                     }
                 );
 
-
             foreach (AssemblyNameReference r in assemblyDefinition.MainModule.AssemblyReferences)
             {
                 var name = r.Name;
@@ -171,37 +171,31 @@ namespace Bridge.Translator
                     continue;
                 }
 
-                this.Validator.CheckType(type, this);
+                //this.Validator.CheckType(type, this);
 
-                string key = BridgeTypes.GetTypeDefinitionKey(type);
+                string key = BridgeTypes.GetTypeDefinitionKey(type.FullName);
 
                 BridgeType duplicateBridgeType = null;
 
                 if (this.BridgeTypes.TryGetValue(key, out duplicateBridgeType))
                 {
-                    var duplicate = duplicateBridgeType.TypeDefinition;
+                    var duplicate = duplicateBridgeType.Type.GetDefinition();
 
                     var message = string.Format(
                         Constants.Messages.Exceptions.DUPLICATE_BRIDGE_TYPE,
                         type.Module.Assembly.FullName,
                         type.FullName,
-                        duplicate.Module.Assembly.FullName,
+                        duplicate.ParentAssembly.FullAssemblyName,
                         duplicate.FullName);
 
                     this.Log.Error(message);
                     throw new System.InvalidOperationException(message);
                 }
 
-                this.TypeDefinitions.Add(key, type);
-
-                this.BridgeTypes.Add(key, new BridgeType(key)
-                {
-                    TypeDefinition = type
-                });
+                this.BridgeTypes.Add(key, new BridgeType(key));
 
                 if (type.HasNestedTypes)
                 {
-                    type.InheritAttributesToNestedTypes();
                     this.AddNestedTypes(type.NestedTypes);
                 }
             }
@@ -217,7 +211,6 @@ namespace Bridge.Translator
 
             var references = new List<AssemblyDefinition>();
             var assembly = this.LoadAssembly(this.AssemblyLocation, references);
-            this.TypeDefinitions = new Dictionary<string, TypeDefinition>();
             this.BridgeTypes = new BridgeTypes();
             this.AssemblyDefinition = assembly;
 
@@ -264,6 +257,11 @@ namespace Bridge.Translator
 
             this.AssemblyInfo = inspector.AssemblyInfo;
             this.Types = inspector.Types;
+
+            foreach (var type in Types)
+            {
+                this.Validator.CheckType(type.Type.GetDefinition(), this);
+            }
 
             this.Log.Info("Inspecting types done");
         }

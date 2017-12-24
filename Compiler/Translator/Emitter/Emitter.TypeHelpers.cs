@@ -30,20 +30,7 @@ namespace Bridge.Translator
                 return 1;
             }
 
-            if (!this.TypeDefinitions.ContainsKey(x.Key))
-            {
-                throw new TranslatorException("Class with name '" + x.Key + "' is not found in the assembly, probably rebuild is required");
-            }
-
-            if (!this.TypeDefinitions.ContainsKey(y.Key))
-            {
-                throw new TranslatorException("Class with name '" + y.Key + "' is not found in the assembly, probably rebuild is required");
-            }
-
-            var xTypeDefinition = this.TypeDefinitions[x.Key];
-            var yTypeDefinition = this.TypeDefinitions[y.Key];
-
-            return xTypeDefinition.FullName.CompareTo(yTypeDefinition.FullName);
+            return x.Type.FullName.CompareTo(y.Type.FullName);
         }
 
         public virtual int CompareTypeInfosByPriority(ITypeInfo x, ITypeInfo y)
@@ -65,34 +52,13 @@ namespace Bridge.Translator
 
             var xZero = x.Key == "0";
             var yZero = y.Key == "0";
-            var xTypeDefinition = xZero ? null : this.TypeDefinitions[x.Key];
-            var yTypeDefinition = yZero ? null : this.TypeDefinitions[y.Key];
+            var xTypeDefinition = xZero ? null : x;
+            var yTypeDefinition = yZero ? null : y;
 
             var xPriority = xZero ? 0 : this.GetPriority(xTypeDefinition);
             var yPriority = yZero ? 0 : this.GetPriority(yTypeDefinition);
 
             return -xPriority.CompareTo(yPriority);
-        }
-
-        public virtual bool IsInheritedFrom(ITypeInfo x, ITypeInfo y)
-        {
-            if (x == y)
-            {
-                return false;
-            }
-
-            var inherits = false;
-            var xTypeDefinition = this.TypeDefinitions[x.Key];
-            var yTypeDefinition = this.TypeDefinitions[y.Key];
-
-            if (Helpers.IsSubclassOf(xTypeDefinition, yTypeDefinition, this) ||
-                (yTypeDefinition.IsInterface && Helpers.IsImplementationOf(xTypeDefinition, yTypeDefinition, this)) ||
-                Helpers.IsTypeArgInSubclass(xTypeDefinition, yTypeDefinition, this))
-            {
-                inherits = true;
-            }
-
-            return inherits;
         }
 
         private List<ITypeInfo> SortByPriority(IList<ITypeInfo> list)
@@ -101,7 +67,7 @@ namespace Bridge.Translator
             List<ITypeInfo> nonSortable = new List<ITypeInfo>();
             for (int i = 0; i < list.Count; i++)
             {
-                if (this.GetPriority(this.TypeDefinitions[list[i].Key]) == 0)
+                if (this.GetPriority(list[i]) == 0)
                 {
                     nonSortable.Add(list[i]);
                 }
@@ -349,58 +315,21 @@ namespace Bridge.Translator
             this.Log.Trace("Topological sorting done");
         }
 
-        public virtual TypeDefinition GetTypeDefinition()
+        public virtual ITypeDefinition GetTypeDefinition()
         {
-            return this.TypeDefinitions[this.TypeInfo.Key];
+            return this.TypeInfo.Type.GetDefinition();
         }
 
-        public virtual TypeDefinition GetTypeDefinition(IType type)
+        public virtual ITypeDefinition GetTypeDefinition(IType type)
         {
-            return this.BridgeTypes.Get(type).TypeDefinition;
+            return type.GetDefinition();
         }
 
-        public virtual TypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
+        public virtual ITypeDefinition GetTypeDefinition(AstType reference, bool safe = false)
         {
             var resolveResult = this.Resolver.ResolveNode(reference, this) as TypeResolveResult;
             var type = this.BridgeTypes.Get(resolveResult.Type, safe);
-            return type != null ? type.TypeDefinition : null;
-        }
-
-        public virtual TypeDefinition GetBaseTypeDefinition()
-        {
-            return this.GetBaseTypeDefinition(this.GetTypeDefinition());
-        }
-
-        public virtual TypeDefinition GetBaseTypeDefinition(TypeDefinition type)
-        {
-            var reference = type.BaseType;
-
-            if (reference == null)
-            {
-                return null;
-            }
-
-            return this.BridgeTypes.Get(reference).TypeDefinition;
-        }
-
-        public virtual TypeDefinition GetBaseMethodOwnerTypeDefinition(string methodName, int genericParamCount)
-        {
-            TypeDefinition type = this.GetBaseTypeDefinition();
-
-            while (true)
-            {
-                var methods = type.Methods.Where(m => m.Name == methodName);
-
-                foreach (var method in methods)
-                {
-                    if (genericParamCount < 1 || method.GenericParameters.Count == genericParamCount)
-                    {
-                        return type;
-                    }
-                }
-
-                type = this.GetBaseTypeDefinition(type);
-            }
+            return type != null ? type.Type.GetDefinition() : null;
         }
 
         public virtual string GetTypeHierarchy()
@@ -445,30 +374,42 @@ namespace Bridge.Translator
             return sb.ToString();
         }
 
-        private Dictionary<TypeDefinition, int> priorityMap = new Dictionary<TypeDefinition, int>();
-        public virtual int GetPriority(TypeDefinition type)
+        private Dictionary<string, int> priorityMap = new Dictionary<string, int>();
+
+        private int GetPriority(ITypeInfo type)
         {
-            if (this.priorityMap.ContainsKey(type))
+            var definition = type.Type.GetDefinition();
+            if (definition == null)
             {
-                return this.priorityMap[type];
+                return 0;
+            }
+            return GetPriority(definition);
+        }
+
+        private int GetPriority(ITypeDefinition definition)
+        {
+            var key = BridgeTypes.GetTypeDefinitionKey(definition);
+            if (this.priorityMap.ContainsKey(key))
+            {
+                return this.priorityMap[key];
             }
 
-            var attr = type.GetPriority();
+            var attr = definition.GetPriority();
 
             if (attr.HasValue)
             {
-                this.priorityMap[type] = attr.Value;
+                this.priorityMap[key] = attr.Value;
                 return attr.Value;
             }
 
-            var baseType = this.GetBaseTypeDefinition(type);
+            var baseType = definition.GetBaseClassDefinition();
             var p = 0;
             if (baseType != null)
             {
                 p = this.GetPriority(baseType);
             }
 
-            this.priorityMap[type] = p;
+            this.priorityMap[key] = p;
             return p;
         }
     }

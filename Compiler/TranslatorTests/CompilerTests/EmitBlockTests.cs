@@ -56,7 +56,7 @@ namespace Bridge.Translator.Tests
                 {
                     new TypeDescriptor("SomeClass1", attributeName: CS.Attributes.GLOBAL_METHODS),
                     new TypeDescriptor("SomeClass2", attributeName: CS.Attributes.NON_SCRIPTABLE),
-                    new TypeDescriptor("SomeClass3", attributeName: CS.Attributes.MIXIN)
+                    new TypeDescriptor("SomeClass3", attributeName: CS.Attributes.MIXIN, attributePositionalArguments: new []{"Mixin"})
                 };
 
                 var block = GetEmitBlock(true, null, types);

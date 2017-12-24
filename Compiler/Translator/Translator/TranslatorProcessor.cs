@@ -3,6 +3,7 @@ using Bridge.Translator.Logging;
 using Bridge.Translator.Utils;
 
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -115,7 +116,7 @@ namespace Bridge.Translator
 
             if (string.IsNullOrEmpty(htmlTitle))
             {
-                htmlTitle = Translator.AssemblyDefinition.GetAssemblyTitle();
+                htmlTitle = Translator.GetVersionContext().Assembly.Title;
             }
 
             var htmlGenerator = new HtmlGenerator(
@@ -216,6 +217,12 @@ namespace Bridge.Translator
             }
 
             var loggerLevel = assemblyConfig.Logging.Level ?? LoggerLevel.None;
+#if DEBUG
+            if (Debugger.IsAttached)
+            {
+                loggerLevel = LoggerLevel.Info;
+            }
+#endif
 
             logger.Trace("Logger level: " + loggerLevel);
 

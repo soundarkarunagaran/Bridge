@@ -35,9 +35,10 @@ namespace Bridge.Translator
             if (this.BaseReferenceExpression.Parent != null)
             {
                 var rr = this.Emitter.Resolver.ResolveNode(this.BaseReferenceExpression.Parent, this.Emitter) as MemberResolveResult;
-
                 if (rr != null)
                 {
+                    member = rr.Member;
+                        
                     if (rr.IsVirtualCall)
                     {
                         proto = true;
@@ -85,7 +86,7 @@ namespace Bridge.Translator
                 }
                 else
                 {
-                    var baseType = this.Emitter.GetBaseTypeDefinition();
+                    var baseType = member.DeclaringTypeDefinition;
 
                     if (this.Emitter.TypeInfo.GetBaseTypes(this.Emitter).Any())
                     {

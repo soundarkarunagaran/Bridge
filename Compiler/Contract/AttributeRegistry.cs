@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
 using ICSharpCode.NRefactory.TypeSystem.Implementation;
-using Mono.Cecil;
 
 namespace Bridge.Contract
 {
@@ -26,7 +26,7 @@ namespace Bridge.Contract
             _attributes = new Dictionary<string, List<IAttribute>>();
         }
 
-        public static bool IsCompilerGenerated(this ICustomAttributeProvider owner)
+        public static bool IsCompilerGenerated(this IEntity owner)
         {
             return owner.HasAttribute(CS.Attributes.COMPILER_GENERATED_NAME);
         }
@@ -87,6 +87,11 @@ namespace Bridge.Contract
                 return ReadModuleFromAttribute(attr);
             }
 
+            if (typeDefinition.DeclaringTypeDefinition != null)
+            {
+                return GetModule(typeDefinition.DeclaringTypeDefinition);
+            }
+
             var asm = typeDefinition.ParentAssembly;
             attr = asm.GetAttribute(CS.Attributes.MODULE);
             if (attr != null)
@@ -97,39 +102,21 @@ namespace Bridge.Contract
             return null;
         }
 
-        public static Module GetModule(this TypeDefinition typeDefinition)
-        {
-            var attr = typeDefinition.GetAttribute(CS.Attributes.MODULE);
-            if (attr != null)
-            {
-                return ReadModuleFromAttribute(attr);
-            }
-
-            var asm = typeDefinition.Module.Assembly;
-            attr = asm.GetAttribute(CS.Attributes.MODULE);
-            if (attr != null)
-            {
-                return ReadModuleFromAttribute(attr);
-            }
-
-            return null;
-        }
-
-        public static ModuleDependency GetModuleDependency(this TypeDefinition typeDefinition)
+        public static ModuleDependency GetModuleDependency(this IEntity typeDefinition)
         {
             var attr = typeDefinition.GetAttribute(CS.Attributes.MODULE_DEPENDENCY);
-            if (attr == null || !attr.HasConstructorArguments)
+            if (attr == null || attr.PositionalArguments.Count == 0)
             {
                 return null;
             }
 
             ModuleDependency dependency = new ModuleDependency();
-            var obj = attr.ConstructorArguments[0].Value;
+            var obj = attr.PositionalArguments[0].ConstantValue;
             dependency.DependencyName = obj is string ? obj.ToString() : "";
 
-            if (attr.ConstructorArguments.Count > 1)
+            if (attr.PositionalArguments.Count > 1)
             {
-                obj = attr.ConstructorArguments[1].Value;
+                obj = attr.PositionalArguments[1].ConstantValue;
                 dependency.VariableName = obj is string ? obj.ToString() : "";
             }
 
@@ -215,86 +202,6 @@ namespace Bridge.Contract
 
             return module;
         }
-        private static Module ReadModuleFromAttribute(CustomAttribute attr)
-        {
-            Module module = null;
-
-            if (attr.ConstructorArguments.Count == 1)
-            {
-                var obj = attr.ConstructorArguments[0].Value;
-
-                if (obj is bool)
-                {
-                    module = new Module((bool)obj);
-                }
-                else if (obj is string)
-                {
-                    module = new Module(obj.ToString());
-                }
-                else if (obj is int)
-                {
-                    module = new Module("", (ModuleType)(int)obj);
-                }
-                else
-                {
-                    module = new Module();
-                }
-            }
-            else if (attr.ConstructorArguments.Count == 2)
-            {
-                if (attr.ConstructorArguments[0].Value is string)
-                {
-                    var name = attr.ConstructorArguments[0].Value;
-                    var preventName = attr.ConstructorArguments[1].Value;
-
-                    module = new Module(name != null ? name.ToString() : "", (bool)preventName);
-                }
-                else if (attr.ConstructorArguments[1].Value is bool)
-                {
-                    var mtype = attr.ConstructorArguments[0].Value;
-                    var preventName = attr.ConstructorArguments[1].Value;
-
-                    module = new Module("", (ModuleType)(int)mtype, (bool)preventName);
-                }
-                else
-                {
-                    var mtype = attr.ConstructorArguments[0].Value;
-                    var name = attr.ConstructorArguments[1].Value;
-
-                    module = new Module(name != null ? name.ToString() : "", (ModuleType)(int)mtype);
-                }
-            }
-            else if (attr.ConstructorArguments.Count == 3)
-            {
-                var mtype = attr.ConstructorArguments[0].Value;
-                var name = attr.ConstructorArguments[1].Value;
-                var preventName = attr.ConstructorArguments[2].Value;
-
-                module = new Module(name != null ? name.ToString() : "", (ModuleType)(int)mtype, (bool)preventName);
-            }
-            else
-            {
-                module = new Module();
-            }
-
-            if (attr.Properties.Count > 0)
-            {
-                foreach (var namedArgument in attr.Properties)
-                {
-                    if (namedArgument.Name == "Name")
-                    {
-                        module.Name = namedArgument.Argument.Value != null ? (string)namedArgument.Argument.Value : "";
-                    }
-                    else if (namedArgument.Name == "ExportAsNamespace")
-                    {
-                        module.ExportAsNamespace = namedArgument.Argument.Value != null ? (string)namedArgument.Argument.Value : "";
-                    }
-                }
-            }
-
-            return module;
-        }
-
         public static bool IsIgnoreGeneric(this ITypeDefinition type)
         {
             return type.HasAttribute(CS.Attributes.IGNORE_GENERIC) || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
@@ -302,10 +209,6 @@ namespace Bridge.Contract
         public static bool IsIgnoreGeneric(this IEntity type)
         {
             return type.HasAttribute(CS.Attributes.IGNORE_GENERIC) || type.DeclaringTypeDefinition != null && IsIgnoreGeneric(type.DeclaringTypeDefinition);
-        }
-        public static bool IsIgnoreGeneric(this TypeDefinition type)
-        {
-            return type.HasAttribute(CS.Attributes.IGNORE_GENERIC) || type.DeclaringType != null && IsIgnoreGeneric(type.DeclaringType);
         }
         public static bool IsIgnoreGeneric(this IType type, bool allowInTypeScript = false)
         {
@@ -356,10 +259,6 @@ namespace Bridge.Contract
             return typeDef.HasAttribute(CS.Attributes.IGNORE_CAST) || typeDef.HasAttribute(CS.Attributes.OBJECT_LITERAL);
         }
 
-        public static bool IsScript(this MethodDefinition method)
-        {
-            return method.HasAttribute(CS.Attributes.SCRIPT);
-        }
         public static bool IsScript(this IMethod method)
         {
             return method.HasAttribute(CS.Attributes.SCRIPT);
@@ -802,22 +701,6 @@ namespace Bridge.Contract
                 || (entity.DeclaringTypeDefinition != null && IsExternal(entity.DeclaringTypeDefinition.ParentAssembly))
             ;
         }
-        public static bool IsExternal(this TypeDefinition entity)
-        {
-            return entity.HasAttribute(CS.Attributes.EXTERNAL)
-                || entity.HasAttribute(CS.Attributes.IGNORE)
-                || entity.HasAttribute(CS.Attributes.NON_SCRIPTABLE)
-                || IsVirtual(entity)
-                || (entity.DeclaringType != null && IsExternal(entity.DeclaringType))
-                || (entity.DeclaringType != null && IsExternal(entity.Module.Assembly))
-            ;
-        }
-        public static bool IsExternal(this AssemblyDefinition entity)
-        {
-            return entity.HasAttribute(CS.Attributes.EXTERNAL)
-                   || entity.HasAttribute(CS.Attributes.IGNORE)
-                   || entity.HasAttribute(CS.Attributes.NON_SCRIPTABLE);
-        }
         public static bool IsExternal(this IAssembly entity)
         {
             return entity.HasAttribute(CS.Attributes.EXTERNAL);
@@ -831,15 +714,6 @@ namespace Bridge.Contract
             }
             return typeDef != null && IsVirtualType(typeDef);
         }
-        public static bool IsVirtual(this TypeDefinition typeDef)
-        {
-            if (typeDef == null)
-            {
-                return false;
-            }
-            return typeDef != null && IsVirtualType(typeDef);
-        }
-
         private static bool IsVirtualType(IEntity entity)
         {
             var attr = entity.GetAttribute(CS.Attributes.VIRTUAL);
@@ -876,48 +750,6 @@ namespace Bridge.Contract
                             break;
                         case 2:
                             isVirtual = typeDefinition.Kind == TypeKind.Interface;
-                            break;
-                    }
-                }
-            }
-
-            return isVirtual;
-        }
-        private static bool IsVirtualType(TypeDefinition typeDefinition)
-        {
-            var attr = typeDefinition.GetAttribute(CS.Attributes.VIRTUAL);
-            if (attr == null && typeDefinition.DeclaringType != null)
-            {
-                return IsVirtualType(typeDefinition.DeclaringType);
-            }
-
-            if (attr == null)
-            {
-                attr = typeDefinition.Module.Assembly.GetAttribute(CS.Attributes.VIRTUAL);
-            }
-
-            bool isVirtual = false;
-
-            if (attr != null)
-            {
-                if (attr.ConstructorArguments.Count == 0)
-                {
-                    isVirtual = true;
-                }
-                else
-                {
-                    var value = (int)attr.ConstructorArguments[0].Value;
-
-                    switch (value)
-                    {
-                        case 0:
-                            isVirtual = true;
-                            break;
-                        case 1:
-                            isVirtual = !typeDefinition.IsInterface;
-                            break;
-                        case 2:
-                            isVirtual = typeDefinition.IsInterface;
                             break;
                     }
                 }
@@ -1399,76 +1231,6 @@ namespace Bridge.Contract
             return false;
         }
 
-        public static string GetAssemblyDescription(this ICustomAttributeProvider provider)
-        {
-            string assemblyDescription = null;
-
-            var assemblyDescriptionAttribute = provider.GetAttributes().FirstOrDefault(x => x.AttributeType.FullName == CS.Attributes.ASSEMBLY_DESCRIPTION);
-
-            if (assemblyDescriptionAttribute != null
-                && assemblyDescriptionAttribute.HasConstructorArguments)
-            {
-                assemblyDescription = assemblyDescriptionAttribute.ConstructorArguments[0].Value as string;
-            }
-
-            if (assemblyDescription != null)
-            {
-                assemblyDescription = assemblyDescription.Trim();
-            }
-
-            return assemblyDescription;
-
-        }
-        public static string GetAssemblyTitle(this ICustomAttributeProvider provider)
-        {
-            string assemblyDescription = null;
-
-            var assemblyDescriptionAttribute = provider.GetAttributes().FirstOrDefault(x => x.AttributeType.FullName == CS.Attributes.ASSEMBLY_TITLE);
-
-            if (assemblyDescriptionAttribute != null
-                && assemblyDescriptionAttribute.HasConstructorArguments)
-            {
-                assemblyDescription = assemblyDescriptionAttribute.ConstructorArguments[0].Value as string;
-            }
-
-            if (assemblyDescription != null)
-            {
-                assemblyDescription = assemblyDescription.Trim();
-            }
-
-            return assemblyDescription;
-        }
-
-        /// <summary>
-        /// Makes any existing nested types (classes?) inherit the FileName attribute of the specified type.
-        /// Does not override a nested type's FileName attribute if present.
-        /// </summary>
-        /// <param name="type"></param>
-        public static void InheritAttributesToNestedTypes(this TypeDefinition type)
-        {
-            // List of attribute names that are meant to be inherited by sub-classes.
-            var attrList = new List<string>
-            {
-                CS.Attributes.FILENAME,
-                CS.Attributes.MODULE,
-                CS.Attributes.NAMESPACE
-            };
-
-            foreach (var attributeName in attrList)
-            {
-                var attr = type.CustomAttributes.FirstOrDefault(a => a.AttributeType.FullName == attributeName);
-                if (attr != null)
-                {
-                    foreach (var nestedType in type.NestedTypes)
-                    {
-                        if (nestedType.CustomAttributes.All(ca => ca.AttributeType.FullName != attributeName))
-                        {
-                            nestedType.CustomAttributes.Add(attr);
-                        }
-                    }
-                }
-            }
-        }
 
         public static Tuple<bool, string> IsGlobalTarget(this IMember member)
         {
@@ -1480,14 +1242,14 @@ namespace Bridge.Contract
             return Tuple.Create(true, (string)attr.PositionalArguments.First().ConstantValue);
         }
 
-        public static int? GetPriority(this ICustomAttributeProvider priority)
+        public static int? GetPriority(this IEntity priority)
         {
-            var attr = priority.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == CS.Attributes.PRIORITY && a.ConstructorArguments.Count > 0);
+            var attr = priority.GetAttributes().FirstOrDefault(a => a.AttributeType.FullName == CS.Attributes.PRIORITY && a.PositionalArguments.Count > 0);
             if (attr == null)
             {
                 return null;
             }
-            return Convert.ToInt32(attr.ConstructorArguments[0].Value);
+            return Convert.ToInt32(attr.PositionalArguments[0].ConstantValue);
         }
 
         public static bool IsExternalInterface(this ITypeDefinition typeDefinition, out bool isNative)
@@ -1549,10 +1311,6 @@ namespace Bridge.Contract
             return null;
         }
 
-        public static bool IsImmutableType(this ICustomAttributeProvider type)
-        {
-            return type.HasAttribute(CS.Attributes.IMMUTABLE);
-        }
         public static bool IsImmutableType(this IEntity type)
         {
             return type.HasAttribute(CS.Attributes.IMMUTABLE);
@@ -1591,31 +1349,15 @@ namespace Bridge.Contract
             return autoPropertyToField;
         }
 
-        public static Tuple<string, bool> GetNamespace(this ICustomAttributeProvider provider)
-        {
-            var attr = provider.GetAttribute(CS.Attributes.NAMESPACE);
-            if (attr == null || !attr.HasConstructorArguments)
-            {
-                return null;
-            }
-
-            if (attr.ConstructorArguments[0].Value is string)
-            {
-                return Tuple.Create((string)attr.ConstructorArguments[0].Value, false);
-            }
-
-            if (attr.ConstructorArguments[0].Value is bool)
-            {
-                return Tuple.Create((string)null, (bool)attr.ConstructorArguments[0].Value);
-            }
-
-            return null;
-        }
         public static Tuple<string, bool> GetNamespace(this IEntity provider)
         {
             var attr = provider.GetAttribute(CS.Attributes.NAMESPACE);
             if (attr == null || attr.PositionalArguments.Count == 0)
             {
+                if (provider.DeclaringTypeDefinition != null)
+                {
+                    return GetNamespace(provider.DeclaringTypeDefinition);
+                }
                 return null;
             }
 
@@ -1632,38 +1374,42 @@ namespace Bridge.Contract
             return null;
         }
 
-        public static string GetFileName(this ICustomAttributeProvider provider)
+        public static string GetFileName(this IEntity provider)
         {
             var attr = provider.GetAttribute(CS.Attributes.FILENAME);
-            if (attr == null || !attr.HasConstructorArguments)
+            if (attr == null || attr.PositionalArguments.Count == 0)
             {
+                if (provider.DeclaringTypeDefinition != null)
+                {
+                    return GetFileName(provider.DeclaringTypeDefinition);
+                }
                 return null;
             }
 
-            if (attr.ConstructorArguments[0].Value is string)
+            if (attr.PositionalArguments[0].ConstantValue is string)
             {
-                return (string)attr.ConstructorArguments[0].Value;
+                return (string)attr.PositionalArguments[0].ConstantValue;
             }
 
             return null;
         }
 
-        public static Tuple<string, bool> GetName(this ICustomAttributeProvider provider)
+        public static Tuple<string, bool> GetName(this IEntity provider)
         {
             var attr = provider.GetAttribute(CS.Attributes.NAME);
-            if (attr == null || !attr.HasConstructorArguments)
+            if (attr == null || attr.PositionalArguments.Count == 0)
             {
                 return null;
             }
 
-            if (attr.ConstructorArguments[0].Value is string)
+            if (attr.PositionalArguments[0].ConstantValue is string)
             {
-                return Tuple.Create((string)attr.ConstructorArguments[0].Value, false);
+                return Tuple.Create((string)attr.PositionalArguments[0].ConstantValue, false);
             }
 
-            if (attr.ConstructorArguments[0].Value is bool)
+            if (attr.PositionalArguments[0].ConstantValue is bool)
             {
-                return Tuple.Create((string)null, (bool)attr.ConstructorArguments[0].Value);
+                return Tuple.Create((string)null, (bool)attr.PositionalArguments[0].ConstantValue);
             }
 
             return null;
@@ -1684,75 +1430,44 @@ namespace Bridge.Contract
 
             return null;
         }
-        public static string GetCustomConstructor(this TypeDefinition provider)
-        {
-            var attr = provider.GetAttribute(CS.Attributes.CONSTRUCTOR);
-            if (attr != null && attr.ConstructorArguments.Count > 0)
-            {
-                return (string)attr.ConstructorArguments[0].Value;
-            }
 
-            if (provider.IsObjectLiteral() && provider.GetObjectCreateMode() == 0)
-            {
-                return "{ }";
-            }
-
-            return null;
-        }
-
-        public static int GetObjectCreateMode(this ICustomAttributeProvider type)
+        public static int GetObjectInitializationMode(this IEntity type)
         {
             var attr = type.GetAttribute(CS.Attributes.OBJECT_LITERAL);
-            if (attr != null && attr.HasConstructorArguments)
+            if (attr != null)
             {
-                foreach (var t in attr.ConstructorArguments)
-                {
-                    if (t.Type.FullName == CS.Types.Bridge_ObjectCreateMode)
-                    {
-                        return (int)t.Value;
-                    }
-                }
-            }
-            return 0;
-        }
-
-        public static int GetObjectInitializationMode(this ICustomAttributeProvider type)
-        {
-            var attr = type.GetAttribute(CS.Attributes.OBJECT_LITERAL);
-            if (attr != null && attr.HasConstructorArguments)
-            {
-                foreach (CustomAttributeArgument t in attr.ConstructorArguments)
+                foreach (var t in attr.PositionalArguments)
                 {
                     if (t.Type.FullName == CS.Types.Bridge_ObjectInitializationMode)
                     {
-                        return (int)t.Value;
+                        return (int)t.ConstantValue;
                     }
                 }
             }
             return 0;
         }
 
-        public static bool IsObjectLiteral(this ICustomAttributeProvider type)
+        public static LayoutKind? GetLayoutKind(this IEntity type)
         {
-            return type.HasAttribute(CS.Attributes.OBJECT_LITERAL);
+            var attr = type.GetAttribute(CS.Attributes.STRUCT_LAYOUT);
+            if (attr != null && attr.PositionalArguments.Count > 0)
+            {
+                return (LayoutKind) (int) attr.PositionalArguments[0].ConstantValue;
+            }
+            return null;
         }
+
+        public static bool IsSerializable(this IEntity type)
+        {
+            return type.HasAttribute(CS.Attributes.SERIALIZABLE);
+        }
+
         public static bool IsObjectLiteral(this IEntity type)
         {
             return type.HasAttribute(CS.Attributes.OBJECT_LITERAL);
         }
 
         #region Attribute Helpers
-
-        private static bool HasAttribute(this ICustomAttributeProvider entity, string attributeName)
-        {
-            return GetAttribute(entity, attributeName) != null;
-        }
-
-        private static CustomAttribute GetAttribute(this ICustomAttributeProvider entity, string attributeName)
-        {
-            if (entity == null) return null;
-            return entity.GetAttributes().FirstOrDefault(b => attributeName == b.AttributeType.FullName);
-        }
 
         private static bool HasAttribute(this IAssembly entity, string attributeName)
         {
@@ -1843,22 +1558,6 @@ namespace Bridge.Contract
             {
                 attributes = registeredAttributes.Concat(attributes);
             }
-
-            return attributes;
-        }
-
-        private static IEnumerable<CustomAttribute> GetAttributes(this ICustomAttributeProvider member)
-        {
-            if (member == null) return Enumerable.Empty<CustomAttribute>();
-
-            var attributes = member.CustomAttributes ?? Enumerable.Empty<CustomAttribute>();
-
-            // TODO: support attribute injection for external types 
-            //List<IAttribute> registeredAttributes;
-            //if (_attributes.TryGetValue(GetAttributeKey(member), out registeredAttributes))
-            //{
-            //    attributes = Enumerable.Concat(registeredAttributes, attributes);
-            //}
 
             return attributes;
         }
@@ -1960,7 +1659,7 @@ namespace Bridge.Contract
             return GetAttributeKey(entity.Owner) + ":" + entity.Name;
         }
 
-        private static Dictionary<string, List<IAttribute>> _attributes;
+        private static Dictionary<string, List<IAttribute>> _attributes = new Dictionary<string, List<IAttribute>>();
 
 
         #endregion

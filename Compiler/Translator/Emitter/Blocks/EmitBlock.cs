@@ -357,7 +357,7 @@ namespace Bridge.Translator
                 }
 
                 var isObjectLiteral = typeDef.IsObjectLiteral();
-                var isPlainMode = isObjectLiteral && this.Emitter.BridgeTypes.Get(type.Key).TypeDefinition.GetObjectCreateMode() == 0;
+                var isPlainMode = isObjectLiteral && typeDef.GetObjectCreateMode() == 0;
 
                 if (isPlainMode)
                 {
@@ -545,10 +545,10 @@ namespace Bridge.Translator
             }
         }
 
-        private bool SkipFromReflection(ITypeDefinition typeDef, BridgeType bridgeType)
+        private bool SkipFromReflection(ITypeDefinition typeDef)
         {
             var isObjectLiteral = typeDef.IsObjectLiteral();
-            var isPlainMode = isObjectLiteral && bridgeType.TypeDefinition.GetObjectCreateMode() == 0;
+            var isPlainMode = isObjectLiteral && typeDef.GetObjectCreateMode() == 0;
 
             if (isPlainMode)
             {
@@ -577,9 +577,9 @@ namespace Bridge.Translator
             var config = this.Emitter.AssemblyInfo.Reflection;
             //bool? enable = config.Disabled.HasValue ? !config.Disabled : (configInternal.Disabled.HasValue ? !configInternal.Disabled : true);
             bool? enable = null;
-            if (config.Disabled.HasValue && !config.Disabled.Value)
+            if (config.Disabled.HasValue)
             {
-                enable = true;
+                enable = !config.Disabled.Value;
             }
             else if(!config.Disabled.HasValue)
             {
@@ -609,14 +609,14 @@ namespace Bridge.Translator
             }
 
             List<IType> reflectTypes = new List<IType>();
-            var thisAssemblyDef = this.Emitter.Translator.AssemblyDefinition;
             foreach (var bridgeType in this.Emitter.BridgeTypes)
             {
                 var result = false;
                 var type = bridgeType.Value.Type;
                 var typeDef = type.GetDefinition();
                 //var thisAssembly = bridgeType.Value.TypeInfo != null;
-                var thisAssembly = bridgeType.Value.TypeDefinition?.Module.Assembly.Equals(thisAssemblyDef) ?? false;
+                var thisAssembly = bridgeType.Value.Type.GetDefinition().ParentAssembly.FullAssemblyName
+                    == this.Emitter.Resolver.Compilation.MainAssembly.FullAssemblyName;
                 var external = typeDef != null && typeDef.IsExternal();
 
                 if (enable.HasValue && enable.Value && !hasSettings && thisAssembly)
@@ -626,7 +626,7 @@ namespace Bridge.Translator
 
                 if (typeDef != null)
                 {
-                    var skip = this.SkipFromReflection(typeDef, bridgeType.Value);
+                    var skip = this.SkipFromReflection(typeDef);
 
                     if (skip)
                     {

@@ -27,6 +27,8 @@
             public const string CONDITIONAL = System.DOTNAME + "Diagnostics.ConditionalAttribute";
             public const string ASSEMBLY_DESCRIPTION = System.DOTNAME + "Reflection.AssemblyDescriptionAttribute";
             public const string ASSEMBLY_TITLE = System.DOTNAME + "Reflection.AssemblyTitleAttribute";
+            public const string STRUCT_LAYOUT = System.DOTNAME + "Runtime.InteropServices.StructLayoutAttribute";
+            public const string SERIALIZABLE = System.DOTNAME + "SerializableAttribute";
 
             public const string ACCESSORS_INDEXER = Bridge.DOTNAME + "AccessorsIndexerAttribute";
             public const string READY = Bridge.DOTNAME + "Html5.ReadyAttribute";

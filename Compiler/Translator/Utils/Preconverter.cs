@@ -12,9 +12,6 @@ using Expression = ICSharpCode.NRefactory.CSharp.Expression;
 using ExpressionStatement = ICSharpCode.NRefactory.CSharp.ExpressionStatement;
 using ParenthesizedExpression = ICSharpCode.NRefactory.CSharp.ParenthesizedExpression;
 using Statement = ICSharpCode.NRefactory.CSharp.Statement;
-using ICSharpCode.NRefactory.PatternMatching;
-using Mono.Cecil;
-using System.Text;
 
 namespace Bridge.Translator
 {

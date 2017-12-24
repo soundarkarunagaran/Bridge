@@ -136,14 +136,14 @@ namespace Bridge.Translator
 
             var typeDef = this.Emitter.GetTypeDefinition();
             string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, false);
-            this.IsGeneric = typeDef.GenericParameters.Count > 0 && !TypeInfo.Type.IsIgnoreGeneric();
+            this.IsGeneric = typeDef.TypeParameterCount > 0 && !TypeInfo.Type.IsIgnoreGeneric();
 
             if (name.IsEmpty())
             {
                 name = BridgeTypes.ToJsName(this.TypeInfo.Type, this.Emitter, asDefinition: true, nomodule: true, ignoreLiteralName: false);
             }
 
-            if (typeDef.IsInterface && typeDef.HasGenericParameters)
+            if (typeDef.Kind == TypeKind.Interface && IsGeneric)
             {
                 this.Write(JS.Types.Bridge.DEFINE_I);
             }
@@ -163,9 +163,9 @@ namespace Bridge.Translator
                 this.WriteFunction();
                 this.WriteOpenParentheses();
 
-                foreach (var p in typeDef.GenericParameters)
+                foreach (var p in typeDef.TypeParameters)
                 {
-                    if (typeDef.GenericParameters.Count(gp => gp.FullName == p.FullName) > 1)
+                    if (typeDef.TypeParameters.Count(gp => gp.FullName == p.FullName) > 1)
                     {
                         throw new EmitterException(this.TypeInfo.TypeDeclaration, $"Type parameter '{p.FullName}' has the same name as the type parameter from outer type.");
                     }
@@ -195,7 +195,18 @@ namespace Bridge.Translator
 
                 this.Write(JS.Fields.INHERITS);
                 this.WriteColon();
-                if (Helpers.IsTypeArgInSubclass(bridgeType.TypeDefinition, bridgeType.TypeDefinition, this.Emitter, false))
+
+                // in case any generic parameter is the own class or a subclass, we need to define the class inheritance as function.
+                // otherwise we try to access the type currently being defined. 
+                // e.g. 
+                //   interface ITest<X> { }
+                //   class Test : ITest<Test> { }
+
+                // will need to output
+                // Bridge.define("Test", {
+                //   inherits: function() { return [Test] },
+                // ...
+                if (Helpers.IsTypeArgInSubclass(bridgeType.Type.GetDefinition(), bridgeType.Type.GetDefinition(), this.Emitter, false))
                 {
                     this.WriteFunction();
                     this.WriteOpenCloseParentheses(true);

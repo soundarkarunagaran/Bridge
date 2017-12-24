@@ -3,15 +3,12 @@ using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using Microsoft.Ajax.Utilities;
 using Mono.Cecil;
-using Object.Net.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ICSharpCode.NRefactory.Utils;
 using TopologicalSorting;
-using AssemblyDefinition = Mono.Cecil.AssemblyDefinition;
 
 namespace Bridge.Translator
 {
@@ -155,8 +152,7 @@ namespace Bridge.Translator
 
             this.BuildSyntaxTree();
 
-
-            var resolver = new MemberResolver(this.ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), this.AssemblyDefinition);
+            var resolver = new MemberResolver(this.ParsedSourceFiles, Emitter.ToAssemblyReferences(references, logger), this.ProjectProperties.AssemblyName);
             resolver = this.Preconvert(resolver, config);
 
             this.InspectTypes(resolver, config);
@@ -216,7 +212,7 @@ namespace Bridge.Translator
 
             if (needRecompile)
             {
-                return new MemberResolver(this.ParsedSourceFiles, resolver.Assemblies, this.AssemblyDefinition);
+                return new MemberResolver(this.ParsedSourceFiles, resolver.Assemblies, this.ProjectProperties.AssemblyName);
             }
 
             return resolver;
@@ -451,7 +447,7 @@ namespace Bridge.Translator
         {
             this.Log.Info("Creating emitter...");
 
-            var emitter = new Emitter(this.TypeDefinitions, this.BridgeTypes, this.Types, this.Validator, resolver, this.TypeInfoDefinitions, this.Log);
+            var emitter = new Emitter(this.BridgeTypes, this.Types, this.Validator, resolver, this.TypeInfoDefinitions, this.Log);
 
             this.Log.Info("Creating emitter done");
 

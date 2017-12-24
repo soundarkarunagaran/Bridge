@@ -1,14 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-
-using Bridge.Contract;
-
-using Mono.Cecil;
-
-using NSubstitute;
-
-namespace Bridge.Translator.Tests.Helpers
+﻿namespace Bridge.Translator.Tests.Helpers
 {
     class TestAssemblyHelper
     {

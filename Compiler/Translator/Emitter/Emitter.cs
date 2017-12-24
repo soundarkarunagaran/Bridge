@@ -1,15 +1,12 @@
 using Bridge.Contract;
 using ICSharpCode.NRefactory.TypeSystem;
-using Mono.Cecil;
 using System.Collections.Generic;
 
 namespace Bridge.Translator
 {
     public partial class Emitter : Visitor, IEmitter
     {
-        public Emitter(IDictionary<string,
-            TypeDefinition> typeDefinitions,
-            BridgeTypes bridgeTypes,
+        public Emitter(BridgeTypes bridgeTypes,
             List<ITypeInfo> types,
             IValidator validator,
             IMemberResolver resolver,
@@ -19,7 +16,6 @@ namespace Bridge.Translator
             this.Log = logger;
 
             this.Resolver = resolver;
-            this.TypeDefinitions = typeDefinitions;
             this.TypeInfoDefinitions = typeInfoDefinitions;
             this.Types = types;
             this.BridgeTypes = bridgeTypes;

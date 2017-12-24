@@ -1,14 +1,6 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.TypeSystem;
-using Mono.Cecil;
-using Object.Net.Utilities;
 
 namespace Bridge.Contract
 {
@@ -70,11 +62,6 @@ namespace Bridge.Contract
             get; set;
         }
 
-        public TypeDefinition TypeDefinition
-        {
-            get; set;
-        }
-
         internal string DefaultName
         {
             get
@@ -83,22 +70,12 @@ namespace Bridge.Contract
                 var typeDef = Entity as ITypeDefinition;
                 if (typeDef != null)
                 {
-                    if (TypeDefinition != null)
-                    {
-                        name = TypeDefinition.Name;
-                        if (TypeDefinition.IsIgnoreGeneric() && typeDef.ParentAssembly.AssemblyName != CS.NS.BRIDGE && typeDef.IsExternal())
-                        {
-                            name = name.LeftOfRightmostOf("`");
-                        }
-                    }
-                    else
-                    {
-                        name = typeDef.Name;
+                    name = typeDef.Name;
 
-                        if (typeDef.TypeParameterCount > 0 && !(typeDef.IsIgnoreGeneric() && typeDef.ParentAssembly.AssemblyName != CS.NS.BRIDGE && typeDef.IsExternal()))
-                        {
-                            name += "$" + typeDef.TypeParameterCount;
-                        }
+                    var typeParameters = typeDef.TypeParameters.Count(t => t.Owner.ReflectionName == typeDef.ReflectionName);
+                    if (typeParameters > 0 && !(typeDef.IsIgnoreGeneric() && typeDef.ParentAssembly.AssemblyName != CS.NS.BRIDGE && typeDef.IsExternal()))
+                    {
+                        name += "$" + typeParameters;
                     }
                 }
 

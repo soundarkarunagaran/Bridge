@@ -154,12 +154,6 @@ namespace Bridge.Translator
             set;
         }
 
-        public IDictionary<string, TypeDefinition> TypeDefinitions
-        {
-            get;
-            protected set;
-        }
-
         public ITypeInfo TypeInfo
         {
             get;
@@ -184,20 +178,6 @@ namespace Bridge.Translator
             set;
         }
 
-        private HashSet<string> namespaces;
-
-        protected virtual HashSet<string> Namespaces
-        {
-            get
-            {
-                if (this.namespaces == null)
-                {
-                    this.namespaces = this.CreateNamespaces();
-                }
-                return this.namespaces;
-            }
-        }
-
         public virtual IEnumerable<AssemblyDefinition> References
         {
             get;
@@ -208,23 +188,6 @@ namespace Bridge.Translator
         {
             get;
             set;
-        }
-
-        private List<IAssemblyReference> list;
-
-        protected virtual IEnumerable<IAssemblyReference> AssemblyReferences
-        {
-            get
-            {
-                if (this.list != null)
-                {
-                    return this.list;
-                }
-
-                this.list = Emitter.ToAssemblyReferences(this.References, this.Log);
-
-                return this.list;
-            }
         }
 
         internal static List<IAssemblyReference> ToAssemblyReferences(IEnumerable<AssemblyDefinition> references, ILogger logger)
@@ -297,7 +260,7 @@ namespace Bridge.Translator
             set;
         }
 
-        public IEnumerable<MethodDefinition> MethodsGroup
+        public IEnumerable<IMethod> MethodsGroup
         {
             get;
             set;

@@ -565,6 +565,8 @@ namespace Bridge.Translator
 
         public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
         {
+            var propertySymbol = semanticModel.GetDeclaredSymbol(node);
+
             node = (PropertyDeclarationSyntax)base.VisitPropertyDeclaration(node);
             var newNode = node;
 
@@ -573,23 +575,8 @@ namespace Bridge.Translator
                 newNode = SyntaxHelper.ToStatementBody(node);
             }
 
-            if (node.IsAutoProperty() && node.AccessorList != null)
+            if (node.IsAutoProperty() && node.AccessorList != null && propertySymbol.ContainingType.TypeKind != TypeKind.Interface)
             {
-                var setter = node.AccessorList.Accessors.SingleOrDefault(a => a.Keyword.Kind() == SyntaxKind.SetKeyword);
-
-                if (setter == null)
-                {
-                    var getter = node.AccessorList.Accessors.Single(a => a.Keyword.Kind() == SyntaxKind.GetKeyword);
-                    setter = SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration)
-                            .WithModifiers(SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PrivateKeyword).WithTrailingTrivia(SyntaxFactory.Space)))
-                            .WithBody(null)
-                            .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken))
-                            .WithLeadingTrivia(getter.GetLeadingTrivia())
-                            .WithTrailingTrivia(getter.GetTrailingTrivia());
-
-                    newNode = newNode.AddAccessorListAccessors(setter);
-                }
-
                 if (newNode.Initializer != null)
                 {
                     var modifiers = SyntaxTokenList.Create(SyntaxFactory.Token(SyntaxKind.PrivateKeyword).WithTrailingTrivia(SyntaxFactory.Space));

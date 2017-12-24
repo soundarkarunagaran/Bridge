@@ -8,7 +8,6 @@ using ICSharpCode.NRefactory.TypeSystem.Implementation;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Mono.Cecil;
 
 namespace Bridge.Translator
 {
@@ -48,23 +47,17 @@ namespace Bridge.Translator
             private set;
         }
 
-        public MemberResolver(IList<ParsedSourceFile> sourceFiles, IEnumerable<IAssemblyReference> assemblies, AssemblyDefinition assemblyDefinition)
+        public MemberResolver(IList<ParsedSourceFile> sourceFiles, IEnumerable<IAssemblyReference> assemblies, string assemblyFullName)
         {
             this.project = null;
             this.lastFileName = null;
             this.sourceFiles = sourceFiles;
             this.Assemblies = assemblies;
-            this.MainAssembly = assemblyDefinition;
 
             this.project = new CSharpProjectContent();
             this.project = this.project.AddAssemblyReferences(assemblies);
-            this.project = this.project.SetAssemblyName(assemblyDefinition.FullName);
+            this.project = this.project.SetAssemblyName(assemblyFullName);
             this.AddOrUpdateFiles();
-        }
-
-        public AssemblyDefinition MainAssembly
-        {
-            get; set;
         }
 
         private void AddOrUpdateFiles()

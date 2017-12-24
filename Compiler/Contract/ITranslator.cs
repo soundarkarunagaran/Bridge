@@ -6,7 +6,7 @@ namespace Bridge.Contract
 {
     public interface ITranslator
     {
-        Mono.Cecil.AssemblyDefinition AssemblyDefinition
+        AssemblyDefinition AssemblyDefinition
         {
             get;
             set;

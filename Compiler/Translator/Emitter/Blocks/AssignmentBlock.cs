@@ -778,7 +778,7 @@ namespace Bridge.Translator
                 var td = this.Emitter.GetTypeDefinition();
                 var prop = td.Properties.FirstOrDefault(p => p.Name == mrr.Member.Name);
 
-                if (proto && prop != null && prop.SetMethod == null)
+                if (proto && prop != null && prop.Setter == null)
                 {
                     var name = OverloadsCollection.Create(this.Emitter, mrr.Member).GetOverloadName();
                     this.Write(JS.Types.Bridge.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\")");

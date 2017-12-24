@@ -1,9 +1,7 @@
 using Bridge.Contract;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
+using Bridge.Contract.Constants;
+using Mono.Cecil;
 
 namespace Bridge.Translator
 {
@@ -95,7 +93,8 @@ namespace Bridge.Translator
                 versionContext = new VersionContext();
 
                 versionContext.Assembly = GetVersionFromFileVersionInfo(GetAssemblyVersion());
-                versionContext.Assembly.Description = AssemblyDefinition.GetAssemblyDescription();
+                versionContext.Assembly.Description = GetAssemblyDescription(AssemblyDefinition);
+                versionContext.Assembly.Title = GetAssemblyTitle(AssemblyDefinition);
 
                 versionContext.Bridge = GetVersionFromFileVersionInfo(GetBridgeAssemblyVersion());
 
@@ -104,6 +103,46 @@ namespace Bridge.Translator
 
             return versionContext;
         }
+
+        private static string GetAssemblyDescription(AssemblyDefinition provider)
+        {
+            string assemblyDescription = null;
+
+            var assemblyDescriptionAttribute = provider.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == CS.Attributes.ASSEMBLY_DESCRIPTION);
+
+            if (assemblyDescriptionAttribute != null && assemblyDescriptionAttribute.HasConstructorArguments)
+            {
+                assemblyDescription = assemblyDescriptionAttribute.ConstructorArguments[0].Value as string;
+            }
+
+            if (assemblyDescription != null)
+            {
+                assemblyDescription = assemblyDescription.Trim();
+            }
+
+            return assemblyDescription;
+        }
+
+        private static string GetAssemblyTitle(AssemblyDefinition provider)
+        {
+            string assemblyDescription = null;
+
+            var assemblyDescriptionAttribute = provider.CustomAttributes.FirstOrDefault(x => x.AttributeType.FullName == CS.Attributes.ASSEMBLY_TITLE);
+
+            if (assemblyDescriptionAttribute != null
+                && assemblyDescriptionAttribute.HasConstructorArguments)
+            {
+                assemblyDescription = assemblyDescriptionAttribute.ConstructorArguments[0].Value as string;
+            }
+
+            if (assemblyDescription != null)
+            {
+                assemblyDescription = assemblyDescription.Trim();
+            }
+
+            return assemblyDescription;
+        }
+
 
         private VersionContext.AssemblyVersion GetVersionFromFileVersionInfo(System.Diagnostics.FileVersionInfo versionInfo)
         {

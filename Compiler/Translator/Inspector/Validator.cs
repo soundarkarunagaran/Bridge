@@ -4,29 +4,23 @@ using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.CSharp.Resolver;
 using ICSharpCode.NRefactory.Semantics;
 using ICSharpCode.NRefactory.TypeSystem;
-using ICSharpCode.NRefactory.TypeSystem.Implementation;
-using Mono.Cecil;
 using Object.Net.Utilities;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using Mono.Cecil.Rocks;
-using ICustomAttributeProvider = Mono.Cecil.ICustomAttributeProvider;
 
 namespace Bridge.Translator
 {
     public class Validator : IValidator
     {
-        public virtual bool CanIgnoreType(TypeDefinition type)
+        public virtual bool CanIgnoreType(ITypeDefinition type)
         {
             if (type.IsExternal())
             {
                 return true;
             }
 
-            if (type.BaseType != null && type.BaseType.FullName == "System.MulticastDelegate")
+            if (type.Kind == TypeKind.Delegate)
             {
                 return true;
             }
@@ -34,7 +28,7 @@ namespace Bridge.Translator
             return false;
         }
 
-        public virtual void CheckType(TypeDefinition type, ITranslator translator)
+        public virtual void CheckType(ITypeDefinition type, ITranslator translator)
         {
             this.CheckObjectLiteral(type, translator);
 
@@ -53,7 +47,7 @@ namespace Bridge.Translator
             this.CheckModuleDependenies(type, translator);
         }
 
-        public virtual void CheckObjectLiteral(TypeDefinition type, ITranslator translator)
+        public virtual void CheckObjectLiteral(ITypeDefinition type, ITranslator translator)
         {
             if (!type.IsObjectLiteral())
             {
@@ -70,12 +64,12 @@ namespace Bridge.Translator
                 {
                     foreach (var parameter in ctor.Parameters)
                     {
-                        if (parameter.ParameterType.FullName == "Bridge.ObjectCreateMode")
+                        if (parameter.Type.FullName == "Bridge.ObjectCreateMode")
                         {
                             TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_PLAIN_NO_CREATE_MODE_CUSTOM_CONSTRUCTOR, type);
                         }
 
-                        if (parameter.ParameterType.FullName == "Bridge.ObjectInitializationMode")
+                        if (parameter.Type.FullName == "Bridge.ObjectInitializationMode")
                         {
                             continue;
                         }
@@ -85,68 +79,46 @@ namespace Bridge.Translator
                 }
             }
 
-            if (type.IsInterface)
+            if (type.Kind == TypeKind.Interface)
             {
-                if (type.HasMethods && type.Methods.GroupBy(m => m.Name).Any(g => g.Count() > 1))
+                if (type.Methods.GroupBy(m => m.Name).Any(g => g.Count() > 1))
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_INTERFACE_NO_OVERLOAD_METHODS, type);
                 }
 
-                if (type.HasEvents)
+                if (type.Events.Any())
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_INTERFACE_NO_EVENTS, type);
                 }
             }
             else
             {
-                if (type.Methods.Any(m => !m.IsRuntimeSpecialName && m.Name.Contains(".") && !m.Name.Contains("<")) ||
-                    type.Properties.Any(m => !m.IsRuntimeSpecialName && m.Name.Contains(".") && !m.Name.Contains("<")))
+                if (type.Methods.Any(m => m.IsExplicitInterfaceImplementation)||
+                    type.Properties.Any(m => m.IsExplicitInterfaceImplementation))
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_INTERFACE_NO_EXPLICIT_IMPLEMENTATION, type);
                 }
             }
 
-            if (type.BaseType != null)
+            var baseType = type.GetBaseClassDefinition();
+            if (baseType != null)
             {
-                TypeDefinition baseType = null;
-                try
-                {
-                    baseType = type.BaseType.Resolve();
-                }
-                catch (Exception)
-                {
-
-                }
-
-                if (objectCreateMode == 1 && baseType != null && baseType.FullName != "System.Object" && baseType.FullName != "System.ValueType" && baseType.GetObjectCreateMode() == 0)
+                if (objectCreateMode == 1 && baseType.FullName != "System.Object" && baseType.FullName != "System.ValueType" && baseType.GetObjectCreateMode() == 0)
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_CONSTRUCTOR_INHERITANCE, type);
                 }
 
-                if (objectCreateMode == 0 && baseType != null && baseType.GetObjectCreateMode() == 1)
+                if (objectCreateMode == 0 && baseType.GetObjectCreateMode() == 1)
                 {
                     TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_PLAIN_INHERITANCE, type);
                 }
             }
 
-            if (type.Interfaces.Count > 0)
+            foreach (var @interface in type.GetAllBaseTypes().Where(t=>t.Kind == TypeKind.Interface).Select(t=>t.GetDefinition()))
             {
-                foreach (var @interface in type.Interfaces)
+                if (!@interface.IsObjectLiteral())
                 {
-                    TypeDefinition iDef = null;
-                    try
-                    {
-                        iDef = @interface.Resolve();
-                    }
-                    catch (Exception)
-                    {
-
-                    }
-
-                    if (iDef != null && iDef.FullName != "System.Object" && !iDef.IsObjectLiteral())
-                    {
-                        TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_INTERFACE_INHERITANCE, type);
-                    }
+                    TranslatorException.Throw(Constants.Messages.Exceptions.OBJECT_LITERAL_INTERFACE_INHERITANCE, type);
                 }
             }
 
@@ -154,14 +126,14 @@ namespace Bridge.Translator
             {
                 var hasVirtualMethods = false;
 
-                foreach (MethodDefinition method in type.Methods)
+                foreach (var method in type.Methods)
                 {
                     if (method.IsCompilerGenerated())
                     {
                         continue;
                     }
 
-                    if (method.IsVirtual && !(method.IsSetter || method.IsGetter))
+                    if (method.IsVirtual && !method.IsAccessor)
                     {
                         hasVirtualMethods = true;
                         break;
@@ -175,9 +147,9 @@ namespace Bridge.Translator
             }
         }
 
-        public virtual bool IsBridgeClass(TypeDefinition type)
+        public virtual bool IsBridgeClass(ITypeDefinition type)
         {
-            foreach (var i in type.Interfaces)
+            foreach (var i in type.GetAllBaseTypes())
             {
                 if (i.FullName == JS.Types.BRIDGE_IBridgeClass)
                 {
@@ -188,9 +160,9 @@ namespace Bridge.Translator
             return false;
         }
 
-        private Stack<TypeDefinition> _stack = new Stack<TypeDefinition>();
+        private Stack<ITypeDefinition> _stack = new Stack<ITypeDefinition>();
 
-        public virtual string GetCustomTypeName(TypeDefinition type, IEmitter emitter, bool excludeNs)
+        public virtual string GetCustomTypeName(ITypeDefinition type, IEmitter emitter, bool excludeNs)
         {
             if (this._stack.Contains(type))
             {
@@ -261,13 +233,13 @@ namespace Bridge.Translator
                     return null;
                 }
 
-                if (type.IsNested)
+                if (type.DeclaringType != null)
                 {
                     name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.GetParentNames(emitter, type);
                 }
 
 
-                var typeName = emitter.GetTypeName(emitter.BridgeTypes.Get(type).Type.GetDefinition(), type);
+                var typeName = emitter.GetTypeName(emitter.BridgeTypes.Get(type).Type.GetDefinition());
                 name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(changeCase ? typeName.ToLowerCamelCase() : typeName);
 
                 return name;
@@ -285,25 +257,22 @@ namespace Bridge.Translator
             return null;
         }
 
-        public virtual void CheckConstructors(TypeDefinition type, ITranslator translator)
+        public virtual void CheckConstructors(ITypeDefinition type, ITranslator translator)
         {
-            if (type.HasMethods)
-            {
-                var ctors = type.Methods.Where(method => method.IsConstructor);
+            var ctors = type.Methods.Where(method => method.IsConstructor);
 
-                foreach (MethodDefinition ctor in ctors)
-                {
-                    this.CheckMethodArguments(ctor);
-                }
+            foreach (var ctor in ctors)
+            {
+                this.CheckMethodArguments(ctor);
             }
         }
 
-        public virtual void CheckFields(TypeDefinition type, ITranslator translator)
+        public virtual void CheckFields(ITypeDefinition type, ITranslator translator)
         {
 
         }
 
-        public virtual void CheckProperties(TypeDefinition type, ITranslator translator)
+        public virtual void CheckProperties(ITypeDefinition type, ITranslator translator)
         {
             /*if (type.HasProperties && this.IsObjectLiteral(type))
             {
@@ -321,13 +290,13 @@ namespace Bridge.Translator
             }*/
         }
 
-        public virtual void CheckEvents(TypeDefinition type, ITranslator translator)
+        public virtual void CheckEvents(ITypeDefinition type, ITranslator translator)
         {
         }
 
-        public virtual void CheckMethods(TypeDefinition type, ITranslator translator)
+        public virtual void CheckMethods(ITypeDefinition type, ITranslator translator)
         {
-            foreach (MethodDefinition method in type.Methods)
+            foreach (var method in type.Methods)
             {
                 if (method.IsCompilerGenerated())
                 {
@@ -338,19 +307,20 @@ namespace Bridge.Translator
             }
         }
 
-        public virtual void CheckMethodArguments(MethodDefinition method)
+        public virtual void CheckMethodArguments(IMethod method)
         {
         }
 
-        public virtual HashSet<string> GetParentTypes(IDictionary<string, TypeDefinition> allTypes)
+        public virtual HashSet<string> GetParentTypes(IDictionary<string, ITypeDefinition> allTypes)
         {
             var result = new HashSet<string>();
 
             foreach (var type in allTypes.Values)
             {
-                if (type.BaseType != null)
+                var baseType = type.GetBaseClassDefinition();
+                if (baseType != null)
                 {
-                    string parentName = type.BaseType.FullName.LeftOf('<').Replace('`', JS.Vars.D);
+                    string parentName = baseType.FullName.LeftOf('<').Replace('`', JS.Vars.D);
 
                     if (!allTypes.ContainsKey(parentName))
                     {
@@ -366,7 +336,7 @@ namespace Bridge.Translator
             return result;
         }
 
-        public virtual void CheckFileName(TypeDefinition type, ITranslator translator)
+        public virtual void CheckFileName(ITypeDefinition type, ITranslator translator)
         {
             var fileName = type.GetFileName();
             if (fileName != null)
@@ -376,7 +346,7 @@ namespace Bridge.Translator
             }
         }
 
-        public virtual void CheckModule(TypeDefinition type, ITranslator translator)
+        public virtual void CheckModule(ITypeDefinition type, ITranslator translator)
         {
             var typeInfo = this.EnsureTypeInfo(type, translator);
             var module = type.GetModule();
@@ -387,7 +357,7 @@ namespace Bridge.Translator
         }
 
 
-        public virtual void CheckModuleDependenies(TypeDefinition type, ITranslator translator)
+        public virtual void CheckModuleDependenies(ITypeDefinition type, ITranslator translator)
         {
             var attr = type.GetModuleDependency();
 
@@ -398,7 +368,7 @@ namespace Bridge.Translator
             }
         }
 
-        protected virtual ITypeInfo EnsureTypeInfo(TypeDefinition type, ITranslator translator)
+        protected virtual ITypeInfo EnsureTypeInfo(ITypeDefinition type, ITranslator translator)
         {
             string key = BridgeTypes.GetTypeDefinitionKey(type);
             ITypeInfo typeInfo = null;

@@ -1,7 +1,6 @@
 using Bridge.Contract.Constants;
 using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
-using Mono.Cecil;
 using Object.Net.Utilities;
 using System;
 using System.Collections.Generic;
@@ -33,12 +32,6 @@ namespace Bridge.Contract
             private set;
         }
 
-        public virtual TypeDefinition TypeDefinition
-        {
-            get;
-            set;
-        }
-
         public virtual IType Type
         {
             get;
@@ -61,7 +54,6 @@ namespace Bridge.Contract
     public class BridgeTypes : Dictionary<string, BridgeType>
     {
         private Dictionary<IType, BridgeType> byType = new Dictionary<IType, BridgeType>();
-        private Dictionary<TypeReference, BridgeType> byTypeRef = new Dictionary<TypeReference, BridgeType>();
         private Dictionary<ITypeInfo, BridgeType> byTypeInfo = new Dictionary<ITypeInfo, BridgeType>();
         public void InitItems(IEmitter emitter)
         {
@@ -74,9 +66,9 @@ namespace Bridge.Contract
             foreach (var item in this)
             {
                 var type = item.Value;
-                var key = BridgeTypes.GetTypeDefinitionKey(type.TypeDefinition);
+                var key = type.Key;
                 type.Emitter = emitter;
-                type.Type = ReflectionHelper.ParseReflectionName(key).Resolve(emitter.Resolver.Resolver.TypeResolveContext);
+                type.Type = ReflectionHelper.ParseReflectionName(type.Key).Resolve(emitter.Resolver.Resolver.TypeResolveContext);
                 type.TypeInfo = emitter.Types.FirstOrDefault(t => t.Key == key);
 
                 if (type.TypeInfo != null && emitter.TypeInfoDefinitions.ContainsKey(type.TypeInfo.Key))
@@ -101,66 +93,6 @@ namespace Bridge.Contract
         public BridgeType Get(string key)
         {
             return this[key];
-        }
-
-        public BridgeType Get(TypeDefinition type, bool safe = false)
-        {
-            foreach (var item in this)
-            {
-                if (item.Value.TypeDefinition == type)
-                {
-                    return item.Value;
-                }
-            }
-
-            if (!safe)
-            {
-                throw new Exception("Cannot find type: " + type.FullName);
-            }
-
-            return null;
-        }
-
-        public BridgeType Get(TypeReference type, bool safe = false)
-        {
-            BridgeType bType;
-
-            if (this.byTypeRef.TryGetValue(type, out bType))
-            {
-                return bType;
-            }
-
-            var name = type.FullName;
-            if (type.IsGenericInstance)
-            {
-                if (this.byTypeRef.TryGetValue(type.GetElementType(), out bType))
-                {
-                    return bType;
-                }
-
-                name = type.GetElementType().FullName;
-            }
-
-            foreach (var item in this)
-            {
-                if (item.Value.TypeDefinition.FullName == name)
-                {
-                    this.byTypeRef[type] = item.Value;
-                    if (type.IsGenericInstance && type != type.GetElementType())
-                    {
-                        this.byTypeRef[type.GetElementType()] = item.Value;
-                    }
-
-                    return item.Value;
-                }
-            }
-
-            if (!safe)
-            {
-                throw new Exception("Cannot find type: " + type.FullName);
-            }
-
-            return null;
         }
 
         public BridgeType Get(IType type, bool safe = false)
@@ -241,19 +173,6 @@ namespace Bridge.Contract
         {
             var resolveResult = this.Emitter.Resolver.ResolveNode(type, this.Emitter);
             return resolveResult.Type;
-        }
-
-        public static string GetParentNames(IEmitter emitter, TypeDefinition typeDef)
-        {
-            List<string> names = new List<string>();
-            while (typeDef.DeclaringType != null)
-            {
-                names.Add(BridgeTypes.ToJsName(typeDef.DeclaringType, emitter, true, true));
-                typeDef = typeDef.DeclaringType;
-            }
-
-            names.Reverse();
-            return names.Join(".");
         }
 
         public static string GetParentNames(IEmitter emitter, IType type)
@@ -397,19 +316,19 @@ namespace Bridge.Contract
 
             var name = excludens ? "" : type.Namespace;
 
-            var hasTypeDef = bridgeType != null && bridgeType.TypeDefinition != null;
+            var hasTypeDef = bridgeType != null && bridgeType.Type.GetDefinition() != null;
             var isNested = false;
             if (hasTypeDef)
             {
-                var typeDef = bridgeType.TypeDefinition;
+                var typeDef = bridgeType.Type.GetDefinition();
 
-                if (typeDef.IsNested && !excludens)
+                if (typeDef.DeclaringType != null && !excludens)
                 {
                     name = BridgeTypes.ToJsName(typeDef.DeclaringType, emitter, true, ignoreVirtual: true, nomodule: nomodule);
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(emitter.GetTypeName(itypeDef, typeDef));
+                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(emitter.GetTypeName(itypeDef));
             }
             else
             {
@@ -570,19 +489,9 @@ namespace Bridge.Contract
             return name;
         }
 
-        public static string ToJsName(TypeDefinition type, IEmitter emitter, bool asDefinition = false, bool excludens = false, bool ignoreVirtual = false, bool nomodule = false)
-        {
-            return BridgeTypes.ToJsName(ReflectionHelper.ParseReflectionName(BridgeTypes.GetTypeDefinitionKey(type)).Resolve(emitter.Resolver.Resolver.TypeResolveContext), emitter, asDefinition, excludens, ignoreVirtual:ignoreVirtual, nomodule: nomodule);
-        }
-
         public static string DefinitionToJsName(IType type, IEmitter emitter, bool ignoreLiteralName = true)
         {
             return BridgeTypes.ToJsName(type, emitter, true, ignoreLiteralName: ignoreLiteralName);
-        }
-
-        public static string DefinitionToJsName(TypeDefinition type, IEmitter emitter)
-        {
-            return BridgeTypes.ToJsName(type, emitter, true);
         }
 
         public static string ToJsName(AstType astType, IEmitter emitter)
@@ -657,7 +566,7 @@ namespace Bridge.Contract
         private static string GetCustomName(string name, BridgeType type, bool excludeNs, bool isNested, ref bool isCustomName, string moduleName)
         {
             var emitter = type.Emitter;
-            var customName = emitter.Validator.GetCustomTypeName(type.TypeDefinition, emitter, excludeNs);
+            var customName = emitter.Validator.GetCustomTypeName(type.Type.GetDefinition(), emitter, excludeNs);
 
             if (!String.IsNullOrEmpty(customName))
             {
@@ -718,9 +627,9 @@ namespace Bridge.Contract
             );
         }
 
-        public static string GetTypeDefinitionKey(TypeDefinition type)
+        public static string GetTypeDefinitionKey(ITypeDefinition type)
         {
-            return BridgeTypes.GetTypeDefinitionKey(type.FullName);
+            return BridgeTypes.GetTypeDefinitionKey(type.ReflectionName);
         }
 
         public static string GetTypeDefinitionKey(string name)
@@ -916,20 +825,20 @@ namespace Bridge.Contract
 
             var name = excludens ? "" : type.Namespace;
 
-            var hasTypeDef = bridgeType != null && bridgeType.TypeDefinition != null;
+            var hasTypeDef = bridgeType != null && bridgeType.Type.GetDefinition() != null;
             bool isNested = false;
 
             if (hasTypeDef)
             {
-                var typeDef = bridgeType.TypeDefinition;
-                if (typeDef.IsNested && !excludens)
+                var typeDef = bridgeType.Type.GetDefinition();
+                if (typeDef.DeclaringType != null && !excludens)
                 {
                     //name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.GetParentNames(emitter, typeDef);
                     name = BridgeTypes.ToJsName(typeDef.DeclaringType, emitter, true, ignoreVirtual: true);
                     isNested = true;
                 }
 
-                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(emitter.GetTypeName(bridgeType.Type.GetDefinition(), typeDef));
+                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(emitter.GetTypeName(bridgeType.Type.GetDefinition()));
             }
             else
             {
