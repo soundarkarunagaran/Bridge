@@ -417,7 +417,7 @@ namespace Bridge.Contract
                 return true;
             }
 
-            var typeDef = emitter.GetTypeDefinition(type);
+            var typeDef = type.GetDefinition();
             var mutableFields = type.GetFields(f => !f.IsReadOnly && !f.IsConst, GetMemberOptions.IgnoreInheritedMembers);
             var autoProps = typeDef.Properties.Where(Helpers.IsAutoProperty);
             var autoEvents = type.GetEvents(null, GetMemberOptions.IgnoreInheritedMembers);
@@ -445,31 +445,6 @@ namespace Bridge.Contract
             // auto properties don't have bodies
             return (propertyDeclaration.CanGet && (!propertyDeclaration.Getter.HasBody || propertyDeclaration.Getter.BodyRegion.IsEmpty)) ||
                    (propertyDeclaration.CanSet && (!propertyDeclaration.Setter.HasBody || propertyDeclaration.Setter.BodyRegion.IsEmpty));
-        }
-
-        public static bool IsAutoProperty(PropertyDefinition propDef)
-        {
-            if (propDef.GetMethod != null && propDef.GetMethod.IsScript())
-            {
-                return false;
-            }
-
-            if (propDef.SetMethod != null && propDef.SetMethod.IsScript())
-            {
-                return false;
-            }
-
-            if (propDef.GetMethod == null || propDef.SetMethod == null)
-            {
-                return false;
-            }
-            if (propDef.GetMethod.IsCompilerGenerated())
-            {
-                return true;
-            }
-
-            var typeDef = propDef.DeclaringType;
-            return typeDef != null && typeDef.Fields.Any(f => !f.IsPublic && !f.IsStatic && f.Name.Contains("BackingField") && f.Name.Contains("<" + propDef.Name + ">"));
         }
 
         public static string GetAddOrRemove(bool isAdd, string name = null)

@@ -384,6 +384,12 @@ namespace Bridge.Translator
         {
             var rr = (MemberResolveResult)this.Resolver.ResolveNode(methodDeclaration, null);
 
+            if (rr.Member.IsCompilerExtension())
+            {
+                ExecuteCompilerExtension(methodDeclaration, (IMethod)rr.Member);
+                return;
+            }
+
             if (methodDeclaration.HasModifier(Modifiers.Abstract) || rr.Member.HasTemplate())
             {
                 return;

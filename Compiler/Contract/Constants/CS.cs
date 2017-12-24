@@ -63,6 +63,7 @@
             public const string EXTERNAL_INTERFACE = Bridge.DOTNAME + "ExternalInterfaceAttribute";
             public const string IMMUTABLE = Bridge.DOTNAME + "ImmutableAttribute";
             public const string FIELD = Bridge.DOTNAME + "FieldAttribute";
+            public const string COMPILER_EXTENSION = Bridge.DOTNAME + "CompilerExtensionAttribute";
             
         }
 

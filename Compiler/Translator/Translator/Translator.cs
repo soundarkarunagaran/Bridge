@@ -122,6 +122,8 @@ namespace Bridge.Translator
                 Location = this.AssemblyInfo.Report.Path
             };
 
+            AttributeRegistry.Reset(this.AssemblyInfo); ;
+
             var references = this.InspectReferences();
             this.References = references;
 

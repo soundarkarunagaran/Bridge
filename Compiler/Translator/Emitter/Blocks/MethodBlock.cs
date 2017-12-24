@@ -185,7 +185,7 @@ namespace Bridge.Translator
 
         protected virtual void EmitStructMethods()
         {
-            var typeDef = this.Emitter.GetTypeDefinition();
+            var typeDef = TypeInfo.Type.GetDefinition();
             string structName = BridgeTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
 
             bool immutable = typeDef.IsImmutableType();

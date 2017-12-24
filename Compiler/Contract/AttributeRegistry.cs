@@ -18,7 +18,13 @@ namespace Bridge.Contract
     /// </summary>
     public static class AttributeRegistry
     {
-        public static IAssemblyInfo AssemblyInfo { get; set; }
+        public static IAssemblyInfo AssemblyInfo { get; private set; }
+
+        public static void Reset(IAssemblyInfo assemblyInfo)
+        {
+            AssemblyInfo = assemblyInfo;
+            _attributes = new Dictionary<string, List<IAttribute>>();
+        }
 
         public static bool IsCompilerGenerated(this ICustomAttributeProvider owner)
         {
@@ -759,6 +765,7 @@ namespace Bridge.Contract
 
             return false;
         }
+
         private static IAttribute GetReflectableAttribute(this IEntity entity)
         {
             var attr = entity.GetAttribute(CS.Attributes.REFLECTABLE);
@@ -1195,6 +1202,10 @@ namespace Bridge.Contract
         public static bool HasTemplate(this IEntity type)
         {
             return type.HasAttribute(CS.Attributes.TEMPLATE);
+        }
+        public static bool IsCompilerExtension(this IEntity type)
+        {
+            return type.HasAttribute(CS.Attributes.COMPILER_EXTENSION);
         }
         public static string GetTemplate(this IEntity type, IEmitter emitter)
         {
@@ -1788,6 +1799,13 @@ namespace Bridge.Contract
             if (entity == null) return Enumerable.Empty<IAttribute>();
 
             var attributes = new List<IAttribute>(entity.Attributes);
+
+            List<IAttribute> registeredAttributes;
+            if (_attributes.TryGetValue(GetAttributeKey(entity), out registeredAttributes))
+            {
+                attributes.AddRange(registeredAttributes);
+            }
+
             if (includeInherited)
             {
                 attributes.AddRange(GetInheritedAttributes(entity));
@@ -1800,6 +1818,13 @@ namespace Bridge.Contract
             if (entity == null) return Enumerable.Empty<IAttribute>();
 
             var attributes = new List<IAttribute>(entity.ReturnTypeAttributes);
+
+            List<IAttribute> registeredAttributes;
+            if (_attributes.TryGetValue(GetReturnValueAttributeKey(entity), out registeredAttributes))
+            {
+                attributes.AddRange(registeredAttributes);
+            }
+
             if (includeInherited)
             {
                 attributes.AddRange(GetInheritedAttributes(entity));
@@ -1810,19 +1835,47 @@ namespace Bridge.Contract
         private static IEnumerable<IAttribute> GetAttributes(this IParameter member)
         {
             if (member == null) return Enumerable.Empty<IAttribute>();
-            return member.Attributes ?? Enumerable.Empty<IAttribute>();
+
+            var attributes = member.Attributes ?? Enumerable.Empty<IAttribute>();
+
+            List<IAttribute> registeredAttributes;
+            if (_attributes.TryGetValue(GetAttributeKey(member), out registeredAttributes))
+            {
+                attributes = registeredAttributes.Concat(attributes);
+            }
+
+            return attributes;
         }
 
         private static IEnumerable<CustomAttribute> GetAttributes(this ICustomAttributeProvider member)
         {
             if (member == null) return Enumerable.Empty<CustomAttribute>();
-            return member.CustomAttributes ?? Enumerable.Empty<CustomAttribute>();
+
+            var attributes = member.CustomAttributes ?? Enumerable.Empty<CustomAttribute>();
+
+            // TODO: support attribute injection for external types 
+            //List<IAttribute> registeredAttributes;
+            //if (_attributes.TryGetValue(GetAttributeKey(member), out registeredAttributes))
+            //{
+            //    attributes = Enumerable.Concat(registeredAttributes, attributes);
+            //}
+
+            return attributes;
         }
 
         private static IEnumerable<IAttribute> GetAttributes(this IAssembly assembly)
         {
             if (assembly == null) return Enumerable.Empty<IAttribute>();
-            return assembly.AssemblyAttributes ?? Enumerable.Empty<IAttribute>();
+
+            var attributes = assembly.AssemblyAttributes ?? Enumerable.Empty<IAttribute>();
+
+            List<IAttribute> registeredAttributes;
+            if (_attributes.TryGetValue(GetAttributeKey(assembly), out registeredAttributes))
+            {
+                attributes = registeredAttributes.Concat(attributes);
+            }
+
+            return attributes;
         }
 
         private static IEnumerable<IAttribute> GetInheritedAttributes(IEntity entity)
@@ -1855,6 +1908,62 @@ namespace Bridge.Contract
             return Enumerable.Empty<IAttribute>();
         }
 
+        public static void RegisterAttribute(IEntity entity, IAttribute attribute)
+        {
+            RegisterAttribute(GetAttributeKey(entity), attribute);
+        }
+
+
+        public static void RegisterAttribute(IParameter parameter, IAttribute attribute)
+        {
+            RegisterAttribute(GetAttributeKey(parameter), attribute);
+
+        }
+
+        public static void RegisterReturnValueAttribute(IEntity entity, IAttribute attribute)
+        {
+            RegisterAttribute(GetReturnValueAttributeKey(entity), attribute);
+        }
+
+        public static void RegisterAttribute(IAssembly assembly, DefaultAttribute attribute)
+        {
+            RegisterAttribute(GetAttributeKey(assembly), attribute);
+        }
+
+        private static void RegisterAttribute(string key, IAttribute attribute)
+        {
+            List<IAttribute> attributes;
+            if (!_attributes.TryGetValue(key, out attributes))
+            {
+                _attributes[key] = attributes = new List<IAttribute>();
+            }
+            attributes.Add(attribute);
+        }
+
+        private static string GetReturnValueAttributeKey(IEntity entity)
+        {
+            return "R:" + GetAttributeKey(entity);
+        }
+
+        private static string GetAttributeKey(IEntity entity)
+        {
+            return entity == null ? string.Empty : entity.ReflectionName;
+        }
+
+        private static string GetAttributeKey(IAssembly entity)
+        {
+            return "A:" + entity.FullAssemblyName;
+        }
+
+        private static string GetAttributeKey(IParameter entity)
+        {
+            return GetAttributeKey(entity.Owner) + ":" + entity.Name;
+        }
+
+        private static Dictionary<string, List<IAttribute>> _attributes;
+
+
         #endregion
+
     }
 }

@@ -211,7 +211,6 @@ namespace Bridge.Translator
         }
 
         private List<IAssemblyReference> list;
-        private IAssemblyInfo _assemblyInfo;
 
         protected virtual IEnumerable<IAssemblyReference> AssemblyReferences
         {
@@ -264,12 +263,8 @@ namespace Bridge.Translator
 
         public IAssemblyInfo AssemblyInfo
         {
-            get { return _assemblyInfo; }
-            set
-            {
-                _assemblyInfo = value;
-                AttributeRegistry.AssemblyInfo = value;
-            }
+            get;
+            set;
         }
 
         public Dictionary<string, ITypeInfo> TypeInfoDefinitions
