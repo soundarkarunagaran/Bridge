@@ -1,5 +1,5 @@
 /**
- * @version   : 16.5.1 - Bridge.NET
+ * @version   : 16.6.1 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
  * @copyright : Copyright 2008-2017 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
@@ -483,7 +483,10 @@
             if (typeof Bridge.global.jQuery !== "undefined") {
                 Bridge.global.jQuery(delayfn);
             } else {
-                if (typeof Bridge.global.document === "undefined" || Bridge.global.document.readyState === "complete" || Bridge.global.document.readyState === "loaded") {
+                if (typeof Bridge.global.document === "undefined" ||
+                    Bridge.global.document.readyState === "complete" ||
+                    Bridge.global.document.readyState === "loaded" ||
+                    Bridge.global.document.readyState === "interactive") {
                     delayfn();
                 } else {
                     Bridge.on("DOMContentLoaded", Bridge.global.document, delayfn);
@@ -1133,7 +1136,7 @@
         },
 
         isDate: function (obj) {
-            return Object.prototype.toString.call(obj) === "[object Date]";
+            return obj instanceof Date;
         },
 
         isNull: function (value) {
@@ -1185,45 +1188,58 @@
                 return true;
             }
 
-            if (a && a.$boxed && a.type.equals && a.type.equals.length === 2) {
-                return a.type.equals(a, b);
+            var guardItem = Bridge.$equalsGuard[Bridge.$equalsGuard.length - 1];
+            if (guardItem && guardItem.a === a && guardItem.b === b) {
+                return a === b;
             }
 
-            if (b && b.$boxed && b.type.equals && b.type.equals.length === 2) {
-                return b.type.equals(b, a);
-            }
+            Bridge.$equalsGuard.push({a: a, b: b});
 
-            if (a && Bridge.isFunction(a.equals) && a.equals.length === 1) {
-                return a.equals(b);
-            }
-
-            if (b && Bridge.isFunction(b.equals) && b.equals.length === 1) {
-                return b.equals(a);
-            } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
-                return Bridge.fn.equals.call(a, b);
-            } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
-                if (a.kind !== undefined && a.ticks !== undefined && b.kind !== undefined && b.ticks !== undefined) {
-                    return a.ticks.equals(b.ticks);
+            var fn = function (a, b) {
+                if (a && a.$boxed && a.type.equals && a.type.equals.length === 2) {
+                    return a.type.equals(a, b);
                 }
 
-                return a.valueOf() === b.valueOf();
-            } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
-                return true;
-            } else if (Bridge.isNull(a) !== Bridge.isNull(b)) {
-                return false;
-            }
+                if (b && b.$boxed && b.type.equals && b.type.equals.length === 2) {
+                    return b.type.equals(b, a);
+                }
 
-            var eq = a === b;
+                if (a && Bridge.isFunction(a.equals) && a.equals.length === 1) {
+                    return a.equals(b);
+                }
 
-            if (!eq && typeof a === "object" && typeof b === "object" && a !== null && b !== null && a.$kind === "struct" && b.$kind === "struct" && a.$$name === b.$$name) {
-                return Bridge.getHashCode(a) === Bridge.getHashCode(b) && Bridge.objectEquals(a, b);
-            }
+                if (b && Bridge.isFunction(b.equals) && b.equals.length === 1) {
+                    return b.equals(a);
+                } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
+                    return Bridge.fn.equals.call(a, b);
+                } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
+                    if (a.kind !== undefined && a.ticks !== undefined && b.kind !== undefined && b.ticks !== undefined) {
+                        return a.ticks.equals(b.ticks);
+                    }
 
-            if (!eq && a && b && a.hasOwnProperty("item1") && Bridge.isPlainObject(a) && b.hasOwnProperty("item1") && Bridge.isPlainObject(b)) {
-                return Bridge.objectEquals(a, b);
-            }
+                    return a.valueOf() === b.valueOf();
+                } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
+                    return true;
+                } else if (Bridge.isNull(a) !== Bridge.isNull(b)) {
+                    return false;
+                }
 
-            return eq;
+                var eq = a === b;
+
+                if (!eq && typeof a === "object" && typeof b === "object" && a !== null && b !== null && a.$kind === "struct" && b.$kind === "struct" && a.$$name === b.$$name) {
+                    return Bridge.getHashCode(a) === Bridge.getHashCode(b) && Bridge.objectEquals(a, b);
+                }
+
+                if (!eq && a && b && a.hasOwnProperty("item1") && Bridge.isPlainObject(a) && b.hasOwnProperty("item1") && Bridge.isPlainObject(b)) {
+                    return Bridge.objectEquals(a, b);
+                }
+
+                return eq;
+            };            
+
+            var result = fn(a, b);
+            Bridge.$equalsGuard.pop();
+            return result;
         },
 
         objectEquals: function (a, b) {
@@ -1863,6 +1879,7 @@
 
     globals.Bridge = core;
     globals.Bridge.caller = [];
+    globals.Bridge.$equalsGuard = [];
 
     if (globals.console) {
         globals.Bridge.Console = globals.console;
@@ -3019,7 +3036,7 @@
 
     // @source ReflectionAssembly.js
 
-    Bridge.assembly = function (assemblyName, res, callback) {
+    Bridge.assembly = function (assemblyName, res, callback, restore) {
         if (!callback) {
             callback = res;
             res = {};
@@ -3035,6 +3052,7 @@
             Bridge.apply(asm.res, res || {});
         }
 
+        var oldAssembly = Bridge.$currentAssembly;
         Bridge.$currentAssembly = asm;
 
         if (callback) {
@@ -3047,6 +3065,10 @@
         }
 
         Bridge.init();
+
+        if (restore) {
+            Bridge.$currentAssembly = oldAssembly;
+        }
     };
 
     Bridge.define("System.Reflection.Assembly", {
@@ -3101,13 +3123,13 @@
         },
 
         getCustomAttributes: function (attributeType) {
-            if (attributeType && !Bridge.isBoolean(attributeType)) {
+            if (this.attr && attributeType && !Bridge.isBoolean(attributeType)) {
                 return this.attr.filter(function (a) {
                     return Bridge.is(a, attributeType);
                 });
             }
 
-            return this.attr;
+            return this.attr || [];
         }
     });
 
@@ -3129,8 +3151,8 @@
     // @source systemAssemblyVersion.js
 
     Bridge.init(function () {
-        Bridge.SystemAssembly.version = "16.5.0";
-        Bridge.SystemAssembly.compiler = "16.5.0";
+        Bridge.SystemAssembly.version = "16.6.1";
+        Bridge.SystemAssembly.compiler = "16.6.1";
     });
 
     Bridge.define("Bridge.Utils.SystemAssemblyVersion");
@@ -8234,7 +8256,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
     };
 
     System.Decimal.prototype.equals = function (v) {
-        if (v instanceof System.Decimal) {
+        if (v instanceof System.Decimal || typeof v === "number") {
             return !this.compareTo(v);
         }
 
@@ -9779,22 +9801,23 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             },
 
             gt: function (a, b) {
-                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) > System.DateTime.getTicks(b)) : false;
+                return (a != null && b != null) ? (System.DateTime.getTicks(a).gt(System.DateTime.getTicks(b))) : false;
             },
 
             gte: function (a, b) {
-                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) >= System.DateTime.getTicks(b)) : false;
+                return (a != null && b != null) ? (System.DateTime.getTicks(a).gte(System.DateTime.getTicks(b))) : false;
             },
 
             lt: function (a, b) {
-                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) < System.DateTime.getTicks(b)) : false;
+                return (a != null && b != null) ? (System.DateTime.getTicks(a).lt(System.DateTime.getTicks(b))) : false;
             },
 
             lte: function (a, b) {
-                return (System.DateTime.$is(a) && System.DateTime.$is(b)) ? (System.DateTime.getTicks(a) <= System.DateTime.getTicks(b)) : false;
+                return (a != null && b != null) ? (System.DateTime.getTicks(a).lte(System.DateTime.getTicks(b))) : false;
             }
         }
     });
+
     // @source TimeSpan.js
 
     Bridge.define("System.TimeSpan", {
@@ -17554,20 +17577,24 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
     // @source Uri.js
 
-    Bridge.define("System.Uri", {
-        ctor: function (uriString) {
-            this.$initialize();
-            this.absoluteUri = uriString;
-        },
+Bridge.assembly("System", {}, function ($asm, globals) {
+        "use strict";
 
-        getAbsoluteUri: function () {
-            return this.absoluteUri;
-        },
+        Bridge.define("System.Uri", {
+            ctor: function (uriString) {
+                this.$initialize();
+                this.absoluteUri = uriString;
+            },
 
-        toJSON: function () {
-            return this.absoluteUri;
-        }
-    });
+            getAbsoluteUri: function () {
+                return this.absoluteUri;
+            },
+
+            toJSON: function () {
+                return this.absoluteUri;
+            }
+        });
+    }, true);
 
     // @source Generator.js
 
@@ -22684,7 +22711,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 Bridge.define("System.Text.RegularExpressions.RegexParser", {
     statics: {
         _Q: 5, // quantifier
-        _S: 4, // ordinary stoppper
+        _S: 4, // ordinary stopper
         _Z: 3, // ScanBlank stopper
         _X: 2, // whitespace
         _E: 1, // should be escaped
@@ -28363,6 +28390,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 this.m_isMemoryStream = (Bridge.referenceEquals(Bridge.getType(this.m_stream), System.IO.MemoryStream));
                 this.m_leaveOpen = leaveOpen;
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.m_encoding != null; }, "[BinaryReader.ctor]m_encoding!=null");
             }
         },
         methods: {
@@ -28490,6 +28518,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
                     // read directly from MemoryStream buffer
                     var mStream = Bridge.as(this.m_stream, System.IO.MemoryStream);
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return mStream != null; }, "m_stream as MemoryStream != null");
 
                     return mStream.InternalReadInt32();
                 } else {
@@ -28603,6 +28632,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 return sb.toString();
             },
             InternalReadChars: function (buffer, index, count) {
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.m_stream != null; });
 
                 var charsRemaining = count;
 
@@ -28634,6 +28664,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 // this should never fail
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return charsRemaining >= 0; }, "We read too many characters.");
 
                 // we may have read fewer than the number of characters requested if end of stream reached
                 // or if the encoding makes the char count too big for the buffer (e.g. fallback sequence)
@@ -28752,6 +28783,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
 
                     if (!allowSurrogate) {
+                        System.Diagnostics.Contracts.Contract.assert(4, this, function () { return charsRead < 2; }, "InternalReadOneChar - assuming we only got 0 or 1 char, not 2!");
                     }
                 }
 
@@ -28980,6 +29012,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     throw new System.ArgumentException("Arg_SurrogatesNotAllowedAsSingleChar");
                 }
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._encoding.GetMaxByteCount(1) <= 16; }, "_encoding.GetMaxByteCount(1) <= 16)");
                 var numBytes = 0;
                 numBytes = this._encoding.GetBytes$3(System.Array.init([ch], System.Char), 0, 1, this._buffer, 0);
 
@@ -30110,6 +30143,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     this.EnsureNotClosed();
                     this.EnsureCanSeek();
 
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return !(this._writePos > 0 && this._readPos !== this._readLen); }, "Read and Write buffers cannot both have data in them at the same time.");
                     return this._stream.Position.add(System.Int64((((((this._readPos - this._readLen) | 0) + this._writePos) | 0))));
                 },
                 set: function (value) {
@@ -30191,6 +30225,8 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             },
             EnsureShadowBufferAllocated: function () {
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._buffer != null; });
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._bufferSize > 0; });
 
                 // Already have shadow buffer?
                 if (this._buffer.length !== this._bufferSize || this._bufferSize >= System.IO.BufferedStream.MaxShadowBufferSize) {
@@ -30203,6 +30239,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             },
             EnsureBufferAllocated: function () {
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._bufferSize > 0; });
 
                 // BufferedStream is not intended for multi-threaded use, so no worries about the get/set ---- on _buffer.
                 if (this._buffer == null) {
@@ -30237,6 +30274,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 if (this._writePos > 0) {
 
                     this.FlushWrite();
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos === 0 && this._readPos === 0 && this._readLen === 0; });
                     return;
                 }
 
@@ -30259,6 +30297,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         this._stream.Flush();
                     }
 
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos === 0 && this._readPos === 0 && this._readLen === 0; });
                     return;
                 }
 
@@ -30271,6 +30310,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             },
             FlushRead: function () {
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos === 0; }, "BufferedStream: Write buffer must be empty in FlushRead!");
 
                 if (((this._readPos - this._readLen) | 0) !== 0) {
                     this._stream.Seek(System.Int64(this._readPos - this._readLen), System.IO.SeekOrigin.Current);
@@ -30283,6 +30323,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                 // This is called by write methods to clear the read buffer.
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._readPos <= this._readLen; }, "_readPos <= _readLen [" + this._readPos + " <= " + this._readLen + "]");
 
                 // No READ data in the buffer:
                 if (this._readPos === this._readLen) {
@@ -30292,6 +30333,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 // Must have READ data.
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._readPos < this._readLen; });
 
                 // If the underlying stream cannot seek, FlushRead would end up throwing NotSupported.
                 // However, since the user did not call a method that is intuitively expected to seek, a better message is in order.
@@ -30304,6 +30346,8 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             },
             FlushWrite: function () {
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._readPos === 0 && this._readLen === 0; }, "BufferedStream: Read buffer must be empty in FlushWrite!");
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._buffer != null && this._bufferSize >= this._writePos; }, "BufferedStream: Write buffer must be allocated and write position must be in the bounds of the buffer in FlushWrite!");
 
                 this._stream.Write(this._buffer, 0, this._writePos);
                 this._writePos = 0;
@@ -30312,11 +30356,13 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             ReadFromBuffer: function (array, offset, count) {
 
                 var readBytes = (this._readLen - this._readPos) | 0;
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return readBytes >= 0; });
 
                 if (readBytes === 0) {
                     return 0;
                 }
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return readBytes > 0; });
 
                 if (readBytes > count) {
                     readBytes = count;
@@ -30380,6 +30426,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 // So the READ buffer is empty.
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._readLen === this._readPos; });
                 this._readPos = (this._readLen = 0);
 
                 // If there was anything in the WRITE buffer, clear it.
@@ -30541,6 +30588,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 // A nice property (*) of this heuristic is that it will always succeed if the user data completely fits into the
                 // available buffer, i.e. if count < (_bufferSize - _writePos).
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos < this._bufferSize; });
 
                 var totalUserBytes;
                 var useBuffer; // We do not expect buffer sizes big enough for an overflow, but if it happens, lets fail early:
@@ -30553,21 +30601,29 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     if (this._writePos < this._bufferSize) {
 
+                        System.Diagnostics.Contracts.Contract.assert(4, this, function () { return count.v === 0; });
                         return;
                     }
 
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return count.v >= 0; });
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos === this._bufferSize; });
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._buffer != null; });
 
                     this._stream.Write(this._buffer, 0, this._writePos);
                     this._writePos = 0;
 
                     this.WriteToBuffer(array, offset, count);
 
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return count.v === 0; });
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos < this._bufferSize; });
 
                 } else { // if (!useBuffer)
 
                     // Write out the buffer if necessary.
                     if (this._writePos > 0) {
 
+                        System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._buffer != null; });
+                        System.Diagnostics.Contracts.Contract.assert(4, this, function () { return totalUserBytes >= this._bufferSize; });
 
                         // Try avoiding extra write to underlying stream by combining previously buffered data with current user data:
                         if (totalUserBytes <= (((this._bufferSize + this._bufferSize) | 0)) && totalUserBytes <= System.IO.BufferedStream.MaxShadowBufferSize) {
@@ -30605,6 +30661,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                 this._buffer[System.Array.index(Bridge.identity(this._writePos, (this._writePos = (this._writePos + 1) | 0)), this._buffer)] = value;
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._writePos < this._bufferSize; });
             },
             Seek: function (offset, origin) {
 
@@ -30630,6 +30687,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 var oldPos = this.Position;
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return oldPos.equals(this._stream.Position.add(System.Int64((((this._readPos - this._readLen) | 0))))); });
 
                 var newPos = this._stream.Seek(offset, origin);
 
@@ -30650,6 +30708,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     this._readPos = (this._readLen = 0);
                 }
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return newPos.equals(this.Position); }, "newPos (=" + newPos + ") == Position (=" + this.Position + ")");
                 return newPos;
             },
             SetLength: function (value) {
@@ -31199,7 +31258,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
                 if (n < 0) {
                     n = 0;
-                } // len is less than 2^31 -1.
+                }
+
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return ((this._position + n) | 0) >= 0; }, "_position + n >= 0"); // len is less than 2^31 -1.
                 this._position = (this._position + n) | 0;
                 return n;
             },
@@ -31227,7 +31288,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
                 if (n <= 0) {
                     return 0;
-                } // len is less than 2^31 -1.
+                }
+
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return ((this._position + n) | 0) >= 0; }, "_position + n >= 0"); // len is less than 2^31 -1.
 
                 if (n <= 8) {
                     var byteCount = n;
@@ -31292,6 +31355,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         throw new System.ArgumentException("Argument_InvalidSeekOrigin");
                 }
 
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this._position >= 0; }, "_position >= 0");
                 return System.Int64(this._position);
             },
             SetLength: function (value) {
@@ -31300,7 +31364,8 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
                 this.EnsureWriteable();
 
-                // Origin wasn't publicly exposed above. // Check parameter validation logic in this method if this fails.
+                // Origin wasn't publicly exposed above.
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return true; }); // Check parameter validation logic in this method if this fails.
                 if (value.gt(System.Int64((((2147483647 - this._origin) | 0))))) {
                     throw new System.ArgumentOutOfRangeException("value", "ArgumentOutOfRange_StreamLength");
                 }
@@ -31915,6 +31980,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 return System.IO.TextReader.prototype.ReadBlock.call(this, buffer, index, count);
             },
             CompressBuffer: function (n) {
+                System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.byteLen >= n; }, "CompressBuffer was called with a number of bytes greater than the current buffer length.  Are two threads using this StreamReader at the same time?");
                 System.Array.copy(this.byteBuffer, n, this.byteBuffer, 0, ((this.byteLen - n) | 0));
                 this.byteLen = (this.byteLen - n) | 0;
             },
@@ -31971,7 +32037,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                 this.byteLen = 0;
                 do {
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.bytePos === 0; }, "bytePos can be non zero only when we are trying to _checkPreamble.  Are two threads using this StreamReader at the same time?");
                     this.byteLen = this.stream.Read(this.byteBuffer, 0, this.byteBuffer.length);
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.byteLen >= 0; }, "Stream.Read returned a negative number!  This is a bug in your stream class.");
 
                     if (this.byteLen === 0) {
                         return this.charLen;
@@ -32022,10 +32090,13 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 readToUserBuffer.v = desiredChars >= this._maxCharsPerBuffer;
 
                 do {
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return charsRead === 0; });
 
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.bytePos === 0; }, "bytePos can be non zero only when we are trying to _checkPreamble.  Are two threads using this StreamReader at the same time?");
 
                     this.byteLen = this.stream.Read(this.byteBuffer, 0, this.byteBuffer.length);
 
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return this.byteLen >= 0; }, "Stream.Read returned a negative number!  This is a bug in your stream class.");
 
                     if (this.byteLen === 0) {
                         break;
@@ -32357,6 +32428,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     if (n > count) {
                         n = count;
                     }
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return n > 0; }, "StreamWriter::Write(char[]) isn't making progress!  This is most likely a ---- in user code.");
                     System.Array.copy(buffer, index, this.charBuffer, this.charPos, n);
                     this.charPos = (this.charPos + n) | 0;
                     index = (index + n) | 0;
@@ -32388,6 +32460,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     if (n > count) {
                         n = count;
                     }
+                    System.Diagnostics.Contracts.Contract.assert(4, this, function () { return n > 0; }, "StreamWriter::Write(char[], int, int) isn't making progress!  This is most likely a race condition in user code.");
                     System.Array.copy(buffer, index, this.charBuffer, this.charPos, n);
                     this.charPos = (this.charPos + n) | 0;
                     index = (index + n) | 0;
@@ -32409,6 +32482,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         if (n > count) {
                             n = count;
                         }
+                        System.Diagnostics.Contracts.Contract.assert(4, this, function () { return n > 0; }, "StreamWriter::Write(String) isn't making progress!  This is most likely a race condition in user code.");
                         System.String.copyTo(value, index, this.charBuffer, this.charPos, n);
                         this.charPos = (this.charPos + n) | 0;
                         index = (index + n) | 0;
@@ -35671,6 +35745,107 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
                     return System.Collections.HashHelpers.getPrime(newSize);
                 }
+            }
+        }
+    });
+
+    // @source browsableAttribute.js
+
+    Bridge.define("System.ComponentModel.BrowsableAttribute", {
+        inherits: [System.Attribute],
+        statics: {
+            fields: {
+                yes: null,
+                no: null,
+                default: null
+            },
+            ctors: {
+                init: function () {
+                    this.yes = new System.ComponentModel.BrowsableAttribute(true);
+                    this.no = new System.ComponentModel.BrowsableAttribute(false);
+                    this.default = System.ComponentModel.BrowsableAttribute.yes;
+                }
+            }
+        },
+        fields: {
+            browsable: false
+        },
+        props: {
+            Browsable: {
+                get: function () {
+                    return this.browsable;
+                }
+            }
+        },
+        ctors: {
+            init: function () {
+                this.browsable = true;
+            },
+            ctor: function (browsable) {
+                this.$initialize();
+                System.Attribute.ctor.call(this);
+                this.browsable = browsable;
+            }
+        },
+        methods: {
+            equals: function (obj) {
+                if (Bridge.referenceEquals(obj, this)) {
+                    return true;
+                }
+
+                var other = Bridge.as(obj, System.ComponentModel.BrowsableAttribute);
+
+                return (other != null) && other.Browsable === this.browsable;
+            },
+            getHashCode: function () {
+                return Bridge.getHashCode(this.browsable);
+            }
+        }
+    });
+
+    // @source defaultValueAttribute.js
+
+    Bridge.define("System.ComponentModel.DefaultValueAttribute", {
+        inherits: [System.Attribute],
+        fields: {
+            value: null
+        },
+        props: {
+            Value: {
+                get: function () {
+                    return this.value;
+                }
+            }
+        },
+        ctors: {
+            ctor: function (value) {
+                this.$initialize();
+                System.Attribute.ctor.call(this);
+                this.value = value;
+            }
+        },
+        methods: {
+            equals: function (obj) {
+                if (Bridge.referenceEquals(obj, this)) {
+                    return true;
+                }
+
+                var other = Bridge.as(obj, System.ComponentModel.DefaultValueAttribute);
+
+                if (other != null) {
+                    if (this.Value != null) {
+                        return Bridge.equals(this.Value, other.Value);
+                    } else {
+                        return (other.Value == null);
+                    }
+                }
+                return false;
+            },
+            getHashCode: function () {
+                return Bridge.getHashCode(this);
+            },
+            setValue: function (value) {
+                this.value = value;
             }
         }
     });
