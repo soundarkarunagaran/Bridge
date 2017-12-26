@@ -382,7 +382,7 @@ namespace Bridge.Translator
                     this.Write("var " + JS.Vars.D_THIS + " = ");
 
                     var isBaseObjectLiteral = baseType != null && baseType.IsObjectLiteral();
-                    if (isBaseObjectLiteral && baseType != null && (!baseType.IsExternal() || this.Emitter.Validator.IsBridgeClass(baseType)) ||
+                    if (isBaseObjectLiteral && baseType != null && (!baseType.IsExternal() || baseType.IsBridgeClass()) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
                     { 
                         this.EmitBaseConstructor(ctor, ctorName, true);
@@ -399,7 +399,7 @@ namespace Bridge.Translator
 
                     this.WriteNewLine();
 
-                    string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, false);
+                    string name = this.Emitter.GetCustomTypeName(typeDef, false);
                     if (name.IsEmpty())
                     {
                         name = BridgeTypes.ToJsName(this.TypeInfo.Type, this.Emitter);
@@ -476,7 +476,7 @@ namespace Bridge.Translator
 
                 if (!isObjectLiteral)
                 {
-                    if (baseType != null && (!baseType.IsExternal() || this.Emitter.Validator.IsBridgeClass(baseType)) ||
+                    if (baseType != null && (!baseType.IsExternal() || baseType.IsBridgeClass()) ||
                     (ctor.Initializer != null && ctor.Initializer.ConstructorInitializerType == ConstructorInitializerType.This))
                     {
                         if (requireNewLine)

@@ -100,7 +100,7 @@ namespace Bridge.Translator.Tests.Helpers
             return a;
         }
 
-        public IType SubstituteType(TypeDescriptor type)
+        public ITypeDefinition SubstituteType(TypeDescriptor type)
         {
             var typeDefinition = Substitute.For<ITypeDefinition, IEntity>();
             var entity = typeDefinition as IEntity;
@@ -141,15 +141,7 @@ namespace Bridge.Translator.Tests.Helpers
                 }
             }
 
-            var t = Substitute.For<IType>();
-            t.GetDefinition().Returns(typeDefinition);
-            t.FullName.Returns(typeFullName);
-            t.Name.Returns(GetTypeName(typeFullName));
-            t.Namespace.Returns(GetTypeNamespace(typeFullName));
-            t.Kind.Returns(typeKind);
-            t.DeclaringType.Returns((IType)null);
-
-            return t;
+            return typeDefinition;
         }
 
         public BridgeType AddBridgeType(BridgeTypes bridgeTypes, TypeDescriptor typeDescriptor)

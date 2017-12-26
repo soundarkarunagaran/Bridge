@@ -1,49 +1,83 @@
 /**
- * @compiler Bridge.NET 16.5.1
+ * @compiler Bridge.NET 16.6.1
  */
 Bridge.assembly("TestProject", function ($asm, globals) {
     "use strict";
 
-    require(["m2"], function (m2) {
-        Bridge.define("TestProject1.Program", {
-            main: function Main () {
-                var a = new A();
-                var a2 = new m2.TestProject1.Root2.A();
+    Bridge.define("TestProject.Other", {
+        statics: {
+            methods: {
+                Create: function (test) {
+                    var other = new TestProject.Other();
+                    other.Test = test;
+                    return other;
+                }
+            }
+        },
+        props: {
+            Test: 0
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+            }
+        }
+    });
+
+    Bridge.define("TestProject.Setup", {
+        main: function Main () {
+            var test = new NewName();
+            test.Field++;
+            console.log(test.Field);
+            (test.Field += (1 * 2) | 0);
+            test.Property = (test.Property + 2) | 0;
+            console.log(test.Property);
+            var x = $asm.$.TestProject.Setup.f1;
+            test.addEvent(x);
+            test.removeEvent(x);
+            console.log(test._Field);
+        }
+    });
+
+    Bridge.ns("TestProject.Setup", $asm.$);
+
+    Bridge.apply($asm.$.TestProject.Setup, {
+        f1: function () {
+            console.log("Hello World");
+        }
+    });
+
+    Bridge.define("NewName", {
+        fields: {
+            _Field: 0
+        },
+        props: {
+            Property: 0,
+            Property2: 0
+        },
+        methods: {
+            addEvent: function (value) {
+                throw new System.NotImplementedException();
             },
-            props: {
-                Prop: null,
-                Prop2: null
-            }
-        });
-    
-        Bridge.apply(Bridge.global, {
-    
-        });
-    
-        Bridge.define("A");
-        Bridge.init();
+            removeEvent: function (value) {
+                throw new System.NotImplementedException();
+            },
+            MethodWithReturn: function () {
+                return 0;
+            },
+            Method: function () { },
+            MethodWithArgs: function (a, b) { },
+            MethodWithArgs: function (a, b, c) { }
+        }
     });
 
-    define("m2", function () {
-        var m2 = { };
-        Bridge.define("TestProject1.Root2", {
-            $scope: m2,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; }
-                }
+    Bridge.define("TestProject.TestAttribute", {
+        inherits: [System.Attribute],
+        ctors: {
+            ctor: function (test) {
+                this.$initialize();
+                System.Attribute.ctor.call(this);
             }
-        });
-
-        Bridge.define("TestProject1.Root2.A", {
-            $scope: m2,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"td":m2.TestProject1.Root2,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; }
-                }
-            }
-        });
-        return m2;
+        }
     });
-
 });

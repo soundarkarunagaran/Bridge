@@ -25,12 +25,6 @@ namespace Bridge.Translator
             set;
         }
 
-        public IValidator Validator
-        {
-            get;
-            private set;
-        }
-
         public string BridgeLocation
         {
             get;

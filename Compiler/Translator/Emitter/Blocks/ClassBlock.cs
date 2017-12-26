@@ -135,7 +135,7 @@ namespace Bridge.Translator
             this.WriteTopInitMethods();
 
             var typeDef = this.Emitter.GetTypeDefinition();
-            string name = this.Emitter.Validator.GetCustomTypeName(typeDef, this.Emitter, false);
+            string name = this.Emitter.GetCustomTypeName(typeDef, false);
             this.IsGeneric = typeDef.TypeParameterCount > 0 && !TypeInfo.Type.IsIgnoreGeneric();
 
             if (name.IsEmpty())

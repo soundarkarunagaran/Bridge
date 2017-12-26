@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Object.Net.Utilities;
 
 namespace Bridge.Translator
 {
@@ -249,6 +250,103 @@ namespace Bridge.Translator
             var semantic = NameSemantic.Create(typeDefinition, this);
             return semantic.Name;
         }
+
+        private Stack<ITypeDefinition> _stack = new Stack<ITypeDefinition>();
+        public virtual string GetCustomTypeName(ITypeDefinition type, bool excludeNs)
+        {
+            if (this._stack.Contains(type))
+            {
+                return null;
+            }
+
+            var nsAtrr = excludeNs ? null : type.GetNamespace();
+            bool hasNs = nsAtrr != null;
+            var nameAttr = type.GetName();
+
+            string name = null;
+            bool changeCase = false;
+            if (nameAttr != null)
+            {
+                if (nameAttr.Item1 != null)
+                {
+                    name = Helpers.ConvertNameTokens(nameAttr.Item1, type.Name);
+                }
+                else
+                {
+                    var boolValue = (bool)nameAttr.Item2;
+
+                    if (boolValue)
+                    {
+                        if (hasNs)
+                        {
+                            changeCase = true;
+                        }
+                        else
+                        {
+                            this._stack.Push(type);
+                            name = BridgeTypes.ToJsName(type, this);
+                            var i = name.LastIndexOf(".");
+
+                            if (i > -1)
+                            {
+                                char[] chars = name.ToCharArray();
+                                chars[i + 1] = Char.ToLowerInvariant(chars[i + 1]);
+                                name = new string(chars);
+                            }
+                            else
+                            {
+                                name = name.ToLowerCamelCase();
+                            }
+                            this._stack.Pop();
+
+                            return name;
+                        }
+                    }
+                }
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                return name;
+            }
+
+            if (hasNs)
+            {
+                name = "";
+                if (nsAtrr.Item1 != null)
+                {
+                    name = nsAtrr.Item1;
+                }
+
+                if (nsAtrr.Item2)
+                {
+                    return null;
+                }
+
+                if (type.DeclaringType != null)
+                {
+                    name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.GetParentNames(this, type);
+                }
+
+
+                var typeName = this.GetTypeName(type);
+                name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(changeCase ? typeName.ToLowerCamelCase() : typeName);
+
+                return name;
+            }
+
+            if (type.IsObjectLiteral())
+            {
+                var mode = type.GetObjectCreateMode();
+                if (type.IsExternal() && mode == 0)
+                {
+                    return JS.Types.System.Object.NAME;
+                }
+            }
+
+            return null;
+        }
+
 
         public string GetLiteralEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member)
         {

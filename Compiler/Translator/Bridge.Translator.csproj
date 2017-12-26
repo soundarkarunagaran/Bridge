@@ -352,7 +352,6 @@
     <Compile Include="Emitter\Emitter.cs" />
     <Compile Include="Inspector\Inspector.Visitor.cs" />
     <Compile Include="Inspector\Inspector.Properties.cs" />
-    <Compile Include="Inspector\Validator.cs" />
     <Compile Include="Inspector\Inspector.cs" />
     <Compile Include="Inspector\Visitor.Empty.cs" />
     <Compile Include="Utils\ArrayInitializerVisitor.cs" />

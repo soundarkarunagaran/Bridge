@@ -20,19 +20,13 @@ namespace Bridge.Contract
             this.Key = key;
         }
 
-        public virtual IEmitter Emitter
-        {
-            get;
-            set;
-        }
-
         public virtual string Key
         {
             get;
             private set;
         }
 
-        public virtual IType Type
+        public virtual ITypeDefinition Type
         {
             get;
             set;
@@ -67,8 +61,6 @@ namespace Bridge.Contract
             {
                 var type = item.Value;
                 var key = type.Key;
-                type.Emitter = emitter;
-                type.Type = ReflectionHelper.ParseReflectionName(type.Key).Resolve(emitter.Resolver.Resolver.TypeResolveContext);
                 type.TypeInfo = emitter.Types.FirstOrDefault(t => t.Key == key);
 
                 if (type.TypeInfo != null && emitter.TypeInfoDefinitions.ContainsKey(type.TypeInfo.Key))
@@ -232,7 +224,7 @@ namespace Bridge.Contract
                     if (bridgeType != null && !nomodule)
                     {
                         bool customName;
-                        globalTarget = BridgeTypes.AddModule(globalTarget, bridgeType, excludens, false, out customName);
+                        globalTarget = BridgeTypes.AddModule(emitter, globalTarget, bridgeType, excludens, false, out customName);
                     }
                     return globalTarget;
                 }
@@ -346,11 +338,11 @@ namespace Bridge.Contract
             {
                 if (nomodule)
                 {
-                    name = GetCustomName(name, bridgeType, excludens, isNested, ref isCustomName, null);
+                    name = GetCustomName(emitter, name, bridgeType, excludens, isNested, ref isCustomName, null);
                 }
                 else
                 {
-                    name = BridgeTypes.AddModule(name, bridgeType, excludens, isNested, out isCustomName);
+                    name = BridgeTypes.AddModule(emitter, name, bridgeType, excludens, isNested, out isCustomName);
                 }                
             }
 
@@ -529,10 +521,9 @@ namespace Bridge.Contract
             }
         }
 
-        public static string AddModule(string name, BridgeType type, bool excludeNs, bool isNested, out bool isCustomName)
+        public static string AddModule(IEmitter emitter, string name, BridgeType type, bool excludeNs, bool isNested, out bool isCustomName)
         {
             isCustomName = false;
-            var emitter = type.Emitter;
             var currentTypeInfo = emitter.TypeInfo;
             Module module = null;
             string moduleName = null;
@@ -560,13 +551,12 @@ namespace Bridge.Contract
                 }                
             }
 
-            return GetCustomName(name, type, excludeNs, isNested, ref isCustomName, moduleName);
+            return GetCustomName(emitter, name, type, excludeNs, isNested, ref isCustomName, moduleName);
         }
 
-        private static string GetCustomName(string name, BridgeType type, bool excludeNs, bool isNested, ref bool isCustomName, string moduleName)
+        private static string GetCustomName(IEmitter emitter, string name, BridgeType type, bool excludeNs, bool isNested, ref bool isCustomName, string moduleName)
         {
-            var emitter = type.Emitter;
-            var customName = emitter.Validator.GetCustomTypeName(type.Type.GetDefinition(), emitter, excludeNs);
+            var customName = emitter.GetCustomTypeName(type.Type, excludeNs);
 
             if (!String.IsNullOrEmpty(customName))
             {
@@ -632,7 +622,7 @@ namespace Bridge.Contract
             return BridgeTypes.GetTypeDefinitionKey(type.ReflectionName);
         }
 
-        public static string GetTypeDefinitionKey(string name)
+        private static string GetTypeDefinitionKey(string name)
         {
             return name.Replace("/", "+");
         }
@@ -876,7 +866,7 @@ namespace Bridge.Contract
                     }
                 }
 
-                name = BridgeTypes.GetCustomName(name, bridgeType, excludens, isNested, ref isCustomName, null);
+                name = BridgeTypes.GetCustomName(emitter, name, bridgeType, excludens, isNested, ref isCustomName, null);
             }
 
             if (!hasTypeDef && !isCustomName && type.TypeArguments.Count > 0)

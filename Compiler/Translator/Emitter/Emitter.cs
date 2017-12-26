@@ -8,7 +8,6 @@ namespace Bridge.Translator
     {
         public Emitter(BridgeTypes bridgeTypes,
             List<ITypeInfo> types,
-            IValidator validator,
             IMemberResolver resolver,
             Dictionary<string, ITypeInfo> typeInfoDefinitions,
             ILogger logger)
@@ -28,7 +27,6 @@ namespace Bridge.Translator
 
             this.SortTypesByInheritance();
 
-            this.Validator = validator;
             this.AssignmentType = ICSharpCode.NRefactory.CSharp.AssignmentOperatorType.Any;
             this.UnaryOperatorType = ICSharpCode.NRefactory.CSharp.UnaryOperatorType.Any;
             this.JsDoc = new JsDoc();

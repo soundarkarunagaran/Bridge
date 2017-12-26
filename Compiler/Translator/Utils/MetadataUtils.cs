@@ -727,8 +727,9 @@ namespace Bridge.Translator
             return result;
         }
 
-        internal static string GetTypeName(IType type, IEmitter emitter, bool isGenericSpecialization, bool asDefinition = false)
+        internal static string GetTypeName(IType type, IEmitter emitter, bool isGenericSpecialization, out int? namespaceKey, bool asDefinition = false)
         {
+            namespaceKey = null;
             var typeParam = type as ITypeParameter;
             if (typeParam != null && (typeParam.OwnerType == SymbolKind.Method || typeParam.Owner.IsIgnoreGeneric()))
             {
@@ -748,11 +749,11 @@ namespace Bridge.Translator
                 int key;
                 if (emitter.NamespacesCache.ContainsKey(type.Namespace))
                 {
-                    key = emitter.NamespacesCache[type.Namespace];
+                    namespaceKey = key = emitter.NamespacesCache[type.Namespace];
                 }
                 else
                 {
-                    key = emitter.NamespacesCache.Count;
+                    namespaceKey = key = emitter.NamespacesCache.Count;
                     emitter.NamespacesCache.Add(type.Namespace, key);
                 }
 
@@ -760,6 +761,12 @@ namespace Bridge.Translator
             }
 
             return name;
+        }
+
+        internal static string GetTypeName(IType type, IEmitter emitter, bool isGenericSpecialization, bool asDefinition = false)
+        {
+            int? namespaceKey;
+            return GetTypeName(type, emitter, isGenericSpecialization, out namespaceKey, asDefinition);
         }
     }
 }

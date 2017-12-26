@@ -802,7 +802,7 @@ namespace Bridge.Contract
             bool isCustomName = false;
             if (bridgeType != null)
             {
-                name = BridgeTypes.AddModule(name, bridgeType, false, isNested, out isCustomName);
+                name = BridgeTypes.AddModule(emitter, name, bridgeType, false, isNested, out isCustomName);
             }
 
             if (!hasTypeDef && !isCustomName && type.TypeArguments.Count > 0)

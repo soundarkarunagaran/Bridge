@@ -629,6 +629,8 @@ namespace Bridge.Translator
             }
         }
 
+
+
         public Dictionary<string, int> NamespacesCache
         {
             get
@@ -957,14 +959,6 @@ namespace Bridge.Translator
             }
 
             set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public IValidator Validator
-        {
-            get
             {
                 throw new NotImplementedException();
             }
@@ -1764,6 +1758,11 @@ namespace Bridge.Translator
         }
 
         public void WriteIndented(string s, int? position = default(int?))
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetCustomTypeName(ITypeDefinition type, bool excludeNs)
         {
             throw new NotImplementedException();
         }

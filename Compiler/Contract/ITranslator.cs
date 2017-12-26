@@ -89,11 +89,6 @@ namespace Bridge.Contract
             get;
         }
 
-        IValidator Validator
-        {
-            get;
-        }
-
         IPlugins Plugins
         {
             get;

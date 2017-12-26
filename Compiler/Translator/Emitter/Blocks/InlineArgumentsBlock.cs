@@ -37,7 +37,7 @@ namespace Bridge.Translator
                     if (bridgeType != null)
                     {
                         bool isCustomName;
-                        BridgeTypes.AddModule(null, bridgeType, false, false, out isCustomName);
+                        BridgeTypes.AddModule(emitter, null, bridgeType, false, false, out isCustomName);
                     }
                 }
             }
@@ -1300,7 +1300,7 @@ namespace Bridge.Translator
             {
                 foreach (var tp in typeParameters)
                 {
-                    this.Emitter.Validator.CheckIdentifier(tp.Name, this.ArgumentsInfo.Expression);
+                    Helpers.CheckIdentifier(tp.Name, this.ArgumentsInfo.Expression);
 
                     if (needComma)
                     {

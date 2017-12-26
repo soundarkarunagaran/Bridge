@@ -363,7 +363,7 @@ namespace Bridge.Translator
             {
                 var add = assignmentExpression.Operator == AssignmentOperatorType.Add;
 
-                if (this.Emitter.Validator.IsDelegateOrLambda(leftResolverResult))
+                if (leftResolverResult.IsDelegateOrLambda())
                 {
                     delegateAssigment = true;
                     var leftMemberResolveResult = leftResolverResult as MemberResolveResult;

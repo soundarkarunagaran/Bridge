@@ -246,7 +246,44 @@ namespace Bridge.Translator
             this.Emitter.Tag = "JS";
             this.Emitter.Writers = new Stack<IWriter>();
             this.Emitter.Outputs = new EmitterOutputs();
-            var metas = new Dictionary<IType, JObject>();
+            var metas = new Dictionary<int, Dictionary<IType, string>>();
+            Action<IType, JObject> addMeta = (type, metaData) =>
+            {
+                string typeArgs = "";
+                if (type.TypeArguments.Count > 0 && !type.IsIgnoreGeneric())
+                {
+                    StringBuilder arr_sb = new StringBuilder();
+                    var comma = false;
+                    foreach (var typeArgument in type.TypeArguments)
+                    {
+                        if (comma)
+                        {
+                            arr_sb.Append(", ");
+                        }
+
+                        arr_sb.Append(typeArgument.Name);
+                        comma = true;
+                    }
+
+                    typeArgs = arr_sb.ToString();
+                }
+
+                int? namespaceKey;
+                var meta = string.Format("$m({0}, function ({2}) {{ return {1}; }});", MetadataUtils.GetTypeName(type, this.Emitter, false, out namespaceKey, true), metaData.ToString(Formatting.None), typeArgs);
+
+                if (!namespaceKey.HasValue)
+                {
+                    namespaceKey = int.MinValue;
+                }
+
+                Dictionary<IType, string> perTypeMeta;
+                if (!metas.TryGetValue(namespaceKey.Value, out perTypeMeta))
+                {
+                    metas[namespaceKey.Value] = perTypeMeta = new Dictionary<IType, string>();
+                }
+
+                perTypeMeta.Add(type, meta);
+            };
 
             this.Emitter.Translator.Plugins.BeforeTypesEmit(this.Emitter, this.Emitter.Types);
             this.Emitter.ReflectableTypes = this.GetReflectableTypes();
@@ -373,7 +410,7 @@ namespace Bridge.Translator
 
                 if (meta != null)
                 {
-                    metas.Add(type.Type, meta);
+                    addMeta(type.Type, meta);
                 }
             }
 
@@ -405,7 +442,7 @@ namespace Bridge.Translator
 
                 if (meta != null)
                 {
-                    metas.Add(reflectedType, meta);
+                    addMeta(reflectedType, meta);
                 }
             }
 
@@ -436,47 +473,40 @@ namespace Bridge.Translator
             if (hasMeta)
             {
                 this.WriteNewLine();
-                int pos = 0;
                 if (metas.Count > 0)
                 {
                     this.Write("var $m = " + JS.Types.Bridge.SET_METADATA + ",");
                     this.WriteNewLine();
                     this.Write(Bridge.Translator.Emitter.INDENT + "$n = ");
-                    pos = this.Emitter.Output.Length;
+
+                    var sorted = this.Emitter.NamespacesCache.OrderBy(key => key.Value).ToArray();
+                    Write(this.Emitter.ToJavaScript(sorted.Select(item => new JRaw(item.Key)).ToArray()));
                     this.Write(";");
                     this.WriteNewLine();
-                }
 
-                foreach (var meta in metas)
-                {
-                    var metaData = meta.Value;
-                    string typeArgs = "";
-
-                    if (meta.Key.TypeArguments.Count > 0 && !meta.Key.IsIgnoreGeneric())
+                    foreach (var ns in sorted)
                     {
-                        StringBuilder arr_sb = new StringBuilder();
-                        var comma = false;
-                        foreach (var typeArgument in meta.Key.TypeArguments)
+                        Dictionary<IType, string> nsMeta;
+                        if (metas.TryGetValue(ns.Value, out nsMeta))
                         {
-                            if (comma)
+                            foreach (var meta in nsMeta)
                             {
-                                arr_sb.Append(", ");
+                                this.Write(meta.Value);
+                                this.WriteNewLine();
                             }
-
-                            arr_sb.Append(typeArgument.Name);
-                            comma = true;
+                            metas.Remove(ns.Value);
                         }
-
-                        typeArgs = arr_sb.ToString();
                     }
 
-                    this.Write(string.Format("$m({0}, function ({2}) {{ return {1}; }});", MetadataUtils.GetTypeName(meta.Key, this.Emitter, false, true), metaData.ToString(Formatting.None), typeArgs));
-                    this.WriteNewLine();
-                }
+                    foreach (var nsMeta in metas.Values)
+                    {
+                        foreach (var meta in nsMeta)
+                        {
+                            this.Write(meta.Value);
+                            this.WriteNewLine();
+                        }
+                    }
 
-                if (pos > 0)
-                {
-                    this.Emitter.Output.Insert(pos, this.Emitter.ToJavaScript(this.Emitter.NamespacesCache.OrderBy(key => key.Value).Select(item => new JRaw(item.Key)).ToArray()));
                     this.Emitter.NamespacesCache = null;
                 }
 
@@ -581,7 +611,7 @@ namespace Bridge.Translator
             {
                 enable = !config.Disabled.Value;
             }
-            else if(!config.Disabled.HasValue)
+            else if (!config.Disabled.HasValue)
             {
                 enable = true;
             }
@@ -706,7 +736,7 @@ namespace Bridge.Translator
         private static bool MatchFilter(IType type, string filters, bool thisAssembly, bool def)
         {
             var fullName = type.FullName;
-            var parts = filters.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
+            var parts = filters.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             var result = def;
 
             foreach (var part in parts)

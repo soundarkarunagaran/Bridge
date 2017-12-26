@@ -96,6 +96,7 @@ namespace Bridge.Contract
         string GetEntityName(IEntity member);
 
         string GetTypeName(ITypeDefinition typeDefinition);
+        string GetCustomTypeName(ITypeDefinition type, bool excludeNs);
 
         string GetLiteralEntityName(IEntity member);
 
@@ -323,11 +324,6 @@ namespace Bridge.Contract
         {
             get;
             set;
-        }
-
-        IValidator Validator
-        {
-            get;
         }
 
         Stack<IWriter> Writers

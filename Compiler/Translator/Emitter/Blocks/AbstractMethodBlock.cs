@@ -64,7 +64,7 @@ namespace Bridge.Translator
 
             foreach (var p in declarations)
             {
-                this.Emitter.Validator.CheckIdentifier(p.Name, context);
+                Helpers.CheckIdentifier(p.Name, context);
 
                 if (needComma)
                 {

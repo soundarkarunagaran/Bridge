@@ -153,27 +153,38 @@ namespace Bridge.Translator
             return assemblyDefinition;
         }
 
-        protected virtual void ReadTypes(AssemblyDefinition assembly)
+        public virtual void ReadTypes(ICompilation compilation)
         {
-            this.Log.Trace("Reading types for assembly " + (assembly != null && assembly.Name != null && assembly.Name.Name != null ? assembly.Name.Name : "") + " ...");
+            if (compilation.MainAssembly.AssemblyName != Translator.Bridge_ASSEMBLY || this.AssemblyInfo.Assembly != null && this.AssemblyInfo.Assembly.EnableReservedNamespaces)
+            {
+                this.ReadTypes(compilation.MainAssembly);
+            }
 
-            this.AddNestedTypes(assembly.MainModule.Types);
+            foreach (var item in compilation.ReferencedAssemblies)
+            {
+                this.ReadTypes(item);
+            }
+
+        }
+        protected virtual void ReadTypes(IAssembly assembly)
+        {
+            this.Log.Trace("Reading types for assembly " + assembly.FullAssemblyName + " ...");
+
+            this.AddNestedTypes(assembly.TopLevelTypeDefinitions);
 
             this.Log.Trace("Reading types for assembly done");
         }
 
-        protected virtual void AddNestedTypes(IEnumerable<TypeDefinition> types)
+        protected virtual void AddNestedTypes(IEnumerable<ITypeDefinition> types)
         {
-            foreach (TypeDefinition type in types)
+            foreach (var type in types.OrderBy(t => t.FullName))
             {
                 if (type.FullName.Contains("<"))
                 {
                     continue;
                 }
 
-                //this.Validator.CheckType(type, this);
-
-                string key = BridgeTypes.GetTypeDefinitionKey(type.FullName);
+                string key = BridgeTypes.GetTypeDefinitionKey(type);
 
                 BridgeType duplicateBridgeType = null;
 
@@ -183,7 +194,7 @@ namespace Bridge.Translator
 
                     var message = string.Format(
                         Constants.Messages.Exceptions.DUPLICATE_BRIDGE_TYPE,
-                        type.Module.Assembly.FullName,
+                        type.ParentAssembly.FullAssemblyName,
                         type.FullName,
                         duplicate.ParentAssembly.FullAssemblyName,
                         duplicate.FullName);
@@ -192,16 +203,55 @@ namespace Bridge.Translator
                     throw new System.InvalidOperationException(message);
                 }
 
-                this.BridgeTypes.Add(key, new BridgeType(key));
+                var typeInfo = this.EnsureTypeInfo(type);
+                this.BridgeTypes.Add(key, new BridgeType(key)
+                {
+                    Type = type,
+                    TypeInfo = typeInfo
+                });
 
-                if (type.HasNestedTypes)
+                if (!type.IsExternal() && type.Kind != TypeKind.Delegate)
+                {
+                    var fileName = type.GetFileName();
+                    if (fileName != null)
+                    {
+                        typeInfo.FileName = fileName;
+                    }
+                    var module = type.GetModule();
+                    if (module != null)
+                    {
+                        typeInfo.Module = module;
+                    }
+                    var dependency = type.GetModuleDependency();
+                    if (dependency != null)
+                    {
+                        typeInfo.Dependencies.Add(dependency);
+                    }
+                }
+
+                if (type.NestedTypes != null)
                 {
                     this.AddNestedTypes(type.NestedTypes);
                 }
             }
         }
 
-      
+        protected virtual ITypeInfo EnsureTypeInfo(ITypeDefinition type)
+        {
+            string key = BridgeTypes.GetTypeDefinitionKey(type);
+            ITypeInfo typeInfo = null;
+
+            if (TypeInfoDefinitions.ContainsKey(key))
+            {
+                typeInfo = TypeInfoDefinitions[key];
+            }
+            else
+            {
+                typeInfo = new TypeInfo();
+                TypeInfoDefinitions[key] = typeInfo;
+            }
+            return typeInfo;
+        }
 
         protected virtual List<AssemblyDefinition> InspectReferences()
         {
@@ -213,16 +263,6 @@ namespace Bridge.Translator
             var assembly = this.LoadAssembly(this.AssemblyLocation, references);
             this.BridgeTypes = new BridgeTypes();
             this.AssemblyDefinition = assembly;
-
-            if (assembly.Name.Name != Translator.Bridge_ASSEMBLY || this.AssemblyInfo.Assembly != null && this.AssemblyInfo.Assembly.EnableReservedNamespaces)
-            {
-                this.ReadTypes(assembly);
-            }
-
-            foreach (var item in references)
-            {
-                this.ReadTypes(item);
-            }
 
             if (!this.FolderMode)
             {
@@ -258,10 +298,7 @@ namespace Bridge.Translator
             this.AssemblyInfo = inspector.AssemblyInfo;
             this.Types = inspector.Types;
 
-            foreach (var type in Types)
-            {
-                this.Validator.CheckType(type.Type.GetDefinition(), this);
-            }
+            this.ReadTypes(resolver.Compilation);
 
             this.Log.Info("Inspecting types done");
         }
@@ -273,13 +310,16 @@ namespace Bridge.Translator
 
         private string[] Rewrite()
         {
+            this.Log.Info("Rewriting new C# features...");
             var rewriter = new SharpSixRewriter(this);
             var result = new string[this.SourceFiles.Count];
             Task.WaitAll(this.SourceFiles.Select((file, index) => Task.Run(() => result[index] = new SharpSixRewriter(rewriter).Rewrite(index))).ToArray());
+            this.Log.Info("Rewriting new C# features done...");
+
             return result;
         }
 
-    protected void BuildSyntaxTree()
+        protected void BuildSyntaxTree()
         {
             this.Log.Info("Building syntax tree...");
 

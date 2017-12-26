@@ -22,12 +22,6 @@ namespace Bridge.Translator
             private set;
         }
 
-        public IValidator Validator
-        {
-            get;
-            private set;
-        }
-
         public List<ITypeInfo> Types
         {
             get;

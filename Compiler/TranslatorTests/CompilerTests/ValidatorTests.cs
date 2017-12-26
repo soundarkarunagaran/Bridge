@@ -163,8 +163,8 @@ namespace Bridge.Translator.Tests
                     parentType,
                     (type) =>
                     {
-                        var v = new Validator();
-                        v.CheckType(type, null);
+                        var v = new Inspector(null);
+                        v.CheckObjectLiteral(type);
                     },
                     (type) =>
                     {

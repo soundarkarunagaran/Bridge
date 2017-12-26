@@ -8,12 +8,39 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using ICSharpCode.NRefactory.CSharp.Resolver;
 using ArrayType = ICSharpCode.NRefactory.TypeSystem.ArrayType;
 
 namespace Bridge.Contract
 {
     public static partial class Helpers
     {
+        public static void CheckIdentifier(string name, AstNode context)
+        {
+            if (IsReservedWord(null, name))
+            {
+                throw new EmitterException(context, "Cannot use '" + name + "' as identifier");
+            }
+        }
+
+        public static bool IsDelegateOrLambda(this ResolveResult result)
+        {
+            return result.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Delegate || result is LambdaResolveResult;
+        }
+
+        public static bool IsBridgeClass(this ITypeDefinition type)
+        {
+            foreach (var i in type.GetAllBaseTypes())
+            {
+                if (i.FullName == JS.Types.BRIDGE_IBridgeClass)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public static bool IsValueType(this ITypeDefinition type)
         {
             return (type.Kind == TypeKind.Struct || type.Kind == TypeKind.Enum);

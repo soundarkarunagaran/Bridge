@@ -72,7 +72,6 @@ namespace Bridge.Translator
         protected Translator(string location)
         {
             this.Location = location;
-            this.Validator = this.CreateValidator();
             this.ProjectProperties = new ProjectProperties();
             this.FileHelper = new FileHelper();
             this.Outputs = new TranslatorOutput();
@@ -447,16 +446,11 @@ namespace Bridge.Translator
         {
             this.Log.Info("Creating emitter...");
 
-            var emitter = new Emitter(this.BridgeTypes, this.Types, this.Validator, resolver, this.TypeInfoDefinitions, this.Log);
+            var emitter = new Emitter(this.BridgeTypes, this.Types, resolver, this.TypeInfoDefinitions, this.Log);
 
             this.Log.Info("Creating emitter done");
 
             return emitter;
-        }
-
-        protected virtual Validator CreateValidator()
-        {
-            return new Validator();
         }
 
         public EmitterException CreateExceptionFromLastNode()
