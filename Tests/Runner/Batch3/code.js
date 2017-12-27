@@ -27262,7 +27262,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(System.DateTime.gt(dt1, dt2), "The initial date is effectively after the rewound date.");
                     Bridge.Test.NUnit.Assert.True(System.DateTime.lt(times.getItem(0), times.getItem(1)), "Result is ordered correctly.");
                     Bridge.Test.NUnit.Assert.AreEqual(dt1, times.getItem(1), "The initial date is after the rewound one within the ordered list.");
-                    Bridge.Test.NUnit.Assert.AreEqual(dt2, times.getItem(2), "The rewound date is before the initial date within the ordered list.");
+                    Bridge.Test.NUnit.Assert.AreEqual(dt2, times.getItem(0), "The rewound date is before the initial date within the ordered list.");
                 }
             }
         }

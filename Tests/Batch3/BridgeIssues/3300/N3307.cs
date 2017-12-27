@@ -32,7 +32,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             Assert.True(dt1 > dt2, "The initial date is effectively after the rewound date.");
             Assert.True(times[0] < times[1], "Result is ordered correctly.");
             Assert.AreEqual(dt1, times[1], "The initial date is after the rewound one within the ordered list.");
-            Assert.AreEqual(dt2, times[2], "The rewound date is before the initial date within the ordered list.");
+            Assert.AreEqual(dt2, times[0], "The rewound date is before the initial date within the ordered list.");
         }
     }
 }
