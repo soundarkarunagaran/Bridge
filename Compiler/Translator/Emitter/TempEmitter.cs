@@ -750,15 +750,8 @@ namespace Bridge.Translator
 
         public IMemberResolver Resolver
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            get;
+            set;
         }
 
         public IType ReturnType

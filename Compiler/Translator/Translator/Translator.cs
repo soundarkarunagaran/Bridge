@@ -195,7 +195,7 @@ namespace Bridge.Translator
             {
                 this.Log.Trace("Preconvert " + sourceFile.ParsedFile.FileName);
                 var syntaxTree = sourceFile.SyntaxTree;
-                var tempEmitter = new TempEmitter { AssemblyInfo = config };
+                var tempEmitter = new TempEmitter { AssemblyInfo = config, Resolver = resolver };
                 var detecter = new PreconverterDetecter(resolver, tempEmitter);
                 syntaxTree.AcceptVisitor(detecter);
 

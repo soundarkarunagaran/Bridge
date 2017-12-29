@@ -16,7 +16,7 @@ namespace Bridge.Translator
 {
     class CompilerExtensionInterpreter : DepthFirstAstVisitor
     {
-        private readonly Inspector _inspector;
+        private readonly IEmitter _emitter;
         private readonly BlockStatement _statement;
 
         private Dictionary<string, AttributeBuilderDetails> _attributeBuilderVariables;
@@ -29,10 +29,10 @@ namespace Bridge.Translator
             public AttributeTarget Target { get; set; }
         }
 
-        public CompilerExtensionInterpreter(Inspector inspector, BlockStatement statement)
+        public CompilerExtensionInterpreter(IEmitter emitter, BlockStatement statement)
         {
-            _inspector = inspector;
-            _statement = statement;
+            this._emitter = emitter;
+            this._statement = statement;
         }
 
         public void Execute()
@@ -62,7 +62,7 @@ namespace Bridge.Translator
             // we allow variable declarations. they might make it easier to invoke compiler extensions 
             // e.g. var attributes = context.Attributes;
             // attributes.Class<Test>()...
-            var variableType = _inspector.Resolver.ResolveNode(variableDeclarationStatement.Type, _inspector.Emitter);
+            var variableType = _emitter.Resolver.ResolveNode(variableDeclarationStatement.Type, _emitter);
             if (variableType.Type == null)
             {
                 throw new EmitterException(variableDeclarationStatement,
@@ -81,7 +81,7 @@ namespace Bridge.Translator
         public override void VisitAssignmentExpression(AssignmentExpression assignmentExpression)
         {
             // we allow/ignore assignments. they might make it easier to invoke compiler extensions 
-            var resolvedVariable = _inspector.Resolver.ResolveNode(assignmentExpression.Left, _inspector.Emitter) as LocalResolveResult;
+            var resolvedVariable = _emitter.Resolver.ResolveNode(assignmentExpression.Left, _emitter) as LocalResolveResult;
             if (resolvedVariable == null || resolvedVariable.Variable == null)
             {
                 return;
@@ -100,7 +100,7 @@ namespace Bridge.Translator
             var invocation = variableInitializer as InvocationExpression;
             if (invocation != null)
             {
-                var invocedMethodRR = _inspector.Resolver.ResolveNode(invocation, _inspector.Emitter) as InvocationResolveResult;
+                var invocedMethodRR = _emitter.Resolver.ResolveNode(invocation, _emitter) as InvocationResolveResult;
                 if (invocedMethodRR == null || invocedMethodRR.Member == null || invocedMethodRR.Member.DeclaringType.FullName != "Bridge.CompilerServices.IAttributesContext")
                 {
                     return null;
@@ -113,7 +113,7 @@ namespace Bridge.Translator
                             IAssembly assembly;
                             if (invocation.Arguments.Count == 0)
                             {
-                                assembly = _inspector.Resolver.Compilation.MainAssembly;
+                                assembly = _emitter.Resolver.Compilation.MainAssembly;
                             }
                             else
                             {
@@ -126,11 +126,11 @@ namespace Bridge.Translator
                                 var assemblyName = assemblyNameArgument.ConstantValue.ToString();
 
 
-                                assembly = _inspector.Resolver.Compilation.Assemblies
+                                assembly = _emitter.Resolver.Compilation.Assemblies
                                     .FirstOrDefault(a => a.FullAssemblyName == assemblyName);
                                 if (assembly == null)
                                 {
-                                    assembly = _inspector.Resolver.Compilation.Assemblies
+                                    assembly = _emitter.Resolver.Compilation.Assemblies
                                         .FirstOrDefault(a => a.AssemblyName == assemblyName);
                                 }
 
@@ -180,7 +180,7 @@ namespace Bridge.Translator
 
                             AttributeBuilderDetails details = new AttributeBuilderDetails();
                             var accessedMemberRR =
-                                _inspector.Resolver.ResolveNode(lambda.Body, _inspector.Emitter) as MemberResolveResult;
+                                _emitter.Resolver.ResolveNode(lambda.Body, _emitter) as MemberResolveResult;
                             if (accessedMemberRR == null || accessedMemberRR.Member == null)
                             {
                                 throw new EmitterException(invocation,
@@ -248,48 +248,48 @@ namespace Bridge.Translator
                                     }
                                     break;
                                 case AttributeTarget.Getter:
-                                {
-                                    var property = details.Entity as IProperty;
-                                    if (property == null)
                                     {
-                                        throw new EmitterException(invocation,
-                                            "Getter targets are only allowed for properties");
+                                        var property = details.Entity as IProperty;
+                                        if (property == null)
+                                        {
+                                            throw new EmitterException(invocation,
+                                                "Getter targets are only allowed for properties");
+                                        }
+                                        details.Entity = property.Getter;
                                     }
-                                    details.Entity = property.Getter;
-                                }
                                     break;
                                 case AttributeTarget.Setter:
-                                {
-                                    var property = details.Entity as IProperty;
-                                    if (property == null)
                                     {
-                                        throw new EmitterException(invocation,
-                                            "Setter targets are only allowed for properties");
+                                        var property = details.Entity as IProperty;
+                                        if (property == null)
+                                        {
+                                            throw new EmitterException(invocation,
+                                                "Setter targets are only allowed for properties");
+                                        }
+                                        details.Entity = property.Setter;
                                     }
-                                    details.Entity = property.Setter;
-                                }
                                     break;
                                 case AttributeTarget.Adder:
-                                {
-                                    var evt = details.Entity as IEvent;
-                                    if (evt == null)
                                     {
-                                        throw new EmitterException(invocation,
-                                            "Adder targets are only allowed for events");
+                                        var evt = details.Entity as IEvent;
+                                        if (evt == null)
+                                        {
+                                            throw new EmitterException(invocation,
+                                                "Adder targets are only allowed for events");
+                                        }
+                                        details.Entity = evt.AddAccessor;
                                     }
-                                    details.Entity = evt.AddAccessor;
-                                }
                                     break;
                                 case AttributeTarget.Remover:
-                                {
-                                    var evt = details.Entity as IEvent;
-                                    if (evt == null)
                                     {
-                                        throw new EmitterException(invocation,
-                                            "Remover targets are only allowed for events");
+                                        var evt = details.Entity as IEvent;
+                                        if (evt == null)
+                                        {
+                                            throw new EmitterException(invocation,
+                                                "Remover targets are only allowed for events");
+                                        }
+                                        details.Entity = evt.RemoveAccessor;
                                     }
-                                    details.Entity = evt.RemoveAccessor;
-                                }
                                     break;
                             }
 
@@ -313,7 +313,7 @@ namespace Bridge.Translator
 
                             AttributeBuilderDetails details = new AttributeBuilderDetails();
                             var accessedMemberRR =
-                                _inspector.Resolver.ResolveNode(lambda.Body, _inspector.Emitter) as InvocationResolveResult;
+                                _emitter.Resolver.ResolveNode(lambda.Body, _emitter) as InvocationResolveResult;
                             if (accessedMemberRR == null || accessedMemberRR.Member == null || !(accessedMemberRR.Member is IMethod) || !((IMethod)accessedMemberRR.Member).IsConstructor)
                             {
                                 throw new EmitterException(invocation,
@@ -368,9 +368,29 @@ namespace Bridge.Translator
 
                             switch (details.Target)
                             {
-                                case AttributeTarget.Default:
                                 case AttributeTarget.Adder:
+                                    {
+                                        var evt = details.Entity as IEvent;
+                                        if (evt == null)
+                                        {
+                                            throw new EmitterException(invocation,
+                                                "Adder targets are only allowed for events");
+                                        }
+                                        details.Entity = evt.AddAccessor;
+                                    }
+                                    break;
                                 case AttributeTarget.Remover:
+                                    {
+                                        var evt = details.Entity as IEvent;
+                                        if (evt == null)
+                                        {
+                                            throw new EmitterException(invocation,
+                                                "Remover targets are only allowed for events");
+                                        }
+                                        details.Entity = evt.RemoveAccessor;
+                                    }
+                                    break;
+                                case AttributeTarget.Default:
                                     break;
                                 default:
                                     throw new EmitterException(invocation,
@@ -388,7 +408,7 @@ namespace Bridge.Translator
 
         public override void VisitInvocationExpression(InvocationExpression invocationExpression)
         {
-            var member = _inspector.Resolver.ResolveNode(invocationExpression, _inspector.Emitter) as MemberResolveResult;
+            var member = _emitter.Resolver.ResolveNode(invocationExpression, _emitter) as MemberResolveResult;
             if (member == null || member.Member == null || !(member.Member is IMethod))
             {
                 throw new EmitterException(invocationExpression, "Could not resolve invoked method, please simplify method invocation.");
@@ -409,10 +429,8 @@ namespace Bridge.Translator
         private void HandleAttributeBuilderInvocation(InvocationExpression invocationExpression, IMethod method)
         {
             // add attribute
-            if (method.Name == "Add" && invocationExpression.Target is MemberReferenceExpression)
+            if (method.Name == "Add" && invocationExpression.Target is MemberReferenceExpression memberReference)
             {
-                var memberReference = (MemberReferenceExpression)invocationExpression.Target;
-
                 AttributeBuilderDetails variableDetails = null;
                 if (memberReference.Target is InvocationExpression)
                 {
@@ -421,7 +439,7 @@ namespace Bridge.Translator
                 }
                 else
                 {
-                    var targetRR = _inspector.Resolver.ResolveNode(memberReference.Target, _inspector.Emitter);
+                    var targetRR = _emitter.Resolver.ResolveNode(memberReference.Target, _emitter);
                     if (targetRR == null || targetRR.IsError)
                     {
                         throw new EmitterException(invocationExpression,
@@ -447,61 +465,67 @@ namespace Bridge.Translator
                 }
 
                 var arguments = invocationExpression.Arguments.ToArray();
-                if (!(arguments[0] is ObjectCreateExpression))
-                {
-                    throw new EmitterException(invocationExpression,
-                        "Attributes must be directly created via new expression and object initializers");
-                }
 
-                var newAttribute = (ObjectCreateExpression) arguments[0];
-                var attributeRR = _inspector.Resolver.ResolveNode(arguments[0], _inspector.Emitter) as InvocationResolveResult;
-                if (attributeRR == null || attributeRR.Type == null || !(attributeRR.Member is IMethod) || !((IMethod)attributeRR.Member).IsConstructor)
+                foreach (var argument in arguments)
                 {
-                    throw new EmitterException(invocationExpression,
-                        "Could not resolve attribute type constructor invocation");
-                }
-
-                var attributeType = attributeRR.Type;
-                var constructorArguments = new List<ResolveResult>();
-                var namedArguments = new Dictionary<IMember, ResolveResult>();
-
-                foreach (var argument in attributeRR.Arguments)
-                {
-                    if (!argument.IsCompileTimeConstant)
+                    if (!(argument is ObjectCreateExpression))
                     {
-                        throw new EmitterException(newAttribute,
-                            "All attribute parameters must be compile time constant");
-                    }
-                    constructorArguments.Add(argument);
-                }
-
-                foreach (var initializerStatement in attributeRR.InitializerStatements)
-                {
-                    var assignOperator = initializerStatement as OperatorResolveResult;
-                    if (assignOperator == null || assignOperator.OperatorType != ExpressionType.Assign)
-                    {
-                        throw new EmitterException(newAttribute,
-                            "Unexpected object initializer content, please only use property assignments.");
+                        throw new EmitterException(invocationExpression,
+                            "Attributes must be directly created via new expression and object initializers");
                     }
 
-                    var left = assignOperator.Operands[0] as MemberResolveResult;
-                    if (left == null)
+                    var newAttribute = (ObjectCreateExpression)argument;
+                    var attributeRR = _emitter.Resolver.ResolveNode(argument, _emitter) as InvocationResolveResult;
+                    if (attributeRR == null || attributeRR.Type == null || !(attributeRR.Member is IMethod) ||
+                        !((IMethod)attributeRR.Member).IsConstructor)
                     {
-                        throw new EmitterException(newAttribute,
-                            "The assigned attribute property value must be compile time constant.");
+                        throw new EmitterException(invocationExpression,
+                            "Could not resolve attribute type constructor invocation");
                     }
 
-                    var right = assignOperator.Operands[1];
-                    if (!right.IsCompileTimeConstant)
+                    var constructorArguments = new List<ResolveResult>();
+                    var namedArguments = new Dictionary<IMember, ResolveResult>();
+
+                    foreach (var ctorArgument in attributeRR.Arguments)
                     {
-                        throw new EmitterException(newAttribute,
-                            "The assigned attribute property value must be compile time constant.");
+                        if (!ctorArgument.IsCompileTimeConstant)
+                        {
+                            throw new EmitterException(newAttribute,
+                                "All attribute parameters must be compile time constant");
+                        }
+                        constructorArguments.Add(ctorArgument);
                     }
 
-                    namedArguments[left.Member] = right;
+                    foreach (var initializerStatement in attributeRR.InitializerStatements)
+                    {
+                        var assignOperator = initializerStatement as OperatorResolveResult;
+                        if (assignOperator == null || assignOperator.OperatorType != ExpressionType.Assign)
+                        {
+                            throw new EmitterException(newAttribute,
+                                "Unexpected object initializer content, please only use property assignments.");
+                        }
+
+                        var left = assignOperator.Operands[0] as MemberResolveResult;
+                        if (left == null)
+                        {
+                            throw new EmitterException(newAttribute,
+                                "The assigned attribute property value must be compile time constant.");
+                        }
+
+                        var right = assignOperator.Operands[1];
+                        if (!right.IsCompileTimeConstant)
+                        {
+                            throw new EmitterException(newAttribute,
+                                "The assigned attribute property value must be compile time constant.");
+                        }
+
+                        namedArguments[left.Member] = right;
+                    }
+
+                    RegisterAttribute(variableDetails,
+                        new DefaultAttribute((IMethod)attributeRR.Member, constructorArguments,
+                            namedArguments.ToList(), DomRegion.Empty));
                 }
-
-                RegisterAttribute(variableDetails, new DefaultAttribute((IMethod) attributeRR.Member, constructorArguments, namedArguments.ToList(), DomRegion.Empty));
             }
             else
             {
