@@ -27263,6 +27263,19 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3321", {
+        statics: {
+            methods: {
+                Test2DArrayClone: function () {
+                    var n = Bridge.cast(System.Array.clone(System.Array.create(0, null, System.Int32, 0, 0)), System.Array.type(System.Int32, 2));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Array.getRank(n));
+                    Bridge.Test.NUnit.Assert.AreEqual(System.Int32, (Bridge.getType(n).$elementType || null));
+                }
+            }
+        }
+    });
+
     /**
      * The tests here should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
      Ensures that HTML attributes are being processed correctly 
