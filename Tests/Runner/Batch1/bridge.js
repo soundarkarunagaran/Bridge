@@ -3775,6 +3775,7 @@
 
         canAcceptNull: function (type) {
             if (type.$kind === "struct" ||
+                type.$kind === "enum" ||
                 type === System.Decimal ||
                 type === System.Int64 ||
                 type === System.UInt64 ||
@@ -3787,6 +3788,8 @@
                 type === System.Int32 ||
                 type === System.UInt32 ||
                 type === Bridge.Int ||
+                type === System.Boolean ||
+                type === System.DateTime ||
                 type === Boolean ||
                 type === Date ||
                 type === Number) {
@@ -4123,6 +4126,10 @@
             }
 
             return false;
+        },
+
+        isValueType: function (type) {
+            return !Bridge.Reflection.canAcceptNull(type);
         }
     };
 
