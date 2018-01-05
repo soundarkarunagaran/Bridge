@@ -1,5 +1,5 @@
 /**
- * @compiler Bridge.NET 16.6.1
+ * @compiler Bridge.NET 16.7.0
  */
 Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals) {
     
@@ -14602,7 +14602,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestIsValueType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3329, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestIsValueType()", $t.Line = "21", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3329, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestIsValueType()", $t.Line = "28", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329.TestIsValueType();
                 }
             }

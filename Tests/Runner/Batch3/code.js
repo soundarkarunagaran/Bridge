@@ -27,10 +27,10 @@ var Bridge3001_SomeLib = (function () {
 
 /**
  * Bridge Test library - test github issues up to #1999
- * @version 16.6.1
+ * @version 16.7.0
  * @author Object.NET, Inc.
- * @copyright Copyright 2008-2017 Object.NET, Inc.
- * @compiler Bridge.NET 16.6.1
+ * @copyright Copyright 2008-2018 Object.NET, Inc.
+ * @compiler Bridge.NET 16.7.0
  */
 Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     "use strict";
@@ -27292,9 +27292,25 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318.Foo");
 
+    /**
+     * The test here consists in checking whether the IsValueType boolean
+     has the expected result for different types' querying.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329", {
         statics: {
             methods: {
+                /**
+                 * Test several variations of types whether they support the IsValueType property.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329
+                 * @return  {void}
+                 */
                 TestIsValueType: function () {
                     // All these are supposed to be value types
                     Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isValueType(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3329.MyEnum), "MyEnum.One is value type.");
