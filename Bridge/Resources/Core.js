@@ -868,11 +868,11 @@
                 if (own && (dcount === 1 || dcount === 2 && name.match("\$\d+$"))) {
                     to[name] = from[name];
                 }
-                
+
             }
 
             return to;
-        }, 
+        },
 
         merge: function (to, from, callback, elemFactory) {
             if (to == null) {
@@ -1075,7 +1075,7 @@
             return obj[propertyName];
         },
 
-        isValidHtmlAttributeName : function(name) {
+        isValidHtmlAttributeName : function (name) {
             // https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
 
             if (!name || !name.length) {
@@ -1240,7 +1240,7 @@
                 }
 
                 return eq;
-            };            
+            };
 
             var result = fn(a, b);
             Bridge.$equalsGuard.pop();
@@ -1753,7 +1753,7 @@
                 };
 
                 fn.$invocationList = handlers ? Array.prototype.slice.call(handlers, 0) : [];
-                handlers = fn.$invocationList.slice();               
+                handlers = fn.$invocationList.slice();
 
                 return fn;
             },

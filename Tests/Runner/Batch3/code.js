@@ -27198,6 +27198,85 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in ensuring that a new datetime instance,
+     provided an UtcNow datetime + 1 minute, is exactly equal to the
+     original datetime+1 minute.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306", {
+        statics: {
+            methods: {
+                /**
+                 * Checks whether the datetime values between addMinutes result
+                 and the new instance with its ticks and kind are equal.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306
+                 * @return  {void}
+                 */
+                TestDateTimeConsistency: function () {
+                    var dt = System.DateTime.getUtcNow();
+                    var dt2 = System.DateTime.addMinutes(dt, 1);
+                    var dt3 = System.DateTime.create$2(System.DateTime.getTicks(dt2), System.DateTime.getKind(dt2));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(dt2, dt3, "New instance of a same UtcNow date is equal to its base.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The test here consists in ensuring that a list with DateTime entries
+     is orderable by System.Linq.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307", {
+        statics: {
+            methods: {
+                /**
+                 * Checks whether a rewound date, after added to a list of dates, can
+                 correctly be ordered using .OrderBy().
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307
+                 * @return  {void}
+                 */
+                TestOrderedDateTimeList: function () {
+                    var times = new (System.Collections.Generic.List$1(System.DateTime)).ctor();
+
+                    var dt1 = System.DateTime.getUtcNow();
+                    times.add(dt1);
+                    var dt2 = System.DateTime.addMinutes(dt1, -10);
+                    times.add(dt2);
+
+                    times = System.Linq.Enumerable.from(times).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307.f1).toList(System.DateTime);
+
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.gt(dt1, dt2), "The initial date is effectively after the rewound date.");
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.lt(times.getItem(0), times.getItem(1)), "Result is ordered correctly.");
+                    Bridge.Test.NUnit.Assert.AreEqual(dt1, times.getItem(1), "The initial date is after the rewound one within the ordered list.");
+                    Bridge.Test.NUnit.Assert.AreEqual(dt2, times.getItem(0), "The rewound date is before the initial date within the ordered list.");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307, {
+        f1: function (dt) {
+            return dt;
+        }
+    });
+
+    /**
      * The test here consists in ensuring that overriding the Equals
      method for classes does not result in infinite recursion in
      generated JavaScript code.
