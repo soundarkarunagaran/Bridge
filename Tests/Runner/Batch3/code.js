@@ -27,10 +27,10 @@ var Bridge3001_SomeLib = (function () {
 
 /**
  * Bridge Test library - test github issues up to #1999
- * @version 16.6.0
+ * @version 16.6.1
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2017 Object.NET, Inc.
- * @compiler Bridge.NET 16.6.0
+ * @compiler Bridge.NET 16.6.1
  */
 Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     "use strict";
@@ -27198,6 +27198,85 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in ensuring that a new datetime instance,
+     provided an UtcNow datetime + 1 minute, is exactly equal to the
+     original datetime+1 minute.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306", {
+        statics: {
+            methods: {
+                /**
+                 * Checks whether the datetime values between addMinutes result
+                 and the new instance with its ticks and kind are equal.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3306
+                 * @return  {void}
+                 */
+                TestDateTimeConsistency: function () {
+                    var dt = System.DateTime.getUtcNow();
+                    var dt2 = System.DateTime.addMinutes(dt, 1);
+                    var dt3 = System.DateTime.create$2(System.DateTime.getTicks(dt2), System.DateTime.getKind(dt2));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(dt2, dt3, "New instance of a same UtcNow date is equal to its base.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The test here consists in ensuring that a list with DateTime entries
+     is orderable by System.Linq.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307", {
+        statics: {
+            methods: {
+                /**
+                 * Checks whether a rewound date, after added to a list of dates, can
+                 correctly be ordered using .OrderBy().
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307
+                 * @return  {void}
+                 */
+                TestOrderedDateTimeList: function () {
+                    var times = new (System.Collections.Generic.List$1(System.DateTime)).ctor();
+
+                    var dt1 = System.DateTime.getUtcNow();
+                    times.add(dt1);
+                    var dt2 = System.DateTime.addMinutes(dt1, -10);
+                    times.add(dt2);
+
+                    times = System.Linq.Enumerable.from(times).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307.f1).toList(System.DateTime);
+
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.gt(dt1, dt2), "The initial date is effectively after the rewound date.");
+                    Bridge.Test.NUnit.Assert.True(System.DateTime.lt(times.getItem(0), times.getItem(1)), "Result is ordered correctly.");
+                    Bridge.Test.NUnit.Assert.AreEqual(dt1, times.getItem(1), "The initial date is after the rewound one within the ordered list.");
+                    Bridge.Test.NUnit.Assert.AreEqual(dt2, times.getItem(0), "The rewound date is before the initial date within the ordered list.");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307, {
+        f1: function (dt) {
+            return dt;
+        }
+    });
+
+    /**
      * The test here consists in ensuring that overriding the Equals
      method for classes does not result in infinite recursion in
      generated JavaScript code.
@@ -27259,6 +27338,142 @@ Bridge.$N1391Result =                     r;
             },
             getHashCode: function () {
                 return Bridge.getHashCode(this);
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking whether an array's type name has the
+     expected brackets when fetched using reflection.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318", {
+        statics: {
+            methods: {
+                /**
+                 * Just check whether the array's type name has the expected value.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318
+                 * @return  {void}
+                 */
+                TestArrayName: function () {
+                    var array = System.Array.init(10, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318.Foo);
+                    Bridge.Test.NUnit.Assert.AreEqual("Foo[]", Bridge.Reflection.getTypeName(Bridge.getType(array)), "Array's GetType().Name is 'Foo[]'.");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3318.Foo");
+
+    /**
+     * The tests here should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
+     Ensures that HTML attributes are being processed correctly 
+     even if incorrect names of properties are being requested.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331", {
+        statics: {
+            fields: {
+                NameAttr: null,
+                ValueAttr: null
+            },
+            ctors: {
+                init: function () {
+                    this.NameAttr = "name";
+                    this.ValueAttr = "value";
+                }
+            },
+            methods: {
+                /**
+                 * Should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
+                 Checks that "Bridge.getEnumerator()" is able to processs HTML attribute collection represented by {@link }.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+                 * @return  {void}
+                 */
+                TestHtmlAttributesIteration: function () {
+                    var $t;
+                    var el = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.InitElementWithAttributes();
+
+                    var index = 0;
+
+                    $t = Bridge.getEnumerator(el.attributes);
+                    try {
+                        while ($t.moveNext()) {
+                            var attr = $t.Current;
+                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.VerifyAttributeNode(Bridge.identity(index, (index = (index + 1) | 0)), attr);
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$dispose();
+                        }
+                    }},
+                /**
+                 * Should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
+                 Checks that "Bridge.equals()" is able to process HTML attributes.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+                 * @return  {void}
+                 */
+                TestHtmlAttributesEquality: function () {
+                    var el = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.InitElementWithAttributes();
+
+                    var attr0 = el.attributes[0];
+                    var attr1 = el.attributes[1];
+
+                    Bridge.Test.NUnit.Assert.True(Bridge.equals(attr0, attr0), "Attribute #1 equals to itself.");
+                    Bridge.Test.NUnit.Assert.False(Bridge.equals(attr0, attr1), "Attribute #1 does not equal to Attribute #2.");
+                },
+                /**
+                 * Should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
+                 Checks that "Bridge.equals()" is able to process HTML attributes.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331
+                 * @return  {void}
+                 */
+                TestHtmlAttributeCollectionsEquality: function () {
+                    var el1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.InitElementWithAttributes();
+                    var el2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.InitElementWithAttributes();
+
+                    Bridge.Test.NUnit.Assert.True(Bridge.equals(el1, el1), "Attributes Collection #1 equals to itself.");
+                    Bridge.Test.NUnit.Assert.False(Bridge.equals(el1, el2), "Attributes Collection #1 does not equal to Attribute Collection #2.");
+                },
+                InitElementWithAttributes: function () {
+                    var el = document.createElement("input");
+
+                    el.setAttribute(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.NameAttr, "test name");
+                    el.setAttribute(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.ValueAttr, "test val");
+
+                    return el;
+                },
+                VerifyAttributeNode: function (index, node) {
+                    var attrName = node.nodeName;
+
+                    if (index === 0) {
+                        Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.NameAttr, attrName, "Attribute 'name' could be processed.");
+                    } else if (index === 1) {
+                        Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.ValueAttr, attrName, "Attribute 'value' could be processed.");
+                    } else {
+                        throw new System.IndexOutOfRangeException("Unexpected attribute index.");
+                    }
+                }
             }
         }
     });
