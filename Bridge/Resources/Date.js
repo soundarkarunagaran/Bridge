@@ -36,8 +36,7 @@
                 if (d.ticks === undefined) {
                     if (d.kind === 1) {
                         d.ticks = System.Int64(d.getTime()).mul(10000).add(System.DateTime.minOffset);
-                    }
-                    else {
+                    } else {
                         d.ticks = System.Int64(d.getTime() - d.getTimezoneOffset() * 60 * 1000).mul(10000).add(System.DateTime.minOffset);
                     }
                 }
@@ -100,7 +99,7 @@
 
                 var d,
                     ticks;
-                
+
                 d = new Date(year, month - 1, day, hour, minute, second, millisecond);
                 d.setFullYear(year);
 
@@ -112,7 +111,7 @@
 
                 d.kind = kind;
                 d.ticks = ticks;
-                
+
                 return d;
             },
 
@@ -488,8 +487,7 @@
                     }
 
                     throw new System.FormatException("String does not contain a valid string representation of a date and time.");
-                }
-                else {
+                } else {
                     // TODO: The code below assumes that there are no quotation marks around the UTC/Z format token (the format patterns
                     // used by Bridge appear to use quotation marks throughout (see universalSortableDateTimePattern), including
                     // in the recent Newtonsoft.Json.JsonConvert release).
@@ -1129,8 +1127,7 @@
                     ny.setHours(0);
                     ny.setMinutes(0);
                     ny.setMilliseconds(0);
-                }
-                else {
+                } else {
                     ny.setUTCMonth(0);
                     ny.setUTCDate(1);
                     ny.setUTCHours(0);
@@ -1151,8 +1148,7 @@
                     d1.setMinutes(0);
                     d1.setSeconds(0);
                     d1.setMilliseconds(0);
-                }
-                else {
+                } else {
                     d1.setUTCHours(0);
                     d1.setUTCMinutes(0);
                     d1.setUTCSeconds(0);
