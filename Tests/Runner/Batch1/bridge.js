@@ -886,11 +886,11 @@
                 if (own && (dcount === 1 || dcount === 2 && name.match("\$\d+$"))) {
                     to[name] = from[name];
                 }
-                
+
             }
 
             return to;
-        }, 
+        },
 
         merge: function (to, from, callback, elemFactory) {
             if (to == null) {
@@ -1093,7 +1093,7 @@
             return obj[propertyName];
         },
 
-        isValidHtmlAttributeName : function(name) {
+        isValidHtmlAttributeName : function (name) {
             // https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
 
             if (!name || !name.length) {
@@ -1258,7 +1258,7 @@
                 }
 
                 return eq;
-            };            
+            };
 
             var result = fn(a, b);
             Bridge.$equalsGuard.pop();
@@ -1771,7 +1771,7 @@
                 };
 
                 fn.$invocationList = handlers ? Array.prototype.slice.call(handlers, 0) : [];
-                handlers = fn.$invocationList.slice();               
+                handlers = fn.$invocationList.slice();
 
                 return fn;
             },
@@ -2146,7 +2146,7 @@
                                 } else {
                                     scope[alias] = m;
                                     aliases.push({ fn: name, alias: alias });
-                                }                                
+                                }
                             }
                         }
                     })(statics ? scope : prototype, config.alias[i], config.alias[i + 1], cls);
@@ -3165,7 +3165,7 @@
     // @source Object.js
 
     Bridge.define("System.Object", {
-        
+
     });
 
     Bridge.define("System.Void", {
@@ -5148,13 +5148,13 @@ Bridge.define("System.Exception", {
         getBaseException: function() {
             var inner = this.innerException;
             var back = this;
-            
+
             while (inner != null) {
                 back = inner;
                 inner = inner.innerException;
             }
-            
-            return back;  
+
+            return back;
         },
 
         toString: function () {
@@ -5165,11 +5165,11 @@ Bridge.define("System.Exception", {
             } else {
                 builder += "\n";
             }
-                
+
             if (this.StackTrace != null) {
                 builder += this.StackTrace + "\n";
             }
-                
+
             return builder;
         },
 
@@ -5319,7 +5319,7 @@ Bridge.define("System.Exception", {
                         return this.paramName;
                     }
                 }
-            }  
+            }
         },
 
         ctor: function (message, paramName, innerException) {
@@ -5586,7 +5586,7 @@ Bridge.define("System.Exception", {
                 back = back.InnerException;
                 backAsAggregate = Bridge.as(back, System.AggregateException);
             }
-            return back;  
+            return back;
         },
 
         flatten: function () {
@@ -8591,7 +8591,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 bytes[i*4 + 4] = (d[i] >> 8) & 255;
                 bytes[i*4 + 5] = (d[i] >> 16) & 255;
                 bytes[i*4 + 6] = (d[i] >> 24) & 255;
-            }            
+            }
         }
         else {
             bytes[2] = 0;
@@ -8616,7 +8616,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 i = i + 4;
             }
         }
-        
+
         value.value.d = d;
 
         return value;
@@ -8701,8 +8701,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 if (d.ticks === undefined) {
                     if (d.kind === 1) {
                         d.ticks = System.Int64(d.getTime()).mul(10000).add(System.DateTime.minOffset);
-                    }
-                    else {
+                    } else {
                         d.ticks = System.Int64(d.getTime() - d.getTimezoneOffset() * 60 * 1000).mul(10000).add(System.DateTime.minOffset);
                     }
                 }
@@ -8765,7 +8764,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
                 var d,
                     ticks;
-                
+
                 d = new Date(year, month - 1, day, hour, minute, second, millisecond);
                 d.setFullYear(year);
 
@@ -8777,7 +8776,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
                 d.kind = kind;
                 d.ticks = ticks;
-                
+
                 return d;
             },
 
@@ -9153,8 +9152,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     }
 
                     throw new System.FormatException("String does not contain a valid string representation of a date and time.");
-                }
-                else {
+                } else {
                     // TODO: The code below assumes that there are no quotation marks around the UTC/Z format token (the format patterns
                     // used by Bridge appear to use quotation marks throughout (see universalSortableDateTimePattern), including
                     // in the recent Newtonsoft.Json.JsonConvert release).
@@ -9794,8 +9792,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     ny.setHours(0);
                     ny.setMinutes(0);
                     ny.setMilliseconds(0);
-                }
-                else {
+                } else {
                     ny.setUTCMonth(0);
                     ny.setUTCDate(1);
                     ny.setUTCHours(0);
@@ -9816,8 +9813,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     d1.setMinutes(0);
                     d1.setSeconds(0);
                     d1.setMilliseconds(0);
-                }
-                else {
+                } else {
                     d1.setUTCHours(0);
                     d1.setUTCMinutes(0);
                     d1.setUTCSeconds(0);
@@ -10711,7 +10707,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return this._condition;
                     }
                 }
-            }  
+            }
         },
 
         ctor: function (failureKind, failureMessage, userMessage, condition, innerException) {
@@ -11868,7 +11864,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             this.array = array;
-                
+
             if (Bridge.isNumber(offset)) {
                 if (offset < 0) {
                     throw new System.ArgumentOutOfRangeException("offset");
@@ -11890,10 +11886,10 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             else {
                 this.count = array.length;
             }
-            
+
             if (array.length - this.offset < this.count) {
                 throw new ArgumentException();
-            }                
+            }
         },
 
         getArray: function () {
@@ -13892,19 +13888,19 @@ Bridge.define("System.String", {
         fromCharArray: function (chars, startIndex, length) {
             if (chars == null) {
                 throw new System.ArgumentNullException("chars");
-            }                
+            }
 
             if (startIndex < 0) {
                 throw new System.ArgumentOutOfRangeException("startIndex");
             }
-                
+
             if (length < 0) {
                 throw new System.ArgumentOutOfRangeException("length");
             }
-                
+
             if (chars.length - startIndex < length) {
                 throw new System.ArgumentOutOfRangeException("startIndex");
-            }                
+            }
 
             var result = "";
 
@@ -17421,7 +17417,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                     var array = buffer.getArray(),
                         count = buffer.getCount(),
                         offset = buffer.getOffset();
- 
+
                     var data = new Uint8Array(count);
 
                     for (var i = 0; i < count; i++) {
@@ -17431,7 +17427,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                     if (messageType === "text") {
                         data = String.fromCharCode.apply(null, data);
                     }
- 
+
                     this.socket.send(data);
                 }
 
