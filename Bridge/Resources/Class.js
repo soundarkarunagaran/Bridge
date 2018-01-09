@@ -105,7 +105,7 @@
                                 } else {
                                     scope[alias] = m;
                                     aliases.push({ fn: name, alias: alias });
-                                }                                
+                                }
                             }
                         }
                     })(statics ? scope : prototype, config.alias[i], config.alias[i + 1], cls);
