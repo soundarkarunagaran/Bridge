@@ -2447,7 +2447,7 @@
 
             Class.$$name = className;
             Class.$kind = prop.$kind;
-            
+
             if (prop.$metadata) {
                 Class.$metadata = prop.$metadata;
             }
@@ -3031,7 +3031,7 @@
                         Bridge.setMetadata(item.typeName, item.metadata);
                     }
                 }
-            }            
+            }
 
             if (fn) {
                 var old = Bridge.Class.staticInitAllow;
@@ -21534,7 +21534,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
             if (!Bridge.isDefined(useCache)) {
                 useCache = false;
             }
-            
+
             var scope = System.Text.RegularExpressions;
 
             if (pattern == null) {
@@ -21863,7 +21863,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
                     get: function() {
                         return this._capcount;
                     }
-                }    
+                }
             },
 
             alias: [
