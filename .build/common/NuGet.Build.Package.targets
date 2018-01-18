@@ -20,7 +20,7 @@
     <RequireRestoreConsent Condition=" '$(RequireRestoreConsent)' != 'false' ">true</RequireRestoreConsent>
 
     <!-- Download nuget.exe if it does not already exist -->
-    <DownloadNuGetExe Condition=" '$(DownloadNuGetExe)' == '' ">false</DownloadNuGetExe>
+    <DownloadNuGetExe Condition=" '$(DownloadNuGetExe)' == '' ">true</DownloadNuGetExe>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(OnWin) == true">
@@ -60,7 +60,7 @@
     <PaddedSolutionDir Condition="$(OnWin) != true">"$(SolutionDir)"</PaddedSolutionDir>
 
     <!-- Commands -->
-    <RestoreCommand>$(NuGetCommand) install "$(PackagesConfig)" -source "$(PackageSources)"  $(NonInteractiveSwitch) $(RequireConsentSwitch) -solutionDir $(PaddedSolutionDir)</RestoreCommand>
+    <RestoreCommand>$(NuGetCommand) restore "$(PackagesConfig)" $(NonInteractiveSwitch) $(RequireConsentSwitch) -PackagesDirectory "$(SolutionDir)packages"</RestoreCommand>
     <BuildCommand>$(NuGetCommand) pack "$(ProjectPath)" -Properties "Configuration=$(Configuration);Platform=$(Platform)" $(NonInteractiveSwitch) -OutputDirectory "$(PackageOutputDir)" -symbols</BuildCommand>
 
     <!-- We need to ensure packages are restored prior to assembly resolve -->
