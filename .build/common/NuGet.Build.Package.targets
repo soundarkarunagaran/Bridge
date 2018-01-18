@@ -34,8 +34,8 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackagesProjectConfig Condition=" '$(OS)' == 'Windows_NT'">$(MSBuildProjectDirectory)\packages.$(MSBuildProjectName.Replace(' ', '_')).config</PackagesProjectConfig>
-    <PackagesProjectConfig Condition=" '$(OS)' != 'Windows_NT'">$(MSBuildProjectDirectory)\packages.$(MSBuildProjectName).config</PackagesProjectConfig>
+    <PackagesProjectConfig Condition="$(OnWin) == true">>$(MSBuildProjectDirectory)\packages.$(MSBuildProjectName.Replace(' ', '_')).config</PackagesProjectConfig>
+    <PackagesProjectConfig Condition="$(OnWin) != true">>$(MSBuildProjectDirectory)\packages.$(MSBuildProjectName).config</PackagesProjectConfig>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -76,7 +76,7 @@
     </BuildDependsOn>
 
     <!-- Make the build depend on Bridge packages build -->
-    <BuildDependsOn Condition=" $(NuGetBuildPackage) == 'true' ">
+    <BuildDependsOn Condition=" $(BuildBridgePackage) == 'true' ">
       $(BuildDependsOn);
       BuildBridgePackage;
     </BuildDependsOn>
