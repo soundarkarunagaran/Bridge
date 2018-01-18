@@ -391,7 +391,7 @@
 
             var name;
 
-            if (Bridge.isFunction(obj[name = "System$ICloneable$clone"])) {
+            if (Bridge.isFunction(Bridge.getProperty(obj, name = "System$ICloneable$clone"))) {
                 return obj[name]();
             }
 
@@ -465,7 +465,10 @@
             if (typeof Bridge.global.jQuery !== "undefined") {
                 Bridge.global.jQuery(delayfn);
             } else {
-                if (typeof Bridge.global.document === "undefined" || Bridge.global.document.readyState === "complete" || Bridge.global.document.readyState === "loaded") {
+                if (typeof Bridge.global.document === "undefined" ||
+                    Bridge.global.document.readyState === "complete" ||
+                    Bridge.global.document.readyState === "loaded" ||
+                    Bridge.global.document.readyState === "interactive") {
                     delayfn();
                 } else {
                     Bridge.on("DOMContentLoaded", Bridge.global.document, delayfn);
@@ -865,11 +868,11 @@
                 if (own && (dcount === 1 || dcount === 2 && name.match("\$\d+$"))) {
                     to[name] = from[name];
                 }
-                
+
             }
 
             return to;
-        }, 
+        },
 
         merge: function (to, from, callback, elemFactory) {
             if (to == null) {
@@ -1027,15 +1030,15 @@
 
             var name;
 
-            if (T && Bridge.isFunction(obj[name = "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"])) {
+            if (T && Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"))) {
                 return obj[name]();
             }
 
-            if (T && Bridge.isFunction(obj[name = "System$Collections$Generic$IEnumerable$1$getEnumerator"])) {
+            if (T && Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$getEnumerator"))) {
                 return obj[name]();
             }
 
-            if (Bridge.isFunction(obj[name = "System$Collections$IEnumerable$getEnumerator"])) {
+            if (Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$IEnumerable$getEnumerator"))) {
                 return obj[name]();
             }
 
@@ -1062,6 +1065,29 @@
             }
 
             return names;
+        },
+
+        getProperty: function (obj, propertyName) {
+            if(Bridge.isHtmlAttributeCollection(obj) && !this.isValidHtmlAttributeName(propertyName)) {
+                return undefined;
+            }
+
+            return obj[propertyName];
+        },
+
+        isValidHtmlAttributeName : function (name) {
+            // https://html.spec.whatwg.org/multipage/syntax.html#attributes-2
+
+            if (!name || !name.length) {
+                return false;
+            }
+
+            var r = /^[a-zA-Z_][\w\-]*$/;
+            return r.test(name);
+        },
+
+        isHtmlAttributeCollection: function (obj) {
+            return typeof obj !== "undefined" && (Object.prototype.toString.call(obj) === "[object NamedNodeMap]");
         },
 
         isDefined: function (value, noNull) {
@@ -1134,9 +1160,9 @@
             return typeof value === "string";
         },
 
-        unroll: function (value) {
+        unroll: function (value, scope) {
             var d = value.split("."),
-                o = Bridge.global[d[0]],
+                o = (scope || Bridge.global)[d[0]],
                 i = 1;
 
             for (i; i < d.length; i++) {
@@ -1167,45 +1193,58 @@
                 return true;
             }
 
-            if (a && a.$boxed && a.type.equals && a.type.equals.length === 2) {
-                return a.type.equals(a, b);
+            var guardItem = Bridge.$equalsGuard[Bridge.$equalsGuard.length - 1];
+            if (guardItem && guardItem.a === a && guardItem.b === b) {
+                return a === b;
             }
 
-            if (b && b.$boxed && b.type.equals && b.type.equals.length === 2) {
-                return b.type.equals(b, a);
-            }
+            Bridge.$equalsGuard.push({a: a, b: b});
 
-            if (a && Bridge.isFunction(a.equals) && a.equals.length === 1) {
-                return a.equals(b);
-            }
-
-            if (b && Bridge.isFunction(b.equals) && b.equals.length === 1) {
-                return b.equals(a);
-            } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
-                return Bridge.fn.equals.call(a, b);
-            } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
-                if (a.kind !== undefined && a.ticks !== undefined && b.kind !== undefined && b.ticks !== undefined) {
-                    return a.ticks.equals(b.ticks);
+            var fn = function (a, b) {
+                if (a && a.$boxed && a.type.equals && a.type.equals.length === 2) {
+                    return a.type.equals(a, b);
                 }
 
-                return a.valueOf() === b.valueOf();
-            } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
-                return true;
-            } else if (Bridge.isNull(a) !== Bridge.isNull(b)) {
-                return false;
-            }
+                if (b && b.$boxed && b.type.equals && b.type.equals.length === 2) {
+                    return b.type.equals(b, a);
+                }
 
-            var eq = a === b;
+                if (a && Bridge.isFunction(a.equals) && a.equals.length === 1) {
+                    return a.equals(b);
+                }
 
-            if (!eq && typeof a === "object" && typeof b === "object" && a !== null && b !== null && a.$kind === "struct" && b.$kind === "struct" && a.$$name === b.$$name) {
-                return Bridge.getHashCode(a) === Bridge.getHashCode(b) && Bridge.objectEquals(a, b);
-            }
+                if (b && Bridge.isFunction(b.equals) && b.equals.length === 1) {
+                    return b.equals(a);
+                } if (Bridge.isFunction(a) && Bridge.isFunction(b)) {
+                    return Bridge.fn.equals.call(a, b);
+                } else if (Bridge.isDate(a) && Bridge.isDate(b)) {
+                    if (a.kind !== undefined && a.ticks !== undefined && b.kind !== undefined && b.ticks !== undefined) {
+                        return a.ticks.equals(b.ticks);
+                    }
 
-            if (!eq && a && b && a.hasOwnProperty("item1") && Bridge.isPlainObject(a) && b.hasOwnProperty("item1") && Bridge.isPlainObject(b)) {
-                return Bridge.objectEquals(a, b);
-            }
+                    return a.valueOf() === b.valueOf();
+                } else if (Bridge.isNull(a) && Bridge.isNull(b)) {
+                    return true;
+                } else if (Bridge.isNull(a) !== Bridge.isNull(b)) {
+                    return false;
+                }
 
-            return eq;
+                var eq = a === b;
+
+                if (!eq && typeof a === "object" && typeof b === "object" && a !== null && b !== null && a.$kind === "struct" && b.$kind === "struct" && a.$$name === b.$$name) {
+                    return Bridge.getHashCode(a) === Bridge.getHashCode(b) && Bridge.objectEquals(a, b);
+                }
+
+                if (!eq && a && b && a.hasOwnProperty("item1") && Bridge.isPlainObject(a) && b.hasOwnProperty("item1") && Bridge.isPlainObject(b)) {
+                    return Bridge.objectEquals(a, b);
+                }
+
+                return eq;
+            };
+
+            var result = fn(a, b);
+            Bridge.$equalsGuard.pop();
+            return result;
         },
 
         objectEquals: function (a, b) {
@@ -1326,15 +1365,15 @@
 
             var name;
 
-            if (T && Bridge.isFunction(a[name = "System$IComparable$1$" + Bridge.getTypeAlias(T) + "$compareTo"])) {
+            if (T && Bridge.isFunction(Bridge.getProperty(a, name = "System$IComparable$1$" + Bridge.getTypeAlias(T) + "$compareTo"))) {
                 return a[name](b);
             }
 
-            if (T && Bridge.isFunction(a[name = "System$IComparable$1$compareTo"])) {
+            if (T && Bridge.isFunction(Bridge.getProperty(a, name = "System$IComparable$1$compareTo"))) {
                 return a[name](b);
             }
 
-            if (Bridge.isFunction(a[name = "System$IComparable$compareTo"])) {
+            if (Bridge.isFunction(Bridge.getProperty(a, name = "System$IComparable$compareTo"))) {
                 return a[name](b);
             }
 
@@ -1342,15 +1381,15 @@
                 return a.compareTo(b);
             }
 
-            if (T && Bridge.isFunction(b[name = "System$IComparable$1$" + Bridge.getTypeAlias(T) + "$compareTo"])) {
+            if (T && Bridge.isFunction(Bridge.getProperty(b, name = "System$IComparable$1$" + Bridge.getTypeAlias(T) + "$compareTo"))) {
                 return -b[name](a);
             }
 
-            if (T && Bridge.isFunction(b[name = "System$IComparable$1$compareTo"])) {
+            if (T && Bridge.isFunction(Bridge.getProperty(b, name = "System$IComparable$1$compareTo"))) {
                 return -b[name](a);
             }
 
-            if (Bridge.isFunction(b[name = "System$IComparable$compareTo"])) {
+            if (Bridge.isFunction(Bridge.getProperty(b, name = "System$IComparable$compareTo"))) {
                 return -b[name](a);
             }
 
@@ -1388,11 +1427,11 @@
 
             var name;
 
-            if (T && a != null && Bridge.isFunction(a[name = "System$IEquatable$1$" + Bridge.getTypeAlias(T) + "$equalsT"])) {
+            if (T && a != null && Bridge.isFunction(Bridge.getProperty(a, name = "System$IEquatable$1$" + Bridge.getTypeAlias(T) + "$equalsT"))) {
                 return a[name](b);
             }
 
-            if (T && b != null && Bridge.isFunction(b[name = "System$IEquatable$1$" + Bridge.getTypeAlias(T) + "$equalsT"])) {
+            if (T && b != null && Bridge.isFunction(Bridge.getProperty(b, name = "System$IEquatable$1$" + Bridge.getTypeAlias(T) + "$equalsT"))) {
                 return b[name](a);
             }
 
@@ -1422,7 +1461,7 @@
 
             var name;
 
-            if (Bridge.isFunction(obj[name = "System$IFormattable$format"])) {
+            if (Bridge.isFunction(Bridge.getProperty(obj, name = "System$IFormattable$format"))) {
                 return obj[name](formatString, provider);
             }
 
@@ -1714,7 +1753,7 @@
                 };
 
                 fn.$invocationList = handlers ? Array.prototype.slice.call(handlers, 0) : [];
-                handlers = fn.$invocationList.slice();               
+                handlers = fn.$invocationList.slice();
 
                 return fn;
             },
@@ -1845,6 +1884,7 @@
 
     globals.Bridge = core;
     globals.Bridge.caller = [];
+    globals.Bridge.$equalsGuard = [];
 
     if (globals.console) {
         globals.Bridge.Console = globals.console;

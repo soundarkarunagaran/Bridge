@@ -220,7 +220,7 @@
     };
 
     System.Decimal.prototype.equals = function (v) {
-        if (v instanceof System.Decimal) {
+        if (v instanceof System.Decimal || typeof v === "number") {
             return !this.compareTo(v);
         }
 
@@ -530,7 +530,7 @@
                 bytes[i*4 + 4] = (d[i] >> 8) & 255;
                 bytes[i*4 + 5] = (d[i] >> 16) & 255;
                 bytes[i*4 + 6] = (d[i] >> 24) & 255;
-            }            
+            }
         }
         else {
             bytes[2] = 0;
@@ -555,7 +555,7 @@
                 i = i + 4;
             }
         }
-        
+
         value.value.d = d;
 
         return value;
