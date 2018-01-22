@@ -1,5 +1,17 @@
-    Bridge.Reflection = {
+Bridge.Reflection = {
+        deferredMeta: [],
+
         setMetadata: function (type, metadata) {
+            if (Bridge.isString(type)) {
+                var typeName = type;
+                type = Bridge.unroll(typeName);
+
+                if (type == null) {
+                    Bridge.Reflection.deferredMeta.push({ typeName: typeName, metadata: metadata });
+                    return;
+                }
+            }
+
             type.$getMetadata = Bridge.Reflection.getMetadata;
             type.$metadata = metadata;
         },
@@ -591,6 +603,7 @@
 
         canAcceptNull: function (type) {
             if (type.$kind === "struct" ||
+                type.$kind === "enum" ||
                 type === System.Decimal ||
                 type === System.Int64 ||
                 type === System.UInt64 ||
@@ -603,6 +616,8 @@
                 type === System.Int32 ||
                 type === System.UInt32 ||
                 type === Bridge.Int ||
+                type === System.Boolean ||
+                type === System.DateTime ||
                 type === Boolean ||
                 type === Date ||
                 type === Number) {
@@ -875,13 +890,20 @@
                 }
             }
 
-            if (mi.box) {
-                var unboxed = method;
-                method = function() {
-                    var v = unboxed.apply(this, arguments);
-                    return v != null ? mi.box(v) : v;
-                };
-            }
+            var orig = method;
+            method = function () {
+                var args = [],
+                    params = mi.pi || [],
+                    p;
+
+                for (var i = 0; i < arguments.length; i++) {
+                    p = params[i] || params[params.length - 1];
+                    args[i] = p && p.pt === System.Object ? arguments[i] : Bridge.unbox(arguments[i]);
+                }
+
+                var v = orig.apply(this, args);
+                return v != null && mi.box ? mi.box(v) : v;
+            };
 
             return bind !== false ? Bridge.fn.bind(target, method) : method;
         },
@@ -939,6 +961,10 @@
             }
 
             return false;
+        },
+
+        isValueType: function (type) {
+            return !Bridge.Reflection.canAcceptNull(type);
         }
     };
 
