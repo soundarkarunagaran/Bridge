@@ -205,7 +205,7 @@ $(date) - End of report." >> publish.error.log
  echo "Done. Total: ${#packages_to_publish[@]} packages published.
 
 Please notice it may take a while for NuGet API and website to reflect the
-updated packages' version. This means, running this script right after a-f0-9-
+updated packages' version. This means, running this script right after a
 successful publish sweep will still report the versions as not published."
 else
  echo "
