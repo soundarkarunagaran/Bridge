@@ -19,12 +19,12 @@ namespace Bridge.Html5
         /// <summary>
         /// Is an unsigned long long representing the amount of work already performed by the underlying process. The ratio of work done can be calculated with the property and ProgressEvent.total. When downloading a resource using HTTP, this only represent the part of the content itself, not headers and other overhead.
         /// </summary>
-        public readonly int Loaded;
+        public readonly ulong Loaded;
 
         /// <summary>
         /// Is an unsigned long long representing the total amount of work that the underlying process is in the progress of performing. When downloading a resource using HTTP, this only represent the content itself, not headers and other overhead.
         /// </summary>
-        public readonly int Total;
+        public readonly ulong Total;
     }
 
     /// <summary>
