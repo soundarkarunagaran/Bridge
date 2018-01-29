@@ -27899,6 +27899,76 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in checking whether the Single (float) and
+     Double (double) types' NaN and Infinity constants can be used as
+     function parameters' default values.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386", {
+        statics: {
+            methods: {
+                floatNaN: function (f) {
+                    if (f === void 0) { f = NaN; }
+                    return f;
+                },
+                floatPInf: function (f) {
+                    if (f === void 0) { f = Infinity; }
+                    return f;
+                },
+                floatNInf: function (f) {
+                    if (f === void 0) { f = -Infinity; }
+                    return f;
+                },
+                doubleNaN: function (d) {
+                    if (d === void 0) { d = NaN; }
+                    return d;
+                },
+                doublePInf: function (d) {
+                    if (d === void 0) { d = Infinity; }
+                    return d;
+
+                },
+                doubleNInf: function (d) {
+                    if (d === void 0) { d = -Infinity; }
+                    return d;
+                },
+                /**
+                 * This test checks methods with float/double NaN and Infinity default
+                 values, whether they get the passed or the default ones.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386
+                 * @return  {void}
+                 */
+                Test64bitKey: function () {
+                    var probe = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386();
+                    var floatVal = 2.0;
+                    var doubleVal = 2.0;
+
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.floatNaN(), Number.NaN, "floatNaN() with no parameter is float.NaN.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.floatNaN(floatVal), floatVal, "floatNaN() with parameter kept the parameter value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.floatPInf(), Number.POSITIVE_INFINITY, "floatPInf() with no parameter is float.PositiveInfinity.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.floatPInf(floatVal), floatVal, "floatPInf() with parameter kept the parameter value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.floatNInf(), Number.NEGATIVE_INFINITY, "floatNInf() with no parameter is float.NegativeInfinity.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.floatNInf(floatVal), floatVal, "floatNInf() with parameter kept the parameter value.");
+
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.doubleNaN(), Number.NaN, "doubleNaN() with no parameter is double.NaN.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.doubleNaN(doubleVal), doubleVal, "doubleNaN() with parameter kept the parameter value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.doublePInf(), Number.POSITIVE_INFINITY, "doublePInf() with no parameter is double.PositiveInfinity.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.doublePInf(doubleVal), doubleVal, "doublePInf() with parameter kept the parameter value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.doubleNInf(), Number.NEGATIVE_INFINITY, "doubleNInf() with no parameter is double.NegativeInfinity.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3386.doubleNInf(doubleVal), doubleVal, "doubleNInf() with parameter kept the parameter value.");
+
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
