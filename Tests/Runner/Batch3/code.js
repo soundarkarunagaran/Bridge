@@ -28587,7 +28587,7 @@ Bridge.$N1391Result =                     r;
             },
             IsReadOnly: {
                 get: function () {
-                    return this._backingDictionary.getIsReadOnly();
+                    return false;
                 }
             }
         },
