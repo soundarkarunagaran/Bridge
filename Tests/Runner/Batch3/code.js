@@ -5978,6 +5978,33 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         }
     });
 
+    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
+
+    /**
+     * The test here consists in ensuring expressions involving Bridge.Html5's
+     Typed Array constants would always reference the browser's values.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge1373
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1373", {
+        statics: {
+            methods: {
+                TypedArraysConstantsInExpressions: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.Int.mul(Float32Array.BYTES_PER_ELEMENT, 2), "2x Float32Array's bytes per element is 8.");
+                    Bridge.Test.NUnit.Assert.AreEqual(16, Bridge.Int.mul(Float64Array.BYTES_PER_ELEMENT, 2), "2x Float64Array's bytes per element is 16.");
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.Int.mul(Int16Array.BYTES_PER_ELEMENT, 2), "2x Int16Array's bytes per element is 4.");
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.Int.mul(Int32Array.BYTES_PER_ELEMENT, 2), "2x Int32Array's bytes per element is 8.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Int.mul(Int8Array.BYTES_PER_ELEMENT, 2), "2x Int8Array's bytes per element is 2.");
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.Int.mul(Uint16Array.BYTES_PER_ELEMENT, 2), "2x Uint16Array's bytes per element is 4.");
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.Int.mul(Uint32Array.BYTES_PER_ELEMENT, 2), "2x Uint32Array's bytes per element is 8.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Int.mul(Uint8Array.BYTES_PER_ELEMENT, 2), "2x Uint8Array's bytes per element is 2.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Int.mul(Uint8ClampedArray.BYTES_PER_ELEMENT, 2), "2x Uint8ClampedArray's bytes per element is 2.");
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1374", {
         statics: {
             props: {
@@ -19068,8 +19095,6 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
-
     /**
      * This test consists in checking whether Bridge can translate
      instantiation of the System.ComponentModel.BrowsableAttribute.
@@ -28152,6 +28177,40 @@ Bridge.$N1391Result =                     r;
         methods: {
             System$Collections$Generic$IComparer$1$System$Int32$compare: function (a, b) {
                 return ((-Bridge.compare(a, b)) | 0);
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking whether referencing Bridge.Html5's
+     typed array classes constants won't result in invalid javascript code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401", {
+        statics: {
+            methods: {
+                /**
+                 * Make simple references to the constants.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401
+                 * @return  {void}
+                 */
+                TestCustomComparer: function () { /// The given expression is always of the provided ('short') type
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float32Array.BYTES_PER_ELEMENT), "Could reference Float32Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float64Array.BYTES_PER_ELEMENT), "Could reference Float64Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int16Array.BYTES_PER_ELEMENT), "Could reference Int16Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int32Array.BYTES_PER_ELEMENT), "Could reference Int32Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int8Array.BYTES_PER_ELEMENT), "Could reference Int8Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint16Array.BYTES_PER_ELEMENT), "Could reference Uint16Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint32Array.BYTES_PER_ELEMENT), "Could reference Uint32Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8Array.BYTES_PER_ELEMENT), "Could reference Uint8Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant."); /// The given expression is always of the provided ('short') type
+                }
             }
         }
     });
