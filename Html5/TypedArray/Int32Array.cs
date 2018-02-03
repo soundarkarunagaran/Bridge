@@ -75,9 +75,9 @@ namespace Bridge.Html5
         #region Properties
 
         /// <summary>
-        /// Returns a number value of the element size. 4 in the case of an Int32Array.
+        /// Returns a number value of the element size.
         /// </summary>
-        public const short BYTES_PER_ELEMENT = 4;
+        public static short BYTES_PER_ELEMENT { get; }
 
         /// <summary>
         /// Length property whose value is 3.
