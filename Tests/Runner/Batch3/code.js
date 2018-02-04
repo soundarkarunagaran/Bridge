@@ -23635,7 +23635,9 @@ Bridge.$N1391Result =                     r;
                             $t3.System$IDisposable$dispose();
                         }
                     }
-                    $t4 = Bridge.getEnumerator(System.Array.create(System.DateTime.getDefaultValue(), null, System.DateTime, 1, 1));
+                    $t4 = Bridge.getEnumerator(System.Array.create(function (){
+                        return System.DateTime.getDefaultValue();
+                    }, null, System.DateTime, 1, 1));
                     try {
                         while ($t4.moveNext()) {
                             var value4 = $t4.Current;
@@ -28177,6 +28179,63 @@ Bridge.$N1391Result =                     r;
         methods: {
             System$Collections$Generic$IComparer$1$System$Int32$compare: function (a, b) {
                 return ((-Bridge.compare(a, b)) | 0);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396", {
+        statics: {
+            methods: {
+                TestMultiDimArrayDefValue: function () {
+                    var map2d = System.Array.create(function (){
+                        return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure();
+                    }, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure, 5, 5);
+                    map2d.get([1, 1]).Foo = true;
+                    Bridge.Test.NUnit.Assert.True(map2d.get([1, 1]).Foo);
+                    Bridge.Test.NUnit.Assert.False(map2d.get([2, 2]).Foo);
+                },
+                TestMultiDimArrayDefValue2: function () {
+                    var map2d = System.Array.create(function (){
+                        return {};
+                    }, null, System.Object, 5, 5);
+                    map2d.get([1, 1]).Foo = true;
+                    Bridge.Test.NUnit.Assert.True(map2d.get([1, 1]).Foo);
+                    Bridge.Test.NUnit.Assert.Null(map2d.get([2, 2]).Foo);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure", {
+        $kind: "struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure(); }
+            }
+        },
+        props: {
+            Foo: false
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            getHashCode: function () {
+                var h = Bridge.addHash([5844455023, this.Foo]);
+                return h;
+            },
+            equals: function (o) {
+                if (!Bridge.is(o, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure)) {
+                    return false;
+                }
+                return Bridge.equals(this.Foo, o.Foo);
+            },
+            $clone: function (to) {
+                var s = to || new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure();
+                s.Foo = this.Foo;
+                return s;
             }
         }
     });
@@ -33791,7 +33850,9 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestUseCase: function () {
-                    var arr = System.Array.create(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot(), null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot, 10, 10);
+                    var arr = System.Array.create(function (){
+                        return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot();
+                    }, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot, 10, 10);
                     Bridge.Test.NUnit.Assert.AreNotEqual(null, arr, "Bridge835");
                 }
             }
