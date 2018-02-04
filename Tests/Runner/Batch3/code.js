@@ -27969,6 +27969,22 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388", {
+        statics: {
+            methods: {
+                TestTwoInterfaceImplementation: function () {
+                    var c = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.MyClass$1(System.Int32))();
+                    Bridge.Test.NUnit.Assert.AreEqual("single", Bridge.cast(c, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Int32)).Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Int32$Method());
+                    Bridge.Test.NUnit.Assert.AreEqual("list", Bridge.cast(c, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Collections.Generic.List$1(System.Int32))).Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Collections$Generic$List$1$System$Int32$Method());
+                }
+            }
+        }
+    });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1", function (T) { return {
+        $kind: "interface"
+    }; });
+
     /**
      * The test here consists in checking whether the equals (==) operator's
      result matches the Equals() method result with boxed enums.
@@ -37373,9 +37389,9 @@ Bridge.$N1391Result =                     r;
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2278.Something$1", function (T) { return {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge2278.ISomething$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2278.Item$1(T))],
-        alias: ["Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$ISomething$1$DoSomething", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$ISomething$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$Item$1$" + Bridge.getTypeAlias(T) + "$DoSomething"],
+        alias: ["Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$ISomething$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$Item$1$DoSomething", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$ISomething$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$Item$1$" + Bridge.getTypeAlias(T) + "$DoSomething"],
         methods: {
-            Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$ISomething$1$DoSomething: function (t) {
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$ISomething$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2278$Item$1$DoSomething: function (t) {
                 return t;
             }
         }
@@ -38324,6 +38340,22 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe]
     });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.MyClass$1", function (T) { return {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(T),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Collections.Generic.List$1(T))],
+        alias: [
+            "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$Method", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$" + Bridge.getTypeAlias(T) + "$Method",
+            "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Collections$Generic$List$1$Method", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Collections$Generic$List$1$" + Bridge.getTypeAlias(T) + "$Method"
+        ],
+        methods: {
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$Method: function () {
+                return "single";
+            },
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Collections$Generic$List$1$Method: function () {
+                return "list";
+            }
+        }
+    }; });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
