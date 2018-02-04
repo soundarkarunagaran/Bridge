@@ -27980,6 +27980,45 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382", {
+        statics: {
+            fields: {
+                tag: 0
+            },
+            methods: {
+                TestBaseCtor: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 0;
+                    new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassBrokenConstructorCall();
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag);
+
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 0;
+                    new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassWorkAroundConstructorCall();
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass", {
+        fields: {
+            Items: null
+        },
+        ctors: {
+            $ctor1: function (items) {
+                if (items === void 0) { items = []; }
+
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 1;
+                this.Items = items;
+            },
+            ctor: function (items) {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 2;
+                this.Items = items;
+            }
+        }
+    });
+
     /**
      * The test here consists in checking whether the Single (float) and
      Double (double) types' NaN and Infinity constants can be used as
@@ -38462,6 +38501,26 @@ Bridge.$N1391Result =                     r;
      */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.ClassProbe", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe]
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassBrokenConstructorCall", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass.$ctor1.call(this);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassWorkAroundConstructorCall", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass.$ctor1.call(this, System.Array.init(0, null, System.String));
+            }
+        }
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
