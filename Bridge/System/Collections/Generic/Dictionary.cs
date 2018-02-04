@@ -89,6 +89,10 @@ namespace System.Collections.Generic
         // Stub just to fulfill IDictionary interface.
         extern IDictionaryEnumerator IDictionary.GetEnumerator();
 
+        bool ICollection.IsSynchronized { get { return false; } }
+
+        object ICollection.SyncRoot { get { return this; } }
+
         public extern bool ContainsKey(TKey key);
 
         public extern bool ContainsValue(TValue value);

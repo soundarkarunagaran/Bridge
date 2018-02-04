@@ -161,6 +161,10 @@ namespace System.Collections.Generic
             }
         }
 
+        bool ICollection.IsSynchronized { get { return false; } }
+
+        object ICollection.SyncRoot { get { return this; } }
+
         /// <summary>
         /// Gets or sets the element at the specified index.
         /// </summary>

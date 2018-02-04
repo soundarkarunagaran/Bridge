@@ -996,6 +996,10 @@
             return System.Array.indexOf(array, value, startIndex, count);
         },
 
+        isSynchronized: function (array) {
+            return false;
+        },
+
         lastIndexOfT: function (array, value, startIndex, count) {
             if (!Bridge.hasValue(array)) {
                 throw new System.ArgumentNullException("array");
@@ -1027,6 +1031,10 @@
             }
 
             return -1;
+        },
+
+        syncRoot: function (array) {
+            return array;
         },
 
         trueForAll: function (array, match) {

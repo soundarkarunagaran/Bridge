@@ -41,6 +41,10 @@ namespace System.Collections.ObjectModel
             return list.GetEnumerator();
         }
 
+        bool ICollection.IsSynchronized { get { return false; } }
+
+        object ICollection.SyncRoot { get { return this; } }
+
         public int IndexOf(T value)
         {
             return list.IndexOf(value);

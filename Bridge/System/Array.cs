@@ -300,6 +300,32 @@ namespace System
             get;
         }
 
+        /// <summary>
+        /// Gets an object that can be used to synchronize access to the System.Array.
+        /// </summary>
+        /// <returns>
+        /// An object that can be used to synchronize access to the System.Array.
+        /// </returns>
+        
+        public extern Object SyncRoot
+        {
+            [Template("System.Array.syncRoot({this})")]
+            get;
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether access to the System.Array is synchronized (thread
+        /// safe).
+        /// </summary>
+        /// <returns>
+        /// This property is always false for all arrays.
+        /// </returns>
+        public extern bool IsSynchronized
+        {
+            [Template("System.Array.isSynchronized({this})")]
+            get;
+        }
+
         extern int IList.Add(object item);
 
         extern void IList.Clear();
