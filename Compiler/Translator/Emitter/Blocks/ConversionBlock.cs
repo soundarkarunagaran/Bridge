@@ -807,6 +807,12 @@ namespace Bridge.Translator
             {
                 var index = invocationExpression.Arguments.ToList().IndexOf(expression);
                 var methodResolveResult = block.Emitter.Resolver.ResolveNode(invocationExpression, block.Emitter) as MemberResolveResult;
+                var invocationResolveResult = methodResolveResult as CSharpInvocationResolveResult;
+
+                if (invocationResolveResult != null && invocationResolveResult.IsExtensionMethodInvocation)
+                {
+                    index++;
+                }
 
                 if (methodResolveResult != null)
                 {
