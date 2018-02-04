@@ -65,6 +65,16 @@
                 get: function () {
                     return false;
                 }
+            },
+            System$Collections$ICollection$IsSynchronized: {
+                get: function () {
+                    return false;
+                }
+            },
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    return this;
+                }
             }
         },
         alias: [

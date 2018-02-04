@@ -11787,6 +11787,10 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             return System.Array.indexOf(array, value, startIndex, count);
         },
 
+        isSynchronized: function (array) {
+            return false;
+        },
+
         lastIndexOfT: function (array, value, startIndex, count) {
             if (!Bridge.hasValue(array)) {
                 throw new System.ArgumentNullException("array");
@@ -11818,6 +11822,10 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             return -1;
+        },
+
+        syncRoot: function (array) {
+            return array;
         },
 
         trueForAll: function (array, match) {
@@ -13002,6 +13010,16 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 get: function () {
                     return false;
                 }
+            },
+            System$Collections$ICollection$IsSynchronized: {
+                get: function () {
+                    return false;
+                }
+            },
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    return this;
+                }
             }
         },
         alias: [
@@ -13756,6 +13774,16 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             Count: {
                 get: function () {
                     return System.Array.getCount(this.list, T);
+                }
+            },
+            System$Collections$ICollection$IsSynchronized: {
+                get: function () {
+                    return false;
+                }
+            },
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    return this;
                 }
             },
             Items: {
@@ -33647,12 +33675,17 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return this.m_length;
                 }
             },
-            IsReadOnly: {
+            System$Collections$ICollection$IsSynchronized: {
                 get: function () {
                     return false;
                 }
             },
-            IsSynchronized: {
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    return this;
+                }
+            },
+            IsReadOnly: {
                 get: function () {
                     return false;
                 }
@@ -35098,6 +35131,16 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return this._size;
                 }
             },
+            System$Collections$ICollection$IsSynchronized: {
+                get: function () {
+                    return false;
+                }
+            },
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    return this;
+                }
+            },
             IsReadOnly: {
                 get: function () {
                     return false;
@@ -35460,6 +35503,16 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             Count: {
                 get: function () {
                     return this._size;
+                }
+            },
+            System$Collections$ICollection$IsSynchronized: {
+                get: function () {
+                    return false;
+                }
+            },
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    return this;
                 }
             },
             IsReadOnly: {
