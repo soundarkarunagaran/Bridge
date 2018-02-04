@@ -27980,6 +27980,17 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3385", {
+        statics: {
+            methods: {
+                TestObjectToChar: function () {
+                    var a = Bridge.box(97, System.Char, String.fromCharCode, System.Char.getHashCode);
+                    Bridge.Test.NUnit.Assert.AreEqual(97, System.Convert.toChar(a, null, 1));
+                }
+            }
+        }
+    });
+
     /**
      * The test here consists in checking whether the Single (float) and
      Double (double) types' NaN and Infinity constants can be used as
