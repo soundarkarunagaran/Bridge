@@ -5978,6 +5978,33 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         }
     });
 
+    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
+
+    /**
+     * The test here consists in ensuring expressions involving Bridge.Html5's
+     Typed Array constants would always reference the browser's values.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge1373
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1373", {
+        statics: {
+            methods: {
+                TypedArraysConstantsInExpressions: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.Int.mul(Float32Array.BYTES_PER_ELEMENT, 2), "2x Float32Array's bytes per element is 8.");
+                    Bridge.Test.NUnit.Assert.AreEqual(16, Bridge.Int.mul(Float64Array.BYTES_PER_ELEMENT, 2), "2x Float64Array's bytes per element is 16.");
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.Int.mul(Int16Array.BYTES_PER_ELEMENT, 2), "2x Int16Array's bytes per element is 4.");
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.Int.mul(Int32Array.BYTES_PER_ELEMENT, 2), "2x Int32Array's bytes per element is 8.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Int.mul(Int8Array.BYTES_PER_ELEMENT, 2), "2x Int8Array's bytes per element is 2.");
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.Int.mul(Uint16Array.BYTES_PER_ELEMENT, 2), "2x Uint16Array's bytes per element is 4.");
+                    Bridge.Test.NUnit.Assert.AreEqual(8, Bridge.Int.mul(Uint32Array.BYTES_PER_ELEMENT, 2), "2x Uint32Array's bytes per element is 8.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Int.mul(Uint8Array.BYTES_PER_ELEMENT, 2), "2x Uint8Array's bytes per element is 2.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Int.mul(Uint8ClampedArray.BYTES_PER_ELEMENT, 2), "2x Uint8ClampedArray's bytes per element is 2.");
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1374", {
         statics: {
             props: {
@@ -19068,8 +19095,6 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    /** @namespace Bridge.ClientTest.Batch3.BridgeIssues */
-
     /**
      * This test consists in checking whether Bridge can translate
      instantiation of the System.ComponentModel.BrowsableAttribute.
@@ -23393,6 +23418,62 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The tests here consist in checking whether chained assingment of
+     variable values works.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872", {
+        statics: {
+            methods: {
+                /**
+                 * From several scenarios, using the string type, check if the
+                 chained assingment results in the expected variable contents.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872
+                 * @return  {void}
+                 */
+                TestChainingAssignment: function () {
+                    var a;
+                    a = (a = "test");
+                    Bridge.Test.NUnit.Assert.AreEqual(a, "test", "String chained assignment on same variable works.");
+
+                    var s;
+                    var s2;
+                    s2 = (s = "test");
+                    Bridge.Test.NUnit.Assert.AreEqual(s2, "test", "On more than one variable, works to the indirect variable.");
+                    Bridge.Test.NUnit.Assert.AreEqual(s, "test", "On more than one variable, works to the direct variable."); /// Variable is declared but never used
+                    var c;
+                    var c3;
+                    var c2;
+                    c2 = (c = "test");
+                    var c4; /// Variable is declared but never used
+                    Bridge.Test.NUnit.Assert.AreEqual(c2, "test", "With unrelated variables, works on indirect variable.");
+                    Bridge.Test.NUnit.Assert.AreEqual(c, "test", "With unrelated variables, works on direct variable.");
+
+                    Bridge.Test.NUnit.Assert.Throws$1($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872.f1, "Unrelated variable to the left is untouched.");
+                    Bridge.Test.NUnit.Assert.Throws$1($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872.f2, "Unrelated variable to the right is untouched.");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2872, {
+        f1: function () {
+            var x = c3;
+        },
+        f2: function () {
+            var x = c4;
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2874", {
         statics: {
             methods: {
@@ -23554,7 +23635,9 @@ Bridge.$N1391Result =                     r;
                             $t3.System$IDisposable$dispose();
                         }
                     }
-                    $t4 = Bridge.getEnumerator(System.Array.create(System.DateTime.getDefaultValue(), null, System.DateTime, 1, 1));
+                    $t4 = Bridge.getEnumerator(System.Array.create(function (){
+                        return System.DateTime.getDefaultValue();
+                    }, null, System.DateTime, 1, 1));
                     try {
                         while ($t4.moveNext()) {
                             var value4 = $t4.Current;
@@ -27899,12 +27982,94 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in checking whether the right constructor is
+     called when instantiating a class which base's constructor may receive
+     an arbitrary mount of parameters or a List. The result didn't match
+     what happens in .NET.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382", {
+        statics: {
+            fields: {
+                tag: 0
+            },
+            methods: {
+                /**
+                 * In the test, we'll just instantiate the two classes and check
+                 whether they filled the static 'tag' variable with the value from
+                 the expected constructor.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382
+                 * @return  {void}
+                 */
+                TestBaseCtor: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 0;
+                    new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassBrokenConstructorCall();
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag, "The right constructor was called for the class that used to call wrong constructor.");
+
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 0;
+                    new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassWorkAroundConstructorCall();
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag, "The right constructor was called for the class with workaround.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Base class implementing the two constructors.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass", {
+        fields: {
+            Items: null
+        },
+        ctors: {
+            $ctor1: function (items) {
+                if (items === void 0) { items = []; }
+
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 1;
+                this.Items = items;
+            },
+            ctor: function (items) {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.tag = 2;
+                this.Items = items;
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking whether a char converted into an
+     object can be cast back into char.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3385
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3385", {
         statics: {
             methods: {
+                /**
+                 * Just instantiate an object with a 'char' constant then check
+                 whether it can convert back instead of throwing an exception.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3385
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3385
+                 * @return  {void}
+                 */
                 TestObjectToChar: function () {
                     var a = Bridge.box(97, System.Char, String.fromCharCode, System.Char.getHashCode);
-                    Bridge.Test.NUnit.Assert.AreEqual(97, System.Convert.toChar(a, null, 1));
+                    Bridge.Test.NUnit.Assert.AreEqual(97, System.Convert.toChar(a, null, 1), "Char encapsulated in an object can be cast back to a char.");
                 }
             }
         }
@@ -27980,21 +28145,71 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * This tests consists in making two distinct methods, differing only by
+     the generics argument passed and ensuring the two methods can be
+     selectively triggered.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388", {
         statics: {
             methods: {
+                /**
+                 * Instantiate the class, then cast it calling the method, expecting
+                 the corresponding one to be called.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388
+                 * @return  {void}
+                 */
                 TestTwoInterfaceImplementation: function () {
                     var c = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.MyClass$1(System.Int32))();
-                    Bridge.Test.NUnit.Assert.AreEqual("single", Bridge.cast(c, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Int32)).Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Int32$Method());
-                    Bridge.Test.NUnit.Assert.AreEqual("list", Bridge.cast(c, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Collections.Generic.List$1(System.Int32))).Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Collections$Generic$List$1$System$Int32$Method());
+                    Bridge.Test.NUnit.Assert.AreEqual("single", Bridge.cast(c, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Int32)).Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Int32$Method(), "The expected generic method was called.");
+                    Bridge.Test.NUnit.Assert.AreEqual("list", Bridge.cast(c, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Collections.Generic.List$1(System.Int32))).Bridge$ClientTest$Batch3$BridgeIssues$Bridge3388$IFace$1$System$Collections$Generic$List$1$System$Int32$Method(), "The expected generic method variation was called.");
                 }
             }
         }
     });
 
+    /**
+     * An interface demanding the method with common name.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1
+     * @param   {Function}    [name]
+     */
     Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1", function (T) { return {
         $kind: "interface"
     }; });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3390", {
+        statics: {
+            methods: {
+                TestTernaryAssigmnment: function () {
+                    var msg;
+                    msg = (true) ? (msg = "left") : (msg = "right");
+                    Bridge.Test.NUnit.Assert.AreEqual("left", msg, "true condition of inline if binds as expected.");
+
+                    var msg2;
+                    msg2 = (false) ? (msg2 = "left") : (msg2 = "right");
+                    Bridge.Test.NUnit.Assert.AreEqual("right", msg2, "false condition of inline if binds as expected.");
+
+                    var msg3;
+                    msg3 = (false) ? (msg3 = "left") : ((false) ? (msg3 = "middle") : (msg3 = "right"));
+                    Bridge.Test.NUnit.Assert.AreEqual("right", msg3, "false condition on chained inline if binds as expected.");
+
+                    var msg4;
+                    msg4 = (false) ? (msg4 = "left") : ((true) ? (msg4 = "middle") : (msg4 = "right"));
+                    Bridge.Test.NUnit.Assert.AreEqual("middle", msg4, "true condition of chained inline if binds as expected.");
+                }
+            }
+        }
+    });
 
     /**
      * The test here consists in checking whether the equals (==) operator's
@@ -28099,6 +28314,201 @@ Bridge.$N1391Result =                     r;
         methods: {
             System$Collections$Generic$IComparer$1$System$Int32$compare: function (a, b) {
                 return ((-Bridge.compare(a, b)) | 0);
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking whether replacing a value in a given
+     position in a two-dimensional array does not touch the remaining of the
+     array.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396", {
+        statics: {
+            methods: {
+                /**
+                 * Build a two-dimensional array (5x5), replace one value and check
+                 whether another element in the array was not changed.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396
+                 * @return  {void}
+                 */
+                TestMultiDimArrayDefValue: function () {
+                    var map2d = System.Array.create(function (){
+                        return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure();
+                    }, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure, 5, 5);
+                    map2d.get([1, 1]).Foo = true;
+                    Bridge.Test.NUnit.Assert.True(map2d.get([1, 1]).Foo, "Changed array element has the expected value.");
+                    Bridge.Test.NUnit.Assert.False(map2d.get([2, 2]).Foo, "Other array element is untouched.");
+
+                    var truecount = 0;
+                    for (var i = 0; i < 5; i = (i + 1) | 0) {
+                        for (var j = 0; j < 5; j = (j + 1) | 0) {
+                            if (map2d.get([i, j]).Foo) {
+                                truecount = (truecount + 1) | 0;
+                            }
+                        }
+                    }
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, truecount, "One and only one element in the whole matrix is set to true.");
+                },
+                /**
+                 * Repeat the test above for the ObjectLiteral class.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396
+                 * @return  {void}
+                 */
+                TestMultiDimArrayObjectLiteralDefValue: function () {
+                    var map2d = System.Array.create(function (){
+                        return {};
+                    }, null, System.Object, 5, 5);
+                    map2d.get([1, 1]).Foo = true;
+                    Bridge.Test.NUnit.Assert.True(map2d.get([1, 1]).Foo, "Changed array element has been changed.");
+                    Bridge.Test.NUnit.Assert.Null(map2d.get([2, 2]).Foo, "Other array element is untouched.");
+
+                    var truecount = 0;
+                    for (var i = 0; i < 5; i = (i + 1) | 0) {
+                        for (var j = 0; j < 5; j = (j + 1) | 0) {
+                            if (map2d.get([i, j]).Foo) {
+                                truecount = (truecount + 1) | 0;
+                            }
+                        }
+                    }
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, truecount, "One and only one element in the whole matrix is set to true.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The array requires to be an array of a custom structure.
+     *
+     * @private
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure", {
+        $kind: "struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure(); }
+            }
+        },
+        props: {
+            Foo: false
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            getHashCode: function () {
+                var h = Bridge.addHash([5844455023, this.Foo]);
+                return h;
+            },
+            equals: function (o) {
+                if (!Bridge.is(o, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure)) {
+                    return false;
+                }
+                return Bridge.equals(this.Foo, o.Foo);
+            },
+            $clone: function (to) {
+                var s = to || new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3396.TestStructure();
+                s.Foo = this.Foo;
+                return s;
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking whether referencing Bridge.Html5's
+     typed array classes constants won't result in invalid javascript code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401", {
+        statics: {
+            methods: {
+                /**
+                 * Make simple references to the constants.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3401
+                 * @return  {void}
+                 */
+                TestCustomComparer: function () { /// The given expression is always of the provided ('short') type
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float32Array.BYTES_PER_ELEMENT), "Could reference Float32Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float64Array.BYTES_PER_ELEMENT), "Could reference Float64Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int16Array.BYTES_PER_ELEMENT), "Could reference Int16Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int32Array.BYTES_PER_ELEMENT), "Could reference Int32Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int8Array.BYTES_PER_ELEMENT), "Could reference Int8Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint16Array.BYTES_PER_ELEMENT), "Could reference Uint16Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint32Array.BYTES_PER_ELEMENT), "Could reference Uint32Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8Array.BYTES_PER_ELEMENT), "Could reference Uint8Array's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant."); /// The given expression is always of the provided ('short') type
+                }
+            }
+        }
+    });
+
+    /**
+     * The test here consists in ensuring extension methods parameters are
+     correctly evaluated regarding their type and position. E.g. do not
+     try to instantiate a decimal (1st parameter, but absent in the call)
+     whenever a string is passed (2nd parameter, but first one in the actual
+     call).
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404", {
+        statics: {
+            methods: {
+                /**
+                 * To test, we call the extension method passing a string. It should
+                 not try to convert the string to a decimal.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404
+                 * @return  {void}
+                 */
+                TestExtensionMethodDecimal: function () {
+                    var a = System.Decimal(0);
+                    Bridge.Test.NUnit.Assert.AreEqual("text", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404Ex.M(a, "text"), "Calling the extension method works the way it is expected to.");
+                }
+            }
+        }
+    });
+
+    /**
+     * A dummy extension method for decimal, takin a string parameter.
+     *
+     * @static
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404Ex
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3404Ex", {
+        statics: {
+            methods: {
+                M: function (a, b) {
+                    return b;
+                }
             }
         }
     });
@@ -33679,7 +34089,9 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestUseCase: function () {
-                    var arr = System.Array.create(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot(), null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot, 10, 10);
+                    var arr = System.Array.create(function (){
+                        return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot();
+                    }, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge835.Dot, 10, 10);
                     Bridge.Test.NUnit.Assert.AreNotEqual(null, arr, "Bridge835");
                 }
             }
@@ -38352,6 +38764,51 @@ Bridge.$N1391Result =                     r;
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3292.IInterfaceProbe]
     });
 
+    /**
+     * Subclass which should call the params constructor.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassBrokenConstructorCall
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassBrokenConstructorCall", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass.$ctor1.call(this);
+            }
+        }
+    });
+
+    /**
+     * Subclass that forces calling the params constructor (workaround
+     for the issue that was reproduced here).
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassWorkAroundConstructorCall
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.SubClassWorkAroundConstructorCall", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3382.BaseClass.$ctor1.call(this, System.Array.init(0, null, System.String));
+            }
+        }
+    });
+
+    /**
+     * Class implementing two identical signature methods, differring only
+     by the generics argument requested.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.MyClass$1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1
+     * @param   {Function}    [name]
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.MyClass$1", function (T) { return {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(T),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3388.IFace$1(System.Collections.Generic.List$1(T))],
         alias: [
