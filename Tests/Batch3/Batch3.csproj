@@ -269,6 +269,7 @@
     <Compile Include="BridgeIssues\1300\N1345.cs" />
     <Compile Include="BridgeIssues\1300\N1348.cs" />
     <Compile Include="BridgeIssues\1300\N1355.cs" />
+    <Compile Include="BridgeIssues\1300\N1373.cs" />
     <Compile Include="BridgeIssues\1300\N1374.cs" />
     <Compile Include="BridgeIssues\1300\N1378.cs" />
     <Compile Include="BridgeIssues\1300\N1379.cs" />
@@ -592,6 +593,7 @@
     <Compile Include="BridgeIssues\2800\N2855.cs" />
     <Compile Include="BridgeIssues\2800\N2859.cs" />
     <Compile Include="BridgeIssues\2800\N2863.cs" />
+    <Compile Include="BridgeIssues\2800\N2872.cs" />
     <Compile Include="BridgeIssues\2800\N2871.cs" />
     <Compile Include="BridgeIssues\2800\N2874.cs" />
     <Compile Include="BridgeIssues\2800\N2886.cs" />
@@ -688,14 +690,17 @@
     <Compile Include="BridgeIssues\3300\N3329.cs" />
     <Compile Include="BridgeIssues\3300\N3331.cs" />
     <Compile Include="BridgeIssues\3300\N3346.cs" />
-    <Compile Include="BridgeIssues\3300\N3388.cs" />
-    <Compile Include="BridgeIssues\3300\N3394.cs" />
-    <Compile Include="BridgeIssues\3300\N3391.cs" />
-    <Compile Include="BridgeIssues\3300\N3386.cs" />
-    <Compile Include="BridgeIssues\3300\N3363.cs" />
-    <Compile Include="BridgeIssues\3300\N3361.cs" />
-    <Compile Include="BridgeIssues\3300\N3356.cs" />
     <Compile Include="BridgeIssues\3300\N3352.cs" />
+    <Compile Include="BridgeIssues\3300\N3356.cs" />
+    <Compile Include="BridgeIssues\3300\N3361.cs" />
+    <Compile Include="BridgeIssues\3300\N3363.cs" />
+    <Compile Include="BridgeIssues\3300\N3386.cs" />
+    <Compile Include="BridgeIssues\3300\N3388.cs" />
+    <Compile Include="BridgeIssues\3300\N3390.cs" />
+    <Compile Include="BridgeIssues\3300\N3391.cs" />
+    <Compile Include="BridgeIssues\3300\N3394.cs" />
+    <Compile Include="BridgeIssues\3300\N3396.cs" />
+    <Compile Include="BridgeIssues\3400\N3401.cs" />
     <Compile Include="BridgeIssues\TestBridgeIssues.cs" />
     <Compile Include="Utilities\BrowserHelper.cs" />
   </ItemGroup>

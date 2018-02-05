@@ -10906,9 +10906,9 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             arr.length = length;
-
+            var isFn = Bridge.isFunction(defvalue);
             for (var k = 0; k < length; k++) {
-                arr[k] = defvalue;
+                arr[k] = isFn ? defvalue() : defvalue;
             }
 
             if (initValues) {

@@ -3291,6 +3291,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Int8ArrayTests - IListIsReadOnlyWorks", Bridge.Test.Runtime.BridgeClientTestRunner.Int8ArrayTests.IListIsReadOnlyWorks);
             QUnit.test("Int8ArrayTests - ICollectionIsReadOnlyWorks", Bridge.Test.Runtime.BridgeClientTestRunner.Int8ArrayTests.ICollectionIsReadOnlyWorks);
             QUnit.test("Int8ArrayTests - ICollectionCopyTo", Bridge.Test.Runtime.BridgeClientTestRunner.Int8ArrayTests.ICollectionCopyTo);
+            QUnit.test("Constant Values - TestConstantValues", Bridge.Test.Runtime.BridgeClientTestRunner.TypedArray.TestConstantValues);
             QUnit.test("Uint16ArrayTests - LengthConstructorWorks", Bridge.Test.Runtime.BridgeClientTestRunner.Uint16ArrayTests.LengthConstructorWorks);
             QUnit.test("Uint16ArrayTests - ConstructorFromIntWorks", Bridge.Test.Runtime.BridgeClientTestRunner.Uint16ArrayTests.ConstructorFromIntWorks);
             QUnit.test("Uint16ArrayTests - CopyConstructorWorks", Bridge.Test.Runtime.BridgeClientTestRunner.Uint16ArrayTests.CopyConstructorWorks);
@@ -24270,6 +24271,31 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.Reflection.TypeAttributeTests", $t.File = "Batch1\\Reflection\\TypeAttributeTests.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestRunner.TypedArray", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Native.TypedArray)],
+        statics: {
+            methods: {
+                TestConstantValues: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Native.TypedArray).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TypedArray, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestConstantValues()", $t.Line = "16", $t));
+                    t.Fixture.TestConstantValues();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.Collections.Native.TypedArray", $t.File = "Batch1\\Collections\\Native\\Constants.cs", $t);
                 }
                 return this.context;
             }
