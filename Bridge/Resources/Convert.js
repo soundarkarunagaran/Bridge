@@ -68,7 +68,8 @@
         },
 
         toChar: function (value, formatProvider, valueTypeCode) {
-            var typeCodes = scope.convert.typeCodes;
+            var typeCodes = scope.convert.typeCodes,
+                isChar = Bridge.is(value, System.Char);
 
             value = Bridge.unbox(value, true);
 
@@ -88,7 +89,7 @@
                 type = "string";
             }
 
-            if (valueTypeCode !== typeCodes.Object) {
+            if (valueTypeCode !== typeCodes.Object || isChar) {
                 switch (type) {
                     case "boolean":
                         scope.internal.throwInvalidCastEx(typeCodes.Boolean, typeCodes.Char);
