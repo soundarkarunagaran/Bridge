@@ -11787,6 +11787,10 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             return System.Array.indexOf(array, value, startIndex, count);
         },
 
+        isFixedSize: function (array) {
+            return true;
+        },
+
         isSynchronized: function (array) {
             return false;
         },
@@ -13001,6 +13005,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     return this._size;
                 }
             },
+            System$Collections$IList$IsFixedSize: {
+                get: function () {
+                    return false;
+                }
+            },
             System$Collections$Generic$ICollection$1$IsReadOnly: {
                 get: function () {
                     return false;
@@ -13762,7 +13771,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             methods: {
                 isCompatibleObject: function (value) {
                     // Non-null values are fine.  Only accept nulls if T is a class or Nullable<U>.
-                    // Note that default(T) is not equal to null for value types except when T is Nullable<U>. 
+                    // Note that default(T) is not equal to null for value types except when T is Nullable<U>.
                     return ((Bridge.is(value, T)) || (value == null && Bridge.getDefaultValue(T) == null));
                 }
             }
@@ -13789,6 +13798,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             Items: {
                 get: function () {
                     return this.list;
+                }
+            },
+            System$Collections$IList$IsFixedSize: {
+                get: function () {
+                    return true;
                 }
             },
             System$Collections$Generic$ICollection$1$IsReadOnly: {
@@ -13895,7 +13909,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     }
 
                     //
-                    // We can't cast array of value type to object[], so we don't support 
+                    // We can't cast array of value type to object[], so we don't support
                     // widening of primitive types here.
                     //
                     var objects = Bridge.as(array, System.Array.type(System.Object));

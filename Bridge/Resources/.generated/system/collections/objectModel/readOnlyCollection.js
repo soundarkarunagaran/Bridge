@@ -4,7 +4,7 @@
             methods: {
                 isCompatibleObject: function (value) {
                     // Non-null values are fine.  Only accept nulls if T is a class or Nullable<U>.
-                    // Note that default(T) is not equal to null for value types except when T is Nullable<U>. 
+                    // Note that default(T) is not equal to null for value types except when T is Nullable<U>.
                     return ((Bridge.is(value, T)) || (value == null && Bridge.getDefaultValue(T) == null));
                 }
             }
@@ -31,6 +31,11 @@
             Items: {
                 get: function () {
                     return this.list;
+                }
+            },
+            System$Collections$IList$IsFixedSize: {
+                get: function () {
+                    return true;
                 }
             },
             System$Collections$Generic$ICollection$1$IsReadOnly: {
@@ -137,7 +142,7 @@
                     }
 
                     //
-                    // We can't cast array of value type to object[], so we don't support 
+                    // We can't cast array of value type to object[], so we don't support
                     // widening of primitive types here.
                     //
                     var objects = Bridge.as(array, System.Array.type(System.Object));
