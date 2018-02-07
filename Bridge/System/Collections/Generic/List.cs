@@ -139,6 +139,11 @@ namespace System.Collections.Generic
             }
         }
 
+        bool System.Collections.IList.IsFixedSize
+        {
+            get { return false; }
+        }
+
         /// <summary>
         /// Gets a value indicating whether the ICollection&lt;T&gt; is read-only.
         /// </summary>

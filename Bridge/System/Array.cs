@@ -15,6 +15,18 @@ namespace System
             get;
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the System.Array has a fixed size.
+        /// </summary>
+        /// <returns>
+        /// This property is always true for all arrays.
+        /// </returns>
+        public bool IsFixedSize
+        {
+            [Template("System.Array.isFixedSize({this})")]
+            get { return true; }
+        }
+
         private extern Array();
 
         [Unbox(false)]

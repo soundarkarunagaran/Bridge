@@ -996,6 +996,10 @@
             return System.Array.indexOf(array, value, startIndex, count);
         },
 
+        isFixedSize: function (array) {
+            return true;
+        },
+
         isSynchronized: function (array) {
             return false;
         },
