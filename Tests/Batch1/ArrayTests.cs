@@ -554,6 +554,20 @@ namespace Bridge.ClientTest
             }
             #endregion System.Collections.Generic.ICollection
 
+            #region System.Collections.IList
+            /// <summary>
+            /// Tests System.Collections.IList inherited members to
+            /// System.Array
+            /// </summary>
+            [Test]
+            public void IListNonGenericInterface()
+            {
+                Array a = new[] { 1, 2, 3 };
+
+                Assert.True(a.IsFixedSize, "IList's IsFixedSize returns true.");
+            }
+            #endregion System.Collections.IList
+
             [Test]
             public void IReadOnlyCollectionCountWorks_SPI_1626()
             {
