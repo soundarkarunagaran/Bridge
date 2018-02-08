@@ -53,6 +53,14 @@ namespace System.Collections
         void Add(Object key, Object value);
 
         /// <summary>
+        /// Removes all elements from the System.Collections.IDictionary object.
+        /// </summary>
+        /// <exception cref="System.NotSupportedException">
+        /// The System.Collections.IDictionary object is read-only.
+        /// </exception>
+        void Clear();
+
+        /// <summary>
         /// Gets a value indicating whether the System.Collections.IDictionary object is
         /// read-only.
         /// </summary>
