@@ -27,6 +27,26 @@
             return x;
         },
 
+        toString: function (instance) {
+            if (instance == null) {
+                throw new System.ArgumentNullException();
+            }
+
+            var guardItem = Bridge.$toStringGuard[Bridge.$toStringGuard.length - 1];           
+
+            if (instance.toString === Object.prototype.toString || guardItem && guardItem === instance) {
+                return Bridge.Reflection.getTypeFullName(instance);
+            }
+
+            Bridge.$toStringGuard.push(instance);
+
+            var result = instance.toString();
+
+            Bridge.$toStringGuard.pop();
+
+            return result;
+        },
+
         geti: function (scope, name1, name2) {
             if (Bridge.hasValue(scope[name1])) {
                 return name1;
@@ -695,7 +715,7 @@
 
             var name = obj.$$name || Bridge.getTypeName(obj);
 
-            alias = name.replace(/[\.\(\)\,]/g, "$");
+            alias = name.replace(/[\.\(\)\,\+]/g, "$");
             if (type.$$name) {
                 type.$$alias = alias;
             } else {
@@ -1907,6 +1927,7 @@
     globals.Bridge = core;
     globals.Bridge.caller = [];
     globals.Bridge.$equalsGuard = [];
+    globals.Bridge.$toStringGuard = [];
 
     if (globals.console) {
         globals.Bridge.Console = globals.console;
@@ -2315,6 +2336,14 @@
             }
 
             prop = prop || {};
+            prop.$kind = prop.$kind || "class";
+
+            var isNested = false;
+
+            if (prop.$kind.match("^nested ") !== null) {
+                isNested = true;
+                prop.$kind = prop.$kind.substr(7);
+            }
 
             if (prop.$kind === "enum" && !prop.inherits) {
                 prop.inherits = [System.IComparable, System.IFormattable];
@@ -2368,8 +2397,6 @@
                 ctorName,
                 name,
                 registerT = true;
-
-            prop.$kind = prop.$kind || "class";
 
             if (prop.$kind === "enum") {
                 extend = [System.Enum];
@@ -2450,6 +2477,12 @@
             }
 
             Class.$$name = className;
+
+            if (isNested) {
+                var lastIndex = Class.$$name.lastIndexOf('.');
+                Class.$$name = Class.$$name.substr(0, lastIndex) + '+' + Class.$$name.substr(lastIndex + 1)
+            }
+
             Class.$kind = prop.$kind;
 
             if (prop.$metadata) {
@@ -3417,7 +3450,9 @@ Bridge.Reflection = {
             if (obj.constructor === Object) {
                 str = obj.toString();
                 var match = (/\[object (.{1,})\]/).exec(str);
-                return (match && match.length > 1) ? match[1] : "Object";
+                var name = (match && match.length > 1) ? match[1] : "Object";
+
+                return name == "Object" ? "System.Object" : name;
             } else if (obj.constructor === Function) {
                 str = obj.toString();
             } else {
@@ -12034,13 +12069,13 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 var s = "[";
 
                 if (this.key != null) {
-                    s += this.key.toString();
+                    s += Bridge.toString(this.key);
                 }
 
                 s += ", ";
 
                 if (this.value != null) {
-                    s += this.value.toString();
+                    s += Bridge.toString(this.value);
                 }
 
                 s += "]";
@@ -12850,7 +12885,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     Bridge.define("System.Collections.Generic.List$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new (System.Collections.Generic.List$1.Enumerator(T))(); }
@@ -14159,7 +14194,7 @@ Bridge.define("System.String", {
             } else if (Bridge.isDate(value)) {
                 value = System.DateTime.format(value, formatStr, provider);
             } else {
-                value = "" + value.toString();
+                value = "" + Bridge.toString(value);
             }
 
             if (alignment) {
@@ -14170,7 +14205,7 @@ Bridge.define("System.String", {
                 }
             }
 
-            return System.String.alignString(value.toString(), alignment);
+            return System.String.alignString(Bridge.toString(value), alignment);
         },
 
         decodeBraceSequence: function (braces, remove) {
@@ -14517,7 +14552,7 @@ Bridge.define("System.String", {
                 s = "";
 
             for (var i = 0; i < list.length; i++) {
-                s += list[i] == null ? "" : list[i].toString();
+                s += list[i] == null ? "" : Bridge.toString(list[i]);
             }
 
             return s;
@@ -15711,7 +15746,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                     case 0: 
                         return ("");
                     case 1: 
-                        return (this._Major.toString());
+                        return (Bridge.toString(this._Major));
                     case 2: 
                         sb = new System.Text.StringBuilder();
                         System.Version.appendPositiveNumber(this._Major, sb);
@@ -15754,7 +15789,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
     // @source parseFailureKind.js
 
     Bridge.define("System.Version.ParseFailureKind", {
-        $kind: "enum",
+        $kind: "nested enum",
         statics: {
             fields: {
                 ArgumentNullException: 0,
@@ -15768,7 +15803,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
     // @source versionResult.js
 
     Bridge.define("System.Version.VersionResult", {
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new System.Version.VersionResult(); }
@@ -29832,6 +29867,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.IO.Stream.SynchronousAsyncResult", {
         inherits: [System.IAsyncResult],
+        $kind: "nested class",
         statics: {
             methods: {
                 EndRead: function (asyncResult) {
@@ -30165,7 +30201,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     if (f != null) {
                         this.Write$10(Bridge.format(f, null, this.FormatProvider));
                     } else {
-                        this.Write$10(value.toString());
+                        this.Write$10(Bridge.toString(value));
                     }
                 }
             },
@@ -30272,7 +30308,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     if (f != null) {
                         this.WriteLine$11(Bridge.format(f, null, this.FormatProvider));
                     } else {
-                        this.WriteLine$11(value.toString());
+                        this.WriteLine$11(Bridge.toString(value));
                     }
                 }
             },
@@ -31722,6 +31758,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.IO.Stream.NullStream", {
         inherits: [System.IO.Stream],
+        $kind: "nested class",
         props: {
             CanRead: {
                 get: function () {
@@ -32869,7 +32906,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     this._sb.append(value);
                 }
             },
-            toString: function () {
+            ToString: function () {
                 return this._sb.toString();
             }
         }
@@ -32877,6 +32914,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.IO.TextReader.NullTextReader", {
         inherits: [System.IO.TextReader],
+        $kind: "nested class",
         ctors: {
             ctor: function () {
                 this.$initialize();
@@ -32895,6 +32933,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.IO.TextWriter.NullTextWriter", {
         inherits: [System.IO.TextWriter],
+        $kind: "nested class",
         props: {
             Encoding: {
                 get: function () {
@@ -32919,6 +32958,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.IO.StreamReader.NullStreamReader", {
         inherits: [System.IO.StreamReader],
+        $kind: "nested class",
         props: {
             BaseStream: {
                 get: function () {
@@ -33273,7 +33313,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     if (length > (715827882)) {
                         // (Int32.MaxValue / 3) == 715,827,882 Bytes == 699 MB
-                        throw new System.ArgumentOutOfRangeException("length", (715827882).toString());
+                        throw new System.ArgumentOutOfRangeException("length", Bridge.toString((715827882)));
                     }
 
                     var chArrayLength = Bridge.Int.mul(length, 3);
@@ -33968,6 +34008,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.Collections.BitArray.BitArrayEnumeratorSimple", {
         inherits: [System.Collections.IEnumerator],
+        $kind: "nested class",
         fields: {
             bitarray: null,
             index: 0,
@@ -34944,7 +34985,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
     // @source elementCount.js
 
     Bridge.define("System.Collections.Generic.HashSet$1.ElementCount", function (T) { return {
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.ElementCount(T))(); }
@@ -34983,7 +35024,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.Collections.Generic.HashSet$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T)],
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.Enumerator(T))(); }
@@ -35077,7 +35118,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
     // @source slot.js
 
     Bridge.define("System.Collections.Generic.HashSet$1.Slot", function (T) { return {
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new (System.Collections.Generic.HashSet$1.Slot(T))(); }
@@ -35393,7 +35434,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.Collections.Generic.Queue$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new (System.Collections.Generic.Queue$1.Enumerator(T))(); }
@@ -35702,7 +35743,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
     Bridge.define("System.Collections.Generic.Stack$1.Enumerator", function (T) { return {
         inherits: [System.Collections.Generic.IEnumerator$1(T),System.Collections.IEnumerator],
-        $kind: "struct",
+        $kind: "nested struct",
         statics: {
             methods: {
                 getDefaultValue: function () { return new (System.Collections.Generic.Stack$1.Enumerator(T))(); }
