@@ -27559,14 +27559,31 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in forcing a situation where GetType() should
+     throw a null reference exception and ensure the exception is
+     effectively thrown.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3324
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3324", {
         statics: {
             methods: {
+                /**
+                 * Calls GetType() from a null-valued nullable variable.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3324
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3324
+                 * @return  {void}
+                 */
                 TestGetTypeForNull: function () {
                     var v = null;
                     Bridge.Test.NUnit.Assert.Throws$2(System.NullReferenceException, function () {
                         var name = Bridge.Reflection.getTypeFullName(Bridge.getType(v, System.Single));
-                    });
+                    }, "Exception thrown for null-valued variable's GetType() call.");
                 }
             }
         }
@@ -27914,14 +27931,33 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * This test consists in ensuring double.TryParse's result
+     matches the .NET implementation.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3360
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3360", {
         statics: {
             methods: {
+                /**
+                 * Call TryParse() over '2/1' string, which can result in a different
+                 interpretation if resolving is greedy (thus actually dividing 2
+                 by 1 instead of analyzing the actual string, that is not parseable
+                 to double.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3360
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3360
+                 * @return  {void}
+                 */
                 TestDoubleParse: function () {
                     var test = { };
                     var result = System.Double.tryParse("2/1", null, test);
 
-                    Bridge.Test.NUnit.Assert.False(result);
+                    Bridge.Test.NUnit.Assert.False(result, "The '2/1' string does not parse into double.");
                 }
             }
         }
