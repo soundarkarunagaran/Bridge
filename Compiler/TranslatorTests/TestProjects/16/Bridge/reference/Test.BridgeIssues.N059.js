@@ -17,6 +17,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     });
 
     Bridge.define("Test.BridgeIssues.N059.Class59.Aux1", {
+        $kind: "nested class",
         $metadata : function () { return {"td":Test.BridgeIssues.N059.Class59,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; }
     });
 });

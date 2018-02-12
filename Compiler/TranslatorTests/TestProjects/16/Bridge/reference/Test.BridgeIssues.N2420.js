@@ -28,7 +28,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     });
 
     Bridge.define("Test.BridgeIssues.N2420.Options.Format", {
-        $kind: "enum",
+        $kind: "nested enum",
         $metadata : function () { return {"td":Test.BridgeIssues.N2420.Options,"att":258,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"one","is":true,"t":4,"rt":Test.BridgeIssues.N2420.Options.Format,"sn":"one","box":function ($v) { return Bridge.box($v, Test.BridgeIssues.N2420.Options.Format, System.Enum.toStringFn(Test.BridgeIssues.N2420.Options.Format));}},{"a":2,"n":"two","is":true,"t":4,"rt":Test.BridgeIssues.N2420.Options.Format,"sn":"two","box":function ($v) { return Bridge.box($v, Test.BridgeIssues.N2420.Options.Format, System.Enum.toStringFn(Test.BridgeIssues.N2420.Options.Format));}}]}; },
         statics: {
             fields: {
