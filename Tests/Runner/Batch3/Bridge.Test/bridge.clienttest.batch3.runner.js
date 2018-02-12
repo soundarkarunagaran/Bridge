@@ -15315,6 +15315,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
 
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3324", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3324)],
+        $kind: "nested class",
         statics: {
             methods: {
                 TestGetTypeForNull: function (assert) {
@@ -15506,6 +15507,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
 
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3360", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3360)],
+        $kind: "nested class",
         statics: {
             methods: {
                 TestDoubleParse: function (assert) {
