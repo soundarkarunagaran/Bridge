@@ -28936,6 +28936,75 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in checking whether Convert.ToString(x) acts
+     identically to x.ToString(), considering overrridden ToString() method
+     when it applies.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415", {
+        statics: {
+            methods: {
+                /**
+                 * Test overridden and not overridden class instances against the expected results.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415
+                 * @return  {void}
+                 */
+                TestToStringOverriding: function () {
+                    var baseValue = "this is a value";
+
+                    var ovr = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.Overriding();
+                    ovr.Value = baseValue;
+
+                    var novr = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.NotOverriding();
+                    novr.Value = baseValue;
+
+                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(ovr), (baseValue || "") + " constant value.", "Convert.ToString() considers class' override.");
+                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(ovr), ovr.toString(), "Convert.ToString(var) produces same result as var.ToString() when ToString() is overridden.");
+                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(novr), "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415+NotOverriding", "Convert.ToString() considers class' override.");
+                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(novr), Bridge.toString(novr), "Convert.ToString(var) produces same result as var.ToString() when ToString() is not overridden.");
+                }
+            }
+        }
+    });
+
+    /**
+     * A class that does not implement an override to the .ToString method.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.NotOverriding
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.NotOverriding", {
+        $kind: "nested class",
+        props: {
+            Value: null
+        }
+    });
+
+    /**
+     * A class implementing an override to the .ToString method.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.Overriding
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.Overriding", {
+        $kind: "nested class",
+        props: {
+            Value: null
+        },
+        methods: {
+            toString: function () {
+                return (this.Value || "") + " constant value.";
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null

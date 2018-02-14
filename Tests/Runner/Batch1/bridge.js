@@ -16217,6 +16217,12 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                         return "";
                     }
 
+                    // If the object has an override to the toString() method,
+                    // then just return its result
+                    if (value.toString !== window.toString) {
+                        return value.toString();
+                    }
+
                     if (Bridge.isDate(value)) {
                         return System.DateTime.format(value, null, formatProvider || null);
                     }
