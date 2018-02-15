@@ -46,10 +46,29 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             var novr = new NotOverriding();
             novr.Value = baseValue;
 
-            Assert.AreEqual(Convert.ToString(ovr), baseValue + " constant value.", "Convert.ToString() considers class' override.");
-            Assert.AreEqual(Convert.ToString(ovr), ovr.ToString(), "Convert.ToString(var) produces same result as var.ToString() when ToString() is overridden.");
-            Assert.AreEqual(Convert.ToString(novr), "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415+NotOverriding", "Convert.ToString() considers class' override.");
-            Assert.AreEqual(Convert.ToString(novr), novr.ToString(), "Convert.ToString(var) produces same result as var.ToString() when ToString() is not overridden.");
+            Assert.AreEqual(
+                baseValue + " constant value.",
+                Convert.ToString(ovr),
+                "Convert.ToString() considers class' override."
+            );
+
+            Assert.AreEqual(
+                ovr.ToString(),
+                Convert.ToString(ovr),
+                "Convert.ToString(var) produces same result as var.ToString() when ToString() is overridden."
+            );
+
+            Assert.AreEqual(
+                "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415+NotOverriding",
+                Convert.ToString(novr),
+                "Convert.ToString() considers class' override."
+            );
+
+            Assert.AreEqual(
+                novr.ToString(),
+                Convert.ToString(novr),
+                "Convert.ToString(var) produces same result as var.ToString() when ToString() is not overridden."
+            );
         }
     }
 }
