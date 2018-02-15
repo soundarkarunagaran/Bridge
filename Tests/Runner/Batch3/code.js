@@ -28979,6 +28979,56 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in checking whether copyTo works for dictionary
+     when its keys are instances of a class or complex structure.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408", {
+        statics: {
+            methods: {
+                /**
+                 * The tests just creates an instance of a dictionary with an
+                 empty-bodied class as its keys, adds entries then copies to a
+                 simple array, then checks whether the value in the array is the
+                 expected one.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408
+                 * @return  {void}
+                 */
+                TestCpxDicCopyTo: function () {
+                    var cpx = new (System.Collections.Generic.Dictionary$2(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C,System.Int32))();
+
+                    cpx.add(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C(), 5);
+                    cpx.add(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C(), 7);
+                    cpx.add(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C(), 3);
+
+                    var cpa = System.Array.init(3, 0, System.Int32);
+                    System.Array.copyTo(cpx.getValues(), cpa, 0, System.Int32);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(5, cpa[System.Array.index(0, cpa)], "First element extracted matches.");
+                    Bridge.Test.NUnit.Assert.AreEqual(7, cpa[System.Array.index(1, cpa)], "Second element extracted matches.");
+                    Bridge.Test.NUnit.Assert.AreEqual(3, cpa[System.Array.index(2, cpa)], "Third element extracted matches.");
+                }
+            }
+        }
+    });
+
+    /**
+     * A dummy class to serve as a "complex" key for the test dictionary.
+     *
+     * @private
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C", {
+        $kind: "nested class"
+    });
+
+    /**
      * The test here consists in checking whether Convert.ToString(x) acts
      identically to x.ToString(), considering overrridden ToString() method
      when it applies.

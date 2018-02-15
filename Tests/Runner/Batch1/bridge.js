@@ -12589,17 +12589,23 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             },
 
             getValues: function () {
-                if (this.isSimpleKey) {
-                    var values = [];
+                var values = [];
+                var entry;
 
+                if (this.isSimpleKey) {
                     for (var i = 0; i < this.keys.length; i++) {
                         values.push(this.entries[this.keys[i]].value);
                     }
-
-                    return System.Array.init(values, TValue);
+                } else {
+                    for (var i = 0; i < this.keys.length; i++) {
+                        entry = this.entries[this.keys[i]];
+                        for (var j = 0; j < entry.length; j++) {
+                            values.push(entry[j].value);
+                        }
+                    }
                 }
 
-                return new (System.Collections.Generic.DictionaryCollection$1(TValue))(this, false);
+                return System.Array.init(values, TValue);
             },
 
             clear: function () {
