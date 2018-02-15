@@ -16219,7 +16219,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
                     // If the object has an override to the toString() method,
                     // then just return its result
-                    if (value.toString !== window.toString) {
+                    if (value.toString !== Object.prototype.toString) {
                         return value.toString();
                     }
 

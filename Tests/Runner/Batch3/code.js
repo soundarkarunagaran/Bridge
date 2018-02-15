@@ -28965,10 +28965,13 @@ Bridge.$N1391Result =                     r;
                     var novr = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415.NotOverriding();
                     novr.Value = baseValue;
 
-                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(ovr), (baseValue || "") + " constant value.", "Convert.ToString() considers class' override.");
-                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(ovr), ovr.toString(), "Convert.ToString(var) produces same result as var.ToString() when ToString() is overridden.");
-                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(novr), "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415+NotOverriding", "Convert.ToString() considers class' override.");
-                    Bridge.Test.NUnit.Assert.AreEqual(System.Convert.toString(novr), Bridge.toString(novr), "Convert.ToString(var) produces same result as var.ToString() when ToString() is not overridden.");
+                    Bridge.Test.NUnit.Assert.AreEqual((baseValue || "") + " constant value.", System.Convert.toString(ovr), "Convert.ToString() considers class' override.");
+
+                    Bridge.Test.NUnit.Assert.AreEqual(ovr.toString(), System.Convert.toString(ovr), "Convert.ToString(var) produces same result as var.ToString() when ToString() is overridden.");
+
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3415+NotOverriding", System.Convert.toString(novr), "Convert.ToString() considers class' override.");
+
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.toString(novr), System.Convert.toString(novr), "Convert.ToString(var) produces same result as var.ToString() when ToString() is not overridden.");
                 }
             }
         }
