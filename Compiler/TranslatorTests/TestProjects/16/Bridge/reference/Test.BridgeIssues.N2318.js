@@ -80,7 +80,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     });
 
     Bridge.define("Test.BridgeIssues.N2318.N2318.JustEnum", {
-        $kind: "enum",
+        $kind: "nested enum",
         $metadata : function () { return {"td":Test.BridgeIssues.N2318.N2318,"att":259,"a":1,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Value","is":true,"t":4,"rt":Test.BridgeIssues.N2318.N2318.JustEnum,"sn":"Value","box":function ($v) { return Bridge.box($v, Test.BridgeIssues.N2318.N2318.JustEnum, System.Enum.toStringFn(Test.BridgeIssues.N2318.N2318.JustEnum));}}]}; },
         statics: {
             fields: {
@@ -90,7 +90,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     });
 
     Bridge.define("Test.BridgeIssues.N2318.N2318.JustStruct", {
-        $kind: "struct",
+        $kind: "nested struct",
         $metadata : function () { return {"td":Test.BridgeIssues.N2318.N2318,"att":1048843,"a":1,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
         statics: {
             methods: {

@@ -56,6 +56,7 @@
     });
 
     Bridge.define("TestIssue921Nested.Issue921NestedOuter.Issue921Nested", {
+        $kind: "nested class",
         statics: {
             fields: {
                 ComputeNumberStatic: null
@@ -223,6 +224,6 @@
             return ((i + 1000) | 0);
         },
         f19: function (i) {
-            return i.toString();
+            return Bridge.toString(i);
         }
     });

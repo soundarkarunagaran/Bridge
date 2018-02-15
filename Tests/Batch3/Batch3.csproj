@@ -269,6 +269,7 @@
     <Compile Include="BridgeIssues\1300\N1345.cs" />
     <Compile Include="BridgeIssues\1300\N1348.cs" />
     <Compile Include="BridgeIssues\1300\N1355.cs" />
+    <Compile Include="BridgeIssues\1300\N1373.cs" />
     <Compile Include="BridgeIssues\1300\N1374.cs" />
     <Compile Include="BridgeIssues\1300\N1378.cs" />
     <Compile Include="BridgeIssues\1300\N1379.cs" />
@@ -678,6 +679,7 @@
     <Compile Include="BridgeIssues\3200\N3273.cs" />
     <Compile Include="BridgeIssues\3200\N3292.cs" />
     <Compile Include="BridgeIssues\3200\N3293.cs" />
+    <Compile Include="BridgeIssues\3300\N3324.cs" />
     <Compile Include="BridgeIssues\3300\N3357.cs" />
     <Compile Include="BridgeIssues\3300\N3301.cs" />
     <Compile Include="BridgeIssues\3300\N3306.cs" />
@@ -689,14 +691,22 @@
     <Compile Include="BridgeIssues\3300\N3329.cs" />
     <Compile Include="BridgeIssues\3300\N3331.cs" />
     <Compile Include="BridgeIssues\3300\N3346.cs" />
-    <Compile Include="BridgeIssues\3300\N3390.cs" />
-    <Compile Include="BridgeIssues\3300\N3394.cs" />
-    <Compile Include="BridgeIssues\3300\N3391.cs" />
-    <Compile Include="BridgeIssues\3300\N3386.cs" />
-    <Compile Include="BridgeIssues\3300\N3363.cs" />
-    <Compile Include="BridgeIssues\3300\N3361.cs" />
-    <Compile Include="BridgeIssues\3300\N3356.cs" />
     <Compile Include="BridgeIssues\3300\N3352.cs" />
+    <Compile Include="BridgeIssues\3300\N3356.cs" />
+    <Compile Include="BridgeIssues\3300\N3361.cs" />
+    <Compile Include="BridgeIssues\3300\N3363.cs" />
+    <Compile Include="BridgeIssues\3300\N3382.cs" />
+    <Compile Include="BridgeIssues\3300\N3385.cs" />
+    <Compile Include="BridgeIssues\3300\N3386.cs" />
+    <Compile Include="BridgeIssues\3300\N3388.cs" />
+    <Compile Include="BridgeIssues\3300\N3390.cs" />
+    <Compile Include="BridgeIssues\3300\N3391.cs" />
+    <Compile Include="BridgeIssues\3300\N3394.cs" />
+    <Compile Include="BridgeIssues\3300\N3360.cs" />
+    <Compile Include="BridgeIssues\3300\N3396.cs" />
+    <Compile Include="BridgeIssues\3400\N3401.cs" />
+    <Compile Include="BridgeIssues\3400\N3415.cs" />
+    <Compile Include="BridgeIssues\3400\N3404.cs" />
     <Compile Include="BridgeIssues\TestBridgeIssues.cs" />
     <Compile Include="Utilities\BrowserHelper.cs" />
   </ItemGroup>

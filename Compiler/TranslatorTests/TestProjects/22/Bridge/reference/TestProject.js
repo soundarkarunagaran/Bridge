@@ -1,5 +1,5 @@
 /**
- * @compiler Bridge.NET 16.7.1
+ * @compiler Bridge.NET 16.7.2
  */
 Bridge.assembly("TestProject", function ($asm, globals) {
     "use strict";
@@ -22,6 +22,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         });
     
         Bridge.define("A", {
+            $kind: "nested class",
             $metadata : function () { return {"td":,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; }
         });
         Bridge.init();
@@ -35,6 +36,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         });
 
         Bridge.define("TestProject1.Root2.A", {
+            $kind: "nested class",
             $metadata : function () { return {"td":m2.TestProject1.Root2,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
             $scope: m2
         });

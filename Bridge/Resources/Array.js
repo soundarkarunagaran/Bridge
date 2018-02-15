@@ -121,9 +121,9 @@
             }
 
             arr.length = length;
-
+            var isFn = Bridge.isFunction(defvalue);
             for (var k = 0; k < length; k++) {
-                arr[k] = defvalue;
+                arr[k] = isFn ? defvalue() : defvalue;
             }
 
             if (initValues) {
@@ -996,6 +996,14 @@
             return System.Array.indexOf(array, value, startIndex, count);
         },
 
+        isFixedSize: function (array) {
+            return true;
+        },
+
+        isSynchronized: function (array) {
+            return false;
+        },
+
         lastIndexOfT: function (array, value, startIndex, count) {
             if (!Bridge.hasValue(array)) {
                 throw new System.ArgumentNullException("array");
@@ -1027,6 +1035,10 @@
             }
 
             return -1;
+        },
+
+        syncRoot: function (array) {
+            return array;
         },
 
         trueForAll: function (array, match) {

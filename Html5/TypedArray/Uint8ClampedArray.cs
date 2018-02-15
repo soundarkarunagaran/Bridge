@@ -78,9 +78,9 @@ namespace Bridge.Html5
         #region Properties
 
         /// <summary>
-        /// Returns a number value of the element size. 1 in the case of an Uint8ClampedArray.
+        /// Returns a number value of the element size.
         /// </summary>
-        public const short BYTES_PER_ELEMENT = 1;
+        public static short BYTES_PER_ELEMENT { get; }
 
         /// <summary>
         /// Length property whose value is 3.

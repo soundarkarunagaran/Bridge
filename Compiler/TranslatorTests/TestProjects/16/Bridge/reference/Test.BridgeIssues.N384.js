@@ -6,6 +6,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     });
 
     Bridge.define("Test.BridgeIssues.N384.N384.App", {
+        $kind: "nested class",
         $metadata : function () { return {"td":Test.BridgeIssues.N384.N384,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Main1","is":true,"t":8,"sn":"Main1","rt":System.Void}]}; },
         statics: {
             methods: {

@@ -964,7 +964,7 @@ namespace Bridge.Translator
                 return JS.Types.System.Object.NAME;
             }
 
-            var name = BridgeTypes.ToJsName(type, emitter, asDefinition, skipMethodTypeParam: true);
+            var name = BridgeTypes.ToJsName(type, emitter, asDefinition, excludeTypeOnly: true);
 
             if (cache && emitter.NamespacesCache != null && name.StartsWith(type.Namespace + "."))
             {
