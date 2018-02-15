@@ -28470,6 +28470,48 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in checking whether the parsed type of
+     Bridge.Html5.ProgressEvent's Loaded and Total variables are
+     ulong, that would allow testing the numbers bound to them above
+     the integer limit -- albeit JavaScript's limit is both beyond
+     System.Int32 and way behind System.UInt64.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3384
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3384", {
+        statics: {
+            methods: {
+                /**
+                 * Makes an assynchronous call and fetch its event argument (cast into
+                 ProgressEvent), checking whether the type resolves to UInt64/ulong.
+                 Although this will not make much difference in client-side, this
+                 will ensure comparisons with big numbers won't assume the
+                 limitations of System.Int32.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3384
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3384
+                 * @return  {void}
+                 */
+                TestProgressEventType: function () {
+                    var xhr = new XMLHttpRequest();
+                    var done = Bridge.Test.NUnit.Assert.Async();
+
+                    xhr.onloadend = function (ev) {
+                        Bridge.Test.NUnit.Assert.AreEqual(System.UInt64, System.UInt64, "ProgressEvent.Loaded is ulong.");
+                        Bridge.Test.NUnit.Assert.AreEqual(System.UInt64, System.UInt64, "ProgressEvent.Total is ulong.");
+                        done();
+                    };
+                    xhr.open("GET", "/");
+                    xhr.send();
+                }
+            }
+        }
+    });
+
+    /**
      * The test here consists in checking whether a char converted into an
      object can be cast back into char.
      *
