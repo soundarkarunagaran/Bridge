@@ -29013,6 +29013,13 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.AreEqual(5, cpa[System.Array.index(0, cpa)], "First element extracted matches.");
                     Bridge.Test.NUnit.Assert.AreEqual(7, cpa[System.Array.index(1, cpa)], "Second element extracted matches.");
                     Bridge.Test.NUnit.Assert.AreEqual(3, cpa[System.Array.index(2, cpa)], "Third element extracted matches.");
+
+                    var cpk = System.Array.init(3, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C);
+                    System.Array.copyTo(cpx.getKeys(), cpk, 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3408.C);
+
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(cpk[System.Array.index(0, cpk)]), "First key extracted matches.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(cpk[System.Array.index(1, cpk)]), "Second key extracted matches.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(cpk[System.Array.index(2, cpk)]), "Third key extracted matches.");
                 }
             }
         }
