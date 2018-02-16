@@ -29050,6 +29050,74 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /** @namespace System */
+
+    /**
+     * @memberof System
+     * @callback System.Action
+     * @return  {void}
+     */
+
+    /**
+     * The test here consists in checking whether templates on events would
+     replace the {value} placeholder even if the {this} placeholder is not
+     specified.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418", {
+        statics: {
+            methods: {
+                Handler: function () { },
+                /**
+                 * Instantiate the class and check whether the template code produces
+                 the expected side effects in the environment.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418
+                 * @return  {void}
+                 */
+                TestEventTemplate: function () {
+                    var expected = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418.Handler";
+
+                    var program = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418();
+                    program.status = "none";
+                    Bridge.Test.NUnit.Assert.AreEqual("none", program.status, "Status variable reads 'none'.");
+
+                    program.status = 'Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418.Handler+';;
+                    Bridge.Test.NUnit.Assert.AreEqual((expected || "") + "+", program.status, "Template applied correctly for event.add().");
+
+                    program.status = 'Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418.Handler-';;
+                    Bridge.Test.NUnit.Assert.AreEqual((expected || "") + "-", program.status, "Template applied correctly for event.remove().");
+                }
+            }
+        },
+        props: {
+            status: null
+        },
+        methods: {
+            /**
+             * @instance
+             * @public
+             * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418
+             * @event Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418#OnDragEnd
+             * @return  {System.Action}
+             */
+            addOnDragEnd: function (value) { },
+            /**
+             * @instance
+             * @public
+             * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418
+             * @event Bridge.ClientTest.Batch3.BridgeIssues.Bridge3418#OnDragEnd
+             * @return  {System.Action}
+             */
+            removeOnDragEnd: function (value) { }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge341A", {
         props: {
             Str: null
@@ -39957,8 +40025,6 @@ Bridge.$N1391Result =                     r;
         },
         alias: ["Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3222$IProperty$1$" + Bridge.getTypeAlias(T) + "$Value$1"]
     }; });
-
-    /** @namespace System */
 
     /**
      * @memberof System
