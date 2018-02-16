@@ -31,6 +31,13 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             Assert.AreEqual(5, cpa[0], "First element extracted matches.");
             Assert.AreEqual(7, cpa[1], "Second element extracted matches.");
             Assert.AreEqual(3, cpa[2], "Third element extracted matches.");
+
+            var cpk = new C[3];
+            cpx.Keys.CopyTo(cpk, 0);
+
+            Assert.True(cpk[0] is C, "First key extracted matches.");
+            Assert.True(cpk[1] is C, "Second key extracted matches.");
+            Assert.True(cpk[2] is C, "Third key extracted matches.");
         }
 
         /// <summary>
