@@ -29359,6 +29359,93 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in ensuring
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421", {
+        statics: {
+            methods: {
+                /**
+                 * To test just go ahead and call the statically used methods and
+                 check the result.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421
+                 * @return  {void}
+                 */
+                TestUsingStaticWithDirective: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(7, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.Logger.Log("Success"), "The Log function is enabled via a compile-time constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.NoLoggerElse.NoLog(), "The expected using static was triggered for unset compile-time constat.");
+                }
+            }
+        }
+    });
+
+    /**
+     * This class will be statically used if RELEASE compile-time constant
+     is set.
+     *
+     * @static
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.Logger
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.Logger", {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                Log: function (msg) {
+                    return msg.length;
+                }
+            }
+        }
+    });
+
+    /**
+     * This class will be statically used if Bridge incorrectly triggers
+     code for undefined compile-time constants.
+     *
+     * @static
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.NoLogger
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.NoLogger", {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                NoLog: function () {
+                    return false;
+                }
+            }
+        }
+    });
+
+    /**
+     * This class will be statically used if Bridge averted code enclosed
+     by an undefined/false compile-time constant.
+     *
+     * @static
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.NoLoggerElse
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.NoLoggerElse", {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                NoLog: function () {
+                    return true;
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
