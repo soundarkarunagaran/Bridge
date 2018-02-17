@@ -33,7 +33,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>TRACE;RELEASE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoStdLib>True</NoStdLib>
@@ -711,6 +711,7 @@
     <Compile Include="BridgeIssues\3400\N3415.cs" />
     <Compile Include="BridgeIssues\3400\N3418.cs" />
     <Compile Include="BridgeIssues\3400\N3420.cs" />
+    <Compile Include="BridgeIssues\3400\N3421.cs" />
     <Compile Include="BridgeIssues\TestBridgeIssues.cs" />
     <Compile Include="Utilities\BrowserHelper.cs" />
   </ItemGroup>
