@@ -14654,8 +14654,8 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 return tcs.task;
             },
 
-            fromResult: function (result) {
-                var t = new System.Threading.Tasks.Task();
+            fromResult: function (result, T) {
+                var t = new (System.Threading.Tasks.Task$1(T || System.Object))();
 
                 t.status = System.Threading.Tasks.TaskStatus.ranToCompletion;
                 t.result = result;
@@ -30061,7 +30061,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 return n;
             },
             ReadToEndAsync: function () {
-                return System.Threading.Tasks.Task.fromResult(this.ReadToEnd());
+                return System.Threading.Tasks.Task.fromResult(this.ReadToEnd(), System.String);
             },
             ReadToEnd: function () {
 
