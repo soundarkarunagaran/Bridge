@@ -645,13 +645,20 @@ namespace Bridge.Translator
                 var monoProp = typeDef != null ? emitter.BridgeTypes.Get(typeDef).TypeDefinition.Properties.FirstOrDefault(p => p.Name == m.Name) : null;
 
                 var prop = (IProperty)m;
-                var canGet = prop.CanGet;
-                var canSet = prop.CanSet;
+                var canGet = prop.CanGet && prop.Getter != null;
+                var canSet = prop.CanSet && prop.Setter != null;
 
                 if (monoProp != null)
                 {
-                    canGet = monoProp.GetMethod != null;
-                    canSet = monoProp.SetMethod != null;
+                    if (canGet)
+                    {
+                        canGet = monoProp.GetMethod != null;
+                    }
+                    
+                    if (canSet)
+                    {
+                        canSet = monoProp.SetMethod != null;
+                    }                    
                 }
 
                 properties.Add("t", (int)MemberTypes.Property);
@@ -686,8 +693,8 @@ namespace Bridge.Translator
                     }
                 }
 
-                var inlineGetter = canGet && (emitter.GetInline(prop.Getter) != null || Helpers.IsScript(prop.Getter));
-                var inlineSetter = canSet && (emitter.GetInline(prop.Setter) != null || Helpers.IsScript(prop.Setter));
+                var inlineGetter = canGet && prop.Getter != null && (emitter.GetInline(prop.Getter) != null || Helpers.IsScript(prop.Getter));
+                var inlineSetter = canSet && prop.Setter != null && (emitter.GetInline(prop.Setter) != null || Helpers.IsScript(prop.Setter));
 
                 if (inlineGetter || inlineSetter || prop.IsIndexer)
                 {
