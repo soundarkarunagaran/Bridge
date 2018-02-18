@@ -12,7 +12,8 @@ using static Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.NoLoggerElse;
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
     /// <summary>
-    /// The test here consists in ensuring 
+    /// The test here consists in ensuring Bridge works with 'using static'
+    /// when it is excluded/included at compile-time by a macro.
     /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#3421 - {0}")]
