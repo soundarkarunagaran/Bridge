@@ -29360,7 +29360,8 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
-     * The test here consists in ensuring
+     * The test here consists in ensuring Bridge works with 'using static'
+     when it is excluded/included at compile-time by a macro.
      *
      * @public
      * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421

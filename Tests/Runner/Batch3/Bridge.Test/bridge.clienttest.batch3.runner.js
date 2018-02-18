@@ -15991,7 +15991,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestUsingStaticWithDirective: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3421, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestUsingStaticWithDirective()", $t.Line = "59", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3421, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestUsingStaticWithDirective()", $t.Line = "60", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421.TestUsingStaticWithDirective();
                 }
             }
