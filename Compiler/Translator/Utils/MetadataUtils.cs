@@ -654,11 +654,11 @@ namespace Bridge.Translator
                     {
                         canGet = monoProp.GetMethod != null;
                     }
-                    
+
                     if (canSet)
                     {
                         canSet = monoProp.SetMethod != null;
-                    }                    
+                    }
                 }
 
                 properties.Add("t", (int)MemberTypes.Property);
