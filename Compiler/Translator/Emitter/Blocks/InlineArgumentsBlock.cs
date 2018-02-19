@@ -679,13 +679,16 @@ namespace Bridge.Translator
                             bool skipType = false;
 
                             var typeDef = this.Emitter.BridgeTypes.Get(type, true)?.TypeDefinition;
-                            if (argExpr != null && (typeDef == null || !typeDef.IsValueType || NullableType.IsNullable(type)))
+                            if ((typeDef == null || !typeDef.IsValueType || NullableType.IsNullable(type)))
                             {
-                                var writer = this.SaveWriter();
-                                this.NewWriter();
-                                argExpr.AcceptVisitor(this.Emitter);
-                                thisValue = this.Emitter.Output.ToString();
-                                this.RestoreWriter(writer);
+                                if (argExpr != null)
+                                {
+                                    var writer = this.SaveWriter();
+                                    this.NewWriter();
+                                    argExpr.AcceptVisitor(this.Emitter);
+                                    thisValue = this.Emitter.Output.ToString();
+                                    this.RestoreWriter(writer);
+                                }                                    
 
                                 if (thisValue != null)
                                 {

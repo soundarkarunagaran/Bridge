@@ -731,6 +731,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3363 - Test64bitKey", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3363.Test64bitKey);
             QUnit.test("#3420 - TestTaskFromResult", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3420.TestTaskFromResult);
             QUnit.test("#3421 - TestUsingStaticWithDirective", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3421.TestUsingStaticWithDirective);
+            QUnit.test("#3426 - TestGetTypeInAbstract", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3426.TestGetTypeInAbstract);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
             QUnit.test("#447 - CheckInlineCalls", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineCalls);
@@ -16004,6 +16005,32 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3421", $t.File = "Batch3\\BridgeIssues\\3400\\N3421.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3426", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestGetTypeInAbstract: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3426, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetTypeInAbstract()", $t.Line = "19", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.TestGetTypeInAbstract();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426", $t.File = "Batch3\\BridgeIssues\\3400\\N3426.cs", $t);
                 }
                 return this.context;
             }

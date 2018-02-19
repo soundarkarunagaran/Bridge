@@ -28246,7 +28246,7 @@ Bridge.$N1391Result =                     r;
         methods: {
             PerformTest: function () {
                 var time = System.DateTime.getMinValue();
-                var type = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3356.Box;
+                var type = Bridge.getType(this);
                 var method = Bridge.Reflection.getMembers(type, 8, 284, "CheckDateTime");
 
                 Bridge.Reflection.midel(method, this).apply(null, System.Array.init([Bridge.box(time, System.DateTime, System.DateTime.format)], System.Object));
@@ -29442,6 +29442,28 @@ Bridge.$N1391Result =                     r;
             methods: {
                 NoLog: function () {
                     return true;
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426", {
+        statics: {
+            methods: {
+                TestGetTypeInAbstract: function () {
+                    var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.ConcreteClass();
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+ConcreteClass", test.Type);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.AbstractClass", {
+        $kind: "nested class",
+        props: {
+            Type: {
+                get: function () {
+                    return Bridge.Reflection.getTypeFullName(Bridge.getType(this));
                 }
             }
         }
@@ -39774,6 +39796,11 @@ Bridge.$N1391Result =                     r;
             }
         }
     }; });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.ConcreteClass", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.AbstractClass],
+        $kind: "nested class"
+    });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
