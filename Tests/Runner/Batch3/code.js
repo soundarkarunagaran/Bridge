@@ -29447,24 +29447,109 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in ensuring Bridge gets the concrete class name
+     when queried from a method implemented within an abstract class from
+     which the class instance inherits from.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426
+     * @see {@link https://dotnetfiddle.net/cug8fj}
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426", {
         statics: {
             methods: {
+                /**
+                 * Instantiate the class inheriting from abstract and check the
+                 results of the class type name queries.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426
+                 * @return  {void}
+                 */
                 TestGetTypeInAbstract: function () {
                     var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.ConcreteClass();
-                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+ConcreteClass", test.Type);
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+ConcreteClass", test.TypeProp, "Property query for instance:abstract class returns the expected class name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+ConcreteClass", test.TypeMethod(), "Method query returns the expected class name.");
+                },
+                /**
+                 * Instantiate the super and sub classes and check the results of the
+                 class type name queries in different set ups.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426
+                 * @return  {void}
+                 */
+                TestGetTypeInSuperClass: function () {
+                    var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.ConcreteClass();
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+ConcreteClass", test.TypeProp, "Property query for instance:abstract class returns the expected class name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+ConcreteClass", test.TypeMethod(), "Method query returns the expected class name.");
+
+                    var sup = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SuperClass();
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+SuperClass", sup.TypeProp, "Property query for direct instance of super class returns the expected name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+SuperClass", sup.TypeMethod(), "Method query for direct instance of super class returns the expected name.");
+
+                    var sub = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SubClass();
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+SubClass", sub.TypeProp, "Property query for instance of sub class returns the expected name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+SubClass", sub.TypeMethod(), "Method query for instance of sub class returns the expected name.");
+
+                    var subCast = Bridge.cast(sub, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SuperClass);
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+SubClass", subCast.TypeProp, "Property query for cast instance of super class returns the expected name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426+SubClass", subCast.TypeMethod(), "Method query for cast instance of super class returns the expected name.");
                 }
             }
         }
     });
 
+    /**
+     * This abstract class will implement the Type querying means from
+     which a class inheriting from it will call. It should return the
+     actual class' name instead of 'AbstractClass'.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.AbstractClass
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.AbstractClass", {
         $kind: "nested class",
         props: {
-            Type: {
+            TypeProp: {
                 get: function () {
                     return Bridge.Reflection.getTypeFullName(Bridge.getType(this));
                 }
+            }
+        },
+        methods: {
+            TypeMethod: function () {
+                return Bridge.Reflection.getTypeFullName(Bridge.getType(this));
+            }
+        }
+    });
+
+    /**
+     * This time, two ordinary classes will be involved. A super class
+     implementing the means to query the name, and a sub class
+     inheriting and calling them.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SuperClass
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SuperClass", {
+        $kind: "nested class",
+        props: {
+            TypeProp: {
+                get: function () {
+                    return Bridge.Reflection.getTypeFullName(Bridge.getType(this));
+                }
+            }
+        },
+        methods: {
+            TypeMethod: function () {
+                return Bridge.Reflection.getTypeFullName(Bridge.getType(this));
             }
         }
     });
@@ -39797,8 +39882,21 @@ Bridge.$N1391Result =                     r;
         }
     }; });
 
+    /**
+     * This class will just inherit the Type() property from the abstract
+     class above.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.ConcreteClass
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.AbstractClass
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.ConcreteClass", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.AbstractClass],
+        $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SubClass", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3426.SuperClass],
         $kind: "nested class"
     });
 
