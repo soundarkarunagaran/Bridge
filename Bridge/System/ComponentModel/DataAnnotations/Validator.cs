@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
@@ -7,8 +6,8 @@ namespace System.ComponentModel.DataAnnotations
     /// Helper class to validate objects, properties and other values using their associated
     /// <see cref="ValidationAttribute" /> custom attributes.
     /// </summary>
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public static class Validator
     {
         /// <summary>

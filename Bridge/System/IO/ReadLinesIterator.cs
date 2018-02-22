@@ -1,4 +1,3 @@
-using Bridge;
 using System;
 using System.Collections;
 /*
@@ -12,9 +11,9 @@ using System.Text;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     abstract internal class Iterator<TSource> : IEnumerable<TSource>, IEnumerator<TSource>
     {
         internal int state;
@@ -97,9 +96,9 @@ namespace System.IO
     //  - IEnumerator<T> instances from the same IEnumerable<T> party on the same underlying
     //    reader (Dev10 Bugs 904764).
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     internal class ReadLinesIterator : Iterator<string>
     {
         private readonly string _path;

@@ -1,9 +1,8 @@
-using Bridge;
 using System.ComponentModel;
 
 namespace System.Runtime.CompilerServices
 {
-    [External]
+    [Bridge.External]
     public static class RuntimeHelpers
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -15,10 +14,10 @@ namespace System.Runtime.CompilerServices
             get;
         }
 
-        [Template("Bridge.getHashCode({obj})")]
+        [Bridge.Template("Bridge.getHashCode({obj})")]
         public static extern int GetHashCode(object obj);
 
-        [Template("{type}.$staticInit && {type}.$staticInit()")]
+        [Bridge.Template("{type}.$staticInit && {type}.$staticInit()")]
         public static extern void RunClassConstructor(Type type);
     }
 }

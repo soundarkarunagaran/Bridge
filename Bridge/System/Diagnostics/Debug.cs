@@ -1,8 +1,7 @@
-using Bridge;
 
 namespace System.Diagnostics
 {
-    [External]
+    [Bridge.External]
     public static class Debug
     {
         [Conditional("DEBUG")]
@@ -15,11 +14,11 @@ namespace System.Diagnostics
         public static extern void Fail(string message);
 
         [Conditional("DEBUG")]
-        [Name("writeln")]
+        [Bridge.Name("writeln")]
         public static extern void WriteLine(string message);
 
         [Conditional("DEBUG")]
-        [Template("debugger")]
+        [Bridge.Template("debugger")]
         public static extern void Break();
     }
 }

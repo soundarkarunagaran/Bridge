@@ -1,11 +1,10 @@
-using Bridge;
 using System.Collections.Generic;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class Exception : IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class Exception : Bridge.IBridgeClass
     {
         /// <summary>
         /// Gets a collection of key/value pairs that provide additional user-defined information about the exception.

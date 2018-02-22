@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.Diagnostics.Contracts
 {
@@ -8,7 +7,7 @@ namespace System.Diagnostics.Contracts
     /// </summary>
     [Conditional("CONTRACTS_FULL")]
     [AttributeUsage(AttributeTargets.Field)]
-    [External]
+    [Bridge.External]
     public sealed class ContractPublicPropertyNameAttribute : Attribute
     {
         public extern ContractPublicPropertyNameAttribute(String name);

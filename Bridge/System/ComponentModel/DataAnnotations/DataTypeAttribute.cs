@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
@@ -10,8 +9,8 @@ namespace System.ComponentModel.DataAnnotations
     [AttributeUsage(
         AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method | AttributeTargets.Parameter,
         AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class DataTypeAttribute : ValidationAttribute
     {
         /// <summary>

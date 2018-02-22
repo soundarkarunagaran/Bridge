@@ -1,5 +1,4 @@
-﻿using Bridge;
-
+﻿
 namespace System.Text.RegularExpressions
 {
     /// <summary>
@@ -7,6 +6,6 @@ namespace System.Text.RegularExpressions
     /// </summary>
     /// <param name="match"></param>
     /// <returns></returns>
-    [External]
+    [Bridge.External]
     public delegate string MatchEvaluator(Match match);
 }

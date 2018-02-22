@@ -23,13 +23,12 @@
 using System;
 using System.Text;
 using System.Diagnostics.Contracts;
-using Bridge;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public enum FileMode
     {
         CreateNew = 1,

@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class CompareAttribute : ValidationAttribute
     {
         public extern CompareAttribute(string otherProperty);

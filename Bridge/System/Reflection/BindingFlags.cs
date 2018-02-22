@@ -1,13 +1,12 @@
-using Bridge;
 
 namespace System.Reflection
 {
     /// <summary>
     /// Specifies flags that control binding and the way in which the search for members and types is conducted by reflection.
     /// </summary>
-    [External]
+    [Bridge.External]
     [Flags]
-    [Enum(Emit.Value)]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum BindingFlags
     {
         // a place holder for no flag specifed

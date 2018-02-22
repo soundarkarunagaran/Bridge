@@ -1,7 +1,6 @@
 ﻿namespace System
 {
-    using Bridge;
-    using Bridge.Internal.Html5;
+        using Bridge.Internal.Html5;
 
     /// <summary>
     /// Converts base data types to an array of bytes, and an array of bytes to base data types.
@@ -524,16 +523,16 @@
             }
         }
 
-        [Template("{0}.value.high")]
+        [Bridge.Template("{0}.value.high")]
         private static extern int GetLongHigh(long value);
 
-        [Template("{0}.value.low")]
+        [Bridge.Template("{0}.value.low")]
         private static extern int GetLongLow(long value);
 
-        [Template("System.Int64([{0}, {1}])")]
+        [Bridge.Template("System.Int64([{0}, {1}])")]
         private static extern long CreateLong(int low, int high);
 
-        [Template("System.UInt64([{0}, {1}])")]
+        [Bridge.Template("System.UInt64([{0}, {1}])")]
         private static extern ulong CreateULong(int low, int high);
     }
 }

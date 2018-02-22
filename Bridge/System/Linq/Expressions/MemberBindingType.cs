@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Enum(Emit.Value)]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum MemberBindingType
     {
         Assignment,

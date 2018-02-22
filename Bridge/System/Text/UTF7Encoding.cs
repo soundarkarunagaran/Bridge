@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.Text
 {
-    [Reflectable]
-    [FileName("system/text/encoding.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/text/encoding.js")]
+    [Bridge.Convention]
     public class UTF7Encoding : Encoding
     {
         private bool allowOptionals;
@@ -24,7 +23,7 @@ namespace System.Text
 
         private static string Escape(string chars)
         {
-            return Script.Write<string>("chars.replace(/[-[\\]{}()*+?.,\\\\^$|#\\s]/g, '\\\\$&')");
+            return Bridge.Script.Write<string>("chars.replace(/[-[\\]{}()*+?.,\\\\^$|#\\s]/g, '\\\\$&')");
         }
 
         protected override byte[] Encode(string s, byte[] outputBytes, int outputIndex, out int writtenBytes)
@@ -42,13 +41,13 @@ namespace System.Text
                     b[bi++] = (c & 0xFF).As<byte>();
                 }
                 var base64Str = System.Convert.ToBase64String(b);
-                return Script.Write<string>("base64Str.replace(/=+$/, '')");
+                return Bridge.Script.Write<string>("base64Str.replace(/=+$/, '')");
             };
 
             var setO = Escape("!\"#$%&*;<=>@[]^_`{|}");
             var setW = Escape(" \r\n\t");
 
-            s = Script.Write<string>("s.replace(new RegExp(\"[^\" + setW + setD + (this.allowOptionals ? setO : \"\") + \"]+\", 'g'), function(chunk) {return '+' + (chunk === '+' ? '' : encode(chunk)) + '-';})");
+            s = Bridge.Script.Write<string>("s.replace(new RegExp(\"[^\" + setW + setD + (this.allowOptionals ? setO : \"\") + \"]+\", 'g'), function(chunk) {return '+' + (chunk === '+' ? '' : encode(chunk)) + '-';})");
 
             var arr = s.ToCharArray();
 
@@ -82,7 +81,7 @@ namespace System.Text
             {
                 try
                 {
-                    var binary_string = Script.Write<string>("window.atob(base64)");
+                    var binary_string = Bridge.Script.Write<string>("window.atob(base64)");
                     var len = binary_string.Length;
                     var arr = new char[len];
 
@@ -115,7 +114,7 @@ namespace System.Text
             };
 
             var str = new string(bytes.As<char[]>(), index, count);
-            return Script.Write<string>(@"str.replace(/\+([A-Za-z0-9\/]*)-?/gi, function (_, chunk) {if (chunk === '') {return _ == '+-' ? '+' : '';}return decode(chunk);})");
+            return Bridge.Script.Write<string>(@"str.replace(/\+([A-Za-z0-9\/]*)-?/gi, function (_, chunk) {if (chunk === '') {return _ == '+-' ? '+' : '';}return decode(chunk);})");
         }
 
         public override int GetMaxByteCount(int charCount)

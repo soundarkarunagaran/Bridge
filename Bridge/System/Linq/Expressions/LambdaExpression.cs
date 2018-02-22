@@ -1,20 +1,19 @@
-using Bridge;
 using System.Collections.ObjectModel;
 
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Cast("{this}.ntype === 18")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Cast("{this}.ntype === 18")]
     public abstract class LambdaExpression : Expression
     {
-        [Name("p")]
+        [Bridge.Name("p")]
         public extern ReadOnlyCollection<ParameterExpression> Parameters { get; private set; }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
         public extern Expression Body { get; private set; }
 
-        [Name("rt")]
+        [Bridge.Name("rt")]
         public extern Expression ReturnType { get; private set; }
 
         internal extern LambdaExpression();

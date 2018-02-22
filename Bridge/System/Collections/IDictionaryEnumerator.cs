@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.Collections
 {
@@ -33,7 +32,7 @@ namespace System.Collections
     /// This interface represents an enumerator that allows sequential access to the
     /// elements of a dictionary.
     /// </summary>
-    [Reflectable]
+    [Bridge.Reflectable]
     public interface IDictionaryEnumerator : IEnumerator
     {
         /// <summary>

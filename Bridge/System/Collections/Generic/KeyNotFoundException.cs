@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.Collections.Generic
 {
-    [External]
-    [Reflectable]
-    public class KeyNotFoundException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class KeyNotFoundException : Exception, Bridge.IBridgeClass
     {
         public extern KeyNotFoundException();
 

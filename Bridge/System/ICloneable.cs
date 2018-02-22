@@ -1,13 +1,12 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
-    [Reflectable]
-    public interface ICloneable : IBridgeClass
+    [Bridge.External]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Reflectable]
+    public interface ICloneable : Bridge.IBridgeClass
     {
-        [Template("Bridge.clone({this})")]
+        [Bridge.Template("Bridge.clone({this})")]
         object Clone();
     }
 }

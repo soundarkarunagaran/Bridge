@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations.Schema
 {
@@ -6,8 +5,8 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// Specifies how the database generates values for a property.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class DatabaseGeneratedAttribute : Attribute
     {
         /// <summary>

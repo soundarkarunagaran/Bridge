@@ -1,12 +1,11 @@
-using Bridge;
 
 namespace System.Diagnostics
 {
-    [External]
-    [Name("System.Object")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
     public static class Debugger
     {
-        [Template("debugger")]
+        [Bridge.Template("debugger")]
         public static extern void Break();
     }
 }

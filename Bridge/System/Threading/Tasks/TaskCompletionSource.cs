@@ -1,17 +1,16 @@
-using Bridge;
 using System.Collections.Generic;
 
 namespace System.Threading.Tasks
 {
-    [External]
-    [IgnoreGeneric]
-    [Name("System.Threading.Tasks.TaskCompletionSource")]
-    [Reflectable]
+    [Bridge.External]
+    [Bridge.IgnoreGeneric]
+    [Bridge.Name("System.Threading.Tasks.TaskCompletionSource")]
+    [Bridge.Reflectable]
     public class TaskCompletionSource<TResult>
     {
         public extern TaskCompletionSource();
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
         public extern Task<TResult> Task
         {
             get;

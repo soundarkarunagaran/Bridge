@@ -29,7 +29,6 @@ using System.Security.Permissions;
 using System.Globalization;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
-using Bridge;
 
 namespace System.IO
 {
@@ -39,9 +38,9 @@ namespace System.IO
     //
     // This class is intended for character output, not bytes.
     // There are methods on the Stream class for writing bytes.
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public abstract class TextWriter : IDisposable
     {
         public static readonly TextWriter Null = new NullTextWriter();

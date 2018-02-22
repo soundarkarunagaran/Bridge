@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class InvalidOperationException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class InvalidOperationException : Exception, Bridge.IBridgeClass
     {
         public extern InvalidOperationException();
 

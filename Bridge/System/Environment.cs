@@ -1,4 +1,3 @@
-using Bridge;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,8 +6,8 @@ namespace System
     /// <summary>
     /// Specifies the location where an environment variable is stored or retrieved in a set or get operation.
     /// </summary>
-    [External]
-    [Enum(Emit.Value)]
+    [Bridge.External]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum EnvironmentVariableTarget
     {
         Process = 0,
@@ -25,8 +24,8 @@ namespace System
         /// <summary>
         /// Specifies enumerated constants used to retrieve directory paths to system special folders.
         /// </summary>
-        [External]
-        [Enum(Emit.Value)]
+        [Bridge.External]
+        [Bridge.Enum(Bridge.Emit.Value)]
         public enum SpecialFolder
         {
             //
@@ -227,8 +226,8 @@ namespace System
         /// <summary>
         /// Specifies options to use for getting the path to a special folder.
         /// </summary>
-        [External]
-        [Enum(Emit.Value)]
+        [Bridge.External]
+        [Bridge.Enum(Bridge.Emit.Value)]
         public enum SpecialFolderOption
         {
             None = 0,
@@ -236,7 +235,7 @@ namespace System
             DoNotVerify = Win32Native.CSIDL_FLAG_DONT_VERIFY,
         }
 
-        [External]
+        [Bridge.External]
         private static class Win32Native
         {
             // .NET Framework 4.0 and newer - all versions of windows ||| \public\sdk\inc\shlobj.h
@@ -297,7 +296,7 @@ namespace System
         /// </summary>
         private static dynamic Global
         {
-            [Template("Bridge.global")]
+            [Bridge.Template("Bridge.global")]
             get;
         }
 
@@ -373,7 +372,7 @@ namespace System
         /// </summary>
         public static extern int CurrentManagedThreadId
         {
-            [Template("0")]
+            [Bridge.Template("0")]
             get;
         }
 
@@ -392,7 +391,7 @@ namespace System
         /// </summary>
         public static bool HasShutdownStarted
         {
-            [Template("false")]
+            [Bridge.Template("false")]
             get;
         }
 
@@ -420,7 +419,7 @@ namespace System
         /// </summary>
         public static bool Is64BitProcess
         {
-            [Template("false")]
+            [Bridge.Template("false")]
             get;
         }
 
@@ -430,7 +429,7 @@ namespace System
         /// </summary>
         public static string MachineName
         {
-            [Template("\"\"")]
+            [Bridge.Template("\"\"")]
             get;
         }
 
@@ -440,7 +439,7 @@ namespace System
         /// </summary>
         public static extern string NewLine
         {
-            [Template("\"\\n\"")]
+            [Bridge.Template("\"\\n\"")]
             get;
         }
 
@@ -449,7 +448,7 @@ namespace System
         /// </summary>
         public static object OSVersion
         {
-            [Template("null")]
+            [Bridge.Template("null")]
             get;
         }
 
@@ -479,7 +478,7 @@ namespace System
         {
             get
             {
-                var err = Script.Write<dynamic>("new Error()");
+                var err = Bridge.Script.Write<dynamic>("new Error()");
                 string s = err.stack;
 
                 if (!string.IsNullOrEmpty(s))
@@ -500,7 +499,7 @@ namespace System
         /// </summary>
         public static string SystemDirectory
         {
-            [Template("\"\"")]
+            [Bridge.Template("\"\"")]
             get;
         }
 
@@ -511,7 +510,7 @@ namespace System
         /// </summary>
         public static int SystemPageSize
         {
-            [Template("1")]
+            [Bridge.Template("1")]
             get;
         }
 
@@ -521,7 +520,7 @@ namespace System
         /// </summary>
         public static int TickCount
         {
-            [Template("Date.now()")]
+            [Bridge.Template("Date.now()")]
             get;
         }
 
@@ -531,7 +530,7 @@ namespace System
         /// </summary>
         public static string UserDomainName
         {
-            [Template("\"\"")]
+            [Bridge.Template("\"\"")]
             get;
         }
 
@@ -541,7 +540,7 @@ namespace System
         /// </summary>
         public static bool UserInteractive
         {
-            [Template("true")]
+            [Bridge.Template("true")]
             get;
         }
 
@@ -551,7 +550,7 @@ namespace System
         /// </summary>
         public static string UserName
         {
-            [Template("\"\"")]
+            [Bridge.Template("\"\"")]
             get;
         }
 
@@ -582,7 +581,7 @@ namespace System
         /// </summary>
         public static long WorkingSet
         {
-            [Template("System.Int64(0)")]
+            [Bridge.Template("System.Int64(0)")]
             get;
         }
 
@@ -737,7 +736,7 @@ namespace System
         /// </summary>
         /// <param name="folder">An enumerated constant that identifies a system special folder.</param>
         /// <returns>The Bridge implementation returns an empty string.</returns>
-        [Template("\"\"")]
+        [Bridge.Template("\"\"")]
         public static extern string GetFolderPath(Environment.SpecialFolder folder);
 
         /// <summary>
@@ -746,7 +745,7 @@ namespace System
         /// <param name="folder">An enumerated constant that identifies a system special folder.</param>
         /// <param name="option">Specifies options to use for accessing a special folder.</param>
         /// <returns>The Bridge implementation returns an empty string.</returns>
-        [Template("\"\"")]
+        [Bridge.Template("\"\"")]
         public static extern string GetFolderPath(Environment.SpecialFolder folder, Environment.SpecialFolderOption option);
 
         /// <summary>

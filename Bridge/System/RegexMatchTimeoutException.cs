@@ -1,25 +1,24 @@
-﻿using Bridge;
-
+﻿
 namespace System
 {
-    [External]
+    [Bridge.External]
     public class RegexMatchTimeoutException : TimeoutException
     {
         public extern string Pattern
         {
-            [Template("getPattern()")]
+            [Bridge.Template("getPattern()")]
             get;
         }
 
         public extern string Input
         {
-            [Template("getInput()")]
+            [Bridge.Template("getInput()")]
             get;
         }
 
         public extern TimeSpan MatchTimeout
         {
-            [Template("getMatchTimeout()")]
+            [Bridge.Template("getMatchTimeout()")]
             get;
         }
 

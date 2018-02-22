@@ -1,16 +1,15 @@
-using Bridge;
 
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Cast("{this}.ntype == 50")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Cast("{this}.ntype == 50")]
     public abstract class DynamicExpression : Expression
     {
-        [Name("dtype")]
+        [Bridge.Name("dtype")]
         public extern DynamicExpressionType DynamicType { get; private set; }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
         public extern Expression Expression { get; private set; }
 
         internal extern DynamicExpression();

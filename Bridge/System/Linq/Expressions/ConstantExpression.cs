@@ -1,13 +1,12 @@
-using Bridge;
 
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Cast("{this}.ntype === 9")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Cast("{this}.ntype === 9")]
     public sealed class ConstantExpression : Expression
     {
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
         public extern object Value { get; private set; }
 
         internal extern ConstantExpression();

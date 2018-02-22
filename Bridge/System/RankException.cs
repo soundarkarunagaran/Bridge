@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class RankException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class RankException : Exception, Bridge.IBridgeClass
     {
         public extern RankException();
 

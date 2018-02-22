@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.Text
 {
-    [Reflectable]
-    [FileName("system/text/encoding.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/text/encoding.js")]
+    [Bridge.Convention]
     public class UTF8Encoding : Encoding
     {
         private bool encoderShouldEmitUTF8Identifier;

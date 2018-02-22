@@ -1,10 +1,9 @@
-using Bridge;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace System
 {
-    [External]
+    [Bridge.External]
     public sealed class CharEnumerator : IEnumerator, /*ICloneable,*/ IEnumerator<char>, IDisposable
     {
         extern object IEnumerator.Current

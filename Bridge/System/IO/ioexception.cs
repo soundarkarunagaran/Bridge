@@ -19,15 +19,14 @@
  */
 
 
-using Bridge;
 using System;
 using System.Runtime.Serialization;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public class IOException : Exception
     {
         // For debugging purposes, store the complete path in the IOException

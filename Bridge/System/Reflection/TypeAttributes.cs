@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.Reflection
 {
-    [External]
+    [Bridge.External]
     [Flags]
-    [Enum(Emit.Value)]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum TypeAttributes
     {
         NotPublic = 0,

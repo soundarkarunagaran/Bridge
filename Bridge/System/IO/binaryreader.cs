@@ -25,13 +25,12 @@ using System.Text;
 using System.Globalization;
 using System.Diagnostics.Contracts;
 using System.Security;
-using Bridge;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public class BinaryReader : IDisposable
     {
         private const int MaxCharBytesSize = 128;

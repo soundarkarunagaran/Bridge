@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [IgnoreCast]
-    [Reflectable]
+    [Bridge.External]
+    [Bridge.IgnoreCast]
+    [Bridge.Reflectable]
     public struct Void
     {
     }

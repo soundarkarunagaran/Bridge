@@ -1,9 +1,8 @@
-﻿using Bridge;
-
+﻿
 namespace System.Net.WebSockets
 {
-    [External]
-    [Enum(Emit.StringNameLowerCase)]
+    [Bridge.External]
+    [Bridge.Enum(Bridge.Emit.StringNameLowerCase)]
     public enum WebSocketState
     {
         None = 0,

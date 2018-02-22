@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class IndexOutOfRangeException : SystemException, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class IndexOutOfRangeException : SystemException, Bridge.IBridgeClass
     {
         public extern IndexOutOfRangeException();
 

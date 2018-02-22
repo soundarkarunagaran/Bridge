@@ -24,7 +24,6 @@ using System.Runtime;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Diagnostics.Contracts;
-using Bridge;
 
 namespace System.IO
 {
@@ -32,9 +31,9 @@ namespace System.IO
     // primitives to an arbitrary stream. A subclass can override methods to
     // give unique encodings.
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public class BinaryWriter : IDisposable
     {
         public static readonly BinaryWriter Null = new BinaryWriter();

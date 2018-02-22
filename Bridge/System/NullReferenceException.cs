@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class NullReferenceException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class NullReferenceException : Exception, Bridge.IBridgeClass
     {
         public extern NullReferenceException();
 

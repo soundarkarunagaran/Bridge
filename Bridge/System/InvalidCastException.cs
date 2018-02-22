@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class InvalidCastException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class InvalidCastException : Exception, Bridge.IBridgeClass
     {
         public extern InvalidCastException();
 

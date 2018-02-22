@@ -1,29 +1,28 @@
-using Bridge;
 using System.Collections.Generic;
 
 namespace System.Linq
 {
-    [External]
-    [IgnoreGeneric]
-    [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
+    [Bridge.External]
+    [Bridge.IgnoreGeneric]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
     public interface IGrouping<out TKey, out TElement> : IEnumerable<TElement>
     {
         TKey Key
         {
-            [Template("key()")]
+            [Bridge.Template("key()")]
             get;
         }
     }
 
-    [External]
-    [IgnoreGeneric]
+    [Bridge.External]
+    [Bridge.IgnoreGeneric]
     public class Grouping<TKey, TElement> : EnumerableInstance<TElement>, IGrouping<TKey, TElement>
     {
         internal extern Grouping();
 
         public extern TKey Key
         {
-            [Template("key()")]
+            [Bridge.Template("key()")]
             get;
         }
     }

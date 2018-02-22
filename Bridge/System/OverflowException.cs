@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class OverflowException : ArithmeticException, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class OverflowException : ArithmeticException, Bridge.IBridgeClass
     {
         public extern OverflowException();
 

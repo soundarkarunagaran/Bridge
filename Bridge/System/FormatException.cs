@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class FormatException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class FormatException : Exception, Bridge.IBridgeClass
     {
         public extern FormatException();
 

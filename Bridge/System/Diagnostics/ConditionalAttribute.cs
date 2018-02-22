@@ -1,10 +1,9 @@
-using Bridge;
 
 namespace System.Diagnostics
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public sealed class ConditionalAttribute : Attribute
     {
         public extern ConditionalAttribute(string conditionString);

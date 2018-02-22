@@ -1,8 +1,7 @@
-using Bridge;
 
 namespace System
 {
-    [External]
+    [Bridge.External]
     public enum TypeCode
     {
         Empty = 0,
@@ -25,7 +24,7 @@ namespace System
         String = 18
     }
 
-    [External]
+    [Bridge.External]
     internal static class TypeCodeValues
     {
         public const string Empty = "0";

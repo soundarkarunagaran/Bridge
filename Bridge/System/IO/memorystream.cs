@@ -24,7 +24,6 @@
 using System;
 using System.Runtime.InteropServices;
 using System.Diagnostics.Contracts;
-using Bridge;
 
 namespace System.IO
 {
@@ -36,9 +35,9 @@ namespace System.IO
     // from an unsigned byte array, or you can create an empty one.  Empty
     // memory streams are resizable, while ones created with a byte array provide
     // a stream "view" of the data.
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public class MemoryStream : Stream
     {
         private byte[] _buffer;    // Either allocated internally or externally.

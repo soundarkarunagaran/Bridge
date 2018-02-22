@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.Collections.Generic
 {
@@ -11,10 +10,10 @@ namespace System.Collections.Generic
     /// <typeparam name="TValue">
     /// The type of values in the dictionary.
     /// </typeparam>
-    [External]
-    [Reflectable]
-    [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
-    public interface IDictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    public interface IDictionary<TKey, TValue> : ICollection<KeyValuePair<TKey, TValue>>, IEnumerable<KeyValuePair<TKey, TValue>>, IEnumerable, Bridge.IBridgeClass
     {
         /// <summary>
         /// Gets or sets the element with the specified key.
@@ -34,12 +33,12 @@ namespace System.Collections.Generic
         /// <exception cref="System.NotSupportedException">
         /// The property is set and the System.Collections.Generic.IDictionary`2 is read-only.
         /// </exception>
-        [AccessorsIndexer]
+        [Bridge.AccessorsIndexer]
         TValue this[TKey key]
         {
-            [Name("getItem")]
+            [Bridge.Name("getItem")]
             get;
-            [Name("setItem")]
+            [Bridge.Name("setItem")]
             set;
         }
 

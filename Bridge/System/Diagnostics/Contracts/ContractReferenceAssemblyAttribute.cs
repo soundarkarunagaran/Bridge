@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.Diagnostics.Contracts
 {
@@ -6,7 +5,7 @@ namespace System.Diagnostics.Contracts
     /// Attribute that specifies that an assembly is a reference assembly with contracts.
     /// </summary>
     [AttributeUsage(AttributeTargets.Assembly)]
-    [External]
+    [Bridge.External]
     public sealed class ContractReferenceAssemblyAttribute : Attribute
     {
     }

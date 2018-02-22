@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
@@ -6,8 +5,8 @@ namespace System.ComponentModel.DataAnnotations
     /// Exception used for validation using <see cref="ValidationAttribute" />.
     /// </summary>
     [Serializable]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class ValidationException : Exception
     {
         /// <summary>

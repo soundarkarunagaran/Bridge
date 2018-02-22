@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
@@ -9,8 +8,8 @@ namespace System.ComponentModel.DataAnnotations
     ///     Use the static <see cref="ValidationResult.Success" /> to represent successful validation.
     /// </para>
     /// </summary>
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class ValidationResult
     {
         /// <summary>

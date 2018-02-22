@@ -23,7 +23,6 @@ using System;
 using System.Security.Permissions;
 using System.Threading;
 using System.Runtime.InteropServices;
-using Bridge;
 using Bridge.Internal.Html5;
 using System.Threading.Tasks;
 
@@ -57,28 +56,28 @@ using System.Threading.Tasks;
 
 namespace System.IO
 {
-    [External]
-    [Namespace(false)]
+    [Bridge.External]
+    [Bridge.Namespace(false)]
     internal class FileReader
     {
         public extern FileReader();
 
-        [Convention(Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
         public extern void ReadAsArrayBuffer(Bridge.Internal.Html5.File file);
 
-        [Convention(Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
         public readonly ArrayBuffer Result;
 
-        [Convention(Notation.LowerCase)]
+        [Bridge.Convention(Bridge.Notation.LowerCase)]
         public Action OnLoad;
 
-        [Convention(Notation.LowerCase)]
+        [Bridge.Convention(Bridge.Notation.LowerCase)]
         public Action<object> OnError;
     }
 
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.FileName("system/io/io.js")]
+    [Bridge.Convention]
     public class FileStream : Stream
     {
         private string name;
@@ -107,7 +106,7 @@ namespace System.IO
 
             fileReader.OnError = (e) =>
             {
-                completer.SetException(new ErrorException(e.As<dynamic>().target.error.As<string>()));
+                completer.SetException(new Bridge.ErrorException(e.As<dynamic>().target.error.As<string>()));
             };
 
             fileReader.ReadAsArrayBuffer(file);
@@ -274,9 +273,9 @@ namespace System.IO
 
         internal static ArrayBuffer ReadBytes(string path)
         {
-            if (Script.IsNode)
+            if (Bridge.Script.IsNode)
             {
-                var fs = Script.Write<dynamic>(@"require(""fs"")");
+                var fs = Bridge.Script.Write<dynamic>(@"require(""fs"")");
 
                 return ((ArrayBuffer)fs.readFileSync(path));
             }
@@ -304,9 +303,9 @@ namespace System.IO
         {
             var tcs = new TaskCompletionSource<ArrayBuffer>();
 
-            if (Script.IsNode)
+            if (Bridge.Script.IsNode)
             {
-                var fs = Script.Write<dynamic>(@"require(""fs"")");
+                var fs = Bridge.Script.Write<dynamic>(@"require(""fs"")");
 
                 fs.readFile(path, new Action<object, ArrayBuffer>((err, data) => {
                     if(err != null)

@@ -1,4 +1,3 @@
-using Bridge;
 
 namespace System.Diagnostics.Contracts
 {
@@ -7,7 +6,7 @@ namespace System.Diagnostics.Contracts
     /// </summary>
     [Conditional("CONTRACTS_FULL")]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
-    [External]
+    [Bridge.External]
     public sealed class ContractClassForAttribute : Attribute
     {
         public extern ContractClassForAttribute(Type typeContractsAreFor);
