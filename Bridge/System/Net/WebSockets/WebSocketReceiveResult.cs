@@ -1,5 +1,4 @@
-﻿
-namespace System.Net.WebSockets
+﻿namespace System.Net.WebSockets
 {
     /// <summary>
     /// An instance of this class represents the result of performing a single ReceiveAsync operation on a WebSocket.

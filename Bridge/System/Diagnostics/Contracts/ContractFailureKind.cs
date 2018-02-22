@@ -1,4 +1,3 @@
-
 namespace System.Diagnostics.Contracts
 {
     [Bridge.Enum(Bridge.Emit.Name)]

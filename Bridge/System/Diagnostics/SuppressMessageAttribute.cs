@@ -1,4 +1,3 @@
-
 namespace System.Diagnostics.CodeAnalysis
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]

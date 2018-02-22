@@ -1,5 +1,4 @@
-﻿
-namespace System
+﻿namespace System
 {
     /// <summary>
     /// Delimits a section of a one-dimensional array.

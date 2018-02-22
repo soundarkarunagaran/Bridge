@@ -1,4 +1,3 @@
-
 namespace System.Text
 {
     /// <summary>

@@ -1,4 +1,3 @@
-
 namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>

@@ -1,5 +1,4 @@
-﻿
-namespace System.Text.RegularExpressions
+﻿namespace System.Text.RegularExpressions
 {
     /// <summary>
     /// Represents the method that is called each time a regular expression match is found during a Replace method operation.

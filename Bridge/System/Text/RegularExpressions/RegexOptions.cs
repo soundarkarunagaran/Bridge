@@ -1,5 +1,4 @@
-﻿
-namespace System.Text.RegularExpressions
+﻿namespace System.Text.RegularExpressions
 {
     /// <summary>
     /// Provides enumerated values to use to set regular expression options.

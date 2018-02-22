@@ -1,4 +1,3 @@
-
 namespace System.ComponentModel
 {
     [Bridge.External]

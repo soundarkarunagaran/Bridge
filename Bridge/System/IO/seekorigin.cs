@@ -2,8 +2,6 @@
  * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/seekorigin.cs
  */
 
-
-
 namespace System.IO
 {
     /// <summary>

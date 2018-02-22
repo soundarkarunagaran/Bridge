@@ -1,5 +1,4 @@
-﻿
-namespace System.Threading
+﻿namespace System.Threading
 {
     /// <summary>
     /// Represents the method that handles calls from a Timer.

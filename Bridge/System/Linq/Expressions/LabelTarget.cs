@@ -1,4 +1,3 @@
-
 namespace System.Linq.Expressions
 {
     [Bridge.External]

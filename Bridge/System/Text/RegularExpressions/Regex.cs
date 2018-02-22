@@ -1,5 +1,4 @@
-﻿
-namespace System.Text.RegularExpressions
+﻿namespace System.Text.RegularExpressions
 {
     public sealed class Regex
     {

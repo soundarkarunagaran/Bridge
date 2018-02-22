@@ -1,5 +1,4 @@
-﻿
-namespace System
+﻿namespace System
 {
     /// <summary>
     /// Provides an object representation of a uniform resource identifier (URI) and easy access to the parts of the URI.

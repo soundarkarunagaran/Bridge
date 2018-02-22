@@ -1,5 +1,4 @@
-﻿
-namespace System.Text.RegularExpressions
+﻿namespace System.Text.RegularExpressions
 {
     /// <summary>
     /// Represents the results from a single regular expression match.

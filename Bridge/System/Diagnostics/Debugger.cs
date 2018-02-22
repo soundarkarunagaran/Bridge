@@ -1,4 +1,3 @@
-
 namespace System.Diagnostics
 {
     [Bridge.External]

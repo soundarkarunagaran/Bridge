@@ -1,5 +1,4 @@
-﻿
-namespace System
+﻿namespace System
 {
     /// <summary>
     /// Specifies whether relevant "Convert.ToBase64CharArray" and "Convert.ToBase64String" methods insert line breaks in their output.

@@ -1,4 +1,3 @@
-
 namespace System.Runtime.CompilerServices
 {
     [Bridge.NonScriptable]

@@ -1,4 +1,3 @@
-
 namespace System.Collections
 {
     // This interface represents an enumerator that allows sequential access to the

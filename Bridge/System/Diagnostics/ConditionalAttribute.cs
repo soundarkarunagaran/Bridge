@@ -1,4 +1,3 @@
-
 namespace System.Diagnostics
 {
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, AllowMultiple = true)]

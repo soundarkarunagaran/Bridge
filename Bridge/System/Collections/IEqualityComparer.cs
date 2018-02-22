@@ -1,5 +1,4 @@
-﻿
-namespace System.Collections
+﻿namespace System.Collections
 {
     [Bridge.External]
     [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]

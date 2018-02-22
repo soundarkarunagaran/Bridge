@@ -1,4 +1,3 @@
-
 namespace System.Threading
 {
     [Bridge.External]

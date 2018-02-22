@@ -1,5 +1,4 @@
-﻿
-namespace System.Net.WebSockets
+﻿namespace System.Net.WebSockets
 {
     /// <summary>
     /// Represents well known WebSocket close codes as defined in section 11.7 of the WebSocket protocol spec.

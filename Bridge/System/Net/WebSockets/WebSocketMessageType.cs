@@ -1,5 +1,4 @@
-﻿
-namespace System.Net.WebSockets
+﻿namespace System.Net.WebSockets
 {
     [Bridge.External]
     [Bridge.Enum(Bridge.Emit.StringNameLowerCase)]

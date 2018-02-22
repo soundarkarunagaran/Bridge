@@ -1,4 +1,3 @@
-
 namespace System.Collections
 {
     [Bridge.External]

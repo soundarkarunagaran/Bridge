@@ -1,5 +1,4 @@
-﻿
-namespace System.Net.WebSockets
+﻿namespace System.Net.WebSockets
 {
     /// <summary>
     /// Options to use with a <see cref="ClientWebSocket"/> object.
