@@ -97,7 +97,8 @@ namespace System.IO
 
             fileReader.OnLoad = () =>
             {
-                throw new NotImplementedException("Removing Bridge.Html5 dependency from Bridge.");
+                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
                 //completer.SetResult(new FileStream(fileReader.Result, file.Name));
             };
 
@@ -278,9 +279,10 @@ namespace System.IO
             }
             else
             {
-                throw new NotImplementedException("Removing Bridge.Html5 dependency from Bridge.");
+                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
 
-                /* var req = new XMLHttpRequest();
+                /*
+                var req = new XMLHttpRequest();
                 req.Open("GET", path, false);
                 req.OverrideMimeType("text/plain; charset=binary-data");
                 req.Send(null);
@@ -318,7 +320,7 @@ namespace System.IO
             }
             else
             {
-                throw new NotImplementedException("Removing Bridge.Html5 dependency from Bridge.");
+                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
 
                 /*
                 var req = new XMLHttpRequest();
