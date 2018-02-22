@@ -16,7 +16,7 @@
     <tags>bridge bridge.net bridge js javascript C# csharp mobile ios asp.net aspnet mvc aspnetmvc web transpiler compiler object.net</tags>
     <dependencies>
       <dependency id="Bridge.Min" version="16.8.1" />
-      <dependency id="Bridge.Html5" version="16.8.1" />
+      <dependency id="Retyped" version="1.4.6556" />
     </dependencies>
     <frameworkAssemblies>
     </frameworkAssemblies>
