@@ -9,7 +9,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
     {
         public struct MyStruct
         {
-            
+
         }
 
         [External]
