@@ -14,7 +14,7 @@
                 throw new System.ArgumentNullException();
             }
 
-            var guardItem = Bridge.$toStringGuard[Bridge.$toStringGuard.length - 1];           
+            var guardItem = Bridge.$toStringGuard[Bridge.$toStringGuard.length - 1];
 
             if (instance.toString === Object.prototype.toString || guardItem && guardItem === instance) {
                 return Bridge.Reflection.getTypeFullName(instance);
@@ -950,7 +950,7 @@
                 }
             } else {
                 var t = Bridge.getType(to),
-					descriptors = t && t.$descriptors;
+                    descriptors = t && t.$descriptors;
 
                 if (from) {
                     for (key in from) {

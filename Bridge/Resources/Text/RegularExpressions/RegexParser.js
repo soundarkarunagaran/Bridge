@@ -148,7 +148,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
     },
 
     ctor: function (culture) {
-		this.$initialize();
+        this.$initialize();
         this._culture = culture;
         this._caps = {};
     },

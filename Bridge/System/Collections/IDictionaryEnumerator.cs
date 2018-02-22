@@ -12,16 +12,16 @@ namespace System.Collections
     // Key and Value are undefined before the first call to
     // MoveNext and following a call to MoveNext that returned false.
     // Enumerators are typically used in while loops of the form
-    // 
+    //
     // IDictionaryEnumerator e = ...;
     // while (e.MoveNext()) {
     //     Object key = e.Key;
     //     Object value = e.Value;
     //     ...
     // }
-    // 
+    //
     // The IDictionaryEnumerator interface extends the IEnumerator
-    // inerface and can thus be used as a regular enumerator. The Current 
+    // inerface and can thus be used as a regular enumerator. The Current
     // method of an IDictionaryEnumerator returns a DictionaryEntry containing
     // the current key and value pair.  However, the GetEntry method will
     // return the same DictionaryEntry and avoids boxing the DictionaryEntry (boxing

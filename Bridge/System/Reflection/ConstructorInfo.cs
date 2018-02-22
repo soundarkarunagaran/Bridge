@@ -39,9 +39,9 @@ namespace System.Reflection
         }
 
         /// <summary>
-		/// Whether the [ExpandParams] attribute was specified on the constructor.
-		/// </summary>
-		public extern bool IsExpandParams {[Bridge.Template("{this}.exp || false")] get;[Bridge.Template("{this}.exp = {value}")] private set; }
+        /// Whether the [ExpandParams] attribute was specified on the constructor.
+        /// </summary>
+        public extern bool IsExpandParams {[Bridge.Template("{this}.exp || false")] get;[Bridge.Template("{this}.exp = {value}")] private set; }
 
         internal extern ConstructorInfo();
     }

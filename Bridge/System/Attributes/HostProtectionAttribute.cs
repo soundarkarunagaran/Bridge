@@ -1,13 +1,13 @@
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 // HostProtectionPermission.cs
-// 
+//
 // <OWNER>Microsoft</OWNER>
 //
- 
+
 namespace System.Security.Permissions
 {
     using System;
@@ -95,7 +95,7 @@ namespace System.Security.Permissions
 #pragma warning restore 618
     {
         public extern HostProtectionAttribute();
-        
+
         public extern HostProtectionAttribute(SecurityAction action);
 
         public extern HostProtectionResource Resources { get; set; }

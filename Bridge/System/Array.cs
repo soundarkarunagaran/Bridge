@@ -317,7 +317,7 @@ namespace System
         /// <returns>
         /// An object that can be used to synchronize access to the System.Array.
         /// </returns>
-        
+
         public extern Object SyncRoot
         {
             [Bridge.Template("System.Array.syncRoot({this})")]

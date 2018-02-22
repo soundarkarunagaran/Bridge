@@ -19,11 +19,7 @@
  * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/filestream.cs
  */
 
-using System;
-using System.Security.Permissions;
-using System.Threading;
 using System.Runtime.InteropServices;
-using Bridge.Internal.Html5;
 using System.Threading.Tasks;
 
 /*
@@ -63,10 +59,10 @@ namespace System.IO
         public extern FileReader();
 
         [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
-        public extern void ReadAsArrayBuffer(Bridge.Internal.Html5.File file);
+        public extern void ReadAsArrayBuffer(object file);
 
         [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
-        public readonly ArrayBuffer Result;
+        public readonly string Result;
 
         [Bridge.Convention(Bridge.Notation.LowerCase)]
         public Action OnLoad;
@@ -81,27 +77,28 @@ namespace System.IO
     public class FileStream : Stream
     {
         private string name;
-        ArrayBuffer _buffer;
+        byte[] _buffer;
 
         public FileStream(string path, FileMode mode)
-        {            
+        {
             this.name = path;
         }
 
-        internal FileStream(ArrayBuffer buffer, string name)
+        internal FileStream(byte[] buffer, string name)
         {
             this._buffer = buffer;
             this.name = name;
         }
 
-        internal static Task<FileStream> FromFile(Bridge.Internal.Html5.File file)
+        internal static Task<FileStream> FromFile(object file)
         {
             var completer = new System.Threading.Tasks.TaskCompletionSource<FileStream>();
             var fileReader = new FileReader();
 
             fileReader.OnLoad = () =>
             {
-                completer.SetResult(new FileStream(fileReader.Result, file.Name));
+                throw new NotImplementedException("Removing Bridge.Html5 dependency from Bridge.");
+                //completer.SetResult(new FileStream(fileReader.Result, file.Name));
             };
 
             fileReader.OnError = (e) =>
@@ -158,7 +155,7 @@ namespace System.IO
         {
             get
             {
-                return this.GetInternalBuffer().ByteLength;
+                return this.GetInternalBuffer().Length;
             }
         }
 
@@ -187,12 +184,12 @@ namespace System.IO
             throw new NotImplementedException();
         }
 
-        private ArrayBuffer GetInternalBuffer()
+        private byte[] GetInternalBuffer()
         {
             if(this._buffer == null)
             {
                 this._buffer = FileStream.ReadBytes(this.name);
-                
+
             }
 
             return this._buffer;
@@ -239,7 +236,7 @@ namespace System.IO
                 return 0;
             }
 
-            var byteBuffer = new Uint8Array(this.GetInternalBuffer());
+            var byteBuffer = this.GetInternalBuffer();
 
             if (num > 8)
             {
@@ -271,17 +268,19 @@ namespace System.IO
             return (int)num;
         }
 
-        internal static ArrayBuffer ReadBytes(string path)
+        internal static byte[] ReadBytes(string path)
         {
             if (Bridge.Script.IsNode)
             {
                 var fs = Bridge.Script.Write<dynamic>(@"require(""fs"")");
 
-                return ((ArrayBuffer)fs.readFileSync(path));
+                return ((byte[])fs.readFileSync(path));
             }
             else
             {
-                var req = new XMLHttpRequest();
+                throw new NotImplementedException("Removing Bridge.Html5 dependency from Bridge.");
+
+                /* var req = new XMLHttpRequest();
                 req.Open("GET", path, false);
                 req.OverrideMimeType("text/plain; charset=binary-data");
                 req.Send(null);
@@ -296,18 +295,19 @@ namespace System.IO
                 text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
 
                 return resultArray.Buffer;
+                */
             }
         }
 
-        internal static Task<ArrayBuffer> ReadBytesAsync(string path)
+        internal static Task<byte[]> ReadBytesAsync(string path)
         {
-            var tcs = new TaskCompletionSource<ArrayBuffer>();
+            var tcs = new TaskCompletionSource<byte[]>();
 
             if (Bridge.Script.IsNode)
             {
                 var fs = Bridge.Script.Write<dynamic>(@"require(""fs"")");
 
-                fs.readFile(path, new Action<object, ArrayBuffer>((err, data) => {
+                fs.readFile(path, new Action<object, byte[]>((err, data) => {
                     if(err != null)
                     {
                         throw new IOException();
@@ -318,6 +318,9 @@ namespace System.IO
             }
             else
             {
+                throw new NotImplementedException("Removing Bridge.Html5 dependency from Bridge.");
+
+                /*
                 var req = new XMLHttpRequest();
                 req.Open("GET", path, true);
                 req.OverrideMimeType("text/plain; charset=binary-data");
@@ -338,7 +341,8 @@ namespace System.IO
                     var resultArray = new Uint8Array(text.Length);
                     text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
                     tcs.SetResult(resultArray.Buffer);
-                };                
+                };
+                */
             }
 
             return tcs.Task;
