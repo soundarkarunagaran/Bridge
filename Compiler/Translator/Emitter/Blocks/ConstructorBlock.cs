@@ -772,7 +772,7 @@ namespace Bridge.Translator
                     else
                     {
                         baseName = JS.Funcs.CONSTRUCTOR;
-                    }                    
+                    }
                 }
 
                 this.Write(baseName);

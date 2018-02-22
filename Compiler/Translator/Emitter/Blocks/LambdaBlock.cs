@@ -238,7 +238,7 @@ namespace Bridge.Translator
             {
                 analyzer = new CaptureAnalyzer(this.Emitter);
                 analyzer.Analyze(this.Body, this.Parameters.Select(p => p.Name));
-            }            
+            }
 
             var oldLevel = this.Emitter.Level;
             if (!noLiftingRule && analyzer.UsedVariables.Count == 0)

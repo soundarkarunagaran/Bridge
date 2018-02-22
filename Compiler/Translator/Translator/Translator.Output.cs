@@ -31,7 +31,7 @@ namespace Bridge.Translator
                     if(!dtsReferences.Contains(path))
                     {
                         dtsReferences.Add(path);
-                    }                    
+                    }
 
                     if(!addNoLibReference && item.Assembly.StartsWith("Retyped."))
                     {

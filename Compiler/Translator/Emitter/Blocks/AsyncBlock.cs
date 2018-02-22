@@ -364,7 +364,7 @@ namespace Bridge.Translator
             if (this.Emitter.AsyncBlock.MethodDeclaration != null &&
                 !this.Emitter.AsyncBlock.MethodDeclaration.HasModifier(Modifiers.Async))
             {
-                this.Write("return ");    
+                this.Write("return ");
             }
 
             this.Write(JS.Funcs.ASYNC_BODY + "();");

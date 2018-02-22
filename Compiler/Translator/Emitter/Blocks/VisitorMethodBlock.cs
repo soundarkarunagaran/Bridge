@@ -35,7 +35,7 @@ namespace Bridge.Translator
             if(rr != null)
             {
                 this.Emitter.Rules = Rules.Get(this.Emitter, rr.Member);
-            }            
+            }
         }
 
         protected override void EndEmit()

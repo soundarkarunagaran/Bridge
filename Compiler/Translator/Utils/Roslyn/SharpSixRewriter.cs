@@ -50,7 +50,7 @@ namespace Bridge.Translator
             var result = this.Visit(syntaxTree.GetRoot());
 
             var replacers = new List<ICSharpReplacer>();
-            
+
             if (this.HasChainingAssigment)
             {
                 replacers.Add(new ChainingAssigmentReplacer());
@@ -60,7 +60,7 @@ namespace Bridge.Translator
             {
                 replacers.Add(new UsingStaticReplacer());
             }
-            
+
             foreach (var replacer in replacers)
             {
                 result = replacer.Replace(result, semanticModel);
@@ -161,7 +161,7 @@ namespace Bridge.Translator
         {
             var identifier = node.Left as IdentifierNameSyntax;
             if (identifier != null)
-            {                
+            {
                 var local = node.GetParent<LocalDeclarationStatementSyntax>();
                 var name = identifier.Identifier.ValueText;
 
@@ -588,12 +588,12 @@ namespace Bridge.Translator
             }
 
             if (node.Expression.Kind() == SyntaxKind.IdentifierName
-                && symbol.Value != null 
-                && symbolNode.Value != null 
+                && symbol.Value != null
+                && symbolNode.Value != null
                 && symbol.Value.Kind == SymbolKind.NamedType
-                && symbolNode.Value.IsStatic 
-                && symbol.Value.ContainingType != null 
-                && thisType != null && !thisType.InheritsFromOrEquals((ITypeSymbol)symbol.Value) 
+                && symbolNode.Value.IsStatic
+                && symbol.Value.ContainingType != null
+                && thisType != null && !thisType.InheritsFromOrEquals((ITypeSymbol)symbol.Value)
                 && !((ITypeSymbol)symbol.Value).IsAccessibleIn(thisType)
                 && (symbol.Value.Kind == SymbolKind.Method || symbol.Value.Kind == SymbolKind.Property || symbol.Value.Kind == SymbolKind.Field || symbol.Value.Kind == SymbolKind.Event || symbol.Value.Kind == SymbolKind.NamedType))
             {

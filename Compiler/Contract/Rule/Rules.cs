@@ -69,7 +69,7 @@ namespace Bridge.Contract
                 if(emitter != null)
                 {
                     emitter.AssemblyCompilerRuleCache.Add(assembly, assemblyRules);
-                }                
+                }
             }
 
             var rules = new List<CompilerRule>();
@@ -92,7 +92,7 @@ namespace Bridge.Contract
             if(emitter != null)
             {
                 rules.Add(emitter.AssemblyInfo.Rules);
-            }            
+            }
 
             if (assemblyRules != null && assemblyRules.Length > 0)
             {
@@ -243,7 +243,7 @@ namespace Bridge.Contract
             {
                 emitter.ClassCompilerRuleCache.Add(typeDef, classRules);
             }
-            
+
             return classRules;
         }
     }

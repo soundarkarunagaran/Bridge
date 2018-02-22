@@ -674,7 +674,7 @@ namespace Bridge.Translator
                                     argExpr = ((MemberReferenceExpression)expr.Target).Target;
                                 }
                             }
-                            
+
                             string thisValue = argsInfo.GetThisValue();
                             bool skipType = false;
 
@@ -688,7 +688,7 @@ namespace Bridge.Translator
                                     argExpr.AcceptVisitor(this.Emitter);
                                     thisValue = this.Emitter.Output.ToString();
                                     this.RestoreWriter(writer);
-                                }                                    
+                                }
 
                                 if (thisValue != null)
                                 {
@@ -716,7 +716,7 @@ namespace Bridge.Translator
                             {
                                 isSimple = true;
                                 this.Write(GetTypeName(type));
-                            }                            
+                            }
                         }
                     }
                     else

@@ -82,7 +82,7 @@ namespace Bridge.Contract
                         block.WriteNewLine();
                     }
                 }
-                
+
                 return;
             }
 
