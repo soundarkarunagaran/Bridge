@@ -28032,7 +28032,7 @@ Bridge.$N1391Result =                     r;
 
     /**
      * The tests here should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
-     Ensures that HTML attributes are being processed correctly 
+     Ensures that HTML attributes are being processed correctly
      even if incorrect names of properties are being requested.
      *
      * @public

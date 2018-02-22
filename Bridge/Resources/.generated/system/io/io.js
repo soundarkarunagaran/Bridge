@@ -2447,9 +2447,7 @@
                     var completer = new System.Threading.Tasks.TaskCompletionSource();
                     var fileReader = new FileReader();
 
-                    fileReader.onload = function () {
-                        completer.setResult(new System.IO.FileStream.ctor(fileReader.result, file.name));
-                    };
+                    fileReader.onload = $asm.$.System.IO.FileStream.f1;
 
                     fileReader.onerror = function (e) {
                         completer.setException(new Bridge.ErrorException(Bridge.unbox(e).target.error.As()));
@@ -2463,25 +2461,27 @@
                     if (Bridge.isNode) {
                         var fs = require("fs");
 
-                        return Bridge.cast(fs.readFileSync(path), ArrayBuffer);
+                        return Bridge.cast(fs.readFileSync(path), System.Array.type(System.Byte));
                     } else {
-                        var req = new XMLHttpRequest();
-                        req.open("GET", path, false);
-                        req.overrideMimeType("text/plain; charset=binary-data");
-                        req.send(null);
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
 
-                        if (req.status !== 200) {
-                            throw new System.IO.IOException.$ctor1(System.String.format("Status of request to {0} returned status: {1}", path, Bridge.box(req.status, System.UInt16)));
+                        /* 
+                        var req = new XMLHttpRequest();
+                        req.Open("GET", path, false);
+                        req.OverrideMimeType("text/plain; charset=binary-data");
+                        req.Send(null);
+
+                        if (req.Status != 200)
+                        {
+                           throw new IOException($"Status of request to {path} returned status: {req.Status}");
                         }
 
-                        var text = req.responseText;
-                        var resultArray = new Uint8Array(text.length);
-                        System.String.toCharArray(text, 0, text.length).forEach(function (v, index, array) {
-                                var $t;
-                                return ($t = (v & 255) & 255, resultArray[index] = $t, $t);
-                            });
+                        string text = req.ResponseText;
+                        var resultArray = new Uint8Array(text.Length);
+                        text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
 
-                        return resultArray.buffer;
+                        return resultArray.Buffer;
+                        */
                     }
                 },
                 ReadBytesAsync: function (path) {
@@ -2498,28 +2498,31 @@
                             tcs.setResult(data);
                         });
                     } else {
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                        /* 
                         var req = new XMLHttpRequest();
-                        req.open("GET", path, true);
-                        req.overrideMimeType("text/plain; charset=binary-data");
-                        req.send(null);
+                        req.Open("GET", path, true);
+                        req.OverrideMimeType("text/plain; charset=binary-data");
+                        req.Send(null);
 
-                        req.onreadystatechange = function () {
-                            if (req.readyState !== 4) {
-                                return;
-                            }
+                        req.OnReadyStateChange = () => {
+                           if (req.ReadyState != 4)
+                           {
+                               return;
+                           }
 
-                            if (req.status !== 200) {
-                                throw new System.IO.IOException.$ctor1(System.String.format("Status of request to {0} returned status: {1}", path, Bridge.box(req.status, System.UInt16)));
-                            }
+                           if (req.Status != 200)
+                           {
+                               throw new IOException($"Status of request to {path} returned status: {req.Status}");
+                           }
 
-                            var text = req.responseText;
-                            var resultArray = new Uint8Array(text.length);
-                            System.String.toCharArray(text, 0, text.length).forEach(function (v, index, array) {
-                                    var $t;
-                                    return ($t = (v & 255) & 255, resultArray[index] = $t, $t);
-                                });
-                            tcs.setResult(resultArray.buffer);
+                           string text = req.ResponseText;
+                           var resultArray = new Uint8Array(text.Length);
+                           text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
+                           tcs.SetResult(resultArray.Buffer);
                         };
+                        */
                     }
 
                     return tcs.task;
@@ -2558,7 +2561,7 @@
             },
             Length: {
                 get: function () {
-                    return System.Int64(this.GetInternalBuffer().byteLength);
+                    return System.Int64(this.GetInternalBuffer().length);
                 }
             },
             Position: System.Int64(0)
@@ -2673,11 +2676,11 @@
                     return 0;
                 }
 
-                var byteBuffer = new Uint8Array(this.GetInternalBuffer());
+                var byteBuffer = this.GetInternalBuffer();
 
                 if (num.gt(System.Int64(8))) {
                     for (var n = 0; System.Int64(n).lt(num); n = (n + 1) | 0) {
-                        buffer[System.Array.index(((n + offset) | 0), buffer)] = byteBuffer[this.Position.add(System.Int64(n))];
+                        buffer[System.Array.index(((n + offset) | 0), buffer)] = byteBuffer[System.Array.index(System.Int64.clip32(this.Position.add(System.Int64(n))), byteBuffer)];
                     }
                 } else {
                     var num1 = num;
@@ -2690,7 +2693,7 @@
                             break;
                         }
 
-                        buffer[System.Array.index(System.Int64.toNumber(System.Int64(offset).add(num1)), buffer)] = byteBuffer[this.Position.add(num1)];
+                        buffer[System.Array.index(System.Int64.toNumber(System.Int64(offset).add(num1)), buffer)] = byteBuffer[System.Array.index(System.Int64.clip32(this.Position.add(num1)), byteBuffer)];
                     }
                 }
 
@@ -2698,6 +2701,16 @@
 
                 return System.Int64.clip32(num);
             }
+        }
+    });
+
+    Bridge.ns("System.IO.FileStream", $asm.$);
+
+    Bridge.apply($asm.$.System.IO.FileStream, {
+        f1: function () {
+            throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+            //completer.SetResult(new FileStream(fileReader.Result, file.Name));
         }
     });
 

@@ -19,15 +19,25 @@
                 },
                 getBytes$3: function (value) {
                     var view = System.BitConverter.view(2);
-                    view.setInt16(0, value);
 
-                    return System.BitConverter.getViewBytes(view);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                    /* 
+                    view.SetInt16(0, value);
+
+                    return GetViewBytes(view);
+                    */
                 },
                 getBytes$4: function (value) {
                     var view = System.BitConverter.view(4);
-                    view.setInt32(0, value);
 
-                    return System.BitConverter.getViewBytes(view);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                    /* 
+                    view.SetInt32(0, value);
+
+                    return GetViewBytes(view);
+                    */
                 },
                 getBytes$5: function (value) {
                     var view = System.BitConverter.getView(value);
@@ -36,15 +46,23 @@
                 },
                 getBytes$7: function (value) {
                     var view = System.BitConverter.view(2);
-                    view.setUint16(0, value);
 
-                    return System.BitConverter.getViewBytes(view);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    /* 
+                    view.SetUint16(0, value);
+
+                    return GetViewBytes(view);
+                    */
                 },
                 getBytes$8: function (value) {
                     var view = System.BitConverter.view(4);
-                    view.setUint32(0, value);
 
-                    return System.BitConverter.getViewBytes(view);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    /* 
+                    view.SetUint32(0, value);
+
+                    return GetViewBytes(view);
+                    */
                 },
                 getBytes$9: function (value) {
                     var view = System.BitConverter.getView(System.Int64.clip64(value));
@@ -53,9 +71,14 @@
                 },
                 getBytes$6: function (value) {
                     var view = System.BitConverter.view(4);
-                    view.setFloat32(0, value);
 
-                    return System.BitConverter.getViewBytes(view);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                    /* 
+                    view.SetFloat32(0, value);
+
+                    return GetViewBytes(view);
+                    */
                 },
                 getBytes$2: function (value) {
                     if (isNaN(value)) {
@@ -67,9 +90,14 @@
                     }
 
                     var view = System.BitConverter.view(8);
-                    view.setFloat64(0, value);
 
-                    return System.BitConverter.getViewBytes(view);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                    /* 
+                    view.SetFloat64(0, value);
+
+                    return GetViewBytes(view);
+                    */
                 },
                 toChar: function (value, startIndex) {
                     return ((System.BitConverter.toInt16(value, startIndex)) & 65535);
@@ -81,7 +109,8 @@
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    return view.getInt16(0);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    //return view.GetInt16(0);
                 },
                 toInt32: function (value, startIndex) {
                     System.BitConverter.checkArguments(value, startIndex, 4);
@@ -90,7 +119,8 @@
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    return view.getInt32(0);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    //return view.GetInt32(0);
                 },
                 toInt64: function (value, startIndex) {
                     System.BitConverter.checkArguments(value, startIndex, 8);
@@ -122,7 +152,8 @@
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    return view.getFloat32(0);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    //return view.GetFloat32(0);
                 },
                 toDouble: function (value, startIndex) {
                     System.BitConverter.checkArguments(value, startIndex, 8);
@@ -131,7 +162,8 @@
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    return view.getFloat64(0);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    //return view.GetFloat64(0);
                 },
                 toString$2: function (value, startIndex, length) {
                     if (value == null) {
@@ -195,14 +227,20 @@
                 },
                 doubleToInt64Bits: function (value) {
                     var view = System.BitConverter.view(8);
-                    view.setFloat64(0, value);
 
-                    return System.Int64([view.getInt32(4), view.getInt32(0)]);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                    /* 
+                    view.SetFloat64(0, value);
+
+                    return CreateLong(view.GetInt32(4), view.GetInt32(0));
+                    */
                 },
                 int64BitsToDouble: function (value) {
                     var view = System.BitConverter.getView(value);
 
-                    return view.getFloat64(0);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    //return view.GetFloat64(0);
                 },
                 getHexValue: function (i) {
                     if (i < 10) {
@@ -215,19 +253,27 @@
                     if (count === void 0) { count = -1; }
                     if (startIndex === void 0) { startIndex = 0; }
                     if (count === -1) {
-                        count = view.byteLength;
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                        //count = view.ByteLength;
                     }
 
                     var r = System.Array.init(count, 0, System.Byte);
 
                     if (System.BitConverter.isLittleEndian) {
-                        for (var i = (count - 1) | 0; i >= 0; i = (i - 1) | 0) {
-                            r[System.Array.index(i, r)] = view.getUint8(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
+                        /* 
+                        for (int i = count - 1; i >= 0; i--)
+                        {
+                           r[i] = view.GetUint8(startIndex++);
                         }
+                        */
                     } else {
-                        for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
-                            r[System.Array.index(i1, r)] = view.getUint8(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                        /* 
+                        for (int i = 0; i < count; i++)
+                        {
+                           r[i] = view.GetUint8(startIndex++);
                         }
+                        */
                     }
 
                     return r;
@@ -236,44 +282,64 @@
                     if (count === void 0) { count = -1; }
                     if (startIndex === void 0) { startIndex = 0; }
                     if (count === -1) {
-                        count = view.byteLength;
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                        //count = view.ByteLength;
                     }
 
                     if (System.BitConverter.isLittleEndian) {
-                        for (var i = (count - 1) | 0; i >= 0; i = (i - 1) | 0) {
-                            view.setUint8(i, value[System.Array.index(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
-                        }
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                        /* for (int i = count - 1; i >= 0; i--)
+                        {
+                           view.SetUint8(i, value[startIndex++]);
+                        }*/
                     } else {
-                        for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
-                            view.setUint8(i1, value[System.Array.index(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
+                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                        /* 
+                        for (int i = 0; i < count; i++)
+                        {
+                           view.SetUint8(i, value[startIndex++]);
                         }
+                        */
                     }
                 },
                 view: function (length) {
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+
+                    /* 
                     var buffer = new ArrayBuffer(length);
                     var view = new DataView(buffer);
 
                     return view;
+                    */
                 },
                 getView: function (value) {
-                    var view = System.BitConverter.view(8);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
 
-                    view.setInt32(4, value.value.low);
-                    view.setInt32(0, value.value.high);
+                    /* 
+                    var view = View(8);
+
+                    view.SetInt32(4, GetLongLow(value));
+                    view.SetInt32(0, GetLongHigh(value));
 
                     return view;
+                    */
                 },
                 getIsLittleEndian: function () {
-                    var view = System.BitConverter.view(2);
+                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
 
-                    view.setUint8(0, 170);
-                    view.setUint8(1, 187);
+                    /* 
+                    var view = View(2);
 
-                    if (view.getUint16(0) === 43707) {
-                        return true;
+                    view.SetUint8(0, 0xAA);
+                    view.SetUint8(1, 0xBB);
+
+                    if (view.GetUint16(0) == 0xAABB)
+                    {
+                       return true;
                     }
 
                     return false;
+                    */
                 },
                 checkArguments: function (value, startIndex, size) {
                     if (value == null) {
