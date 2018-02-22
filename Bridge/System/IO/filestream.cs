@@ -24,7 +24,7 @@ using System.Security.Permissions;
 using System.Threading;
 using System.Runtime.InteropServices;
 using Bridge;
-using Bridge.Internal.Html5;
+// using Bridge.Internal.Html5;
 using System.Threading.Tasks;
 
 /*
@@ -99,14 +99,17 @@ namespace System.IO
         {
             var completer = new System.Threading.Tasks.TaskCompletionSource<FileStream>();
             var fileReader = new FileReader();
+
             fileReader.OnLoad = () =>
             {
                 completer.SetResult(new FileStream(fileReader.Result, file.Name));
             };
+
             fileReader.OnError = (e) =>
             {
                 completer.SetException(new ErrorException(e.As<dynamic>().target.error.As<string>()));
             };
+
             fileReader.ReadAsArrayBuffer(file);
 
             return completer.Task;
@@ -238,6 +241,7 @@ namespace System.IO
             }
 
             var byteBuffer = new Uint8Array(this.GetInternalBuffer());
+
             if (num > 8)
             {
                 for (var n = 0; n < num; n++)
@@ -248,18 +252,23 @@ namespace System.IO
             else
             {
                 var num1 = num;
+
                 while (true)
                 {
                     var num2 = num1 - 1;
                     num1 = num2;
+
                     if (num2 < 0)
                     {
                         break;
                     }
+
                     buffer[offset + num1] = byteBuffer[(int)(this.Position + num1)];
                 }
             }
+
             this.Position += num;
+
             return (int)num;
         }
 
@@ -268,6 +277,7 @@ namespace System.IO
             if (Script.IsNode)
             {
                 var fs = Script.Write<dynamic>(@"require(""fs"")");
+
                 return ((ArrayBuffer)fs.readFileSync(path));
             }
             else
@@ -276,13 +286,16 @@ namespace System.IO
                 req.Open("GET", path, false);
                 req.OverrideMimeType("text/plain; charset=binary-data");
                 req.Send(null);
+
                 if (req.Status != 200)
                 {
                     throw new IOException($"Status of request to {path} returned status: {req.Status}");
                 }
+
                 string text = req.ResponseText;
                 var resultArray = new Uint8Array(text.Length);
                 text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
+
                 return resultArray.Buffer;
             }
         }
@@ -294,6 +307,7 @@ namespace System.IO
             if (Script.IsNode)
             {
                 var fs = Script.Write<dynamic>(@"require(""fs"")");
+
                 fs.readFile(path, new Action<object, ArrayBuffer>((err, data) => {
                     if(err != null)
                     {

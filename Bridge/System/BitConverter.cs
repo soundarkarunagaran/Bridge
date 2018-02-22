@@ -1,7 +1,8 @@
 ﻿namespace System
 {
     using Bridge;
-    using Bridge.Internal.Html5;
+    //using Bridge.Internal.Html5;
+
     /// <summary>
     /// Converts base data types to an array of bytes, and an array of bytes to base data types.
     /// </summary>

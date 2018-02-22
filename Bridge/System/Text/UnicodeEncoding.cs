@@ -1,5 +1,4 @@
 using Bridge;
-using Bridge.Internal.Html5;
 
 namespace System.Text
 {
