@@ -31009,12 +31009,15 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 FromFile: function (file) {
                     var completer = new System.Threading.Tasks.TaskCompletionSource();
                     var fileReader = new FileReader();
+
                     fileReader.onload = function () {
                         completer.setResult(new System.IO.FileStream.ctor(fileReader.result, file.name));
                     };
+
                     fileReader.onerror = function (e) {
                         completer.setException(new Bridge.ErrorException(Bridge.unbox(e).target.error.As()));
                     };
+
                     fileReader.readAsArrayBuffer(file);
 
                     return completer.task;
@@ -31022,21 +31025,25 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 ReadBytes: function (path) {
                     if (Bridge.isNode) {
                         var fs = require("fs");
+
                         return Bridge.cast(fs.readFileSync(path), ArrayBuffer);
                     } else {
                         var req = new XMLHttpRequest();
                         req.open("GET", path, false);
                         req.overrideMimeType("text/plain; charset=binary-data");
                         req.send(null);
+
                         if (req.status !== 200) {
                             throw new System.IO.IOException.$ctor1(System.String.format("Status of request to {0} returned status: {1}", path, Bridge.box(req.status, System.UInt16)));
                         }
+
                         var text = req.responseText;
                         var resultArray = new Uint8Array(text.length);
                         System.String.toCharArray(text, 0, text.length).forEach(function (v, index, array) {
                                 var $t;
                                 return ($t = (v & 255) & 255, resultArray[index] = $t, $t);
                             });
+
                         return resultArray.buffer;
                     }
                 },
@@ -31045,6 +31052,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     if (Bridge.isNode) {
                         var fs = require("fs");
+
                         fs.readFile(path, function (err, data) {
                             if (err != null) {
                                 throw new System.IO.IOException.ctor();
@@ -31229,22 +31237,28 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 var byteBuffer = new Uint8Array(this.GetInternalBuffer());
+
                 if (num.gt(System.Int64(8))) {
                     for (var n = 0; System.Int64(n).lt(num); n = (n + 1) | 0) {
                         buffer[System.Array.index(((n + offset) | 0), buffer)] = byteBuffer[this.Position.add(System.Int64(n))];
                     }
                 } else {
                     var num1 = num;
+
                     while (true) {
                         var num2 = num1.sub(System.Int64(1));
                         num1 = num2;
+
                         if (num2.lt(System.Int64(0))) {
                             break;
                         }
+
                         buffer[System.Array.index(System.Int64.toNumber(System.Int64(offset).add(num1)), buffer)] = byteBuffer[this.Position.add(num1)];
                     }
                 }
+
                 this.Position = this.Position.add(num);
+
                 return System.Int64.clip32(num);
             }
         }

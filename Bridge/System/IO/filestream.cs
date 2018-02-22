@@ -24,7 +24,7 @@ using System.Security.Permissions;
 using System.Threading;
 using System.Runtime.InteropServices;
 using Bridge;
-// using Bridge.Internal.Html5;
+using Bridge.Internal.Html5;
 using System.Threading.Tasks;
 
 /*
