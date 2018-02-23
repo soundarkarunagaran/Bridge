@@ -1,5 +1,4 @@
 ﻿using Bridge;
-using Bridge.Html5;
 
 //#960
 namespace TestIssue960

@@ -1,6 +1,4 @@
-﻿using Bridge.Html5;
-
-namespace TestIssue599
+﻿namespace TestIssue599
 {
     public class Issue599
     {

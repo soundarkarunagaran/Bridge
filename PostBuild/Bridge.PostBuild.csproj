@@ -50,7 +50,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="readme.md" />
   </ItemGroup>
   <!-- NuGet packaging starts -->
@@ -66,11 +65,6 @@
     <NuGetPackageSourcePath Include="$(SolutionDir).build\specs\Bridge.nuspec">
       <Path>$(SolutionDir).build\specs\Bridge.nuspec</Path>
     </NuGetPackageSourcePath>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Bridge.Html5, Version=17.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bridge.Html5.17.0.0\lib\net40\Bridge.Html5.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bridge\Bridge.csproj">
