@@ -52,6 +52,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Attributes\Convention.cs" />
+    <Compile Include="Attributes\ReadyAttribute.cs" />
     <Compile Include="Attributes\RulesAttribute.cs" />
     <Compile Include="System\AsyncCallback.cs" />
     <Compile Include="System\Attributes\CLSCompliantAttribute.cs" />
