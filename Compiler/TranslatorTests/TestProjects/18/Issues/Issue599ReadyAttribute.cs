@@ -4,7 +4,7 @@
     {
         private string _something = "HI!";
 
-        [Ready]
+        [Bridge.Ready]
         public static void Main1()
         {
             System.Console.WriteLine(new Issue599()._something);

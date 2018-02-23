@@ -9,8 +9,9 @@ namespace Test.BridgeIssues.N2747
     {
         public static void Output()
         {
-            var inputElement = new HTMLInputElement();
-            var file = ((FileL)inputElement.Files)[0d];
+            // TODO: Move to HTML5 tests
+            //var inputElement = new HTMLInputElement();
+            //var file = ((FileL)inputElement.Files)[0d];
         }
     }
 
