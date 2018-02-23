@@ -42,14 +42,9 @@
         public static byte[] GetBytes(short value)
         {
             var view = View(2);
-
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
-            view.SetInt16(0, value);
+            view.ToDynamic().setInt16(0, value);
 
             return GetViewBytes(view);
-            */
         }
 
         /// <summary>
@@ -60,14 +55,9 @@
         public static byte[] GetBytes(int value)
         {
             var view = View(4);
-
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
-            view.SetInt32(0, value);
+            view.ToDynamic().setInt32(0, value);
 
             return GetViewBytes(view);
-            */
         }
 
         /// <summary>
@@ -90,13 +80,9 @@
         public static byte[] GetBytes(ushort value)
         {
             var view = View(2);
-
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            /*
-            view.SetUint16(0, value);
+            view.ToDynamic().setUint16(0, value);
 
             return GetViewBytes(view);
-            */
         }
 
         /// <summary>
@@ -107,13 +93,9 @@
         public static byte[] GetBytes(uint value)
         {
             var view = View(4);
-
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            /*
-            view.SetUint32(0, value);
+            view.ToDynamic().setUint32(0, value);
 
             return GetViewBytes(view);
-            */
         }
 
         /// <summary>
@@ -136,14 +118,9 @@
         public static byte[] GetBytes(float value)
         {
             var view = View(4);
-
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
-            view.SetFloat32(0, value);
+            view.ToDynamic().setFloat32(0, value);
 
             return GetViewBytes(view);
-            */
         }
 
         /// <summary>
@@ -166,14 +143,9 @@
             }
 
             var view = View(8);
-
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
-            view.SetFloat64(0, value);
+            view.ToDynamic().setFloat64(0, value);
 
             return GetViewBytes(view);
-            */
         }
 
         /// <summary>
@@ -201,8 +173,7 @@
 
             SetViewBytes(view, value, startIndex: startIndex);
 
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            //return view.GetInt16(0);
+            return view.ToDynamic().getInt16(0);
         }
 
         /// <summary>
@@ -219,8 +190,7 @@
 
             SetViewBytes(view, value, startIndex: startIndex);
 
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            //return view.GetInt32(0);
+            return view.ToDynamic().getInt32(0);
         }
 
         /// <summary>
@@ -294,8 +264,7 @@
 
             SetViewBytes(view, value, startIndex: startIndex);
 
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            //return view.GetFloat32(0);
+            return view.ToDynamic().getFloat32(0);
         }
 
         /// <summary>
@@ -312,8 +281,7 @@
 
             SetViewBytes(view, value, startIndex: startIndex);
 
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            //return view.GetFloat64(0);
+            return view.ToDynamic().getFloat64(0);
         }
 
         /// <summary>
@@ -361,6 +329,7 @@
             char[] chArray = new char[chArrayLength];
             int i = 0;
             int index = startIndex;
+
             for (i = 0; i < chArrayLength; i += 3)
             {
                 byte b = value[index++];
@@ -424,15 +393,10 @@
         /// <returns>A 64-bit signed integer whose value is equivalent to value.</returns>
         public static long DoubleToInt64Bits(double value)
         {
-            var view = View(8);
+            var view = View(8).ToDynamic();
+            view.setFloat64(0, value);
 
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
-            view.SetFloat64(0, value);
-
-            return CreateLong(view.GetInt32(4), view.GetInt32(0));
-            */
+            return Bridge.Script.Write<dynamic>("[view.getInt32(4), view.getInt32(0)]");
         }
 
         /// <summary>
@@ -444,8 +408,7 @@
         {
             var view = GetView(value);
 
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-            //return view.GetFloat64(0);
+            return view.ToDynamic().getFloat64(0);
         }
 
         private static char GetHexValue(int i)
@@ -462,30 +425,24 @@
         {
             if (count == -1)
             {
-                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                //count = view.ByteLength;
+                count = view.ToDynamic().byteLength;
             }
 
             var r = new byte[count];
 
             if (IsLittleEndian)
             {
-                /*
                 for (int i = count - 1; i >= 0; i--)
                 {
-                    r[i] = view.GetUint8(startIndex++);
+                    Bridge.Script.Write("r[System.Array.index(i, r)] = view.getUint8(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)));");
                 }
-                */
             }
             else
             {
-                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                /*
                 for (int i = 0; i < count; i++)
                 {
-                    r[i] = view.GetUint8(startIndex++);
+                    Bridge.Script.Write("r[System.Array.index(i1, r)] = view.getUint8(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)));");
                 }
-                */
             }
 
             return r;
@@ -495,73 +452,57 @@
         {
             if (count == -1)
             {
-                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                //count = view.ByteLength;
+                count = view.ToDynamic().byteLength;
             }
 
             if (IsLittleEndian)
             {
-                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                /*for (int i = count - 1; i >= 0; i--)
+                for (int i = count - 1; i >= 0; i--)
                 {
-                    view.SetUint8(i, value[startIndex++]);
-                }*/
+                    Bridge.Script.Write("view.setUint8(i, value[System.Array.index(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);");
+                }
             }
             else
             {
-                throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                /*
                 for (int i = 0; i < count; i++)
                 {
-                    view.SetUint8(i, value[startIndex++]);
+                    Bridge.Script.Write("view.setUint8(i1, value[System.Array.index(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);");
                 }
-                */
             }
         }
 
         private static object View(int length)
         {
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
-            var buffer = new ArrayBuffer(length);
-            var view = new DataView(buffer);
+            var buffer = Bridge.Script.Write<dynamic>("new ArrayBuffer(length)");
+            var view = Bridge.Script.Write<dynamic>("new DataView(buffer)");
 
             return view;
-            */
         }
 
         private static object GetView(long value)
         {
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
             var view = View(8);
 
-            view.SetInt32(4, GetLongLow(value));
-            view.SetInt32(0, GetLongHigh(value));
+            Bridge.Script.Write("view.setInt32(4, value.value.low);");
+            Bridge.Script.Write("view.setInt32(0, value.value.high);");
 
             return view;
-            */
         }
 
         private static bool GetIsLittleEndian()
         {
-            throw new NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            /*
             var view = View(2);
 
-            view.SetUint8(0, 0xAA);
-            view.SetUint8(1, 0xBB);
+            /*@
+            view.setUint8(0, 170);
+            view.setUint8(1, 187);
 
-            if (view.GetUint16(0) == 0xAABB)
-            {
+            if (view.getUint16(0) === 43707) {
                 return true;
             }
+            */
 
             return false;
-            */
         }
 
         private static void CheckArguments(byte[] value, int startIndex, int size)

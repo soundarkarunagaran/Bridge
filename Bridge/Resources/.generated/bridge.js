@@ -31009,13 +31009,12 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 FromFile: function (file) {
                     var completer = new System.Threading.Tasks.TaskCompletionSource();
                     var fileReader = new FileReader();
-
-                    fileReader.onload = $asm.$.System.IO.FileStream.f1;
-
+                    fileReader.onload = function () {
+                        completer.setResult(new System.IO.FileStream.ctor(fileReader.result, file.name));
+                    };
                     fileReader.onerror = function (e) {
                         completer.setException(new Bridge.ErrorException(Bridge.unbox(e).target.error.As()));
                     };
-
                     fileReader.readAsArrayBuffer(file);
 
                     return completer.task;
@@ -31023,28 +31022,23 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 ReadBytes: function (path) {
                     if (Bridge.isNode) {
                         var fs = require("fs");
-
-                        return Bridge.cast(fs.readFileSync(path), System.Array.type(System.Byte));
+                        return Bridge.cast(fs.readFileSync(path), ArrayBuffer);
                     } else {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                        /* 
                         var req = new XMLHttpRequest();
-                        req.Open("GET", path, false);
-                        req.OverrideMimeType("text/plain; charset=binary-data");
-                        req.Send(null);
-
-                        if (req.Status != 200)
-                        {
-                           throw new IOException($"Status of request to {path} returned status: {req.Status}");
+                        req.open("GET", path, false);
+                        req.overrideMimeType("text/plain; charset=binary-data");
+                        req.send(null);
+                        if (req.status !== 200) {
+                            throw new System.IO.IOException.$ctor1(System.String.concat("Status of request to " + (path || "") + " returned status: ", req.status));
                         }
 
-                        string text = req.ResponseText;
-                        var resultArray = new Uint8Array(text.Length);
-                        text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
-
-                        return resultArray.Buffer;
-                        */
+                        var text = req.responseText;
+                        var resultArray = new Uint8Array(text.length);
+                        System.String.toCharArray(text, 0, text.length).forEach(function (v, index, array) {
+                                var $t;
+                                return ($t = (v & 255) & 255, resultArray[index] = $t, $t);
+                            });
+                        return resultArray.buffer;
                     }
                 },
                 ReadBytesAsync: function (path) {
@@ -31052,7 +31046,6 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     if (Bridge.isNode) {
                         var fs = require("fs");
-
                         fs.readFile(path, function (err, data) {
                             if (err != null) {
                                 throw new System.IO.IOException.ctor();
@@ -31061,31 +31054,28 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                             tcs.setResult(data);
                         });
                     } else {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                        /* 
                         var req = new XMLHttpRequest();
-                        req.Open("GET", path, true);
-                        req.OverrideMimeType("text/plain; charset=binary-data");
-                        req.Send(null);
+                        req.open("GET", path, true);
+                        req.overrideMimeType("text/plain; charset=binary-data");
+                        req.send(null);
 
-                        req.OnReadyStateChange = () => {
-                           if (req.ReadyState != 4)
-                           {
-                               return;
-                           }
+                        req.onreadystatechange = function () {
+                        if (req.readyState !== 4) {
+                            return;
+                        }
 
-                           if (req.Status != 200)
-                           {
-                               throw new IOException($"Status of request to {path} returned status: {req.Status}");
-                           }
+                        if (req.status !== 200) {
+                            throw new System.IO.IOException.$ctor1(System.String.concat("Status of request to " + (path || "") + " returned status: ", req.status));
+                        }
 
-                           string text = req.ResponseText;
-                           var resultArray = new Uint8Array(text.Length);
-                           text.ToCharArray().ForEach((v, index, array) => resultArray[index] = (byte)(v & byte.MaxValue));
-                           tcs.SetResult(resultArray.Buffer);
+                        var text = req.responseText;
+                        var resultArray = new Uint8Array(text.length);
+                        System.String.toCharArray(text, 0, text.length).forEach(function (v, index, array) {
+                                var $t;
+                                return ($t = (v & 255) & 255, resultArray[index] = $t, $t);
+                            });
+                        tcs.setResult(resultArray.buffer);
                         };
-                        */
                     }
 
                     return tcs.task;
@@ -31124,7 +31114,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             },
             Length: {
                 get: function () {
-                    return System.Int64(this.GetInternalBuffer().length);
+                    return System.Int64(this.GetInternalBuffer().byteLength);
                 }
             },
             Position: System.Int64(0)
@@ -31239,41 +31229,25 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return 0;
                 }
 
-                var byteBuffer = this.GetInternalBuffer();
-
+                var byteBuffer = new Uint8Array(this.GetInternalBuffer());
                 if (num.gt(System.Int64(8))) {
                     for (var n = 0; System.Int64(n).lt(num); n = (n + 1) | 0) {
-                        buffer[System.Array.index(((n + offset) | 0), buffer)] = byteBuffer[System.Array.index(System.Int64.clip32(this.Position.add(System.Int64(n))), byteBuffer)];
+                        buffer[System.Array.index(((n + offset) | 0), buffer)] = byteBuffer[this.Position.add(System.Int64(n))];
                     }
                 } else {
                     var num1 = num;
-
                     while (true) {
                         var num2 = num1.sub(System.Int64(1));
                         num1 = num2;
-
                         if (num2.lt(System.Int64(0))) {
                             break;
                         }
-
-                        buffer[System.Array.index(System.Int64.toNumber(System.Int64(offset).add(num1)), buffer)] = byteBuffer[System.Array.index(System.Int64.clip32(this.Position.add(num1)), byteBuffer)];
+                        buffer[System.Array.index(System.Int64.toNumber(System.Int64(offset).add(num1)), buffer)] = byteBuffer[this.Position.add(num1)];
                     }
                 }
-
                 this.Position = this.Position.add(num);
-
                 return System.Int64.clip32(num);
             }
-        }
-    });
-
-    Bridge.ns("System.IO.FileStream", $asm.$);
-
-    Bridge.apply($asm.$.System.IO.FileStream, {
-        f1: function () {
-            throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-            //completer.SetResult(new FileStream(fileReader.Result, file.Name));
         }
     });
 
@@ -33237,25 +33211,15 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 },
                 getBytes$3: function (value) {
                     var view = System.BitConverter.view(2);
+                    view.setInt16(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                    /* 
-                    view.SetInt16(0, value);
-
-                    return GetViewBytes(view);
-                    */
+                    return System.BitConverter.getViewBytes(view);
                 },
                 getBytes$4: function (value) {
                     var view = System.BitConverter.view(4);
+                    view.setInt32(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                    /* 
-                    view.SetInt32(0, value);
-
-                    return GetViewBytes(view);
-                    */
+                    return System.BitConverter.getViewBytes(view);
                 },
                 getBytes$5: function (value) {
                     var view = System.BitConverter.getView(value);
@@ -33264,23 +33228,15 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 },
                 getBytes$7: function (value) {
                     var view = System.BitConverter.view(2);
+                    view.setUint16(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    /* 
-                    view.SetUint16(0, value);
-
-                    return GetViewBytes(view);
-                    */
+                    return System.BitConverter.getViewBytes(view);
                 },
                 getBytes$8: function (value) {
                     var view = System.BitConverter.view(4);
+                    view.setUint32(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    /* 
-                    view.SetUint32(0, value);
-
-                    return GetViewBytes(view);
-                    */
+                    return System.BitConverter.getViewBytes(view);
                 },
                 getBytes$9: function (value) {
                     var view = System.BitConverter.getView(System.Int64.clip64(value));
@@ -33289,14 +33245,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 },
                 getBytes$6: function (value) {
                     var view = System.BitConverter.view(4);
+                    view.setFloat32(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                    /* 
-                    view.SetFloat32(0, value);
-
-                    return GetViewBytes(view);
-                    */
+                    return System.BitConverter.getViewBytes(view);
                 },
                 getBytes$2: function (value) {
                     if (isNaN(value)) {
@@ -33308,14 +33259,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
 
                     var view = System.BitConverter.view(8);
+                    view.setFloat64(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                    /* 
-                    view.SetFloat64(0, value);
-
-                    return GetViewBytes(view);
-                    */
+                    return System.BitConverter.getViewBytes(view);
                 },
                 toChar: function (value, startIndex) {
                     return ((System.BitConverter.toInt16(value, startIndex)) & 65535);
@@ -33327,8 +33273,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    //return view.GetInt16(0);
+                    return view.getInt16(0);
                 },
                 toInt32: function (value, startIndex) {
                     System.BitConverter.checkArguments(value, startIndex, 4);
@@ -33337,8 +33282,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    //return view.GetInt32(0);
+                    return view.getInt32(0);
                 },
                 toInt64: function (value, startIndex) {
                     System.BitConverter.checkArguments(value, startIndex, 8);
@@ -33370,8 +33314,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    //return view.GetFloat32(0);
+                    return view.getFloat32(0);
                 },
                 toDouble: function (value, startIndex) {
                     System.BitConverter.checkArguments(value, startIndex, 8);
@@ -33380,8 +33323,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                     System.BitConverter.setViewBytes(view, value, -1, startIndex);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    //return view.GetFloat64(0);
+                    return view.getFloat64(0);
                 },
                 toString$2: function (value, startIndex, length) {
                     if (value == null) {
@@ -33414,6 +33356,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     var chArray = System.Array.init(chArrayLength, 0, System.Char);
                     var i = 0;
                     var index = startIndex;
+
                     for (i = 0; i < chArrayLength; i = (i + 3) | 0) {
                         var b = value[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), value)];
                         chArray[System.Array.index(i, chArray)] = System.BitConverter.getHexValue(((Bridge.Int.div(b, 16)) | 0));
@@ -33445,20 +33388,14 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 },
                 doubleToInt64Bits: function (value) {
                     var view = System.BitConverter.view(8);
+                    view.setFloat64(0, value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                    /* 
-                    view.SetFloat64(0, value);
-
-                    return CreateLong(view.GetInt32(4), view.GetInt32(0));
-                    */
+                    return System.Int64([view.getInt32(4), view.getInt32(0)]);
                 },
                 int64BitsToDouble: function (value) {
                     var view = System.BitConverter.getView(value);
 
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                    //return view.GetFloat64(0);
+                    return view.getFloat64(0);
                 },
                 getHexValue: function (i) {
                     if (i < 10) {
@@ -33471,27 +33408,19 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     if (count === void 0) { count = -1; }
                     if (startIndex === void 0) { startIndex = 0; }
                     if (count === -1) {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                        //count = view.ByteLength;
+                        count = view.byteLength;
                     }
 
                     var r = System.Array.init(count, 0, System.Byte);
 
                     if (System.BitConverter.isLittleEndian) {
-                        /* 
-                        for (int i = count - 1; i >= 0; i--)
-                        {
-                           r[i] = view.GetUint8(startIndex++);
+                        for (var i = (count - 1) | 0; i >= 0; i = (i - 1) | 0) {
+                            r[System.Array.index(i, r)] = view.getUint8(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
                         }
-                        */
                     } else {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                        /* 
-                        for (int i = 0; i < count; i++)
-                        {
-                           r[i] = view.GetUint8(startIndex++);
+                        for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
+                            r[System.Array.index(i1, r)] = view.getUint8(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)));
                         }
-                        */
                     }
 
                     return r;
@@ -33500,64 +33429,44 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     if (count === void 0) { count = -1; }
                     if (startIndex === void 0) { startIndex = 0; }
                     if (count === -1) {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                        //count = view.ByteLength;
+                        count = view.byteLength;
                     }
 
                     if (System.BitConverter.isLittleEndian) {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                        /* for (int i = count - 1; i >= 0; i--)
-                        {
-                           view.SetUint8(i, value[startIndex++]);
-                        }*/
-                    } else {
-                        throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-                        /* 
-                        for (int i = 0; i < count; i++)
-                        {
-                           view.SetUint8(i, value[startIndex++]);
+                        for (var i = (count - 1) | 0; i >= 0; i = (i - 1) | 0) {
+                            view.setUint8(i, value[System.Array.index(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
                         }
-                        */
+                    } else {
+                        for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
+                            view.setUint8(i1, value[System.Array.index(Bridge.identity(startIndex, (startIndex = (startIndex + 1) | 0)), value)]);
+                        }
                     }
                 },
                 view: function (length) {
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
-
-                    /* 
                     var buffer = new ArrayBuffer(length);
                     var view = new DataView(buffer);
 
                     return view;
-                    */
                 },
                 getView: function (value) {
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    var view = System.BitConverter.view(8);
 
-                    /* 
-                    var view = View(8);
-
-                    view.SetInt32(4, GetLongLow(value));
-                    view.SetInt32(0, GetLongHigh(value));
+                    view.setInt32(4, value.value.low);
+                    view.setInt32(0, value.value.high);
 
                     return view;
-                    */
                 },
                 getIsLittleEndian: function () {
-                    throw new System.NotImplementedException("Removed Bridge.Html5 dependency from Bridge.");
+                    var view = System.BitConverter.view(2);
 
-                    /* 
-                    var view = View(2);
+                    view.setUint8(0, 170);
+                    view.setUint8(1, 187);
 
-                    view.SetUint8(0, 0xAA);
-                    view.SetUint8(1, 0xBB);
-
-                    if (view.GetUint16(0) == 0xAABB)
-                    {
-                       return true;
+                    if (view.getUint16(0) === 43707) {
+                        return true;
                     }
 
                     return false;
-                    */
                 },
                 checkArguments: function (value, startIndex, size) {
                     if (value == null) {
