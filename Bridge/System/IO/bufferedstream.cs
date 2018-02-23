@@ -61,7 +61,6 @@ namespace System.IO
     /// actual specified buffer size.
     /// </summary>
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public sealed class BufferedStream : Stream
     {

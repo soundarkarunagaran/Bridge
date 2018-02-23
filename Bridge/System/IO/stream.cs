@@ -30,7 +30,6 @@ using System.Reflection;
 namespace System.IO
 {
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public abstract class Stream : IDisposable
     {

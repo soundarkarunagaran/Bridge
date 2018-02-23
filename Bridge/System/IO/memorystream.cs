@@ -36,7 +36,6 @@ namespace System.IO
     // memory streams are resizable, while ones created with a byte array provide
     // a stream "view" of the data.
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class MemoryStream : Stream
     {

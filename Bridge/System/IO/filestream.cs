@@ -72,7 +72,6 @@ namespace System.IO
     }
 
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class FileStream : Stream
     {

@@ -25,7 +25,6 @@ using System.Diagnostics.Contracts;
 
 namespace System.IO
 {
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     internal static class __Error
     {

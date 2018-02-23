@@ -8,7 +8,6 @@ namespace System.IO
     /// Provides seek reference points.  To seek to the end of a stream, call stream.Seek(0, SeekOrigin.End).
     /// </summary>
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public enum SeekOrigin
     {

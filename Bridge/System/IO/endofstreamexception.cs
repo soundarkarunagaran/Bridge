@@ -24,7 +24,6 @@ using System.Runtime.Serialization;
 namespace System.IO
 {
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class EndOfStreamException : IOException
     {

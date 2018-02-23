@@ -4,7 +4,6 @@ namespace System.Text
     /// Represents a character encoding.
     /// </summary>
     [Bridge.Reflectable]
-    [Bridge.FileName("system/text/encoding.js")]
     [Bridge.Convention]
     public abstract class Encoding : Bridge.IBridgeClass
     {

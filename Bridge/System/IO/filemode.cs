@@ -27,7 +27,6 @@ using System.Diagnostics.Contracts;
 namespace System.IO
 {
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public enum FileMode
     {

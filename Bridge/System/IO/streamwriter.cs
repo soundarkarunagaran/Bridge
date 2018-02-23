@@ -31,7 +31,6 @@ namespace System.IO
     // whereas the Stream class is designed for byte input and output.
     //
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class StreamWriter : TextWriter
     {

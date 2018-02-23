@@ -10,7 +10,6 @@ using System.Text;
 namespace System.IO
 {
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     abstract internal class Iterator<TSource> : IEnumerable<TSource>, IEnumerator<TSource>
     {
@@ -95,7 +94,6 @@ namespace System.IO
     //    reader (Dev10 Bugs 904764).
     //
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     internal class ReadLinesIterator : Iterator<string>
     {

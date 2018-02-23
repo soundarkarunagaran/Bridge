@@ -39,7 +39,6 @@ namespace System.IO
     // This class is intended for character output, not bytes.
     // There are methods on the Stream class for writing bytes.
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public abstract class TextWriter : IDisposable
     {

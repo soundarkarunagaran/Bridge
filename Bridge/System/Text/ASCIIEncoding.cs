@@ -1,7 +1,6 @@
 namespace System.Text
 {
     [Bridge.Reflectable]
-    [Bridge.FileName("system/text/encoding.js")]
     [Bridge.Convention]
     public class ASCIIEncoding : Encoding
     {

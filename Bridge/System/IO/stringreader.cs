@@ -26,7 +26,6 @@ namespace System.IO
     // This class implements a text reader that reads from a string.
     //
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class StringReader : TextReader
     {

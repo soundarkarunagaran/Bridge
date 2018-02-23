@@ -32,7 +32,6 @@ namespace System.IO
     // give unique encodings.
     //
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class BinaryWriter : IDisposable
     {

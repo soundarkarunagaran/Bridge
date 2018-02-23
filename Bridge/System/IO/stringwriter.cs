@@ -29,7 +29,6 @@ namespace System.IO
     // the resulting sequence of characters to be presented as a string.
     //
     [Bridge.Reflectable]
-    [Bridge.FileName("system/io/io.js")]
     [Bridge.Convention]
     public class StringWriter : TextWriter
     {

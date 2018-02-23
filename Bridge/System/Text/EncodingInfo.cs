@@ -4,7 +4,6 @@ namespace System.Text
     /// Provides basic information about an encoding.
     /// </summary>
     [Bridge.Reflectable]
-    [Bridge.FileName("system/text/encoding.js")]
     [Bridge.Convention]
     public sealed class EncodingInfo
     {
