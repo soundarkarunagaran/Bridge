@@ -116,6 +116,24 @@ namespace Bridge.Translator
                     result.Add("td", new JRaw(MetadataUtils.GetTypeName(type.DeclaringType, emitter, false)));
                 }
 
+                var nestedTypes = type.GetNestedTypes(null, GetMemberOptions.IgnoreInheritedMembers);
+                if (nestedTypes != null && nestedTypes.Any())
+                {
+                    var array = new JArray();
+                    foreach (var nestedType in nestedTypes)
+                    {                        
+                        if (!emitter.Validator.IsExternalType(nestedType.GetDefinition()) && emitter.BridgeTypes.Get(nestedType, true) != null)
+                        {
+                            array.Add(new JRaw(MetadataUtils.GetTypeName(nestedType, emitter, false, true)));
+                        }                        
+                    }
+
+                    if (array.Count > 0)
+                    {
+                        result.Add("nested", array);
+                    }                    
+                }
+
                 if (cecilType != null)
                 {
                     result.Add("att", (int)cecilType.Attributes);
@@ -970,7 +988,7 @@ namespace Bridge.Translator
             {
                 return JS.Types.System.Object.NAME;
             }
-
+            
             var name = BridgeTypes.ToJsName(type, emitter, asDefinition, excludeTypeOnly: true);
 
             if (cache && emitter.NamespacesCache != null && name.StartsWith(type.Namespace + "."))

@@ -4205,6 +4205,41 @@ Bridge.Reflection = {
 
         isValueType: function (type) {
             return !Bridge.Reflection.canAcceptNull(type);
+        },
+
+        getNestedTypes: function (type, flags) {
+            var types = Bridge.Reflection.getMetaValue(type, "nested", []);
+
+            if (flags) {
+                var tmp = [];
+                for (var i = 0; i < types.length; i++) {
+                    var nestedType = types[i],
+                        attrs = Bridge.Reflection.getMetaValue(nestedType, "att", 0),
+                        access = attrs & 7,
+                        isPublic = access === 1 || access === 2;
+
+                    if ((flags & 16) === 16 && isPublic ||
+                        (flags & 32) === 32 && !isPublic) {
+                        tmp.push(nestedType);
+                    }
+                }
+
+                types = tmp;
+            }
+
+            return types;
+        },
+
+        getNestedType: function (type, name, flags) {
+            var types = Bridge.Reflection.getNestedTypes(type, flags);
+
+            for (var i = 0; i < types.length; i++) {
+                if (Bridge.Reflection.getTypeName(types[i]) === name) {
+                    return types[i];
+                }
+            }
+
+            return null;
         }
     };
 
