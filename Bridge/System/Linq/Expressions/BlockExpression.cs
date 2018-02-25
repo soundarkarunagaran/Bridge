@@ -7,7 +7,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 47")]
     public sealed class BlockExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern ReadOnlyCollection<Expression> Expressions { get; private set; }
 
         public extern ReadOnlyCollection<ParameterExpression> Variables

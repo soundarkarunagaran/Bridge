@@ -7,13 +7,13 @@ namespace System.Collections.Generic
     {
         public extern KeyValuePair(TKey key, TValue value);
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern TKey Key
         {
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern TValue Value
         {
             get;

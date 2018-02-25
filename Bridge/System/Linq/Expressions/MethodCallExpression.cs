@@ -8,7 +8,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 6")]
     public sealed class MethodCallExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern MethodInfo Method { get; private set; }
 
         [Bridge.Name("obj")]

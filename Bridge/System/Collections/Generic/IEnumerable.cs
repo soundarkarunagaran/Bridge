@@ -2,7 +2,7 @@ namespace System.Collections.Generic
 {
     [Bridge.External]
     [Bridge.Reflectable]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface IEnumerable<out T> : IEnumerable, Bridge.IBridgeClass
     {
         [Bridge.Template("Bridge.getEnumerator({this}, {T})")]

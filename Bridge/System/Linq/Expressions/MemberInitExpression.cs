@@ -7,10 +7,10 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 24")]
     public sealed class MemberInitExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern NewExpression NewExpression { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern ReadOnlyCollection<MemberBinding> Bindings { get; private set; }
 
         internal extern MemberInitExpression();

@@ -13,7 +13,7 @@ namespace System.Reflection
             private set;
         }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern bool IsInitOnly
         {
             [Bridge.Template("({this}.ro || false)")]

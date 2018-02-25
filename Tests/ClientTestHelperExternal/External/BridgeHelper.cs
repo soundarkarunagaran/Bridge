@@ -5,7 +5,7 @@
     [Name("Bridge")]
     public class BridgeHelper
     {
-        [Convention(Notation.LowerCamelCase)]
+        [Convention(Notation.CamelCase)]
         public static extern T Merge<T>(object o1, object o2);
     }
 #pragma warning restore 626

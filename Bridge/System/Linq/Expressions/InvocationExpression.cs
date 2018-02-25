@@ -7,7 +7,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 17")]
     public sealed class InvocationExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern Expression Expression { get; private set; }
 
         [Bridge.Name("args")]

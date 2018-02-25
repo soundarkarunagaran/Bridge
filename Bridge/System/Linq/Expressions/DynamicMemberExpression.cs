@@ -5,7 +5,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype == 50 && {this}.dtype === 0")]
     public sealed class DynamicMemberExpression : DynamicExpression
     {
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern string Member { get; private set; }
 
         internal extern DynamicMemberExpression();

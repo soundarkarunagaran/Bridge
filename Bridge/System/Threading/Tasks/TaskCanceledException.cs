@@ -14,7 +14,7 @@ namespace System.Threading.Tasks
         [Bridge.Template("new System.Threading.Tasks.TaskCanceledException({message}, null, {innerException})")]
         public extern TaskCanceledException(string message, Exception innerException);
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern Task Task
         {
             get;

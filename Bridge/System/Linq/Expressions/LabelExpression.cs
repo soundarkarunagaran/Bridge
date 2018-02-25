@@ -8,7 +8,7 @@ namespace System.Linq.Expressions
         [Bridge.Name("dv")]
         public extern Expression DefaultValue { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern LabelTarget Target { get; private set; }
 
         internal extern LabelExpression();

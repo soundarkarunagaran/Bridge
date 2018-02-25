@@ -45,7 +45,7 @@ namespace System.Globalization
         /// <summary>
         /// Gets or sets a DateTimeFormatInfo that defines the culturally appropriate format of displaying dates and times.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern DateTimeFormatInfo DateTimeFormat
         {
             get;
@@ -55,7 +55,7 @@ namespace System.Globalization
         /// <summary>
         /// Gets the CultureInfo object that is culture-independent (invariant).
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public static extern CultureInfo InvariantCulture
         {
             get;
@@ -64,7 +64,7 @@ namespace System.Globalization
         /// <summary>
         /// Gets the culture name in the format languagecode2-country/regioncode2.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern string Name
         {
             get;
@@ -73,7 +73,7 @@ namespace System.Globalization
         /// <summary>
         /// Gets the culture name in the format languagefull [country/regionfull] in English.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern string EnglishName
         {
             get;
@@ -83,7 +83,7 @@ namespace System.Globalization
         /// <summary>
         /// Gets the culture name, consisting of the language, the country/region, and the optional script, that the culture is set to display.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern string NativeName
         {
             get;
@@ -93,7 +93,7 @@ namespace System.Globalization
         /// <summary>
         /// Gets or sets a NumberFormatInfo that defines the culturally appropriate format of displaying numbers, currency, and percentage.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public NumberFormatInfo NumberFormat
         {
             get;

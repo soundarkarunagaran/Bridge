@@ -58,10 +58,10 @@ namespace System.IO
     {
         public extern FileReader();
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern void ReadAsArrayBuffer(object file);
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public readonly string Result;
 
         [Bridge.Convention(Bridge.Notation.LowerCase)]

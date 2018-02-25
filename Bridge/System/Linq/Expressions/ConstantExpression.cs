@@ -5,7 +5,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 9")]
     public sealed class ConstantExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern object Value { get; private set; }
 
         internal extern ConstantExpression();

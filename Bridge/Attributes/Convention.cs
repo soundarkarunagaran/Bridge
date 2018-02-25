@@ -143,7 +143,7 @@ namespace Bridge
         None = 0,
         LowerCase = 1,
         UpperCase = 2,
-        LowerCamelCase = 3,
+        CamelCase = 3,
         UpperCamelCase = 4
     }
 }

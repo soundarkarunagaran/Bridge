@@ -4,7 +4,7 @@ namespace System.Linq
 {
     [Bridge.External]
     [Bridge.IgnoreGeneric]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface IGrouping<out TKey, out TElement> : IEnumerable<TElement>
     {
         TKey Key

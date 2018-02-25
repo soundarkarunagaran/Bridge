@@ -25,7 +25,7 @@ namespace System.Reflection
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern bool IsIndexer
         {
             [Bridge.Template("({this}.i || false)")]

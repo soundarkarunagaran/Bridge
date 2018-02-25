@@ -2,7 +2,7 @@ namespace System.Collections.Generic
 {
     [Bridge.External]
     [Bridge.Reflectable]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface IReadOnlyCollection<T> : IEnumerable<T>
     {
         int Count
@@ -14,7 +14,7 @@ namespace System.Collections.Generic
 
     [Bridge.External]
     [Bridge.Reflectable]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface IReadOnlyList<T> : IReadOnlyCollection<T>
     {
         T this[int index]

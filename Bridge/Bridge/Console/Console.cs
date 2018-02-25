@@ -8,7 +8,7 @@ namespace Bridge.Utils
     /// Outputs log messages into a formatted div element on the page
     /// </summary>
     [Namespace("Bridge")]
-    [Convention(Target = ConventionTarget.Member, Notation = Notation.LowerCamelCase)]
+    [Convention(Target = ConventionTarget.Member, Notation = Notation.CamelCase)]
     public class Console
     {
         #region HTML Wrappers to avoid dynamic

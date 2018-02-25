@@ -7,7 +7,7 @@ namespace System.Collections.Generic
     /// </summary>
     [Bridge.External]
     [Bridge.Reflectable]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface ISet<T> : ICollection<T>
     {
         // Add ITEM to the set, return true if added, false if duplicate

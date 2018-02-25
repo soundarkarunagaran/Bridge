@@ -5,7 +5,7 @@ namespace System.Collections
     /// by index.
     /// </summary>
     [Bridge.External]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Reflectable]
     public interface IList : ICollection, IEnumerable
     {

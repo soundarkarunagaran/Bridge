@@ -11,10 +11,10 @@ namespace System.Linq.Expressions
         [Bridge.Name("obj")]
         public extern Expression Object { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern PropertyInfo Indexer { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         internal extern IndexExpression();

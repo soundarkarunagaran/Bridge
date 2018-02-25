@@ -1,7 +1,7 @@
 namespace System
 {
     [Bridge.External]
-    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.LowerCamelCase)]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface IConvertible : Bridge.IBridgeClass
     {
         TypeCode GetTypeCode();

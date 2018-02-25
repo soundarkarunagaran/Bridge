@@ -306,7 +306,7 @@ namespace System
         [Bridge.Template("System.Array.type({this}, {rank})")]
         public extern Type MakeArrayType(int rank);
 
-        [Bridge.Convention(Bridge.Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern object Prototype { get; }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
