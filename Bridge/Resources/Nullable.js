@@ -64,7 +64,7 @@
         },
 
         toStringFn: function (fn) {
-            return function(v) {
+            return function (v) {
                 return System.Nullable.toString(v, fn);
             };
         },
@@ -226,7 +226,7 @@
                     return null;
                 },
 
-                $is: function(obj) {
+                $is: function (obj) {
                     return Bridge.is(obj, T);
                 }
             }

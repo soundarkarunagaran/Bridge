@@ -57,7 +57,7 @@ namespace System.Linq
         public extern EnumerableInstance<TResult> CascadeDepthFirst<TResult>(Func<TElement, IEnumerable<TElement>> func,
             Func<TElement, int, TResult> resultSelector);
 
-        [Bridge.Template("{this}.select(function(x) {{ return Bridge.cast(x, {TResult}); }})")]
+        [Bridge.Template("{this}.select(function (x) {{ return Bridge.cast(x, {TResult}); }})")]
         public extern EnumerableInstance<TResult> Cast<TResult>();
 
         public extern EnumerableInstance<TElement> CatchError(Action<Exception> action);

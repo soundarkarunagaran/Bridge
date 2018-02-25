@@ -144,10 +144,10 @@
                         var search = l.search;
 
                         if (!System.String.isNullOrEmpty(search) && search.length > 1) {
-                            var query = System.String.split(search.substr(1), [38].map(function(i) {{ return String.fromCharCode(i); }}));
+                            var query = System.String.split(search.substr(1), [38].map(function (i) {{ return String.fromCharCode(i); }}));
 
                             for (var i = 0; i < query.length; i = (i + 1) | 0) {
-                                var param = System.String.split(query[System.Array.index(i, query)], [61].map(function(i) {{ return String.fromCharCode(i); }}));
+                                var param = System.String.split(query[System.Array.index(i, query)], [61].map(function (i) {{ return String.fromCharCode(i); }}));
 
                                 for (var j = 0; j < param.length; j = (j + 1) | 0) {
                                     args.add(param[System.Array.index(j, param)]);

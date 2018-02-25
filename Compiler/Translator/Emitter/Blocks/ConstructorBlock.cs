@@ -740,7 +740,7 @@ namespace Bridge.Translator
                     name = BridgeTypes.ToJsName(baseType, this.Emitter);
                 }
 
-                if(!isObjectLiteral && isBaseObjectLiteral)
+                if (!isObjectLiteral && isBaseObjectLiteral)
                 {
                     this.Write(JS.Types.Bridge.COPY_PROPERTIES);
                     this.WriteOpenParentheses();

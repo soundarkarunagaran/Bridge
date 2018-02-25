@@ -244,11 +244,11 @@ namespace Bridge.Translator
 
             for (int i = 0; i < this.AwaitExpressions.Length; i++)
             {
-                if(this.AwaitExpressions[i] is Expression)
+                if (this.AwaitExpressions[i] is Expression)
                 {
                     this.Emitter.AsyncVariables.Add(JS.Vars.ASYNC_TASK + (i + 1));
 
-                    if(this.IsTaskResult((Expression)this.AwaitExpressions[i]))
+                    if (this.IsTaskResult((Expression)this.AwaitExpressions[i]))
                     {
                         this.Emitter.AsyncVariables.Add(JS.Vars.ASYNC_TASK_RESULT + (i + 1));
                     }

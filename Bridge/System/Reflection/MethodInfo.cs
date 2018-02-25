@@ -25,7 +25,7 @@ namespace System.Reflection
         /// <param name="attributeType">The type of attribute to search for. Only attributes that are assignable to this type are returned. </param>
         /// <param name="inherit">Ignored for members. Base members will never be considered.</param>
         /// <returns>An array that contains all the custom attributes applied to this member, or an array with zero elements if no attributes are defined.</returns>
-        [Bridge.Template("({this}.rta || []).filter(function(a) { return Bridge.is(a, {attributeType}); })")]
+        [Bridge.Template("({this}.rta || []).filter(function (a) { return Bridge.is(a, {attributeType}); })")]
         public extern object[] GetReturnTypeCustomAttributes(Type attributeType, bool inherit);
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace System.Reflection
         /// </summary>
         /// <param name="attributeType">The type of attribute to search for. Only attributes that are assignable to this type are returned. </param>
         /// <returns>An array that contains all the custom attributes applied to this member, or an array with zero elements if no attributes are defined.</returns>
-        [Bridge.Template("({this}.rta || []).filter(function(a) { return Bridge.is(a, {attributeType}); })")]
+        [Bridge.Template("({this}.rta || []).filter(function (a) { return Bridge.is(a, {attributeType}); })")]
         public extern object[] GetReturnTypeCustomAttributes(Type attributeType);
 
         [Bridge.Template("Bridge.Reflection.midel({this})")]

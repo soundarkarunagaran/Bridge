@@ -66,7 +66,7 @@ namespace Bridge.Contract
                     assemblyRules[i] = Rules.ToRule(assemblyAttrs[i], CompilerRuleLevel.Assembly);
                 }
 
-                if(emitter != null)
+                if (emitter != null)
                 {
                     emitter.AssemblyCompilerRuleCache.Add(assembly, assemblyRules);
                 }
@@ -89,7 +89,7 @@ namespace Bridge.Contract
                 rules.AddRange(interfaceRules);
             }
 
-            if(emitter != null)
+            if (emitter != null)
             {
                 rules.Add(emitter.AssemblyInfo.Rules);
             }

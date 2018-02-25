@@ -606,7 +606,7 @@ namespace Bridge.Translator
                 }
                 else if (key == "this" || key == argsInfo.ThisName || (key == "0" && argsInfo.IsExtensionMethod))
                 {
-                    if(modifier == CS.Methods.GETHASHCODE || modifier == CS.Methods.TOSTRING)
+                    if (modifier == CS.Methods.GETHASHCODE || modifier == CS.Methods.TOSTRING)
                     {
                         AstNode node = null;
                         if (argsInfo.ThisArgument is AstNode)

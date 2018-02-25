@@ -1019,7 +1019,7 @@ namespace Bridge.Contract
                 name = this.GetOverloadName(this.Member, skipInterfaceName, prefix, withoutTypeParams, isObjectLiteral, excludeTypeOnly);
                 this.overloadName[key] = name;
             }
-            else if(contains)
+            else if (contains)
             {
                 name = this.overloadName[key];
             }

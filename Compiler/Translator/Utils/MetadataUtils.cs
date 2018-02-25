@@ -551,7 +551,7 @@ namespace Bridge.Translator
                         inline = inline.Substring(6);
                     }
 
-                    if(!method.IsStatic && !isSelf && !inline.Contains("{this}"))
+                    if (!method.IsStatic && !isSelf && !inline.Contains("{this}"))
                     {
                         inline = "this." + inline;
                     }

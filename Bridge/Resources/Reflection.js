@@ -104,6 +104,7 @@ Bridge.Reflection = {
             if (t) {
                 fn.td = t;
             }
+
             return fn;
         },
 
@@ -143,7 +144,7 @@ Bridge.Reflection = {
             return type.$genericTypeDefinition != null || Bridge.Reflection.isGenericTypeDefinition(type);
         },
 
-        convertType: function(type) {
+        convertType: function (type) {
             if (type === Boolean) {
                 return System.Boolean;
             }
@@ -178,8 +179,7 @@ Bridge.Reflection = {
                         ownValue = p.constructor;
                         delete p.constructor;
                         return Bridge.Reflection.convertType(p.constructor);
-                    }
-                    finally {
+                    } finally {
                         p.constructor = ownValue;
                     }
                 }
@@ -214,6 +214,7 @@ Bridge.Reflection = {
 
             if (obj.constructor === Object) {
                 str = obj.toString();
+
                 var match = (/\[object (.{1,})\]/).exec(str);
                 var name = (match && match.length > 1) ? match[1] : "Object";
 
@@ -300,7 +301,7 @@ Bridge.Reflection = {
                 rank = -1;
 
             if (new RegExp(/[\+\`]/).test(name)) {
-                name = name.replace(/\+|\`/g, function(match) { return match === "+" ? "." : "$"});
+                name = name.replace(/\+|\`/g, function (match) { return match === "+" ? "." : "$"});
             }
 
             if (!asm) {
@@ -661,6 +662,7 @@ Bridge.Reflection = {
 
                                 if (!Bridge.is(args[k], p) || args[k] == null && !Bridge.Reflection.canAcceptNull(p)) {
                                     found = false;
+
                                     break;
                                 }
                             }
@@ -831,7 +833,7 @@ Bridge.Reflection = {
             return result;
         },
 
-        createDelegate: function(mi, firstArgument) {
+        createDelegate: function (mi, firstArgument) {
             var isStatic = mi.is || mi.sm,
                 bind = firstArgument != null && !isStatic,
                 method = Bridge.Reflection.midel(mi, firstArgument, null, bind);
@@ -840,6 +842,7 @@ Bridge.Reflection = {
                 if (isStatic) {
                     return function () {
                         var args = firstArgument != null ? [firstArgument] : [];
+
                         return method.apply(mi.td, args.concat(Array.prototype.slice.call(arguments, 0)));
                     };
                 } else {

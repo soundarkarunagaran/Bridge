@@ -14,6 +14,7 @@
                 this.array = null;
                 this.offset = 0;
                 this.count = 0;
+
                 return;
             }
 
@@ -39,8 +40,7 @@
                 }
 
                 this.count = count;
-            }
-            else {
+            } else {
                 this.count = array.length;
             }
 

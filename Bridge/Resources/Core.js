@@ -70,7 +70,7 @@
                 v: v,
                 type: T,
                 constructor: T,
-                getHashCode: function() {
+                getHashCode: function () {
                     return this.fn.getHashCode ? this.fn.getHashCode(this.v) : Bridge.getHashCode(this.v);
                 },
                 equals: function (o) {
@@ -82,9 +82,10 @@
                     this.equals = null;
                     var r = Bridge.equals(this.v, o);
                     this.equals = eq;
+
                     return r;
                 },
-                valueOf: function() {
+                valueOf: function () {
                     return this.v;
                 },
                 toString: function () {
@@ -96,6 +97,7 @@
         unbox: function (o, noclone) {
             if (o && o.$boxed) {
                 var v = o.v;
+
                 if (!noclone && v && v.$clone) {
                     v = v.$clone();
                 }
@@ -113,8 +115,7 @@
                         if (item.$clone) {
                             item = item.$clone();
                         }
-                    }
-                    else if (!noclone && item && item.$clone) {
+                    } else if (!noclone && item && item.$clone) {
                         item = item.$clone();
                     }
 
@@ -140,9 +141,11 @@
                 var old = Bridge.Class.staticInitAllow;
                 type = isClass ? Bridge.define(name) : Bridge.definei(name);
                 Bridge.Class.staticInitAllow = true;
+
                 if (type.$staticInit) {
                     type.$staticInit();
                 }
+
                 Bridge.Class.staticInitAllow = old;
             }
 
@@ -160,10 +163,11 @@
 
         literal: function (type, obj) {
             obj.$getType = function () { return type };
+
             return obj;
         },
 
-        isJSObject: function(value) {
+        isJSObject: function (value) {
             return Object.prototype.toString.call(value) === '[object Object]';
         },
 
@@ -238,6 +242,7 @@
                             o = value;
                         }
                     }
+
                     o[n] = value;
                 }
             });
@@ -257,6 +262,7 @@
 
             for (var j = 0; j < descriptors.length; j++) {
                 var d = descriptors[j];
+
                 if (d.name === name) {
                     var aliasCfg = {},
                         aliasName = "$" + Bridge.getTypeAlias(d.cls) + "$" + name;
@@ -268,6 +274,7 @@
                     if (d.set) {
                         aliasCfg.set = d.set;
                     }
+
                     Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
                 }
             }
@@ -295,6 +302,7 @@
                 var backingField = Bridge.getTypeAlias(cls) + "$" + name;
 
                 cls.$init = cls.$init || {};
+
                 if (statics) {
                     cls.$init[backingField] = v;
                 }
@@ -302,6 +310,7 @@
                 (function (cfg, scope, backingField, v) {
                     cfg.get = function () {
                         var o = this.$init[backingField];
+
                         return o === undefined ? v : o;
                     };
 
@@ -687,22 +696,26 @@
             if (type.$isArray) {
                 var elementName = Bridge.getTypeAlias(type.$elementType);
                 alias = elementName + "$Array" + (type.$rank > 1 ? ("$" + type.$rank) : "");
+
                 if (type.$$name) {
                     type.$$alias = alias;
                 } else {
                     Bridge.$$aliasCache[type] = alias;
                 }
+
                 return alias;
             }
 
             var name = obj.$$name || Bridge.getTypeName(obj);
 
             alias = name.replace(/[\.\(\)\,\+]/g, "$");
+
             if (type.$$name) {
                 type.$$alias = alias;
             } else {
                 Bridge.$$aliasCache[type] = alias;
             }
+
             return alias;
         },
 
@@ -730,7 +743,7 @@
             return true;
         },
 
-        isObject: function(type) {
+        isObject: function (type) {
             return type === Object || type === System.Object;
         },
 
@@ -752,8 +765,7 @@
             if (obj.$boxed) {
                 if (obj.type.$kind === "enum" && (obj.type.prototype.$utype === type || type === System.Enum || type === System.IFormattable || type === System.IComparable)) {
                     return true;
-                }
-                else if (type.$kind !== "interface" && !type.$nullable) {
+                } else if (type.$kind !== "interface" && !type.$nullable) {
                     return obj.type === type || Bridge.isObject(type);
                 }
 
@@ -769,12 +781,14 @@
             }
 
             var ctor = obj.constructor === Object && obj.$getType ? obj.$getType() : Bridge.Reflection.convertType(obj.constructor);
+
             if (type.constructor === Function && obj instanceof type || ctor === type || Bridge.isObject(type)) {
                 return true;
             }
 
             var hasObjKind = ctor.$kind || ctor.$$inherits,
                 hasTypeKind = type.$kind;
+
             if (hasObjKind || hasTypeKind) {
                 var isInterface = type.$isInterface;
 
@@ -957,10 +971,12 @@
                         value = from[key];
 
                         var descriptor = null;
+
                         if (descriptors) {
                             for (var i = descriptors.length - 1; i >= 0; i--) {
                                 if (descriptors[i].name === key) {
                                     descriptor = descriptors[i];
+
                                     break;
                                 }
                             }
@@ -985,6 +1001,7 @@
 
                             if (typeof to[setter1] === "function" && typeof value !== "function") {
                                 getter = "g" + setter1.slice(1);
+
                                 if (typeof to[getter] === "function") {
                                     to[setter1](Bridge.merge(to[getter](), value));
                                 } else {
@@ -992,6 +1009,7 @@
                                 }
                             } else if (typeof to[setter2] === "function" && typeof value !== "function") {
                                 getter = "g" + setter2.slice(1);
+
                                 if (typeof to[getter] === "function") {
                                     to[setter2](Bridge.merge(to[getter](), value));
                                 } else {
@@ -1023,6 +1041,7 @@
                     if (callback) {
                         callback.call(to, to);
                     }
+
                     return from;
                 }
             }
@@ -1092,7 +1111,7 @@
         },
 
         getProperty: function (obj, propertyName) {
-            if(Bridge.isHtmlAttributeCollection(obj) && !this.isValidHtmlAttributeName(propertyName)) {
+            if (Bridge.isHtmlAttributeCollection(obj) && !this.isValidHtmlAttributeName(propertyName)) {
                 return undefined;
             }
 
@@ -1107,6 +1126,7 @@
             }
 
             var r = /^[a-zA-Z_][\w\-]*$/;
+
             return r.test(name);
         },
 
@@ -1218,6 +1238,7 @@
             }
 
             var guardItem = Bridge.$equalsGuard[Bridge.$equalsGuard.length - 1];
+
             if (guardItem && guardItem.a === a && guardItem.b === b) {
                 return a === b;
             }
@@ -1268,6 +1289,7 @@
 
             var result = fn(a, b);
             Bridge.$equalsGuard.pop();
+
             return result;
         },
 
@@ -1339,18 +1361,23 @@
             if (a < b) {
                 return -1;
             }
+
             if (a > b) {
                 return 1;
             }
+
             if (a == b) {
                 return 0;
             }
+
             if (!isNaN(a)) {
                 return 1;
             }
+
             if (!isNaN(b)) {
                 return -1;
             }
+
             return 0;
         },
 
@@ -1523,6 +1550,7 @@
             }
 
             var result = null;
+
             try {
                 result = instance.constructor;
             } catch (ex) {
@@ -1682,6 +1710,7 @@
                         Bridge.caller.unshift(this);
 
                         var result = null;
+
                         try {
                             result = method.apply(obj, arguments);
                         } finally {
@@ -1708,9 +1737,11 @@
                                 callArgs.push.apply(callArgs, args);
                             }
                         }
+
                         Bridge.caller.unshift(this);
 
                         var result = null;
+
                         try {
                             result = method.apply(obj, callArgs);
                         } finally {
@@ -1742,6 +1773,7 @@
                     Bridge.caller.unshift(this);
 
                     var result = null;
+
                     try {
                         result = method.apply(obj, callArgs);
                     } finally {
@@ -1799,7 +1831,7 @@
                     throw new System.ArgumentNullException();
                 }
 
-                if(!fn.$invocationList) {
+                if (!fn.$invocationList) {
                     fn.$invocationList = [fn];
                 }
 
@@ -1815,7 +1847,8 @@
                     list2 = fn2.$invocationList ? fn2.$invocationList : [fn2],
                     result = [],
                     exclude,
-                    i, j;
+                    i,
+                    j;
 
                 for (j = 0; j < list2.length; j++) {
                     exclude = -1;
@@ -1824,6 +1857,7 @@
                         if (list1[i] === list2[j] ||
                             ((list1[i].$method && (list1[i].$method === list2[j].$method)) && (list1[i].$scope && (list1[i].$scope === list2[j].$scope)))) {
                             exclude = i;
+
                             break;
                         }
                     }
@@ -1874,8 +1908,9 @@
                 fn = Bridge.global[fnName || "require"];
 
             if (amd && amd.length > 0) {
-                fn(amd, function() {
+                fn(amd, function () {
                     var loads = Array.prototype.slice.call(arguments, 0);
+
                     if (cjs && cjs.length > 0) {
                         for (var i = 0; i < cjs.length; i++) {
                             loads.push(fn(cjs[i]));
@@ -1890,15 +1925,18 @@
                 t.status = System.Threading.Tasks.TaskStatus.ranToCompletion;
 
                 var loads = [];
+
                 for (var j = 0; j < cjs.length; j++) {
                     loads.push(fn(cjs[j]));
                 }
 
                 callback.apply(Bridge.global, loads);
+
                 return t;
             } else {
                 var t = new System.Threading.Tasks.Task();
                 t.status = System.Threading.Tasks.TaskStatus.ranToCompletion;
+
                 return t;
             }
 

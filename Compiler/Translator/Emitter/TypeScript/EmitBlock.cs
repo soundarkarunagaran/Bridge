@@ -106,7 +106,7 @@ namespace Bridge.Translator.TypeScript
 
                 if (ns != null)
                 {
-                    if(module == null || module.Type == ModuleType.UMD)
+                    if (module == null || module.Type == ModuleType.UMD)
                     {
                         output.Append("declare ");
                     }

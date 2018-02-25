@@ -823,7 +823,7 @@ namespace Bridge.Translator
                             "(",
                             isBase ? "this, " : "",
                             paramsStr,
-                            "){0})"));
+                            ") {0})"));
 
                         this.RemoveTempVar(targetVar);
                     }
@@ -852,7 +852,7 @@ namespace Bridge.Translator
                             "(",
                             isBase ? "this, " : "",
                             paramsStr,
-                            "){0})"));
+                            ") {0})"));
                     }
                 }
                 else
@@ -1286,7 +1286,7 @@ namespace Bridge.Translator
                             targetVar,
                             ".get([",
                             paramsStr,
-                            "]){0})"), () =>
+                            "]) {0})"), () =>
                             {
                                 this.RemoveTempVar(targetVar);
                             });
@@ -1313,7 +1313,7 @@ namespace Bridge.Translator
                             trg,
                             ".get([",
                             paramsStr,
-                            "]){0})"));
+                            "]) {0})"));
                     }
                 }
                 else

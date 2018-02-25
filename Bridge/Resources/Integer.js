@@ -672,8 +672,7 @@
 
                                 throw new System.FormatException(errMsg);
                             }
-                        }
-                        else {
+                        } else {
                             if (safe) {
                                 return false;
                             }

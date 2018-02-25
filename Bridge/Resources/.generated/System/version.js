@@ -50,7 +50,7 @@
                         return false;
                     }
 
-                    var parsedComponents = System.String.split(version, [System.Version.separatorsArray].map(function(i) {{ return String.fromCharCode(i); }}));
+                    var parsedComponents = System.String.split(version, [System.Version.separatorsArray].map(function (i) {{ return String.fromCharCode(i); }}));
                     var parsedComponentsLength = parsedComponents.length;
 
                     if ((parsedComponentsLength < 2) || (parsedComponentsLength > 4)) {

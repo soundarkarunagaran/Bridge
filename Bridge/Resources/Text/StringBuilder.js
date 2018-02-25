@@ -241,11 +241,11 @@
             }
         },
 
-        clearString: function() {
+        clearString: function () {
             this.$str = null;
         },
 
-        getString: function() {
+        getString: function () {
             if (!this.$str) {
                 this.$str = this.buffer.join("");
                 this.buffer = [];
@@ -265,7 +265,7 @@
             return str.charCodeAt(index);
         },
 
-        setChar: function(index, value) {
+        setChar: function (index, value) {
             var str = this.getString();
 
             if (index < 0 || index >= str.length) {

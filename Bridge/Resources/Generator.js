@@ -14,7 +14,7 @@
         }
     });
 
-    Bridge.define("Bridge.GeneratorEnumerable$1", function(T)
+    Bridge.define("Bridge.GeneratorEnumerable$1", function (T)
     {
         return {
             inherits: [System.Collections.Generic.IEnumerable$1(T)],
@@ -25,7 +25,7 @@
                 ]
             },
 
-            ctor: function(action) {
+            ctor: function (action) {
                 this.$initialize();
                 this.getEnumerator = action;
                 this["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"] = action;

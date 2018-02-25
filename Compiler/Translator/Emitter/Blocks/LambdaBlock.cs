@@ -234,7 +234,7 @@ namespace Bridge.Translator
             var noLiftingRule = this.Emitter.Rules.Lambda == LambdaRule.Plain;
             CaptureAnalyzer analyzer = null;
 
-            if(!noLiftingRule)
+            if (!noLiftingRule)
             {
                 analyzer = new CaptureAnalyzer(this.Emitter);
                 analyzer.Analyze(this.Body, this.Parameters.Select(p => p.Name));

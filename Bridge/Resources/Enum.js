@@ -19,6 +19,7 @@
 
         getUnderlyingType: function (type) {
             System.Enum.checkEnumType(type);
+
             return type.prototype.$utype || System.Int32;
         },
 
@@ -91,8 +92,8 @@
             return null;
         },
 
-        toStringFn: function(type) {
-            return function(value) {
+        toStringFn: function (type) {
+            return function (value) {
                 return System.Enum.toString(type, value);
             };
         },

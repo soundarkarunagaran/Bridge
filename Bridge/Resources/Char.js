@@ -166,7 +166,7 @@
                 return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
             },
 
-            getHashCode: function(v) {
+            getHashCode: function (v) {
                 return v | (v << 16);
             }
         }

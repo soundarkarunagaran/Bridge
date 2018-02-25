@@ -45,7 +45,7 @@ namespace System.Text
             var setO = Escape("!\"#$%&*;<=>@[]^_`{|}");
             var setW = Escape(" \r\n\t");
 
-            s = Bridge.Script.Write<string>("s.replace(new RegExp(\"[^\" + setW + setD + (this.allowOptionals ? setO : \"\") + \"]+\", 'g'), function(chunk) {return '+' + (chunk === '+' ? '' : encode(chunk)) + '-';})");
+            s = Bridge.Script.Write<string>("s.replace(new RegExp(\"[^\" + setW + setD + (this.allowOptionals ? setO : \"\") + \"]+\", 'g'), function (chunk) {return '+' + (chunk === '+' ? '' : encode(chunk)) + '-';})");
 
             var arr = s.ToCharArray();
 

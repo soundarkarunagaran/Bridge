@@ -494,7 +494,7 @@ namespace System
         /// </summary>
         /// <param name="separator">A character array that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
         /// <returns>An array whose elements contain the substrings from this instance that are delimited by one or more characters in separator. For more information, see the Remarks section.</returns>
-        [Bridge.Template("System.String.split({this}, {separator:array}.map(function(i) {{ return String.fromCharCode(i); }}))")]
+        [Bridge.Template("System.String.split({this}, {separator:array}.map(function (i) {{ return String.fromCharCode(i); }}))")]
         public extern string[] Split(params char[] separator);
 
         /// <summary>
@@ -503,7 +503,7 @@ namespace System
         /// <param name="separator">A character array that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
         /// <param name="count">The maximum number of substrings to return.</param>
         /// <returns>An array whose elements contain the substrings in this instance that are delimited by one or more characters in separator. For more information, see the Remarks section.</returns>
-        [Bridge.Template("System.String.split({this}, {separator}.map(function(i) {{ return String.fromCharCode(i); }}), {count})")]
+        [Bridge.Template("System.String.split({this}, {separator}.map(function (i) {{ return String.fromCharCode(i); }}), {count})")]
         public extern string[] Split(char[] separator, int count);
 
         /// <summary>
@@ -513,7 +513,7 @@ namespace System
         /// <param name="count">The maximum number of substrings to return.</param>
         /// <param name="options">StringSplitOptions.RemoveEmptyEntries to omit empty array elements from the array returned; or StringSplitOptions.None to include empty array elements in the array returned.</param>
         /// <returns>An array whose elements contain the substrings in this string that are delimited by one or more characters in separator. For more information, see the Remarks section.</returns>
-        [Bridge.Template("System.String.split({this}, {separator}.map(function(i) {{ return String.fromCharCode(i); }}), {count}, {options})")]
+        [Bridge.Template("System.String.split({this}, {separator}.map(function (i) {{ return String.fromCharCode(i); }}), {count}, {options})")]
         public extern string[] Split(char[] separator, int count, StringSplitOptions options);
 
         /// <summary>
@@ -522,7 +522,7 @@ namespace System
         /// <param name="separator">A character array that delimits the substrings in this string, an empty array that contains no delimiters, or null.</param>
         /// <param name="options">StringSplitOptions.RemoveEmptyEntries to omit empty array elements from the array returned; or StringSplitOptions.None to include empty array elements in the array returned.</param>
         /// <returns>An array whose elements contain the substrings in this string that are delimited by one or more characters in separator. For more information, see the Remarks section.</returns>
-        [Bridge.Template("System.String.split({this}, {separator}.map(function(i) {{ return String.fromCharCode(i); }}), null, {options})")]
+        [Bridge.Template("System.String.split({this}, {separator}.map(function (i) {{ return String.fromCharCode(i); }}), null, {options})")]
         public extern string[] Split(char[] separator, StringSplitOptions options);
 
         /// <summary>

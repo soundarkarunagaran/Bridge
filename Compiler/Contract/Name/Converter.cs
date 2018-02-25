@@ -653,7 +653,7 @@ namespace Bridge.Contract
 
                 interfaceRules = NameConvertor.GetVirtualMemberRules(semantic);
             }
-            else if(semantic.Entity is ITypeDefinition)
+            else if (semantic.Entity is ITypeDefinition)
             {
                 classRules = NameConvertor.GetClassRules(semantic, (ITypeDefinition)semantic.Entity);
             }
@@ -680,7 +680,7 @@ namespace Bridge.Contract
 
             var rules = new List<NameRule>();
 
-            if(memberRule != null)
+            if (memberRule != null)
             {
                 rules.Add(memberRule);
             }

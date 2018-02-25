@@ -372,16 +372,16 @@ namespace System.Linq.Expressions
         [Bridge.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern MethodCallExpression ArrayIndex(Expression array, params Expression[] indexes);
 
-        [Bridge.Template("{ ntype: 6, t: {type}, obj: {array}, method: { t: 8, td: System.Array.type({type}, {indexes:array}.length), n: \"Get\", rt: {type}, p: System.Array.init({indexes:array}.length, System.Int32, {type}, true), def: function() { return System.Array.$get.call(this, arguments); } }, args: Bridge.toList({indexes:array}) }")]
+        [Bridge.Template("{ ntype: 6, t: {type}, obj: {array}, method: { t: 8, td: System.Array.type({type}, {indexes:array}.length), n: \"Get\", rt: {type}, p: System.Array.init({indexes:array}.length, System.Int32, {type}, true), def: function () { return System.Array.$get.call(this, arguments); } }, args: Bridge.toList({indexes:array}) }")]
         public static extern MethodCallExpression ArrayIndex(Type type, Expression array, params Expression[] indexes);
 
-        [Bridge.Template("(function(a, b, c) { return { ntype: 6, t: a, obj: b, method: { t: 8, td: System.Array.type({type}, c.Count), n: \"Get\", rt: a, p: System.Array.init(c.Count, System.Int32, {type}, true), def: function() { return System.Array.$get.call(this, arguments); } }, args: c }; })({type}, {array}, Bridge.toList({indexes}))")]
+        [Bridge.Template("(function (a, b, c) { return { ntype: 6, t: a, obj: b, method: { t: 8, td: System.Array.type({type}, c.Count), n: \"Get\", rt: a, p: System.Array.init(c.Count, System.Int32, {type}, true), def: function () { return System.Array.$get.call(this, arguments); } }, args: c }; })({type}, {array}, Bridge.toList({indexes}))")]
         public static extern MethodCallExpression ArrayIndex(Type type, Expression array, IEnumerable<Expression> indexes);
 
         [Bridge.Template("{ ntype: 47, t: {expressions:array}[{expressions:array}.length - 1].t, expressions: Bridge.toList({expressions:array}) }")]
         public static extern BlockExpression Block(params Expression[] expressions);
 
-        [Bridge.Template("(function(a) { return { ntype: 47, t: a.getItem(a.Count - 1).t, expressions: a }; })(Bridge.toList({expressions}))")]
+        [Bridge.Template("(function (a) { return { ntype: 47, t: a.getItem(a.Count - 1).t, expressions: a }; })(Bridge.toList({expressions}))")]
         public static extern BlockExpression Block(IEnumerable<Expression> expressions);
 
         [Bridge.Template("{ ntype: 47, t: {type}, expressions: Bridge.toList({expressions:array}) }")]
@@ -393,7 +393,7 @@ namespace System.Linq.Expressions
         [Bridge.Template("{ ntype: 47, t: {expressions:array}[{expressions:array}.length - 1].t, variables: Bridge.toList({variables}), expressions: Bridge.toList({expressions:array}) }")]
         public static extern BlockExpression Block(IEnumerable<ParameterExpression> variables, params Expression[] expressions);
 
-        [Bridge.Template("(function(a, b) { return { ntype: 47, t: b.getItem(b.Count - 1).t, variables: a, expressions: b }; })(Bridge.toList({variables}), Bridge.toList({expressions}))")]
+        [Bridge.Template("(function (a, b) { return { ntype: 47, t: b.getItem(b.Count - 1).t, variables: a, expressions: b }; })(Bridge.toList({variables}), Bridge.toList({expressions}))")]
         public static extern BlockExpression Block(IEnumerable<ParameterExpression> variables, IEnumerable<Expression> expressions);
 
         [Bridge.Template("{ ntype: 47, t: {type}, variables: Bridge.toList({variables}), expressions: Bridge.toList({expressions:array}) }")]
@@ -405,7 +405,7 @@ namespace System.Linq.Expressions
         [Bridge.Template("{ ntype: 47, t: {expressions:array}[{expressions:array}.length - 1].t, variables: Bridge.toList({variables}), expressions: Bridge.toList({expressions:array}) }")]
         public static extern BlockExpression Block(ParameterExpression[] variables, params Expression[] expressions);
 
-        [Bridge.Template("(function(a, b) { return { ntype: 47, t: b.getItem(b.Count - 1).t, variables: a, expressions: b }; })(Bridge.toList({variables}), Bridge.toList({expressions}))")]
+        [Bridge.Template("(function (a, b) { return { ntype: 47, t: b.getItem(b.Count - 1).t, variables: a, expressions: b }; })(Bridge.toList({variables}), Bridge.toList({expressions}))")]
         public static extern BlockExpression Block(ParameterExpression[] variables, IEnumerable<Expression> expressions);
 
         [Bridge.Template("{ ntype: 47, t: {type}, variables: Bridge.toList({variables}), expressions: Bridge.toList({expressions:array}) }")]
@@ -605,10 +605,10 @@ namespace System.Linq.Expressions
 
         //public static ListInitExpression ListInit(NewExpression newExpression, params Expression[] initializers) { return null; }
         //public static ListInitExpression ListInit(NewExpression newExpression, IEnumerable<Expression> initializers) { return null; }
-        [Bridge.Template("{ ntype: 22, t: {newExpression}.t, newExpression: {newExpression}, initializers: Bridge.toList({initializers:array}.map(function(i) { return { addMethod: {addMethod}, arguments: Bridge.toList([i]) }; })) }")]
+        [Bridge.Template("{ ntype: 22, t: {newExpression}.t, newExpression: {newExpression}, initializers: Bridge.toList({initializers:array}.map(function (i) { return { addMethod: {addMethod}, arguments: Bridge.toList([i]) }; })) }")]
         public static extern ListInitExpression ListInit(NewExpression newExpression, MethodInfo addMethod, params Expression[] initializers);
 
-        [Bridge.Template("{ ntype: 22, t: {newExpression}.t, newExpression: {newExpression}, initializers: Bridge.toList(Bridge.toArray({initializers}).map(function(i) { return { addMethod: {addMethod}, arguments: Bridge.toList([i]) }; })) }")]
+        [Bridge.Template("{ ntype: 22, t: {newExpression}.t, newExpression: {newExpression}, initializers: Bridge.toList(Bridge.toArray({initializers}).map(function (i) { return { addMethod: {addMethod}, arguments: Bridge.toList([i]) }; })) }")]
         public static extern ListInitExpression ListInit(NewExpression newExpression, MethodInfo addMethod, IEnumerable<Expression> initializers);
 
         [Bridge.Template("{ ntype: 22, t: {newExpression}.t, newExpression: {newExpression}, initializers: Bridge.toList({initializers:array}) }")]
@@ -710,7 +710,7 @@ namespace System.Linq.Expressions
         [Bridge.Template("{ ntype: 33, t: System.Array.type({type}, {bounds:array}.length), expressions: Bridge.toList({bounds:array}) }")]
         public static extern NewArrayExpression NewArrayBounds(Type type, params Expression[] bounds);
 
-        [Bridge.Template("(function(l) { return { ntype: 33, t: System.Array.type({type}, l.Count), expressions: l };})(Bridge.toList({bounds}))")]
+        [Bridge.Template("(function (l) { return { ntype: 33, t: System.Array.type({type}, l.Count), expressions: l };})(Bridge.toList({bounds}))")]
         public static extern NewArrayExpression NewArrayBounds(Type type, IEnumerable<Expression> bounds);
 
         [Bridge.Template("{ ntype: 31, t: {type}, constructor: Bridge.Reflection.getMembers({type}, 1, 284, null, []), arguments: Bridge.toList([]) }")]
@@ -764,7 +764,7 @@ namespace System.Linq.Expressions
         [Bridge.Template("{ ntype: 59, t: {type}, switchValue: {switchValue}, defaultBody: {defaultBody}, comparison: {comparison}, cases: Bridge.toList({cases:array}) }")]
         public static extern SwitchExpression Switch(Type type, Expression switchValue, Expression defaultBody, MethodInfo comparison, params SwitchCase[] cases);
 
-        [Bridge.Template("(function(a, b, c, d) { return { ntype: 59, t: d.getItem(0).body.t, switchValue: a, defaultBody: b, comparison: c, cases: d }; })({switchValue}, {defaultBody}, {comparison}, Bridge.toList({cases}))")]
+        [Bridge.Template("(function (a, b, c, d) { return { ntype: 59, t: d.getItem(0).body.t, switchValue: a, defaultBody: b, comparison: c, cases: d }; })({switchValue}, {defaultBody}, {comparison}, Bridge.toList({cases}))")]
         public static extern SwitchExpression Switch(Expression switchValue, Expression defaultBody, MethodInfo comparison, IEnumerable<SwitchCase> cases);
 
         [Bridge.Template("{ ntype: 59, t: {type}, switchValue: {switchValue}, defaultBody: {defaultBody}, comparison: {comparison}, cases: Bridge.toList({cases}) }")]

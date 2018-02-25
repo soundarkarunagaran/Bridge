@@ -783,8 +783,7 @@
                             if (ch === "Z" || ch === "z") {
                                 kind = 1;
                                 idx += 1;
-                            }
-                            else {
+                            } else {
                                 invalid = true;
                             }
 

@@ -134,7 +134,7 @@
             }
         },
 
-        convertScheme: function(obj) {
+        convertScheme: function (obj) {
             var result = {},
                 copy = function (obj, to) {
 
@@ -563,7 +563,7 @@
                         }
 
                         return i1.value - i2.value;
-                    }).map(function(i) {
+                    }).map(function (i) {
                         return i.name;
                     });
                 }
@@ -651,11 +651,11 @@
             return Class;
         },
 
-        toCtorString: function() {
+        toCtorString: function () {
             return Bridge.Reflection.getTypeName(this);
         },
 
-        createInheritors: function(cls, extend) {
+        createInheritors: function (cls, extend) {
             var interfaces = [],
                 baseInterfaces = [],
                 descriptors = [],
@@ -730,7 +730,7 @@
             return obj;
         },
 
-        setInheritors: function(cls, extend) {
+        setInheritors: function (cls, extend) {
             cls.$$inherits = extend;
 
             for (var i = 0; i < extend.length; i++) {
@@ -973,7 +973,7 @@
             fn.$isGenericTypeDefinition = true;
             fn.$getMetadata = Bridge.Reflection.getMetadata;
 
-            fn.$staticInit = function() {
+            fn.$staticInit = function () {
                 fn.$typeArguments = Bridge.Reflection.createTypeParams(prop);
 
                 var old = Bridge.Class.staticInitAllow,
@@ -1054,7 +1054,7 @@
                 }
 
                 if (t.prototype.$main) {
-                    (function(cls, name) {
+                    (function (cls, name) {
                         Bridge.ready(function () {
                              cls[name]();
                         });

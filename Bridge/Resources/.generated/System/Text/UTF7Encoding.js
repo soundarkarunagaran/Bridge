@@ -42,7 +42,7 @@
                 var setO = System.Text.UTF7Encoding.Escape("!\"#$%&*;<=>@[]^_`{|}");
                 var setW = System.Text.UTF7Encoding.Escape(" \r\n\t");
 
-                s = s.replace(new RegExp("[^" + setW + setD + (this.allowOptionals ? setO : "") + "]+", 'g'), function(chunk) {return '+' + (chunk === '+' ? '' : encode(chunk)) + '-';});
+                s = s.replace(new RegExp("[^" + setW + setD + (this.allowOptionals ? setO : "") + "]+", 'g'), function (chunk) {return '+' + (chunk === '+' ? '' : encode(chunk)) + '-';});
 
                 var arr = System.String.toCharArray(s, 0, s.length);
 

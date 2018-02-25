@@ -751,7 +751,7 @@ namespace Bridge.Contract
 
             if (currentTypeInfo != null && module != null)
             {
-                if(emitter.Tag != "TS" || currentTypeInfo.Module == null || !currentTypeInfo.Module.Equals(module))
+                if (emitter.Tag != "TS" || currentTypeInfo.Module == null || !currentTypeInfo.Module.Equals(module))
                 {
                     if (!module.PreventModuleName || type.TypeInfo != null)
                     {

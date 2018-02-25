@@ -447,7 +447,7 @@ namespace Bridge.Translator
                             block.Emitter.ForbidLifting = true;
                         }
                     }
-                    else  if(!Helpers.IsImmutableStruct(block.Emitter, NullableType.GetUnderlyingType(rr.Type)))
+                    else  if (!Helpers.IsImmutableStruct(block.Emitter, NullableType.GetUnderlyingType(rr.Type)))
                     {
                         if (nullable)
                         {

@@ -503,7 +503,7 @@
                     sparseSlotMap: sparseSlotMap,           // <SlotNumber, PackedSlotId>
                     sparseSlotNameMap: sparseSlotNameMap,   // <SlotName, PackedSlotId>
 
-                    getPackedSlotIdBySlotNumber: function(slotNumber) {
+                    getPackedSlotIdBySlotNumber: function (slotNumber) {
                         return this.sparseSlotMap[slotNumber];
                     },
 

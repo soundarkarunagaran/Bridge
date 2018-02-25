@@ -314,7 +314,7 @@
             return false;
         },
 
-        checkReadOnly: function(obj, T, msg) {
+        checkReadOnly: function (obj, T, msg) {
             if (System.Array.getIsReadOnly(obj, T)) {
                 throw new System.NotSupportedException(msg || "Collection was of a fixed size.");
             }
@@ -1103,13 +1103,13 @@
                         $elementType: t,
                         $rank: rank,
                         $isArray: true,
-                        $is: function(obj) {
+                        $is: function (obj) {
                             return System.Array.is(obj, this);
                         },
-                        getDefaultValue: function() {
+                        getDefaultValue: function () {
                             return null;
                         },
-                        createInstance: function() {
+                        createInstance: function () {
                             var arr;
 
                             if (this.$rank === 1) {

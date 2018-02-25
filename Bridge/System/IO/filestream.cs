@@ -182,7 +182,7 @@ namespace System.IO
 
         private byte[] GetInternalBuffer()
         {
-            if(this._buffer == null)
+            if (this._buffer == null)
             {
                 this._buffer = FileStream.ReadBytes(this.name);
 
@@ -291,7 +291,7 @@ namespace System.IO
             {
                 var fs = Bridge.Script.Write<dynamic>(@"require(""fs"")");
                 fs.readFile(path, new Action<object, byte[]>((err, data) => {
-                    if(err != null)
+                    if (err != null)
                     {
                         throw new IOException();
                     }

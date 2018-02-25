@@ -6,7 +6,7 @@
         config: {
             properties: {
                 Count: {
-                    get: function() {
+                    get: function () {
                         return this._capcount;
                     }
                 }
