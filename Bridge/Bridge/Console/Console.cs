@@ -9,6 +9,7 @@ namespace Bridge.Utils
     /// </summary>
     [Namespace("Bridge")]
     [Convention(Target = ConventionTarget.Member, Notation = Notation.CamelCase)]
+    [Reflectable(false)]
     public class Console
     {
         #region HTML Wrappers to avoid dynamic
