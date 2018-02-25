@@ -170,6 +170,7 @@
                         return false;
                     }
                 }
+
                 return true;
             } finally {
                 enumerator.dispose();
@@ -205,6 +206,7 @@
                         return true;
                     }
                 }
+
                 return false;
             } finally {
                 enumerator.dispose();

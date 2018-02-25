@@ -90,6 +90,7 @@
                 var j;
 
                 captures.length = this._capcount;
+
                 for (j = 0; j < this._capcount - 1; j++) {
                     var index = this._group._caps[j * 2];
                     var length = this._group._caps[j * 2 + 1];

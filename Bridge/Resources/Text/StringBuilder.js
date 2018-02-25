@@ -23,6 +23,7 @@
             }
 
             var s = this.getString();
+
             return s.length;
         },
 
@@ -33,11 +34,13 @@
                 throw new System.ArgumentOutOfRangeException("value", "Length cannot be less than zero");
             } else {
                 var l = this.getLength();
+
                 if (value === l) {
                     return;
                 }
 
                 var delta = value - l;
+
                 if (delta > 0) {
                     this.append('\0', delta);
                 } else {
@@ -180,6 +183,7 @@
             }
 
             var s = this.getString();
+
             this.buffer = [];
 
             if (index < 1) {
@@ -253,6 +257,7 @@
 
         getChar: function (index) {
             var str = this.getString();
+
             if (index < 0 || index >= str.length) {
                 throw new System.IndexOutOfRangeException();
             }
@@ -262,6 +267,7 @@
 
         setChar: function(index, value) {
             var str = this.getString();
+
             if (index < 0 || index >= str.length) {
                 throw new System.ArgumentOutOfRangeException();
             }

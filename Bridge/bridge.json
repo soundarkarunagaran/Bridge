@@ -28,7 +28,7 @@
         "Resources/Class.js",
         "Resources/ReflectionAssembly.js",
         "Resources/Object.js",
-        "Resources/.generated/bridge/utils/systemAssemblyVersion.js",
+        "Resources/.generated/Bridge/Utils/SystemAssemblyVersion.js",
         "Resources/Reflection.js",
         "Resources/Interfaces.js",
         "Resources/Enum.js",
@@ -175,7 +175,7 @@
       "header": "Resources/.auxiliary/Header.js",
       "files": [
         "Resources/.auxiliary/AssemblyBegin.js",
-        "Resources/.generated/bridge/utils/console.js",
+        "Resources/.generated/Bridge/Utils/Console.js",
         "Resources/.auxiliary/AssemblyEnd.js"
       ]
     },

@@ -127,6 +127,7 @@
                                 } else {
                                     coefficient *= 10;
                                 }
+
                                 exponent--;
                             }
 
@@ -148,6 +149,7 @@
                                 if ((exponent > -5 && exponent < precision) || isDecimal && noPrecision) {
                                     minDecimals = 0;
                                     maxDecimals = precision - (exponent > 0 ? exponent + 1 : 1);
+
                                     return this.defaultFormat(number, 1, minDecimals, maxDecimals, nf, true);
                                 }
 
@@ -585,6 +587,7 @@
                     if (safe) {
                         return false;
                     }
+
                     throw new System.ArgumentNullException("s");
                 }
 
@@ -609,6 +612,7 @@
                         if (safe) {
                             return false;
                         }
+
                         throw new System.FormatException(errMsg);
                     }
                 }
@@ -617,6 +621,7 @@
                     if (safe) {
                         return false;
                     }
+
                     throw new System.FormatException(errMsg);
                 }
 
@@ -635,12 +640,15 @@
 
                 if (s === nfInfo.negativeInfinitySymbol) {
                     result.v = Number.NEGATIVE_INFINITY;
+
                     return true;
                 } else if (s === nfInfo.positiveInfinitySymbol) {
                     result.v = Number.POSITIVE_INFINITY;
+
                     return true;
                 } else if (s === nfInfo.nanSymbol) {
                     result.v = Number.NaN;
+
                     return true;
                 }
 
@@ -656,10 +664,12 @@
                         s[i] !== thousands) {
                         if (s[i].toLowerCase() === "e") {
                             countExp++;
+
                             if (countExp > 1) {
                                 if (safe) {
                                     return false;
                                 }
+
                                 throw new System.FormatException(errMsg);
                             }
                         }
@@ -667,6 +677,7 @@
                             if (safe) {
                                 return false;
                             }
+
                             throw new System.FormatException(errMsg);
                         }
                     }
@@ -678,10 +689,12 @@
                     if (safe) {
                         return false;
                     }
+
                     throw new System.FormatException(errMsg);
                 }
 
                 result.v = r;
+
                 return true;
             },
 
@@ -723,6 +736,7 @@
 
                 if (result.v < min || result.v > max) {
                     result.v = 0;
+
                     return false;
                 }
 
@@ -779,8 +793,7 @@
                         }
 
                         return type === System.Int64 ? System.Int64(x) : System.UInt64(x);
-                    }
-                    else if (!type.$is(x)) {
+                    } else if (!type.$is(x)) {
                         throw new System.OverflowException();
                     }
                 }
@@ -845,6 +858,7 @@
                     al = a & 0xffff,
                     bh = (b >>> 16) & 0xffff,
                     bl = b & 0xffff;
+
                 return ((al * bl) + (((ah * bl + al * bh) << 16) >>> 0) | 0);
             },
 

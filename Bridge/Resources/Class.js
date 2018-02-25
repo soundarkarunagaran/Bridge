@@ -69,14 +69,17 @@
                 for (var i = 0; i < config.alias.length; i++) {
                     (function (obj, name, alias, cls) {
                         var descriptor = null;
+
                         for (var i = descriptors.length - 1; i >= 0; i--) {
                             if (descriptors[i].name === name) {
                                 descriptor = descriptors[i];
+
                                 break;
                             }
                         }
 
                         var arr = Array.isArray(alias) ? alias : [alias];
+
                         for (var j = 0; j < arr.length; j++) {
                             alias = arr[j];
 
@@ -133,7 +136,8 @@
 
         convertScheme: function(obj) {
             var result = {},
-            copy = function (obj, to) {
+                copy = function (obj, to) {
+
                 var reserved = ["fields", "methods", "events", "props", "properties", "alias", "ctors"],
                     keys = Object.keys(obj);
 
@@ -290,6 +294,7 @@
                         scope.$main && Bridge.isFunction(scope.$main) ||
                         scope.hasOwnProperty("ctor") && Bridge.isFunction(scope.ctor)) {
                         defaultScheme = 1;
+
                         return false;
                     }
 
@@ -302,6 +307,7 @@
                             return true;
                         }
                     }
+
                     return false;
                 },
                 alternateScheme = check(prop);
@@ -367,11 +373,13 @@
                     Class = function (obj) {
                         obj = obj || {};
                         obj.$getType = function () { return Class };
+
                         return obj;
                     };
                 } else {
                     Class = function () {
                         this.$initialize();
+
                         if (Class.$base) {
                             if (Class.$$inherits && Class.$$inherits.length > 0 && Class.$$inherits[0].$staticInit) {
                                 Class.$$inherits[0].$staticInit();
@@ -393,7 +401,9 @@
                 if ((!statics || !statics.createInstance)) {
                     Class.createInstance = function () {
                         var obj = {};
-                        obj.$getType = function() { return Class };
+
+                        obj.$getType = function () { return Class };
+
                         return obj;
                     };
                 }
@@ -414,6 +424,7 @@
 
             if (isNested) {
                 var lastIndex = Class.$$name.lastIndexOf('.');
+
                 Class.$$name = Class.$$name.substr(0, lastIndex) + '+' + Class.$$name.substr(lastIndex + 1)
             }
 
@@ -512,6 +523,7 @@
                 }
 
                 var member = prop[name];
+
                 if (isCtor) {
                     Class[ctorName] = member;
                     Class[ctorName].prototype = prototype;
@@ -531,6 +543,7 @@
             if (statics) {
                 for (name in statics) {
                     var member = statics[name];
+
                     if (name === "ctor") {
                         Class["$ctor"] = member;
                     } else {
@@ -579,6 +592,7 @@
             if (isEntryPoint || Bridge.isFunction(prototype.$main)) {
                 if (prototype.$main) {
                     var entryName = prototype.$main.name || "Main";
+
                     if (!Class[entryName]) {
                         Class[entryName] = prototype.$main;
                     }
@@ -700,12 +714,14 @@
                     for (var i = descriptors.length - 1; i >= 0; i--) {
                         if (descriptors[i].name === key) {
                             descriptor = descriptors[i];
+
                             break;
                         }
                     }
                 }
 
                 var dcount = key.split("$").length;
+
                 if ((own || descriptor != null) && (dcount === 1 || dcount === 2 && key.match("\$\d+$"))) {
                     obj[key] = this[key];
                 }
@@ -737,9 +753,11 @@
                         switch (v) {
                             case 1: if (!Bridge.Reflection.isAssignableFrom(t, s))
                                 return false;
+
                                 break;
                             case 2: if (!Bridge.Reflection.isAssignableFrom(s, t))
                                 return false;
+
                                 break;
                             default: if (s !== t)
                                 return false;
@@ -763,6 +781,7 @@
                     return true;
                 }
             }
+
             return false;
         },
 
@@ -959,6 +978,7 @@
 
                 var old = Bridge.Class.staticInitAllow,
                     oldIsBlocked = Bridge.Class.queueIsBlocked;
+
                 Bridge.Class.staticInitAllow = false;
                 Bridge.Class.queueIsBlocked = true;
 
@@ -973,7 +993,9 @@
                 }
 
                 Bridge.Class.createInheritors(fn, extend);
+
                 var objectType = Bridge.global.System && Bridge.global.System.Object || Object;
+
                 if (!extend) {
                     extend = [objectType].concat(fn.$interfaces);
                 }
@@ -981,6 +1003,7 @@
                 Bridge.Class.setInheritors(fn, extend);
 
                 var prototype = extend ? (extend[0].$$initCtor ? new extend[0].$$initCtor() : new extend[0]()) : new objectType();
+
                 fn.prototype = prototype;
                 fn.prototype.constructor = fn;
             };
@@ -993,12 +1016,14 @@
         init: function (fn) {
             if (Bridge.Reflection) {
                 var metas = Bridge.Reflection.deferredMeta,
-                len = metas.length;
+                    len = metas.length;
 
                 if (len > 0) {
                     Bridge.Reflection.deferredMeta = [];
+
                     for (var i = 0; i < len; i++) {
                         var item = metas[i];
+
                         Bridge.setMetadata(item.typeName, item.metadata);
                     }
                 }
@@ -1006,15 +1031,18 @@
 
             if (fn) {
                 var old = Bridge.Class.staticInitAllow;
+
                 Bridge.Class.staticInitAllow = true;
                 fn();
                 Bridge.Class.staticInitAllow = old;
+
                 return;
             }
 
             Bridge.Class.staticInitAllow = true;
 
             var queue = Bridge.Class.$queue.concat(Bridge.Class.$queueEntry);
+
             Bridge.Class.$queue.length = 0;
             Bridge.Class.$queueEntry.length = 0;
 

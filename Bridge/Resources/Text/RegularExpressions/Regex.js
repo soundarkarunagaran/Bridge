@@ -44,6 +44,7 @@
                 }
 
                 var regex = new System.Text.RegularExpressions.Regex.ctor(pattern, options, matchTimeout, true);
+
                 return regex.isMatch(input);
             },
 
@@ -59,6 +60,7 @@
                 }
 
                 var regex = new System.Text.RegularExpressions.Regex.ctor(pattern, options, matchTimeout, true);
+
                 return regex.match(input);
             },
 
@@ -74,6 +76,7 @@
                 }
 
                 var regex = new System.Text.RegularExpressions.Regex.ctor(pattern, options, matchTimeout, true);
+
                 return regex.matches(input);
             },
 
@@ -89,6 +92,7 @@
                 }
 
                 var regex = new System.Text.RegularExpressions.Regex.ctor(pattern, options, matchTimeout, true);
+
                 return regex.replace(input, replacement);
             },
 
@@ -104,6 +108,7 @@
                 }
 
                 var regex = new System.Text.RegularExpressions.Regex.ctor(pattern, options, matchTimeout, true);
+
                 return regex.split(input);
             }
         },
@@ -124,6 +129,7 @@
 
         ctor: function (pattern, options, matchTimeout, useCache) {
             this.$initialize();
+
             if (!Bridge.isDefined(options)) {
                 options = System.Text.RegularExpressions.RegexOptions.None;
             }
@@ -272,6 +278,7 @@
                 }
             } else {
                 result = [];
+
                 for (key in caps) {
                     if (caps.hasOwnProperty(key)) {
                         result[caps[key]] = key;

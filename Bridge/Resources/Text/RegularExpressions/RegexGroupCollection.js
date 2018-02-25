@@ -138,6 +138,7 @@
                     matchCapcount = this._match._matchcount[i + 1];
                     groups[i + 1] = new System.Text.RegularExpressions.Group(matchText, matchCaps, matchCapcount);
                 }
+
                 this._groups = groups;
             }
         }

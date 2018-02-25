@@ -77,11 +77,13 @@ Bridge.define("System.Boolean", {
 
             if (System.String.equals(System.Boolean.trueString, value, 5)) {
                 result.v = true;
+
                 return true;
             }
 
             if (System.String.equals(System.Boolean.falseString, value, 5)) {
                 result.v = false;
+
                 return true;
             }
 

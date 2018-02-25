@@ -457,7 +457,9 @@
 
         toStringInBase: function (value, toBase, typeCode) {
             var typeCodes = scope.convert.typeCodes;
+
             value = Bridge.unbox(value, true);
+
             if (toBase !== 2 && toBase !== 8 && toBase !== 10 && toBase !== 16) {
                 throw new System.ArgumentException("Invalid Base.");
             }
@@ -624,6 +626,7 @@
             if (options < 0 || options > 1) {
                 throw new System.ArgumentException("Illegal enum value.");
             }
+
             var inArrayLength = inArray.length;
 
             if (offsetIn > inArrayLength - length) {
@@ -872,11 +875,11 @@
         },
 
         isFloatingType: function (typeCode) {
-            var typeCodes = scope.convert.typeCodes;
-            var isFloatingType =
-                typeCode === typeCodes.Single ||
-                typeCode === typeCodes.Double ||
-                typeCode === typeCodes.Decimal;
+            var typeCodes = scope.convert.typeCodes,
+                isFloatingType =
+                    typeCode === typeCodes.Single ||
+                    typeCode === typeCodes.Double ||
+                    typeCode === typeCodes.Decimal;
 
             return isFloatingType;
         },

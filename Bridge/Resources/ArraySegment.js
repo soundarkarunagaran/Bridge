@@ -29,8 +29,7 @@
                 }
 
                 this.offset = offset;
-            }
-            else {
+            } else {
                 this.offset = 0;
             }
 
@@ -64,6 +63,7 @@
 
         getHashCode: function () {
             var h = Bridge.addHash([5322976039, this.array, this.count, this.offset]);
+
             return h;
         },
 
@@ -71,6 +71,7 @@
             if (!Bridge.is(o, System.ArraySegment)) {
                 return false;
             }
+
             return Bridge.equals(this.array, o.array) && Bridge.equals(this.count, o.count) && Bridge.equals(this.offset, o.offset);
         },
 
