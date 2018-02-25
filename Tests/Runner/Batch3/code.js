@@ -29554,6 +29554,26 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432", {
+        statics: {
+            methods: {
+                TestDerivation: function () {
+                    var $t, $t1, $t2, $t3;
+                    var some2 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2(), $t.TestTime = "00:02:00", $t);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.TimeSpan.neq(($t = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t.getDays() : null);
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.TimeSpan.neq(($t1 = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t1.getHours() : null);
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.TimeSpan.neq(($t2 = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t2.getMinutes() : null);
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.TimeSpan.neq(($t3 = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t3.getSeconds() : null);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1", {
+        $kind: "nested interface"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
@@ -39900,6 +39920,53 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
+        $kind: "nested interface"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
+        $kind: "nested class",
+        fields: {
+            testTime: null
+        },
+        props: {
+            TestTime: {
+                get: function () {
+                    return this.testTime;
+                },
+                set: function (value) {
+                    this.testTime = value;
+                }
+            },
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime: {
+                get: function () {
+                    return this.Parse(this.TestTime);
+                }
+            }
+        },
+        methods: {
+            Parse: function (text) {
+                if (text == null) {
+                    return null;
+                }
+
+                var values = System.String.split(text, [58].map(function(i) {{ return String.fromCharCode(i); }}));
+
+                if (values.length === 2) {
+                    return new System.TimeSpan(0, 0, System.Int32.parse(values[System.Array.index(0, values)]), System.Int32.parse(values[System.Array.index(1, values)]));
+                }
+
+                if (values.length === 3) {
+                    return new System.TimeSpan(0, System.Int32.parse(values[System.Array.index(0, values)]), System.Int32.parse(values[System.Array.index(1, values)]), System.Int32.parse(values[System.Array.index(2, values)]));
+                }
+
+                throw new System.FormatException("Unsupported format of TimeSpan.");
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
         methods: {
@@ -40418,6 +40485,15 @@ Bridge.$N1391Result =                     r;
         f1: function () {
             return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269.Cavy();
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2],
+        $kind: "nested class",
+        props: {
+            Additional: null
+        },
+        alias: ["Additional", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome2$Additional"]
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {
