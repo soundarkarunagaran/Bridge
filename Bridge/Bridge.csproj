@@ -52,6 +52,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Attributes\Convention.cs" />
+    <Compile Include="Attributes\ExternalInterfaceAttribute.cs" />
+    <Compile Include="Attributes\CastAttribute.cs" />
+    <Compile Include="Attributes\OutputByAttribute.cs" />
+    <Compile Include="Attributes\OutputAttribute.cs" />
+    <Compile Include="Attributes\VirtualAttribute.cs" />
+    <Compile Include="Attributes\NonScriptableAttribute.cs" />
     <Compile Include="Attributes\ReadyAttribute.cs" />
     <Compile Include="Attributes\RulesAttribute.cs" />
     <Compile Include="System\AsyncCallback.cs" />
