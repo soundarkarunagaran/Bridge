@@ -78,7 +78,7 @@ namespace Bridge.Contract
         LowerCase = 1,
         UpperCase = 2,
         CamelCase = 3,
-        UpperCamelCase = 4
+        PascalCase = 4
     }
 
     public enum NameRuleLevel
@@ -214,7 +214,7 @@ namespace Bridge.Contract
                         }
 
                         break;
-                    case Notation.UpperCamelCase:
+                    case Notation.PascalCase:
                         name = name.ToCamelCase();
                         break;
                     default:

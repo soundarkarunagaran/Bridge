@@ -144,6 +144,6 @@ namespace Bridge
         LowerCase = 1,
         UpperCase = 2,
         CamelCase = 3,
-        UpperCamelCase = 4
+        PascalCase = 4
     }
 }

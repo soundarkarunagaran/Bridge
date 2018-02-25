@@ -143,7 +143,7 @@ namespace Bridge.ClientTest.ConventionTests.Class
         EnumMember1,
         enumMember2,
         ENUMMEMBER3,
-        [Convention(Notation.UpperCamelCase)]
+        [Convention(Notation.PascalCase)]
         enumMember4,
     }
 
@@ -151,7 +151,7 @@ namespace Bridge.ClientTest.ConventionTests.Class
     public enum Enum2
     {
         EnumMember1,
-        [Convention(Notation.UpperCamelCase)]
+        [Convention(Notation.PascalCase)]
         enumMember2,
     }
 
@@ -186,7 +186,7 @@ namespace Bridge.ClientTest.ConventionTests.Class
     [Convention(Accessibility = ConventionAccessibility.Internal, Notation = Notation.LowerCase)]
     [Convention(Accessibility = ConventionAccessibility.Private, Notation = Notation.CamelCase)]
     [Convention(Accessibility = ConventionAccessibility.Protected, Notation = Notation.UpperCase)]
-    [Convention(Accessibility = ConventionAccessibility.ProtectedInternal, Notation = Notation.UpperCamelCase)]
+    [Convention(Accessibility = ConventionAccessibility.ProtectedInternal, Notation = Notation.PascalCase)]
     [Convention(Accessibility = ConventionAccessibility.Public, Notation = Notation.LowerCase)]
     class Class12
     {
@@ -327,7 +327,7 @@ namespace Bridge.ClientTest.ConventionTests.Class
 
     // Uncomment when ConventionTarget.Delegate implemented
     //[Convention(Notation.UpperCase, ConventionTarget.Class)]
-    //[Convention(Notation.UpperCamelCase, ConventionTarget.Delegate)]
+    //[Convention(Notation.PascalCase, ConventionTarget.Delegate)]
     //public class Class14
     //{
     //    public delegate int delegate91();

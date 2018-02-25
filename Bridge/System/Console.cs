@@ -4,7 +4,7 @@ namespace System
     /// Represents the standard input, output, and error streams for console applications.
     /// </summary>
     [Bridge.Unbox(false)]
-    [Bridge.Convention(Bridge.Notation.UpperCamelCase)]
+    [Bridge.Convention(Bridge.Notation.PascalCase)]
     public sealed partial class Console
     {
         #region Read and ReadLine
