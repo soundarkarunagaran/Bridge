@@ -29603,6 +29603,53 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in checking whether a two-level interface
+     inheritance cast works as expected when a member is overridden thru
+     the inheritance path.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432", {
+        statics: {
+            methods: {
+                /**
+                 * The test here consists in just instantiating the class and querying
+                 the value returned from the cast reference.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+                 * @return  {void}
+                 */
+                TestDerivation: function () {
+                    var $t;
+                    var probe1 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2(), $t.TestValue = "test text", $t);
+                    var probe2 = Bridge.cast(probe1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1);
+                    var probe3 = Bridge.cast(probe1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("test text", probe1.TestValue, "Got string return when class not cast at all.");
+                    Bridge.Test.NUnit.Assert.AreEqual(25, probe2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestValue, "Got integer return when class cast into its main interface.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test text", probe3.TestValue, "Got string return when class cast into the class that just implements the method.");
+                }
+            }
+        }
+    });
+
+    /**
+     * This interface contains the target query we will be doing in the
+     test code.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1", {
+        $kind: "nested interface"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
@@ -39949,6 +39996,51 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    /**
+     * An interface to be bound to the test class, defining a member here
+     does not affect the reproducibility of the issue.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
+        $kind: "nested interface"
+    });
+
+    /**
+     * This overrides the interface's member by a member with same name 
+     and a different type.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
+        $kind: "nested class",
+        fields: {
+            testValue: null
+        },
+        props: {
+            TestValue: {
+                get: function () {
+                    return this.testValue;
+                },
+                set: function (value) {
+                    this.testValue = value;
+                }
+            },
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestValue: {
+                get: function () {
+                    return 25;
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
         methods: {
@@ -40467,6 +40559,20 @@ Bridge.$N1391Result =                     r;
         f1: function () {
             return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269.Cavy();
         }
+    });
+
+    /**
+     * The class that will be instantiated and cast into ISome1 to get the
+     implementation defined in Some1.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2],
+        $kind: "nested class"
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {
