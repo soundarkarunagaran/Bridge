@@ -29554,22 +29554,49 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in checking whether a two-level interface
+     inheritance cast works as expected when a member is overridden thru
+     the inheritance path.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432", {
         statics: {
             methods: {
+                /**
+                 * The test here consists in just instantiating the class and querying
+                 the value returned from the cast reference.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+                 * @return  {void}
+                 */
                 TestDerivation: function () {
-                    var $t, $t1, $t2, $t3;
-                    var some2 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2(), $t.TestTime = "00:02:00", $t);
+                    var $t;
+                    var probe1 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2(), $t.TestValue = "test text", $t);
+                    var probe2 = Bridge.cast(probe1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1);
+                    var probe3 = Bridge.cast(probe1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.TimeSpan.neq(($t = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t.getDays() : null);
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.TimeSpan.neq(($t1 = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t1.getHours() : null);
-                    Bridge.Test.NUnit.Assert.AreEqual(2, System.TimeSpan.neq(($t2 = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t2.getMinutes() : null);
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.TimeSpan.neq(($t3 = some2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime), null) ? $t3.getSeconds() : null);
+                    Bridge.Test.NUnit.Assert.AreEqual("test text", probe1.TestValue, "Got string return when class not cast at all.");
+                    Bridge.Test.NUnit.Assert.AreEqual(25, probe2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestValue, "Got integer return when class cast into its main interface.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test text", probe3.TestValue, "Got string return when class cast into the class that just implements the method.");
                 }
             }
         }
     });
 
+    /**
+     * This interface contains the target query we will be doing in the
+     test code.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1", {
         $kind: "nested interface"
     });
@@ -39920,49 +39947,47 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    /**
+     * An interface to be bound to the test class, defining a member here
+     does not affect the reproducibility of the issue.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
         $kind: "nested interface"
     });
 
+    /**
+     * This overrides the interface's member by a member with same name 
+     and a different type.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
         $kind: "nested class",
         fields: {
-            testTime: null
+            testValue: null
         },
         props: {
-            TestTime: {
+            TestValue: {
                 get: function () {
-                    return this.testTime;
+                    return this.testValue;
                 },
                 set: function (value) {
-                    this.testTime = value;
+                    this.testValue = value;
                 }
             },
-            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestTime: {
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestValue: {
                 get: function () {
-                    return this.Parse(this.TestTime);
+                    return 25;
                 }
-            }
-        },
-        methods: {
-            Parse: function (text) {
-                if (text == null) {
-                    return null;
-                }
-
-                var values = System.String.split(text, [58].map(function(i) {{ return String.fromCharCode(i); }}));
-
-                if (values.length === 2) {
-                    return new System.TimeSpan(0, 0, System.Int32.parse(values[System.Array.index(0, values)]), System.Int32.parse(values[System.Array.index(1, values)]));
-                }
-
-                if (values.length === 3) {
-                    return new System.TimeSpan(0, System.Int32.parse(values[System.Array.index(0, values)]), System.Int32.parse(values[System.Array.index(1, values)]), System.Int32.parse(values[System.Array.index(2, values)]));
-                }
-
-                throw new System.FormatException("Unsupported format of TimeSpan.");
             }
         }
     });
@@ -40487,13 +40512,18 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The class that will be instantiated and cast into ISome1 to get the
+     implementation defined in Some1.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2],
-        $kind: "nested class",
-        props: {
-            Additional: null
-        },
-        alias: ["Additional", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome2$Additional"]
+        $kind: "nested class"
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {
