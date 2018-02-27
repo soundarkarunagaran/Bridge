@@ -1,5 +1,3 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>
@@ -7,8 +5,8 @@ namespace System.ComponentModel.DataAnnotations
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
         AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class RangeAttribute : ValidationAttribute
     {
         /// <summary>

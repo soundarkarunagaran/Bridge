@@ -1,5 +1,3 @@
-using Bridge;
-
 namespace System.Diagnostics.Contracts
 {
     /// <summary>
@@ -7,7 +5,7 @@ namespace System.Diagnostics.Contracts
     /// </summary>
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = false)]
     [Conditional("CONTRACTS_FULL")]
-    [External]
+    [Bridge.External]
     public sealed class ContractOptionAttribute : Attribute
     {
         public extern ContractOptionAttribute(String category, String setting, bool enabled);

@@ -1,5 +1,3 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations.Schema
 {
     /// <summary>
@@ -8,8 +6,8 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// or placed on a navigation property and specify the associated foreign key name.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class ForeignKeyAttribute : Attribute
     {
         /// <summary>

@@ -87,6 +87,7 @@ Bridge.Reflection = {
                 fnStr = fn.toString();
 
             args = fnStr.slice(fnStr.indexOf('(') + 1, fnStr.indexOf(')')).match(/([^\s,]+)/g) || [];
+
             for (var i = 0; i < args.length; i++) {
                 names.push(Bridge.Reflection.createTypeParam(args[i], t));
             }
@@ -96,11 +97,14 @@ Bridge.Reflection = {
 
         createTypeParam: function (name, t) {
             var fn = function TypeParameter() { };
+
             fn.$$name = name;
             fn.$isTypeParameter = true;
+
             if (t) {
                 fn.td = t;
             }
+
             return fn;
         },
 
@@ -140,7 +144,7 @@ Bridge.Reflection = {
             return type.$genericTypeDefinition != null || Bridge.Reflection.isGenericTypeDefinition(type);
         },
 
-        convertType: function(type) {
+        convertType: function (type) {
             if (type === Boolean) {
                 return System.Boolean;
             }
@@ -175,8 +179,7 @@ Bridge.Reflection = {
                         ownValue = p.constructor;
                         delete p.constructor;
                         return Bridge.Reflection.convertType(p.constructor);
-                    }
-                    finally {
+                    } finally {
                         p.constructor = ownValue;
                     }
                 }
@@ -211,6 +214,7 @@ Bridge.Reflection = {
 
             if (obj.constructor === Object) {
                 str = obj.toString();
+
                 var match = (/\[object (.{1,})\]/).exec(str);
                 var name = (match && match.length > 1) ? match[1] : "Object";
 
@@ -280,6 +284,7 @@ Bridge.Reflection = {
             }
 
             m = (/\[(,*)\]$/g).exec(name);
+
             if (m) {
                 name = name.substring(0, m.index);
                 rank = m[1].length + 1;
@@ -296,7 +301,7 @@ Bridge.Reflection = {
                 rank = -1;
 
             if (new RegExp(/[\+\`]/).test(name)) {
-                name = name.replace(/\+|\`/g, function(match) { return match === "+" ? "." : "$"});
+                name = name.replace(/\+|\`/g, function (match) { return match === "+" ? "." : "$"});
             }
 
             if (!asm) {
@@ -524,7 +529,8 @@ Bridge.Reflection = {
                             }
                         }
 
-                        var arrMatch = (/^\s*<(\d+)>/g).exec(typeName.substring(m.index+1));
+                        var arrMatch = (/^\s*<(\d+)>/g).exec(typeName.substring(m.index + 1));
+
                         if (arrMatch) {
                             tname = tname + "<" + parseInt(arrMatch[1]) + ">";
                         }
@@ -561,8 +567,10 @@ Bridge.Reflection = {
             }
 
             tname = tname.trim();
+
             var rankInfo = Bridge.Reflection._extractArrayRank(tname);
             var rank = rankInfo.rank;
+
             tname = rankInfo.name;
 
             t = Bridge.Reflection._getAssemblyType(asm, tname);
@@ -600,6 +608,7 @@ Bridge.Reflection = {
             if (typeName == null) {
                 throw new System.ArgumentNullException("typeName");
             }
+
             return typeName ? Bridge.Reflection._getType(typeName, asm) : null;
         },
 
@@ -653,6 +662,7 @@ Bridge.Reflection = {
 
                                 if (!Bridge.is(args[k], p) || args[k] == null && !Bridge.Reflection.canAcceptNull(p)) {
                                     found = false;
+
                                     break;
                                 }
                             }
@@ -823,7 +833,7 @@ Bridge.Reflection = {
             return result;
         },
 
-        createDelegate: function(mi, firstArgument) {
+        createDelegate: function (mi, firstArgument) {
             var isStatic = mi.is || mi.sm,
                 bind = firstArgument != null && !isStatic,
                 method = Bridge.Reflection.midel(mi, firstArgument, null, bind);
@@ -832,10 +842,10 @@ Bridge.Reflection = {
                 if (isStatic) {
                     return function () {
                         var args = firstArgument != null ? [firstArgument] : [];
+
                         return method.apply(mi.td, args.concat(Array.prototype.slice.call(arguments, 0)));
                     };
-                }
-                else {
+                } else {
                     return function (target) {
                         return method.apply(target, Array.prototype.slice.call(arguments, 1));
                     };
@@ -893,6 +903,7 @@ Bridge.Reflection = {
             }
 
             var orig = method;
+
             method = function () {
                 var args = [],
                     params = mi.pi || [],
@@ -904,6 +915,7 @@ Bridge.Reflection = {
                 }
 
                 var v = orig.apply(this, args);
+
                 return v != null && mi.box ? mi.box(v) : v;
             };
 
@@ -946,6 +958,7 @@ Bridge.Reflection = {
 
         getMetaValue: function (type, name, dv) {
             var md = type.$isTypeParameter ? type : Bridge.getMetadata(type);
+
             return md ? (md[name] || dv) : dv;
         },
 

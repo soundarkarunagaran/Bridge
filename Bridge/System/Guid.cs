@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Bridge;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -8,7 +7,7 @@ namespace System
     /// <summary>
     /// The Guid data type which is mapped to the string type in Javascript.
     /// </summary>
-    [Immutable]
+    [Bridge.Immutable]
     public struct Guid : IEquatable<Guid>, IComparable<Guid>, IFormattable
     {
         private const string error1 = "Byte array for GUID must be exactly {0} bytes long";

@@ -18,15 +18,13 @@
  * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/endofstreamexception.cs
  */
 
-using Bridge;
 using System;
 using System.Runtime.Serialization;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public class EndOfStreamException : IOException
     {
         public EndOfStreamException() : base("Arg_EndOfStreamException")

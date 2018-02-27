@@ -1,16 +1,14 @@
-using Bridge;
-
 namespace System
 {
-    [External]
-    [Reflectable]
+    [Bridge.External]
+    [Bridge.Reflectable]
     public class TimeoutException : SystemException
     {
         public extern TimeoutException();
 
         public extern TimeoutException(string message);
 
-        [Template("new System.TimeoutException({message}, {innerException})")]
+        [Bridge.Template("new System.TimeoutException({message}, {innerException})")]
         public extern TimeoutException(string message, Exception innerException);
     }
 }

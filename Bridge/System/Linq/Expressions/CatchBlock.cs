@@ -1,21 +1,19 @@
-using Bridge;
-
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
     public sealed class CatchBlock
     {
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern ParameterExpression Variable { get; private set; }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern Type Test { get; private set; }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern Expression Body { get; private set; }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern Expression Filter { get; private set; }
 
         internal extern CatchBlock();

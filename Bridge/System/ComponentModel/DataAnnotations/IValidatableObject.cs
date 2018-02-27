@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public interface IValidatableObject
     {
         IEnumerable<ValidationResult> Validate(ValidationContext validationContext);

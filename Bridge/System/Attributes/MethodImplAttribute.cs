@@ -1,7 +1,7 @@
 // ==++==
-// 
+//
 //   Copyright (c) Microsoft Corporation.  All rights reserved.
-// 
+//
 // ==--==
 
 namespace System.Runtime.CompilerServices
@@ -9,7 +9,7 @@ namespace System.Runtime.CompilerServices
     using System;
     using System.Reflection;
 
-    // This Enum matchs the miImpl flags defined in corhdr.h. It is used to specify 
+    // This Enum matchs the miImpl flags defined in corhdr.h. It is used to specify
     // certain method properties.
 
     [Serializable]

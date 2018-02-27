@@ -1,38 +1,37 @@
-using Bridge;
 using System.Collections.Generic;
 
 namespace System.Threading.Tasks
 {
-    [External]
-    [Reflectable]
-    public class Task : IDisposable, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class Task : IDisposable, Bridge.IBridgeClass
     {
         public extern Task(Action action);
 
         public extern Task(Action<object> action, object state);
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern AggregateException Exception { get; }
 
         public extern bool IsCanceled
         {
-            [Template("isCanceled()")]
+            [Bridge.Template("isCanceled()")]
             get;
         }
 
         public extern bool IsCompleted
         {
-            [Template("isCompleted()")]
+            [Bridge.Template("isCompleted()")]
             get;
         }
 
         public extern bool IsFaulted
         {
-            [Template("isFaulted()")]
+            [Bridge.Template("isFaulted()")]
             get;
         }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern TaskStatus Status
         {
             get;
@@ -52,7 +51,7 @@ namespace System.Threading.Tasks
 
         public static extern Task Delay(int millisecondDelay);
 
-        [Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
+        [Bridge.Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
         public static extern Task<TResult> FromResult<TResult>(TResult result);
 
         public static extern Task Run(Action action);
@@ -92,8 +91,8 @@ namespace System.Threading.Tasks
         public static extern Task<TResult> FromPromise<TResult>(IPromise promise, Delegate resultHandler, Delegate errorHandler, Delegate progressHandler);
     }
 
-    [External]
-    [Reflectable]
+    [Bridge.External]
+    [Bridge.Reflectable]
     public class Task<TResult> : Task
     {
         public extern Task(Func<TResult> function);
@@ -102,13 +101,13 @@ namespace System.Threading.Tasks
 
         public extern TResult Result
         {
-            [Template("getResult()")]
+            [Bridge.Template("getResult()")]
             get;
         }
 
         public extern Task ContinueWith(Action<Task<TResult>> continuationAction);
 
-        [IgnoreGeneric]
+        [Bridge.IgnoreGeneric]
         public extern Task<TNewResult> ContinueWith<TNewResult>(Func<Task<TResult>, TNewResult> continuationFunction);
 
         public new extern TaskAwaiter<TResult> GetAwaiter();

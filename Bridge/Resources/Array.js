@@ -103,18 +103,22 @@
             if (sizes && Bridge.isArray(sizes)) {
                 for (i = 0; i < sizes.length; i++) {
                     j = sizes[i];
+
                     if (isNaN(j) || j < 0) {
                         throw new System.ArgumentOutOfRangeException("length");
                     }
+
                     length *= j;
                     arr.$s[i] = j;
                 }
             } else {
                 for (i = 3; i < arguments.length; i++) {
                     j = arguments[i];
+
                     if (isNaN(j) || j < 0) {
                         throw new System.ArgumentOutOfRangeException("length");
                     }
+
                     length *= j;
                     arr.$s[i - 3] = j;
                 }
@@ -122,6 +126,7 @@
 
             arr.length = length;
             var isFn = Bridge.isFunction(defvalue);
+
             for (var k = 0; k < length; k++) {
                 arr[k] = isFn ? defvalue() : defvalue;
             }
@@ -160,7 +165,9 @@
             if (Bridge.isArray(length)) {
                 var elementType = value,
                     rank = T || 1;
+
                 System.Array.type(elementType, rank, length);
+
                 return length;
             }
 
@@ -216,9 +223,11 @@
 
             if (type.$elementType && type.$isArray) {
                 var et = Bridge.getType(obj).$elementType;
+
                 if (et) {
                     return System.Array.getRank(obj) === type.$rank && Bridge.Reflection.isAssignableFrom(type.$elementType, et);
                 }
+
                 type = Array;
             }
 
@@ -243,6 +252,7 @@
 
         clone: function (arr) {
             var newArr;
+
             if (arr.length === 1) {
                 newArr = [arr[0]];
             } else {
@@ -261,6 +271,7 @@
         getCount: function (obj, T) {
             var name,
                 v;
+
             if (Bridge.isArray(obj)) {
                 return obj.length;
             } else if (T && Bridge.isFunction(obj[name = "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$getCount"])) {
@@ -303,7 +314,7 @@
             return false;
         },
 
-        checkReadOnly: function(obj, T, msg) {
+        checkReadOnly: function (obj, T, msg) {
             if (System.Array.getIsReadOnly(obj, T)) {
                 throw new System.NotSupportedException(msg || "Collection was of a fixed size.");
             }
@@ -347,6 +358,7 @@
             }
 
             var is = Bridge.is(v, type);
+
             if (!is) {
                 if (v == null && Bridge.getDefaultValue(type) == null) {
                     return null;
@@ -606,6 +618,7 @@
             }
 
             var is = Bridge.is(v, type);
+
             if (!is) {
                 if (v == null) {
                     return Bridge.getDefaultValue(type);
@@ -1080,7 +1093,9 @@
 
             if (!result) {
                 name = Bridge.getTypeName(t) + "[" + System.String.fromCharCount(",".charCodeAt(0), rank - 1) + "]";
+
                 var old = Bridge.Class.staticInitAllow;
+
                 result = Bridge.define(name, {
                     $inherits: [Array, System.Collections.ICollection, System.ICloneable, System.Collections.Generic.IList$1(t), System.Collections.Generic.IReadOnlyCollection$1(t)],
                     $noRegister: true,
@@ -1088,25 +1103,29 @@
                         $elementType: t,
                         $rank: rank,
                         $isArray: true,
-                        $is: function(obj) {
+                        $is: function (obj) {
                             return System.Array.is(obj, this);
                         },
-                        getDefaultValue: function() {
+                        getDefaultValue: function () {
                             return null;
                         },
-                        createInstance: function() {
+                        createInstance: function () {
                             var arr;
+
                             if (this.$rank === 1) {
                                 arr = [];
                             } else {
                                 var args = [Bridge.getDefaultValue(this.$elementType), null, this.$elementType];
+
                                 for (var j = 0; j < this.$rank; j++) {
                                     args.push(0);
                                 }
+
                                 arr = System.Array.create.apply(System.Array, args);
                             }
 
                             arr.$type = this;
+
                             return arr;
                         }
                     }
@@ -1115,9 +1134,11 @@
                 typeCache.push(result);
 
                 Bridge.Class.staticInitAllow = true;
+
                 if (result.$staticInit) {
                     result.$staticInit();
                 }
+
                 Bridge.Class.staticInitAllow = old;
             }
 

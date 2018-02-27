@@ -22,16 +22,14 @@ using System.Text;
 using System.Globalization;
 using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
-using Bridge;
 
 namespace System.IO
 {
     // This class implements a text writer that writes to a string buffer and allows
     // the resulting sequence of characters to be presented as a string.
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public class StringWriter : TextWriter
     {
         private static volatile UnicodeEncoding m_encoding = null;

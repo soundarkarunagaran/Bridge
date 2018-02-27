@@ -1,12 +1,10 @@
-using Bridge;
-
 namespace System.Collections
 {
     /// <summary>
     /// A DictionaryEntry holds a key and a value from a dictionary.
     /// It is returned by IDictionaryEnumerator::GetEntry().
     /// </summary>
-    [Reflectable]
+    [Bridge.Reflectable]
     [Serializable]
     public struct DictionaryEntry
     {

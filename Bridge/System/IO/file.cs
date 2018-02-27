@@ -27,15 +27,13 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Runtime.Versioning;
 using System.Diagnostics.Contracts;
-using Bridge;
 
 namespace System.IO
 {
     // Class for creating FileStream objects, and some basic file management
     // routines such as Delete, etc.
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public static class File
     {
         public static StreamReader OpenText(String path)

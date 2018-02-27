@@ -1,16 +1,14 @@
-using Bridge;
-
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Cast("{this}.ntype === 56")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Cast("{this}.ntype === 56")]
     public sealed class LabelExpression : Expression
     {
-        [Name("dv")]
+        [Bridge.Name("dv")]
         public extern Expression DefaultValue { get; private set; }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern LabelTarget Target { get; private set; }
 
         internal extern LabelExpression();

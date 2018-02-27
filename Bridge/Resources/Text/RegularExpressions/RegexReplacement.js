@@ -81,6 +81,7 @@
                         }
 
                         var i;
+
                         for (i = al.length - 1; i >= 0; i--) {
                             sb += al[i];
                         }
@@ -177,6 +178,7 @@
                             }
 
                             match = match.nextMatch();
+
                             if (!match.getSuccess()) {
                                 break;
                             }
@@ -266,6 +268,7 @@
             if (count < -1) {
                 throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than -1.");
             }
+
             if (startat < 0 || startat > input.length) {
                 throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
             }
@@ -310,6 +313,7 @@
                     }
                 } else {
                     var al = [];
+
                     prevat = input.length;
 
                     do {
@@ -335,6 +339,7 @@
                     }
 
                     var i;
+
                     for (i = al.length - 1; i >= 0; i--) {
                         sb += al[i];
                     }

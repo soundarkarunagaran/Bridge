@@ -1,13 +1,11 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>
     /// Base class for all validation attributes.
     /// <para>Override <see cref="IsValid(object, ValidationContext)" /> to implement validation logic.</para>
     /// </summary>
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public abstract class ValidationAttribute : Attribute
     {
         /// <summary>

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
@@ -8,8 +7,8 @@ namespace System.ComponentModel.DataAnnotations
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     [Obsolete("This attribute is no longer in use and will be ignored if applied.")]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public sealed class FilterUIHintAttribute : Attribute
     {
         /// <summary>

@@ -2,26 +2,26 @@
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         config: {
-			properties: {
-				Current: {
-					get: function () {
-						return this.getCurrent();
-					}
-				},
+            properties: {
+                Current: {
+                    get: function () {
+                        return this.getCurrent();
+                    }
+                },
 
-				Current$1: {
-				    get: function () {
-				        return this.getCurrent();
-				    }
-				}
-			},
-			
+                Current$1: {
+                    get: function () {
+                        return this.getCurrent();
+                    }
+                }
+            },
+
             alias: [
                 "getCurrent", "System$Collections$IEnumerator$getCurrent",
                 "moveNext", "System$Collections$IEnumerator$moveNext",
                 "reset", "System$Collections$IEnumerator$reset",
-				"dispose", "System$IDisposable$dispose",
-				"Current", "System$Collections$IEnumerator$Current"
+                "dispose", "System$IDisposable$dispose",
+                "Current", "System$Collections$IEnumerator$Current"
             ]
         },
 

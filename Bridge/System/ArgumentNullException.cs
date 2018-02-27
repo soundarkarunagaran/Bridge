@@ -1,10 +1,8 @@
-using Bridge;
-
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class ArgumentNullException : ArgumentException, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class ArgumentNullException : ArgumentException, Bridge.IBridgeClass
     {
         public extern ArgumentNullException();
 
@@ -12,7 +10,7 @@ namespace System
 
         public extern ArgumentNullException(string paramName, string message);
 
-        [Template("new System.ArgumentNullException(null, {message}, {innerException})")]
+        [Bridge.Template("new System.ArgumentNullException(null, {message}, {innerException})")]
         public extern ArgumentNullException(string message, Exception innerException);
     }
 }

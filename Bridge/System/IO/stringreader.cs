@@ -16,19 +16,17 @@
 /*
  * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/streamreader.cs
  */
- 
+
 using System;
 using System.Runtime.InteropServices;
 using System.Diagnostics.Contracts;
-using Bridge;
 
 namespace System.IO
 {
     // This class implements a text reader that reads from a string.
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public class StringReader : TextReader
     {
         private String _s;

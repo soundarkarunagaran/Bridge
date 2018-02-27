@@ -3,6 +3,7 @@
 
         getValue: function (obj) {
             obj = Bridge.unbox(obj, true);
+
             if (!Bridge.hasValue(obj)) {
                 throw new System.InvalidOperationException("Nullable instance doesn't have a value.");
             }
@@ -63,7 +64,7 @@
         },
 
         toStringFn: function (fn) {
-            return function(v) {
+            return function (v) {
                 return System.Nullable.toString(v, fn);
             };
         },
@@ -225,7 +226,7 @@
                     return null;
                 },
 
-                $is: function(obj) {
+                $is: function (obj) {
                     return Bridge.is(obj, T);
                 }
             }

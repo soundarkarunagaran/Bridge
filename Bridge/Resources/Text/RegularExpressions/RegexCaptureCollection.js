@@ -6,7 +6,7 @@
         config: {
             properties: {
                 Count: {
-                    get: function() {
+                    get: function () {
                         return this._capcount;
                     }
                 }
@@ -90,6 +90,7 @@
                 var j;
 
                 captures.length = this._capcount;
+
                 for (j = 0; j < this._capcount - 1; j++) {
                     var index = this._group._caps[j * 2];
                     var length = this._group._caps[j * 2 + 1];
@@ -112,18 +113,18 @@
         },
 
         config: {
-			properties: {
-				Current: {
-					get: function () {
-						return this.getCurrent();
-					}
-				}
-			},
+            properties: {
+                Current: {
+                    get: function () {
+                        return this.getCurrent();
+                    }
+                }
+            },
             alias: [
                 "getCurrent", "System$Collections$IEnumerator$getCurrent",
                 "moveNext", "System$Collections$IEnumerator$moveNext",
                 "reset", "System$Collections$IEnumerator$reset",
-				"Current", "System$Collections$IEnumerator$Current"
+                "Current", "System$Collections$IEnumerator$Current"
             ]
         },
 

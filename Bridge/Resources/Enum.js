@@ -19,6 +19,7 @@
 
         getUnderlyingType: function (type) {
             System.Enum.checkEnumType(type);
+
             return type.prototype.$utype || System.Int32;
         },
 
@@ -91,8 +92,8 @@
             return null;
         },
 
-        toStringFn: function(type) {
-            return function(value) {
+        toStringFn: function (type) {
+            return function (value) {
                 return System.Enum.toString(type, value);
             };
         },
@@ -162,6 +163,7 @@
 
                 if (isLong ? saveResult.isZero() : saveResult === 0) {
                     var entry = entries[0];
+
                     if (entry && (System.Int64.is64Bit(entry.value) ? entry.value.isZero() : (entry.value == 0))) {
                         return entry.name;
                     }
@@ -289,6 +291,7 @@
         hasFlag: function (value, flag) {
             flag = Bridge.unbox(flag, true);
             var isLong = System.Int64.is64Bit(value);
+
             return flag === 0 || (isLong ? !value.and(flag).isZero() : !!(value & flag));
         },
 
@@ -304,6 +307,7 @@
 
             for (var i = 0; i < names.length; i++) {
                 var name = names[i];
+
                 if (isString ? enumMethods.nameEquals(name, value, false) : (isLong ? value.eq(values[name]) : (values[name] === value))) {
                     return true;
                 }
@@ -317,6 +321,7 @@
 
             if (result.v == null) {
                 result.v = 0;
+
                 return false;
             }
 

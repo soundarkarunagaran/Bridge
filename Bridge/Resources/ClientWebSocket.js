@@ -136,12 +136,14 @@
                     try {
                         if (cancellationToken.getIsCancellationRequested()) {
                             tcs.setException(new System.Threading.Tasks.TaskCanceledException("Receive has been cancelled.", tcs.task));
+
                             return;
                         }
 
                         if (self.messageBuffer.length === 0) {
                             task = System.Threading.Tasks.Task.delay(0);
                             task.continueWith(asyncBody);
+
                             return;
                         }
 

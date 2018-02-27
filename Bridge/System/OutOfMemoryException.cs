@@ -1,16 +1,14 @@
-﻿using Bridge;
-
-namespace System
+﻿namespace System
 {
-    [External]
-    [Reflectable]
-    public class OutOfMemoryException : SystemException, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class OutOfMemoryException : SystemException, Bridge.IBridgeClass
     {
         public extern OutOfMemoryException();
 
         public extern OutOfMemoryException(string message);
 
-        [Template("new System.OutOfMemoryException({message}, {innerException})")]
+        [Bridge.Template("new System.OutOfMemoryException({message}, {innerException})")]
         public extern OutOfMemoryException(string message, Exception innerException);
     }
 }

@@ -1,14 +1,13 @@
-using Bridge;
 using System.Collections.ObjectModel;
 
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Cast("{this}.ntype == 50 && {this}.dtype === 1")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Cast("{this}.ntype == 50 && {this}.dtype === 1")]
     public sealed class DynamicInvocationExpression : DynamicExpression
     {
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         internal extern DynamicInvocationExpression();

@@ -23,7 +23,6 @@ using System.Runtime.Versioning;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Security.Permissions;
-using Bridge;
 using System.Threading.Tasks;
 
 namespace System.IO
@@ -32,9 +31,8 @@ namespace System.IO
     // This is designed for character input in a particular Encoding,
     // whereas the Stream class is designed for byte input and output.
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public class StreamReader : TextReader
     {
         // StreamReader.Null is threadsafe.

@@ -1,13 +1,11 @@
-using Bridge;
-
 namespace System.Reflection
 {
     /// <summary>
     /// Marks each type of member that is defined as a derived class of MemberInfo.
     /// </summary>
     [Flags]
-    [External]
-    [Enum(Emit.Value)]
+    [Bridge.External]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum MemberTypes
     {
         Constructor = 1,

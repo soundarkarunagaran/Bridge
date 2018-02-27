@@ -1,5 +1,3 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>
@@ -18,8 +16,8 @@ namespace System.ComponentModel.DataAnnotations
     [AttributeUsage(
         AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method |
         AttributeTargets.Parameter, AllowMultiple = true)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public sealed class CustomValidationAttribute : ValidationAttribute
     {
         /// <summary>

@@ -95,13 +95,16 @@
 
             containsPair: function (pair) {
                 var entry = this.findEntry(pair.key);
+
                 return entry && this.comparer.equals2(entry.value, pair.value);
             },
 
             removePair: function (pair) {
                 var entry = this.findEntry(pair.key);
+
                 if (entry && this.comparer.equals2(entry.value, pair.value)) {
                     this.remove(pair.key);
+
                     return true;
                 }
 
@@ -110,6 +113,7 @@
 
             copyTo: function (array, arrayIndex) {
                 var items = System.Linq.Enumerable.from(this).toArray();
+
                 System.Array.copy(items, 0, array, arrayIndex, items.length);
             },
 
@@ -120,6 +124,7 @@
             getKeys: function () {
                 var keys = [];
                 var entry;
+
                 if (this.isSimpleKey) {
                     keys = this.keys
                 } else {
@@ -180,6 +185,7 @@
                     if (this.entries.hasOwnProperty(key)) {
                         return this.entries[key];
                     }
+
                     return;
                 }
 
@@ -254,8 +260,7 @@
                 if (this.isSimpleKey) {
                     this.entries[key] = entry;
                     this.keys.push(key);
-                }
-                else {
+                } else {
                     hash = this.comparer.getHashCode2(key);
 
                     if (this.entries[hash]) {
@@ -291,6 +296,7 @@
                         this.count--;
                         return true;
                     }
+
                     return false;
                 }
 
@@ -375,6 +381,7 @@
 
     System.Collections.Generic.Dictionary$2.getTypeParameters = function (type) {
         var interfaceType;
+
         if (System.String.startsWith(type.$$name, "System.Collections.Generic.IDictionary")) {
             interfaceType = type;
         } else {
@@ -383,6 +390,7 @@
             for (var j = 0; j < interfaces.length; j++) {
                 if (System.String.startsWith(interfaces[j].$$name, "System.Collections.Generic.IDictionary")) {
                     interfaceType = interfaces[j];
+
                     break;
                 }
             }

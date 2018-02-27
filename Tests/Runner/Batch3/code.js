@@ -27,10 +27,10 @@ var Bridge3001_SomeLib = (function () {
 
 /**
  * Bridge Test library - test github issues up to #1999
- * @version 16.8.1
+ * @version 17.0.0
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2018 Object.NET, Inc.
- * @compiler Bridge.NET 16.8.1
+ * @compiler Bridge.NET 17.0.0
  */
 Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     "use strict";
@@ -23748,11 +23748,13 @@ Bridge.$N1391Result =                     r;
                     s2 = (s = "test");
                     Bridge.Test.NUnit.Assert.AreEqual(s2, "test", "On more than one variable, works to the indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(s, "test", "On more than one variable, works to the direct variable."); /// Variable is declared but never used
+
+
                     var c;
                     var c3;
                     var c2;
                     c2 = (c = "test");
-                    var c4; /// Variable is declared but never used
+                    var c4;
                     Bridge.Test.NUnit.Assert.AreEqual(c2, "test", "With unrelated variables, works on indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(c, "test", "With unrelated variables, works on direct variable.");
 
@@ -24847,8 +24849,10 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNullCast: function () { /// The result of the expression is always 'null'
+
+
                     Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))));
-                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false); /// The result of the expression is always 'null'
+                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false);
                 }
             }
         }
@@ -28032,7 +28036,7 @@ Bridge.$N1391Result =                     r;
 
     /**
      * The tests here should be verified in Microsoft Edge 41.16299.15.0 (Microsoft EdgeHTML 16.16299).
-     Ensures that HTML attributes are being processed correctly 
+     Ensures that HTML attributes are being processed correctly
      even if incorrect names of properties are being requested.
      *
      * @public
@@ -28995,6 +28999,8 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestCustomComparer: function () { /// The given expression is always of the provided ('short') type
+
+
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float32Array.BYTES_PER_ELEMENT), "Could reference Float32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float64Array.BYTES_PER_ELEMENT), "Could reference Float64Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int16Array.BYTES_PER_ELEMENT), "Could reference Int16Array's bytes per element constant.");
@@ -29003,7 +29009,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint16Array.BYTES_PER_ELEMENT), "Could reference Uint16Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint32Array.BYTES_PER_ELEMENT), "Could reference Uint32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8Array.BYTES_PER_ELEMENT), "Could reference Uint8Array's bytes per element constant.");
-                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant."); /// The given expression is always of the provided ('short') type
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant.");
                 }
             }
         }

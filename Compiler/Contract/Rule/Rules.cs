@@ -66,10 +66,10 @@ namespace Bridge.Contract
                     assemblyRules[i] = Rules.ToRule(assemblyAttrs[i], CompilerRuleLevel.Assembly);
                 }
 
-                if(emitter != null)
+                if (emitter != null)
                 {
                     emitter.AssemblyCompilerRuleCache.Add(assembly, assemblyRules);
-                }                
+                }
             }
 
             var rules = new List<CompilerRule>();
@@ -89,10 +89,10 @@ namespace Bridge.Contract
                 rules.AddRange(interfaceRules);
             }
 
-            if(emitter != null)
+            if (emitter != null)
             {
                 rules.Add(emitter.AssemblyInfo.Rules);
-            }            
+            }
 
             if (assemblyRules != null && assemblyRules.Length > 0)
             {
@@ -243,7 +243,7 @@ namespace Bridge.Contract
             {
                 emitter.ClassCompilerRuleCache.Add(typeDef, classRules);
             }
-            
+
             return classRules;
         }
     }

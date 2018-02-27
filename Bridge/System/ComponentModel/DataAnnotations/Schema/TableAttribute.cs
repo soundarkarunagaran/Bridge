@@ -1,13 +1,11 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations.Schema
 {
     /// <summary>
     /// Specifies the database table that a class is mapped to.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class TableAttribute : Attribute
     {
         /// <summary>

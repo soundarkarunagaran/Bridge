@@ -1,10 +1,8 @@
-using Bridge;
-
 namespace System.Diagnostics.CodeAnalysis
 {
     [AttributeUsage(AttributeTargets.All, Inherited = false, AllowMultiple = true)]
-    [External]
-    [Name("System.Object")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
     public sealed class SuppressMessageAttribute : Attribute
     {
         public extern SuppressMessageAttribute(string category, string checkId);

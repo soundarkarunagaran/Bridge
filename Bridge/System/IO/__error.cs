@@ -20,14 +20,12 @@
  * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/__error.cs
  */
 
-using Bridge;
 using System;
 using System.Diagnostics.Contracts;
 
 namespace System.IO
 {
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Convention]
     internal static class __Error
     {
         internal static void EndOfFile()

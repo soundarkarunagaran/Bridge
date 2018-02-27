@@ -1,16 +1,14 @@
-using Bridge;
-
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class ArgumentException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class ArgumentException : Exception, Bridge.IBridgeClass
     {
         public extern ArgumentException();
 
         public extern ArgumentException(string message);
 
-        [Template("new System.ArgumentException({message}, null, {innerException})")]
+        [Bridge.Template("new System.ArgumentException({message}, null, {innerException})")]
         public extern ArgumentException(string message, Exception innerException);
 
         public extern ArgumentException(string message, string paramName);

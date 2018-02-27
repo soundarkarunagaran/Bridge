@@ -1,11 +1,10 @@
-using Bridge;
 using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace System
 {
-    [External]
-    [Reflectable]
+    [Bridge.External]
+    [Bridge.Reflectable]
     public interface IAsyncResult
     {
         object AsyncState { get; }

@@ -14,7 +14,7 @@
         }
     });
 
-    Bridge.define("Bridge.GeneratorEnumerable$1", function(T)
+    Bridge.define("Bridge.GeneratorEnumerable$1", function (T)
     {
         return {
             inherits: [System.Collections.Generic.IEnumerable$1(T)],
@@ -25,7 +25,7 @@
                 ]
             },
 
-            ctor: function(action) {
+            ctor: function (action) {
                 this.$initialize();
                 this.getEnumerator = action;
                 this["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"] = action;
@@ -40,19 +40,19 @@
         current: null,
 
         config: {
-			properties: {
-				Current: {
-					get: function () {
-						return this.getCurrent();
-					}
-				}
-			},
-			
+            properties: {
+                Current: {
+                    get: function () {
+                        return this.getCurrent();
+                    }
+                }
+            },
+
             alias: [
-				"getCurrent", "System$Collections$IEnumerator$getCurrent",
-				"moveNext", "System$Collections$IEnumerator$moveNext",
-				"reset", "System$Collections$IEnumerator$reset",
-				"Current", "System$Collections$IEnumerator$Current"
+                "getCurrent", "System$Collections$IEnumerator$getCurrent",
+                "moveNext", "System$Collections$IEnumerator$moveNext",
+                "reset", "System$Collections$IEnumerator$reset",
+                "Current", "System$Collections$IEnumerator$Current"
             ]
         },
 
@@ -82,26 +82,26 @@
             current: null,
 
             config: {
-				properties: {
-					Current: {
-						get: function () {
-							return this.getCurrent();
-						}
-					},
-					
-					Current$1: {
-						get: function () {
-							return this.getCurrent();
-						}
-					}
-				},
+                properties: {
+                    Current: {
+                        get: function () {
+                            return this.getCurrent();
+                        }
+                    },
+
+                    Current$1: {
+                        get: function () {
+                            return this.getCurrent();
+                        }
+                    }
+                },
                 alias: [
-					"getCurrent", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "System$Collections$Generic$IEnumerator$1$getCurrent$1"],
-					"Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
-					"Current", "System$Collections$IEnumerator$Current",
-					"dispose", "System$IDisposable$dispose",
-					"moveNext", "System$Collections$IEnumerator$moveNext",
-					"reset", "System$Collections$IEnumerator$reset"
+                    "getCurrent", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "System$Collections$Generic$IEnumerator$1$getCurrent$1"],
+                    "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+                    "Current", "System$Collections$IEnumerator$Current",
+                    "dispose", "System$IDisposable$dispose",
+                    "moveNext", "System$Collections$IEnumerator$moveNext",
+                    "reset", "System$Collections$IEnumerator$reset"
                 ]
             },
 

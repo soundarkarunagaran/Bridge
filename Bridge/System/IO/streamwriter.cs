@@ -23,7 +23,6 @@ using System;
 using System.Text;
 using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
-using Bridge;
 
 namespace System.IO
 {
@@ -31,9 +30,8 @@ namespace System.IO
     // This is designed for character output in a particular Encoding,
     // whereas the Stream class is designed for byte input and output.
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public class StreamWriter : TextWriter
     {
         // For UTF-8, the values of 1K for the default buffer size and 4K for the

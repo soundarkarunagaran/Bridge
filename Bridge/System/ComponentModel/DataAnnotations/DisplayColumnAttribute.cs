@@ -1,5 +1,3 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations
 {
     /// <summary>
@@ -7,8 +5,8 @@ namespace System.ComponentModel.DataAnnotations
     /// relationships.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class DisplayColumnAttribute : Attribute
     {
         public extern DisplayColumnAttribute(string displayColumn);

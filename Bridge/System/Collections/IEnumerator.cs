@@ -1,11 +1,9 @@
-using Bridge;
-
 namespace System.Collections
 {
-    [External]
-    [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
-    [Reflectable]
-    public interface IEnumerator : IBridgeClass
+    [Bridge.External]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
+    [Bridge.Reflectable]
+    public interface IEnumerator : Bridge.IBridgeClass
     {
         object Current
         {

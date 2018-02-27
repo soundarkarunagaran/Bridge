@@ -136,19 +136,19 @@
         },
 
         config: {
-			properties: {
-				Current: {
-					get: function () {
-						return this.getCurrent();
-					}
-				}
-			},
-			
+            properties: {
+                Current: {
+                    get: function () {
+                        return this.getCurrent();
+                    }
+                }
+            },
+
             alias: [
                 "getCurrent", "System$Collections$IEnumerator$getCurrent",
                 "moveNext", "System$Collections$IEnumerator$moveNext",
                 "reset", "System$Collections$IEnumerator$reset",
-				"Current", "System$Collections$IEnumerator$Current"
+                "Current", "System$Collections$IEnumerator$Current"
             ]
         },
 

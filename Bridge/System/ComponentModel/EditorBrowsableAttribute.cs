@@ -1,11 +1,9 @@
-using Bridge;
-
 namespace System.ComponentModel
 {
     [EditorBrowsable(EditorBrowsableState.Never)]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Constructor | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Event | AttributeTargets.Delegate | AttributeTargets.Interface)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public sealed class EditorBrowsableAttribute : Attribute
     {
         public extern EditorBrowsableAttribute(EditorBrowsableState state);
@@ -17,8 +15,8 @@ namespace System.ComponentModel
     }
 
     [EditorBrowsable(EditorBrowsableState.Never)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public enum EditorBrowsableState
     {
         Always = 0,

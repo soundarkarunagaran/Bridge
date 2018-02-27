@@ -1,11 +1,7 @@
-using Bridge;
-using Bridge.Internal.Html5;
-
 namespace System.Text
 {
-    [Reflectable]
-    [FileName("system/text/encoding.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public class UTF32Encoding : Encoding
     {
         private bool bigEndian;

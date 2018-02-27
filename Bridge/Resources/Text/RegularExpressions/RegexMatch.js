@@ -56,6 +56,7 @@
             this._matchcount.length = capcount;
 
             var i;
+
             for (i = 0; i < capcount; i++) {
                 this._matchcount[i] = 0;
             }
@@ -174,6 +175,7 @@
             if (this._groupColl == null) {
                 this._groupColl = new System.Text.RegularExpressions.GroupCollection(this, this._caps);
             }
+
             return this._groupColl;
         },
     });

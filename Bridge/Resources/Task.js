@@ -357,7 +357,7 @@
     Bridge.define("System.Threading.Tasks.Task$1", function (T) {
         return {
             inherits: [System.Threading.Tasks.Task],
-            ctor: function(action, state) {
+            ctor: function (action, state) {
                 this.$initialize();
                 System.Threading.Tasks.Task.ctor.call(this, action, state);
             }
@@ -488,6 +488,7 @@
                     f: f,
                     s: s
                 };
+
                 this.handlers.push(o);
 
                 return new System.Threading.CancellationTokenRegistration(this, o);

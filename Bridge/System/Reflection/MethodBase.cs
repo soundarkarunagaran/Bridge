@@ -1,31 +1,30 @@
-using Bridge;
 using System.ComponentModel;
 
 namespace System.Reflection
 {
-    [External]
-    [Name("System.Object")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
     public class MethodBase : MemberInfo
     {
         public extern Type[] ParameterTypes
         {
-            [Template("({this}.p || [])")]
+            [Bridge.Template("({this}.p || [])")]
             get;
         }
 
         public extern bool IsConstructor
         {
-            [Template("({this}.t === 1)")]
+            [Bridge.Template("({this}.t === 1)")]
             get;
         }
 
-        [NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
+        [Bridge.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern MethodBase GetMethodFromHandle(RuntimeMethodHandle h);
 
-        [NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
+        [Bridge.NonScriptable, EditorBrowsable(EditorBrowsableState.Never)]
         public static extern MethodBase GetMethodFromHandle(RuntimeMethodHandle h, RuntimeTypeHandle x);
 
-        [Template("({this}.pi || [])")]
+        [Bridge.Template("({this}.pi || [])")]
         public extern ParameterInfo[] GetParameters();
 
         internal extern MethodBase();

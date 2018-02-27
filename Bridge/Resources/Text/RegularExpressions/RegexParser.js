@@ -148,7 +148,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
     },
 
     ctor: function (culture) {
-		this.$initialize();
+        this.$initialize();
         this._culture = culture;
         this._caps = {};
     },
@@ -176,11 +176,13 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
         while (true) {
             c = this._charsRight();
+
             if (c === 0) {
                 break;
             }
 
             startpos = this._textpos();
+
             while (c > 0 && this._rightChar() !== "$") {
                 this._moveRight();
                 c--;
@@ -288,6 +290,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
             } else {
                 capnum = this._scanDecimal();
+
                 if (!angled || this._charsRight() > 0 && this._moveRightGetChar() === "}") {
                     if (this._isCaptureSlot(capnum)) {
                         return new System.Text.RegularExpressions.RegexNode(System.Text.RegularExpressions.RegexNode.Ref, this._options, capnum);
@@ -358,6 +361,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
         while (this._charsRight() > 0) {
             ch = this._rightChar();
+
             if (ch < "0" || ch > "9") {
                 break;
             }

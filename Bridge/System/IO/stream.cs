@@ -26,13 +26,11 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 using System.Diagnostics.Contracts;
 using System.Reflection;
-using Bridge;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public abstract class Stream : IDisposable
     {
         public static readonly Stream Null = new NullStream();

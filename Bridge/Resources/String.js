@@ -8,6 +8,7 @@ Bridge.define("System.String", {
 
         charCodeAt: function (str, idx) {
             idx = idx || 0;
+
             var code = str.charCodeAt(idx),
                 hi,
                 low;
@@ -15,6 +16,7 @@ Bridge.define("System.String", {
             if (0xD800 <= code && code <= 0xDBFF) {
                 hi = code;
                 low = str.charCodeAt(idx + 1);
+
                 if (isNaN(low)) {
                     throw new System.Exception("High surrogate not followed by low surrogate");
                 }
@@ -32,6 +34,7 @@ Bridge.define("System.String", {
         fromCharCode: function (codePt) {
             if (codePt > 0xFFFF) {
                 codePt -= 0x10000;
+
                 return String.fromCharCode(0xD800 + (codePt >> 10), 0xDC00 + (codePt & 0x3FF));
             }
 
@@ -66,6 +69,7 @@ Bridge.define("System.String", {
 
             for (var i = 0; i < length; i++) {
                 var ch = chars[i + startIndex] | 0;
+
                 result += String.fromCharCode(ch);
             }
 

@@ -1,13 +1,11 @@
-using Bridge;
-
 namespace System.Collections
 {
-    [External]
-    [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
-    [Reflectable]
-    public interface IEnumerable : IBridgeClass
+    [Bridge.External]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
+    [Bridge.Reflectable]
+    public interface IEnumerable : Bridge.IBridgeClass
     {
-        [Template("Bridge.getEnumerator({this})")]
+        [Bridge.Template("Bridge.getEnumerator({this})")]
         IEnumerator GetEnumerator();
     }
 }

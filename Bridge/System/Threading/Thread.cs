@@ -1,10 +1,8 @@
-using Bridge;
-
 using System.ComponentModel;
 
 namespace System.Threading
 {
-    [External]
+    [Bridge.External]
     public sealed class Thread
     {
         //public extern int ManagedThreadId
@@ -23,7 +21,7 @@ namespace System.Threading
         /// Please note maximum 1e7 iterations
         /// </summary>
         /// <param name="millisecondsTimeout">The number of milliseconds for which the thread is suspended. Should be positive or -1. -1 works the same as 0 (not Infinite)</param>
-        [Template("Bridge.sleep({millisecondsTimeout})")]
+        [Bridge.Template("Bridge.sleep({millisecondsTimeout})")]
         public extern static void Sleep(int millisecondsTimeout);
 
         /// <summary>
@@ -32,7 +30,7 @@ namespace System.Threading
         /// Please note maximum 1e7 iterations
         /// </summary>
         /// <param name="timeout">The amount of time for which the thread is suspended. Should be positive or -1. -1 works the same as 0 (not Infinite)</param>
-        [Template("Bridge.sleep(null, {timeout})")]
+        [Bridge.Template("Bridge.sleep(null, {timeout})")]
         public extern static void Sleep(TimeSpan timeout);
     }
 }

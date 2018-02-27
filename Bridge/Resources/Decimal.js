@@ -435,7 +435,7 @@
         return this.value.valueOf();
     };
 
-    System.Decimal.prototype._toFormat = function(dp, rm, f) {
+    System.Decimal.prototype._toFormat = function (dp, rm, f) {
         var x = this.value;
 
         if (!x.isFinite()) {
@@ -531,8 +531,7 @@
                 bytes[i*4 + 5] = (d[i] >> 16) & 255;
                 bytes[i*4 + 6] = (d[i] >> 24) & 255;
             }
-        }
-        else {
+        } else {
             bytes[2] = 0;
         }
 

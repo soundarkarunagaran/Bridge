@@ -15,6 +15,7 @@
 
         ctor: function (regex) {
             this.$initialize();
+
             if (regex == null) {
                 throw new System.ArgumentNullException("regex");
             }
@@ -80,6 +81,7 @@
 
         parsePattern: function () {
             var result = this._netEngine.parsePattern();
+
             return result;
         },
 
@@ -112,6 +114,7 @@
 
                 // Paste group index/length according to group ordering:
                 grOrder = 0;
+
                 if (jsGroup.descriptor != null) {
                     grOrder = this._runregex.groupNumberFromName(jsGroup.descriptor.name);
                 }
@@ -123,6 +126,7 @@
             }
 
             var textEndPos = jsMatch.capIndex + jsMatch.capLength;
+
             match._tidy(textEndPos);
 
             return match;

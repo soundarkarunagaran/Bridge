@@ -71,8 +71,10 @@
             {
                 var currentTimeStamp = System.Diagnostics.Stopwatch.getTimestamp();
                 var elapsedUntilNow = currentTimeStamp.sub(this._startTime);
+
                 timeElapsed = timeElapsed.add(elapsedUntilNow);
             }
+
             return timeElapsed;
         },
 
@@ -88,6 +90,7 @@
             startNew: function () {
                 var s = new System.Diagnostics.Stopwatch();
                 s.start();
+
                 return s;
             }
         }
@@ -170,6 +173,7 @@
                         return false;
                     }
                 }
+
                 return true;
             } finally {
                 enumerator.dispose();
@@ -205,6 +209,7 @@
                         return true;
                     }
                 }
+
                 return false;
             } finally {
                 enumerator.dispose();
@@ -230,7 +235,7 @@
         config: {
             properties: {
                 Kind: {
-                    get: function() {
+                    get: function () {
                         return this._kind;
                     }
                 },

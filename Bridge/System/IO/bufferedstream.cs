@@ -23,7 +23,6 @@ using System.Globalization;
 using System.Diagnostics.Contracts;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using Bridge;
 
 namespace System.IO
 {
@@ -61,9 +60,8 @@ namespace System.IO
     /// bytes cached (not yet written to the target stream or not yet consumed by the user) is never larger than the
     /// actual specified buffer size.
     /// </summary>
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     public sealed class BufferedStream : Stream
     {
 

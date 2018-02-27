@@ -1,14 +1,12 @@
-using Bridge;
-
 namespace System.Threading.Tasks
 {
     /// <summary>
     /// CommonJS Promise/A interface
     /// http://wiki.commonjs.org/wiki/Promises/A
     /// </summary>
-    [External]
-    [Name("Bridge.IPromise")]
-    [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
+    [Bridge.External]
+    [Bridge.Name("Bridge.IPromise")]
+    [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public interface IPromise
     {
         /// <summary>
@@ -23,7 +21,7 @@ namespace System.Threading.Tasks
     /// <summary>
     ///
     /// </summary>
-    [External]
+    [Bridge.External]
     public static class PromiseExtensions
     {
         /// <summary>
@@ -31,7 +29,7 @@ namespace System.Threading.Tasks
         /// </summary>
         /// <param name="promise"></param>
         /// <returns></returns>
-        [Template("System.Threading.Tasks.Task.fromPromise({promise})")]
+        [Bridge.Template("System.Threading.Tasks.Task.fromPromise({promise})")]
         public static extern TaskAwaiter<object[]> GetAwaiter(this IPromise promise);
     }
 }

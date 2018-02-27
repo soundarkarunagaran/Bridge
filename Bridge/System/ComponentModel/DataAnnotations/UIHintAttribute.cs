@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Bridge;
 
 namespace System.ComponentModel.DataAnnotations
 {
@@ -7,8 +6,8 @@ namespace System.ComponentModel.DataAnnotations
     /// Attribute to provide a hint to the presentation layer about what control it should use
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = true)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class UIHintAttribute : Attribute
     {
         /// <summary>

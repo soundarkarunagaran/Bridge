@@ -2,7 +2,7 @@ Bridge.define("System.Exception", {
         config: {
             properties: {
                 Message: {
-                    get: function() {
+                    get: function () {
                         return this.message;
                     }
                 },
@@ -35,7 +35,7 @@ Bridge.define("System.Exception", {
             this.data = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))();
         },
 
-        getBaseException: function() {
+        getBaseException: function () {
             var inner = this.innerException;
             var back = this;
 
@@ -205,7 +205,7 @@ Bridge.define("System.Exception", {
         config: {
             properties: {
                 ParamName: {
-                    get: function() {
+                    get: function () {
                         return this.paramName;
                     }
                 }
@@ -468,14 +468,16 @@ Bridge.define("System.Exception", {
             }
         },
 
-        getBaseException: function() {
+        getBaseException: function () {
             var back = this;
             var backAsAggregate = this;
+
             while (backAsAggregate != null && backAsAggregate.innerExceptions.Count === 1)
             {
                 back = back.InnerException;
                 backAsAggregate = Bridge.as(back, System.AggregateException);
             }
+
             return back;
         },
 

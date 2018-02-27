@@ -51,52 +51,14 @@
     <AdditionalExplicitAssemblyReferences />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Html5\Ajax\XMLHttpRequest.cs">
-      <Link>Internal\XMLHttpRequest.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\File\File.cs">
-      <Link>Internal\File.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\ArrayBuffer.cs">
-      <Link>Internal\Html5\TypedArray\ArrayBuffer.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\ArrayBufferView.cs">
-      <Link>Internal\Html5\TypedArray\ArrayBufferView.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\DataView.cs">
-      <Link>Internal\Html5\TypedArray\DataView.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Float32Array.cs">
-      <Link>Internal\Html5\TypedArray\Float32Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Float64Array.cs">
-      <Link>Internal\Html5\TypedArray\Float64Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Int16Array.cs">
-      <Link>Internal\Html5\TypedArray\Int16Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Int32Array.cs">
-      <Link>Internal\Html5\TypedArray\Int32Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Int8Array.cs">
-      <Link>Internal\Html5\TypedArray\Int8Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Prototype.cs">
-      <Link>Internal\Html5\TypedArray\Prototype.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Uint16Array.cs">
-      <Link>Internal\Html5\TypedArray\Uint16Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Uint32Array.cs">
-      <Link>Internal\Html5\TypedArray\Uint32Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Uint8Array.cs">
-      <Link>Internal\Html5\TypedArray\Uint8Array.cs</Link>
-    </Compile>
-    <Compile Include="..\Html5\TypedArray\Uint8ClampedArray.cs">
-      <Link>Internal\Html5\TypedArray\Uint8ClampedArray.cs</Link>
-    </Compile>
     <Compile Include="Attributes\Convention.cs" />
+    <Compile Include="Attributes\ExternalInterfaceAttribute.cs" />
+    <Compile Include="Attributes\CastAttribute.cs" />
+    <Compile Include="Attributes\OutputByAttribute.cs" />
+    <Compile Include="Attributes\OutputAttribute.cs" />
+    <Compile Include="Attributes\VirtualAttribute.cs" />
+    <Compile Include="Attributes\NonScriptableAttribute.cs" />
+    <Compile Include="Attributes\ReadyAttribute.cs" />
     <Compile Include="Attributes\RulesAttribute.cs" />
     <Compile Include="System\AsyncCallback.cs" />
     <Compile Include="System\Attributes\CLSCompliantAttribute.cs" />
@@ -183,6 +145,7 @@
     <Compile Include="System\IO\textreader.cs" />
     <Compile Include="System\IO\textwriter.cs" />
     <Compile Include="System\IO\__error.cs" />
+    <Compile Include="System\Runtime\Serialization\iserializable.cs" />
     <Compile Include="System\SerializableAttribute.cs" />
     <Compile Include="Attributes\UnboxAttribute.cs" />
     <Compile Include="Attributes\GlobalMethodsAttribute.cs" />
@@ -469,44 +432,77 @@
     <Content Include="Resources\.auxiliary\AssemblyBegin.js" />
     <Content Include="Resources\.generated\bridge.js" />
     <Content Include="Resources\.generated\bridge.meta.js" />
-    <Content Include="Resources\.generated\bridge\utils\console.js" />
-    <Content Include="Resources\.generated\bridge\utils\systemAssemblyVersion.js" />
-    <Content Include="Resources\.generated\system\bitConverter.js" />
-    <Content Include="Resources\.generated\system\collections\bitArray.js" />
-    <Content Include="Resources\.generated\system\collections\bitArray\bitArrayEnumeratorSimple.js" />
-    <Content Include="Resources\.generated\system\collections\generic\bitHelper.js" />
-    <Content Include="Resources\.generated\system\collections\generic\enumerableHelpers.js" />
-    <Content Include="Resources\.generated\system\collections\generic\hashSet.js" />
-    <Content Include="Resources\.generated\system\collections\generic\hashSet\elementCount.js" />
-    <Content Include="Resources\.generated\system\collections\generic\hashSet\enumerator.js" />
-    <Content Include="Resources\.generated\system\collections\generic\hashSet\slot.js" />
-    <Content Include="Resources\.generated\system\collections\generic\list.js" />
-    <Content Include="Resources\.generated\system\collections\generic\list\enumerator.js" />
-    <Content Include="Resources\.generated\system\collections\generic\queue.js" />
-    <Content Include="Resources\.generated\system\collections\generic\queue\enumerator.js" />
-    <Content Include="Resources\.generated\system\collections\generic\stack.js" />
-    <Content Include="Resources\.generated\system\collections\generic\stack\enumerator.js" />
-    <Content Include="Resources\.generated\system\collections\hashHelpers.js" />
-    <Content Include="Resources\.generated\system\collections\objectModel\readOnlyCollection.js" />
-    <Content Include="Resources\.generated\system\componentModel\browsableAttribute.js" />
-    <Content Include="Resources\.generated\system\componentModel\defaultValueAttribute.js" />
-    <Content Include="Resources\.generated\system\console.js" />
-    <Content Include="Resources\.generated\system\dateTimeKind.js" />
-    <Content Include="Resources\.generated\system\dayOfWeek.js" />
-    <Content Include="Resources\.generated\system\environment.js" />
-    <Content Include="Resources\.generated\system\formattableString.js" />
-    <Content Include="Resources\.generated\system\formattableStringImpl.js" />
-    <Content Include="Resources\.generated\system\globalization\textInfo.js" />
-    <Content Include="Resources\.generated\system\guid.js" />
-    <Content Include="Resources\.generated\system\io\io.js" />
-    <Content Include="Resources\.generated\system\random.js" />
-    <Content Include="Resources\.generated\system\runtime\compilerServices\formattableStringFactory.js" />
-    <Content Include="Resources\.generated\system\text\encoding.js" />
-    <Content Include="Resources\.generated\system\text\regularExpressions\regex.js" />
-    <Content Include="Resources\.generated\system\threading\timer.js" />
-    <Content Include="Resources\.generated\system\version.js" />
-    <Content Include="Resources\.generated\system\version\parseFailureKind.js" />
-    <Content Include="Resources\.generated\system\version\versionResult.js" />
+    <Content Include="Resources\.generated\Bridge\Utils\Console.js" />
+    <Content Include="Resources\.generated\Bridge\Utils\SystemAssemblyVersion.js" />
+    <Content Include="Resources\.generated\System\BitConverter.js" />
+    <Content Include="Resources\.generated\System\Collections\BitArray.js" />
+    <Content Include="Resources\.generated\System\Collections\BitArray\BitArrayEnumeratorSimple.js" />
+    <Content Include="Resources\.generated\System\Collections\DictionaryEntry.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\BitHelper.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\EnumerableHelpers.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\HashSet.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\HashSet\ElementCount.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\HashSet\Enumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\HashSet\Slot.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\List.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\List\Enumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\Queue.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\Queue\Enumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\Stack.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\Stack\Enumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\HashHelpers.js" />
+    <Content Include="Resources\.generated\System\Collections\IDictionaryEnumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\ObjectModel\ReadOnlyCollection.js" />
+    <Content Include="Resources\.generated\System\ComponentModel\BrowsableAttribute.js" />
+    <Content Include="Resources\.generated\System\ComponentModel\DefaultValueAttribute.js" />
+    <Content Include="Resources\.generated\System\Console.js" />
+    <Content Include="Resources\.generated\System\DateTimeKind.js" />
+    <Content Include="Resources\.generated\System\DayOfWeek.js" />
+    <Content Include="Resources\.generated\System\Environment.js" />
+    <Content Include="Resources\.generated\System\FormattableString.js" />
+    <Content Include="Resources\.generated\System\FormattableStringImpl.js" />
+    <Content Include="Resources\.generated\System\Globalization\TextInfo.js" />
+    <Content Include="Resources\.generated\System\Guid.js" />
+    <Content Include="Resources\.generated\System\IO\BinaryReader.js" />
+    <Content Include="Resources\.generated\System\IO\BinaryWriter.js" />
+    <Content Include="Resources\.generated\System\IO\BufferedStream.js" />
+    <Content Include="Resources\.generated\System\IO\EndOfStreamException.js" />
+    <Content Include="Resources\.generated\System\IO\File.js" />
+    <Content Include="Resources\.generated\System\IO\FileMode.js" />
+    <Content Include="Resources\.generated\System\IO\FileStream.js" />
+    <Content Include="Resources\.generated\System\IO\IOException.js" />
+    <Content Include="Resources\.generated\System\IO\Iterator.js" />
+    <Content Include="Resources\.generated\System\IO\MemoryStream.js" />
+    <Content Include="Resources\.generated\System\IO\ReadLinesIterator.js" />
+    <Content Include="Resources\.generated\System\IO\SeekOrigin.js" />
+    <Content Include="Resources\.generated\System\IO\Stream.js" />
+    <Content Include="Resources\.generated\System\IO\StreamReader.js" />
+    <Content Include="Resources\.generated\System\IO\StreamReader\NullStreamReader.js" />
+    <Content Include="Resources\.generated\System\IO\StreamWriter.js" />
+    <Content Include="Resources\.generated\System\IO\Stream\NullStream.js" />
+    <Content Include="Resources\.generated\System\IO\Stream\SynchronousAsyncResult.js" />
+    <Content Include="Resources\.generated\System\IO\StringReader.js" />
+    <Content Include="Resources\.generated\System\IO\StringWriter.js" />
+    <Content Include="Resources\.generated\System\IO\TextReader.js" />
+    <Content Include="Resources\.generated\System\IO\TextReader\NullTextReader.js" />
+    <Content Include="Resources\.generated\System\IO\TextWriter.js" />
+    <Content Include="Resources\.generated\System\IO\TextWriter\NullTextWriter.js" />
+    <Content Include="Resources\.generated\System\IO\__Error.js" />
+    <Content Include="Resources\.generated\System\Random.js" />
+    <Content Include="Resources\.generated\System\Runtime\CompilerServices\FormattableStringFactory.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\ISerializable.js" />
+    <Content Include="Resources\.generated\System\Text\ASCIIEncoding.js" />
+    <Content Include="Resources\.generated\System\Text\Encoding.js" />
+    <Content Include="Resources\.generated\System\Text\EncodingInfo.js" />
+    <Content Include="Resources\.generated\System\Text\RegularExpressions\Regex.js" />
+    <Content Include="Resources\.generated\System\Text\UnicodeEncoding.js" />
+    <Content Include="Resources\.generated\System\Text\UTF32Encoding.js" />
+    <Content Include="Resources\.generated\System\Text\UTF7Encoding.js" />
+    <Content Include="Resources\.generated\System\Text\UTF8Encoding.js" />
+    <Content Include="Resources\.generated\System\Threading\Timer.js" />
+    <Content Include="Resources\.generated\System\Version.js" />
+    <Content Include="Resources\.generated\System\Version\ParseFailureKind.js" />
+    <Content Include="Resources\.generated\System\Version\VersionResult.js" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Locales\aa-DJ.js" />

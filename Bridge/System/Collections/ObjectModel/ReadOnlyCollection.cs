@@ -1,4 +1,3 @@
-using Bridge;
 using System.Collections.Generic;
 
 namespace System.Collections.ObjectModel

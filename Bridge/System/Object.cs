@@ -1,21 +1,19 @@
-using Bridge;
-
 namespace System
 {
-    [External]
-    [IgnoreCast]
-    [Constructor("{ }")]
+    [Bridge.External]
+    [Bridge.IgnoreCast]
+    [Bridge.Constructor("{ }")]
     public class Object
     {
         public virtual extern object this[string name]
         {
-            [External]
+            [Bridge.External]
             get;
-            [External]
+            [Bridge.External]
             set;
         }
 
-        [Template("Bridge.toString({this})")]
+        [Bridge.Template("Bridge.toString({this})")]
         public virtual extern string ToString();
 
         public virtual extern string ToLocaleString();
@@ -28,30 +26,30 @@ namespace System
 
         public virtual extern bool PropertyIsEnumerable(object v);
 
-        [Template("<self>{this:type}")]
+        [Bridge.Template("<self>{this:type}")]
         public extern Type GetType();
 
-        [Template("Bridge.referenceEquals({a}, {b})")]
+        [Bridge.Template("Bridge.referenceEquals({a}, {b})")]
         public static extern bool ReferenceEquals(object a, object b);
 
-        [Template("Bridge.equals({this}, {o})")]
+        [Bridge.Template("Bridge.equals({this}, {o})")]
         public virtual extern bool Equals(object o);
 
-        [Template("Bridge.equals({a}, {b})")]
+        [Bridge.Template("Bridge.equals({a}, {b})")]
         public static extern bool Equals(object a, object b);
 
-        [Template("Bridge.getHashCode({this})")]
+        [Bridge.Template("Bridge.getHashCode({this})")]
         public virtual extern int GetHashCode();
 
-        [Template("Object.keys({obj})")]
-        [Unbox(true)]
+        [Bridge.Template("Object.keys({obj})")]
+        [Bridge.Unbox(true)]
         public static extern string[] Keys(object obj);
 
-        [Template("Object.getOwnPropertyNames({obj})")]
-        [Unbox(true)]
+        [Bridge.Template("Object.getOwnPropertyNames({obj})")]
+        [Bridge.Unbox(true)]
         public static extern string[] GetOwnPropertyNames(object obj);
 
-        [Template("{T}.prototype")]
+        [Bridge.Template("{T}.prototype")]
         public static extern dynamic GetPrototype<T>();
 
         public readonly Type Constructor;
@@ -60,24 +58,24 @@ namespace System
         private readonly Type ctor;
 #pragma warning restore 169
 
-        [Template("{this}")]
+        [Bridge.Template("{this}")]
         public virtual extern dynamic ToDynamic();
     }
 
-    [External]
+    [Bridge.External]
     public static class ObjectExtensions
     {
-        [Template("{0}")]
-        [Unbox(true)]
+        [Bridge.Template("{0}")]
+        [Bridge.Unbox(true)]
         public static extern T As<T>(this object obj);
 
-        [Template("Bridge.cast({obj}, {T})")]
+        [Bridge.Template("Bridge.cast({obj}, {T})")]
         public static extern T Cast<T>(this object obj);
 
-        [Template("Bridge.as({obj}, {T})")]
+        [Bridge.Template("Bridge.as({obj}, {T})")]
         public static extern T TryCast<T>(this object obj) where T : class;
 
-        [Template("Bridge.is({obj}, {T})")]
+        [Bridge.Template("Bridge.is({obj}, {T})")]
         public static extern bool Is<T>(this object obj);
     }
 }

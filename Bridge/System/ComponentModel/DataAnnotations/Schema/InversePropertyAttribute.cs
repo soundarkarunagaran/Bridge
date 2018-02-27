@@ -1,13 +1,11 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations.Schema
 {
     /// <summary>
     /// Specifies the inverse of a navigation property that represents the other end of the same relationship.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class InversePropertyAttribute : Attribute
     {
 

@@ -1,8 +1,6 @@
-using Bridge;
-
 namespace System.Reflection
 {
-    [External]
+    [Bridge.External]
     public class AmbiguousMatchException : Exception
     {
         public extern AmbiguousMatchException();

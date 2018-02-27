@@ -1,26 +1,24 @@
-using Bridge;
-
 namespace System.Threading
 {
-    [External]
-    [Reflectable]
+    [Bridge.External]
+    [Bridge.Reflectable]
     public class CancellationTokenSource : IDisposable
     {
         public extern CancellationTokenSource();
 
         public extern CancellationTokenSource(int millisecondsDelay);
 
-        [Template("new System.Threading.CancellationTokenSource({delay}.ticks / 10000)")]
+        [Bridge.Template("new System.Threading.CancellationTokenSource({delay}.ticks / 10000)")]
         public extern CancellationTokenSource(TimeSpan delay);
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern bool IsCancellationRequested
         {
             get;
             private set;
         }
 
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern CancellationToken Token
         {
             get;
@@ -33,15 +31,15 @@ namespace System.Threading
 
         public extern void CancelAfter(int millisecondsDelay);
 
-        [Template("{this}.cancelAfter({delay}.ticks / 10000)")]
+        [Bridge.Template("{this}.cancelAfter({delay}.ticks / 10000)")]
         public extern void CancelAfter(TimeSpan delay);
 
         public extern void Dispose();
 
-        [Name("createLinked")]
+        [Bridge.Name("createLinked")]
         public static extern CancellationTokenSource CreateLinkedTokenSource(CancellationToken token1, CancellationToken token2);
 
-        [Template("System.Threading.CancellationTokenSource.createLinked({*tokens})")]
+        [Bridge.Template("System.Threading.CancellationTokenSource.createLinked({*tokens})")]
         public static extern CancellationTokenSource CreateLinkedTokenSource(params CancellationToken[] tokens);
     }
 }

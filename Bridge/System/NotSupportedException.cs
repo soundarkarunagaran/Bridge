@@ -1,10 +1,8 @@
-using Bridge;
-
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class NotSupportedException : Exception, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class NotSupportedException : Exception, Bridge.IBridgeClass
     {
         public extern NotSupportedException();
 

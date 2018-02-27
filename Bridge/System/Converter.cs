@@ -1,6 +1,4 @@
-﻿using Bridge;
-
-namespace System
+﻿namespace System
 {
     /// <summary>
     /// Represents a method that converts an object from one type to another type.
@@ -9,7 +7,7 @@ namespace System
     /// <typeparam name="TOutput">The type the input object is to be converted to.</typeparam>
     /// <param name="input">The object to convert.</param>
     /// <returns>The TOutput that represents the converted TInput.</returns>
-    [External]
-    [Name("Converter")]
+    [Bridge.External]
+    [Bridge.Name("Converter")]
     public delegate TOutput Converter<in TInput, out TOutput>(TInput input);
 }

@@ -1,14 +1,12 @@
-using Bridge;
-
 namespace System
 {
     /// <summary>
     /// Specifies the culture, case, and sort rules to be used by certain overloads of the String.Compare and String.Equals methods.
     /// </summary>
     /// <remarks>The StringComparison enumeration is used to specify whether a string comparison should use the current culture or the invariant culture, word or ordinal sort rules, and be case-sensitive or case-insensitive.</remarks>
-    [External]
-    [Enum(Emit.Value)]
-    [Name("Number")]
+    [Bridge.External]
+    [Bridge.Enum(Bridge.Emit.Value)]
+    [Bridge.Name("Number")]
     public enum StringComparison
     {
         /// <summary>

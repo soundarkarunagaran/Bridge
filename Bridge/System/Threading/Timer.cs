@@ -1,6 +1,4 @@
-﻿using Bridge;
-
-namespace System.Threading
+﻿namespace System.Threading
 {
     /// <summary>
     /// Represents the method that handles calls from a Timer.
@@ -198,7 +196,7 @@ namespace System.Threading
 
             if (period != -1 && !this.disposed)
             {
-                var p = Script.Write<int>("{period}.toNumber();", period);
+                var p = Bridge.Script.Write<int>("{period}.toNumber();", period);
                 this.id = Global.SetTimeout(this.HandleCallback, p);
                 return true;
             }
@@ -275,8 +273,8 @@ namespace System.Threading
             this.disposed = true;
         }
 
-        [External]
-        [Name("Bridge.global")]
+        [Bridge.External]
+        [Bridge.Name("Bridge.global")]
         internal class Global
         {
             public static extern int SetTimeout(Action handler, int delay);

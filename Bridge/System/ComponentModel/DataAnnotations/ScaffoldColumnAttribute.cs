@@ -1,10 +1,8 @@
-using Bridge;
-
 namespace System.ComponentModel.DataAnnotations
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
-    [External]
-    [NonScriptable]
+    [Bridge.External]
+    [Bridge.NonScriptable]
     public class ScaffoldColumnAttribute : Attribute
     {
         public extern ScaffoldColumnAttribute(bool scaffold);

@@ -1,5 +1,3 @@
-using Bridge;
-using System;
 using System.Collections;
 /*
  * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/ReadLinesIterator.cs
@@ -7,14 +5,12 @@ using System.Collections;
 
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
-using System.Runtime.Versioning;
 using System.Text;
 
 namespace System.IO
 {
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     abstract internal class Iterator<TSource> : IEnumerable<TSource>, IEnumerator<TSource>
     {
         internal int state;
@@ -97,9 +93,8 @@ namespace System.IO
     //  - IEnumerator<T> instances from the same IEnumerable<T> party on the same underlying
     //    reader (Dev10 Bugs 904764).
     //
-    [Reflectable]
-    [FileName("system/io/io.js")]
-    [Convention]
+    [Bridge.Reflectable]
+    [Bridge.Convention]
     internal class ReadLinesIterator : Iterator<string>
     {
         private readonly string _path;

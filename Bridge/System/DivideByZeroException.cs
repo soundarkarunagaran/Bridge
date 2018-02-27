@@ -1,10 +1,8 @@
-using Bridge;
-
 namespace System
 {
-    [External]
-    [Reflectable]
-    public class DivideByZeroException : ArithmeticException, IBridgeClass
+    [Bridge.External]
+    [Bridge.Reflectable]
+    public class DivideByZeroException : ArithmeticException, Bridge.IBridgeClass
     {
         public extern DivideByZeroException();
 

@@ -1,17 +1,16 @@
-using Bridge;
 using System.Collections.ObjectModel;
 
 namespace System.Linq.Expressions
 {
-    [External]
-    [Name("System.Object")]
-    [Cast("{this}.ntype === 17")]
+    [Bridge.External]
+    [Bridge.Name("System.Object")]
+    [Bridge.Cast("{this}.ntype === 17")]
     public sealed class InvocationExpression : Expression
     {
-        [Convention(Notation.LowerCamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
         public extern Expression Expression { get; private set; }
 
-        [Name("args")]
+        [Bridge.Name("args")]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         internal extern InvocationExpression();

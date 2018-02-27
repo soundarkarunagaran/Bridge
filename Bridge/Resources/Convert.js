@@ -457,7 +457,9 @@
 
         toStringInBase: function (value, toBase, typeCode) {
             var typeCodes = scope.convert.typeCodes;
+
             value = Bridge.unbox(value, true);
+
             if (toBase !== 2 && toBase !== 8 && toBase !== 10 && toBase !== 16) {
                 throw new System.ArgumentException("Invalid Base.");
             }
@@ -624,6 +626,7 @@
             if (options < 0 || options > 1) {
                 throw new System.ArgumentException("Illegal enum value.");
             }
+
             var inArrayLength = inArray.length;
 
             if (offsetIn > inArrayLength - length) {
@@ -771,15 +774,17 @@
         },
 
         suggestTypeCode: function (value) {
-            var typeCodes = scope.convert.typeCodes,                type = typeof (value);
+            var typeCodes = scope.convert.typeCodes,
+                type = typeof (value);
 
             switch (type) {
                 case "boolean":
                     return typeCodes.Boolean;
 
                 case "number":
-                    if (value % 1 !== 0)
+                    if (value % 1 !== 0) {
                         return typeCodes.Double;
+                    }
 
                     return typeCodes.Int32;
 
@@ -872,11 +877,11 @@
         },
 
         isFloatingType: function (typeCode) {
-            var typeCodes = scope.convert.typeCodes;
-            var isFloatingType =
-                typeCode === typeCodes.Single ||
-                typeCode === typeCodes.Double ||
-                typeCode === typeCodes.Decimal;
+            var typeCodes = scope.convert.typeCodes,
+                isFloatingType =
+                    typeCode === typeCodes.Single ||
+                    typeCode === typeCodes.Double ||
+                    typeCode === typeCodes.Decimal;
 
             return isFloatingType;
         },
@@ -1195,6 +1200,7 @@
                     outChars[j + 2] = base64Table[(inData[i + 1] & 0x0f) << 2];
                     outChars[j + 3] = base64Table[64]; //Pad
                     j += 4;
+
                     break;
 
                 case 1: // Two character padding needed
@@ -1203,6 +1209,7 @@
                     outChars[j + 2] = base64Table[64]; //Pad
                     outChars[j + 3] = base64Table[64]; //Pad
                     j += 4;
+
                     break;
             }
 
@@ -1288,6 +1295,7 @@
                 // break when done:
                 if (inputIndex >= endInputIndex) {
                     allInputConsumed = true;
+
                     break;
                 }
 
@@ -1308,10 +1316,12 @@
                         // Significant chars:
                         case intPlus:
                             currCode = 62;
+
                             break;
 
                         case intSlash:
                             currCode = 63;
+
                             break;
 
                             // Legal no-value chars (we ignore these):
@@ -1325,6 +1335,7 @@
                             // Jump after the loop to make it easier for the JIT register predictor to do a good job for the loop itself:
                         case intEq:
                             equalityCharEncountered = true;
+
                             break;
 
                             // Other chars are illegal:
