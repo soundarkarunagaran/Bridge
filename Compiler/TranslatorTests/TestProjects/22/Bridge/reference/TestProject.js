@@ -31,7 +31,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     define("m2", function () {
         var m2 = { };
         Bridge.define("TestProject1.Root2", {
-            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
+            $metadata : function () { return {"nested":[m2.TestProject1.Root2.A],"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
             $scope: m2
         });
 
