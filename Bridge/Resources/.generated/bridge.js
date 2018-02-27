@@ -34713,6 +34713,12 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
         }
     });
 
+    // @source ISerializable.js
+
+    Bridge.define("System.Runtime.Serialization.ISerializable", {
+        $kind: "interface"
+    });
+
     // @source Encoding.js
 
     Bridge.define("System.Text.Encoding", {

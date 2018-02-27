@@ -145,6 +145,7 @@
     <Compile Include="System\IO\textreader.cs" />
     <Compile Include="System\IO\textwriter.cs" />
     <Compile Include="System\IO\__error.cs" />
+    <Compile Include="System\Runtime\Serialization\iserializable.cs" />
     <Compile Include="System\SerializableAttribute.cs" />
     <Compile Include="Attributes\UnboxAttribute.cs" />
     <Compile Include="Attributes\GlobalMethodsAttribute.cs" />
@@ -489,6 +490,7 @@
     <Content Include="Resources\.generated\System\IO\__Error.js" />
     <Content Include="Resources\.generated\System\Random.js" />
     <Content Include="Resources\.generated\System\Runtime\CompilerServices\FormattableStringFactory.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\ISerializable.js" />
     <Content Include="Resources\.generated\System\Text\ASCIIEncoding.js" />
     <Content Include="Resources\.generated\System\Text\Encoding.js" />
     <Content Include="Resources\.generated\System\Text\EncodingInfo.js" />

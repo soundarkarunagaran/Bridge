@@ -52,6 +52,7 @@
         "Resources/Diagnostics.js",
         "Resources/Array.js",
         "Resources/ArraySegment.js",
+
         "Resources/Collections/KeyValuePair.js",
         "Resources/Collections/Interfaces.js",
         "Resources/Collections/CustomEnumerator.js",
@@ -94,6 +95,7 @@
         "Resources/Text/RegularExpressions/RegexEngineParser.js",
 
         "Resources/.generated/System/BitConverter.js",
+        
         "Resources/.generated/System/Collections/BitArray.js",
         "Resources/.generated/System/Collections/BitArray/BitArrayEnumeratorSimple.js",
         "Resources/.generated/System/Collections/Generic/BitHelper.js",
@@ -109,8 +111,10 @@
         "Resources/.generated/System/Collections/Generic/Stack/Enumerator.js",
         "Resources/.generated/System/Collections/HashHelpers.js",
         "Resources/.generated/System/Collections/ObjectModel/ReadOnlyCollection.js",
+
         "Resources/.generated/System/ComponentModel/BrowsableAttribute.js",
         "Resources/.generated/System/ComponentModel/DefaultValueAttribute.js",
+
         "Resources/.generated/System/Console.js",
         "Resources/.generated/System/DateTimeKind.js",
         "Resources/.generated/System/DayOfWeek.js",
@@ -118,15 +122,13 @@
         "Resources/.generated/System/FormattableString.js",
         "Resources/.generated/System/FormattableStringImpl.js",
         "Resources/.generated/System/Guid.js",
+        
         "Resources/.generated/System/IO/BinaryReader.js",
         "Resources/.generated/System/IO/BinaryWriter.js",
-
         "Resources/.generated/System/IO/Stream.js",
         "Resources/.generated/System/IO/BufferedStream.js",
-
         "Resources/.generated/System/IO/IOException.js",
         "Resources/.generated/System/IO/EndOfStreamException.js",
-
         "Resources/.generated/System/IO/File.js",
         "Resources/.generated/System/IO/FileMode.js",
         "Resources/.generated/System/IO/FileStream.js",
@@ -136,21 +138,21 @@
         "Resources/.generated/System/IO/SeekOrigin.js",
         "Resources/.generated/System/IO/Stream/NullStream.js",
         "Resources/.generated/System/IO/Stream/SynchronousAsyncResult.js",
-
         "Resources/.generated/System/IO/TextReader.js",
         "Resources/.generated/System/IO/StreamReader.js",
         "Resources/.generated/System/IO/StreamReader/NullStreamReader.js",
-
         "Resources/.generated/System/IO/TextWriter.js",
         "Resources/.generated/System/IO/StreamWriter.js",
-
         "Resources/.generated/System/IO/StringReader.js",
         "Resources/.generated/System/IO/StringWriter.js",
         "Resources/.generated/System/IO/TextReader/NullTextReader.js",
         "Resources/.generated/System/IO/TextWriter/NullTextWriter.js",
         "Resources/.generated/System/IO/__Error.js",
+
         "Resources/.generated/System/Random.js",
+
         "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
+        "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
 
         "Resources/.generated/System/Text/Encoding.js",
         "Resources/.generated/System/Text/ASCIIEncoding.js",
@@ -160,7 +162,9 @@
         "Resources/.generated/System/Text/UTF32Encoding.js",
         "Resources/.generated/System/Text/UTF7Encoding.js",
         "Resources/.generated/System/Text/UTF8Encoding.js",
+
         "Resources/.generated/System/Threading/Timer.js",
+
         "Resources/.generated/System/Version.js",
         "Resources/.generated/System/Version/ParseFailureKind.js",
         "Resources/.generated/System/Version/VersionResult.js",
