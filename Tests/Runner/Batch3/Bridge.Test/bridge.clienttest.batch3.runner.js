@@ -15601,12 +15601,12 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestGetNestedTypes: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3373, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetNestedTypes()", $t.Line = "35", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3373, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetNestedTypes()", $t.Line = "45", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.TestGetNestedTypes();
                 },
                 TestGetNestedType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3373, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetNestedType()", $t.Line = "50", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3373, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGetNestedType()", $t.Line = "63", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.TestGetNestedType();
                 }
             }

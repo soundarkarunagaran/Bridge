@@ -28403,35 +28403,66 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in ensuring the GtetNestedTypes() and
+     GetNetstedType() methods work as expected.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373", {
         statics: {
             methods: {
+                /**
+                 * Checks whether GetNestedTypes() produces the expected result.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373
+                 * @return  {void}
+                 */
                 TestGetNestedTypes: function () {
                     var myType = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass);
                     var myTypeArray = Bridge.Reflection.getNestedTypes(myType, 16);
-                    Bridge.Test.NUnit.Assert.AreEqual(2, myTypeArray.length);
-                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass.MyClass1, myTypeArray[System.Array.index(0, myTypeArray)]);
-                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass.MyClass2, myTypeArray[System.Array.index(1, myTypeArray)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(2, myTypeArray.length, "The array of types with public bindings has the expected length.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass.MyClass1, myTypeArray[System.Array.index(0, myTypeArray)], "The first entry in the array reflects the expected type.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass.MyClass2, myTypeArray[System.Array.index(1, myTypeArray)], "The second entry in the array reflects the expected type.");
 
                     var myTypeArray1 = Bridge.Reflection.getNestedTypes(myType, 36);
-                    Bridge.Test.NUnit.Assert.AreEqual(2, myTypeArray1.length);
-                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373+MyTypeClass+MyClass3", Bridge.Reflection.getTypeFullName(myTypeArray1[System.Array.index(0, myTypeArray1)]));
-                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373+MyTypeClass+MyClass4", Bridge.Reflection.getTypeFullName(myTypeArray1[System.Array.index(1, myTypeArray1)]));
+                    Bridge.Test.NUnit.Assert.AreEqual(2, myTypeArray1.length, "The array of types with instance and non-public bindings has the expected length.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373+MyTypeClass+MyClass3", Bridge.Reflection.getTypeFullName(myTypeArray1[System.Array.index(0, myTypeArray1)]), "The first element reflects to the expected type name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373+MyTypeClass+MyClass4", Bridge.Reflection.getTypeFullName(myTypeArray1[System.Array.index(1, myTypeArray1)]), "The second element reflects to the expected type name.");
                 },
+                /**
+                 * Checks whether GetNestedType() produces the expected result.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373
+                 * @return  {void}
+                 */
                 TestGetNestedType: function () {
                     var myType = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass);
                     var type = Bridge.Reflection.getNestedType(myType, "MyClass1");
-                    Bridge.Test.NUnit.Assert.NotNull(type);
-                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass.MyClass1, type);
+                    Bridge.Test.NUnit.Assert.NotNull(type, "It was possible to get the nested type from the class reference.");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass.MyClass1, type, "The returned type matches the expected result.");
 
                     type = Bridge.Reflection.getNestedType(myType, "MyClass3", 32);
-                    Bridge.Test.NUnit.Assert.NotNull(type);
-                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373+MyTypeClass+MyClass3", Bridge.Reflection.getTypeFullName(type));
+                    Bridge.Test.NUnit.Assert.NotNull(type, "It was possible to get the nested type from the class reference.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373+MyTypeClass+MyClass3", Bridge.Reflection.getTypeFullName(type), "The returned type name matches the expected result.");
                 }
             }
         }
     });
 
+    /**
+     * A set of reflectable classes with subclasses also reflectable.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3373.MyTypeClass", {
         $kind: "nested class"
     });
