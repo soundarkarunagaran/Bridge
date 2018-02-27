@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace System
 {
@@ -21,6 +22,20 @@ namespace System
     /// </summary>
     public static class Environment
     {
+
+        [Bridge.Convention(Bridge.Notation.None)]
+        internal static String GetResourceString(String key)
+        {
+            return key;
+        }
+
+        [Bridge.Convention(Bridge.Notation.None)]
+        internal static String GetResourceString(String key, params Object[] values)
+        {
+            String s = GetResourceString(key);
+            return String.Format(CultureInfo.CurrentCulture, s, values);
+        }
+
         /// <summary>
         /// Specifies enumerated constants used to retrieve directory paths to system special folders.
         /// </summary>

@@ -95,6 +95,14 @@
                 }
             },
             methods: {
+                GetResourceString: function (key) {
+                    return key;
+                },
+                GetResourceString$1: function (key, values) {
+                    if (values === void 0) { values = []; }
+                    var s = System.Environment.GetResourceString(key);
+                    return System.String.formatProvider.apply(System.String, [System.Globalization.CultureInfo.getCurrentCulture(), s].concat(values));
+                },
                 patchDictionary: function (d) {
                     d.noKeyCheck = true;
 
