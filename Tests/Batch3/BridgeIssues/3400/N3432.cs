@@ -3,75 +3,83 @@ using System;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The test here consists in checking whether a two-level interface
+    /// inheritance cast works as expected when a member is overridden thru
+    /// the inheritance path.
+    /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#3432 - {0}")]
     public class Bridge3432
     {
+        /// <summary>
+        /// This interface contains the target query we will be doing in the
+        /// test code.
+        /// </summary>
         public interface ISome1
         {
-            TimeSpan? TestTime { get; }
+            int TestValue { get; }
         }
 
+        /// <summary>
+        /// This overrides the interface's member by a member with same name 
+        /// and a different type.
+        /// </summary>
         public class Some1 : ISome1
         {
-            private string testTime;
+            private string testValue;
 
-            public string TestTime
+            public string TestValue
             {
                 get
                 {
-                    return this.testTime;
+                    return this.testValue;
                 }
                 set
                 {
-                    this.testTime = value;
+                    this.testValue = value;
                 }
             }
 
-            TimeSpan? ISome1.TestTime
+            int ISome1.TestValue
             {
                 get
                 {
-                    return this.Parse(this.TestTime);
+                    return 25;
                 }
             }
-
-            private TimeSpan? Parse(string text)
-            {
-                if (text == null)
-                    return null;
-
-                string[] values = text.Split(':');
-
-                if (values.Length == 2)
-                    return new TimeSpan(0, 0, int.Parse(values[0]), int.Parse(values[1]));
-
-                if (values.Length == 3)
-                    return new TimeSpan(0, int.Parse(values[0]), int.Parse(values[1]), int.Parse(values[2]));
-
-                throw new FormatException("Unsupported format of TimeSpan.");
-            }
         }
 
+        /// <summary>
+        /// An interface to be bound to the test class, defining a member here
+        /// does not affect the reproducibility of the issue.
+        /// </summary>
         public interface ISome2 : ISome1
         {
-            string Additional { get; }
         }
 
+        /// <summary>
+        /// The class that will be instantiated and cast into ISome1 to get the
+        /// implementation defined in Some1.
+        /// </summary>
         public class Some2 : Some1, ISome2
         {
-            public string Additional { get; set; }
         }
 
+        /// <summary>
+        /// The test here consists in just instantiating the class and querying
+        /// the value returned from the cast reference.
+        /// </summary>
         [Test]
         public static void TestDerivation()
         {
-            ISome1 some2 = new Some2() { TestTime = "00:02:00" };
+            var probe1 = new Some2() { TestValue = "test text" };
+            var probe2 = (ISome1)probe1;
+            var probe3 = (Some1)probe1;
 
-            Assert.AreEqual(0, some2.TestTime?.Days);
-            Assert.AreEqual(0, some2.TestTime?.Hours);
-            Assert.AreEqual(2, some2.TestTime?.Minutes);
-            Assert.AreEqual(0, some2.TestTime?.Seconds);
+            Assert.AreEqual("test text", probe1.TestValue, "Got string return when class not cast at all.");
+            Assert.AreEqual(25, probe2.TestValue, "Got integer return when class cast into its main interface.");
+            Assert.AreEqual("test text", probe3.TestValue, "Got string return when class cast into the class that just implements the method.");
         }
     }
 }
