@@ -48,6 +48,7 @@
     <Compile Include="ActivatorTests.cs" />
     <Compile Include="BitConverterTests.cs" />
     <Compile Include="BasicCSharp\TestGoto.cs" />
+    <Compile Include="Bridge.Core\Validation.cs" />
     <Compile Include="Collections\Generic\KeyValuePairTests.cs" />
     <Compile Include="Collections\Generic\QueueTests.cs" />
     <Compile Include="Collections\Generic\StackTests.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="..\..\.build\common\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <None Include="Bridge.Core\README.md" />
     <None Include="Bridge\bridge.Release.json" />
     <None Include="Bridge\bridge.Debug.json" />
     <None Include="Bridge\bridge.json" />
