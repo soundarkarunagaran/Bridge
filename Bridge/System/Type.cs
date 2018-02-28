@@ -275,16 +275,16 @@ namespace System
         [Bridge.Template("Bridge.Reflection.getMembers({this}, 4, {bindingAttr} | 256, {name})")]
         public extern FieldInfo GetField(string name, BindingFlags bindingAttr);
 
-        [Template("Bridge.Reflection.getNestedTypes({this})")]
+        [Bridge.Template("Bridge.Reflection.getNestedTypes({this})")]
         public extern Type[] GetNestedTypes();
 
-        [Template("Bridge.Reflection.getNestedTypes({this}, {bindingAttr})")]
+        [Bridge.Template("Bridge.Reflection.getNestedTypes({this}, {bindingAttr})")]
         public extern Type[] GetNestedTypes(BindingFlags bindingAttr);
 
-        [Template("Bridge.Reflection.getNestedType({this}, {name})")]
+        [Bridge.Template("Bridge.Reflection.getNestedType({this}, {name})")]
         public extern Type GetNestedType(string name);
 
-        [Template("Bridge.Reflection.getNestedType({this}, {name}, {bindingAttr})")]
+        [Bridge.Template("Bridge.Reflection.getNestedType({this}, {name}, {bindingAttr})")]
         public extern Type GetNestedType(string name, BindingFlags bindingAttr);
 
         /// <summary>
