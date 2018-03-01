@@ -1,5 +1,5 @@
     Bridge.define("System.Collections.Generic.Queue$1", function (T) { return {
-        inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection],
+        inherits: [System.Collections.Generic.IEnumerable$1(T),System.Collections.ICollection,System.Collections.Generic.IReadOnlyCollection$1(T)],
         statics: {
             fields: {
                 MinimumGrow: 0,
@@ -44,6 +44,7 @@
             }
         },
         alias: [
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + Bridge.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
             "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"

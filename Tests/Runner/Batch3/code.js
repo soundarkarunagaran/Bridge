@@ -23748,13 +23748,11 @@ Bridge.$N1391Result =                     r;
                     s2 = (s = "test");
                     Bridge.Test.NUnit.Assert.AreEqual(s2, "test", "On more than one variable, works to the indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(s, "test", "On more than one variable, works to the direct variable."); /// Variable is declared but never used
-
-
                     var c;
                     var c3;
                     var c2;
                     c2 = (c = "test");
-                    var c4;
+                    var c4; /// Variable is declared but never used
                     Bridge.Test.NUnit.Assert.AreEqual(c2, "test", "With unrelated variables, works on indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(c, "test", "With unrelated variables, works on direct variable.");
 
@@ -24849,10 +24847,8 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNullCast: function () { /// The result of the expression is always 'null'
-
-
                     Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))));
-                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false);
+                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false); /// The result of the expression is always 'null'
                 }
             }
         }
@@ -28919,8 +28915,6 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestCustomComparer: function () { /// The given expression is always of the provided ('short') type
-
-
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float32Array.BYTES_PER_ELEMENT), "Could reference Float32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float64Array.BYTES_PER_ELEMENT), "Could reference Float64Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int16Array.BYTES_PER_ELEMENT), "Could reference Int16Array's bytes per element constant.");
@@ -28929,7 +28923,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint16Array.BYTES_PER_ELEMENT), "Could reference Uint16Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint32Array.BYTES_PER_ELEMENT), "Could reference Uint32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8Array.BYTES_PER_ELEMENT), "Could reference Uint8Array's bytes per element constant.");
-                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant."); /// The given expression is always of the provided ('short') type
                 }
             }
         }
@@ -29558,6 +29552,53 @@ Bridge.$N1391Result =                     r;
                 return Bridge.Reflection.getTypeFullName(Bridge.getType(this));
             }
         }
+    });
+
+    /**
+     * The test here consists in checking whether a two-level interface
+     inheritance cast works as expected when a member is overridden thru
+     the inheritance path.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432", {
+        statics: {
+            methods: {
+                /**
+                 * The test here consists in just instantiating the class and querying
+                 the value returned from the cast reference.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432
+                 * @return  {void}
+                 */
+                TestDerivation: function () {
+                    var $t;
+                    var probe1 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2(), $t.TestValue = "test text", $t);
+                    var probe2 = Bridge.cast(probe1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1);
+                    var probe3 = Bridge.cast(probe1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("test text", probe1.TestValue, "Got string return when class not cast at all.");
+                    Bridge.Test.NUnit.Assert.AreEqual(25, probe2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestValue, "Got integer return when class cast into its main interface.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test text", probe3.TestValue, "Got string return when class cast into the class that just implements the method.");
+                }
+            }
+        }
+    });
+
+    /**
+     * This interface contains the target query we will be doing in the
+     test code.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1", {
+        $kind: "nested interface"
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
@@ -31318,7 +31359,7 @@ Bridge.$N1391Result =                     r;
                 TestUseCase: function () {
                     var s = "ab|abc&ab&abc|de&ef&";
 
-                    var r = System.String.split(s, [124, 38].map(function(i) {{ return String.fromCharCode(i); }}));
+                    var r = System.String.split(s, [124, 38].map(function (i) {{ return String.fromCharCode(i); }}));
                     var expected = System.Array.init(["ab", "abc", "ab", "abc", "de", "ef", ""], System.String);
 
                     Bridge.Test.NUnit.Assert.AreDeepEqual(expected, r, "#578 Split(params char[] separator)");
@@ -33650,7 +33691,7 @@ Bridge.$N1391Result =                     r;
                     fruits[System.Array.index(1, fruits)] = "apple";
                     fruits[System.Array.index(2, fruits)] = "lemon";
 
-                    var list = System.Linq.Enumerable.from(fruits).select(function(x) { return Bridge.cast(x, System.String); }).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge694.f1).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge694.f1).toList(System.String);
+                    var list = System.Linq.Enumerable.from(fruits).select(function (x) { return Bridge.cast(x, System.String); }).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge694.f1).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge694.f1).toList(System.String);
                     Bridge.Test.NUnit.Assert.AreEqual("apple", list.getItem(0), "Bridge694 apple");
                     Bridge.Test.NUnit.Assert.AreEqual("lemon", list.getItem(1), "Bridge694 lemon");
                     Bridge.Test.NUnit.Assert.AreEqual("mango", list.getItem(2), "Bridge694 mango");
@@ -39906,6 +39947,51 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    /**
+     * An interface to be bound to the test class, defining a member here
+     does not affect the reproducibility of the issue.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
+        $kind: "nested interface"
+    });
+
+    /**
+     * This overrides the interface's member by a member with same name 
+     and a different type.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1],
+        $kind: "nested class",
+        fields: {
+            testValue: null
+        },
+        props: {
+            TestValue: {
+                get: function () {
+                    return this.testValue;
+                },
+                set: function (value) {
+                    this.testValue = value;
+                }
+            },
+            Bridge$ClientTest$Batch3$BridgeIssues$Bridge3432$ISome1$TestValue: {
+                get: function () {
+                    return 25;
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
         methods: {
@@ -40424,6 +40510,20 @@ Bridge.$N1391Result =                     r;
         f1: function () {
             return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269.Cavy();
         }
+    });
+
+    /**
+     * The class that will be instantiated and cast into ISome1 to get the
+     implementation defined in Some1.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2],
+        $kind: "nested class"
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {

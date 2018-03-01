@@ -53,6 +53,13 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("TestErrorMessageString", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeConsoleTests.TestErrorMessageString);
             QUnit.test("TestToggling", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeConsoleTests.TestToggling);
             QUnit.test("#2880 - TestHtmlTag", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeConsoleTests.TestHtmlTag);
+            QUnit.module("Bridge Namespace");
+            QUnit.test("Validation.IsNull()", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests.TestValidationIsNull);
+            QUnit.test("Validation.IsNotNull()", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests.TestValidationIsNotNull);
+            QUnit.test("Validation.Email()", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests.TestValidationEmail);
+            QUnit.test("Validation.Url()", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests.TestValidationUrl);
+            QUnit.test("Validation.Alpha()", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests.TestValidationAlpha);
+            QUnit.test("Validation.AlphaNum()", Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests.TestValidationAlphaNum);
             QUnit.module("C#");
             QUnit.test("RefParameterTests - CanUseReferenceToLocalVariables", Bridge.Test.Runtime.BridgeClientTestRunner.RefParameterTests.CanUseReferenceToLocalVariables);
             QUnit.test("RefParameterTests - CanUseReferenceToField", Bridge.Test.Runtime.BridgeClientTestRunner.RefParameterTests.CanUseReferenceToField);
@@ -5584,6 +5591,57 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.Text.RegularExpressions.JavaScript.BridgeRegexTests", $t.File = "Batch1\\Text\\RegularExpressions\\JavaScript\\BridgeRegexTests.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestValidationIsNull: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestValidationIsNull()", $t.Line = "10", $t));
+                    t.Fixture.TestValidationIsNull();
+                },
+                TestValidationIsNotNull: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestValidationIsNotNull()", $t.Line = "56", $t));
+                    t.Fixture.TestValidationIsNotNull();
+                },
+                TestValidationEmail: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestValidationEmail()", $t.Line = "102", $t));
+                    t.Fixture.TestValidationEmail();
+                },
+                TestValidationUrl: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestValidationUrl()", $t.Line = "117", $t));
+                    t.Fixture.TestValidationUrl();
+                },
+                TestValidationAlpha: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestValidationAlpha()", $t.Line = "154", $t));
+                    t.Fixture.TestValidationAlpha();
+                },
+                TestValidationAlphaNum: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.BridgeValidationTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestValidationAlphaNum()", $t.Line = "171", $t));
+                    t.Fixture.TestValidationAlphaNum();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.Batch1.Bridge.BridgeValidationTests", $t.File = "Batch1\\Bridge.Core\\Validation.cs", $t);
                 }
                 return this.context;
             }
@@ -22824,7 +22882,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 TestBasic: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp6.TestAutoProps).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestAutoProps, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestBasic()", $t.Line = "27", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp6.TestAutoProps).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestAutoProps, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestBasic()", $t.Line = "31", $t));
                     Bridge.ClientTest.CSharp6.TestAutoProps.TestBasic();
                 }
             }
@@ -23103,7 +23161,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 TestBasic: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp6.TestInterpolatedStrings).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestInterpolatedStrings, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestBasic()", $t.Line = "35", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp6.TestInterpolatedStrings).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestInterpolatedStrings, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestBasic()", $t.Line = "37", $t));
                     Bridge.ClientTest.CSharp6.TestInterpolatedStrings.TestBasic();
                 }
             }
