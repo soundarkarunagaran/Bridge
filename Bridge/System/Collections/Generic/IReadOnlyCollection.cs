@@ -5,11 +5,11 @@ namespace System.Collections.Generic
     [External]
     [Reflectable]
     [Convention(Target = ConventionTarget.Member, Member = ConventionMember.Method, Notation = Notation.LowerCamelCase)]
-    public interface IReadOnlyList<out T> : IReadOnlyCollection<T>
+    public interface IReadOnlyCollection<out T> : IEnumerable<T>
     {
-        T this[int index]
+        int Count
         {
-            [Template("System.Array.getItem({this}, {0}, {T})")]
+            [Template("System.Array.getCount({this}, {T})")]
             get;
         }
     }
