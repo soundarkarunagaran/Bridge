@@ -3,7 +3,7 @@
 
 namespace System.Collections.Generic
 {
-    public class HashSet<T> : ICollection<T>, ISet<T>
+    public class HashSet<T> : ICollection<T>, ISet<T>, IReadOnlyCollection<T>
     {
         private const int Lower31BitMask = 0x7FFFFFFF;
         private const int ShrinkThreshold = 3;

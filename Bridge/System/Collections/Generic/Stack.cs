@@ -13,7 +13,7 @@ namespace System.Collections.Generic
 {
     // A simple stack of objects.  Internally it is implemented as an array,
     // so Push can be O(n).  Pop is O(1).
-    public class Stack<T> : IEnumerable<T>, System.Collections.ICollection
+    public class Stack<T> : IEnumerable<T>, System.Collections.ICollection, IReadOnlyCollection<T>
     {
         private T[] _array;     // Storage for stack elements
         private int _size;           // Number of items in the stack.

@@ -5,7 +5,7 @@ namespace System.Collections.Generic
 {
     // A simple Queue of generic objects.  Internally it is implemented as a
     // circular buffer, so Enqueue can be O(n).  Dequeue is O(1).
-    public class Queue<T> : IEnumerable<T>, System.Collections.ICollection
+    public class Queue<T> : IEnumerable<T>, System.Collections.ICollection, IReadOnlyCollection<T>
     {
         private T[] _array;
         private int _head;       // First valid element in the queue
