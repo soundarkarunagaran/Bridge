@@ -23748,13 +23748,11 @@ Bridge.$N1391Result =                     r;
                     s2 = (s = "test");
                     Bridge.Test.NUnit.Assert.AreEqual(s2, "test", "On more than one variable, works to the indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(s, "test", "On more than one variable, works to the direct variable."); /// Variable is declared but never used
-
-
                     var c;
                     var c3;
                     var c2;
                     c2 = (c = "test");
-                    var c4;
+                    var c4; /// Variable is declared but never used
                     Bridge.Test.NUnit.Assert.AreEqual(c2, "test", "With unrelated variables, works on indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(c, "test", "With unrelated variables, works on direct variable.");
 
@@ -24849,10 +24847,8 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNullCast: function () { /// The result of the expression is always 'null'
-
-
                     Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))));
-                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false);
+                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false); /// The result of the expression is always 'null'
                 }
             }
         }
@@ -28919,8 +28915,6 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestCustomComparer: function () { /// The given expression is always of the provided ('short') type
-
-
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float32Array.BYTES_PER_ELEMENT), "Could reference Float32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float64Array.BYTES_PER_ELEMENT), "Could reference Float64Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int16Array.BYTES_PER_ELEMENT), "Could reference Int16Array's bytes per element constant.");
@@ -28929,7 +28923,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint16Array.BYTES_PER_ELEMENT), "Could reference Uint16Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint32Array.BYTES_PER_ELEMENT), "Could reference Uint32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8Array.BYTES_PER_ELEMENT), "Could reference Uint8Array's bytes per element constant.");
-                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant."); /// The given expression is always of the provided ('short') type
                 }
             }
         }
@@ -29608,9 +29602,8 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
-     * The test here consists in checking whether a two-level interface
-     inheritance cast works as expected when a member is overridden thru
-     the inheritance path.
+     * The test here consists in checking DateTime.Add() returns the expected
+     values when negative.
      *
      * @public
      * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441
@@ -29618,6 +29611,17 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441", {
         statics: {
             methods: {
+                /**
+                 * Test subtracting from today time and "today plus a shift", adding
+                 seconds, minutes and hours, and checking whether the output is the
+                 expected.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441
+                 * @return  {void}
+                 */
                 TestNegativeTimeSpanValueToString: function () {
                     var val1 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addSeconds(System.DateTime.getToday(), 7))));
                     var val2 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addSeconds(System.DateTime.getToday(), 70))));
@@ -29628,14 +29632,14 @@ Bridge.$N1391Result =                     r;
                     var val7 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addHours(System.DateTime.getToday(), 700))));
                     var val8 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addHours(System.DateTime.getToday(), 7000))));
 
-                    Bridge.Test.NUnit.Assert.AreEqual("-00:00:07", val1);
-                    Bridge.Test.NUnit.Assert.AreEqual("-00:01:10", val2);
-                    Bridge.Test.NUnit.Assert.AreEqual("-00:07:00", val3);
-                    Bridge.Test.NUnit.Assert.AreEqual("-01:10:00", val4);
-                    Bridge.Test.NUnit.Assert.AreEqual("-07:00:00", val5);
-                    Bridge.Test.NUnit.Assert.AreEqual("-2.22:00:00", val6);
-                    Bridge.Test.NUnit.Assert.AreEqual("-29.04:00:00", val7);
-                    Bridge.Test.NUnit.Assert.AreEqual("-291.16:00:00", val8);
+                    Bridge.Test.NUnit.Assert.AreEqual("-00:00:07", val1, "-7 seconds results in '-00:00:07'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-00:01:10", val2, "-70 seconds results in '-00:01:10'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-00:07:00", val3, "-7 minutes results in '-00:07:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-01:10:00", val4, "-70 minutes results in '-01:10:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-07:00:00", val5, "-7 hours results in '-07:00:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-2.22:00:00", val6, "-70 hours results in '-2.22:00:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-29.04:00:00", val7, "-700 hours results in '-29.04:00:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-291.16:00:00", val8, "-7000 hours results in '-291.16:00:00'.");
                 }
             }
         }
