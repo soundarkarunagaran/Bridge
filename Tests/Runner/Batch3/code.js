@@ -29602,6 +29602,46 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in checking whether DateTime arithmetic
+     correctly accounts time zone shifting.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437", {
+        statics: {
+            methods: {
+                /**
+                 * Test if time zone is considered by checking whether
+                 now - UTC now == -TZ
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437
+                 * @return  {void}
+                 */
+                TestDateTimeMathTZ: function () {
+                    // to ensure there will not be a minute/hour/day shift between the
+                    // two queries, we'll first get now and utc now from the same
+                    // variable
+                    var now = System.DateTime.getNow();
+                    var utcNow = System.DateTime.toUniversalTime(now);
+                    var dtDiff = System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow());
+
+                    // If now and utcNow are equal, then we are at UTC == GMT, so
+                    // there's no sense in having this test run at all.
+                    if (System.DateTime.getDay(now) === System.DateTime.getDay(utcNow) && System.DateTime.getHour(now) === System.DateTime.getHour(utcNow) && System.DateTime.getMinute(now) === System.DateTime.getMinute(utcNow)) {
+                        Bridge.Test.NUnit.Assert.True(true, "Host's time zone is in UTC, so there's no way on testing this.");
+                    } else {
+                        Bridge.Test.NUnit.Assert.AreNotEqual("00:00:00", Bridge.toString(dtDiff), "DateTime difference between now and UTC now is non-zero.");
+                    }
+                }
+            }
+        }
+    });
+
+    /**
      * The test here consists in checking DateTime.Add() returns the expected
      values when negative.
      *
@@ -36500,7 +36540,7 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 DateTimeToISOStringWorks: function () {
-                    var d1 = System.DateTime.create(2011, 10, 5, 14, 48, 15, 0, System.DateTimeKind.Utc);
+                    var d1 = System.DateTime.create(2011, 10, 5, 14, 48, 15, 0, 1);
                     var d2 = System.DateTime.toLocalTime(d1);
                     var d3 = System.DateTime.toUniversalTime(d2);
 
