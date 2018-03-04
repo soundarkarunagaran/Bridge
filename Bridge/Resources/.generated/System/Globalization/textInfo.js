@@ -1,5 +1,5 @@
     Bridge.define("System.Globalization.TextInfo", {
-        inherits: [System.ICloneable,System.Object],
+        inherits: [System.ICloneable],
         fields: {
             listSeparator: null
         },

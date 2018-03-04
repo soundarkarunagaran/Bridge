@@ -45,6 +45,12 @@ namespace System
             get;
         }
 
+        public extern int HResult
+        {
+            get;
+            protected set;
+        }
+
         public extern Exception();
 
         public extern Exception(string message);

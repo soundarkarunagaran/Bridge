@@ -9,6 +9,19 @@ namespace System
     [Bridge.Reflectable]
     public struct DateTime : IComparable, IComparable<DateTime>, IEquatable<DateTime>, IFormattable
     {
+
+        [Bridge.Template("System.DateTime.TicksPerDay")]
+        private const long TicksPerDay = 864000000000;
+
+        [Bridge.Template("System.DateTime.DaysTo1970")]
+        internal const int DaysTo1970 = 719162;
+
+        [Bridge.Template("System.DateTime.MinTicks")]
+        internal const long MinTicks = 0;
+
+        [Bridge.Template("System.DateTime.MaxTicks")]
+        internal const long MaxTicks = 3652059 * 864000000000 - 1;
+
         /// <summary>
         /// Represents the largest possible value of DateTime. This field is read-only.
         /// </summary>

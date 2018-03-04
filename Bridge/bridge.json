@@ -34,7 +34,10 @@
         "Resources/Enum.js",
         "Resources/Nullable.js",
         "Resources/Char.js",
+
+        "Resources/.generated/System/HResults.js",
         "Resources/Exception.js",
+        "Resources/.generated/System/Resources/MissingManifestResourceException.js",
 
         "Resources/.generated/System/Globalization/TextInfo.js",
         "Resources/Globalization.js",
@@ -75,6 +78,9 @@
         "Resources/Generator.js",
         "Resources/linq.js",
 
+        "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
+        "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
+
         "Resources/Text/RegularExpressions/Regex.js",
         "Resources/Text/RegularExpressions/RegexCapture.js",
         "Resources/Text/RegularExpressions/RegexCaptureCollection.js",
@@ -95,7 +101,7 @@
         "Resources/Text/RegularExpressions/RegexEngineParser.js",
 
         "Resources/.generated/System/BitConverter.js",
-        
+
         "Resources/.generated/System/Collections/BitArray.js",
         "Resources/.generated/System/Collections/BitArray/BitArrayEnumeratorSimple.js",
         "Resources/.generated/System/Collections/Generic/BitHelper.js",
@@ -116,13 +122,33 @@
         "Resources/.generated/System/ComponentModel/DefaultValueAttribute.js",
 
         "Resources/.generated/System/Console.js",
+        "Resources/.generated/System/TokenType.js",
         "Resources/.generated/System/DateTimeKind.js",
+        "Resources/.generated/System/DateTimeOffset.js",
+        "Resources/.generated/System/DateTimeParse.js",
+        "Resources/.generated/System/DateTimeResult.js",
         "Resources/.generated/System/DayOfWeek.js",
         "Resources/.generated/System/Environment.js",
+        "Resources/.generated/System/ExceptionArgument.js",
+        "Resources/.generated/System/ExceptionResource.js",
         "Resources/.generated/System/FormattableString.js",
         "Resources/.generated/System/FormattableStringImpl.js",
         "Resources/.generated/System/Guid.js",
-        
+
+        "Resources/.generated/System/Globalization/Calendar.js",
+        "Resources/.generated/System/Globalization/CalendarAlgorithmType.js",
+        "Resources/.generated/System/Globalization/CalendarId.js",
+        "Resources/.generated/System/Globalization/CalendarWeekRule.js",
+        "Resources/.generated/System/Globalization/DateTimeFormatInfoScanner.js",
+        "Resources/.generated/System/Globalization/DateTimeStyles.js",
+        "Resources/.generated/System/Globalization/FORMATFLAGS.js",
+        "Resources/.generated/System/Globalization/GlobalizationMode.js",
+        "Resources/.generated/System/Globalization/DateTimeFormatInfoScanner/FoundDatePattern.js",
+
+        "Resources/.generated/System/NotImplemented.js",
+        "Resources/.generated/System/ParseFailureKind.js",
+        "Resources/.generated/System/ParseFlags.js",
+
         "Resources/.generated/System/IO/BinaryReader.js",
         "Resources/.generated/System/IO/BinaryWriter.js",
         "Resources/.generated/System/IO/Stream.js",
@@ -149,10 +175,12 @@
         "Resources/.generated/System/IO/TextWriter/NullTextWriter.js",
         "Resources/.generated/System/IO/__Error.js",
 
+        "Resources/.generated/System/Reflection/TypeAttributes.js",
+
         "Resources/.generated/System/Random.js",
 
-        "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
-        "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
+        "Resources/.generated/System/SR.js",
+        "Resources/.generated/System/ThrowHelper.js",
 
         "Resources/.generated/System/Text/Encoding.js",
         "Resources/.generated/System/Text/ASCIIEncoding.js",

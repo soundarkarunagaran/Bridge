@@ -8,9 +8,15 @@
             $clone: function (to) { return this; }
         },
         statics: {
+            TicksPerDay: System.Int64("864000000000"),
+
+            DaysTo1970: 719162,
+
+            MinTicks: System.Int64("0"),
+            MaxTicks: System.Int64("3652059").mul(System.Int64("864000000000")).sub(1),
+
             // Difference in Ticks from 1-Jan-0001 to 1-Jan-1970 at UTC
-            minOffset: System.Int64("621355968000000000"),
-            maxTicks: System.Int64("3155378975999999999"),
+            $minOffset: System.Int64("621355968000000000"),
 
             $is: function (instance) {
                 return Bridge.isDate(instance);
@@ -23,8 +29,8 @@
 
             // UTC Max Value
             getMaxValue: function () {
-                var d = System.DateTime.create$2(System.DateTime.maxTicks);
-                d.ticks = System.DateTime.maxTicks;
+                var d = System.DateTime.create$2(System.DateTime.MaxTicks);
+                d.ticks = System.DateTime.MaxTicks;
 
                 return d;
             },
@@ -35,9 +41,9 @@
 
                 if (d.ticks === undefined) {
                     if (d.kind === 1) {
-                        d.ticks = System.Int64(d.getTime()).mul(10000).add(System.DateTime.minOffset);
+                        d.ticks = System.Int64(d.getTime()).mul(10000).add(System.DateTime.$minOffset);
                     } else {
-                        d.ticks = System.Int64(d.getTime() - d.getTimezoneOffset() * 60 * 1000).mul(10000).add(System.DateTime.minOffset);
+                        d.ticks = System.Int64(d.getTime() - d.getTimezoneOffset() * 60 * 1000).mul(10000).add(System.DateTime.$minOffset);
                     }
                 }
 
@@ -55,7 +61,7 @@
                 d1 = System.DateTime.create$2(ticks, 2);
 
                 // Check if Ticks are out of range
-                if (ticks.gt(System.DateTime.maxTicks) || ticks.lt(0)) {
+                if (ticks.gt(System.DateTime.MaxTicks) || ticks.lt(0)) {
                     ticks = ticks.add(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
                     d1 = System.DateTime.create$2(ticks, 2);
                 }
@@ -75,7 +81,7 @@
                 d1 = System.DateTime.create$2(ticks, 1);
 
                 // Check if Ticks are out of range
-                if (ticks.gt(System.DateTime.maxTicks) || ticks.lt(0)) {
+                if (ticks.gt(System.DateTime.MaxTicks) || ticks.lt(0)) {
                     ticks = ticks.sub(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
                     d1 = System.DateTime.create$2(ticks, 1);
                 }
@@ -135,7 +141,7 @@
                 ticks = System.Int64.is64Bit(ticks) ? ticks : System.Int64(ticks);
                 kind = (kind !== undefined) ? kind : 0
 
-                var d = new Date(ticks.sub(System.DateTime.minOffset).div(10000).toNumber());
+                var d = new Date(ticks.sub(System.DateTime.$minOffset).div(10000).toNumber());
 
                 if (kind !== 1) {
                     d = System.DateTime.addMilliseconds(d, d.getTimezoneOffset() * 60 * 1000);

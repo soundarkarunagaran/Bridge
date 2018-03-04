@@ -1,4 +1,4 @@
-Bridge.define("System.Exception", {
+    Bridge.define("System.Exception", {
         config: {
             properties: {
                 Message: {
@@ -22,6 +22,15 @@ Bridge.define("System.Exception", {
                 Data: {
                     get: function () {
                         return this.data;
+                    }
+                },
+
+                HResult: {
+                    get: function () {
+                        return this._HResult;
+                    },
+                    set: function (value) {
+                        this._HResult = value;
                     }
                 }
             }

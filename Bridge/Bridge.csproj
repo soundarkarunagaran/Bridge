@@ -60,6 +60,21 @@
     <Compile Include="Attributes\NonScriptableAttribute.cs" />
     <Compile Include="Attributes\ReadyAttribute.cs" />
     <Compile Include="Attributes\RulesAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\StackTraceHiddenAttribute.cs" />
+    <Compile Include="shared\System\HResults.cs" />
+    <Compile Include="shared\System\Resources\MissingManifestResourceException.cs" />
+    <Compile Include="shared\System\Resources\ResourceManager.cs" />
+    <Compile Include="System\Collections\IDictionaryEnumerator.cs" />
+    <Compile Include="shared\System\DateTimeOffset.cs" />
+    <Compile Include="shared\System\Globalization\Calendar.cs" />
+    <Compile Include="shared\System\Globalization\DateTimeFormatInfoScanner.cs" />
+    <Compile Include="shared\System\Globalization\DateTimeParse.cs" />
+    <Compile Include="shared\System\Globalization\GlobalizationMode.cs" />
+    <Compile Include="shared\System\Globalization\GlobalizationMode.Windows.cs" />
+    <Compile Include="shared\System\NotImplemented.cs" />
+    <Compile Include="shared\System\Reflection\TypeAttributes.cs" />
+    <Compile Include="shared\System\SR.cs" />
+    <Compile Include="shared\System\ThrowHelper.cs" />
     <Compile Include="System\AsyncCallback.cs" />
     <Compile Include="System\Attributes\CLSCompliantAttribute.cs" />
     <Compile Include="System\Attributes\DataContractAttribute.cs" />
@@ -79,7 +94,6 @@
     <Compile Include="System\Collections\Generic\Stack.cs" />
     <Compile Include="System\Collections\HashHelpers.cs" />
     <Compile Include="System\Collections\DictionaryEntry.cs" />
-    <Compile Include="System\Collections\IDictionaryEnumerator.cs" />
     <Compile Include="System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="System\ComponentModel\BrowsableAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\AssociationAttribute.cs" />
@@ -124,6 +138,9 @@
     <Compile Include="System\ComponentModel\DataAnnotations\ValidationResult.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\Validator.cs" />
     <Compile Include="System\ComponentModel\EditorBrowsableAttribute.cs" />
+    <Compile Include="shared\System\Globalization\CalendarAlgorithmType.cs" />
+    <Compile Include="shared\System\Globalization\CalendarWeekRule.cs" />
+    <Compile Include="shared\System\Globalization\DateTimeStyles.cs" />
     <Compile Include="System\IAsyncResult.cs" />
     <Compile Include="System\DateTimeKind.cs" />
     <Compile Include="System\Globalization\TextInfo.cs" />
@@ -146,6 +163,7 @@
     <Compile Include="System\IO\textreader.cs" />
     <Compile Include="System\IO\textwriter.cs" />
     <Compile Include="System\IO\__error.cs" />
+    <Compile Include="shared\System\Reflection\MethodImplAttributes.cs" />
     <Compile Include="System\Runtime\Serialization\iserializable.cs" />
     <Compile Include="System\SerializableAttribute.cs" />
     <Compile Include="Attributes\UnboxAttribute.cs" />
@@ -310,7 +328,6 @@
     <Compile Include="System\Reflection\MethodBase.cs" />
     <Compile Include="System\Reflection\MethodInfo.cs" />
     <Compile Include="System\Reflection\ParameterInfo.cs" />
-    <Compile Include="System\Reflection\TypeAttributes.cs" />
     <Compile Include="System\Reflection\PropertyInfo.cs" />
     <Compile Include="System\RegexMatchTimeoutException.cs" />
     <Compile Include="System\StringComparison.cs" />
@@ -458,12 +475,27 @@
     <Content Include="Resources\.generated\System\ComponentModel\DefaultValueAttribute.js" />
     <Content Include="Resources\.generated\System\Console.js" />
     <Content Include="Resources\.generated\System\DateTimeKind.js" />
+    <Content Include="Resources\.generated\System\DateTimeOffset.js" />
+    <Content Include="Resources\.generated\System\DateTimeParse.js" />
+    <Content Include="Resources\.generated\System\DateTimeResult.js" />
     <Content Include="Resources\.generated\System\DayOfWeek.js" />
     <Content Include="Resources\.generated\System\Environment.js" />
+    <Content Include="Resources\.generated\System\ExceptionArgument.js" />
+    <Content Include="Resources\.generated\System\ExceptionResource.js" />
     <Content Include="Resources\.generated\System\FormattableString.js" />
     <Content Include="Resources\.generated\System\FormattableStringImpl.js" />
+    <Content Include="Resources\.generated\System\Globalization\Calendar.js" />
+    <Content Include="Resources\.generated\System\Globalization\CalendarAlgorithmType.js" />
+    <Content Include="Resources\.generated\System\Globalization\CalendarId.js" />
+    <Content Include="Resources\.generated\System\Globalization\CalendarWeekRule.js" />
+    <Content Include="Resources\.generated\System\Globalization\DateTimeFormatInfoScanner.js" />
+    <Content Include="Resources\.generated\System\Globalization\DateTimeFormatInfoScanner\FoundDatePattern.js" />
+    <Content Include="Resources\.generated\System\Globalization\DateTimeStyles.js" />
+    <Content Include="Resources\.generated\System\Globalization\FORMATFLAGS.js" />
+    <Content Include="Resources\.generated\System\Globalization\GlobalizationMode.js" />
     <Content Include="Resources\.generated\System\Globalization\TextInfo.js" />
     <Content Include="Resources\.generated\System\Guid.js" />
+    <Content Include="Resources\.generated\System\HResults.js" />
     <Content Include="Resources\.generated\System\IO\BinaryReader.js" />
     <Content Include="Resources\.generated\System\IO\BinaryWriter.js" />
     <Content Include="Resources\.generated\System\IO\BufferedStream.js" />
@@ -489,9 +521,15 @@
     <Content Include="Resources\.generated\System\IO\TextWriter.js" />
     <Content Include="Resources\.generated\System\IO\TextWriter\NullTextWriter.js" />
     <Content Include="Resources\.generated\System\IO\__Error.js" />
+    <Content Include="Resources\.generated\System\NotImplemented.js" />
+    <Content Include="Resources\.generated\System\ParseFailureKind.js" />
+    <Content Include="Resources\.generated\System\ParseFlags.js" />
     <Content Include="Resources\.generated\System\Random.js" />
+    <Content Include="Resources\.generated\System\Reflection\TypeAttributes.js" />
+    <Content Include="Resources\.generated\System\Resources\MissingManifestResourceException.js" />
     <Content Include="Resources\.generated\System\Runtime\CompilerServices\FormattableStringFactory.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\ISerializable.js" />
+    <Content Include="Resources\.generated\System\SR.js" />
     <Content Include="Resources\.generated\System\Text\ASCIIEncoding.js" />
     <Content Include="Resources\.generated\System\Text\Encoding.js" />
     <Content Include="Resources\.generated\System\Text\EncodingInfo.js" />
@@ -501,6 +539,8 @@
     <Content Include="Resources\.generated\System\Text\UTF7Encoding.js" />
     <Content Include="Resources\.generated\System\Text\UTF8Encoding.js" />
     <Content Include="Resources\.generated\System\Threading\Timer.js" />
+    <Content Include="Resources\.generated\System\ThrowHelper.js" />
+    <Content Include="Resources\.generated\System\TokenType.js" />
     <Content Include="Resources\.generated\System\Version.js" />
     <Content Include="Resources\.generated\System\Version\ParseFailureKind.js" />
     <Content Include="Resources\.generated\System\Version\VersionResult.js" />
@@ -1337,6 +1377,7 @@
     <EmbeddedResource Include="Resources\Locales\zh.js" />
     <EmbeddedResource Include="Resources\Locales\zu-ZA.js" />
     <EmbeddedResource Include="Resources\Locales\zu.js" />
+    <EmbeddedResource Include="shared\Resources\Strings.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\Bool.js" />
