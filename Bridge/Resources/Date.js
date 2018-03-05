@@ -22,17 +22,41 @@
                 return Bridge.isDate(instance);
             },
 
+            $default: null,
+
+            getDefaultValue: function () {
+                if (System.DateTime.$default === null) {
+                    System.DateTime.$default = System.DateTime.create(1, 1, 1, 0, 0, 0, 0, 0);
+                }
+
+                return System.DateTime.$default;
+            },
+
+            $min: null,
+
             // UTC Min Value
             getMinValue: function () {
-                return System.DateTime.create$2(0);
+                if (System.DateTime.$min === null) {
+                    System.DateTime.$min = System.DateTime.create$2(0, 0);
+                }
+
+                return System.DateTime.$min;
             },
+
+            $max: null,
 
             // UTC Max Value
             getMaxValue: function () {
-                var d = System.DateTime.create$2(System.DateTime.MaxTicks);
-                d.ticks = System.DateTime.MaxTicks;
+                if (System.DateTime.$max === null) {
+                    System.DateTime.$max = System.DateTime.create$2(System.DateTime.MaxTicks, 0);
+                    System.DateTime.$max.ticks = System.DateTime.MaxTicks;
+                }
 
-                return d;
+                return System.DateTime.$max;
+            },
+
+            $getTzOffset: function (d) {
+                return d.getTimezoneOffset() * 60 * 1000;
             },
 
             // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
@@ -43,7 +67,7 @@
                     if (d.kind === 1) {
                         d.ticks = System.Int64(d.getTime()).mul(10000).add(System.DateTime.$minOffset);
                     } else {
-                        d.ticks = System.Int64(d.getTime() - d.getTimezoneOffset() * 60 * 1000).mul(10000).add(System.DateTime.$minOffset);
+                        d.ticks = System.Int64(d.getTime() - System.DateTime.$getTzOffset(d)).mul(10000).add(System.DateTime.minOffset);
                     }
                 }
 
@@ -55,7 +79,7 @@
                     ticks = System.DateTime.getTicks(d);
 
                 if (d.kind !== 2) {
-                    ticks = d.ticks.sub(System.Int64(d.getTimezoneOffset() * 60 * 1000).mul(10000));
+                    ticks = d.ticks.sub(System.Int64(System.DateTime.$getTzOffset(d)).mul(10000));
                 }
 
                 d1 = System.DateTime.create$2(ticks, 2);
@@ -65,7 +89,7 @@
                     if (throwOnOverflow && throwOnOverflow === true) {
                         throw new System.ArgumentException("Specified argument was out of the range of valid values.");
                     } else {
-                        ticks = ticks.add(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
+                        ticks = ticks.add(System.Int64(System.DateTime.$getTzOffset(d1)).mul(10000));
                         d1 = System.DateTime.create$2(ticks, 2);
                     }
                 }
@@ -79,22 +103,18 @@
 
                 // Assuming d is Local time, so adjust to UTC
                 if (d.kind !== 1) {
-                    ticks = ticks.add(System.Int64(d.getTimezoneOffset() * 60 * 1000).mul(10000));
+                    ticks = ticks.add(System.Int64(System.DateTime.$getTzOffset(d)).mul(10000));
                 }
 
                 d1 = System.DateTime.create$2(ticks, 1);
 
                 // Check if Ticks are out of range
                 if (ticks.gt(System.DateTime.MaxTicks) || ticks.lt(0)) {
-                    ticks = ticks.sub(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
+                    ticks = ticks.sub(System.Int64(System.DateTime.$getTzOffset(d1)).mul(10000));
                     d1 = System.DateTime.create$2(ticks, 1);
                 }
 
                 return d1;
-            },
-
-            getDefaultValue: function () {
-                return System.DateTime.getMinValue();
             },
 
             create: function (year, month, day, hour, minute, second, millisecond, kind) {
@@ -116,7 +136,7 @@
                 ticks = System.DateTime.getTicks(d);
 
                 if (kind === 1) {
-                    d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000)
+                    d = new Date(d.getTime() - System.DateTime.$getTzOffset(d))
                 }
 
                 d.kind = kind;
@@ -148,7 +168,7 @@
                 var d = new Date(ticks.sub(System.DateTime.$minOffset).div(10000).toNumber());
 
                 if (kind !== 1) {
-                    d = System.DateTime.addMilliseconds(d, d.getTimezoneOffset() * 60 * 1000);
+                    d = System.DateTime.addMilliseconds(d, System.DateTime.$getTzOffset(d));
                 }
 
                 d.ticks = ticks;
@@ -168,7 +188,9 @@
             },
 
             getUtcNow: function () {
-                return System.DateTime.create$1(new Date(), 1);
+                var d = new Date();
+
+                return System.DateTime.create$1(new Date(d.getTime() + System.DateTime.$getTzOffset(d)), 1);
             },
 
             getTimeOfDay: function (d) {
@@ -969,10 +991,10 @@
 
                 if (kind === 2) {
                     if (adjust === true) {
-                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
+                        d = new Date(d.getTime() - System.DateTime.$getTzOffset(d));
                         d.kind = kind;
                     } else if (offset !== 0) {
-                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
+                        d = new Date(d.getTime() - System.DateTime.$getTzOffset(d));
                         d = System.DateTime.addMilliseconds(d, -offset);
                         d.kind = kind;
                     }

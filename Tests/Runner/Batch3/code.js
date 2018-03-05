@@ -23748,13 +23748,11 @@ Bridge.$N1391Result =                     r;
                     s2 = (s = "test");
                     Bridge.Test.NUnit.Assert.AreEqual(s2, "test", "On more than one variable, works to the indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(s, "test", "On more than one variable, works to the direct variable."); /// Variable is declared but never used
-
-
                     var c;
                     var c3;
                     var c2;
                     c2 = (c = "test");
-                    var c4;
+                    var c4; /// Variable is declared but never used
                     Bridge.Test.NUnit.Assert.AreEqual(c2, "test", "With unrelated variables, works on indirect variable.");
                     Bridge.Test.NUnit.Assert.AreEqual(c, "test", "With unrelated variables, works on direct variable.");
 
@@ -24849,10 +24847,8 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNullCast: function () { /// The result of the expression is always 'null'
-
-
                     Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))));
-                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false);
+                    Bridge.Test.NUnit.Assert.False(System.Nullable.hasValue(System.Int64.lift((System.Int64.lift(Bridge.as(null, System.Int64, true))))) ? true : false); /// The result of the expression is always 'null'
                 }
             }
         }
@@ -27460,6 +27456,36 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in checking whether System.DateTime tests works
+     with current date and max/min values.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3290
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3290", {
+        statics: {
+            methods: {
+                /**
+                 * Tests the comparison variations between datetime values.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3290
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3290
+                 * @return  {void}
+                 */
+                CheckCultureInfoGetFormatIsVirtual: function () {
+                    var culture = new Bridge.ClientTest.Batch3.BridgeIssues.MyCultureInfoAdapter("en-US");
+
+                    var format = culture.getFormat(System.Globalization.NumberFormatInfo);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(culture.numberFormat, Bridge.unbox(format), "GetFormat can be overridden");
+                }
+            }
+        }
+    });
+
+    /**
      * The test here consists in instantiating a class using an interface
      reference and ensure it is, client-side, reaching the type it
      refers to.
@@ -28919,8 +28945,6 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestCustomComparer: function () { /// The given expression is always of the provided ('short') type
-
-
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float32Array.BYTES_PER_ELEMENT), "Could reference Float32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Float64Array.BYTES_PER_ELEMENT), "Could reference Float64Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Int16Array.BYTES_PER_ELEMENT), "Could reference Int16Array's bytes per element constant.");
@@ -28929,7 +28953,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint16Array.BYTES_PER_ELEMENT), "Could reference Uint16Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint32Array.BYTES_PER_ELEMENT), "Could reference Uint32Array's bytes per element constant.");
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8Array.BYTES_PER_ELEMENT), "Could reference Uint8Array's bytes per element constant.");
-                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(Uint8ClampedArray.BYTES_PER_ELEMENT), "Could reference Uint8ClampedArray's bytes per element constant."); /// The given expression is always of the provided ('short') type
                 }
             }
         }
@@ -29605,6 +29629,90 @@ Bridge.$N1391Result =                     r;
      */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome1", {
         $kind: "nested interface"
+    });
+
+    /**
+     * The test here consists in checking whether DateTime arithmetic
+     correctly accounts time zone shifting.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437", {
+        statics: {
+            methods: {
+                /**
+                 * Test if time zone is considered by checking whether
+                 now - UTC now == -TZ
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3437
+                 * @return  {void}
+                 */
+                TestDateTimeMathTZ: function () {
+                    // to ensure there will not be a minute/hour/day shift between the
+                    // two queries, we'll first get now and utc now from the same
+                    // variable
+                    var now = System.DateTime.getNow();
+                    var utcNow = System.DateTime.toUniversalTime(now);
+                    var dtDiff = System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow());
+
+                    // If now and utcNow are equal, then we are at UTC == GMT, so
+                    // there's no sense in having this test run at all.
+                    if (System.DateTime.getDay(now) === System.DateTime.getDay(utcNow) && System.DateTime.getHour(now) === System.DateTime.getHour(utcNow) && System.DateTime.getMinute(now) === System.DateTime.getMinute(utcNow)) {
+                        Bridge.Test.NUnit.Assert.True(true, "Host's time zone is in UTC, so there's no way on testing this.");
+                    } else {
+                        Bridge.Test.NUnit.Assert.AreNotEqual("00:00:00", Bridge.toString(dtDiff), "DateTime difference between now and UTC now is non-zero.");
+                    }
+                }
+            }
+        }
+    });
+
+    /**
+     * The test here consists in checking DateTime.Add() returns the expected
+     values when negative.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441", {
+        statics: {
+            methods: {
+                /**
+                 * Test subtracting from today time and "today plus a shift", adding
+                 seconds, minutes and hours, and checking whether the output is the
+                 expected.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3441
+                 * @return  {void}
+                 */
+                TestNegativeTimeSpanValueToString: function () {
+                    var val1 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addSeconds(System.DateTime.getToday(), 7))));
+                    var val2 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addSeconds(System.DateTime.getToday(), 70))));
+                    var val3 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addMinutes(System.DateTime.getToday(), 7))));
+                    var val4 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addMinutes(System.DateTime.getToday(), 70))));
+                    var val5 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addHours(System.DateTime.getToday(), 7))));
+                    var val6 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addHours(System.DateTime.getToday(), 70))));
+                    var val7 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addHours(System.DateTime.getToday(), 700))));
+                    var val8 = Bridge.toString((System.DateTime.subdd(System.DateTime.getToday(), System.DateTime.addHours(System.DateTime.getToday(), 7000))));
+
+                    Bridge.Test.NUnit.Assert.AreEqual("-00:00:07", val1, "-7 seconds results in '-00:00:07'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-00:01:10", val2, "-70 seconds results in '-00:01:10'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-00:07:00", val3, "-7 minutes results in '-00:07:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-01:10:00", val4, "-70 minutes results in '-01:10:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-07:00:00", val5, "-7 hours results in '-07:00:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-2.22:00:00", val6, "-70 hours results in '-2.22:00:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-29.04:00:00", val7, "-700 hours results in '-29.04:00:00'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("-291.16:00:00", val8, "-7000 hours results in '-291.16:00:00'.");
+                }
+            }
+        }
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
@@ -36462,7 +36570,7 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 DateTimeToISOStringWorks: function () {
-                    var d1 = System.DateTime.create(2011, 10, 5, 14, 48, 15, 0, System.DateTimeKind.Utc);
+                    var d1 = System.DateTime.create(2011, 10, 5, 14, 48, 15, 0, 1);
                     var d2 = System.DateTime.toLocalTime(d1);
                     var d3 = System.DateTime.toUniversalTime(d2);
 
@@ -36720,6 +36828,22 @@ Bridge.$N1391Result =                     r;
                 SetValue: function (item) {
                     return item;
                 }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.MyCultureInfoAdapter", {
+        inherits: [System.Globalization.CultureInfo],
+        alias: ["getFormat", "System$IFormatProvider$getFormat"],
+        ctors: {
+            ctor: function (name) {
+                this.$initialize();
+                System.Globalization.CultureInfo.ctor.call(this, name);
+            }
+        },
+        methods: {
+            getFormat: function (formatType) {
+                return this.numberFormat;
             }
         }
     });
