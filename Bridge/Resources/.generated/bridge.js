@@ -8843,7 +8843,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 return d.ticks;
             },
 
-            toLocalTime: function (d) {
+            toLocalTime: function (d, throwOnOverflow) {
                 var d1,
                     ticks = System.DateTime.getTicks(d);
 
@@ -8855,10 +8855,14 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
                 // Check if Ticks are out of range
                 if (ticks.gt(System.DateTime.MaxTicks) || ticks.lt(0)) {
-                    ticks = ticks.add(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
-                    d1 = System.DateTime.create$2(ticks, 2);
+                    if (throwOnOverflow && throwOnOverflow === true) {
+                        throw new System.ArgumentException("Specified argument was out of the range of valid values.");
+                    } else {
+                        ticks = ticks.add(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
+                        d1 = System.DateTime.create$2(ticks, 2);
+                    }
                 }
-
+                
                 return d1;
             },
 
@@ -8976,6 +8980,26 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 return System.DateTime.create$2(System.DateTime.getTicks(d), kind);
             },
 
+            $FileTimeOffset: System.Int64("584388").mul(System.Int64("864000000000")),
+
+            FromFileTime: function (fileTime) {
+                return System.DateTime.toLocalTime(System.DateTime.FromFileTimeUtc(fileTime));
+            },
+
+            FromFileTimeUtc: function (fileTime) {
+                fileTime = System.Int64.is64Bit(fileTime) ? fileTime : System.Int64(fileTime);
+
+                return System.DateTime.create$2(fileTime.add(System.DateTime.$FileTimeOffset), 1);
+            },
+
+            ToFileTime: function (d) {
+                return System.DateTime.ToFileTimeUtc(System.DateTime.toUniversalTime(d));
+            },
+
+            ToFileTimeUtc: function (d) {
+                return (System.DateTime.getKind(d) !== 0) ? System.DateTime.getTicks(System.DateTime.toUniversalTime(d)) : System.DateTime.getTicks(d); 
+            },
+ 
             isUseGenitiveForm: function (format, index, tokenLen, patternToMatch) {
                 var i,
                     repeat = 0;
@@ -20282,6 +20306,45 @@ Bridge.assembly("System", {}, function ($asm, globals) {
         $kind: "interface"
     });
 
+    // @source IDeserializationCallback.js
+
+    Bridge.define("System.Runtime.Serialization.IDeserializationCallback", {
+        $kind: "interface"
+    });
+
+    // @source SerializationException.js
+
+    Bridge.define("System.Runtime.Serialization.SerializationException", {
+        inherits: [System.SystemException],
+        statics: {
+            fields: {
+                s_nullMessage: null
+            },
+            ctors: {
+                init: function () {
+                    this.s_nullMessage = "Serialization error.";
+                }
+            }
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                System.SystemException.ctor.call(this, System.Runtime.Serialization.SerializationException.s_nullMessage);
+                this.HResult = -2146233076;
+            },
+            $ctor1: function (message) {
+                this.$initialize();
+                System.SystemException.ctor.call(this, message);
+                this.HResult = -2146233076;
+            },
+            $ctor2: function (message, innerException) {
+                this.$initialize();
+                System.SystemException.ctor.call(this, message, innerException);
+                this.HResult = -2146233076;
+            }
+        }
+    });
+
     // @source Regex.js
 
     Bridge.define("System.Text.RegularExpressions.Regex", {
@@ -29479,7 +29542,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
     // @source DateTimeOffset.js
 
     Bridge.define("System.DateTimeOffset", {
-        inherits: function () { return [System.IComparable,System.IFormattable,System.Runtime.Serialization.ISerializable,System.IComparable$1(System.DateTimeOffset),System.IEquatable$1(System.DateTimeOffset)]; },
+        inherits: function () { return [System.IComparable,System.IFormattable,System.Runtime.Serialization.ISerializable,System.Runtime.Serialization.IDeserializationCallback,System.IComparable$1(System.DateTimeOffset),System.IEquatable$1(System.DateTimeOffset)]; },
         $kind: "struct",
         statics: {
             fields: {
@@ -29512,8 +29575,8 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     this.UnixEpochTicks = System.Int64([-139100160,144670709]);
                     this.UnixEpochSeconds = System.Int64([2006054656,14]);
                     this.UnixEpochMilliseconds = System.Int64([304928768,14467]);
-                    this.MinValue = new System.DateTimeOffset.$ctor6(System.DateTime.MinTicks, System.TimeSpan.zero);
-                    this.MaxValue = new System.DateTimeOffset.$ctor6(System.DateTime.MaxTicks, System.TimeSpan.zero);
+                    this.MinValue = new System.DateTimeOffset.$ctor5(System.DateTime.MinTicks, System.TimeSpan.zero);
+                    this.MaxValue = new System.DateTimeOffset.$ctor5(System.DateTime.MaxTicks, System.TimeSpan.zero);
                 }
             },
             methods: {
@@ -29522,6 +29585,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 },
                 Equals: function (first, second) {
                     return Bridge.equalsT(first.UtcDateTime, second.UtcDateTime);
+                },
+                FromFileTime: function (fileTime) {
+                    return new System.DateTimeOffset.$ctor1(System.DateTime.FromFileTime(fileTime));
                 },
                 FromUnixTimeSeconds: function (seconds) {
                     var MinSeconds = System.Int64([-2006054656,-15]);
@@ -29532,7 +29598,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
 
                     var ticks = seconds.mul(System.Int64(10000000)).add(System.DateTimeOffset.UnixEpochTicks);
-                    return new System.DateTimeOffset.$ctor6(ticks, System.TimeSpan.zero);
+                    return new System.DateTimeOffset.$ctor5(ticks, System.TimeSpan.zero);
                 },
                 FromUnixTimeMilliseconds: function (milliseconds) {
                     var MinMilliseconds = System.Int64([-304928768,-14468]);
@@ -29543,24 +29609,24 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
 
                     var ticks = milliseconds.mul(System.Int64(10000)).add(System.DateTimeOffset.UnixEpochTicks);
-                    return new System.DateTimeOffset.$ctor6(ticks, System.TimeSpan.zero);
+                    return new System.DateTimeOffset.$ctor5(ticks, System.TimeSpan.zero);
                 },
                 Parse: function (input) {
                     var offset = { };
                     var dateResult = System.DateTimeParse.Parse$1(input, System.Globalization.DateTimeFormatInfo.currentInfo, 0, offset);
-                    return new System.DateTimeOffset.$ctor6(System.DateTime.getTicks(dateResult), offset.v);
+                    return new System.DateTimeOffset.$ctor5(System.DateTime.getTicks(dateResult), offset.v);
                 },
                 Parse$1: function (input, formatProvider) {
                     return System.DateTimeOffset.Parse$2(input, formatProvider, 0);
                 },
                 Parse$2: function (input, formatProvider, styles) {
                     throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
+                    // TODO: NotSupported [DateTimeFormatInfo]
                     //styles = ValidateStyles(styles, "styles");
                     //TimeSpan offset;
-                    //DateTime dateResult = DateTimeParse.Parse(input, 
-                    //                                          DateTimeFormatInfo.GetInstance(formatProvider), 
-                    //                                          styles, 
+                    //DateTime dateResult = DateTimeParse.Parse(input,
+                    //                                          DateTimeFormatInfo.GetInstance(formatProvider),
+                    //                                          styles,
                     //                                          out offset);
                     //return new DateTimeOffset(dateResult.Ticks, offset);
                 },
@@ -29569,78 +29635,22 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 },
                 ParseExact$1: function (input, format, formatProvider, styles) {
                     throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
+                    //TODO: NotSupported [DateTimeFormatInfo]
                     //styles = ValidateStyles(styles, "styles");
                     //TimeSpan offset;
-                    //DateTime dateResult = DateTimeParse.ParseExact(input, 
-                    //                                               format, 
-                    //                                               DateTimeFormatInfo.GetInstance(formatProvider), 
-                    //                                               styles, 
+                    //DateTime dateResult = DateTimeParse.ParseExact(input,
+                    //                                               format,
+                    //                                               DateTimeFormatInfo.GetInstance(formatProvider),
+                    //                                               styles,
                     //                                               out offset);
-                    //return new DateTimeOffset(dateResult.Ticks, offset);
-                },
-                ParseExact$2: function (input, formats, formatProvider, styles) {
-                    throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
-                    //styles = ValidateStyles(styles, "styles");
-                    //TimeSpan offset;
-                    //DateTime dateResult = DateTimeParse.ParseExactMultiple(input, 
-                    //                                                       formats, 
-                    //                                                       DateTimeFormatInfo.GetInstance(formatProvider), 
-                    //                                                       styles, 
-                    //                                                       out offset);
                     //return new DateTimeOffset(dateResult.Ticks, offset);
                 },
                 TryParse: function (input, result) {
                     var offset = { };
                     var dateResult = { };
                     var parsed = System.DateTimeParse.TryParse$1(input, System.Globalization.DateTimeFormatInfo.currentInfo, 0, dateResult, offset);
-                    result.v = new System.DateTimeOffset.$ctor6(System.DateTime.getTicks(dateResult.v), offset.v);
+                    result.v = new System.DateTimeOffset.$ctor5(System.DateTime.getTicks(dateResult.v), offset.v);
                     return parsed;
-                },
-                TryParse$1: function (input, formatProvider, styles, result) {
-                    throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
-                    //styles = ValidateStyles(styles, "styles");
-                    //TimeSpan offset;
-                    //DateTime dateResult;
-                    //Boolean parsed = DateTimeParse.TryParse(input, 
-                    //                                        DateTimeFormatInfo.GetInstance(formatProvider), 
-                    //                                        styles, 
-                    //                                        out dateResult, 
-                    //                                        out offset);
-                    //result = new DateTimeOffset(dateResult.Ticks, offset);
-                    //return parsed;
-                },
-                TryParseExact: function (input, format, formatProvider, styles, result) {
-                    throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
-                    //styles = ValidateStyles(styles, "styles");
-                    //TimeSpan offset;
-                    //DateTime dateResult;
-                    //Boolean parsed = DateTimeParse.TryParseExact(input, 
-                    //                                             format,
-                    //                                             DateTimeFormatInfo.GetInstance(formatProvider), 
-                    //                                             styles, 
-                    //                                             out dateResult, 
-                    //                                             out offset);
-                    //result = new DateTimeOffset(dateResult.Ticks, offset);
-                    //return parsed;
-                },
-                TryParseExact$1: function (input, formats, formatProvider, styles, result) {
-                    throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
-                    //styles = ValidateStyles(styles, "styles");
-                    //TimeSpan offset;
-                    //DateTime dateResult;
-                    //Boolean parsed = DateTimeParse.TryParseExactMultiple(input, 
-                    //                                                     formats,
-                    //                                                     DateTimeFormatInfo.GetInstance(formatProvider), 
-                    //                                                     styles, 
-                    //                                                     out dateResult, 
-                    //                                                     out offset);
-                    //result = new DateTimeOffset(dateResult.Ticks, offset);
-                    //return parsed;
                 },
                 ValidateOffset: function (offset) {
                     var ticks = offset.getTicks();
@@ -29664,27 +29674,6 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     // make sure the Kind is set to Unspecified
                     //
                     return System.DateTime.create$2(utcTicks, System.DateTimeKind.Unspecified);
-                },
-                ValidateStyles: function (style, parameterName) {
-                    throw System.NotImplemented.ByDesign;
-
-                    // TODO: NotSupported
-                    //if ((style & DateTimeFormatInfo.InvalidDateTimeStyles) != 0) {
-                    //    throw new ArgumentException(Environment.GetResourceString("Argument_InvalidDateTimeStyles"), parameterName);
-                    //}
-                    //if (((style & (DateTimeStyles.AssumeLocal)) != 0) && ((style & (DateTimeStyles.AssumeUniversal)) != 0)) {
-                    //    throw new ArgumentException(Environment.GetResourceString("Argument_ConflictingDateTimeStyles"), parameterName);
-                    //}
-                    //if ((style & DateTimeStyles.NoCurrentDateDefault) != 0) {
-                    //    throw new ArgumentException(Environment.GetResourceString("Argument_DateTimeOffsetInvalidDateTimeStyles"), parameterName);
-                    //}
-
-                    //Contract.EndContractBlock();
-                    //style &= ~DateTimeStyles.RoundtripKind; 
-
-                    //style &= ~DateTimeStyles.AssumeLocal;
-
-                    //return style;
                 },
                 op_Implicit: function (dateTime) {
                     return new System.DateTimeOffset.$ctor1(dateTime);
@@ -29824,7 +29813,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             init: function () {
                 this.m_dateTime = System.DateTime.getDefaultValue();
             },
-            $ctor6: function (ticks, offset) {
+            $ctor5: function (ticks, offset) {
                 this.$initialize();
                 this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(offset);
                 // Let the DateTime constructor do the range checks
@@ -29862,22 +29851,15 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(offset);
                 this.m_dateTime = System.DateTimeOffset.ValidateDate(dateTime, offset);
             },
-            $ctor5: function (year, month, day, hour, minute, second, offset) {
+            $ctor4: function (year, month, day, hour, minute, second, offset) {
                 this.$initialize();
                 this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(offset);
                 this.m_dateTime = System.DateTimeOffset.ValidateDate(System.DateTime.create(year, month, day, hour, minute, second), offset);
             },
-            $ctor4: function (year, month, day, hour, minute, second, millisecond, offset) {
+            $ctor3: function (year, month, day, hour, minute, second, millisecond, offset) {
                 this.$initialize();
                 this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(offset);
                 this.m_dateTime = System.DateTimeOffset.ValidateDate(System.DateTime.create(year, month, day, hour, minute, second, millisecond), offset);
-            },
-            $ctor3: function (year, month, day, hour, minute, second, millisecond, calendar, offset) {
-                this.$initialize();
-                throw System.NotImplemented.ByDesign;
-                // TODO: NotSupported
-                //m_offsetMinutes = ValidateOffset(offset);
-                //m_dateTime = ValidateDate(new DateTime(year, month, day, hour, minute, second, millisecond, calendar), offset);
             },
             ctor: function () {
                 this.$initialize();
@@ -29885,7 +29867,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
         },
         methods: {
             ToOffset: function (offset) {
-                return new System.DateTimeOffset.$ctor6(System.DateTime.getTicks((System.DateTime.adddt(this.m_dateTime, offset))), offset);
+                return new System.DateTimeOffset.$ctor5(System.DateTime.getTicks((System.DateTime.adddt(this.m_dateTime, offset))), offset);
             },
             Add: function (timeSpan) {
                 return new System.DateTimeOffset.$ctor2(System.DateTime.add(this.ClockDateTime, timeSpan), this.Offset);
@@ -29943,7 +29925,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
                 return 0;
             },
-            Equals: function (obj) {
+            equals: function (obj) {
                 if (Bridge.is(obj, System.DateTimeOffset)) {
                     return Bridge.equalsT(this.UtcDateTime, System.Nullable.getValue(Bridge.cast(Bridge.unbox(obj), System.DateTimeOffset)).UtcDateTime);
                 }
@@ -29961,6 +29943,22 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 //
                 return (Bridge.equals(this.ClockDateTime, other.ClockDateTime) && System.TimeSpan.eq(this.Offset, other.Offset) && System.DateTime.getKind(this.ClockDateTime) === System.DateTime.getKind(other.ClockDateTime));
             },
+            System$Runtime$Serialization$IDeserializationCallback$onDeserialization: function (sender) {
+                try {
+                    this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(this.Offset);
+                    this.m_dateTime = System.DateTimeOffset.ValidateDate(this.ClockDateTime, this.Offset);
+                }
+                catch ($e1) {
+                    $e1 = System.Exception.create($e1);
+                    var e;
+                    if (Bridge.is($e1, System.ArgumentException)) {
+                        e = $e1;
+                        throw new System.Runtime.Serialization.SerializationException.$ctor2(System.Environment.GetResourceString("Serialization_InvalidData"), e);
+                    } else {
+                        throw $e1;
+                    }
+                }
+            },
             getHashCode: function () {
                 return Bridge.getHashCode(this.UtcDateTime);
             },
@@ -29969,6 +29967,9 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             },
             Subtract: function (value) {
                 return new System.DateTimeOffset.$ctor2(System.DateTime.subtract(this.ClockDateTime, value), this.Offset);
+            },
+            ToFileTime: function () {
+                return System.DateTime.ToFileTime(this.UtcDateTime);
             },
             ToUnixTimeSeconds: function () {
                 // Truncate sub-second precision before offsetting by the Unix Epoch to avoid
@@ -30000,32 +30001,30 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 return this.ToLocalTime$1(false);
             },
             ToLocalTime$1: function (throwOnOverflow) {
-                throw System.NotImplemented.ByDesign;
-                // TODO: NotSupported
-                //return new DateTimeOffset(UtcDateTime.ToLocalTime(throwOnOverflow));
+                return new System.DateTimeOffset.$ctor1(System.DateTime.toLocalTime(this.UtcDateTime, throwOnOverflow));
             },
             toString: function () {
                 return System.DateTime.format(this.DateTime);
-                // TODO: NotSupported
+                // TODO: NotSupported [DateTimeFormatInfo]
                 //Contract.Ensures(Contract.Result<String>() != null);
                 //return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.CurrentInfo, Offset);
             },
             ToString$1: function (format) {
                 return System.DateTime.format(this.DateTime, format);
-                // TODO: NotSupported
+                // TODO: NotSupported [DateTimeFormatInfo]
                 //Contract.Ensures(Contract.Result<String>() != null);
                 //return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.CurrentInfo, Offset);
             },
             ToString: function (formatProvider) {
                 return System.DateTime.format(this.DateTime, null, formatProvider);
-                // TODO: NotSupported
+                // TODO: NotSupported [DateTimeFormatInfo]
                 //Contract.Ensures(Contract.Result<String>() != null);
                 //return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
             },
             format: function (format, formatProvider) {
                 return System.DateTime.format(this.DateTime, format, formatProvider);
 
-                // TODO: NotSupported
+                // TODO: NotSupported [DateTimeFormatInfo]
                 //Contract.Ensures(Contract.Result<String>() != null);
                 //return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
             },
