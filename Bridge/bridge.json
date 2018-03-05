@@ -80,6 +80,8 @@
 
         "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
         "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
+        "Resources/.generated/System/Runtime/Serialization/IDeserializationCallback.js",
+        "Resources/.generated/System/Runtime/Serialization/SerializationException.js",
 
         "Resources/Text/RegularExpressions/Regex.js",
         "Resources/Text/RegularExpressions/RegexCapture.js",
