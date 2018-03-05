@@ -183,6 +183,26 @@
                 return System.DateTime.create$2(System.DateTime.getTicks(d), kind);
             },
 
+            $FileTimeOffset: System.Int64("584388").mul(System.Int64("864000000000")),
+
+            FromFileTime: function (fileTime) {
+                return System.DateTime.toLocalTime(System.DateTime.FromFileTimeUtc(fileTime));
+            },
+
+            FromFileTimeUtc: function (fileTime) {
+                fileTime = System.Int64.is64Bit(fileTime) ? fileTime : System.Int64(fileTime);
+
+                return System.DateTime.create$2(fileTime.add(System.DateTime.$FileTimeOffset), 1);
+            },
+
+            ToFileTime: function (d) {
+                return System.DateTime.ToFileTimeUtc(System.DateTime.toUniversalTime(d));
+            },
+
+            ToFileTimeUtc: function (d) {
+                return (System.DateTime.getKind(d) !== 0) ? System.DateTime.getTicks(System.DateTime.toUniversalTime(d)) : System.DateTime.getTicks(d); 
+            },
+ 
             isUseGenitiveForm: function (format, index, tokenLen, patternToMatch) {
                 var i,
                     repeat = 0;

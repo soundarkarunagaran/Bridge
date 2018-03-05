@@ -161,6 +161,28 @@ namespace System
         [Bridge.Template("System.DateTime.specifyKind({0}, {1})")]
         public extern static DateTime SpecifyKind(DateTime value, DateTimeKind kind);
 
+        /// <summary>
+        /// Creates a DateTime from a Windows filetime. A Windows filetime is a long representing the date and time as the number of 100-nanosecond intervals that have elapsed since 1/1/1601 12:00am.
+        /// </summary>
+        /// <param name="fileTime">Ticks</param>
+        /// <returns>DateTime</returns>
+        [Bridge.Template("System.DateTime.FromFileTime({0})")]
+        public extern static DateTime FromFileTime(long fileTime);
+
+        /// <summary>
+        /// Creates a DateTime from a Windows filetime. A Windows filetime is a long representing the date and time as the number of 100-nanosecond intervals that have elapsed since 1/1/1601 12:00am UTC.
+        /// </summary>
+        /// <param name="fileTime">Ticks</param>
+        /// <returns>DateTime</returns>
+        [Bridge.Template("System.DateTime.FromFileTimeUtc({0})")]
+        public extern static DateTime FromFileTimeUtc(long fileTime);
+
+        [Bridge.Template("System.DateTime.ToFileTime({this})")]
+        public extern long ToFileTime();
+
+        [Bridge.Template("System.DateTime.ToFileTimeUtc({this})")]
+        public extern long ToFileTimeUtc();
+
         [Bridge.Template(Fn = "System.DateTime.format")]
         public override extern string ToString();
 
