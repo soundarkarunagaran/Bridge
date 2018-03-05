@@ -479,6 +479,13 @@ namespace System
         public extern DateTime ToLocalTime();
 
         /// <summary>
+        /// Converts the value of the current DateTime object to local time.
+        /// </summary>
+        /// <returns>An object whose Kind property is Local, and whose value is the local time equivalent to the value of the current DateTime object, or MaxValue if the converted value is too large to be represented by a DateTime object, or MinValue if the converted value is too small to be represented as a DateTime object.</returns>
+        [Bridge.Template("System.DateTime.toLocalTime({this}, {0})")]
+        public extern DateTime ToLocalTime(bool throwOnOverflow);
+
+        /// <summary>
         /// Converts the value of the current DateTime object to its equivalent short date string representation.
         /// </summary>
         /// <returns>A string that contains the short date string representation of the current DateTime object.</returns>

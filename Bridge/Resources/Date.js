@@ -50,7 +50,7 @@
                 return d.ticks;
             },
 
-            toLocalTime: function (d) {
+            toLocalTime: function (d, throwOnOverflow) {
                 var d1,
                     ticks = System.DateTime.getTicks(d);
 
@@ -62,10 +62,14 @@
 
                 // Check if Ticks are out of range
                 if (ticks.gt(System.DateTime.MaxTicks) || ticks.lt(0)) {
-                    ticks = ticks.add(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
-                    d1 = System.DateTime.create$2(ticks, 2);
+                    if (throwOnOverflow && throwOnOverflow === true) {
+                        throw new System.ArgumentException("Specified argument was out of the range of valid values.");
+                    } else {
+                        ticks = ticks.add(System.Int64(d1.getTimezoneOffset() * 60 * 1000).mul(10000));
+                        d1 = System.DateTime.create$2(ticks, 2);
+                    }
                 }
-
+                
                 return d1;
             },
 
