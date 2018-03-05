@@ -67,6 +67,7 @@
     <Compile Include="shared\System\Runtime\InteropServices\LayoutKind.cs" />
     <Compile Include="shared\System\Runtime\Serialization\IDeserializationCallback.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationException.cs" />
+    <Compile Include="System\Attributes\SecurityCriticalAttribute.cs" />
     <Compile Include="System\Attributes\SecuritySafeCriticalAttribute.cs" />
     <Compile Include="System\Attributes\StructLayoutAttribute.cs" />
     <Compile Include="System\Collections\IDictionaryEnumerator.cs" />
