@@ -130,7 +130,7 @@
                     }
                     // make sure the Kind is set to Unspecified
                     //
-                    return System.DateTime.create$2(utcTicks, System.DateTimeKind.Unspecified);
+                    return System.DateTime.create$2(utcTicks, 0);
                 },
                 op_Implicit: function (dateTime) {
                     return new System.DateTimeOffset.$ctor1(dateTime);
@@ -177,7 +177,7 @@
             },
             UtcDateTime: {
                 get: function () {
-                    return System.DateTime.specifyKind(this.m_dateTime, System.DateTimeKind.Utc);
+                    return System.DateTime.specifyKind(this.m_dateTime, 1);
                 }
             },
             LocalDateTime: {
@@ -187,7 +187,7 @@
             },
             ClockDateTime: {
                 get: function () {
-                    return System.DateTime.create$2(System.DateTime.getTicks((System.DateTime.adddt(this.m_dateTime, this.Offset))), System.DateTimeKind.Unspecified);
+                    return System.DateTime.create$2(System.DateTime.getTicks((System.DateTime.adddt(this.m_dateTime, this.Offset))), 0);
                 }
             },
             Date: {
@@ -280,7 +280,7 @@
             $ctor1: function (dateTime) {
                 this.$initialize();
                 var offset;
-                if (System.DateTime.getKind(dateTime) !== System.DateTimeKind.Utc) {
+                if (System.DateTime.getKind(dateTime) !== 1) {
                     // Local and Unspecified are both treated as Local
                     offset = System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow());
 
@@ -294,13 +294,13 @@
             },
             $ctor2: function (dateTime, offset) {
                 this.$initialize();
-                if (System.DateTime.getKind(dateTime) === System.DateTimeKind.Local) {
+                if (System.DateTime.getKind(dateTime) === 2) {
                     // TODO: Revised [TimeZoneInfo not supported]
                     //if (offset != TimeZoneInfo.GetLocalUtcOffset(dateTime, TimeZoneInfoOptions.NoThrowOnInvalidTime)) {
                     if (System.TimeSpan.neq(offset, (System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow())))) {
                         throw new System.ArgumentException(System.Environment.GetResourceString("Argument_OffsetLocalMismatch"), "offset");
                     }
-                } else if (System.DateTime.getKind(dateTime) === System.DateTimeKind.Utc) {
+                } else if (System.DateTime.getKind(dateTime) === 1) {
                     if (System.TimeSpan.neq(offset, System.TimeSpan.zero)) {
                         throw new System.ArgumentException(System.Environment.GetResourceString("Argument_OffsetUtcMismatch"), "offset");
                     }
