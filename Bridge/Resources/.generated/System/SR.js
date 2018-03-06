@@ -12,16 +12,16 @@
                 }
             },
             methods: {
-                UsingResourceKeys: function () {
+                usingResourceKeys: function () {
                     return false;
                 },
-                GetResourceString: function (resourceKey) {
-                    return System.SR.GetResourceString$1(resourceKey, "");
+                getResourceString: function (resourceKey) {
+                    return System.SR.getResourceString$1(resourceKey, "");
                 },
-                GetResourceString$1: function (resourceKey, defaultString) {
+                getResourceString$1: function (resourceKey, defaultString) {
                     var resourceString = null;
                     try {
-                        resourceString = System.SR.InternalGetResourceString(resourceKey);
+                        resourceString = System.SR.internalGetResourceString(resourceKey);
                     }
                     catch ($e1) {
                         $e1 = System.Exception.create($e1);
@@ -37,7 +37,7 @@
 
                     return resourceString;
                 },
-                InternalGetResourceString: function (key) {
+                internalGetResourceString: function (key) {
                     if (key == null || key.length === 0) {
                         return key;
                     }
@@ -117,10 +117,10 @@
                     //    }
                     //}
                 },
-                Format$3: function (resourceFormat, args) {
+                format$3: function (resourceFormat, args) {
                     if (args === void 0) { args = []; }
                     if (args != null) {
-                        if (System.SR.UsingResourceKeys()) {
+                        if (System.SR.usingResourceKeys()) {
                             return (resourceFormat || "") + (args.join(", ") || "");
                         }
 
@@ -129,22 +129,22 @@
 
                     return resourceFormat;
                 },
-                Format: function (resourceFormat, p1) {
-                    if (System.SR.UsingResourceKeys()) {
+                format: function (resourceFormat, p1) {
+                    if (System.SR.usingResourceKeys()) {
                         return [resourceFormat, p1].join(", ");
                     }
 
                     return System.String.format(resourceFormat, [p1]);
                 },
-                Format$1: function (resourceFormat, p1, p2) {
-                    if (System.SR.UsingResourceKeys()) {
+                format$1: function (resourceFormat, p1, p2) {
+                    if (System.SR.usingResourceKeys()) {
                         return [resourceFormat, p1, p2].join(", ");
                     }
 
                     return System.String.format(resourceFormat, p1, p2);
                 },
-                Format$2: function (resourceFormat, p1, p2, p3) {
-                    if (System.SR.UsingResourceKeys()) {
+                format$2: function (resourceFormat, p1, p2, p3) {
+                    if (System.SR.usingResourceKeys()) {
                         return [resourceFormat, p1, p2, p3].join(", ");
                     }
                     return System.String.format(resourceFormat, p1, p2, p3);

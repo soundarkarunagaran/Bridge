@@ -15,7 +15,6 @@ namespace System
     //
     // This makes it distinguishable both from human eyes and CCI from NYI's that truly represent undone work.
     //
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal static class NotImplemented
     {
         internal static Exception ByDesign

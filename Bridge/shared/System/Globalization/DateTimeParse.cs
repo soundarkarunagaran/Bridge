@@ -28,7 +28,6 @@ namespace System {
 
     //This class contains only static members
 
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal static
     class DateTimeParse {
 
@@ -4987,7 +4986,6 @@ namespace System {
     // This will store the result of the parsing.  And it will be eventually
     // used to construct a DateTime instance.
     //
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal
     struct DateTimeResult
     {

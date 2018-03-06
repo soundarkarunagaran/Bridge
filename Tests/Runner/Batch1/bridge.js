@@ -3286,13 +3286,21 @@
 
     // @source Object.js
 
-    Bridge.define("System.Object", {
-
-    });
+    Bridge.define("System.Object", { });
+    // @source Void.js
 
     Bridge.define("System.Void", {
-        $kind: "struct"
+        $kind: "struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new System.Void(); }
+            }
+        },
+        methods: {
+            $clone: function (to) { return this; }
+        }
     });
+
     // @source SystemAssemblyVersion.js
 
     Bridge.init(function () {
@@ -20328,16 +20336,79 @@ Bridge.assembly("System", {}, function ($asm, globals) {
         }
     });
 
+    // @source IDeserializationCallback.js
+
+    Bridge.define("System.Runtime.Serialization.IDeserializationCallback", {
+        $kind: "interface"
+    });
+
     // @source ISerializable.js
 
     Bridge.define("System.Runtime.Serialization.ISerializable", {
         $kind: "interface"
     });
 
-    // @source IDeserializationCallback.js
+    // @source SerializationEntry.js
 
-    Bridge.define("System.Runtime.Serialization.IDeserializationCallback", {
-        $kind: "interface"
+    Bridge.define("System.Runtime.Serialization.SerializationEntry", {
+        $kind: "struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new System.Runtime.Serialization.SerializationEntry(); }
+            }
+        },
+        fields: {
+            _name: null,
+            _value: null,
+            _type: null
+        },
+        props: {
+            Value: {
+                get: function () {
+                    return this._value;
+                }
+            },
+            Name: {
+                get: function () {
+                    return this._name;
+                }
+            },
+            ObjectType: {
+                get: function () {
+                    return this._type;
+                }
+            }
+        },
+        ctors: {
+            $ctor1: function (entryName, entryValue, entryType) {
+                this.$initialize();
+                this._name = entryName;
+                this._value = entryValue;
+                this._type = entryType;
+            },
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            getHashCode: function () {
+                var h = Bridge.addHash([7645431029, this._name, this._value, this._type]);
+                return h;
+            },
+            equals: function (o) {
+                if (!Bridge.is(o, System.Runtime.Serialization.SerializationEntry)) {
+                    return false;
+                }
+                return Bridge.equals(this._name, o._name) && Bridge.equals(this._value, o._value) && Bridge.equals(this._type, o._type);
+            },
+            $clone: function (to) {
+                var s = to || new System.Runtime.Serialization.SerializationEntry();
+                s._name = this._name;
+                s._value = this._value;
+                s._type = this._type;
+                return s;
+            }
+        }
     });
 
     // @source SerializationException.js
@@ -20371,6 +20442,180 @@ Bridge.assembly("System", {}, function ($asm, globals) {
                 this.HResult = -2146233076;
             }
         }
+    });
+
+    // @source SerializationInfoEnumerator.js
+
+    Bridge.define("System.Runtime.Serialization.SerializationInfoEnumerator", {
+        inherits: [System.Collections.IEnumerator],
+        fields: {
+            _members: null,
+            _data: null,
+            _types: null,
+            _numItems: 0,
+            _currItem: 0,
+            _current: false
+        },
+        props: {
+            System$Collections$IEnumerator$Current: {
+                get: function () {
+                    return this.Current.$clone();
+                }
+            },
+            Current: {
+                get: function () {
+                    if (this._current === false) {
+                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        // TODO: SR
+                        //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    }
+                    return new System.Runtime.Serialization.SerializationEntry.$ctor1(this._members[System.Array.index(this._currItem, this._members)], this._data[System.Array.index(this._currItem, this._data)], this._types[System.Array.index(this._currItem, this._types)]);
+                }
+            },
+            Name: {
+                get: function () {
+                    if (this._current === false) {
+                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        // TODO: SR
+                        //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    }
+                    return this._members[System.Array.index(this._currItem, this._members)];
+                }
+            },
+            Value: {
+                get: function () {
+                    if (this._current === false) {
+                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        // TODO: SR
+                        //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    }
+                    return this._data[System.Array.index(this._currItem, this._data)];
+                }
+            },
+            ObjectType: {
+                get: function () {
+                    if (this._current === false) {
+                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        // TODO: SR
+                        //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
+                    }
+                    return this._types[System.Array.index(this._currItem, this._types)];
+                }
+            }
+        },
+        alias: [
+            "moveNext", "System$Collections$IEnumerator$moveNext",
+            "reset", "System$Collections$IEnumerator$reset"
+        ],
+        ctors: {
+            ctor: function (members, info, types, numItems) {
+                this.$initialize();
+
+                this._members = members;
+                this._data = info;
+                this._types = types;
+
+                //The MoveNext semantic is much easier if we enforce that [0..m_numItems] are valid entries
+                //in the enumerator, hence we subtract 1.
+                this._numItems = (numItems - 1) | 0;
+                this._currItem = -1;
+                this._current = false;
+            }
+        },
+        methods: {
+            moveNext: function () {
+                if (this._currItem < this._numItems) {
+                    this._currItem = (this._currItem + 1) | 0;
+                    this._current = true;
+                } else {
+                    this._current = false;
+                }
+
+                return this._current;
+            },
+            reset: function () {
+                this._currItem = -1;
+                this._current = false;
+            }
+        }
+    });
+
+    // @source StreamingContext.js
+
+    Bridge.define("System.Runtime.Serialization.StreamingContext", {
+        $kind: "struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new System.Runtime.Serialization.StreamingContext(); }
+            }
+        },
+        fields: {
+            _additionalContext: null,
+            _state: 0
+        },
+        props: {
+            State: {
+                get: function () {
+                    return this._state;
+                }
+            },
+            Context: {
+                get: function () {
+                    return this._additionalContext;
+                }
+            }
+        },
+        ctors: {
+            $ctor1: function (state) {
+                System.Runtime.Serialization.StreamingContext.$ctor2.call(this, state, null);
+            },
+            $ctor2: function (state, additional) {
+                this.$initialize();
+                this._state = state;
+                this._additionalContext = additional;
+            },
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            equals: function (obj) {
+                if (!(Bridge.is(obj, System.Runtime.Serialization.StreamingContext))) {
+                    return false;
+                }
+                var ctx = System.Nullable.getValue(Bridge.cast(Bridge.unbox(obj), System.Runtime.Serialization.StreamingContext));
+                return Bridge.referenceEquals(ctx._additionalContext, this._additionalContext) && ctx._state === this._state;
+            },
+            getHashCode: function () {
+                return this._state;
+            },
+            $clone: function (to) {
+                var s = to || new System.Runtime.Serialization.StreamingContext();
+                s._additionalContext = this._additionalContext;
+                s._state = this._state;
+                return s;
+            }
+        }
+    });
+
+    // @source StreamingContextStates.js
+
+    Bridge.define("System.Runtime.Serialization.StreamingContextStates", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                CrossProcess: 1,
+                CrossMachine: 2,
+                File: 4,
+                Persistence: 8,
+                Remoting: 16,
+                Other: 32,
+                Clone: 64,
+                CrossAppDomain: 128,
+                All: 255
+            }
+        },
+        $flags: true
     });
 
     // @source Regex.js
@@ -27166,6 +27411,64 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
         }
     });
 
+    // @source DictionaryKeyCollectionDebugView.js
+
+    Bridge.define("System.Collections.Generic.DictionaryKeyCollectionDebugView$2", function (TKey, TValue) { return {
+        fields: {
+            _collection: null
+        },
+        props: {
+            Items: {
+                get: function () {
+                    var items = System.Array.init(System.Array.getCount(this._collection, TKey), function (){
+                        return Bridge.getDefaultValue(TKey);
+                    }, TKey);
+                    System.Array.copyTo(this._collection, items, 0, TKey);
+                    return items;
+                }
+            }
+        },
+        ctors: {
+            ctor: function (collection) {
+                this.$initialize();
+                if (collection == null) {
+                    throw new System.ArgumentNullException("collection");
+                }
+
+                this._collection = collection;
+            }
+        }
+    }; });
+
+    // @source DictionaryValueCollectionDebugView.js
+
+    Bridge.define("System.Collections.Generic.DictionaryValueCollectionDebugView$2", function (TKey, TValue) { return {
+        fields: {
+            _collection: null
+        },
+        props: {
+            Items: {
+                get: function () {
+                    var items = System.Array.init(System.Array.getCount(this._collection, TValue), function (){
+                        return Bridge.getDefaultValue(TValue);
+                    }, TValue);
+                    System.Array.copyTo(this._collection, items, 0, TValue);
+                    return items;
+                }
+            }
+        },
+        ctors: {
+            ctor: function (collection) {
+                this.$initialize();
+                if (collection == null) {
+                    throw new System.ArgumentNullException("collection");
+                }
+
+                this._collection = collection;
+            }
+        }
+    }; });
+
     // @source EnumerableHelpers.js
 
     Bridge.define("Bridge.Collections.EnumerableHelpers", {
@@ -28578,6 +28881,64 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 if (this._size < threshold) {
                     this.setCapacity(this._size);
                 }
+            }
+        }
+    }; });
+
+    // @source ICollectionDebugView.js
+
+    Bridge.define("System.Collections.Generic.ICollectionDebugView$1", function (T) { return {
+        fields: {
+            _collection: null
+        },
+        props: {
+            Items: {
+                get: function () {
+                    var items = System.Array.init(System.Array.getCount(this._collection, T), function (){
+                        return Bridge.getDefaultValue(T);
+                    }, T);
+                    System.Array.copyTo(this._collection, items, 0, T);
+                    return items;
+                }
+            }
+        },
+        ctors: {
+            ctor: function (collection) {
+                this.$initialize();
+                if (collection == null) {
+                    throw new System.ArgumentNullException("collection");
+                }
+
+                this._collection = collection;
+            }
+        }
+    }; });
+
+    // @source IDictionaryDebugView.js
+
+    Bridge.define("System.Collections.Generic.IDictionaryDebugView$2", function (K, V) { return {
+        fields: {
+            _dict: null
+        },
+        props: {
+            Items: {
+                get: function () {
+                    var items = System.Array.init(System.Array.getCount(this._dict, System.Collections.Generic.KeyValuePair$2(K,V)), function (){
+                        return new (System.Collections.Generic.KeyValuePair$2(K,V))();
+                    }, System.Collections.Generic.KeyValuePair$2(K,V));
+                    System.Array.copyTo(this._dict, items, 0, System.Collections.Generic.KeyValuePair$2(K,V));
+                    return items;
+                }
+            }
+        },
+        ctors: {
+            ctor: function (dictionary) {
+                this.$initialize();
+                if (dictionary == null) {
+                    throw new System.ArgumentNullException("dictionary");
+                }
+
+                this._dict = dictionary;
             }
         }
     }; });

@@ -7,10 +7,8 @@ using System.Runtime.Serialization;
 
 namespace System.Resources
 {
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     [Serializable]
-    // TODO: NotSupported
-    //[System.Runtime.CompilerServices.TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
+    [System.Runtime.CompilerServices.TypeForwardedFrom("mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089")]
     public class MissingManifestResourceException : SystemException
     {
         public MissingManifestResourceException()

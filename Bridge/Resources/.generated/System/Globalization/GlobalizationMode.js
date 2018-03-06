@@ -5,11 +5,11 @@
             },
             ctors: {
                 init: function () {
-                    this.Invariant = System.Globalization.GlobalizationMode.GetGlobalizationInvariantMode();
+                    this.Invariant = System.Globalization.GlobalizationMode.getGlobalizationInvariantMode();
                 }
             },
             methods: {
-                GetInvariantSwitchValue: function () {
+                getInvariantSwitchValue: function () {
                     return true;
 
                     // TODO: NotSupported
@@ -27,8 +27,8 @@
 
                     //return ret;
                 },
-                GetGlobalizationInvariantMode: function () {
-                    return System.Globalization.GlobalizationMode.GetInvariantSwitchValue();
+                getGlobalizationInvariantMode: function () {
+                    return System.Globalization.GlobalizationMode.getInvariantSwitchValue();
                 }
             }
         }

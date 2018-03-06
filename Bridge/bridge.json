@@ -28,6 +28,7 @@
         "Resources/Class.js",
         "Resources/ReflectionAssembly.js",
         "Resources/Object.js",
+        "Resources/.generated/System/Void.js",
         "Resources/.generated/Bridge/Utils/SystemAssemblyVersion.js",
         "Resources/Reflection.js",
         "Resources/Interfaces.js",
@@ -37,6 +38,7 @@
 
         "Resources/.generated/System/HResults.js",
         "Resources/Exception.js",
+
         "Resources/.generated/System/Resources/MissingManifestResourceException.js",
 
         "Resources/.generated/System/Globalization/TextInfo.js",
@@ -79,9 +81,14 @@
         "Resources/linq.js",
 
         "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
-        "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
+
         "Resources/.generated/System/Runtime/Serialization/IDeserializationCallback.js",
+        "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
+        "Resources/.generated/System/Runtime/Serialization/SerializationEntry.js",
         "Resources/.generated/System/Runtime/Serialization/SerializationException.js",
+        "Resources/.generated/System/Runtime/Serialization/SerializationInfoEnumerator.js",
+        "Resources/.generated/System/Runtime/Serialization/StreamingContext.js",
+        "Resources/.generated/System/Runtime/Serialization/StreamingContextStates.js",
 
         "Resources/Text/RegularExpressions/Regex.js",
         "Resources/Text/RegularExpressions/RegexCapture.js",
@@ -107,6 +114,8 @@
         "Resources/.generated/System/Collections/BitArray.js",
         "Resources/.generated/System/Collections/BitArray/BitArrayEnumeratorSimple.js",
         "Resources/.generated/System/Collections/Generic/BitHelper.js",
+        "Resources/.generated/System/Collections/Generic/DictionaryKeyCollectionDebugView.js",
+        "Resources/.generated/System/Collections/Generic/DictionaryValueCollectionDebugView.js",
         "Resources/.generated/System/Collections/Generic/EnumerableHelpers.js",
         "Resources/.generated/System/Collections/Generic/HashSet.js",
         "Resources/.generated/System/Collections/Generic/HashSet/ElementCount.js",
@@ -114,6 +123,8 @@
         "Resources/.generated/System/Collections/Generic/HashSet/Slot.js",
         "Resources/.generated/System/Collections/Generic/List/Enumerator.js",
         "Resources/.generated/System/Collections/Generic/Queue.js",
+        "Resources/.generated/System/Collections/Generic/ICollectionDebugView.js",
+        "Resources/.generated/System/Collections/Generic/IDictionaryDebugView.js",
         "Resources/.generated/System/Collections/Generic/Queue/Enumerator.js",
         "Resources/.generated/System/Collections/Generic/Stack.js",
         "Resources/.generated/System/Collections/Generic/Stack/Enumerator.js",
@@ -145,6 +156,7 @@
         "Resources/.generated/System/Globalization/DateTimeStyles.js",
         "Resources/.generated/System/Globalization/FORMATFLAGS.js",
         "Resources/.generated/System/Globalization/GlobalizationMode.js",
+
         "Resources/.generated/System/Globalization/DateTimeFormatInfoScanner/FoundDatePattern.js",
 
         "Resources/.generated/System/NotImplemented.js",

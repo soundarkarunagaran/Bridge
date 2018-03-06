@@ -8,7 +8,7 @@
                 }
             },
             methods: {
-                ByDesignWithMessage: function (message) {
+                byDesignWithMessage: function (message) {
                     return new System.NotImplementedException(message);
                 }
             }

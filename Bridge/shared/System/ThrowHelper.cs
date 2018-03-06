@@ -43,7 +43,6 @@ using System.Diagnostics;
 namespace System
 {
     [StackTraceHidden]
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal static class ThrowHelper
     {
         internal static void ThrowArrayTypeMismatchException()

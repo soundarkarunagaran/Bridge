@@ -27,7 +27,6 @@ namespace System.Globalization
     // The calculation of hour/minute/second is moved to Calendar from GregorianCalendar,
     // since most of the calendars (or all?) have the same way of calcuating hour/minute/second.
 
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     public abstract class Calendar : ICloneable
     {
         // Number of 100ns (10E-7 second) ticks per time unit

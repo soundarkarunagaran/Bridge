@@ -1,240 +1,240 @@
     Bridge.define("System.ThrowHelper", {
         statics: {
             methods: {
-                ThrowArrayTypeMismatchException: function () {
+                throwArrayTypeMismatchException: function () {
                     throw System.NotImplemented.ByDesign;
                     // TODO: NotSupported
                     //throw new ArrayTypeMismatchException();
                 },
-                ThrowInvalidTypeWithPointersNotSupported: function (targetType) {
+                throwInvalidTypeWithPointersNotSupported: function (targetType) {
                     // TODO: SR
                     //throw new ArgumentException(SR.Format(SR.Argument_InvalidTypeWithPointersNotSupported, targetType));
-                    throw new System.ArgumentException(System.SR.Format("Cannot use type '{0}'. Only value types without pointers or references are supported.", targetType));
+                    throw new System.ArgumentException(System.SR.format("Cannot use type '{0}'. Only value types without pointers or references are supported.", targetType));
                 },
-                ThrowIndexOutOfRangeException: function () {
+                throwIndexOutOfRangeException: function () {
                     throw new System.IndexOutOfRangeException();
                 },
-                ThrowArgumentOutOfRangeException: function () {
+                throwArgumentOutOfRangeException: function () {
                     throw new System.ArgumentOutOfRangeException();
                 },
-                ThrowArgumentOutOfRangeException$1: function (argument) {
-                    throw new System.ArgumentOutOfRangeException(System.ThrowHelper.GetArgumentName(argument));
+                throwArgumentOutOfRangeException$1: function (argument) {
+                    throw new System.ArgumentOutOfRangeException(System.ThrowHelper.getArgumentName(argument));
                 },
-                ThrowArgumentOutOfRangeException$2: function (argument, resource) {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException(argument, resource);
+                throwArgumentOutOfRangeException$2: function (argument, resource) {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException(argument, resource);
                 },
-                ThrowArgumentOutOfRangeException$3: function (argument, paramNumber, resource) {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException$1(argument, paramNumber, resource);
+                throwArgumentOutOfRangeException$3: function (argument, paramNumber, resource) {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException$1(argument, paramNumber, resource);
                 },
-                ThrowArgumentException_DestinationTooShort: function () {
+                throwArgumentException_DestinationTooShort: function () {
                     // TODO: SR
                     //throw new ArgumentException(SR.Argument_DestinationTooShort);
                     throw new System.ArgumentException("Destination is too short.");
                 },
-                ThrowArgumentException_OverlapAlignmentMismatch: function () {
+                throwArgumentException_OverlapAlignmentMismatch: function () {
                     // TODO: SR
                     //throw new ArgumentException(SR.Argument_OverlapAlignmentMismatch);
                     throw new System.ArgumentException("Overlapping spans have mismatching alignment.");
                 },
-                ThrowArgumentOutOfRange_IndexException: function () {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.index, System.ExceptionResource.ArgumentOutOfRange_Index);
+                throwArgumentOutOfRange_IndexException: function () {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.index, System.ExceptionResource.ArgumentOutOfRange_Index);
                 },
-                ThrowIndexArgumentOutOfRange_NeedNonNegNumException: function () {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.index, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
+                throwIndexArgumentOutOfRange_NeedNonNegNumException: function () {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.index, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
                 },
-                ThrowLengthArgumentOutOfRange_ArgumentOutOfRange_NeedNonNegNum: function () {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.$length, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
+                throwLengthArgumentOutOfRange_ArgumentOutOfRange_NeedNonNegNum: function () {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.$length, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
                 },
-                ThrowStartIndexArgumentOutOfRange_ArgumentOutOfRange_Index: function () {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.startIndex, System.ExceptionResource.ArgumentOutOfRange_Index);
+                throwStartIndexArgumentOutOfRange_ArgumentOutOfRange_Index: function () {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.startIndex, System.ExceptionResource.ArgumentOutOfRange_Index);
                 },
-                ThrowCountArgumentOutOfRange_ArgumentOutOfRange_Count: function () {
-                    throw System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.count, System.ExceptionResource.ArgumentOutOfRange_Count);
+                throwCountArgumentOutOfRange_ArgumentOutOfRange_Count: function () {
+                    throw System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.count, System.ExceptionResource.ArgumentOutOfRange_Count);
                 },
-                ThrowWrongKeyTypeArgumentException: function (T, key, targetType) {
+                throwWrongKeyTypeArgumentException: function (T, key, targetType) {
                     // Generic key to move the boxing to the right hand side of throw
-                    throw System.ThrowHelper.GetWrongKeyTypeArgumentException(key, targetType);
+                    throw System.ThrowHelper.getWrongKeyTypeArgumentException(key, targetType);
                 },
-                ThrowWrongValueTypeArgumentException: function (T, value, targetType) {
+                throwWrongValueTypeArgumentException: function (T, value, targetType) {
                     // Generic key to move the boxing to the right hand side of throw
-                    throw System.ThrowHelper.GetWrongValueTypeArgumentException(value, targetType);
+                    throw System.ThrowHelper.getWrongValueTypeArgumentException(value, targetType);
                 },
-                GetAddingDuplicateWithKeyArgumentException: function (key) {
+                getAddingDuplicateWithKeyArgumentException: function (key) {
                     // TODO: SR
                     //return new ArgumentException(SR.Format(SR.Argument_AddingDuplicateWithKey, key));
-                    return new System.ArgumentException(System.SR.Format("An item with the same key has already been added. Key: {0}", key));
+                    return new System.ArgumentException(System.SR.format("An item with the same key has already been added. Key: {0}", key));
                 },
-                ThrowAddingDuplicateWithKeyArgumentException: function (T, key) {
+                throwAddingDuplicateWithKeyArgumentException: function (T, key) {
                     // Generic key to move the boxing to the right hand side of throw
-                    throw System.ThrowHelper.GetAddingDuplicateWithKeyArgumentException(key);
+                    throw System.ThrowHelper.getAddingDuplicateWithKeyArgumentException(key);
                 },
-                ThrowKeyNotFoundException: function (T, key) {
+                throwKeyNotFoundException: function (T, key) {
                     // Generic key to move the boxing to the right hand side of throw
-                    throw System.ThrowHelper.GetKeyNotFoundException(key);
+                    throw System.ThrowHelper.getKeyNotFoundException(key);
                 },
-                ThrowArgumentException: function (resource) {
-                    throw System.ThrowHelper.GetArgumentException(resource);
+                throwArgumentException: function (resource) {
+                    throw System.ThrowHelper.getArgumentException(resource);
                 },
-                ThrowArgumentException$1: function (resource, argument) {
-                    throw System.ThrowHelper.GetArgumentException$1(resource, argument);
+                throwArgumentException$1: function (resource, argument) {
+                    throw System.ThrowHelper.getArgumentException$1(resource, argument);
                 },
-                GetArgumentNullException: function (argument) {
-                    return new System.ArgumentNullException(System.ThrowHelper.GetArgumentName(argument));
+                getArgumentNullException: function (argument) {
+                    return new System.ArgumentNullException(System.ThrowHelper.getArgumentName(argument));
                 },
-                ThrowArgumentNullException: function (argument) {
-                    throw System.ThrowHelper.GetArgumentNullException(argument);
+                throwArgumentNullException: function (argument) {
+                    throw System.ThrowHelper.getArgumentNullException(argument);
                 },
-                ThrowArgumentNullException$2: function (resource) {
-                    throw new System.ArgumentNullException(System.ThrowHelper.GetResourceString(resource));
+                throwArgumentNullException$2: function (resource) {
+                    throw new System.ArgumentNullException(System.ThrowHelper.getResourceString(resource));
                 },
-                ThrowArgumentNullException$1: function (argument, resource) {
-                    throw new System.ArgumentNullException(System.ThrowHelper.GetArgumentName(argument), System.ThrowHelper.GetResourceString(resource));
+                throwArgumentNullException$1: function (argument, resource) {
+                    throw new System.ArgumentNullException(System.ThrowHelper.getArgumentName(argument), System.ThrowHelper.getResourceString(resource));
                 },
-                ThrowInvalidOperationException: function (resource) {
-                    throw System.ThrowHelper.GetInvalidOperationException(resource);
+                throwInvalidOperationException: function (resource) {
+                    throw System.ThrowHelper.getInvalidOperationException(resource);
                 },
-                ThrowInvalidOperationException$1: function (resource, e) {
-                    throw new System.InvalidOperationException(System.ThrowHelper.GetResourceString(resource), e);
+                throwInvalidOperationException$1: function (resource, e) {
+                    throw new System.InvalidOperationException(System.ThrowHelper.getResourceString(resource), e);
                 },
-                ThrowInvalidOperationException_OutstandingReferences: function () {
-                    System.ThrowHelper.ThrowInvalidOperationException(System.ExceptionResource.Memory_OutstandingReferences);
+                throwInvalidOperationException_OutstandingReferences: function () {
+                    System.ThrowHelper.throwInvalidOperationException(System.ExceptionResource.Memory_OutstandingReferences);
                 },
-                ThrowSerializationException: function (resource) {
+                throwSerializationException: function (resource) {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
                     //throw new SerializationException(GetResourceString(resource));
                 },
-                ThrowSecurityException: function (resource) {
+                throwSecurityException: function (resource) {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
                     //throw new System.Security.SecurityException(GetResourceString(resource));
                 },
-                ThrowRankException: function (resource) {
-                    throw new System.RankException(System.ThrowHelper.GetResourceString(resource));
+                throwRankException: function (resource) {
+                    throw new System.RankException(System.ThrowHelper.getResourceString(resource));
                 },
-                ThrowNotSupportedException$1: function (resource) {
-                    throw new System.NotSupportedException(System.ThrowHelper.GetResourceString(resource));
+                throwNotSupportedException$1: function (resource) {
+                    throw new System.NotSupportedException(System.ThrowHelper.getResourceString(resource));
                 },
-                ThrowNotSupportedException: function () {
+                throwNotSupportedException: function () {
                     throw new System.NotSupportedException();
                 },
-                ThrowUnauthorizedAccessException: function (resource) {
+                throwUnauthorizedAccessException: function (resource) {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
                     //throw new UnauthorizedAccessException(GetResourceString(resource));
                 },
-                ThrowObjectDisposedException$1: function (objectName, resource) {
+                throwObjectDisposedException$1: function (objectName, resource) {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
                     //throw new ObjectDisposedException(objectName, GetResourceString(resource));
                 },
-                ThrowObjectDisposedException: function (resource) {
+                throwObjectDisposedException: function (resource) {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
                     //throw new ObjectDisposedException(null, GetResourceString(resource));
                 },
-                ThrowObjectDisposedException_MemoryDisposed: function () {
+                throwObjectDisposedException_MemoryDisposed: function () {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
                     //throw new ObjectDisposedException("OwnedMemory<T>", GetResourceString(ExceptionResource.MemoryDisposed));
                 },
-                ThrowAggregateException: function (exceptions) {
+                throwAggregateException: function (exceptions) {
                     throw new System.AggregateException(null, exceptions);
                 },
-                ThrowOutOfMemoryException: function () {
+                throwOutOfMemoryException: function () {
                     throw new System.OutOfMemoryException();
                 },
-                ThrowArgumentException_Argument_InvalidArrayType: function () {
-                    throw System.ThrowHelper.GetArgumentException(System.ExceptionResource.Argument_InvalidArrayType);
+                throwArgumentException_Argument_InvalidArrayType: function () {
+                    throw System.ThrowHelper.getArgumentException(System.ExceptionResource.Argument_InvalidArrayType);
                 },
-                ThrowInvalidOperationException_InvalidOperation_EnumNotStarted: function () {
-                    throw System.ThrowHelper.GetInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumNotStarted);
+                throwInvalidOperationException_InvalidOperation_EnumNotStarted: function () {
+                    throw System.ThrowHelper.getInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumNotStarted);
                 },
-                ThrowInvalidOperationException_InvalidOperation_EnumEnded: function () {
-                    throw System.ThrowHelper.GetInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumEnded);
+                throwInvalidOperationException_InvalidOperation_EnumEnded: function () {
+                    throw System.ThrowHelper.getInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumEnded);
                 },
-                ThrowInvalidOperationException_EnumCurrent: function (index) {
-                    throw System.ThrowHelper.GetInvalidOperationException_EnumCurrent(index);
+                throwInvalidOperationException_EnumCurrent: function (index) {
+                    throw System.ThrowHelper.getInvalidOperationException_EnumCurrent(index);
                 },
-                ThrowInvalidOperationException_InvalidOperation_EnumFailedVersion: function () {
-                    throw System.ThrowHelper.GetInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumFailedVersion);
+                throwInvalidOperationException_InvalidOperation_EnumFailedVersion: function () {
+                    throw System.ThrowHelper.getInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumFailedVersion);
                 },
-                ThrowInvalidOperationException_InvalidOperation_EnumOpCantHappen: function () {
-                    throw System.ThrowHelper.GetInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumOpCantHappen);
+                throwInvalidOperationException_InvalidOperation_EnumOpCantHappen: function () {
+                    throw System.ThrowHelper.getInvalidOperationException(System.ExceptionResource.InvalidOperation_EnumOpCantHappen);
                 },
-                ThrowInvalidOperationException_InvalidOperation_NoValue: function () {
-                    throw System.ThrowHelper.GetInvalidOperationException(System.ExceptionResource.InvalidOperation_NoValue);
+                throwInvalidOperationException_InvalidOperation_NoValue: function () {
+                    throw System.ThrowHelper.getInvalidOperationException(System.ExceptionResource.InvalidOperation_NoValue);
                 },
-                ThrowArraySegmentCtorValidationFailedExceptions: function (array, offset, count) {
-                    throw System.ThrowHelper.GetArraySegmentCtorValidationFailedException(array, offset, count);
+                throwArraySegmentCtorValidationFailedExceptions: function (array, offset, count) {
+                    throw System.ThrowHelper.getArraySegmentCtorValidationFailedException(array, offset, count);
                 },
-                GetArraySegmentCtorValidationFailedException: function (array, offset, count) {
+                getArraySegmentCtorValidationFailedException: function (array, offset, count) {
                     if (array == null) {
-                        return System.ThrowHelper.GetArgumentNullException(System.ExceptionArgument.array);
+                        return System.ThrowHelper.getArgumentNullException(System.ExceptionArgument.array);
                     }
                     if (offset < 0) {
-                        return System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.offset, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
+                        return System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.offset, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
                     }
                     if (count < 0) {
-                        return System.ThrowHelper.GetArgumentOutOfRangeException(System.ExceptionArgument.count, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
+                        return System.ThrowHelper.getArgumentOutOfRangeException(System.ExceptionArgument.count, System.ExceptionResource.ArgumentOutOfRange_NeedNonNegNum);
                     }
 
-                    return System.ThrowHelper.GetArgumentException(System.ExceptionResource.Argument_InvalidOffLen);
+                    return System.ThrowHelper.getArgumentException(System.ExceptionResource.Argument_InvalidOffLen);
                 },
-                GetArgumentException: function (resource) {
-                    return new System.ArgumentException(System.ThrowHelper.GetResourceString(resource));
+                getArgumentException: function (resource) {
+                    return new System.ArgumentException(System.ThrowHelper.getResourceString(resource));
                 },
-                GetArgumentException$1: function (resource, argument) {
-                    return new System.ArgumentException(System.ThrowHelper.GetResourceString(resource), System.ThrowHelper.GetArgumentName(argument));
+                getArgumentException$1: function (resource, argument) {
+                    return new System.ArgumentException(System.ThrowHelper.getResourceString(resource), System.ThrowHelper.getArgumentName(argument));
                 },
-                GetInvalidOperationException: function (resource) {
-                    return new System.InvalidOperationException(System.ThrowHelper.GetResourceString(resource));
+                getInvalidOperationException: function (resource) {
+                    return new System.InvalidOperationException(System.ThrowHelper.getResourceString(resource));
                 },
-                GetWrongKeyTypeArgumentException: function (key, targetType) {
+                getWrongKeyTypeArgumentException: function (key, targetType) {
                     // TODO: SR
                     //return new ArgumentException(SR.Format(SR.Arg_WrongType, key, targetType), nameof(key));
-                    return new System.ArgumentException(System.SR.Format$1("The value \"{0}\" is not of type \"{1}\" and cannot be used in this generic collection.", key, targetType), "key");
+                    return new System.ArgumentException(System.SR.format$1("The value \"{0}\" is not of type \"{1}\" and cannot be used in this generic collection.", key, targetType), "key");
                 },
-                GetWrongValueTypeArgumentException: function (value, targetType) {
+                getWrongValueTypeArgumentException: function (value, targetType) {
                     // TODO: SR
                     //return new ArgumentException(SR.Format(SR.Arg_WrongType, value, targetType), nameof(value));
-                    return new System.ArgumentException(System.SR.Format$1("The value \"{0}\" is not of type \"{1}\" and cannot be used in this generic collection.", value, targetType), "value");
+                    return new System.ArgumentException(System.SR.format$1("The value \"{0}\" is not of type \"{1}\" and cannot be used in this generic collection.", value, targetType), "value");
                 },
-                GetKeyNotFoundException: function (key) {
+                getKeyNotFoundException: function (key) {
                     // TODO: SR
                     //return new KeyNotFoundException(SR.Format(SR.Arg_KeyNotFoundWithKey, key.ToString()));
-                    return new System.Collections.Generic.KeyNotFoundException(System.SR.Format("The given key '{0}' was not present in the dictionary.", Bridge.toString(key)));
+                    return new System.Collections.Generic.KeyNotFoundException(System.SR.format("The given key '{0}' was not present in the dictionary.", Bridge.toString(key)));
                 },
-                GetArgumentOutOfRangeException: function (argument, resource) {
-                    return new System.ArgumentOutOfRangeException(System.ThrowHelper.GetArgumentName(argument), System.ThrowHelper.GetResourceString(resource));
+                getArgumentOutOfRangeException: function (argument, resource) {
+                    return new System.ArgumentOutOfRangeException(System.ThrowHelper.getArgumentName(argument), System.ThrowHelper.getResourceString(resource));
                 },
-                GetArgumentOutOfRangeException$1: function (argument, paramNumber, resource) {
-                    return new System.ArgumentOutOfRangeException((System.ThrowHelper.GetArgumentName(argument) || "") + "[" + (Bridge.toString(paramNumber) || "") + "]", System.ThrowHelper.GetResourceString(resource));
+                getArgumentOutOfRangeException$1: function (argument, paramNumber, resource) {
+                    return new System.ArgumentOutOfRangeException((System.ThrowHelper.getArgumentName(argument) || "") + "[" + (Bridge.toString(paramNumber) || "") + "]", System.ThrowHelper.getResourceString(resource));
                 },
-                GetInvalidOperationException_EnumCurrent: function (index) {
-                    return System.ThrowHelper.GetInvalidOperationException(index < 0 ? System.ExceptionResource.InvalidOperation_EnumNotStarted : System.ExceptionResource.InvalidOperation_EnumEnded);
+                getInvalidOperationException_EnumCurrent: function (index) {
+                    return System.ThrowHelper.getInvalidOperationException(index < 0 ? System.ExceptionResource.InvalidOperation_EnumNotStarted : System.ExceptionResource.InvalidOperation_EnumEnded);
                 },
-                IfNullAndNullsAreIllegalThenThrow: function (T, value, argName) {
+                ifNullAndNullsAreIllegalThenThrow: function (T, value, argName) {
                     // Note that default(T) is not equal to null for value types except when T is Nullable<U>.
                     if (!(Bridge.getDefaultValue(T) == null) && value == null) {
-                        System.ThrowHelper.ThrowArgumentNullException(argName);
+                        System.ThrowHelper.throwArgumentNullException(argName);
                     }
                 },
-                GetArgumentName: function (argument) {
+                getArgumentName: function (argument) {
 
                     return System.Enum.toString(System.ExceptionArgument, argument);
                 },
-                GetResourceString: function (resource) {
+                getResourceString: function (resource) {
 
-                    return System.SR.GetResourceString(System.Enum.toString(System.ExceptionResource, resource));
+                    return System.SR.getResourceString(System.Enum.toString(System.ExceptionResource, resource));
                 },
-                ThrowNotSupportedExceptionIfNonNumericType: function (T) {
+                throwNotSupportedExceptionIfNonNumericType: function (T) {
                     if (!Bridge.referenceEquals(T, System.Byte) && !Bridge.referenceEquals(T, System.SByte) && !Bridge.referenceEquals(T, System.Int16) && !Bridge.referenceEquals(T, System.UInt16) && !Bridge.referenceEquals(T, System.Int32) && !Bridge.referenceEquals(T, System.UInt32) && !Bridge.referenceEquals(T, System.Int64) && !Bridge.referenceEquals(T, System.UInt64) && !Bridge.referenceEquals(T, System.Single) && !Bridge.referenceEquals(T, System.Double)) {
                         // TODO: SR
                         //throw new NotSupportedException(SR.Arg_TypeNotSupported);

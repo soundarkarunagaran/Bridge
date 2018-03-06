@@ -4,7 +4,6 @@
 
 namespace System.Globalization
 {
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal sealed partial class GlobalizationMode
     {
         internal static bool Invariant { get; } = GetGlobalizationInvariantMode();

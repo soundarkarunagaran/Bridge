@@ -70,7 +70,7 @@
                 }
             },
             methods: {
-                SkipWhiteSpacesAndNonLetter: function (pattern, currentIndex) {
+                skipWhiteSpacesAndNonLetter: function (pattern, currentIndex) {
                     while (currentIndex < pattern.length) {
                         var ch = pattern.charCodeAt(currentIndex);
                         if (ch === 92) {
@@ -97,7 +97,7 @@
                     }
                     return (currentIndex);
                 },
-                ScanRepeatChar: function (pattern, ch, index, count) {
+                scanRepeatChar: function (pattern, ch, index, count) {
                     count.v = 1;
                     while (((index = (index + 1) | 0)) < pattern.length && pattern.charCodeAt(index) === ch) {
                         count.v = (count.v + 1) | 0;
@@ -105,24 +105,24 @@
                     // Return the updated position.
                     return (index);
                 },
-                GetFormatFlagGenitiveMonth: function (monthNames, genitveMonthNames, abbrevMonthNames, genetiveAbbrevMonthNames) {
+                getFormatFlagGenitiveMonth: function (monthNames, genitveMonthNames, abbrevMonthNames, genetiveAbbrevMonthNames) {
                     // If we have different names in regular and genitive month names, use genitive month flag.
-                    return ((!System.Globalization.DateTimeFormatInfoScanner.EqualStringArrays(monthNames, genitveMonthNames) || !System.Globalization.DateTimeFormatInfoScanner.EqualStringArrays(abbrevMonthNames, genetiveAbbrevMonthNames)) ? 1 : 0);
+                    return ((!System.Globalization.DateTimeFormatInfoScanner.equalStringArrays(monthNames, genitveMonthNames) || !System.Globalization.DateTimeFormatInfoScanner.equalStringArrays(abbrevMonthNames, genetiveAbbrevMonthNames)) ? 1 : 0);
                 },
-                GetFormatFlagUseSpaceInMonthNames: function (monthNames, genitveMonthNames, abbrevMonthNames, genetiveAbbrevMonthNames) {
+                getFormatFlagUseSpaceInMonthNames: function (monthNames, genitveMonthNames, abbrevMonthNames, genetiveAbbrevMonthNames) {
                     var formatFlags = 0;
-                    formatFlags |= (System.Globalization.DateTimeFormatInfoScanner.ArrayElementsBeginWithDigit(monthNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsBeginWithDigit(genitveMonthNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsBeginWithDigit(abbrevMonthNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsBeginWithDigit(genetiveAbbrevMonthNames) ? 32 : 0);
+                    formatFlags |= (System.Globalization.DateTimeFormatInfoScanner.arrayElementsBeginWithDigit(monthNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsBeginWithDigit(genitveMonthNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsBeginWithDigit(abbrevMonthNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsBeginWithDigit(genetiveAbbrevMonthNames) ? 32 : 0);
 
-                    formatFlags |= (System.Globalization.DateTimeFormatInfoScanner.ArrayElementsHaveSpace(monthNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsHaveSpace(genitveMonthNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsHaveSpace(abbrevMonthNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsHaveSpace(genetiveAbbrevMonthNames) ? 4 : 0);
+                    formatFlags |= (System.Globalization.DateTimeFormatInfoScanner.arrayElementsHaveSpace(monthNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsHaveSpace(genitveMonthNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsHaveSpace(abbrevMonthNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsHaveSpace(genetiveAbbrevMonthNames) ? 4 : 0);
                     return (formatFlags);
                 },
-                GetFormatFlagUseSpaceInDayNames: function (dayNames, abbrevDayNames) {
-                    return ((System.Globalization.DateTimeFormatInfoScanner.ArrayElementsHaveSpace(dayNames) || System.Globalization.DateTimeFormatInfoScanner.ArrayElementsHaveSpace(abbrevDayNames)) ? 16 : 0);
+                getFormatFlagUseSpaceInDayNames: function (dayNames, abbrevDayNames) {
+                    return ((System.Globalization.DateTimeFormatInfoScanner.arrayElementsHaveSpace(dayNames) || System.Globalization.DateTimeFormatInfoScanner.arrayElementsHaveSpace(abbrevDayNames)) ? 16 : 0);
                 },
-                GetFormatFlagUseHebrewCalendar: function (calID) {
+                getFormatFlagUseHebrewCalendar: function (calID) {
                     return (calID === 8 ? 10 : 0);
                 },
-                EqualStringArrays: function (array1, array2) {
+                equalStringArrays: function (array1, array2) {
                     // Shortcut if they're the same array
                     if (Bridge.referenceEquals(array1, array2)) {
                         return true;
@@ -142,7 +142,7 @@
 
                     return true;
                 },
-                ArrayElementsHaveSpace: function (array) {
+                arrayElementsHaveSpace: function (array) {
                     for (var i = 0; i < array.length; i = (i + 1) | 0) {
                         // it is faster to check for space character manually instead of calling IndexOf
                         // so we don't have to go to native code side.
@@ -155,7 +155,7 @@
 
                     return false;
                 },
-                ArrayElementsBeginWithDigit: function (array) {
+                arrayElementsBeginWithDigit: function (array) {
                     for (var i = 0; i < array.length; i = (i + 1) | 0) {
                         // it is faster to check for space character manually instead of calling IndexOf
                         // so we don't have to go to native code side.
@@ -207,11 +207,11 @@
             }
         },
         methods: {
-            AddDateWordOrPostfix: function (formatPostfix, str) {
+            addDateWordOrPostfix: function (formatPostfix, str) {
                 if (str.length > 0) {
                     // Some cultures use . like an abbreviation
                     if (System.String.equals(str, ".")) {
-                        this.AddIgnorableSymbols(".");
+                        this.addIgnorableSymbols(".");
                         return;
                     }
                     var words = { };
@@ -240,9 +240,9 @@
                     }
                 }
             },
-            AddDateWords: function (pattern, index, formatPostfix) {
+            addDateWords: function (pattern, index, formatPostfix) {
                 // Skip any whitespaces so we will start from a letter.
-                var newIndex = System.Globalization.DateTimeFormatInfoScanner.SkipWhiteSpacesAndNonLetter(pattern, index);
+                var newIndex = System.Globalization.DateTimeFormatInfoScanner.skipWhiteSpacesAndNonLetter(pattern, index);
                 if (newIndex !== index && formatPostfix != null) {
                     // There are whitespaces. This will not be a postfix.
                     formatPostfix = null;
@@ -260,7 +260,7 @@
                     if (ch === 39) {
                         // We have seen the end of quote.  Add the word if we do not see it before, 
                         // and break the while loop.                    
-                        this.AddDateWordOrPostfix(formatPostfix, dateWord.toString());
+                        this.addDateWordOrPostfix(formatPostfix, dateWord.toString());
                         index = (index + 1) | 0;
                         break;
                     } else if (ch === 92) {
@@ -276,7 +276,7 @@
                         }
                     } else if (System.Char.isWhiteSpace(String.fromCharCode(ch))) {
                         // Found a whitespace.  We have to add the current date word/postfix.
-                        this.AddDateWordOrPostfix(formatPostfix, dateWord.toString());
+                        this.addDateWordOrPostfix(formatPostfix, dateWord.toString());
                         if (formatPostfix != null) {
                             // Done with postfix.  The rest will be regular date word.
                             formatPostfix = null;
@@ -291,7 +291,7 @@
                 }
                 return (index);
             },
-            AddIgnorableSymbols: function (text) {
+            addIgnorableSymbols: function (text) {
                 if (this.m_dateWords == null) {
                     // Create the date word array.
                     this.m_dateWords = new (System.Collections.Generic.List$1(System.String)).ctor();
@@ -302,7 +302,7 @@
                     this.m_dateWords.add(temp);
                 }
             },
-            ScanDateWord: function (pattern) {
+            scanDateWord: function (pattern) {
                 // Check if we have found all of the year/month/day pattern.
                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
 
@@ -314,23 +314,23 @@
                     switch (ch) {
                         case 39: 
                             // Find a beginning quote.  Search until the end quote.
-                            i = this.AddDateWords(pattern, ((i + 1) | 0), null);
+                            i = this.addDateWords(pattern, ((i + 1) | 0), null);
                             break;
                         case 77: 
-                            i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 77, i, chCount);
+                            i = System.Globalization.DateTimeFormatInfoScanner.scanRepeatChar(pattern, 77, i, chCount);
                             if (chCount.v >= 4) {
                                 if (i < pattern.length && pattern.charCodeAt(i) === 39) {
-                                    i = this.AddDateWords(pattern, ((i + 1) | 0), "MMMM");
+                                    i = this.addDateWords(pattern, ((i + 1) | 0), "MMMM");
                                 }
                             }
                             this._ymdFlags |= System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundMonthPatternFlag;
                             break;
                         case 121: 
-                            i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 121, i, chCount);
+                            i = System.Globalization.DateTimeFormatInfoScanner.scanRepeatChar(pattern, 121, i, chCount);
                             this._ymdFlags |= System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundYearPatternFlag;
                             break;
                         case 100: 
-                            i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 100, i, chCount);
+                            i = System.Globalization.DateTimeFormatInfoScanner.scanRepeatChar(pattern, 100, i, chCount);
                             if (chCount.v <= 2) {
                                 // Only count "d" & "dd".
                                 // ddd, dddd are day names.  Do not count them.
@@ -347,7 +347,7 @@
                                 // If we find a dot immediately after the we have seen all of the y, m, d pattern.
                                 // treat it as a ignroable symbol.  Check for comments in AddIgnorableSymbols for
                                 // more details.
-                                this.AddIgnorableSymbols(".");
+                                this.addIgnorableSymbols(".");
                                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
                             }
                             i = (i + 1) | 0;
@@ -363,40 +363,40 @@
                     }
                 }
             },
-            GetDateWordsOfDTFI: function (dtfi) {
+            getDateWordsOfDTFI: function (dtfi) {
                 // Enumarate all LongDatePatterns, and get the DateWords and scan for month postfix.
                 var datePatterns = dtfi.getAllDateTimePatterns(68);
                 var i;
 
                 // Scan the long date patterns
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
-                    this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
+                    this.scanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
                 // Scan the short date patterns
                 datePatterns = dtfi.getAllDateTimePatterns(100);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
-                    this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
+                    this.scanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
                 // Scan the YearMonth patterns.
                 datePatterns = dtfi.getAllDateTimePatterns(121);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
-                    this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
+                    this.scanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
                 // Scan the month/day pattern
-                this.ScanDateWord(dtfi.monthDayPattern);
+                this.scanDateWord(dtfi.monthDayPattern);
 
                 // Scan the long time patterns.
                 datePatterns = dtfi.getAllDateTimePatterns(84);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
-                    this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
+                    this.scanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
                 // Scan the short time patterns.
                 datePatterns = dtfi.getAllDateTimePatterns(116);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
-                    this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
+                    this.scanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
                 var result = null;

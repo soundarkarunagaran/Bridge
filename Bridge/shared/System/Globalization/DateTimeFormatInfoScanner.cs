@@ -74,7 +74,6 @@ namespace System.Globalization
         LAST_CALENDAR = 23      // Last calendar ID
     }
 
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal class DateTimeFormatInfoScanner
     {
         // Special prefix-like flag char in DateWord array.

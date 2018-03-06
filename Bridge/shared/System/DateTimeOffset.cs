@@ -34,7 +34,6 @@ namespace System {
     // out and for internal readability.
 
 
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     [StructLayout(LayoutKind.Auto)]
     [Serializable]
     public struct DateTimeOffset : IComparable, IFormattable, ISerializable, IDeserializationCallback,

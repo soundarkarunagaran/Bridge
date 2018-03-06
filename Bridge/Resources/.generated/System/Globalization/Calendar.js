@@ -40,7 +40,7 @@
                 }
             },
             methods: {
-                ReadOnly: function (calendar) {
+                readOnly: function (calendar) {
                     if (calendar == null) {
                         throw new System.ArgumentNullException("calendar");
                     }
@@ -49,16 +49,16 @@
                     }
 
                     var clonedCalendar = Bridge.cast((Bridge.clone(calendar)), System.Globalization.Calendar);
-                    clonedCalendar.SetReadOnlyState(true);
+                    clonedCalendar.setReadOnlyState(true);
 
                     return (clonedCalendar);
                 },
-                CheckAddResult: function (ticks, minValue, maxValue) {
+                checkAddResult: function (ticks, minValue, maxValue) {
                     if (ticks.lt(System.DateTime.getTicks(minValue)) || ticks.gt(System.DateTime.getTicks(maxValue))) {
-                        throw new System.ArgumentException(System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, System.SR.Format$1("The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive.", Bridge.box(minValue, System.DateTime, System.DateTime.format), Bridge.box(maxValue, System.DateTime, System.DateTime.format)), null));
+                        throw new System.ArgumentException(System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, System.SR.format$1("The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive.", Bridge.box(minValue, System.DateTime, System.DateTime.format), Bridge.box(maxValue, System.DateTime, System.DateTime.format)), null));
                     }
                 },
-                GetSystemTwoDigitYearSetting: function (CalID, defaultYearValue) {
+                getSystemTwoDigitYearSetting: function (CalID, defaultYearValue) {
                     // TODO: Revised [Revised to Invarient 2029]
                     //int twoDigitYearMax = CalendarData.GetTwoDigitYearMax(CalID);
                     var twoDigitYearMax = 2029;
@@ -126,12 +126,12 @@
                     return (this.twoDigitYearMax);
                 },
                 set: function (value) {
-                    this.VerifyWritable();
+                    this.verifyWritable();
                     this.twoDigitYearMax = value;
                 }
             }
         },
-        alias: ["Clone", "System$ICloneable$clone"],
+        alias: ["clone", "System$ICloneable$clone"],
         ctors: {
             init: function () {
                 this._isReadOnly = false;
@@ -143,22 +143,22 @@
             }
         },
         methods: {
-            Clone: function () {
+            clone: function () {
                 var o = Bridge.clone(this);
-                Bridge.cast(o, System.Globalization.Calendar).SetReadOnlyState(false);
+                Bridge.cast(o, System.Globalization.Calendar).setReadOnlyState(false);
                 return (o);
             },
-            VerifyWritable: function () {
+            verifyWritable: function () {
                 if (this._isReadOnly) {
                     // TODO: SR
                     //throw new InvalidOperationException(SR.InvalidOperation_ReadOnly);
                     throw new System.InvalidOperationException("Instance is read-only.");
                 }
             },
-            SetReadOnlyState: function (readOnly) {
+            setReadOnlyState: function (readOnly) {
                 this._isReadOnly = readOnly;
             },
-            Add: function (time, value, scale) {
+            add: function (time, value, scale) {
                 // From ECMA CLI spec, Partition III, section 3.27:
                 //
                 // If overflow occurs converting a floating-point type to an integer, or if the floating-point value 
@@ -175,63 +175,63 @@
 
                 var millis = Bridge.Int.clip64(tempMillis);
                 var ticks = System.DateTime.getTicks(time).add(millis.mul(System.Globalization.Calendar.TicksPerMillisecond));
-                System.Globalization.Calendar.CheckAddResult(ticks, this.MinSupportedDateTime, this.MaxSupportedDateTime);
+                System.Globalization.Calendar.checkAddResult(ticks, this.MinSupportedDateTime, this.MaxSupportedDateTime);
                 return (System.DateTime.create$2(ticks));
             },
-            AddMilliseconds: function (time, milliseconds) {
-                return (this.Add(time, milliseconds, 1));
+            addMilliseconds: function (time, milliseconds) {
+                return (this.add(time, milliseconds, 1));
             },
-            AddDays: function (time, days) {
-                return (this.Add(time, days, System.Globalization.Calendar.MillisPerDay));
+            addDays: function (time, days) {
+                return (this.add(time, days, System.Globalization.Calendar.MillisPerDay));
             },
-            AddHours: function (time, hours) {
-                return (this.Add(time, hours, System.Globalization.Calendar.MillisPerHour));
+            addHours: function (time, hours) {
+                return (this.add(time, hours, System.Globalization.Calendar.MillisPerHour));
             },
-            AddMinutes: function (time, minutes) {
-                return (this.Add(time, minutes, System.Globalization.Calendar.MillisPerMinute));
+            addMinutes: function (time, minutes) {
+                return (this.add(time, minutes, System.Globalization.Calendar.MillisPerMinute));
             },
-            AddSeconds: function (time, seconds) {
-                return this.Add(time, seconds, System.Globalization.Calendar.MillisPerSecond);
+            addSeconds: function (time, seconds) {
+                return this.add(time, seconds, System.Globalization.Calendar.MillisPerSecond);
             },
-            AddWeeks: function (time, weeks) {
-                return (this.AddDays(time, Bridge.Int.mul(weeks, 7)));
+            addWeeks: function (time, weeks) {
+                return (this.addDays(time, Bridge.Int.mul(weeks, 7)));
             },
-            GetDaysInMonth: function (year, month) {
-                return (this.GetDaysInMonth$1(year, month, System.Globalization.Calendar.CurrentEra));
+            getDaysInMonth: function (year, month) {
+                return (this.getDaysInMonth$1(year, month, System.Globalization.Calendar.CurrentEra));
             },
-            GetDaysInYear: function (year) {
-                return (this.GetDaysInYear$1(year, System.Globalization.Calendar.CurrentEra));
+            getDaysInYear: function (year) {
+                return (this.getDaysInYear$1(year, System.Globalization.Calendar.CurrentEra));
             },
-            GetHour: function (time) {
+            getHour: function (time) {
                 return (System.Int64.clip32((System.DateTime.getTicks(time).div(System.Globalization.Calendar.TicksPerHour)).mod(System.Int64(24))));
             },
-            GetMilliseconds: function (time) {
+            getMilliseconds: function (time) {
                 return System.Int64.toNumber((System.DateTime.getTicks(time).div(System.Globalization.Calendar.TicksPerMillisecond)).mod(System.Int64(1000)));
             },
-            GetMinute: function (time) {
+            getMinute: function (time) {
                 return (System.Int64.clip32((System.DateTime.getTicks(time).div(System.Globalization.Calendar.TicksPerMinute)).mod(System.Int64(60))));
             },
-            GetMonthsInYear: function (year) {
-                return (this.GetMonthsInYear$1(year, System.Globalization.Calendar.CurrentEra));
+            getMonthsInYear: function (year) {
+                return (this.getMonthsInYear$1(year, System.Globalization.Calendar.CurrentEra));
             },
-            GetSecond: function (time) {
+            getSecond: function (time) {
                 return (System.Int64.clip32((System.DateTime.getTicks(time).div(System.Globalization.Calendar.TicksPerSecond)).mod(System.Int64(60))));
             },
-            GetFirstDayWeekOfYear: function (time, firstDayOfWeek) {
-                var dayOfYear = (this.GetDayOfYear(time) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
+            getFirstDayWeekOfYear: function (time, firstDayOfWeek) {
+                var dayOfYear = (this.getDayOfYear(time) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
                 // Calculate the day of week for the first day of the year.
                 // dayOfWeek - (dayOfYear % 7) is the day of week for the first day of this year.  Note that
                 // this value can be less than 0.  It's fine since we are making it positive again in calculating offset.
-                var dayForJan1 = (this.GetDayOfWeek(time) - (dayOfYear % 7)) | 0;
+                var dayForJan1 = (this.getDayOfWeek(time) - (dayOfYear % 7)) | 0;
                 var offset = (((((dayForJan1 - firstDayOfWeek) | 0) + 14) | 0)) % 7;
                 return (((((Bridge.Int.div((((dayOfYear + offset) | 0)), 7)) | 0) + 1) | 0));
             },
-            GetWeekOfYearFullDays: function (time, firstDayOfWeek, fullDays) {
+            getWeekOfYearFullDays: function (time, firstDayOfWeek, fullDays) {
                 var dayForJan1;
                 var offset;
                 var day;
 
-                var dayOfYear = (this.GetDayOfYear(time) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
+                var dayOfYear = (this.getDayOfYear(time) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
                 //
                 // Calculate the number of days between the first day of year (1/1) and the first day of the week.
                 // This value will be a positive value from 0 ~ 6.  We call this value as "offset".
@@ -259,7 +259,7 @@
                 // Day of week is 0-based.
                 // Get the day of week for 1/1.  This can be derived from the day of week of the target day.
                 // Note that we can get a negative value.  It's ok since we are going to make it a positive value when calculating the offset.
-                dayForJan1 = (this.GetDayOfWeek(time) - (dayOfYear % 7)) | 0;
+                dayForJan1 = (this.getDayOfWeek(time) - (dayOfYear % 7)) | 0;
 
                 // Now, calculate the offset.  Subtract the first day of week from the dayForJan1.  And make it a positive value.
                 offset = (((((firstDayOfWeek - dayForJan1) | 0) + 14) | 0)) % 7;
@@ -288,13 +288,13 @@
                 // this calendar if we just subtract so we need the subclass to provide us with 
                 // that information
                 if (System.DateTime.lte(time, System.DateTime.addDays(this.MinSupportedDateTime, dayOfYear))) {
-                    return this.GetWeekOfYearOfMinSupportedDateTime(firstDayOfWeek, fullDays);
+                    return this.getWeekOfYearOfMinSupportedDateTime(firstDayOfWeek, fullDays);
                 }
-                return (this.GetWeekOfYearFullDays(System.DateTime.addDays(time, ((-(((dayOfYear + 1) | 0))) | 0)), firstDayOfWeek, fullDays));
+                return (this.getWeekOfYearFullDays(System.DateTime.addDays(time, ((-(((dayOfYear + 1) | 0))) | 0)), firstDayOfWeek, fullDays));
             },
-            GetWeekOfYearOfMinSupportedDateTime: function (firstDayOfWeek, minimumDaysInFirstWeek) {
-                var dayOfYear = (this.GetDayOfYear(this.MinSupportedDateTime) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
-                var dayOfWeekOfFirstOfYear = (this.GetDayOfWeek(this.MinSupportedDateTime) - dayOfYear % 7) | 0;
+            getWeekOfYearOfMinSupportedDateTime: function (firstDayOfWeek, minimumDaysInFirstWeek) {
+                var dayOfYear = (this.getDayOfYear(this.MinSupportedDateTime) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
+                var dayOfWeekOfFirstOfYear = (this.getDayOfWeek(this.MinSupportedDateTime) - dayOfYear % 7) | 0;
 
                 // Calculate the offset (how many days from the start of the year to the start of the week)
                 var offset = (((((firstDayOfWeek + 7) | 0) - dayOfWeekOfFirstOfYear) | 0)) % 7;
@@ -319,53 +319,53 @@
 
                 return (((((Bridge.Int.div(day, 7)) | 0) + 1) | 0));
             },
-            GetWeekOfYear: function (time, rule, firstDayOfWeek) {
+            getWeekOfYear: function (time, rule, firstDayOfWeek) {
                 if (firstDayOfWeek < 0 || firstDayOfWeek > 6) {
-                    throw new System.ArgumentOutOfRangeException("firstDayOfWeek", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), Bridge.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
+                    throw new System.ArgumentOutOfRangeException("firstDayOfWeek", System.SR.format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), Bridge.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
                 }
                 switch (rule) {
                     case 0: 
-                        return (this.GetFirstDayWeekOfYear(time, firstDayOfWeek));
+                        return (this.getFirstDayWeekOfYear(time, firstDayOfWeek));
                     case 1: 
-                        return (this.GetWeekOfYearFullDays(time, firstDayOfWeek, 7));
+                        return (this.getWeekOfYearFullDays(time, firstDayOfWeek, 7));
                     case 2: 
-                        return (this.GetWeekOfYearFullDays(time, firstDayOfWeek, 4));
+                        return (this.getWeekOfYearFullDays(time, firstDayOfWeek, 4));
                 }
-                throw new System.ArgumentOutOfRangeException("rule", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), Bridge.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
+                throw new System.ArgumentOutOfRangeException("rule", System.SR.format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), Bridge.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
             },
-            IsLeapDay: function (year, month, day) {
-                return (this.IsLeapDay$1(year, month, day, System.Globalization.Calendar.CurrentEra));
+            isLeapDay: function (year, month, day) {
+                return (this.isLeapDay$1(year, month, day, System.Globalization.Calendar.CurrentEra));
             },
-            IsLeapMonth: function (year, month) {
-                return (this.IsLeapMonth$1(year, month, System.Globalization.Calendar.CurrentEra));
+            isLeapMonth: function (year, month) {
+                return (this.isLeapMonth$1(year, month, System.Globalization.Calendar.CurrentEra));
             },
-            GetLeapMonth: function (year) {
-                return (this.GetLeapMonth$1(year, System.Globalization.Calendar.CurrentEra));
+            getLeapMonth: function (year) {
+                return (this.getLeapMonth$1(year, System.Globalization.Calendar.CurrentEra));
             },
-            GetLeapMonth$1: function (year, era) {
-                if (!this.IsLeapYear$1(year, era)) {
+            getLeapMonth$1: function (year, era) {
+                if (!this.isLeapYear$1(year, era)) {
                     return 0;
                 }
 
-                var monthsCount = this.GetMonthsInYear$1(year, era);
+                var monthsCount = this.getMonthsInYear$1(year, era);
                 for (var month = 1; month <= monthsCount; month = (month + 1) | 0) {
-                    if (this.IsLeapMonth$1(year, month, era)) {
+                    if (this.isLeapMonth$1(year, month, era)) {
                         return month;
                     }
                 }
 
                 return 0;
             },
-            IsLeapYear: function (year) {
-                return (this.IsLeapYear$1(year, System.Globalization.Calendar.CurrentEra));
+            isLeapYear: function (year) {
+                return (this.isLeapYear$1(year, System.Globalization.Calendar.CurrentEra));
             },
-            ToDateTime: function (year, month, day, hour, minute, second, millisecond) {
-                return (this.ToDateTime$1(year, month, day, hour, minute, second, millisecond, System.Globalization.Calendar.CurrentEra));
+            toDateTime: function (year, month, day, hour, minute, second, millisecond) {
+                return (this.toDateTime$1(year, month, day, hour, minute, second, millisecond, System.Globalization.Calendar.CurrentEra));
             },
-            TryToDateTime: function (year, month, day, hour, minute, second, millisecond, era, result) {
+            tryToDateTime: function (year, month, day, hour, minute, second, millisecond, era, result) {
                 result.v = System.DateTime.getMinValue();
                 try {
-                    result.v = this.ToDateTime$1(year, month, day, hour, minute, second, millisecond, era);
+                    result.v = this.toDateTime$1(year, month, day, hour, minute, second, millisecond, era);
                     return true;
                 }
                 catch ($e1) {
@@ -377,16 +377,16 @@
                     }
                 }
             },
-            IsValidYear: function (year, era) {
-                return (year >= this.GetYear(this.MinSupportedDateTime) && year <= this.GetYear(this.MaxSupportedDateTime));
+            isValidYear: function (year, era) {
+                return (year >= this.getYear(this.MinSupportedDateTime) && year <= this.getYear(this.MaxSupportedDateTime));
             },
-            IsValidMonth: function (year, month, era) {
-                return (this.IsValidYear(year, era) && month >= 1 && month <= this.GetMonthsInYear$1(year, era));
+            isValidMonth: function (year, month, era) {
+                return (this.isValidYear(year, era) && month >= 1 && month <= this.getMonthsInYear$1(year, era));
             },
-            IsValidDay: function (year, month, day, era) {
-                return (this.IsValidMonth(year, month, era) && day >= 1 && day <= this.GetDaysInMonth$1(year, month, era));
+            isValidDay: function (year, month, day, era) {
+                return (this.isValidMonth(year, month, era) && day >= 1 && day <= this.getDaysInMonth$1(year, month, era));
             },
-            ToFourDigitYear: function (year) {
+            toFourDigitYear: function (year) {
                 if (year < 0) {
                     throw new System.ArgumentOutOfRangeException("year", "Non-negative number required.");
                     // TODO: SR

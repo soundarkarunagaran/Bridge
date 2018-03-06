@@ -60,14 +60,21 @@
     <Compile Include="Attributes\NonScriptableAttribute.cs" />
     <Compile Include="Attributes\ReadyAttribute.cs" />
     <Compile Include="Attributes\RulesAttribute.cs" />
+    <Compile Include="shared\System\ArrayTypeMismatchException.cs" />
+    <Compile Include="shared\System\Collections\Generic\ICollectionDebugView.cs" />
+    <Compile Include="shared\System\Collections\Generic\IDictionaryDebugView.cs" />
     <Compile Include="shared\System\Diagnostics\StackTraceHiddenAttribute.cs" />
     <Compile Include="shared\System\Globalization\DateTimeParse.cs" />
     <Compile Include="shared\System\HResults.cs" />
     <Compile Include="shared\System\Resources\MissingManifestResourceException.cs" />
     <Compile Include="shared\System\Resources\ResourceManager.cs" />
+    <Compile Include="shared\System\Runtime\CompilerServices\TypeForwardedFromAttribute.cs" />
     <Compile Include="shared\System\Runtime\InteropServices\LayoutKind.cs" />
     <Compile Include="shared\System\Runtime\Serialization\IDeserializationCallback.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationException.cs" />
+    <Compile Include="shared\System\Runtime\Serialization\SerializationInfoEnumerator.cs" />
+    <Compile Include="shared\System\Runtime\Serialization\StreamingContext.cs" />
+    <Compile Include="shared\System\Void.cs" />
     <Compile Include="System\Attributes\SecurityCriticalAttribute.cs" />
     <Compile Include="System\Attributes\SecuritySafeCriticalAttribute.cs" />
     <Compile Include="System\Attributes\StructLayoutAttribute.cs" />
@@ -448,7 +455,6 @@
     <Compile Include="System\TimeSpan.cs" />
     <Compile Include="Bridge\Union.cs" />
     <Compile Include="System\Tuple.cs" />
-    <Compile Include="System\Void.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\.auxiliary\AssemblyEnd.js" />
@@ -463,11 +469,15 @@
     <Content Include="Resources\.generated\System\Collections\BitArray\BitArrayEnumeratorSimple.js" />
     <Content Include="Resources\.generated\System\Collections\DictionaryEntry.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\BitHelper.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\DictionaryKeyCollectionDebugView.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\DictionaryValueCollectionDebugView.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\EnumerableHelpers.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\HashSet.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\HashSet\ElementCount.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\HashSet\Enumerator.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\HashSet\Slot.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\ICollectionDebugView.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\IDictionaryDebugView.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\List.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\List\Enumerator.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\Queue.js" />
@@ -536,7 +546,11 @@
     <Content Include="Resources\.generated\System\Runtime\CompilerServices\FormattableStringFactory.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\IDeserializationCallback.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\ISerializable.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationEntry.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationException.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationInfoEnumerator.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\StreamingContext.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\StreamingContextStates.js" />
     <Content Include="Resources\.generated\System\SR.js" />
     <Content Include="Resources\.generated\System\Text\ASCIIEncoding.js" />
     <Content Include="Resources\.generated\System\Text\Encoding.js" />
@@ -1388,6 +1402,7 @@
     <EmbeddedResource Include="shared\Resources\Strings.resx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\.generated\System\Void.js" />
     <Content Include="Resources\Bool.js" />
     <Content Include="Resources\ArraySegment.js" />
     <Content Include="Resources\Collections\KeyValuePair.js" />

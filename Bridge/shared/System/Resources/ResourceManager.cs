@@ -20,7 +20,6 @@ namespace System.Resources
 
     // TODO: Revised [Just a stub for now]
     [Bridge.NonScriptable]
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     public class ResourceManager
     {
     }

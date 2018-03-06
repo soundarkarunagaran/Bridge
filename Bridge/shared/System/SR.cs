@@ -11,7 +11,6 @@ using System.Threading;
 
 namespace System
 {
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.None)]
     internal static partial class SR
     {
         private static ResourceManager ResourceManager

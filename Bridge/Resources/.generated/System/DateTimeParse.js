@@ -1,7 +1,7 @@
     Bridge.define("System.DateTimeParse", {
         statics: {
             methods: {
-                TryParseExact: function (s, format, dtfi, style, result) {
+                tryParseExact: function (s, format, dtfi, style, result) {
                     return System.DateTime.tryParseExact(s, format, null, result);
 
                     // TODO: NotSupported
@@ -14,7 +14,7 @@
                     //}
                     //return false;
                 },
-                Parse: function (s, dtfi, styles) {
+                parse: function (s, dtfi, styles) {
                     return System.DateTime.parse(s, dtfi);
                     // TODO: NotSupported
                     //DateTimeResult result = new DateTimeResult();       // The buffer to store the parsing result.
@@ -28,7 +28,7 @@
                     //    throw GetDateTimeParseException(ref result);
                     //}
                 },
-                Parse$1: function (s, dtfi, styles, offset) {
+                parse$1: function (s, dtfi, styles, offset) {
                     throw System.NotImplemented.ByDesign;
 
                     // TODO: NotSupported
@@ -45,7 +45,7 @@
                     //    throw GetDateTimeParseException(ref result);
                     //}
                 },
-                TryParse: function (s, dtfi, styles, result) {
+                tryParse: function (s, dtfi, styles, result) {
                     return System.DateTime.tryParse(s, null, result);
 
                     // TODO: NotSupported
@@ -58,7 +58,7 @@
                     //}
                     //return false;
                 },
-                TryParse$1: function (s, dtfi, styles, result, offset) {
+                tryParse$1: function (s, dtfi, styles, result, offset) {
                     throw System.NotImplemented.ByDesign;
                     // TODO: NotSupported
                     //result = DateTime.MinValue;
