@@ -28,8 +28,6 @@ using System.Security;
 
 namespace System.IO
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class BinaryReader : IDisposable
     {
         private const int MaxCharBytesSize = 128;
@@ -100,7 +98,7 @@ namespace System.IO
         {
             Dispose(true);
         }
-
+        
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -117,7 +115,7 @@ namespace System.IO
             m_singleChar = null;
             m_charBuffer = null;
         }
-
+        
         public void Dispose()
         {
             Dispose(true);

@@ -86,7 +86,7 @@
                     this._sb.append(value);
                 }
             },
-            ToString: function () {
+            toString: function () {
                 return this._sb.toString();
             }
         }

@@ -816,7 +816,7 @@
                     }
                 } finally {
                     if (Bridge.is(e, System.IDisposable)) {
-                        e.dispose();
+                        e.Dispose();
                     }
                 }
             }

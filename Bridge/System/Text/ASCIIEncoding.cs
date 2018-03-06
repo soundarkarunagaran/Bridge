@@ -1,7 +1,5 @@
 namespace System.Text
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class ASCIIEncoding : Encoding
     {
         public override int CodePage => 20127;

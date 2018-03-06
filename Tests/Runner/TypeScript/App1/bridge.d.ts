@@ -25,7 +25,7 @@ declare module Bridge {
     export function cast<T>(obj: any, type: TypeRef<T>): T;
     export function apply<T>(obj: T, values: any): T;
     export function merge<T>(to: T, from: T): T;
-    export function getEnumerator(obj: any): System.Collections.IEnumerator;
+    export function GetEnumerator(obj: any): System.Collections.IEnumerator;
     export function getPropertyNames(obj: any, includeFunctions?: boolean): string[];
     export function isDefined(value: any, noNull?: boolean): boolean;
     export function isEmpty(value: any, allowEmpty?: boolean): boolean;
@@ -193,7 +193,7 @@ declare module Bridge {
 
     export class ArrayEnumerable implements System.Collections.IEnumerable {
         constructor(array: any[]);
-        getEnumerator(): ArrayEnumerator;
+        GetEnumerator(): ArrayEnumerator;
     }
 
     export interface Validation {
@@ -659,7 +659,7 @@ declare module System {
 
     module Collections {
         export interface IEnumerable {
-            getEnumerator(): IEnumerator;
+            GetEnumerator(): IEnumerator;
         }
         var IEnumerable: Function;
 
@@ -700,7 +700,7 @@ declare module System {
         xor(value: System.Collections.BitArray): System.Collections.BitArray;
         not(): System.Collections.BitArray;
         clone(): any;
-        getEnumerator(): System.Collections.IEnumerator;
+        GetEnumerator(): System.Collections.IEnumerator;
     }
     export interface BitArrayFunc extends Function {
         prototype: BitArray;
@@ -788,7 +788,7 @@ declare module System {
     }
 
     export interface IEnumerable$1<T> extends IEnumerable {
-        getEnumerator(): IEnumerator$1<T>;
+        GetEnumerator(): IEnumerator$1<T>;
     }
     export function IEnumerable$1<T>(t: Bridge.TypeRef<T>): {
         prototype: IEnumerable$1<T>;
@@ -885,7 +885,7 @@ declare module System {
         getCount(): number;
         getComparer(): IEqualityComparer$1<TKey>;
         tryGetValue(key: TKey, value: { v: TValue }): boolean;
-        getEnumerator(): IEnumerator$1<KeyValuePair$2<TKey, TValue>>;
+        GetEnumerator(): IEnumerator$1<KeyValuePair$2<TKey, TValue>>;
     }
     export function Dictionary$2<TKey, TValue>(tKey: Bridge.TypeRef<TKey>, tValue: Bridge.TypeRef<TValue>): {
         prototype: Dictionary$2<TKey, TValue>;
@@ -929,7 +929,7 @@ declare module System {
         findLastIndex$1(startIndex: number, match: {(obj: T): boolean}): number;
         findLastIndex(startIndex: number, count: number, match: {(obj: T): boolean}): number;
         forEach(action: {(arg: T): void}): void;
-        getEnumerator(): IEnumerator$1<T>;
+        GetEnumerator(): IEnumerator$1<T>;
         System$Collections$IEnumerable$getEnumerator(): System.Collections.IEnumerator;
         getRange(index: number, count: number): System.Collections.Generic.List$1<T>;
         indexOf(item: T): number;
@@ -1014,7 +1014,7 @@ declare module System {
         copyTo$1(array: T[]): void;
         copyTo$2(array: T[], arrayIndex: number, count: number): void;
         remove(item: T): boolean;
-        getEnumerator(): System.Collections.Generic.HashSet$1.Enumerator<T>;
+        GetEnumerator(): System.Collections.Generic.HashSet$1.Enumerator<T>;
         //"System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"(): System.Collections.Generic.IEnumerator$1<T>;
         System$Collections$IEnumerable$getEnumerator(): System.Collections.IEnumerator;
         unionWith(other: System.Collections.Generic.IEnumerable$1<T>): void;
@@ -1124,7 +1124,7 @@ declare module System {
         copyTo$1(array: T[], arrayIndex: number): void;
         clear(): void;
         enqueue(item: T): void;
-        getEnumerator(): System.Collections.Generic.Queue$1.Enumerator<T>;
+        GetEnumerator(): System.Collections.Generic.Queue$1.Enumerator<T>;
         //"System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"(): System.Collections.Generic.IEnumerator$1<T>;
         System$Collections$IEnumerable$getEnumerator(): System.Collections.IEnumerator;
         dequeue(): T;
@@ -1183,7 +1183,7 @@ declare module System {
         contains(item: T): boolean;
         copyTo$1(array: T[], arrayIndex: number): void;
         copyTo(array: Array<any>, arrayIndex: number): void;
-        getEnumerator(): System.Collections.Generic.Stack$1.Enumerator<T>;
+        GetEnumerator(): System.Collections.Generic.Stack$1.Enumerator<T>;
         //"System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"(): System.Collections.Generic.IEnumerator$1<T>;
         System$Collections$IEnumerable$getEnumerator(): System.Collections.IEnumerator;
         trimExcess(): void;
@@ -1520,7 +1520,7 @@ declare module Bridge.Linq {
     interface EnumerableStatic {
         Utils: {
             createLambda(expression: any): (...params: any[]) => any;
-            createEnumerable(getEnumerator: () => System.Collections.IEnumerator): Enumerable;
+            createEnumerable(GetEnumerator: () => System.Collections.IEnumerator): Enumerable;
             createEnumerator(initialize: () => void, tryGetNext: () => boolean, dispose: () => void): System.Collections.IEnumerator;
             extendTo(type: any): void;
         };
@@ -1549,8 +1549,8 @@ declare module Bridge.Linq {
     }
 
     interface Enumerable {
-        constructor(getEnumerator: () => System.Collections.IEnumerator): Enumerable;
-        getEnumerator(): System.Collections.IEnumerator;
+        constructor(GetEnumerator: () => System.Collections.IEnumerator): Enumerable;
+        GetEnumerator(): System.Collections.IEnumerator;
 
         // Extension Methods
         traverseBreadthFirst(func: (element: any) => Enumerable, resultSelector?: (element: any, nestLevel: number) => any): Enumerable;

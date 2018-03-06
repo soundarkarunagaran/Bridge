@@ -16,11 +16,11 @@
         fields: {
             inext: 0,
             inextp: 0,
-            seedArray: null
+            SeedArray: null
         },
         ctors: {
             init: function () {
-                this.seedArray = System.Array.init(56, 0, System.Int32);
+                this.SeedArray = System.Array.init(56, 0, System.Int32);
             },
             ctor: function () {
                 System.Random.$ctor1.call(this, System.Int64.clip32(System.DateTime.getTicks(System.DateTime.getNow())));
@@ -34,22 +34,22 @@
                 //This algorithm comes from Numerical Recipes in C (2nd Ed.)
                 var subtraction = (seed === -2147483648) ? 2147483647 : Math.abs(seed);
                 mj = (System.Random.MSEED - subtraction) | 0;
-                this.seedArray[System.Array.index(55, this.seedArray)] = mj;
+                this.SeedArray[System.Array.index(55, this.SeedArray)] = mj;
                 mk = 1;
                 for (var i = 1; i < 55; i = (i + 1) | 0) { //Apparently the range [1..55] is special (Knuth) and so we're wasting the 0'th position.
                     ii = (Bridge.Int.mul(21, i)) % 55;
-                    this.seedArray[System.Array.index(ii, this.seedArray)] = mk;
+                    this.SeedArray[System.Array.index(ii, this.SeedArray)] = mk;
                     mk = (mj - mk) | 0;
                     if (mk < 0) {
                         mk = (mk + System.Random.MBIG) | 0;
                     }
-                    mj = this.seedArray[System.Array.index(ii, this.seedArray)];
+                    mj = this.SeedArray[System.Array.index(ii, this.SeedArray)];
                 }
                 for (var k = 1; k < 5; k = (k + 1) | 0) {
                     for (var i1 = 1; i1 < 56; i1 = (i1 + 1) | 0) {
-                        this.seedArray[System.Array.index(i1, this.seedArray)] = (this.seedArray[System.Array.index(i1, this.seedArray)] - this.seedArray[System.Array.index(((1 + (((i1 + 30) | 0)) % 55) | 0), this.seedArray)]) | 0;
-                        if (this.seedArray[System.Array.index(i1, this.seedArray)] < 0) {
-                            this.seedArray[System.Array.index(i1, this.seedArray)] = (this.seedArray[System.Array.index(i1, this.seedArray)] + System.Random.MBIG) | 0;
+                        this.SeedArray[System.Array.index(i1, this.SeedArray)] = (this.SeedArray[System.Array.index(i1, this.SeedArray)] - this.SeedArray[System.Array.index(((1 + (((i1 + 30) | 0)) % 55) | 0), this.SeedArray)]) | 0;
+                        if (this.SeedArray[System.Array.index(i1, this.SeedArray)] < 0) {
+                            this.SeedArray[System.Array.index(i1, this.SeedArray)] = (this.SeedArray[System.Array.index(i1, this.SeedArray)] + System.Random.MBIG) | 0;
                         }
                     }
                 }
@@ -59,12 +59,12 @@
             }
         },
         methods: {
-            sample: function () {
+            Sample: function () {
                 //Including this division at the end gives us significantly improved
                 //random number distribution.
-                return (this.internalSample() * (4.6566128752457969E-10));
+                return (this.InternalSample() * (4.6566128752457969E-10));
             },
-            internalSample: function () {
+            InternalSample: function () {
                 var retVal;
                 var locINext = this.inext;
                 var locINextp = this.inextp;
@@ -77,7 +77,7 @@
                     locINextp = 1;
                 }
 
-                retVal = (this.seedArray[System.Array.index(locINext, this.seedArray)] - this.seedArray[System.Array.index(locINextp, this.seedArray)]) | 0;
+                retVal = (this.SeedArray[System.Array.index(locINext, this.SeedArray)] - this.SeedArray[System.Array.index(locINextp, this.SeedArray)]) | 0;
 
                 if (retVal === System.Random.MBIG) {
                     retVal = (retVal - 1) | 0;
@@ -87,43 +87,43 @@
                     retVal = (retVal + System.Random.MBIG) | 0;
                 }
 
-                this.seedArray[System.Array.index(locINext, this.seedArray)] = retVal;
+                this.SeedArray[System.Array.index(locINext, this.SeedArray)] = retVal;
 
                 this.inext = locINext;
                 this.inextp = locINextp;
 
                 return retVal;
             },
-            next: function () {
-                return this.internalSample();
+            Next: function () {
+                return this.InternalSample();
             },
-            next$2: function (minValue, maxValue) {
+            Next$2: function (minValue, maxValue) {
                 if (minValue > maxValue) {
                     throw new System.ArgumentOutOfRangeException("minValue", "'minValue' cannot be greater than maxValue.");
                 }
 
                 var range = System.Int64(maxValue).sub(System.Int64(minValue));
                 if (range.lte(System.Int64(2147483647))) {
-                    return (((Bridge.Int.clip32((this.sample() * System.Int64.toNumber(range))) + minValue) | 0));
+                    return (((Bridge.Int.clip32((this.Sample() * System.Int64.toNumber(range))) + minValue) | 0));
                 } else {
-                    return System.Int64.clip32(Bridge.Int.clip64((this.getSampleForLargeRange() * System.Int64.toNumber(range))).add(System.Int64(minValue)));
+                    return System.Int64.clip32(Bridge.Int.clip64((this.GetSampleForLargeRange() * System.Int64.toNumber(range))).add(System.Int64(minValue)));
                 }
             },
-            next$1: function (maxValue) {
+            Next$1: function (maxValue) {
                 if (maxValue < 0) {
                     throw new System.ArgumentOutOfRangeException("maxValue", "'maxValue' must be greater than zero.");
                 }
-                return Bridge.Int.clip32(this.sample() * maxValue);
+                return Bridge.Int.clip32(this.Sample() * maxValue);
             },
-            getSampleForLargeRange: function () {
+            GetSampleForLargeRange: function () {
                 // The distribution of double value returned by Sample
                 // is not distributed well enough for a large range.
                 // If we use Sample for a range [Int32.MinValue..Int32.MaxValue)
                 // We will end up getting even numbers only.
 
-                var result = this.internalSample();
+                var result = this.InternalSample();
                 // Note we can't use addition here. The distribution will be bad if we do that.
-                var negative = (this.internalSample() % 2 === 0) ? true : false; // decide the sign based on second sample
+                var negative = (this.InternalSample() % 2 === 0) ? true : false; // decide the sign based on second sample
                 if (negative) {
                     result = (-result) | 0;
                 }
@@ -132,15 +132,15 @@
                 d /= 4294967293;
                 return d;
             },
-            nextDouble: function () {
-                return this.sample();
+            NextDouble: function () {
+                return this.Sample();
             },
-            nextBytes: function (buffer) {
+            NextBytes: function (buffer) {
                 if (buffer == null) {
                     throw new System.ArgumentNullException("buffer");
                 }
                 for (var i = 0; i < buffer.length; i = (i + 1) | 0) {
-                    buffer[System.Array.index(i, buffer)] = (this.internalSample() % (256)) & 255;
+                    buffer[System.Array.index(i, buffer)] = (this.InternalSample() % (256)) & 255;
                 }
             }
         }

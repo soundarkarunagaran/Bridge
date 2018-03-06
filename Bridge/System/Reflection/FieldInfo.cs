@@ -2,6 +2,7 @@ using System.ComponentModel;
 
 namespace System.Reflection
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Unbox(true)]
     public class FieldInfo : MemberInfo

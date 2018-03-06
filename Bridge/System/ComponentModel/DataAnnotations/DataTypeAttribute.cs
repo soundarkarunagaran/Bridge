@@ -5,6 +5,7 @@ namespace System.ComponentModel.DataAnnotations
     /// property (such as <see cref="System.ComponentModel.DataAnnotations.DataType.PhoneNumber" />
     /// or <see cref="System.ComponentModel.DataAnnotations.DataType.Url" />)
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(
         AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Method | AttributeTargets.Parameter,
         AllowMultiple = false)]

@@ -1,7 +1,7 @@
 /// <reference path="..\..\Runner\resources\qunit\qunit.d.ts" />
 /// <reference path="..\..\Runner\TypeScript\App1\bridge.d.ts" />
-/// <reference path="..\..\Runner\TypeScript\App1\misc.a.d.ts" />
-/// <reference path="..\..\Runner\TypeScript\App1\misc.b.d.ts" />
+/// <reference path="..\..\Runner\TypeScript\App1\Misc.A.d.ts" />
+/// <reference path="..\..\Runner\TypeScript\App1\Misc.B.d.ts" />
 /// <reference path="..\..\Runner\TypeScript\App1\typeScriptTest.d.ts" />
 /// <reference path="..\..\Runner\TypeScript\App1\typeScript.issues.d.ts" />
 "use strict";

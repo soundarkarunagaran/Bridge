@@ -1,5 +1,6 @@
 namespace System.Diagnostics.Contracts
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Object")]
     public sealed class ContractFailedEventArgs : EventArgs

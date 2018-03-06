@@ -5,6 +5,7 @@ namespace System.ComponentModel
     /// <summary>
     /// Specifies the default value for a property.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.All)]
     public class DefaultValueAttribute : Attribute
     {

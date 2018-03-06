@@ -325,7 +325,7 @@
                     throw new System.ArgumentOutOfRangeException("offset", "ArgumentOutOfRange_StreamLength");
                 }
                 switch (loc) {
-                    case System.IO.SeekOrigin.Begin: 
+                    case 0: 
                         {
                             var tempPosition = ((this._origin + System.Int64.clip32(offset)) | 0);
                             if (offset.lt(System.Int64(0)) || tempPosition < this._origin) {
@@ -334,7 +334,7 @@
                             this._position = tempPosition;
                             break;
                         }
-                    case System.IO.SeekOrigin.Current: 
+                    case 1: 
                         {
                             var tempPosition1 = ((this._position + System.Int64.clip32(offset)) | 0);
                             if (System.Int64(this._position).add(offset).lt(System.Int64(this._origin)) || tempPosition1 < this._origin) {
@@ -343,7 +343,7 @@
                             this._position = tempPosition1;
                             break;
                         }
-                    case System.IO.SeekOrigin.End: 
+                    case 2: 
                         {
                             var tempPosition2 = ((this._length + System.Int64.clip32(offset)) | 0);
                             if (System.Int64(this._length).add(offset).lt(System.Int64(this._origin)) || tempPosition2 < this._origin) {

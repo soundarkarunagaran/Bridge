@@ -235,10 +235,10 @@
         },
 
         abort: function () {
-            this.dispose();
+            this.Dispose();
         },
 
-        dispose: function () {
+        Dispose: function () {
             if (this.disposed) {
                 return;
             }

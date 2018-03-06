@@ -78,8 +78,8 @@ declare namespace BasicTypes {
         Yield: string;
         Any: string;
         Boolean: string;
-        constructor$1: string;
-        Constructor: string;
+        constructor: string;
+        Constructor$1: string;
         Declare: string;
         Get: string;
         Module: string;

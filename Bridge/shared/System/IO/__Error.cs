@@ -25,7 +25,6 @@ using System.Diagnostics.Contracts;
 
 namespace System.IO
 {
-    [Bridge.Convention]
     internal static class __Error
     {
         internal static void EndOfFile()

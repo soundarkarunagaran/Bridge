@@ -18,8 +18,8 @@
         },
         alias: [
             "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(TSource) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
-            "Dispose", "System$IDisposable$dispose",
-            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(TSource) + "$getEnumerator", "System$Collections$Generic$IEnumerable$1$getEnumerator"]
+            "Dispose", "System$IDisposable$Dispose",
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(TSource) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"]
         ],
         ctors: {
             ctor: function () {
@@ -44,7 +44,7 @@
                 duplicate.state = 1;
                 return duplicate;
             },
-            System$Collections$IEnumerable$getEnumerator: function () {
+            System$Collections$IEnumerable$GetEnumerator: function () {
                 return this.GetEnumerator();
             },
             System$Collections$IEnumerator$reset: function () {

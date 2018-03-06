@@ -12,14 +12,14 @@
                 }
             },
             methods: {
-                hashSetEquals: function (set1, set2, comparer) {
+                HashSetEquals: function (set1, set2, comparer) {
                     var $t, $t1, $t2;
                     if (set1 == null) {
                         return (set2 == null);
                     } else if (set2 == null) {
                         return false;
                     }
-                    if (System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(set1, set2)) {
+                    if (System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(set1, set2)) {
                         if (set1.Count !== set2.Count) {
                             return false;
                         }
@@ -33,7 +33,7 @@
                             }
                         } finally {
                             if (Bridge.is($t, System.IDisposable)) {
-                                $t.System$IDisposable$dispose();
+                                $t.System$IDisposable$Dispose();
                             }
                         }return true;
                     } else {
@@ -53,7 +53,7 @@
                                     }
                                 } finally {
                                     if (Bridge.is($t2, System.IDisposable)) {
-                                        $t2.System$IDisposable$dispose();
+                                        $t2.System$IDisposable$Dispose();
                                     }
                                 }if (!found) {
                                     return false;
@@ -61,12 +61,12 @@
                             }
                         } finally {
                             if (Bridge.is($t1, System.IDisposable)) {
-                                $t1.System$IDisposable$dispose();
+                                $t1.System$IDisposable$Dispose();
                             }
                         }return true;
                     }
                 },
-                areEqualityComparersEqual: function (set1, set2) {
+                AreEqualityComparersEqual: function (set1, set2) {
                     return Bridge.equals(set1.Comparer, set2.Comparer);
                 }
             }
@@ -106,7 +106,7 @@
             "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + Bridge.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$Count",
             "IsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$IsReadOnly",
-            "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator",
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator",
             "add", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$add",
             "unionWith", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$unionWith",
             "intersectWith", "System$Collections$Generic$ISet$1$" + Bridge.getTypeAlias(T) + "$intersectWith",
@@ -147,19 +147,19 @@
                 if (coll != null) {
                     suggestedCapacity = System.Array.getCount(coll, T);
                 }
-                this.initialize(suggestedCapacity);
+                this.Initialize(suggestedCapacity);
                 this.unionWith(collection);
-                if ((this._count === 0 && this._slots.length > System.Collections.HashHelpers.getMinPrime()) || (this._count > 0 && ((Bridge.Int.div(this._slots.length, this._count)) | 0) > System.Collections.Generic.HashSet$1(T).ShrinkThreshold)) {
-                    this.trimExcess();
+                if ((this._count === 0 && this._slots.length > System.Collections.HashHelpers.GetMinPrime()) || (this._count > 0 && ((Bridge.Int.div(this._slots.length, this._count)) | 0) > System.Collections.Generic.HashSet$1(T).ShrinkThreshold)) {
+                    this.TrimExcess();
                 }
             }
         },
         methods: {
             System$Collections$Generic$ICollection$1$add: function (item) {
-                this.addIfNotPresent(item);
+                this.AddIfNotPresent(item);
             },
             add: function (item) {
-                return this.addIfNotPresent(item);
+                return this.AddIfNotPresent(item);
             },
             clear: function () {
                 if (this._lastIndex > 0) {
@@ -177,10 +177,10 @@
                 }
                 this._version = (this._version + 1) | 0;
             },
-            arrayClear: function (array, index, length) { },
+            ArrayClear: function (array, index, length) { },
             contains: function (item) {
                 if (this._buckets != null) {
-                    var hashCode = this.internalGetHashCode(item);
+                    var hashCode = this.InternalGetHashCode(item);
                     for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
                         if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                             return true;
@@ -190,12 +190,12 @@
                 return false;
             },
             copyTo: function (array, arrayIndex) {
-                this.copyTo$2(array, arrayIndex, this._count);
+                this.CopyTo$1(array, arrayIndex, this._count);
             },
-            copyTo$1: function (array) {
-                this.copyTo$2(array, 0, this._count);
+            CopyTo: function (array) {
+                this.CopyTo$1(array, 0, this._count);
             },
-            copyTo$2: function (array, arrayIndex, count) {
+            CopyTo$1: function (array, arrayIndex, count) {
                 if (array == null) {
                     throw new System.ArgumentNullException("array");
                 }
@@ -218,7 +218,7 @@
             },
             remove: function (item) {
                 if (this._buckets != null) {
-                    var hashCode = this.internalGetHashCode(item);
+                    var hashCode = this.InternalGetHashCode(item);
                     var bucket = hashCode % this._buckets.length;
                     var last = -1;
                     for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; last = i, i = this._slots[System.Array.index(i, this._slots)].next) {
@@ -245,13 +245,13 @@
                 }
                 return false;
             },
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this);
             },
-            System$Collections$Generic$IEnumerable$1$getEnumerator: function () {
+            System$Collections$Generic$IEnumerable$1$GetEnumerator: function () {
                 return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this).$clone();
             },
-            System$Collections$IEnumerable$getEnumerator: function () {
+            System$Collections$IEnumerable$GetEnumerator: function () {
                 return new (System.Collections.Generic.HashSet$1.Enumerator(T)).$ctor1(this).$clone();
             },
             unionWith: function (other) {
@@ -263,11 +263,11 @@
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
-                        this.addIfNotPresent(item);
+                        this.AddIfNotPresent(item);
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }},
             intersectWith: function (other) {
@@ -284,12 +284,12 @@
                         return;
                     }
                     var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                        this.intersectWithHashSetWithSameEC(otherAsSet);
+                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                        this.IntersectWithHashSetWithSameEC(otherAsSet);
                         return;
                     }
                 }
-                this.intersectWithEnumerable(other);
+                this.IntersectWithEnumerable(other);
             },
             exceptWith: function (other) {
                 var $t;
@@ -311,7 +311,7 @@
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }},
             symmetricExceptWith: function (other) {
@@ -327,10 +327,10 @@
                     return;
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
-                    this.symmetricExceptWithUniqueHashSet(otherAsSet);
+                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
+                    this.SymmetricExceptWithUniqueHashSet(otherAsSet);
                 } else {
-                    this.symmetricExceptWithEnumerable(other);
+                    this.SymmetricExceptWithEnumerable(other);
                 }
             },
             isSubsetOf: function (other) {
@@ -341,13 +341,13 @@
                     return true;
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
+                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count > otherAsSet.Count) {
                         return false;
                     }
-                    return this.isSubsetOfHashSetWithSameEC(otherAsSet);
+                    return this.IsSubsetOfHashSetWithSameEC(otherAsSet);
                 } else {
-                    var result = this.checkUniqueAndUnfoundElements(other, false);
+                    var result = this.CheckUniqueAndUnfoundElements(other, false);
                     return (result.uniqueCount === this._count && result.unfoundCount >= 0);
                 }
             },
@@ -361,14 +361,14 @@
                         return System.Array.getCount(otherAsCollection, T) > 0;
                     }
                     var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
+                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (this._count >= otherAsSet.Count) {
                             return false;
                         }
-                        return this.isSubsetOfHashSetWithSameEC(otherAsSet);
+                        return this.IsSubsetOfHashSetWithSameEC(otherAsSet);
                     }
                 }
-                var result = this.checkUniqueAndUnfoundElements(other, false);
+                var result = this.CheckUniqueAndUnfoundElements(other, false);
                 return (result.uniqueCount === this._count && result.unfoundCount > 0);
             },
             isSupersetOf: function (other) {
@@ -381,13 +381,13 @@
                         return true;
                     }
                     var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
+                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count > this._count) {
                             return false;
                         }
                     }
                 }
-                return this.containsAllElements(other);
+                return this.ContainsAllElements(other);
             },
             isProperSupersetOf: function (other) {
                 if (other == null) {
@@ -402,14 +402,14 @@
                         return true;
                     }
                     var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
+                    if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                         if (otherAsSet.Count >= this._count) {
                             return false;
                         }
-                        return this.containsAllElements(otherAsSet);
+                        return this.ContainsAllElements(otherAsSet);
                     }
                 }
-                var result = this.checkUniqueAndUnfoundElements(other, true);
+                var result = this.CheckUniqueAndUnfoundElements(other, true);
                 return (result.uniqueCount < this._count && result.unfoundCount === 0);
             },
             overlaps: function (other) {
@@ -430,7 +430,7 @@
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }return false;
             },
@@ -439,11 +439,11 @@
                     throw new System.ArgumentNullException("other");
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
-                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).areEqualityComparersEqual(this, otherAsSet)) {
+                if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
                     if (this._count !== otherAsSet.Count) {
                         return false;
                     }
-                    return this.containsAllElements(otherAsSet);
+                    return this.ContainsAllElements(otherAsSet);
                 } else {
                     var otherAsCollection = Bridge.as(other, System.Collections.Generic.ICollection$1(T));
                     if (otherAsCollection != null) {
@@ -451,11 +451,11 @@
                             return false;
                         }
                     }
-                    var result = this.checkUniqueAndUnfoundElements(other, true);
+                    var result = this.CheckUniqueAndUnfoundElements(other, true);
                     return (result.uniqueCount === this._count && result.unfoundCount === 0);
                 }
             },
-            removeWhere: function (match) {
+            RemoveWhere: function (match) {
                 if (Bridge.staticEquals(match, null)) {
                     throw new System.ArgumentNullException("match");
                 }
@@ -472,13 +472,13 @@
                 }
                 return numRemoved;
             },
-            trimExcess: function () {
+            TrimExcess: function () {
                 if (this._count === 0) {
                     this._buckets = null;
                     this._slots = null;
                     this._version = (this._version + 1) | 0;
                 } else {
-                    var newSize = System.Collections.HashHelpers.getPrime(this._count);
+                    var newSize = System.Collections.HashHelpers.GetPrime(this._count);
                     var newSlots = System.Array.init(newSize, function (){
                         return new (System.Collections.Generic.HashSet$1.Slot(T))();
                     }, System.Collections.Generic.HashSet$1.Slot(T));
@@ -499,21 +499,21 @@
                     this._freeList = -1;
                 }
             },
-            initialize: function (capacity) {
-                var size = System.Collections.HashHelpers.getPrime(capacity);
+            Initialize: function (capacity) {
+                var size = System.Collections.HashHelpers.GetPrime(capacity);
                 this._buckets = System.Array.init(size, 0, System.Int32);
                 this._slots = System.Array.init(size, function (){
                     return new (System.Collections.Generic.HashSet$1.Slot(T))();
                 }, System.Collections.Generic.HashSet$1.Slot(T));
             },
-            increaseCapacity: function () {
-                var newSize = System.Collections.HashHelpers.expandPrime(this._count);
+            IncreaseCapacity: function () {
+                var newSize = System.Collections.HashHelpers.ExpandPrime(this._count);
                 if (newSize <= this._count) {
                     throw new System.ArgumentException("HashSet capacity is too big.");
                 }
-                this.setCapacity(newSize, false);
+                this.SetCapacity(newSize, false);
             },
-            setCapacity: function (newSize, forceNewHashCodes) {
+            SetCapacity: function (newSize, forceNewHashCodes) {
                 var newSlots = System.Array.init(newSize, function (){
                     return new (System.Collections.Generic.HashSet$1.Slot(T))();
                 }, System.Collections.Generic.HashSet$1.Slot(T));
@@ -525,7 +525,7 @@
                 if (forceNewHashCodes) {
                     for (var i1 = 0; i1 < this._lastIndex; i1 = (i1 + 1) | 0) {
                         if (newSlots[System.Array.index(i1, newSlots)].hashCode !== -1) {
-                            newSlots[System.Array.index(i1, newSlots)].hashCode = this.internalGetHashCode(newSlots[System.Array.index(i1, newSlots)].value);
+                            newSlots[System.Array.index(i1, newSlots)].hashCode = this.InternalGetHashCode(newSlots[System.Array.index(i1, newSlots)].value);
                         }
                     }
                 }
@@ -538,11 +538,11 @@
                 this._slots = newSlots;
                 this._buckets = newBuckets;
             },
-            addIfNotPresent: function (value) {
+            AddIfNotPresent: function (value) {
                 if (this._buckets == null) {
-                    this.initialize(0);
+                    this.Initialize(0);
                 }
-                var hashCode = this.internalGetHashCode(value);
+                var hashCode = this.InternalGetHashCode(value);
                 var bucket = hashCode % this._buckets.length;
                 for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
                     if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
@@ -555,7 +555,7 @@
                     this._freeList = this._slots[System.Array.index(index, this._slots)].next;
                 } else {
                     if (this._lastIndex === this._slots.length) {
-                        this.increaseCapacity();
+                        this.IncreaseCapacity();
                         bucket = hashCode % this._buckets.length;
                     }
                     index = this._lastIndex;
@@ -569,7 +569,7 @@
                 this._version = (this._version + 1) | 0;
                 return true;
             },
-            containsAllElements: function (other) {
+            ContainsAllElements: function (other) {
                 var $t;
                 $t = Bridge.getEnumerator(other, T);
                 try {
@@ -581,11 +581,11 @@
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }return true;
             },
-            isSubsetOfHashSetWithSameEC: function (other) {
+            IsSubsetOfHashSetWithSameEC: function (other) {
                 var $t;
                 $t = Bridge.getEnumerator(this);
                 try {
@@ -597,11 +597,11 @@
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }return true;
             },
-            intersectWithHashSetWithSameEC: function (other) {
+            IntersectWithHashSetWithSameEC: function (other) {
                 for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
                     if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0) {
                         var item = this._slots[System.Array.index(i, this._slots)].value;
@@ -611,10 +611,10 @@
                     }
                 }
             },
-            intersectWithEnumerable: function (other) {
+            IntersectWithEnumerable: function (other) {
                 var $t;
                 var originalLastIndex = this._lastIndex;
-                var intArrayLength = System.Collections.Generic.BitHelper.toIntArrayLength(originalLastIndex);
+                var intArrayLength = System.Collections.Generic.BitHelper.ToIntArrayLength(originalLastIndex);
                 var bitHelper;
                 var bitArray = System.Array.init(intArrayLength, 0, System.Int32);
                 bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
@@ -622,23 +622,23 @@
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
-                        var index = this.internalIndexOf(item);
+                        var index = this.InternalIndexOf(item);
                         if (index >= 0) {
-                            bitHelper.markBit(index);
+                            bitHelper.MarkBit(index);
                         }
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }for (var i = 0; i < originalLastIndex; i = (i + 1) | 0) {
-                    if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0 && !bitHelper.isMarked(i)) {
+                    if (this._slots[System.Array.index(i, this._slots)].hashCode >= 0 && !bitHelper.IsMarked(i)) {
                         this.remove(this._slots[System.Array.index(i, this._slots)].value);
                     }
                 }
             },
-            internalIndexOf: function (item) {
-                var hashCode = this.internalGetHashCode(item);
+            InternalIndexOf: function (item) {
+                var hashCode = this.InternalGetHashCode(item);
                 for (var i = (this._buckets[System.Array.index(hashCode % this._buckets.length, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
                     if ((this._slots[System.Array.index(i, this._slots)].hashCode) === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, item)) {
                         return i;
@@ -646,25 +646,25 @@
                 }
                 return -1;
             },
-            symmetricExceptWithUniqueHashSet: function (other) {
+            SymmetricExceptWithUniqueHashSet: function (other) {
                 var $t;
                 $t = Bridge.getEnumerator(other);
                 try {
                     while ($t.moveNext()) {
                         var item = $t.Current;
                         if (!this.remove(item)) {
-                            this.addIfNotPresent(item);
+                            this.AddIfNotPresent(item);
                         }
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }},
-            symmetricExceptWithEnumerable: function (other) {
+            SymmetricExceptWithEnumerable: function (other) {
                 var $t;
                 var originalLastIndex = this._lastIndex;
-                var intArrayLength = System.Collections.Generic.BitHelper.toIntArrayLength(originalLastIndex);
+                var intArrayLength = System.Collections.Generic.BitHelper.ToIntArrayLength(originalLastIndex);
                 var itemsToRemove;
                 var itemsAddedFromOther;
                 var itemsToRemoveArray = System.Array.init(intArrayLength, 0, System.Int32);
@@ -676,27 +676,27 @@
                     while ($t.moveNext()) {
                         var item = $t.Current;
                         var location = { v : 0 };
-                        var added = this.addOrGetLocation(item, location);
+                        var added = this.AddOrGetLocation(item, location);
                         if (added) {
-                            itemsAddedFromOther.markBit(location.v);
+                            itemsAddedFromOther.MarkBit(location.v);
                         } else {
-                            if (location.v < originalLastIndex && !itemsAddedFromOther.isMarked(location.v)) {
-                                itemsToRemove.markBit(location.v);
+                            if (location.v < originalLastIndex && !itemsAddedFromOther.IsMarked(location.v)) {
+                                itemsToRemove.MarkBit(location.v);
                             }
                         }
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }for (var i = 0; i < originalLastIndex; i = (i + 1) | 0) {
-                    if (itemsToRemove.isMarked(i)) {
+                    if (itemsToRemove.IsMarked(i)) {
                         this.remove(this._slots[System.Array.index(i, this._slots)].value);
                     }
                 }
             },
-            addOrGetLocation: function (value, location) {
-                var hashCode = this.internalGetHashCode(value);
+            AddOrGetLocation: function (value, location) {
+                var hashCode = this.InternalGetHashCode(value);
                 var bucket = hashCode % this._buckets.length;
                 for (var i = (this._buckets[System.Array.index(bucket, this._buckets)] - 1) | 0; i >= 0; i = this._slots[System.Array.index(i, this._slots)].next) {
                     if (this._slots[System.Array.index(i, this._slots)].hashCode === hashCode && this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IEqualityComparer$1$" + Bridge.getTypeAlias(T) + "$equals2", "System$Collections$Generic$IEqualityComparer$1$equals2")](this._slots[System.Array.index(i, this._slots)].value, value)) {
@@ -710,7 +710,7 @@
                     this._freeList = this._slots[System.Array.index(index, this._slots)].next;
                 } else {
                     if (this._lastIndex === this._slots.length) {
-                        this.increaseCapacity();
+                        this.IncreaseCapacity();
                         bucket = hashCode % this._buckets.length;
                     }
                     index = this._lastIndex;
@@ -725,7 +725,7 @@
                 location.v = index;
                 return true;
             },
-            checkUniqueAndUnfoundElements: function (other, returnIfUnfound) {
+            CheckUniqueAndUnfoundElements: function (other, returnIfUnfound) {
                 var $t, $t1;
                 var result = new (System.Collections.Generic.HashSet$1.ElementCount(T))();
                 if (this._count === 0) {
@@ -739,14 +739,14 @@
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
-                            $t.System$IDisposable$dispose();
+                            $t.System$IDisposable$Dispose();
                         }
                     }result.uniqueCount = 0;
                     result.unfoundCount = numElementsInOther;
                     return result.$clone();
                 }
                 var originalLastIndex = this._lastIndex;
-                var intArrayLength = System.Collections.Generic.BitHelper.toIntArrayLength(originalLastIndex);
+                var intArrayLength = System.Collections.Generic.BitHelper.ToIntArrayLength(originalLastIndex);
                 var bitHelper;
                 var bitArray = System.Array.init(intArrayLength, 0, System.Int32);
                 bitHelper = new System.Collections.Generic.BitHelper(bitArray, intArrayLength);
@@ -756,10 +756,10 @@
                 try {
                     while ($t1.moveNext()) {
                         var item1 = $t1.Current;
-                        var index = this.internalIndexOf(item1);
+                        var index = this.InternalIndexOf(item1);
                         if (index >= 0) {
-                            if (!bitHelper.isMarked(index)) {
-                                bitHelper.markBit(index);
+                            if (!bitHelper.IsMarked(index)) {
+                                bitHelper.MarkBit(index);
                                 uniqueFoundCount = (uniqueFoundCount + 1) | 0;
                             }
                         } else {
@@ -771,20 +771,20 @@
                     }
                 } finally {
                     if (Bridge.is($t1, System.IDisposable)) {
-                        $t1.System$IDisposable$dispose();
+                        $t1.System$IDisposable$Dispose();
                     }
                 }result.uniqueCount = uniqueFoundCount;
                 result.unfoundCount = unfoundCount;
                 return result.$clone();
             },
-            toArray: function () {
+            ToArray: function () {
                 var newArray = System.Array.init(this.Count, function (){
                     return Bridge.getDefaultValue(T);
                 }, T);
-                this.copyTo$1(newArray);
+                this.CopyTo(newArray);
                 return newArray;
             },
-            internalGetHashCode: function (item) {
+            InternalGetHashCode: function (item) {
                 if (item == null) {
                     return 0;
                 }

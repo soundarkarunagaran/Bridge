@@ -86,7 +86,7 @@
                 }
             },
             methods: {
-                isPrime: function (candidate) {
+                IsPrime: function (candidate) {
                     if ((candidate & 1) !== 0) {
                         var limit = Bridge.Int.clip32(Math.sqrt(candidate));
                         for (var divisor = 3; divisor <= limit; divisor = (divisor + 2) | 0) {
@@ -98,7 +98,7 @@
                     }
                     return (candidate === 2);
                 },
-                getPrime: function (min) {
+                GetPrime: function (min) {
                     if (min < 0) {
                         throw new System.ArgumentException("Hashtable's capacity overflowed and went negative. Check load factor, capacity and the current size of the table.");
                     }
@@ -109,21 +109,21 @@
                         }
                     }
                     for (var i1 = (min | 1); i1 < 2147483647; i1 = (i1 + 2) | 0) {
-                        if (System.Collections.HashHelpers.isPrime(i1) && ((((i1 - 1) | 0)) % System.Collections.HashHelpers.HashPrime !== 0)) {
+                        if (System.Collections.HashHelpers.IsPrime(i1) && ((((i1 - 1) | 0)) % System.Collections.HashHelpers.HashPrime !== 0)) {
                             return i1;
                         }
                     }
                     return min;
                 },
-                getMinPrime: function () {
+                GetMinPrime: function () {
                     return System.Collections.HashHelpers.primes[System.Array.index(0, System.Collections.HashHelpers.primes)];
                 },
-                expandPrime: function (oldSize) {
+                ExpandPrime: function (oldSize) {
                     var newSize = Bridge.Int.mul(2, oldSize);
                     if ((newSize >>> 0) > System.Collections.HashHelpers.MaxPrimeArrayLength && System.Collections.HashHelpers.MaxPrimeArrayLength > oldSize) {
                         return System.Collections.HashHelpers.MaxPrimeArrayLength;
                     }
-                    return System.Collections.HashHelpers.getPrime(newSize);
+                    return System.Collections.HashHelpers.GetPrime(newSize);
                 }
             }
         }

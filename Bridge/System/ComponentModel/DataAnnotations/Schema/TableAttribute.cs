@@ -3,6 +3,7 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// <summary>
     /// Specifies the database table that a class is mapped to.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     [Bridge.External]
     [Bridge.NonScriptable]

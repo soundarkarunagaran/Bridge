@@ -107,8 +107,8 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
             Yield: null,
             Any: null,
             Boolean: null,
-            constructor$1: null,
-            Constructor: null,
+            constructor: null,
+            Constructor$1: null,
             Declare: null,
             Get: null,
             Module: null,
@@ -171,8 +171,8 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
                 this.Yield = "yield";
                 this.Any = "any";
                 this.Boolean = "boolean";
-                this.constructor$1 = "constructor";
-                this.Constructor = "new constructor";
+                this.constructor = "constructor";
+                this.Constructor$1 = "new constructor";
                 this.Declare = "declare";
                 this.Get = "get";
                 this.Module = "module";

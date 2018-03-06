@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("Array")]
     public sealed class Array : IEnumerable, ICloneable, IList
@@ -357,6 +358,7 @@ namespace System
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public static class ArrayExtensions
     {

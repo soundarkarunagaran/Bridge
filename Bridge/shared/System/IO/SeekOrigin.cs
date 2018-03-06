@@ -7,8 +7,7 @@ namespace System.IO
     /// <summary>
     /// Provides seek reference points.  To seek to the end of a stream, call stream.Seek(0, SeekOrigin.End).
     /// </summary>
-    [Bridge.Reflectable]
-    [Bridge.Convention]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum SeekOrigin
     {
         Begin,

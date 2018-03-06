@@ -24,7 +24,7 @@
                 "getCurrent", "System$Collections$IEnumerator$getCurrent",
                 "moveNext", "System$Collections$IEnumerator$moveNext",
                 "reset", "System$Collections$IEnumerator$reset",
-                "dispose", "System$IDisposable$dispose",
+                "Dispose", "System$IDisposable$Dispose",
                 "Current", "System$Collections$IEnumerator$Current"
             ]
         },
@@ -68,7 +68,7 @@
             this.index = -1;
         },
 
-        dispose: Bridge.emptyFn
+        Dispose: Bridge.emptyFn
     });
 
     Bridge.define('Bridge.ArrayEnumerable', {
@@ -76,7 +76,7 @@
 
         config: {
             alias: [
-                "getEnumerator", "System$Collections$IEnumerable$getEnumerator"
+                "GetEnumerator", "System$Collections$IEnumerable$GetEnumerator"
             ]
         },
 
@@ -85,7 +85,7 @@
             this.array = array;
         },
 
-        getEnumerator: function () {
+        GetEnumerator: function () {
             return new Bridge.ArrayEnumerator(this.array);
         }
     });

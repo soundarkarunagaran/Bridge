@@ -51,7 +51,7 @@
                 }
             }
         },
-        alias: ["Dispose", "System$IDisposable$dispose"],
+        alias: ["Dispose", "System$IDisposable$Dispose"],
         methods: {
             CopyTo: function (destination) {
                 if (destination == null) {

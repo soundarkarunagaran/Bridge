@@ -1,5 +1,6 @@
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public struct Int64 : IComparable, IComparable<Int64>, IEquatable<Int64>, IFormattable

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace System.Threading.Tasks
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.Name("System.Threading.Tasks.TaskCompletionSource")]

@@ -1,7 +1,5 @@
 namespace System.Text
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class UTF8Encoding : Encoding
     {
         private bool encoderShouldEmitUTF8Identifier;

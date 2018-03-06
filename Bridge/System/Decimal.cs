@@ -7,8 +7,8 @@ namespace System
     /// The decimal data type.
     /// http://mikemcl.github.io/decimal.js/
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
-    //[Bridge.Name("System.Decimal")]
     [Bridge.Constructor("System.Decimal")]
     [Bridge.Reflectable]
     public struct Decimal : IComparable, IComparable<Decimal>, IEquatable<Decimal>, IFormattable
@@ -384,6 +384,7 @@ namespace System
         internal static extern decimal FromBytes(byte[] bytes);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Name("System.Object")]
     [Bridge.Constructor("{ }")]
     [Bridge.External]
@@ -441,6 +442,7 @@ namespace System
         public DecimalFormatConfig Format;
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Name("System.Object")]
     [Bridge.Constructor("{ }")]
     [Bridge.External]

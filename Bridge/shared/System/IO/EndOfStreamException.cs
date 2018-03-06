@@ -23,8 +23,6 @@ using System.Runtime.Serialization;
 
 namespace System.IO
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class EndOfStreamException : IOException
     {
         public EndOfStreamException() : base("Arg_EndOfStreamException")

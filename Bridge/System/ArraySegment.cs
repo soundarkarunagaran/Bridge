@@ -3,6 +3,7 @@
     /// <summary>
     /// Delimits a section of a one-dimensional array.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.Name("System.ArraySegment")]

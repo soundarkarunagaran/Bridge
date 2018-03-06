@@ -273,6 +273,7 @@
             this.disposed = true;
         }
 
+        [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
         [Bridge.External]
         [Bridge.Name("Bridge.global")]
         internal class Global

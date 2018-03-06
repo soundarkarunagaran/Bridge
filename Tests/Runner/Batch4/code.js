@@ -249,7 +249,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
                 // #1564
                 Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(ex.Error, err), "Error");
                 Bridge.Test.NUnit.Assert.AreEqual("Some message", ex.Message, "Message");
-                Bridge.Test.NUnit.Assert.AreEqual(err.stack, ex.StackTrace, "Stack");
+                Bridge.Test.NUnit.Assert.AreEqual(err.Stack, ex.StackTrace, "Stack");
             },
             ErrorAndMessageAndInnerExceptionConstructorWorks_SPI_1564: function () {
                 var inner = new System.Exception("a");
@@ -264,7 +264,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
                 Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(ex.InnerException, inner), "InnerException");
                 Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(ex.Error, err), "Error");
                 Bridge.Test.NUnit.Assert.AreEqual("Overridden message", ex.Message, "Message");
-                Bridge.Test.NUnit.Assert.AreEqual(err.stack, ex.StackTrace, "Stack");
+                Bridge.Test.NUnit.Assert.AreEqual(err.Stack, ex.StackTrace, "Stack");
             }
         }
     });

@@ -8,7 +8,7 @@
                     return new System.IO.StreamReader.$ctor7(path);
                 },
                 OpenRead: function (path) {
-                    return new System.IO.FileStream.$ctor1(path, System.IO.FileMode.Open);
+                    return new System.IO.FileStream.$ctor1(path, 3);
                 },
                 ReadAllText: function (path) {
                     if (path == null) {
@@ -41,7 +41,7 @@
                     }
                     finally {
                         if (Bridge.hasValue(sr)) {
-                            sr.System$IDisposable$dispose();
+                            sr.System$IDisposable$Dispose();
                         }
                     }
                 },
@@ -50,7 +50,7 @@
                 },
                 InternalReadAllBytes: function (path, checkHost) {
                     var bytes;
-                    var fs = new System.IO.FileStream.$ctor1(path, System.IO.FileMode.Open);
+                    var fs = new System.IO.FileStream.$ctor1(path, 3);
                     try {
                         // Do a blocking read
                         var index = 0;
@@ -71,7 +71,7 @@
                     }
                     finally {
                         if (Bridge.hasValue(fs)) {
-                            fs.System$IDisposable$dispose();
+                            fs.System$IDisposable$Dispose();
                         }
                     }
                     return bytes;
@@ -112,11 +112,11 @@
                     }
                     finally {
                         if (Bridge.hasValue(sr)) {
-                            sr.System$IDisposable$dispose();
+                            sr.System$IDisposable$Dispose();
                         }
                     }
 
-                    return lines.toArray();
+                    return lines.ToArray();
                 },
                 ReadLines: function (path) {
                     if (path == null) {

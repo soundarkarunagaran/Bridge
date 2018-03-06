@@ -4,6 +4,7 @@ namespace System.ComponentModel.DataAnnotations
     /// Allows overriding various display-related options for a given field. The options have the same meaning as in
     /// BoundField.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     [Bridge.External]
     [Bridge.NonScriptable]

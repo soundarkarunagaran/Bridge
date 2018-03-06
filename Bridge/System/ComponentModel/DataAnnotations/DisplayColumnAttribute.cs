@@ -4,6 +4,7 @@ namespace System.ComponentModel.DataAnnotations
     /// Sets the display column, the sort column, and the sort order for when a table is used as a parent table in FK
     /// relationships.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
     [Bridge.External]
     [Bridge.NonScriptable]

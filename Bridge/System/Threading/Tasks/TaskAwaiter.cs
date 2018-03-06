@@ -2,8 +2,8 @@ using System.Runtime.CompilerServices;
 
 namespace System.Threading.Tasks
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
-    //[Bridge.Name("System.Threading.Tasks.Task")]
     public class TaskAwaiter : INotifyCompletion
     {
         internal extern TaskAwaiter();
@@ -21,6 +21,7 @@ namespace System.Threading.Tasks
         public extern void GetResult();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Threading.Tasks.Task")]
     public class TaskAwaiter<TResult> : INotifyCompletion

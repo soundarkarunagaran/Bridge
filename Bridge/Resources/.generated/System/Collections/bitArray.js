@@ -16,7 +16,7 @@
                 }
             },
             methods: {
-                getArrayLength: function (n, div) {
+                GetArrayLength: function (n, div) {
                     return n > 0 ? ((((((Bridge.Int.div((((n - 1) | 0)), div)) | 0)) + 1) | 0)) : 0;
                 }
             }
@@ -36,7 +36,7 @@
                         throw new System.ArgumentOutOfRangeException("value", "Non-negative number required.");
                     }
 
-                    var newints = System.Collections.BitArray.getArrayLength(value, System.Collections.BitArray.BitsPerInt32);
+                    var newints = System.Collections.BitArray.GetArrayLength(value, System.Collections.BitArray.BitsPerInt32);
                     if (newints > this.m_array.length || ((newints + System.Collections.BitArray._ShrinkThreshold) | 0) < this.m_array.length) {
                         // grow or shrink (if wasting more than _ShrinkThreshold ints)
                         var newarray = System.Array.init(newints, 0, System.Int32);
@@ -46,7 +46,7 @@
 
                     if (value > this.m_length) {
                         // clear high bit values in the last int
-                        var last = (System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32) - 1) | 0;
+                        var last = (System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32) - 1) | 0;
                         var bits = this.m_length % 32;
                         if (bits > 0) {
                             this.m_array[System.Array.index(last, this.m_array)] = this.m_array[System.Array.index(last, this.m_array)] & ((((1 << bits) - 1) | 0));
@@ -85,7 +85,7 @@
             "copyTo", "System$Collections$ICollection$copyTo",
             "Count", "System$Collections$ICollection$Count",
             "clone", "System$ICloneable$clone",
-            "getEnumerator", "System$Collections$IEnumerable$getEnumerator"
+            "GetEnumerator", "System$Collections$IEnumerable$GetEnumerator"
         ],
         ctors: {
             $ctor3: function (length) {
@@ -97,7 +97,7 @@
                     throw new System.ArgumentOutOfRangeException("length", "Index is less than zero.");
                 }
 
-                this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(length, System.Collections.BitArray.BitsPerInt32), 0, System.Int32);
+                this.m_array = System.Array.init(System.Collections.BitArray.GetArrayLength(length, System.Collections.BitArray.BitsPerInt32), 0, System.Int32);
                 this.m_length = length;
 
                 var fillValue = defaultValue ? (-1) : 0;
@@ -119,7 +119,7 @@
                     throw new System.ArgumentException(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", [Bridge.box(System.Collections.BitArray.BitsPerByte, System.Int32)]), "bytes");
                 }
 
-                this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(bytes.length, System.Collections.BitArray.BytesPerInt32), 0, System.Int32);
+                this.m_array = System.Array.init(System.Collections.BitArray.GetArrayLength(bytes.length, System.Collections.BitArray.BytesPerInt32), 0, System.Int32);
                 this.m_length = Bridge.Int.mul(bytes.length, System.Collections.BitArray.BitsPerByte);
 
                 var i = 0;
@@ -153,7 +153,7 @@
                     throw new System.ArgumentNullException("values");
                 }
 
-                this.m_array = System.Array.init(System.Collections.BitArray.getArrayLength(values.length, System.Collections.BitArray.BitsPerInt32), 0, System.Int32);
+                this.m_array = System.Array.init(System.Collections.BitArray.GetArrayLength(values.length, System.Collections.BitArray.BitsPerInt32), 0, System.Int32);
                 this.m_length = values.length;
 
                 for (var i = 0; i < values.length; i = (i + 1) | 0) {
@@ -187,7 +187,7 @@
                     throw new System.ArgumentNullException("bits");
                 }
 
-                var arrayLength = System.Collections.BitArray.getArrayLength(bits.m_length, System.Collections.BitArray.BitsPerInt32);
+                var arrayLength = System.Collections.BitArray.GetArrayLength(bits.m_length, System.Collections.BitArray.BitsPerInt32);
                 this.m_array = System.Array.init(arrayLength, 0, System.Int32);
                 this.m_length = bits.m_length;
 
@@ -198,10 +198,10 @@
         },
         methods: {
             getItem: function (index) {
-                return this.get(index);
+                return this.Get(index);
             },
             setItem: function (index, value) {
-                this.set(index, value);
+                this.Set(index, value);
             },
             copyTo: function (array, index) {
                 if (array == null) {
@@ -217,9 +217,9 @@
                 }
 
                 if (Bridge.is(array, System.Array.type(System.Int32))) {
-                    System.Array.copy(this.m_array, 0, array, index, System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32));
+                    System.Array.copy(this.m_array, 0, array, index, System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32));
                 } else if (Bridge.is(array, System.Array.type(System.Byte))) {
-                    var arrayLength = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerByte);
+                    var arrayLength = System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerByte);
                     if ((((array.length - index) | 0)) < arrayLength) {
                         throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
                     }
@@ -241,14 +241,14 @@
                     throw new System.ArgumentException("Only supported array types for CopyTo on BitArrays are Boolean[], Int32[] and Byte[].");
                 }
             },
-            get: function (index) {
+            Get: function (index) {
                 if (index < 0 || index >= this.Length) {
                     throw new System.ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
                 }
 
                 return (this.m_array[System.Array.index(((Bridge.Int.div(index, 32)) | 0), this.m_array)] & (1 << (index % 32))) !== 0;
             },
-            set: function (index, value) {
+            Set: function (index, value) {
                 var $t, $t1;
                 if (index < 0 || index >= this.Length) {
                     throw new System.ArgumentOutOfRangeException("index", "Index was out of range. Must be non-negative and less than the size of the collection.");
@@ -262,16 +262,16 @@
 
                 this._version = (this._version + 1) | 0;
             },
-            setAll: function (value) {
+            SetAll: function (value) {
                 var fillValue = value ? (-1) : 0;
-                var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
+                var ints = System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
                 for (var i = 0; i < ints; i = (i + 1) | 0) {
                     this.m_array[System.Array.index(i, this.m_array)] = fillValue;
                 }
 
                 this._version = (this._version + 1) | 0;
             },
-            and: function (value) {
+            And: function (value) {
                 if (value == null) {
                     throw new System.ArgumentNullException("value");
                 }
@@ -279,7 +279,7 @@
                     throw new System.ArgumentException("Array lengths must be the same.");
                 }
 
-                var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
+                var ints = System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
                 for (var i = 0; i < ints; i = (i + 1) | 0) {
                     this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] & value.m_array[System.Array.index(i, value.m_array)];
                 }
@@ -287,7 +287,7 @@
                 this._version = (this._version + 1) | 0;
                 return this;
             },
-            or: function (value) {
+            Or: function (value) {
                 if (value == null) {
                     throw new System.ArgumentNullException("value");
                 }
@@ -295,7 +295,7 @@
                     throw new System.ArgumentException("Array lengths must be the same.");
                 }
 
-                var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
+                var ints = System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
                 for (var i = 0; i < ints; i = (i + 1) | 0) {
                     this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] | value.m_array[System.Array.index(i, value.m_array)];
                 }
@@ -303,7 +303,7 @@
                 this._version = (this._version + 1) | 0;
                 return this;
             },
-            xor: function (value) {
+            Xor: function (value) {
                 if (value == null) {
                     throw new System.ArgumentNullException("value");
                 }
@@ -311,7 +311,7 @@
                     throw new System.ArgumentException("Array lengths must be the same.");
                 }
 
-                var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
+                var ints = System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
                 for (var i = 0; i < ints; i = (i + 1) | 0) {
                     this.m_array[System.Array.index(i, this.m_array)] = this.m_array[System.Array.index(i, this.m_array)] ^ value.m_array[System.Array.index(i, value.m_array)];
                 }
@@ -319,8 +319,8 @@
                 this._version = (this._version + 1) | 0;
                 return this;
             },
-            not: function () {
-                var ints = System.Collections.BitArray.getArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
+            Not: function () {
+                var ints = System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32);
                 for (var i = 0; i < ints; i = (i + 1) | 0) {
                     this.m_array[System.Array.index(i, this.m_array)] = ~this.m_array[System.Array.index(i, this.m_array)];
                 }
@@ -334,7 +334,7 @@
                 bitArray.m_length = this.m_length;
                 return bitArray;
             },
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return new System.Collections.BitArray.BitArrayEnumeratorSimple(this);
             }
         }

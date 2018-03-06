@@ -47,7 +47,7 @@
             "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + Bridge.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
-            "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator"
         ],
         ctors: {
             ctor: function () {
@@ -78,12 +78,12 @@
                 var en = Bridge.getEnumerator(collection, T);
                 try {
                     while (en.System$Collections$IEnumerator$moveNext()) {
-                        this.enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                        this.Enqueue(en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                     }
                 }
                 finally {
                     if (Bridge.hasValue(en)) {
-                        en.System$IDisposable$dispose();
+                        en.System$IDisposable$Dispose();
                     }
                 }
             }
@@ -120,7 +120,7 @@
                     System.Array.copy(this._array, 0, array, ((((index + this._array.length) | 0) - this._head) | 0), numToCopy);
                 }
             },
-            copyTo$1: function (array, arrayIndex) {
+            CopyTo: function (array, arrayIndex) {
                 if (array == null) {
                     throw new System.ArgumentNullException("array");
                 }
@@ -146,7 +146,7 @@
                     System.Array.copy(this._array, 0, array, ((((arrayIndex + this._array.length) | 0) - this._head) | 0), numToCopy);
                 }
             },
-            clear: function () {
+            Clear: function () {
                 if (this._head < this._tail) {
                     System.Array.fill(this._array, Bridge.getDefaultValue(T), this._head, this._size);
                 } else {
@@ -159,49 +159,49 @@
                 this._size = 0;
                 this._version = (this._version + 1) | 0;
             },
-            enqueue: function (item) {
+            Enqueue: function (item) {
                 if (this._size === this._array.length) {
                     var newcapacity = (Bridge.Int.div(Bridge.Int.mul(this._array.length, System.Collections.Generic.Queue$1(T).GrowFactor), 100)) | 0;
                     if (newcapacity < ((this._array.length + System.Collections.Generic.Queue$1(T).MinimumGrow) | 0)) {
                         newcapacity = (this._array.length + System.Collections.Generic.Queue$1(T).MinimumGrow) | 0;
                     }
-                    this.setCapacity(newcapacity);
+                    this.SetCapacity(newcapacity);
                 }
 
                 this._array[System.Array.index(this._tail, this._array)] = item;
-                this._tail = this.moveNext(this._tail);
+                this._tail = this.MoveNext(this._tail);
                 this._size = (this._size + 1) | 0;
                 this._version = (this._version + 1) | 0;
             },
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this);
             },
-            System$Collections$Generic$IEnumerable$1$getEnumerator: function () {
+            System$Collections$Generic$IEnumerable$1$GetEnumerator: function () {
                 return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this).$clone();
             },
-            System$Collections$IEnumerable$getEnumerator: function () {
+            System$Collections$IEnumerable$GetEnumerator: function () {
                 return new (System.Collections.Generic.Queue$1.Enumerator(T)).$ctor1(this).$clone();
             },
-            dequeue: function () {
+            Dequeue: function () {
                 if (this._size === 0) {
                     throw new System.InvalidOperationException("Queue empty.");
                 }
 
                 var removed = this._array[System.Array.index(this._head, this._array)];
                 this._array[System.Array.index(this._head, this._array)] = Bridge.getDefaultValue(T);
-                this._head = this.moveNext(this._head);
+                this._head = this.MoveNext(this._head);
                 this._size = (this._size - 1) | 0;
                 this._version = (this._version + 1) | 0;
                 return removed;
             },
-            peek: function () {
+            Peek: function () {
                 if (this._size === 0) {
                     throw new System.InvalidOperationException("Queue empty.");
                 }
 
                 return this._array[System.Array.index(this._head, this._array)];
             },
-            contains: function (item) {
+            Contains: function (item) {
                 var index = this._head;
                 var count = this._size;
 
@@ -214,15 +214,15 @@
                     } else if (this._array[System.Array.index(index, this._array)] != null && c.equals2(this._array[System.Array.index(index, this._array)], item)) {
                         return true;
                     }
-                    index = this.moveNext(index);
+                    index = this.MoveNext(index);
                 }
 
                 return false;
             },
-            getElement: function (i) {
+            GetElement: function (i) {
                 return this._array[System.Array.index((((this._head + i) | 0)) % this._array.length, this._array)];
             },
-            toArray: function () {
+            ToArray: function () {
                 var arr = System.Array.init(this._size, function (){
                     return Bridge.getDefaultValue(T);
                 }, T);
@@ -239,7 +239,7 @@
 
                 return arr;
             },
-            setCapacity: function (capacity) {
+            SetCapacity: function (capacity) {
                 var newarray = System.Array.init(capacity, function (){
                     return Bridge.getDefaultValue(T);
                 }, T);
@@ -257,16 +257,16 @@
                 this._tail = (this._size === capacity) ? 0 : this._size;
                 this._version = (this._version + 1) | 0;
             },
-            moveNext: function (index) {
+            MoveNext: function (index) {
                 // It is tempting to use the remainder operator here but it is actually much slower
                 // than a simple comparison and a rarely taken branch.
                 var tmp = (index + 1) | 0;
                 return (tmp === this._array.length) ? 0 : tmp;
             },
-            trimExcess: function () {
+            TrimExcess: function () {
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
-                    this.setCapacity(this._size);
+                    this.SetCapacity(this._size);
                 }
             }
         }

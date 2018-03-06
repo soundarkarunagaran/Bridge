@@ -2,6 +2,7 @@
 
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public struct Boolean : IComparable, IComparable<bool>, IEquatable<bool>

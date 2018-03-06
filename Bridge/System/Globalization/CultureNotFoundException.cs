@@ -1,5 +1,6 @@
 namespace System.Globalization
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class CultureNotFoundException : ArgumentException, Bridge.IBridgeClass

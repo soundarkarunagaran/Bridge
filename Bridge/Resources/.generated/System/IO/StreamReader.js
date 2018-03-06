@@ -134,7 +134,7 @@
                     throw new System.ArgumentOutOfRangeException("bufferSize");
                 }
 
-                var stream = new System.IO.FileStream.$ctor1(path, System.IO.FileMode.Open);
+                var stream = new System.IO.FileStream.$ctor1(path, 3);
                 this.Init$1(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, false);
             }
         },

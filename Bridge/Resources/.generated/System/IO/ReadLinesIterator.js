@@ -15,7 +15,7 @@
             _encoding: null,
             _reader: null
         },
-        alias: ["MoveNext", "System$Collections$IEnumerator$moveNext"],
+        alias: ["moveNext", "System$Collections$IEnumerator$moveNext"],
         ctors: {
             ctor: function (path, encoding, reader) {
                 this.$initialize();
@@ -27,7 +27,7 @@
             }
         },
         methods: {
-            MoveNext: function () {
+            moveNext: function () {
                 if (this._reader != null) {
                     this.current = this._reader.ReadLine();
                     if (this.current != null) {

@@ -28,7 +28,7 @@
             }
         },
         alias: [
-            "dispose", "System$IDisposable$dispose",
+            "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
@@ -45,7 +45,7 @@
             }
         },
         methods: {
-            dispose: function () { },
+            Dispose: function () { },
             moveNext: function () {
                 var $t, $t1;
                 if (this._version !== this._set._version) {

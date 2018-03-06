@@ -8,6 +8,7 @@ namespace System
     /// <summary>
     /// The String global object is a constructor for strings, or a sequence of characters.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Constructor("String")]
     [Bridge.Reflectable]

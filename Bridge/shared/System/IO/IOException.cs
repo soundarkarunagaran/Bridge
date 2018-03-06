@@ -24,8 +24,6 @@ using System.Runtime.Serialization;
 
 namespace System.IO
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class IOException : Exception
     {
         // For debugging purposes, store the complete path in the IOException

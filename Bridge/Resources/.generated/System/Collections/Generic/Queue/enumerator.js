@@ -32,7 +32,7 @@
             }
         },
         alias: [
-            "dispose", "System$IDisposable$dispose",
+            "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
@@ -49,7 +49,7 @@
             }
         },
         methods: {
-            dispose: function () {
+            Dispose: function () {
                 this._index = -2;
                 this._currentElement = Bridge.getDefaultValue(T);
             },
@@ -70,7 +70,7 @@
                     return false;
                 }
 
-                this._currentElement = this._q.getElement(this._index);
+                this._currentElement = this._q.GetElement(this._index);
                 return true;
             },
             System$Collections$IEnumerator$reset: function () {

@@ -26,8 +26,7 @@ using System.Diagnostics.Contracts;
 
 namespace System.IO
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
+    [Bridge.Enum(Bridge.Emit.Value)]
     public enum FileMode
     {
         CreateNew = 1,

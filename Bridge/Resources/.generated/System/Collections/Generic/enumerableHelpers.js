@@ -1,13 +1,13 @@
     Bridge.define("Bridge.Collections.EnumerableHelpers", {
         statics: {
             methods: {
-                toArray: function (T, source) {
+                ToArray: function (T, source) {
                     var count = { };
-                    var results = { v : Bridge.Collections.EnumerableHelpers.toArray$1(T, source, count) };
+                    var results = { v : Bridge.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
                     System.Array.resize(results, count.v, Bridge.getDefaultValue(T));
                     return results.v;
                 },
-                toArray$1: function (T, source, length) {
+                ToArray$1: function (T, source, length) {
                     var en = Bridge.getEnumerator(source, T);
                     try {
                         if (en.System$Collections$IEnumerator$moveNext()) {
@@ -54,7 +54,7 @@
                     }
                     finally {
                         if (Bridge.hasValue(en)) {
-                            en.System$IDisposable$dispose();
+                            en.System$IDisposable$Dispose();
                         }
                     }
 

@@ -1,6 +1,6 @@
 ﻿/// <reference path="..\..\Runner\resources\qunit\qunit.d.ts" />
 /// <reference path="..\..\Runner\TypeScript\App1\bridge.d.ts" />
-/// <reference path="..\..\Runner\TypeScript\App1\generics.d.ts" />
+/// <reference path="..\..\Runner\TypeScript\App1\Generics.d.ts" />
 
 "use strict";
 

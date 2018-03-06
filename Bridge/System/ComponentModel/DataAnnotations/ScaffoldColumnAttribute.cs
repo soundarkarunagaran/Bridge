@@ -1,5 +1,6 @@
 namespace System.ComponentModel.DataAnnotations
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     [Bridge.External]
     [Bridge.NonScriptable]

@@ -20,6 +20,7 @@ namespace System
     /// Provides information about, and means to manipulate, the current environment and platform. This class cannot be inherited.
     /// Some methods have Bridge implementation that differ from .Net.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public static class Environment
     {
 

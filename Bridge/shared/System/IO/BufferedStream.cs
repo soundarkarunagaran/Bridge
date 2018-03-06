@@ -60,8 +60,6 @@ namespace System.IO
     /// bytes cached (not yet written to the target stream or not yet consumed by the user) is never larger than the
     /// actual specified buffer size.
     /// </summary>
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public sealed class BufferedStream : Stream
     {
 
@@ -272,8 +270,7 @@ namespace System.IO
                 _stream.Seek(value, SeekOrigin.Begin);
             }
         }
-
-
+        
         protected override void Dispose(bool disposing)
         {
 

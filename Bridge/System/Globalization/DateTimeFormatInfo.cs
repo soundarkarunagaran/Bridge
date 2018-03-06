@@ -3,6 +3,7 @@ namespace System.Globalization
     /// <summary>
     /// Provides culture-specific information about the format of date and time values.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public sealed class DateTimeFormatInfo : IFormatProvider, ICloneable, Bridge.IBridgeClass

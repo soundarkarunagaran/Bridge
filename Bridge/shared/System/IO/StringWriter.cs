@@ -28,8 +28,6 @@ namespace System.IO
     // This class implements a text writer that writes to a string buffer and allows
     // the resulting sequence of characters to be presented as a string.
     //
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class StringWriter : TextWriter
     {
         private static volatile UnicodeEncoding m_encoding = null;

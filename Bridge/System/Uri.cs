@@ -3,6 +3,7 @@
     /// <summary>
     /// Provides an object representation of a uniform resource identifier (URI) and easy access to the parts of the URI.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Uri

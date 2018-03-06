@@ -19,7 +19,7 @@
                 }
             }
         },
-        alias: ["Dispose", "System$IDisposable$dispose"],
+        alias: ["Dispose", "System$IDisposable$Dispose"],
         ctors: {
             ctor: function () {
                 this.$initialize();

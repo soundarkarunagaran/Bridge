@@ -79,7 +79,7 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }}
         },

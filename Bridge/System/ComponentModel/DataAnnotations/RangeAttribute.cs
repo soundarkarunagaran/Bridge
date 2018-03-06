@@ -3,6 +3,7 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// Used for specifying a range constraint
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
         AllowMultiple = false)]
     [Bridge.External]

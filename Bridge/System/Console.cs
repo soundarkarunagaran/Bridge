@@ -3,6 +3,7 @@ namespace System
     /// <summary>
     /// Represents the standard input, output, and error streams for console applications.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Unbox(false)]
     [Bridge.Convention(Bridge.Notation.PascalCase)]
     public sealed partial class Console

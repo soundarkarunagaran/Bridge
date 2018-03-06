@@ -30,7 +30,7 @@
                 }
             }
         },
-        alias: ["Dispose", "System$IDisposable$dispose"],
+        alias: ["Dispose", "System$IDisposable$Dispose"],
         ctors: {
             init: function () {
                 this.lastCharsRead = 0;
@@ -446,7 +446,7 @@
                         // Handle surrogate char
 
                         if (this.m_stream.CanSeek) {
-                            this.m_stream.Seek((posSav.sub(this.m_stream.Position)), System.IO.SeekOrigin.Current);
+                            this.m_stream.Seek((posSav.sub(this.m_stream.Position)), 1);
                         }
                         // else - we can't do much here
 

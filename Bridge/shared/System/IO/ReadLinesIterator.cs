@@ -9,8 +9,6 @@ using System.Text;
 
 namespace System.IO
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     abstract internal class Iterator<TSource> : IEnumerable<TSource>, IEnumerator<TSource>
     {
         internal int state;
@@ -93,8 +91,6 @@ namespace System.IO
     //  - IEnumerator<T> instances from the same IEnumerable<T> party on the same underlying
     //    reader (Dev10 Bugs 904764).
     //
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     internal class ReadLinesIterator : Iterator<string>
     {
         private readonly string _path;
@@ -128,7 +124,7 @@ namespace System.IO
 
             return false;
         }
-
+        
         protected override Iterator<string> Clone()
         {
             // NOTE: To maintain the same behavior with the previous yield-based
@@ -139,7 +135,7 @@ namespace System.IO
             // by-side release.
             return CreateIterator(_path, _encoding, _reader);
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             try

@@ -4,6 +4,7 @@ namespace System.Threading
     [Bridge.Reflectable]
     public struct CancellationTokenRegistration : IEquatable<CancellationTokenRegistration>, IDisposable
     {
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern bool Equals(CancellationTokenRegistration other);
 
         public extern void Dispose();

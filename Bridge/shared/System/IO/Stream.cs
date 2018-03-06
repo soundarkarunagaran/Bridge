@@ -29,8 +29,6 @@ using System.Reflection;
 
 namespace System.IO
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public abstract class Stream : IDisposable
     {
         public static readonly Stream Null = new NullStream();

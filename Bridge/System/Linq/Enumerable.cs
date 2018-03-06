@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Linq.Enumerable")]
     public static class Enumerable
@@ -4611,7 +4612,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [Bridge.Template("System.Linq.Enumerable.from({source}).toArray()")]
+        [Bridge.Template("System.Linq.Enumerable.from({source}).ToArray()")]
         public static extern TSource[] ToArray<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>

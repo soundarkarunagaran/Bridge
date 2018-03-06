@@ -126,7 +126,7 @@
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
-                            $t.System$IDisposable$dispose();
+                            $t.System$IDisposable$Dispose();
                         }
                     }
                     return name;
@@ -163,7 +163,7 @@
                             }
                         }
 
-                        return args.toArray();
+                        return args.ToArray();
                     }
 
                     return System.Array.init(0, null, System.String);

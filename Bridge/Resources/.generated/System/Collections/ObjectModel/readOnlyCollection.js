@@ -2,7 +2,7 @@
         inherits: [System.Collections.Generic.IList$1(T),System.Collections.IList,System.Collections.Generic.IReadOnlyList$1(T)],
         statics: {
             methods: {
-                isCompatibleObject: function (value) {
+                IsCompatibleObject: function (value) {
                     // Non-null values are fine.  Only accept nulls if T is a class or Nullable<U>.
                     // Note that default(T) is not equal to null for value types except when T is Nullable<U>.
                     return ((Bridge.is(value, T)) || (value == null && Bridge.getDefaultValue(T) == null));
@@ -56,7 +56,7 @@
             "getItem", ["System$Collections$Generic$IReadOnlyList$1$" + Bridge.getTypeAlias(T) + "$getItem", "System$Collections$Generic$IReadOnlyList$1$getItem"],
             "contains", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$contains",
             "copyTo", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$copyTo",
-            "getEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator", "System$Collections$Generic$IEnumerable$1$getEnumerator"],
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
             "indexOf", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$indexOf",
             "System$Collections$Generic$ICollection$1$IsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$IsReadOnly",
             "System$Collections$Generic$IList$1$getItem", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$getItem",
@@ -96,7 +96,7 @@
                 return System.Array.contains(this.list, value, T);
             },
             System$Collections$IList$contains: function (value) {
-                if (System.Collections.ObjectModel.ReadOnlyCollection$1(T).isCompatibleObject(value)) {
+                if (System.Collections.ObjectModel.ReadOnlyCollection$1(T).IsCompatibleObject(value)) {
                     return this.contains(Bridge.cast(Bridge.unbox(value), T));
                 }
                 return false;
@@ -156,17 +156,17 @@
                     }
                 }
             },
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return Bridge.getEnumerator(this.list, T);
             },
-            System$Collections$IEnumerable$getEnumerator: function () {
+            System$Collections$IEnumerable$GetEnumerator: function () {
                 return Bridge.getEnumerator(Bridge.cast(this.list, System.Collections.IEnumerable));
             },
             indexOf: function (value) {
                 return System.Array.indexOf(this.list, value, 0, null, T);
             },
             System$Collections$IList$indexOf: function (value) {
-                if (System.Collections.ObjectModel.ReadOnlyCollection$1(T).isCompatibleObject(value)) {
+                if (System.Collections.ObjectModel.ReadOnlyCollection$1(T).IsCompatibleObject(value)) {
                     return this.indexOf(Bridge.cast(Bridge.unbox(value), T));
                 }
                 return -1;

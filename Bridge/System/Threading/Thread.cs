@@ -2,6 +2,7 @@ using System.ComponentModel;
 
 namespace System.Threading
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public sealed class Thread
     {

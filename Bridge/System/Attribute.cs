@@ -2,6 +2,7 @@ using System.Reflection;
 
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Attribute")]
     [AttributeUsageAttribute(AttributeTargets.All, Inherited = true, AllowMultiple = false)]

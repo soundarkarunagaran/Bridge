@@ -9,6 +9,7 @@ namespace System.ComponentModel
     [Bridge.Name("Function")]
     public delegate void PropertyChangedEventHandler(object sender, PropertyChangedEventArgs e);
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public class PropertyChangedEventArgs : Bridge.IBridgeClass
     {

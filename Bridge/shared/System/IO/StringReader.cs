@@ -25,8 +25,6 @@ namespace System.IO
 {
     // This class implements a text reader that reads from a string.
     //
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class StringReader : TextReader
     {
         private String _s;

@@ -78,7 +78,7 @@
 
                     this._readPos = 0;
                     this._readLen = 0;
-                    this._stream.Seek(value, System.IO.SeekOrigin.Begin);
+                    this._stream.Seek(value, 0);
                 }
             }
         },
@@ -225,7 +225,7 @@
 
 
                 if (((this._readPos - this._readLen) | 0) !== 0) {
-                    this._stream.Seek(System.Int64(this._readPos - this._readLen), System.IO.SeekOrigin.Current);
+                    this._stream.Seek(System.Int64(this._readPos - this._readLen), 1);
                 }
 
                 this._readPos = 0;
@@ -574,7 +574,7 @@
 
                 // The buffer is either empty or we have a buffered READ.
 
-                if (((this._readLen - this._readPos) | 0) > 0 && origin === System.IO.SeekOrigin.Current) {
+                if (((this._readLen - this._readPos) | 0) > 0 && origin === 1) {
 
                     // If we have bytes in the READ buffer, adjust the seek offset to account for the resulting difference
                     // between this stream's position and the underlying stream's position.
@@ -595,7 +595,7 @@
                 if (0 <= this._readPos && this._readPos < this._readLen) {
 
                     // Adjust the seek pointer of the underlying stream to reflect the amount of useful bytes in the read buffer:
-                    this._stream.Seek(System.Int64(this._readLen - this._readPos), System.IO.SeekOrigin.Current);
+                    this._stream.Seek(System.Int64(this._readLen - this._readPos), 1);
 
                 } else { // The offset of the updated seek pointer is not a legal offset. Loose the buffer.
 

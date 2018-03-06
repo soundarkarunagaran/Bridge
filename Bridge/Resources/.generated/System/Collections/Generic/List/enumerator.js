@@ -28,7 +28,7 @@
             }
         },
         alias: [
-            "dispose", "System$IDisposable$dispose",
+            "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
@@ -45,7 +45,7 @@
             }
         },
         methods: {
-            dispose: function () { },
+            Dispose: function () { },
             moveNext: function () {
 
                 var localList = this.list;
@@ -55,9 +55,9 @@
                     this.index = (this.index + 1) | 0;
                     return true;
                 }
-                return this.moveNextRare();
+                return this.MoveNextRare();
             },
-            moveNextRare: function () {
+            MoveNextRare: function () {
                 if (this.version !== this.list._version) {
                     throw new System.InvalidOperationException();
                 }

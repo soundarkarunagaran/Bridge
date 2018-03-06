@@ -1,6 +1,6 @@
 ﻿/// <reference path="..\..\Runner\resources\qunit\qunit.d.ts" />
 /// <reference path="..\..\Runner\TypeScript\App1\bridge.d.ts" />
-/// <reference path="..\..\Runner\TypeScript\App1\basicTypes.d.ts" />
+/// <reference path="..\..\Runner\TypeScript\App1\BasicTypes.d.ts" />
 
 "use strict";
 
@@ -98,8 +98,8 @@ QUnit.test("Reserved words", function (assert) {
     assert.deepEqual(k.Yield, "yield", "yield");
     assert.deepEqual(k.Any, "any", "any");
     assert.deepEqual(k.Boolean, "boolean", "boolean");
-    assert.deepEqual(k.constructor$1, "constructor", "constructor$ #299");
-    assert.deepEqual(k.Constructor, "new constructor", "constructor$$1");
+    assert.deepEqual(k.constructor, "constructor", "constructor$ #299");
+    assert.deepEqual(k.Constructor$1, "new constructor", "constructor$$1");
     assert.deepEqual(k.Declare, "declare", "declare");
     assert.deepEqual(k.Get, "get", "get");
     assert.deepEqual(k.Module, "module", "module");

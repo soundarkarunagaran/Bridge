@@ -32,8 +32,6 @@ namespace System.IO
 {
     // Class for creating FileStream objects, and some basic file management
     // routines such as Delete, etc.
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public static class File
     {
         public static StreamReader OpenText(String path)

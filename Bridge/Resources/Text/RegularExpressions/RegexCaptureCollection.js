@@ -13,7 +13,7 @@
             },
 
             alias: [
-            "getEnumerator", "System$Collections$IEnumerable$getEnumerator",
+            "GetEnumerator", "System$Collections$IEnumerable$GetEnumerator",
             "getCount", "System$Collections$ICollection$getCount",
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo"
@@ -79,7 +79,7 @@
             }
         },
 
-        getEnumerator: function () {
+        GetEnumerator: function () {
             return new System.Text.RegularExpressions.CaptureEnumerator(this);
         },
 

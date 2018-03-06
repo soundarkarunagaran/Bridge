@@ -47,7 +47,7 @@
                 }
             }
         },
-        alias: ["Dispose", "System$IDisposable$dispose"],
+        alias: ["Dispose", "System$IDisposable$Dispose"],
         ctors: {
             init: function () {
                 this.CoreNewLine = System.Array.init([13, 10], System.Char);

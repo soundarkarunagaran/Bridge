@@ -3,6 +3,7 @@
     /// <summary>
     /// An instance of this class represents the result of performing a single ReceiveAsync operation on a WebSocket.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class WebSocketReceiveResult

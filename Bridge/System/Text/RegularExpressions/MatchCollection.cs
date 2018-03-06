@@ -5,6 +5,7 @@ namespace System.Text.RegularExpressions
     /// <summary>
     /// Represents the set of successful matches found by iteratively applying a regular expression pattern to the input string.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class MatchCollection : ICollection
@@ -64,6 +65,7 @@ namespace System.Text.RegularExpressions
         /// <summary>
         /// Provides an enumerator that iterates through the collection.
         /// </summary>
+        [Bridge.Convention(Bridge.Notation.None)]
         public extern IEnumerator GetEnumerator();
     }
 }

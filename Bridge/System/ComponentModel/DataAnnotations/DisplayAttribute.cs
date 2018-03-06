@@ -5,6 +5,7 @@ namespace System.ComponentModel.DataAnnotations
     /// The string properties of this class can be used either as literals or as resource identifiers into a specified
     /// <see cref="ResourceType" />
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(
         AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.Method,
         AllowMultiple = false)]

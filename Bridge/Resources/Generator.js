@@ -3,14 +3,14 @@
 
         config: {
             alias: [
-            "getEnumerator", "System$Collections$IEnumerable$getEnumerator"
+            "GetEnumerator", "System$Collections$IEnumerable$GetEnumerator"
             ]
         },
 
         ctor: function (action) {
             this.$initialize();
-            this.getEnumerator = action;
-            this.System$Collections$IEnumerable$getEnumerator = action;
+            this.GetEnumerator = action;
+            this.System$Collections$IEnumerable$GetEnumerator = action;
         }
     });
 
@@ -21,15 +21,15 @@
 
             config: {
                 alias: [
-                "getEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator", "System$Collections$Generic$IEnumerable$1$getEnumerator"]
+                "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"]
                 ]
             },
 
             ctor: function (action) {
                 this.$initialize();
-                this.getEnumerator = action;
-                this["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"] = action;
-                this["System$Collections$Generic$IEnumerable$1$getEnumerator"] = action;
+                this.GetEnumerator = action;
+                this["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator"] = action;
+                this["System$Collections$Generic$IEnumerable$1$GetEnumerator"] = action;
             }
         };
     });
@@ -99,7 +99,7 @@
                     "getCurrent", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$getCurrent$1", "System$Collections$Generic$IEnumerator$1$getCurrent$1"],
                     "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
                     "Current", "System$Collections$IEnumerator$Current",
-                    "dispose", "System$IDisposable$dispose",
+                    "Dispose", "System$IDisposable$Dispose",
                     "moveNext", "System$Collections$IEnumerator$moveNext",
                     "reset", "System$Collections$IEnumerator$reset"
                 ]
@@ -124,7 +124,7 @@
                 return this.current;
             },
 
-            dispose: function () {
+            Dispose: function () {
                 if (this.final) {
                     this.final();
                 }

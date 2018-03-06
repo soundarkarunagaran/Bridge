@@ -4,6 +4,7 @@ namespace System.Threading.Tasks
     /// CommonJS Promise/A interface
     /// http://wiki.commonjs.org/wiki/Promises/A
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("Bridge.IPromise")]
     [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
@@ -21,6 +22,7 @@ namespace System.Threading.Tasks
     /// <summary>
     ///
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public static class PromiseExtensions
     {

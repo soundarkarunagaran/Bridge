@@ -40,7 +40,7 @@
                 }
                 if (this.index < (((this.bitarray.Count - 1) | 0))) {
                     this.index = (this.index + 1) | 0;
-                    this.currentElement = this.bitarray.get(this.index);
+                    this.currentElement = this.bitarray.Get(this.index);
                     return true;
                 } else {
                     this.index = this.bitarray.Count;

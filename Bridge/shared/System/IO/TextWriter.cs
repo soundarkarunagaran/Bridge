@@ -38,8 +38,6 @@ namespace System.IO
     //
     // This class is intended for character output, not bytes.
     // There are methods on the Stream class for writing bytes.
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public abstract class TextWriter : IDisposable
     {
         public static readonly TextWriter Null = new NullTextWriter();

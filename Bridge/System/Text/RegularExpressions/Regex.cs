@@ -1,5 +1,6 @@
 ﻿namespace System.Text.RegularExpressions
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public sealed class Regex
     {
         public extern Regex(string pattern);

@@ -1,5 +1,5 @@
 /// <reference path="./bridge.d.ts" />
-/// <reference path="./misc.a.d.ts" />
+/// <reference path="./Misc.A.d.ts" />
 
 declare namespace Misc.B {
     interface Class2 extends Misc.A.Class1 {

@@ -3,6 +3,7 @@
     /// <summary>
     /// Converts base data types to an array of bytes, and an array of bytes to base data types.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public static class BitConverter
     {
         /// <summary>

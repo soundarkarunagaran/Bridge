@@ -176,7 +176,7 @@
 
                 return true;
             } finally {
-                enumerator.dispose();
+                enumerator.Dispose();
             }
         },
         exists: function (fromInclusive, toExclusive, predicate) {
@@ -212,7 +212,7 @@
 
                 return false;
             } finally {
-                enumerator.dispose();
+                enumerator.Dispose();
             }
         }
     };

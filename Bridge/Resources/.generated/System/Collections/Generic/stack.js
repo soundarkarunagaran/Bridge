@@ -41,7 +41,7 @@
             "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + Bridge.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
             "Count", "System$Collections$ICollection$Count",
             "copyTo", "System$Collections$ICollection$copyTo",
-            "System$Collections$Generic$IEnumerable$1$getEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"
+            "System$Collections$Generic$IEnumerable$1$GetEnumerator", "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator"
         ],
         ctors: {
             ctor: function () {
@@ -65,17 +65,17 @@
                     throw new System.ArgumentNullException("collection");
                 }
                 var length = { };
-                this._array = Bridge.Collections.EnumerableHelpers.toArray$1(T, collection, length);
+                this._array = Bridge.Collections.EnumerableHelpers.ToArray$1(T, collection, length);
                 this._size = length.v;
             }
         },
         methods: {
-            clear: function () {
+            Clear: function () {
                 System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.
                 this._size = 0;
                 this._version = (this._version + 1) | 0;
             },
-            contains: function (item) {
+            Contains: function (item) {
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
@@ -90,7 +90,7 @@
                 }
                 return false;
             },
-            copyTo$1: function (array, arrayIndex) {
+            CopyTo: function (array, arrayIndex) {
                 if (array == null) {
                     throw new System.ArgumentNullException("array");
                 }
@@ -145,16 +145,16 @@
                     throw new System.ArgumentException("Target array type is not compatible with the type of items in the collection.");
                 }
             },
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this);
             },
-            System$Collections$Generic$IEnumerable$1$getEnumerator: function () {
+            System$Collections$Generic$IEnumerable$1$GetEnumerator: function () {
                 return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this).$clone();
             },
-            System$Collections$IEnumerable$getEnumerator: function () {
+            System$Collections$IEnumerable$GetEnumerator: function () {
                 return new (System.Collections.Generic.Stack$1.Enumerator(T)).$ctor1(this).$clone();
             },
-            trimExcess: function () {
+            TrimExcess: function () {
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     var localArray = { v : this._array };
@@ -163,13 +163,13 @@
                     this._version = (this._version + 1) | 0;
                 }
             },
-            peek: function () {
+            Peek: function () {
                 if (this._size === 0) {
                     throw new System.InvalidOperationException("Stack empty.");
                 }
                 return this._array[System.Array.index(((this._size - 1) | 0), this._array)];
             },
-            pop: function () {
+            Pop: function () {
                 if (this._size === 0) {
                     throw new System.InvalidOperationException("Stack empty.");
                 }
@@ -178,7 +178,7 @@
                 this._array[System.Array.index(this._size, this._array)] = Bridge.getDefaultValue(T); // Free memory quicker.
                 return item;
             },
-            push: function (item) {
+            Push: function (item) {
                 if (this._size === this._array.length) {
                     var localArray = { v : this._array };
                     System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T));
@@ -187,7 +187,7 @@
                 this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;
                 this._version = (this._version + 1) | 0;
             },
-            toArray: function () {
+            ToArray: function () {
                 var objArray = System.Array.init(this._size, function (){
                     return Bridge.getDefaultValue(T);
                 }, T);
