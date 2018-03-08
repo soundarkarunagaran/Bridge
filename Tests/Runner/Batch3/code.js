@@ -29721,6 +29721,110 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Testing to ensure that DateTime DayOfYear property is returning the correct values at various times throughout a normal year and leapyear.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3450
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3450", {
+        statics: {
+            methods: {
+                TestIsDateTimeDayOfYearWorking: function () {
+                    var val1 = System.DateTime.getDayOfYear(System.DateTime.create(2018, 3, 6, 1, 1, 1));
+                    var val2 = System.DateTime.getDayOfYear(System.DateTime.create(2018, 2, 20, 1, 1, 1));
+                    var val3 = System.DateTime.getDayOfYear(System.DateTime.create(2019, 3, 6, 1, 1, 1));
+                    var val4 = System.DateTime.getDayOfYear(System.DateTime.create(2019, 2, 20, 1, 1, 1));
+                    var val5 = System.DateTime.getDayOfYear(System.DateTime.create(2020, 3, 6, 1, 1, 1));
+                    var val6 = System.DateTime.getDayOfYear(System.DateTime.create(2020, 2, 20, 1, 1, 1));
+                    var val7 = System.DateTime.getDayOfYear(System.DateTime.create(2021, 3, 6, 1, 1, 1));
+                    var val8 = System.DateTime.getDayOfYear(System.DateTime.create(2021, 2, 20, 1, 1, 1));
+
+                    var val9 = System.DateTime.getDayOfYear(System.DateTime.create(2018, 3, 6));
+                    var val10 = System.DateTime.getDayOfYear(System.DateTime.create(2018, 2, 20));
+                    var val11 = System.DateTime.getDayOfYear(System.DateTime.create(2019, 3, 6));
+                    var val12 = System.DateTime.getDayOfYear(System.DateTime.create(2019, 2, 20));
+                    var val13 = System.DateTime.getDayOfYear(System.DateTime.create(2020, 3, 6));
+                    var val14 = System.DateTime.getDayOfYear(System.DateTime.create(2020, 2, 20));
+                    var val15 = System.DateTime.getDayOfYear(System.DateTime.create(2021, 3, 6));
+                    var val16 = System.DateTime.getDayOfYear(System.DateTime.create(2021, 2, 20));
+
+                    var val17 = System.DateTime.getDayOfYear(System.DateTime.create(2018, 1, 1));
+                    var val18 = System.DateTime.getDayOfYear(System.DateTime.create(2018, 12, 31));
+                    var val19 = System.DateTime.getDayOfYear(System.DateTime.create(2019, 1, 1));
+                    var val20 = System.DateTime.getDayOfYear(System.DateTime.create(2019, 12, 31));
+                    var val21 = System.DateTime.getDayOfYear(System.DateTime.create(2020, 1, 1));
+                    var val22 = System.DateTime.getDayOfYear(System.DateTime.create(2020, 12, 31));
+                    var val23 = System.DateTime.getDayOfYear(System.DateTime.create(2021, 1, 1));
+                    var val24 = System.DateTime.getDayOfYear(System.DateTime.create(2021, 12, 31));
+
+                    var val25 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2018, 3, 6, 1, 1, 1)));
+                    var val26 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2018, 2, 20, 1, 1, 1)));
+                    var val27 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2019, 3, 6, 1, 1, 1)));
+                    var val28 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2019, 2, 20, 1, 1, 1)));
+                    var val29 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2020, 3, 6, 1, 1, 1)));
+                    var val30 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2020, 2, 20, 1, 1, 1)));
+                    var val31 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2021, 3, 6, 1, 1, 1)));
+                    var val32 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2021, 2, 20, 1, 1, 1)));
+
+                    var val33 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2018, 1, 1, 1, 1, 1)));
+                    var val34 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2018, 12, 31, 1, 1, 1)));
+                    var val35 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2019, 1, 1, 1, 1, 1)));
+                    var val36 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2019, 12, 31, 1, 1, 1)));
+                    var val37 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2020, 1, 1, 1, 1, 1)));
+                    var val38 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2020, 12, 31, 1, 1, 1)));
+                    var val39 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2021, 1, 1, 1, 1, 1)));
+                    var val40 = System.DateTime.getDayOfYear(System.DateTime.getDate(System.DateTime.create(2021, 12, 31, 1, 1, 1)));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(65, val1);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val2);
+                    Bridge.Test.NUnit.Assert.AreEqual(65, val3);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val4);
+                    Bridge.Test.NUnit.Assert.AreEqual(66, val5);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val6);
+                    Bridge.Test.NUnit.Assert.AreEqual(65, val7);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val8);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(65, val9);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val10);
+                    Bridge.Test.NUnit.Assert.AreEqual(65, val11);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val12);
+                    Bridge.Test.NUnit.Assert.AreEqual(66, val13);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val14);
+                    Bridge.Test.NUnit.Assert.AreEqual(65, val15);
+                    Bridge.Test.NUnit.Assert.AreEqual(51, val16);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, val17);
+                    Bridge.Test.NUnit.Assert.AreEqual(365, val18);
+                    Bridge.Test.NUnit.Assert.AreEqual(1, val19);
+                    Bridge.Test.NUnit.Assert.AreEqual(365, val20);
+                    Bridge.Test.NUnit.Assert.AreEqual(1, val21);
+                    Bridge.Test.NUnit.Assert.AreEqual(366, val22);
+                    Bridge.Test.NUnit.Assert.AreEqual(1, val23);
+                    Bridge.Test.NUnit.Assert.AreEqual(365, val24);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(val1, val25);
+                    Bridge.Test.NUnit.Assert.AreEqual(val2, val26);
+                    Bridge.Test.NUnit.Assert.AreEqual(val3, val27);
+                    Bridge.Test.NUnit.Assert.AreEqual(val4, val28);
+                    Bridge.Test.NUnit.Assert.AreEqual(val5, val29);
+                    Bridge.Test.NUnit.Assert.AreEqual(val6, val30);
+                    Bridge.Test.NUnit.Assert.AreEqual(val7, val31);
+                    Bridge.Test.NUnit.Assert.AreEqual(val8, val32);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(val17, val33);
+                    Bridge.Test.NUnit.Assert.AreEqual(val18, val34);
+                    Bridge.Test.NUnit.Assert.AreEqual(val19, val35);
+                    Bridge.Test.NUnit.Assert.AreEqual(val20, val36);
+                    Bridge.Test.NUnit.Assert.AreEqual(val21, val37);
+                    Bridge.Test.NUnit.Assert.AreEqual(val22, val38);
+                    Bridge.Test.NUnit.Assert.AreEqual(val23, val39);
+                    Bridge.Test.NUnit.Assert.AreEqual(val24, val40);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {

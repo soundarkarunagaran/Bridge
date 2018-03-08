@@ -1169,45 +1169,45 @@
                 return new Date(year, month, - 1).getDate() + 1;
             },
 
-            getDayOfYear: function (d) {
-                var ny = new Date(d.getTime());
+            $clearTime: function (d, isUTC) {
+                var dt = new Date(d.getTime());
 
-                if (d.kind !== 1) {
-                    ny.setMonth(0);
-                    ny.setDate(1);
-                    ny.setHours(0);
-                    ny.setMinutes(0);
-                    ny.setMilliseconds(0);
+                if (isUTC === true) {
+                    dt.setUTCHours(0);
+                    dt.setUTCMinutes(0);
+                    dt.setUTCMinutes(0);
+                    dt.setUTCMilliseconds(0);
                 } else {
-                    ny.setUTCMonth(0);
-                    ny.setUTCDate(1);
-                    ny.setUTCHours(0);
-                    ny.setUTCMinutes(0);
-                    ny.setUTCMilliseconds(0);
+                    dt.setHours(0);
+                    dt.setMinutes(0);
+                    dt.setSeconds(0);
+                    dt.setMilliseconds(0);
                 }
 
-                return Math.ceil((d - ny) / 864e5);
+                return dt;
+            },
+
+            getDayOfYear: function (d) {
+                var dt = System.DateTime.getDate(d),
+                    ny = new Date(dt);
+
+                if (d.kind === 1) {
+                    ny.setUTCMonth(0);
+                    ny.setUTCDate(1);
+                } else {
+                    ny.setMonth(0);
+                    ny.setDate(1);
+                }
+
+                return Math.ceil((dt - ny) / 864e5) + 1;
             },
 
             getDate: function (d) {
                 d.kind = (d.kind !== undefined) ? d.kind : 0
 
-                var d1 = new Date(d.getTime());
-
-                if (d.kind !== 1) {
-                    d1.setHours(0);
-                    d1.setMinutes(0);
-                    d1.setSeconds(0);
-                    d1.setMilliseconds(0);
-                } else {
-                    d1.setUTCHours(0);
-                    d1.setUTCMinutes(0);
-                    d1.setUTCSeconds(0);
-                    d1.setUTCMilliseconds(0);
-                }
+                var d1 = System.DateTime.$clearTime(d, d.kind === 1);
 
                 d1.kind = d.kind;
-                d1.ticks = System.DateTime.getTicks(d1);
 
                 return d1;
             },
