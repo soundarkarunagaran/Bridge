@@ -17,7 +17,7 @@
             ctor: function (dictionary) {
                 this.$initialize();
                 if (dictionary == null) {
-                    throw new System.ArgumentNullException("dictionary");
+                    throw new System.ArgumentNullException.$ctor1("dictionary");
                 }
 
                 this._dict = dictionary;

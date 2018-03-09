@@ -2280,7 +2280,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         }
                                         case 3: {
                                             $task1.getAwaitedResult();
-                                            throw new System.InvalidOperationException("Bridge1170 test");
+                                            throw new System.InvalidOperationException.$ctor1("Bridge1170 test");
                                             $step = 4;
                                             continue;
                                         }
@@ -3963,16 +3963,16 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         statics: {
             methods: {
                 op_Implicit: function (t) {
-                    throw new System.InvalidCastException();
+                    throw new System.InvalidCastException.ctor();
                 },
                 op_Implicit$1: function (t) {
-                    throw new System.InvalidCastException();
+                    throw new System.InvalidCastException.ctor();
                 },
                 op_Explicit: function (value) {
-                    throw new System.InvalidCastException();
+                    throw new System.InvalidCastException.ctor();
                 },
                 op_Explicit$1: function (value) {
-                    throw new System.InvalidCastException();
+                    throw new System.InvalidCastException.ctor();
                 }
             }
         }
@@ -8828,7 +8828,7 @@ Bridge.$N1391Result =                     r;
             Insert: function (item) {
                 var $t;
                 if (item == null) {
-                    throw new System.ArgumentNullException("item");
+                    throw new System.ArgumentNullException.$ctor1("item");
                 }
 
                 if (this._headIfAny == null) {
@@ -9064,7 +9064,7 @@ Bridge.$N1391Result =                     r;
                 Bridge.ClientTest.Batch3.BridgeIssues.Bridge1712.Buffer = System.String.concat(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1712.Buffer, item);
             },
             GetEnumerator: function () {
-                throw new System.InvalidOperationException();
+                throw new System.InvalidOperationException.ctor();
             }
         }
     });
@@ -9075,7 +9075,7 @@ Bridge.$N1391Result =                     r;
         alias: ["GetEnumerator", "System$Collections$IEnumerable$GetEnumerator"],
         methods: {
             GetEnumerator: function () {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             }
         }
     });
@@ -10554,7 +10554,7 @@ Bridge.$N1391Result =                     r;
         props: {
             System$Collections$Generic$ICollection$1$Count: {
                 get: function () {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             },
             System$Collections$Generic$ICollection$1$IsReadOnly: {
@@ -10584,34 +10584,34 @@ Bridge.$N1391Result =                     r;
             },
             System$Collections$Generic$IList$1$setItem: function (index, value) { },
             System$Collections$Generic$ICollection$1$add: function (item) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$ICollection$1$clear: function () {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$ICollection$1$contains: function (item) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$ICollection$1$copyTo: function (array, arrayIndex) {
                 array[System.Array.index(0, array)] = Bridge.getDefaultValue(T);
             },
             System$Collections$IEnumerable$GetEnumerator: function () {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$IEnumerable$1$GetEnumerator: function () {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$IList$1$indexOf: function (item) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$IList$1$insert: function (index, item) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$ICollection$1$remove: function (item) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             System$Collections$Generic$IList$1$removeAt: function (index) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             }
         }
     }; });
@@ -15987,7 +15987,7 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2246", {
         main: function Main () {
             if (Bridge.ClientTest.Batch3.BridgeIssues.Bridge2246.isExecuted) {
-                throw new System.InvalidOperationException("Double entry point execution");
+                throw new System.InvalidOperationException.$ctor1("Double entry point execution");
             }
 
             Bridge.ClientTest.Batch3.BridgeIssues.Bridge2246.isExecuted = true;
@@ -22125,7 +22125,7 @@ Bridge.$N1391Result =                     r;
                                     }
                                     case 1: {
                                         $task1.getAwaitedResult();
-                                        throw new System.InvalidOperationException(tag);
+                                        throw new System.InvalidOperationException.$ctor1(tag);
                                         $tcs.setResult(null);
                                         return;
                                     }
@@ -22145,7 +22145,7 @@ Bridge.$N1391Result =                     r;
                 return $tcs.task;
             },
             ShouldNotBeInvoked: function (T, tag) {
-                throw new System.InvalidOperationException(tag);
+                throw new System.InvalidOperationException.$ctor1(tag);
             },
             GetBool: function (tag, result) {
                 var $step = 0,
@@ -26863,7 +26863,7 @@ Bridge.$N1391Result =                     r;
             methods: {
                 op_Implicit: function (value) {
                     if (value == null) {
-                        throw new System.NullReferenceException();
+                        throw new System.NullReferenceException.ctor();
                     }
                     return value.Value;
                 }
@@ -28164,7 +28164,7 @@ Bridge.$N1391Result =                     r;
                     } else if (index === 1) {
                         Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.ValueAttr, attrName, "Attribute 'value' could be processed.");
                     } else {
-                        throw new System.IndexOutOfRangeException("Unexpected attribute index.");
+                        throw new System.IndexOutOfRangeException.$ctor1("Unexpected attribute index.");
                     }
                 }
             }
@@ -35185,7 +35185,7 @@ Bridge.$N1391Result =                     r;
                                     switch ($step) {
                                         case 0: {
                                             if (method == null) {
-                                                throw new System.ArgumentNullException("method");
+                                                throw new System.ArgumentNullException.$ctor1("method");
                                             }
                                             $step = 1;
                                             continue;
@@ -39484,7 +39484,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39501,13 +39501,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$M1: function () {
                 return 3;
@@ -39524,7 +39524,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39541,13 +39541,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             M1: function () {
                 return 3;
@@ -39564,7 +39564,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39573,13 +39573,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$System$String$setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$System$String$adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$System$String$removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I1$1$System$String$M1: function () {
                 return 3;
@@ -39596,7 +39596,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39613,13 +39613,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             M1: function () {
                 return 3;
@@ -39636,7 +39636,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39653,13 +39653,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$M1: function () {
                 return 3;
@@ -39676,7 +39676,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39693,13 +39693,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             M1: function () {
                 return 3;
@@ -39716,7 +39716,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39733,13 +39733,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$BaseClass$setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$BaseClass$adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$BaseClass$removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$I2$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge2638A$BaseClass$M1: function () {
                 return 3;
@@ -39756,7 +39756,7 @@ Bridge.$N1391Result =                     r;
                     return 2;
                 },
                 set: function (value) {
-                    throw new System.NotImplementedException();
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         },
@@ -39773,13 +39773,13 @@ Bridge.$N1391Result =                     r;
                 return 1;
             },
             setItem: function (idx, value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             adde1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             removee1: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             M1: function () {
                 return 3;
@@ -40498,7 +40498,7 @@ Bridge.$N1391Result =                     r;
                     case Bridge.global.Problem2723.Classes2723.A2723.Mode.Value2: 
                         break;
                     default: 
-                        throw new System.ArgumentOutOfRangeException("mode", null, null, Bridge.box(mode, Problem2723.Classes2723.A2723.Mode, System.Enum.toStringFn(Problem2723.Classes2723.A2723.Mode)));
+                        throw new System.ArgumentOutOfRangeException.$ctor3("mode", Bridge.box(mode, Problem2723.Classes2723.A2723.Mode, System.Enum.toStringFn(Problem2723.Classes2723.A2723.Mode)), null);
                 }
 
                 Bridge.Test.NUnit.Assert.AreEqual(Bridge.global.Problem2723.Classes2723.A2723.Mode.Value2, mode);

@@ -51,7 +51,7 @@
                     var MaxSeconds = System.Int64([-769665,58]);
 
                     if (seconds.lt(MinSeconds) || seconds.gt(MaxSeconds)) {
-                        throw new System.ArgumentOutOfRangeException("seconds", System.String.format(System.Environment.GetResourceString("ArgumentOutOfRange_Range"), MinSeconds, MaxSeconds));
+                        throw new System.ArgumentOutOfRangeException.$ctor4("seconds", System.String.format(System.Environment.GetResourceString("ArgumentOutOfRange_Range"), MinSeconds, MaxSeconds));
                     }
 
                     var ticks = seconds.mul(System.Int64(10000000)).add(System.DateTimeOffset.UnixEpochTicks);
@@ -62,7 +62,7 @@
                     var MaxMilliseconds = System.Int64([-769664001,58999]);
 
                     if (milliseconds.lt(MinMilliseconds) || milliseconds.gt(MaxMilliseconds)) {
-                        throw new System.ArgumentOutOfRangeException("milliseconds", System.String.format(System.Environment.GetResourceString("ArgumentOutOfRange_Range"), MinMilliseconds, MaxMilliseconds));
+                        throw new System.ArgumentOutOfRangeException.$ctor4("milliseconds", System.String.format(System.Environment.GetResourceString("ArgumentOutOfRange_Range"), MinMilliseconds, MaxMilliseconds));
                     }
 
                     var ticks = milliseconds.mul(System.Int64(10000)).add(System.DateTimeOffset.UnixEpochTicks);
@@ -112,10 +112,10 @@
                 ValidateOffset: function (offset) {
                     var ticks = offset.getTicks();
                     if (ticks.mod(System.Int64(600000000)).ne(System.Int64(0))) {
-                        throw new System.ArgumentException(System.Environment.GetResourceString("Argument_OffsetPrecision"), "offset");
+                        throw new System.ArgumentException.$ctor3(System.Environment.GetResourceString("Argument_OffsetPrecision"), "offset");
                     }
                     if (ticks.lt(System.DateTimeOffset.MinOffset) || ticks.gt(System.DateTimeOffset.MaxOffset)) {
-                        throw new System.ArgumentOutOfRangeException("offset", System.Environment.GetResourceString("Argument_OffsetOutOfRange"));
+                        throw new System.ArgumentOutOfRangeException.$ctor4("offset", System.Environment.GetResourceString("Argument_OffsetOutOfRange"));
                     }
                     return System.Int64.clip16(offset.getTicks().div(System.Int64(600000000)));
                 },
@@ -126,7 +126,7 @@
                     // 14 hours and the DateTime instance is more than that distance from the boundaries of Int64.
                     var utcTicks = System.DateTime.getTicks(dateTime).sub(offset.getTicks());
                     if (utcTicks.lt(System.DateTime.MinTicks) || utcTicks.gt(System.DateTime.MaxTicks)) {
-                        throw new System.ArgumentOutOfRangeException("offset", System.Environment.GetResourceString("Argument_UTCOutOfRange"));
+                        throw new System.ArgumentOutOfRangeException.$ctor4("offset", System.Environment.GetResourceString("Argument_UTCOutOfRange"));
                     }
                     // make sure the Kind is set to Unspecified
                     //
@@ -298,11 +298,11 @@
                     // TODO: Revised [TimeZoneInfo not supported]
                     //if (offset != TimeZoneInfo.GetLocalUtcOffset(dateTime, TimeZoneInfoOptions.NoThrowOnInvalidTime)) {
                     if (System.TimeSpan.neq(offset, (System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow())))) {
-                        throw new System.ArgumentException(System.Environment.GetResourceString("Argument_OffsetLocalMismatch"), "offset");
+                        throw new System.ArgumentException.$ctor3(System.Environment.GetResourceString("Argument_OffsetLocalMismatch"), "offset");
                     }
                 } else if (System.DateTime.getKind(dateTime) === 1) {
                     if (System.TimeSpan.neq(offset, System.TimeSpan.zero)) {
-                        throw new System.ArgumentException(System.Environment.GetResourceString("Argument_OffsetUtcMismatch"), "offset");
+                        throw new System.ArgumentException.$ctor3(System.Environment.GetResourceString("Argument_OffsetUtcMismatch"), "offset");
                     }
                 }
                 this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(offset);
@@ -358,7 +358,7 @@
                     return 1;
                 }
                 if (!(Bridge.is(obj, System.DateTimeOffset))) {
-                    throw new System.ArgumentException(System.Environment.GetResourceString("Arg_MustBeDateTimeOffset"));
+                    throw new System.ArgumentException.$ctor1(System.Environment.GetResourceString("Arg_MustBeDateTimeOffset"));
                 }
 
                 var objUtc = System.Nullable.getValue(Bridge.cast(Bridge.unbox(obj), System.DateTimeOffset)).UtcDateTime;

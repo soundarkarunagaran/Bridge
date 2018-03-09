@@ -2,7 +2,7 @@ namespace System.Reflection
 {
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
-    public class EventInfo : MemberInfo
+    public abstract class EventInfo : MemberInfo
     {
         [Bridge.Name("ad")]
         public extern MethodInfo AddMethod

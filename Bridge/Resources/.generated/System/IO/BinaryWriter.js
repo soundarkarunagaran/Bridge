@@ -44,13 +44,13 @@
             $ctor3: function (output, encoding, leaveOpen) {
                 this.$initialize();
                 if (output == null) {
-                    throw new System.ArgumentNullException("output");
+                    throw new System.ArgumentNullException.$ctor1("output");
                 }
                 if (encoding == null) {
-                    throw new System.ArgumentNullException("encoding");
+                    throw new System.ArgumentNullException.$ctor1("encoding");
                 }
                 if (!output.CanWrite) {
-                    throw new System.ArgumentException("Argument_StreamNotWritable");
+                    throw new System.ArgumentException.$ctor1("Argument_StreamNotWritable");
                 }
 
                 this.OutStream = output;
@@ -93,7 +93,7 @@
             },
             Write$2: function (buffer) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 this.OutStream.Write(buffer, 0, buffer.length);
             },
@@ -102,7 +102,7 @@
             },
             Write$4: function (ch) {
                 if (System.Char.isSurrogate(ch)) {
-                    throw new System.ArgumentException("Arg_SurrogatesNotAllowedAsSingleChar");
+                    throw new System.ArgumentException.$ctor1("Arg_SurrogatesNotAllowedAsSingleChar");
                 }
 
                 var numBytes = 0;
@@ -112,7 +112,7 @@
             },
             Write$5: function (chars) {
                 if (chars == null) {
-                    throw new System.ArgumentNullException("chars");
+                    throw new System.ArgumentNullException.$ctor1("chars");
                 }
 
                 var bytes = this._encoding.GetBytes$1(chars, 0, chars.length);
@@ -194,7 +194,7 @@
             },
             Write$14: function (value) {
                 if (value == null) {
-                    throw new System.ArgumentNullException("value");
+                    throw new System.ArgumentNullException.$ctor1("value");
                 }
 
                 var buffer = this._encoding.GetBytes$2(value);

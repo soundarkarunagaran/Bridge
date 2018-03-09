@@ -24,7 +24,7 @@
                 },
                 parse: function (input) {
                     if (input == null) {
-                        throw new System.ArgumentNullException("input");
+                        throw new System.ArgumentNullException.$ctor1("input");
                     }
 
                     var r = { v : new System.Version.VersionResult() };
@@ -115,14 +115,14 @@
                 },
                 op_LessThan: function (v1, v2) {
                     if (v1 == null) {
-                        throw new System.ArgumentNullException("v1");
+                        throw new System.ArgumentNullException.$ctor1("v1");
                     }
 
                     return (v1.compareTo(v2) < 0);
                 },
                 op_LessThanOrEqual: function (v1, v2) {
                     if (v1 == null) {
-                        throw new System.ArgumentNullException("v1");
+                        throw new System.ArgumentNullException.$ctor1("v1");
                     }
 
                     return (v1.compareTo(v2) <= 0);
@@ -186,19 +186,19 @@
             $ctor3: function (major, minor, build, revision) {
                 this.$initialize();
                 if (major < 0) {
-                    throw new System.ArgumentOutOfRangeException("major", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("major", "Cannot be < 0");
                 }
 
                 if (minor < 0) {
-                    throw new System.ArgumentOutOfRangeException("minor", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("minor", "Cannot be < 0");
                 }
 
                 if (build < 0) {
-                    throw new System.ArgumentOutOfRangeException("build", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("build", "Cannot be < 0");
                 }
 
                 if (revision < 0) {
-                    throw new System.ArgumentOutOfRangeException("revision", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("revision", "Cannot be < 0");
                 }
 
                 this._Major = major;
@@ -209,15 +209,15 @@
             $ctor2: function (major, minor, build) {
                 this.$initialize();
                 if (major < 0) {
-                    throw new System.ArgumentOutOfRangeException("major", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("major", "Cannot be < 0");
                 }
 
                 if (minor < 0) {
-                    throw new System.ArgumentOutOfRangeException("minor", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("minor", "Cannot be < 0");
                 }
 
                 if (build < 0) {
-                    throw new System.ArgumentOutOfRangeException("build", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("build", "Cannot be < 0");
                 }
 
                 this._Major = major;
@@ -227,11 +227,11 @@
             $ctor1: function (major, minor) {
                 this.$initialize();
                 if (major < 0) {
-                    throw new System.ArgumentOutOfRangeException("major", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("major", "Cannot be < 0");
                 }
 
                 if (minor < 0) {
-                    throw new System.ArgumentOutOfRangeException("minor", "Cannot be < 0");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("minor", "Cannot be < 0");
                 }
 
                 this._Major = major;
@@ -267,7 +267,7 @@
 
                 var v = Bridge.as(version, System.Version);
                 if (System.Version.op_Equality(v, null)) {
-                    throw new System.ArgumentException("version should be of System.Version type");
+                    throw new System.ArgumentException.$ctor1("version should be of System.Version type");
                 }
 
                 if (this._Major !== v._Major) {
@@ -395,7 +395,7 @@
                         return sb.toString();
                     default: 
                         if (this._Build === -1) {
-                            throw new System.ArgumentException("Build should be > 0 if fieldCount > 2", "fieldCount");
+                            throw new System.ArgumentException.$ctor3("Build should be > 0 if fieldCount > 2", "fieldCount");
                         }
                         if (fieldCount === 3) {
                             sb = new System.Text.StringBuilder();
@@ -407,7 +407,7 @@
                             return sb.toString();
                         }
                         if (this._Revision === -1) {
-                            throw new System.ArgumentException("Revision should be > 0 if fieldCount > 3", "fieldCount");
+                            throw new System.ArgumentException.$ctor3("Revision should be > 0 if fieldCount > 3", "fieldCount");
                         }
                         if (fieldCount === 4) {
                             sb = new System.Text.StringBuilder();
@@ -420,7 +420,7 @@
                             System.Version.appendPositiveNumber(this._Revision, sb);
                             return sb.toString();
                         }
-                        throw new System.ArgumentException("Should be < 5", "fieldCount");
+                        throw new System.ArgumentException.$ctor3("Should be < 5", "fieldCount");
                 }
             }
         }

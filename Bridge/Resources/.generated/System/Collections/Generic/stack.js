@@ -53,7 +53,7 @@
             $ctor2: function (capacity) {
                 this.$initialize();
                 if (capacity < 0) {
-                    throw new System.ArgumentOutOfRangeException("capacity", "Non-negative number required.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("capacity", "Non-negative number required.");
                 }
                 this._array = System.Array.init(capacity, function (){
                     return Bridge.getDefaultValue(T);
@@ -62,7 +62,7 @@
             $ctor1: function (collection) {
                 this.$initialize();
                 if (collection == null) {
-                    throw new System.ArgumentNullException("collection");
+                    throw new System.ArgumentNullException.$ctor1("collection");
                 }
                 var length = { };
                 this._array = Bridge.Collections.EnumerableHelpers.ToArray$1(T, collection, length);
@@ -92,15 +92,15 @@
             },
             CopyTo: function (array, arrayIndex) {
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
 
                 if (arrayIndex < 0 || arrayIndex > array.length) {
-                    throw new System.ArgumentOutOfRangeException("arrayIndex", "Non-negative number required.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("arrayIndex", "Non-negative number required.");
                 }
 
                 if (((array.length - arrayIndex) | 0) < this._size) {
-                    throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                    throw new System.ArgumentException.$ctor1("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
                 }
 
                 if (!Bridge.referenceEquals(array, this._array)) {
@@ -117,23 +117,23 @@
             },
             copyTo: function (array, arrayIndex) {
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
 
                 if (System.Array.getRank(array) !== 1) {
-                    throw new System.ArgumentException("Only single dimensional arrays are supported for the requested action.");
+                    throw new System.ArgumentException.$ctor1("Only single dimensional arrays are supported for the requested action.");
                 }
 
                 if (System.Array.getLower(array, 0) !== 0) {
-                    throw new System.ArgumentException("The lower bound of target array must be zero.");
+                    throw new System.ArgumentException.$ctor1("The lower bound of target array must be zero.");
                 }
 
                 if (arrayIndex < 0 || arrayIndex > array.length) {
-                    throw new System.ArgumentOutOfRangeException("arrayIndex", "Non-negative number required.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("arrayIndex", "Non-negative number required.");
                 }
 
                 if (((array.length - arrayIndex) | 0) < this._size) {
-                    throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                    throw new System.ArgumentException.$ctor1("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
                 }
 
                 try {
@@ -142,7 +142,7 @@
                 }
                 catch ($e1) {
                     $e1 = System.Exception.create($e1);
-                    throw new System.ArgumentException("Target array type is not compatible with the type of items in the collection.");
+                    throw new System.ArgumentException.$ctor1("Target array type is not compatible with the type of items in the collection.");
                 }
             },
             GetEnumerator: function () {
@@ -165,13 +165,13 @@
             },
             Peek: function () {
                 if (this._size === 0) {
-                    throw new System.InvalidOperationException("Stack empty.");
+                    throw new System.InvalidOperationException.$ctor1("Stack empty.");
                 }
                 return this._array[System.Array.index(((this._size - 1) | 0), this._array)];
             },
             Pop: function () {
                 if (this._size === 0) {
-                    throw new System.InvalidOperationException("Stack empty.");
+                    throw new System.InvalidOperationException.$ctor1("Stack empty.");
                 }
                 this._version = (this._version + 1) | 0;
                 var item = this._array[System.Array.index(((this._size = (this._size - 1) | 0)), this._array)];

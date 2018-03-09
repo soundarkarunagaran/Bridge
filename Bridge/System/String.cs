@@ -644,6 +644,9 @@ namespace System
         [Bridge.Template("System.String.startsWith({this}, {value})")]
         public extern bool StartsWith(string value);
 
+        [Bridge.Template("System.String.startsWith({this}, {value}, {ordinal})")]
+        public extern bool StartsWith(string value, StringComparison ordinal);
+
         /// <summary>
         /// Replaces the format item or items in a specified string with the string representation of the corresponding object. A parameter supplies culture-specific formatting information.
         /// </summary>

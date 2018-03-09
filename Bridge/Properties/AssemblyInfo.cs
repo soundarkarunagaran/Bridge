@@ -1,6 +1,7 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
+using System;
 
 [assembly: AssemblyTitle("Bridge")]
 [assembly: AssemblyProduct("Bridge")]
@@ -13,3 +14,4 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Bridge.ClientTest")]
 [assembly: InternalsVisibleTo("Bridge.ClientTest.Batch3")]
+[assembly: CLSCompliant(true)]

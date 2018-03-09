@@ -450,6 +450,7 @@ namespace System.Runtime.CompilerServices
     {
         public extern DecimalConstantAttribute(byte scale, byte sign, int hi, int mid, int low);
 
+        [CLSCompliant(false)]
         public extern DecimalConstantAttribute(byte scale, byte sign, uint hi, uint mid, uint low);
 
         public extern decimal Value

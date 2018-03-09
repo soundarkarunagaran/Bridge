@@ -17,7 +17,7 @@
             ctor: function (collection) {
                 this.$initialize();
                 if (collection == null) {
-                    throw new System.ArgumentNullException("collection");
+                    throw new System.ArgumentNullException.$ctor1("collection");
                 }
 
                 this._collection = collection;

@@ -43,7 +43,7 @@
                 var write = function (ch) {
                     if (hasBuffer) {
                         if (outputIndex >= outputBytes.length) {
-                            throw new System.ArgumentException("bytes");
+                            throw new System.ArgumentException.$ctor1("bytes");
                         }
 
                         outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
@@ -207,27 +207,27 @@
             },
             GetMaxByteCount: function (charCount) {
                 if (charCount < 0) {
-                    throw new System.ArgumentOutOfRangeException("charCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("charCount");
                 }
 
                 var byteCount = System.Int64(charCount).add(System.Int64(1));
                 byteCount = byteCount.shl(1);
 
                 if (byteCount.gt(System.Int64(2147483647))) {
-                    throw new System.ArgumentOutOfRangeException("charCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("charCount");
                 }
 
                 return System.Int64.clip32(byteCount);
             },
             GetMaxCharCount: function (byteCount) {
                 if (byteCount < 0) {
-                    throw new System.ArgumentOutOfRangeException("byteCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("byteCount");
                 }
 
                 var charCount = System.Int64((byteCount >> 1)).add(System.Int64((byteCount & 1))).add(System.Int64(1));
 
                 if (charCount.gt(System.Int64(2147483647))) {
-                    throw new System.ArgumentOutOfRangeException("byteCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("byteCount");
                 }
 
                 return System.Int64.clip32(charCount);

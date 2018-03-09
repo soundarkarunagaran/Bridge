@@ -42,7 +42,7 @@
             methods: {
                 ReadOnly: function (calendar) {
                     if (calendar == null) {
-                        throw new System.ArgumentNullException("calendar");
+                        throw new System.ArgumentNullException.$ctor1("calendar");
                     }
                     if (calendar.IsReadOnly) {
                         return (calendar);
@@ -55,7 +55,7 @@
                 },
                 CheckAddResult: function (ticks, minValue, maxValue) {
                     if (ticks.lt(System.DateTime.getTicks(minValue)) || ticks.gt(System.DateTime.getTicks(maxValue))) {
-                        throw new System.ArgumentException(System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, System.SR.Format$1("The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive.", Bridge.box(minValue, System.DateTime, System.DateTime.format), Bridge.box(maxValue, System.DateTime, System.DateTime.format)), null));
+                        throw new System.ArgumentException.$ctor1(System.String.formatProvider(System.Globalization.CultureInfo.invariantCulture, System.SR.Format$1("The result is out of the supported range for this calendar. The result should be between {0} (Gregorian date) and {1} (Gregorian date), inclusive.", Bridge.box(minValue, System.DateTime, System.DateTime.format), Bridge.box(maxValue, System.DateTime, System.DateTime.format)), null));
                     }
                 },
                 GetSystemTwoDigitYearSetting: function (CalID, defaultYearValue) {
@@ -152,7 +152,7 @@
                 if (this._isReadOnly) {
                     // TODO: SR
                     //throw new InvalidOperationException(SR.InvalidOperation_ReadOnly);
-                    throw new System.InvalidOperationException("Instance is read-only.");
+                    throw new System.InvalidOperationException.$ctor1("Instance is read-only.");
                 }
             },
             SetReadOnlyState: function (readOnly) {
@@ -170,7 +170,7 @@
                 if (!((tempMillis > -315537897600000.0) && (tempMillis < 315537897600000.0))) {
                     // TODO: SR
                     //throw new ArgumentOutOfRangeException(nameof(value), SR.ArgumentOutOfRange_AddValue);
-                    throw new System.ArgumentOutOfRangeException("value", "Value to add was out of range.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("value", "Value to add was out of range.");
                 }
 
                 var millis = Bridge.Int.clip64(tempMillis);
@@ -321,7 +321,7 @@
             },
             GetWeekOfYear: function (time, rule, firstDayOfWeek) {
                 if (firstDayOfWeek < 0 || firstDayOfWeek > 6) {
-                    throw new System.ArgumentOutOfRangeException("firstDayOfWeek", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), Bridge.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
+                    throw new System.ArgumentOutOfRangeException.$ctor4("firstDayOfWeek", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), Bridge.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
                 }
                 switch (rule) {
                     case 0: 
@@ -331,7 +331,7 @@
                     case 2: 
                         return (this.GetWeekOfYearFullDays(time, firstDayOfWeek, 4));
                 }
-                throw new System.ArgumentOutOfRangeException("rule", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), Bridge.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
+                throw new System.ArgumentOutOfRangeException.$ctor4("rule", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), Bridge.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
             },
             IsLeapDay: function (year, month, day) {
                 return (this.IsLeapDay$1(year, month, day, System.Globalization.Calendar.CurrentEra));
@@ -388,7 +388,7 @@
             },
             ToFourDigitYear: function (year) {
                 if (year < 0) {
-                    throw new System.ArgumentOutOfRangeException("year", "Non-negative number required.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("year", "Non-negative number required.");
                     // TODO: SR
                     //SR.ArgumentOutOfRange_NeedNonNegNum);
                 }

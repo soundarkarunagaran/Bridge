@@ -10,21 +10,27 @@ namespace System
         private extern UInt16(int i);
 
         [Bridge.InlineConst]
+        [CLSCompliant(false)]
         public const ushort MinValue = 0;
 
         [Bridge.InlineConst]
+        [CLSCompliant(false)]
         public const ushort MaxValue = 65535;
 
         [Bridge.Template("System.UInt16.parse({s})")]
+        [CLSCompliant(false)]
         public static extern ushort Parse(string s);
 
         [Bridge.Template("System.UInt16.parse({s}, {radix})")]
+        [CLSCompliant(false)]
         public static extern ushort Parse(string s, int radix);
 
         [Bridge.Template("System.UInt16.tryParse({s}, {result})")]
+        [CLSCompliant(false)]
         public static extern bool TryParse(string s, out ushort result);
 
         [Bridge.Template("System.UInt16.tryParse({s}, {result}, {radix})")]
+        [CLSCompliant(false)]
         public static extern bool TryParse(string s, out ushort result, int radix);
 
         public extern string ToString(int radix);
@@ -42,12 +48,14 @@ namespace System
         public extern string ToString(string format, IFormatProvider provider);
 
         [Bridge.Template("Bridge.compare({this}, {other})")]
+        [CLSCompliant(false)]
         public extern int CompareTo(ushort other);
 
         [Bridge.Template("Bridge.compare({this}, {obj})")]
         public extern int CompareTo(object obj);
 
         [Bridge.Template("{this} === {other}")]
+        [CLSCompliant(false)]
         public extern bool Equals(ushort other);
 
         [Bridge.Template("System.UInt16.equals({this}, {other})")]

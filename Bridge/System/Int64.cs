@@ -39,12 +39,14 @@ namespace System
         public static extern implicit operator long (byte value);
 
         //[Bridge.Template("System.Int64.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator long (sbyte value);
 
         //[Bridge.Template("System.Int64.lift({value})")]
         public static extern implicit operator long (short value);
 
         //[Bridge.Template("System.Int64.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator long (ushort value);
 
         //[Bridge.Template("System.Int64.lift({value})")]
@@ -54,6 +56,7 @@ namespace System
         public static extern implicit operator long (int value);
 
         //[Bridge.Template("System.Int64.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator long (uint value);
 
         //[Bridge.Template("System.Int64.lift(Bridge.Int.clip64({value}))")]
@@ -63,12 +66,14 @@ namespace System
         public static extern explicit operator long (double value);
 
         //[Bridge.Template("System.Int64.lift({value})")]
+        [CLSCompliant(false)]
         public static extern explicit operator long (ulong value);
 
         //[Bridge.Template("System.Int64.clip8({value})")]
         public static extern explicit operator byte (long value);
 
         //[Bridge.Template("System.Int64.clipu8({value})")]
+        [CLSCompliant(false)]
         public static extern explicit operator sbyte (long value);
 
         //[Bridge.Template("System.Int64.clipu16({value})")]
@@ -78,15 +83,18 @@ namespace System
         public static extern explicit operator short (long value);
 
         //[Bridge.Template("System.Int64.clipu16({value})")]
+        [CLSCompliant(false)]
         public static extern explicit operator ushort (long value);
 
         //[Bridge.Template("System.Int64.clip32({value})")]
         public static extern explicit operator int (long value);
 
         //[Bridge.Template("System.Int64.clipu32({value})")]
+        [CLSCompliant(false)]
         public static extern explicit operator uint (long value);
 
         //[Bridge.Template("System.UInt64.lift({value})")]
+        [CLSCompliant(false)]
         public static extern explicit operator ulong (long value);
 
         //[Bridge.Template("System.Int64.toNumber({value})")]

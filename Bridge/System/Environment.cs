@@ -20,17 +20,14 @@ namespace System
     /// Provides information about, and means to manipulate, the current environment and platform. This class cannot be inherited.
     /// Some methods have Bridge implementation that differ from .Net.
     /// </summary>
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public static class Environment
     {
 
-        [Bridge.Convention(Bridge.Notation.None)]
         internal static String GetResourceString(String key)
         {
             return key;
         }
 
-        [Bridge.Convention(Bridge.Notation.None)]
         internal static String GetResourceString(String key, params Object[] values)
         {
             String s = GetResourceString(key);
@@ -40,8 +37,7 @@ namespace System
         /// <summary>
         /// Specifies enumerated constants used to retrieve directory paths to system special folders.
         /// </summary>
-        [Bridge.External]
-        [Bridge.Enum(Bridge.Emit.Value)]
+        [Bridge.NonScriptable]
         public enum SpecialFolder
         {
             //
@@ -242,8 +238,7 @@ namespace System
         /// <summary>
         /// Specifies options to use for getting the path to a special folder.
         /// </summary>
-        [Bridge.External]
-        [Bridge.Enum(Bridge.Emit.Value)]
+        [Bridge.NonScriptable]
         public enum SpecialFolderOption
         {
             None = 0,

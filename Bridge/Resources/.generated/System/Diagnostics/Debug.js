@@ -40,7 +40,7 @@
                     this.s_indentSize = 4;
                     this.s_ShowAssertDialog = System.Diagnostics.Debug.ShowAssertDialog;
                     this.s_WriteCore = System.Diagnostics.Debug.WriteCore;
-                    this.s_shouldWriteToStdErr = Bridge.referenceEquals(System.Environment.getEnvironmentVariable("COMPlus_DebugWriteToStdErr"), "1");
+                    this.s_shouldWriteToStdErr = Bridge.referenceEquals(System.Environment.GetEnvironmentVariable("COMPlus_DebugWriteToStdErr"), "1");
                 }
             },
             methods: {
@@ -210,7 +210,7 @@
                         // Fail in order to avoid anyone catching an exception and masking
                         // an assert failure.
                         var ex = new System.Diagnostics.Debug.DebugAssertException(message, detailMessage, stackTrace);
-                        System.Environment.failFast$1(ex.Message, ex);
+                        System.Environment.FailFast$1(ex.Message, ex);
                     }
                 },
                 WriteCore: function (message) {

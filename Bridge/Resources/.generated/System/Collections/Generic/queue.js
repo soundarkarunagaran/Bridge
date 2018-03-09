@@ -59,7 +59,7 @@
             $ctor2: function (capacity) {
                 this.$initialize();
                 if (capacity < 0) {
-                    throw new System.ArgumentOutOfRangeException("capacity", "Non-negative number required.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("capacity", "Non-negative number required.");
                 }
                 this._array = System.Array.init(capacity, function (){
                     return Bridge.getDefaultValue(T);
@@ -68,7 +68,7 @@
             $ctor1: function (collection) {
                 this.$initialize();
                 if (collection == null) {
-                    throw new System.ArgumentNullException("collection");
+                    throw new System.ArgumentNullException.$ctor1("collection");
                 }
 
                 this._array = System.Array.init(System.Collections.Generic.Queue$1(T).DefaultCapacity, function (){
@@ -91,20 +91,20 @@
         methods: {
             copyTo: function (array, index) {
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
 
                 if (System.Array.getRank(array) !== 1) {
-                    throw new System.ArgumentException("Only single dimensional arrays are supported for the requested action.");
+                    throw new System.ArgumentException.$ctor1("Only single dimensional arrays are supported for the requested action.");
                 }
 
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
 
                 var arrayLen = array.length;
                 if (((arrayLen - index) | 0) < this._size) {
-                    throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                    throw new System.ArgumentException.$ctor1("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
                 }
 
                 var numToCopy = this._size;
@@ -122,16 +122,16 @@
             },
             CopyTo: function (array, arrayIndex) {
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
 
                 if (arrayIndex < 0 || arrayIndex > array.length) {
-                    throw new System.ArgumentOutOfRangeException("arrayIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("arrayIndex", "Index was out of range. Must be non-negative and less than the size of the collection.");
                 }
 
                 var arrayLen = array.length;
                 if (((arrayLen - arrayIndex) | 0) < this._size) {
-                    throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                    throw new System.ArgumentException.$ctor1("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
                 }
 
                 var numToCopy = (((arrayLen - arrayIndex) | 0) < this._size) ? (((arrayLen - arrayIndex) | 0)) : this._size;
@@ -184,7 +184,7 @@
             },
             Dequeue: function () {
                 if (this._size === 0) {
-                    throw new System.InvalidOperationException("Queue empty.");
+                    throw new System.InvalidOperationException.$ctor1("Queue empty.");
                 }
 
                 var removed = this._array[System.Array.index(this._head, this._array)];
@@ -196,7 +196,7 @@
             },
             Peek: function () {
                 if (this._size === 0) {
-                    throw new System.InvalidOperationException("Queue empty.");
+                    throw new System.InvalidOperationException.$ctor1("Queue empty.");
                 }
 
                 return this._array[System.Array.index(this._head, this._array)];

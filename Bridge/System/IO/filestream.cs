@@ -100,7 +100,7 @@ namespace System.IO
             */
             fileReader.OnError = (e) =>
             {
-                completer.SetException(new Bridge.ErrorException(e.As<dynamic>().target.error.As<string>()));
+                completer.SetException(new SystemException(e.As<dynamic>().target.error.As<string>()));
             };
             fileReader.ReadAsArrayBuffer(file);
 

@@ -21,7 +21,7 @@
             System$Collections$IEnumerator$Current: {
                 get: function () {
                     if (this._index === 0 || this._index === ((this._set._lastIndex + 1) | 0)) {
-                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
                     }
                     return this.Current;
                 }
@@ -49,7 +49,7 @@
             moveNext: function () {
                 var $t, $t1;
                 if (this._version !== this._set._version) {
-                    throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
+                    throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 while (this._index < this._set._lastIndex) {
                     if (($t = this._set._slots)[System.Array.index(this._index, $t)].hashCode >= 0) {
@@ -65,7 +65,7 @@
             },
             System$Collections$IEnumerator$reset: function () {
                 if (this._version !== this._set._version) {
-                    throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
+                    throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 this._index = 0;
                 this._current = Bridge.getDefaultValue(T);

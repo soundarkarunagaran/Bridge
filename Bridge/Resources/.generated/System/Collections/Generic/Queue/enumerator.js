@@ -17,9 +17,9 @@
                 get: function () {
                     if (this._index < 0) {
                         if (this._index === -1) {
-                            throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                            throw new System.InvalidOperationException.$ctor1("Enumeration has not started. Call MoveNext.");
                         } else {
-                            throw new System.InvalidOperationException("Enumeration already finished.");
+                            throw new System.InvalidOperationException.$ctor1("Enumeration already finished.");
                         }
                     }
                     return this._currentElement;
@@ -55,7 +55,7 @@
             },
             moveNext: function () {
                 if (this._version !== this._q._version) {
-                    throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
+                    throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
 
                 if (this._index === -2) {
@@ -75,7 +75,7 @@
             },
             System$Collections$IEnumerator$reset: function () {
                 if (this._version !== this._q._version) {
-                    throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
+                    throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 this._index = -1;
                 this._currentElement = Bridge.getDefaultValue(T);

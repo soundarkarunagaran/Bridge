@@ -14,7 +14,7 @@
             methods: {
                 Synchronized: function (stream) {
                     if (stream == null) {
-                        throw new System.ArgumentNullException("stream");
+                        throw new System.ArgumentNullException.$ctor1("stream");
                     }
 
                     return stream;
@@ -36,18 +36,18 @@
             },
             ReadTimeout: {
                 get: function () {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 },
                 set: function (value) {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 }
             },
             WriteTimeout: {
                 get: function () {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 },
                 set: function (value) {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 }
             }
         },
@@ -55,7 +55,7 @@
         methods: {
             CopyTo: function (destination) {
                 if (destination == null) {
-                    throw new System.ArgumentNullException("destination");
+                    throw new System.ArgumentNullException.$ctor1("destination");
                 }
                 if (!this.CanRead && !this.CanWrite) {
                     throw new System.Exception();
@@ -64,20 +64,20 @@
                     throw new System.Exception("destination");
                 }
                 if (!this.CanRead) {
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 }
                 if (!destination.CanWrite) {
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 }
 
                 this.InternalCopyTo(destination, System.IO.Stream._DefaultCopyBufferSize);
             },
             CopyTo$1: function (destination, bufferSize) {
                 if (destination == null) {
-                    throw new System.ArgumentNullException("destination");
+                    throw new System.ArgumentNullException.$ctor1("destination");
                 }
                 if (bufferSize <= 0) {
-                    throw new System.ArgumentOutOfRangeException("bufferSize");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("bufferSize");
                 }
                 if (!this.CanRead && !this.CanWrite) {
                     throw new System.Exception();
@@ -86,10 +86,10 @@
                     throw new System.Exception("destination");
                 }
                 if (!this.CanRead) {
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 }
                 if (!destination.CanWrite) {
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 }
 
                 this.InternalCopyTo(destination, bufferSize);
@@ -137,7 +137,7 @@
             },
             EndRead: function (asyncResult) {
                 if (asyncResult == null) {
-                    throw new System.ArgumentNullException("asyncResult");
+                    throw new System.ArgumentNullException.$ctor1("asyncResult");
                 }
 
                 return System.IO.Stream.BlockingEndRead(asyncResult);
@@ -153,7 +153,7 @@
             },
             EndWrite: function (asyncResult) {
                 if (asyncResult == null) {
-                    throw new System.ArgumentNullException("asyncResult");
+                    throw new System.ArgumentNullException.$ctor1("asyncResult");
                 }
 
                 System.IO.Stream.BlockingEndWrite(asyncResult);

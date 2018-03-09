@@ -140,7 +140,7 @@
             $ctor2: function (collection, comparer) {
                 System.Collections.Generic.HashSet$1(T).$ctor3.call(this, comparer);
                 if (collection == null) {
-                    throw new System.ArgumentNullException("collection");
+                    throw new System.ArgumentNullException.$ctor1("collection");
                 }
                 var suggestedCapacity = 0;
                 var coll = Bridge.as(collection, System.Collections.Generic.ICollection$1(T));
@@ -197,16 +197,16 @@
             },
             CopyTo$1: function (array, arrayIndex, count) {
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
                 if (arrayIndex < 0) {
-                    throw new System.ArgumentOutOfRangeException("arrayIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("arrayIndex");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
                 if (arrayIndex > array.length || count > ((array.length - arrayIndex) | 0)) {
-                    throw new System.ArgumentException("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
+                    throw new System.ArgumentException.$ctor1("Destination array is not long enough to copy all the items in the collection. Check array index and length.");
                 }
                 var numCopied = 0;
                 for (var i = 0; i < this._lastIndex && numCopied < count; i = (i + 1) | 0) {
@@ -257,7 +257,7 @@
             unionWith: function (other) {
                 var $t;
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 $t = Bridge.getEnumerator(other, T);
                 try {
@@ -272,7 +272,7 @@
                 }},
             intersectWith: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 if (this._count === 0) {
                     return;
@@ -294,7 +294,7 @@
             exceptWith: function (other) {
                 var $t;
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 if (this._count === 0) {
                     return;
@@ -316,7 +316,7 @@
                 }},
             symmetricExceptWith: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 if (this._count === 0) {
                     this.unionWith(other);
@@ -335,7 +335,7 @@
             },
             isSubsetOf: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 if (this._count === 0) {
                     return true;
@@ -353,7 +353,7 @@
             },
             isProperSubsetOf: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 var otherAsCollection = Bridge.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
@@ -373,7 +373,7 @@
             },
             isSupersetOf: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 var otherAsCollection = Bridge.as(other, System.Collections.Generic.ICollection$1(T));
                 if (otherAsCollection != null) {
@@ -391,7 +391,7 @@
             },
             isProperSupersetOf: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 if (this._count === 0) {
                     return false;
@@ -415,7 +415,7 @@
             overlaps: function (other) {
                 var $t;
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 if (this._count === 0) {
                     return false;
@@ -436,7 +436,7 @@
             },
             setEquals: function (other) {
                 if (other == null) {
-                    throw new System.ArgumentNullException("other");
+                    throw new System.ArgumentNullException.$ctor1("other");
                 }
                 var otherAsSet = Bridge.as(other, System.Collections.Generic.HashSet$1(T));
                 if (otherAsSet != null && System.Collections.Generic.HashSet$1(T).AreEqualityComparersEqual(this, otherAsSet)) {
@@ -457,7 +457,7 @@
             },
             RemoveWhere: function (match) {
                 if (Bridge.staticEquals(match, null)) {
-                    throw new System.ArgumentNullException("match");
+                    throw new System.ArgumentNullException.$ctor1("match");
                 }
                 var numRemoved = 0;
                 for (var i = 0; i < this._lastIndex; i = (i + 1) | 0) {
@@ -509,7 +509,7 @@
             IncreaseCapacity: function () {
                 var newSize = System.Collections.HashHelpers.ExpandPrime(this._count);
                 if (newSize <= this._count) {
-                    throw new System.ArgumentException("HashSet capacity is too big.");
+                    throw new System.ArgumentException.$ctor1("HashSet capacity is too big.");
                 }
                 this.SetCapacity(newSize, false);
             },

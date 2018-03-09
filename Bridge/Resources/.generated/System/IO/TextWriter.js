@@ -14,7 +14,7 @@
             methods: {
                 Synchronized: function (writer) {
                     if (writer == null) {
-                        throw new System.ArgumentNullException("writer");
+                        throw new System.ArgumentNullException.$ctor1("writer");
                     }
 
                     return writer;
@@ -78,16 +78,16 @@
             },
             Write$3: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 for (var i = 0; i < count; i = (i + 1) | 0) {

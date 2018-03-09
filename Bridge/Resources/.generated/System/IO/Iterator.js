@@ -48,7 +48,7 @@
                 return this.GetEnumerator();
             },
             System$Collections$IEnumerator$reset: function () {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             }
         }
     }; });

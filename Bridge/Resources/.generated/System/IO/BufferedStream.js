@@ -66,7 +66,7 @@
                 },
                 set: function (value) {
                     if (value.lt(System.Int64(0))) {
-                        throw new System.ArgumentOutOfRangeException("value");
+                        throw new System.ArgumentOutOfRangeException.$ctor1("value");
                     }
 
                     this.EnsureNotClosed();
@@ -95,11 +95,11 @@
                 System.IO.Stream.ctor.call(this);
 
                 if (stream == null) {
-                    throw new System.ArgumentNullException("stream");
+                    throw new System.ArgumentNullException.$ctor1("stream");
                 }
 
                 if (bufferSize <= 0) {
-                    throw new System.ArgumentOutOfRangeException("bufferSize");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("bufferSize");
                 }
 
                 this._stream = stream;
@@ -249,7 +249,7 @@
                 // However, since the user did not call a method that is intuitively expected to seek, a better message is in order.
                 // Ideally, we would throw an InvalidOperation here, but for backward compat we have to stick with NotSupported.
                 if (!this._stream.CanSeek) {
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 }
 
                 this.FlushRead();
@@ -296,16 +296,16 @@
             Read: function (array, offset, count) {
 
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
                 if (offset < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("offset");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
                 if (((array.length - offset) | 0) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 this.EnsureNotClosed();
@@ -416,16 +416,16 @@
                 count = {v:count};
 
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
                 if (offset.v < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("offset");
                 }
                 if (count.v < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
                 if (((array.length - offset.v) | 0) < count.v) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 this.EnsureNotClosed();
@@ -607,7 +607,7 @@
             SetLength: function (value) {
 
                 if (value.lt(System.Int64(0))) {
-                    throw new System.ArgumentOutOfRangeException("value");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("value");
                 }
 
                 this.EnsureNotClosed();

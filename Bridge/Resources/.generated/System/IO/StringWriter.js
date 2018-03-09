@@ -33,7 +33,7 @@
                 this.$initialize();
                 System.IO.TextWriter.$ctor1.call(this, formatProvider);
                 if (sb == null) {
-                    throw new System.ArgumentNullException("sb");
+                    throw new System.ArgumentNullException.$ctor1("sb");
                 }
                 this._sb = sb;
                 this._isOpen = true;
@@ -60,16 +60,16 @@
             },
             Write$3: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 if (!this._isOpen) {

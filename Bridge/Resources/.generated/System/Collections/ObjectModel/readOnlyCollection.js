@@ -71,7 +71,7 @@
             ctor: function (list) {
                 this.$initialize();
                 if (list == null) {
-                    throw new System.ArgumentNullException("list");
+                    throw new System.ArgumentNullException.$ctor1("list");
                 }
                 this.list = list;
             }
@@ -84,13 +84,13 @@
                 return System.Array.getItem(this.list, index, T);
             },
             System$Collections$Generic$IList$1$setItem: function (index, value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$IList$getItem: function (index) {
                 return System.Array.getItem(this.list, index, T);
             },
             System$Collections$IList$setItem: function (index, value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             contains: function (value) {
                 return System.Array.contains(this.list, value, T);
@@ -106,23 +106,23 @@
             },
             System$Collections$ICollection$copyTo: function (array, index) {
                 if (array == null) {
-                    throw new System.ArgumentNullException("array");
+                    throw new System.ArgumentNullException.$ctor1("array");
                 }
 
                 if (System.Array.getRank(array) !== 1) {
-                    throw new System.ArgumentException("array");
+                    throw new System.ArgumentException.$ctor1("array");
                 }
 
                 if (System.Array.getLower(array, 0) !== 0) {
-                    throw new System.ArgumentException("array");
+                    throw new System.ArgumentException.$ctor1("array");
                 }
 
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
 
                 if (((array.length - index) | 0) < this.Count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 var items = Bridge.as(array, System.Array.type(T));
@@ -138,7 +138,7 @@
                     var targetType = (Bridge.getType(array).$elementType || null);
                     var sourceType = T;
                     if (!(Bridge.Reflection.isAssignableFrom(targetType, sourceType) || Bridge.Reflection.isAssignableFrom(sourceType, targetType))) {
-                        throw new System.ArgumentException();
+                        throw new System.ArgumentException.ctor();
                     }
 
                     //
@@ -147,7 +147,7 @@
                     //
                     var objects = Bridge.as(array, System.Array.type(System.Object));
                     if (objects == null) {
-                        throw new System.ArgumentException();
+                        throw new System.ArgumentException.ctor();
                     }
 
                     var count = System.Array.getCount(this.list, T);
@@ -172,34 +172,34 @@
                 return -1;
             },
             System$Collections$Generic$ICollection$1$add: function (value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$IList$add: function (value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$Generic$ICollection$1$clear: function () {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$IList$clear: function () {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$Generic$IList$1$insert: function (index, value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$IList$insert: function (index, value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$Generic$ICollection$1$remove: function (value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$IList$remove: function (value) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$Generic$IList$1$removeAt: function (index) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             },
             System$Collections$IList$removeAt: function (index) {
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             }
         }
     }; });

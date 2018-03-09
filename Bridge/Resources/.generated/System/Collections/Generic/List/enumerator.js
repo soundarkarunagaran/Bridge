@@ -21,7 +21,7 @@
             System$Collections$IEnumerator$Current: {
                 get: function () {
                     if (this.index === 0 || this.index === ((this.list._size + 1) | 0)) {
-                        throw new System.InvalidOperationException();
+                        throw new System.InvalidOperationException.ctor();
                     }
                     return this.Current;
                 }
@@ -59,7 +59,7 @@
             },
             MoveNextRare: function () {
                 if (this.version !== this.list._version) {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 }
 
                 this.index = (this.list._size + 1) | 0;
@@ -68,7 +68,7 @@
             },
             System$Collections$IEnumerator$reset: function () {
                 if (this.version !== this.list._version) {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 }
 
                 this.index = 0;

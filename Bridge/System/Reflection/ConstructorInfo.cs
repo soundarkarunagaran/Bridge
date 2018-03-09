@@ -3,7 +3,7 @@ namespace System.Reflection
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Unbox(true)]
-    public class ConstructorInfo : MethodBase
+    public abstract partial class ConstructorInfo : MethodBase
     {
         [Bridge.Template("Bridge.Reflection.invokeCI({this}, {arguments:array})")]
         public extern object Invoke(params object[] arguments);

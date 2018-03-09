@@ -58,24 +58,24 @@
         methods: {
             TimerSetup: function (callback, state, dueTime, period) {
                 if (this.disposed) {
-                    throw new System.InvalidOperationException(System.Threading.Timer.EXC_DISPOSED);
+                    throw new System.InvalidOperationException.$ctor1(System.Threading.Timer.EXC_DISPOSED);
                 }
 
                 if (Bridge.staticEquals(callback, null)) {
-                    throw new System.ArgumentNullException("TimerCallback");
+                    throw new System.ArgumentNullException.$ctor1("TimerCallback");
                 }
 
                 if (dueTime.lt(System.Int64(-1))) {
-                    throw new System.ArgumentOutOfRangeException("dueTime", System.Threading.Timer.EXC_LESS);
+                    throw new System.ArgumentOutOfRangeException.$ctor4("dueTime", System.Threading.Timer.EXC_LESS);
                 }
                 if (period.lt(System.Int64(-1))) {
-                    throw new System.ArgumentOutOfRangeException("period", System.Threading.Timer.EXC_LESS);
+                    throw new System.ArgumentOutOfRangeException.$ctor4("period", System.Threading.Timer.EXC_LESS);
                 }
                 if (dueTime.gt(System.Int64(System.Threading.Timer.MAX_SUPPORTED_TIMEOUT))) {
-                    throw new System.ArgumentOutOfRangeException("dueTime", System.Threading.Timer.EXC_MORE);
+                    throw new System.ArgumentOutOfRangeException.$ctor4("dueTime", System.Threading.Timer.EXC_MORE);
                 }
                 if (period.gt(System.Int64(System.Threading.Timer.MAX_SUPPORTED_TIMEOUT))) {
-                    throw new System.ArgumentOutOfRangeException("period", System.Threading.Timer.EXC_MORE);
+                    throw new System.ArgumentOutOfRangeException.$ctor4("period", System.Threading.Timer.EXC_MORE);
                 }
 
                 this.dueTime = dueTime;
@@ -104,7 +104,7 @@
             RunTimer: function (period, checkDispose) {
                 if (checkDispose === void 0) { checkDispose = true; }
                 if (checkDispose && this.disposed) {
-                    throw new System.InvalidOperationException(System.Threading.Timer.EXC_DISPOSED);
+                    throw new System.InvalidOperationException.$ctor1(System.Threading.Timer.EXC_DISPOSED);
                 }
 
                 if (period.ne(System.Int64(-1)) && !this.disposed) {

@@ -135,19 +135,19 @@
                 },
                 toString$2: function (value, startIndex, length) {
                     if (value == null) {
-                        throw new System.ArgumentNullException("value");
+                        throw new System.ArgumentNullException.$ctor1("value");
                     }
 
                     if (startIndex < 0 || startIndex >= value.length && startIndex > 0) { // Don't throw for a 0 length array.
-                        throw new System.ArgumentOutOfRangeException("startIndex");
+                        throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                     }
 
                     if (length < 0) {
-                        throw new System.ArgumentOutOfRangeException("length");
+                        throw new System.ArgumentOutOfRangeException.$ctor1("length");
                     }
 
                     if (startIndex > ((value.length - length) | 0)) {
-                        throw new System.ArgumentException(System.BitConverter.arg_ArrayPlusOffTooSmall);
+                        throw new System.ArgumentException.$ctor1(System.BitConverter.arg_ArrayPlusOffTooSmall);
                     }
 
                     if (length === 0) {
@@ -156,7 +156,7 @@
 
                     if (length > (715827882)) {
                         // (Int32.MaxValue / 3) == 715,827,882 Bytes == 699 MB
-                        throw new System.ArgumentOutOfRangeException("length", Bridge.toString((715827882)));
+                        throw new System.ArgumentOutOfRangeException.$ctor4("length", Bridge.toString((715827882)));
                     }
 
                     var chArrayLength = Bridge.Int.mul(length, 3);
@@ -177,14 +177,14 @@
                 },
                 toString: function (value) {
                     if (value == null) {
-                        throw new System.ArgumentNullException("value");
+                        throw new System.ArgumentNullException.$ctor1("value");
                     }
 
                     return System.BitConverter.toString$2(value, 0, value.length);
                 },
                 toString$1: function (value, startIndex) {
                     if (value == null) {
-                        throw new System.ArgumentNullException("value");
+                        throw new System.ArgumentNullException.$ctor1("value");
                     }
 
                     return System.BitConverter.toString$2(value, startIndex, ((value.length - startIndex) | 0));
@@ -278,15 +278,15 @@
                 },
                 checkArguments: function (value, startIndex, size) {
                     if (value == null) {
-                        throw new System.ArgumentNullException("null");
+                        throw new System.ArgumentNullException.$ctor1("null");
                     }
 
                     if (System.Int64((startIndex >>> 0)).gte(System.Int64(value.length))) {
-                        throw new System.ArgumentOutOfRangeException("startIndex");
+                        throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                     }
 
                     if (startIndex > ((value.length - size) | 0)) {
-                        throw new System.ArgumentException(System.BitConverter.arg_ArrayPlusOffTooSmall);
+                        throw new System.ArgumentException.$ctor1(System.BitConverter.arg_ArrayPlusOffTooSmall);
                     }
                 }
             }

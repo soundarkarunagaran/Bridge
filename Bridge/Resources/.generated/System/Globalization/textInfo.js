@@ -30,7 +30,7 @@
             },
             VerifyWritable: function () {
                 if (this.IsReadOnly) {
-                    throw new System.InvalidOperationException("Instance is read-only.");
+                    throw new System.InvalidOperationException.$ctor1("Instance is read-only.");
                 }
             }
         }

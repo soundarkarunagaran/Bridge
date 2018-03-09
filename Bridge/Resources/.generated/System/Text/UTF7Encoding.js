@@ -50,7 +50,7 @@
                     var recorded = 0;
 
                     if (arr.length > (((outputBytes.length - outputIndex) | 0))) {
-                        throw new System.ArgumentException("bytes");
+                        throw new System.ArgumentException.$ctor1("bytes");
                     }
 
                     for (var j = 0; j < arr.length; j = (j + 1) | 0) {
@@ -83,20 +83,20 @@
             },
             GetMaxByteCount: function (charCount) {
                 if (charCount < 0) {
-                    throw new System.ArgumentOutOfRangeException("charCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("charCount");
                 }
 
                 var byteCount = System.Int64(charCount).mul(System.Int64(3)).add(System.Int64(2));
 
                 if (byteCount.gt(System.Int64(2147483647))) {
-                    throw new System.ArgumentOutOfRangeException("charCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("charCount");
                 }
 
                 return System.Int64.clip32(byteCount);
             },
             GetMaxCharCount: function (byteCount) {
                 if (byteCount < 0) {
-                    throw new System.ArgumentOutOfRangeException("byteCount");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("byteCount");
                 }
 
                 var charCount = byteCount;

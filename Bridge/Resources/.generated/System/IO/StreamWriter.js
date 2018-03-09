@@ -92,13 +92,13 @@
                 this.$initialize();
                 System.IO.TextWriter.$ctor1.call(this, null);
                 if (stream == null || encoding == null) {
-                    throw new System.ArgumentNullException((stream == null ? "stream" : "encoding"));
+                    throw new System.ArgumentNullException.$ctor1((stream == null ? "stream" : "encoding"));
                 }
                 if (!stream.CanWrite) {
-                    throw new System.ArgumentException("Argument_StreamNotWritable");
+                    throw new System.ArgumentException.$ctor1("Argument_StreamNotWritable");
                 }
                 if (bufferSize <= 0) {
-                    throw new System.ArgumentOutOfRangeException("bufferSize", "ArgumentOutOfRange_NeedPosNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("bufferSize", "ArgumentOutOfRange_NeedPosNum");
                 }
 
                 this.Init(stream, encoding, bufferSize, leaveOpen);
@@ -118,7 +118,7 @@
             $ctor9: function (path, append, encoding, bufferSize, checkHost) {
                 this.$initialize();
                 System.IO.TextWriter.$ctor1.call(this, null);
-                throw new System.NotSupportedException();
+                throw new System.NotSupportedException.ctor();
             }
         },
         methods: {
@@ -252,16 +252,16 @@
             },
             Write$3: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("index", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException("Argument_InvalidOffLen");
+                    throw new System.ArgumentException.$ctor1("Argument_InvalidOffLen");
                 }
 
                 while (count > 0) {

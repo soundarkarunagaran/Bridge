@@ -49,7 +49,7 @@
             },
             EndRead: function (asyncResult) {
                 if (asyncResult == null) {
-                    throw new System.ArgumentNullException("asyncResult");
+                    throw new System.ArgumentNullException.$ctor1("asyncResult");
                 }
 
                 return System.IO.Stream.BlockingEndRead(asyncResult);
@@ -63,7 +63,7 @@
             },
             EndWrite: function (asyncResult) {
                 if (asyncResult == null) {
-                    throw new System.ArgumentNullException("asyncResult");
+                    throw new System.ArgumentNullException.$ctor1("asyncResult");
                 }
 
                 System.IO.Stream.BlockingEndWrite(asyncResult);

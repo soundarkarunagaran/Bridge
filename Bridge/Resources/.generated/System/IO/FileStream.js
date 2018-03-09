@@ -9,7 +9,7 @@
                         completer.setResult(new System.IO.FileStream.ctor(fileReader.result, file.name));
                     };
                     fileReader.onerror = function (e) {
-                        completer.setException(new Bridge.ErrorException(Bridge.unbox(e).target.error.As()));
+                        completer.setException(new System.SystemException.$ctor1(Bridge.unbox(e).target.error.As()));
                     };
                     fileReader.readAsArrayBuffer(file);
 
@@ -131,13 +131,13 @@
         methods: {
             Flush: function () { },
             Seek: function (offset, origin) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             SetLength: function (value) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             Write: function (buffer, offset, count) {
-                throw new System.NotImplementedException();
+                throw new System.NotImplementedException.ctor();
             },
             GetInternalBuffer: function () {
                 if (this._buffer == null) {
@@ -201,19 +201,19 @@
             },
             Read: function (buffer, offset, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
 
                 if (offset < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("offset");
                 }
 
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
 
                 if ((((buffer.length - offset) | 0)) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 var num = this.Length.sub(this.Position);

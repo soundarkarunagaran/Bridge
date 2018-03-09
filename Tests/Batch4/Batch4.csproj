@@ -53,7 +53,6 @@
     <Compile Include="CustomInitializationTests.cs" />
     <Compile Include="Exceptions\ContractExceptionTests.cs" />
     <Compile Include="UserDefinedStructTests.cs" />
-    <Compile Include="Exceptions\JsErrorExceptionTests.cs" />
     <Compile Include="SimpleTypes\CharTests.cs" />
     <Compile Include="Web\HttpUtilityTests.cs" />
     <Compile Include="Runtime\CompilerServices\RuntimeHelpersTests.cs" />

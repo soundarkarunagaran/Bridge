@@ -99,7 +99,7 @@
             },
             Next$2: function (minValue, maxValue) {
                 if (minValue > maxValue) {
-                    throw new System.ArgumentOutOfRangeException("minValue", "'minValue' cannot be greater than maxValue.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("minValue", "'minValue' cannot be greater than maxValue.");
                 }
 
                 var range = System.Int64(maxValue).sub(System.Int64(minValue));
@@ -111,7 +111,7 @@
             },
             Next$1: function (maxValue) {
                 if (maxValue < 0) {
-                    throw new System.ArgumentOutOfRangeException("maxValue", "'maxValue' must be greater than zero.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("maxValue", "'maxValue' must be greater than zero.");
                 }
                 return Bridge.Int.clip32(this.Sample() * maxValue);
             },
@@ -137,7 +137,7 @@
             },
             NextBytes: function (buffer) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 for (var i = 0; i < buffer.length; i = (i + 1) | 0) {
                     buffer[System.Array.index(i, buffer)] = (this.InternalSample() % (256)) & 255;

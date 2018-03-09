@@ -100,7 +100,7 @@
                 },
                 GetPrime: function (min) {
                     if (min < 0) {
-                        throw new System.ArgumentException("Hashtable's capacity overflowed and went negative. Check load factor, capacity and the current size of the table.");
+                        throw new System.ArgumentException.$ctor1("Hashtable's capacity overflowed and went negative. Check load factor, capacity and the current size of the table.");
                     }
                     for (var i = 0; i < System.Collections.HashHelpers.primes.length; i = (i + 1) | 0) {
                         var prime = System.Collections.HashHelpers.primes[System.Array.index(i, System.Collections.HashHelpers.primes)];

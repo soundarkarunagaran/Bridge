@@ -13,17 +13,17 @@
         ctors: {
             ctor: function () {
                 this.$initialize();
-                System.SystemException.ctor.call(this, System.Runtime.Serialization.SerializationException.s_nullMessage);
+                System.SystemException.$ctor1.call(this, System.Runtime.Serialization.SerializationException.s_nullMessage);
                 this.HResult = -2146233076;
             },
             $ctor1: function (message) {
                 this.$initialize();
-                System.SystemException.ctor.call(this, message);
+                System.SystemException.$ctor1.call(this, message);
                 this.HResult = -2146233076;
             },
             $ctor2: function (message, innerException) {
                 this.$initialize();
-                System.SystemException.ctor.call(this, message, innerException);
+                System.SystemException.$ctor2.call(this, message, innerException);
                 this.HResult = -2146233076;
             }
         }

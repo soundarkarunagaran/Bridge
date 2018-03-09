@@ -36,13 +36,18 @@
         "Resources/Nullable.js",
         "Resources/Char.js",
 
+        "Resources/.generated/System/IConvertible.js",
         "Resources/.generated/System/HResults.js",
         "Resources/Exception.js",
+        "Resources/.generated/System/SystemException.js",
+        "Resources/.generated/System/OutOfMemoryException.js",
 
         "Resources/.generated/System/Resources/MissingManifestResourceException.js",
 
         "Resources/.generated/System/Globalization/TextInfo.js",
         "Resources/Globalization.js",
+
+        "Resources/.generated/System/Environment.js",
 
         "Resources/Math.js",
         "Resources/Bool.js",
@@ -70,6 +75,7 @@
         "Resources/Collections/Dictionary.js",
 
         "Resources/.generated/System/Collections/Generic/List.js",
+        "Resources/.generated/System/Collections/Generic/KeyNotFoundException.js",
         "Resources/Collections/List.js",
 
         "Resources/String.js",
@@ -86,6 +92,8 @@
         "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
 
         "Resources/.generated/System/Runtime/Serialization/IDeserializationCallback.js",
+        "Resources/.generated/System/Runtime/Serialization/IFormatterConverter.js",
+        "Resources/.generated/System/Runtime/Serialization/IObjectReference.js",
         "Resources/.generated/System/Runtime/Serialization/ISerializable.js",
         "Resources/.generated/System/Runtime/Serialization/SerializationEntry.js",
         "Resources/.generated/System/Runtime/Serialization/SerializationException.js",
@@ -139,22 +147,42 @@
 
         "Resources/.generated/System/Console.js",
         "Resources/.generated/System/TokenType.js",
+        "Resources/.generated/System/UnitySerializationHolder.js",
         "Resources/.generated/System/DateTimeKind.js",
         "Resources/.generated/System/DateTimeOffset.js",
         "Resources/.generated/System/DateTimeParse.js",
         "Resources/.generated/System/DateTimeResult.js",
         "Resources/.generated/System/DayOfWeek.js",
-        "Resources/.generated/System/Environment.js",
+
+        "Resources/.generated/System/DBNull.js",
+        "Resources/.generated/System/Empty.js",
+
+        "Resources/.generated/System/ApplicationException.js",
+        "Resources/.generated/System/ArgumentException.js",
+        "Resources/.generated/System/ArgumentNullException.js",
+        "Resources/.generated/System/ArgumentOutOfRangeException.js",
+        "Resources/.generated/System/ArithmeticException.js",
+        "Resources/.generated/System/Base64FormattingOptions.js",
+        "Resources/.generated/System/DivideByZeroException.js",
+
         "Resources/.generated/System/ExceptionArgument.js",
         "Resources/.generated/System/ExceptionResource.js",
+        "Resources/.generated/System/FormatException.js",
+
         "Resources/.generated/System/FormattableString.js",
         "Resources/.generated/System/FormattableStringImpl.js",
         "Resources/.generated/System/Guid.js",
+
+        "Resources/.generated/System/IndexOutOfRangeException.js",
+        "Resources/.generated/System/InvalidCastException.js",
+        "Resources/.generated/System/InvalidOperationException.js",
+        "Resources/.generated/System/InvalidProgramException.js",
 
         "Resources/.generated/System/Globalization/Calendar.js",
         "Resources/.generated/System/Globalization/CalendarAlgorithmType.js",
         "Resources/.generated/System/Globalization/CalendarId.js",
         "Resources/.generated/System/Globalization/CalendarWeekRule.js",
+        "Resources/.generated/System/Globalization/CultureNotFoundException.js",
         "Resources/.generated/System/Globalization/DateTimeFormatInfoScanner.js",
         "Resources/.generated/System/Globalization/DateTimeStyles.js",
         "Resources/.generated/System/Globalization/FORMATFLAGS.js",
@@ -163,6 +191,12 @@
         "Resources/.generated/System/Globalization/DateTimeFormatInfoScanner/FoundDatePattern.js",
 
         "Resources/.generated/System/NotImplemented.js",
+        "Resources/.generated/System/NotImplementedException.js",
+        "Resources/.generated/System/NotSupportedException.js",
+        "Resources/.generated/System/NullReferenceException.js",
+        "Resources/.generated/System/OperationCanceledException.js",
+        "Resources/.generated/System/OverflowException.js",
+
         "Resources/.generated/System/ParseFailureKind.js",
         "Resources/.generated/System/ParseFlags.js",
 
@@ -192,12 +226,29 @@
         "Resources/.generated/System/IO/TextWriter/NullTextWriter.js",
         "Resources/.generated/System/IO/__Error.js",
 
+        "Resources/.generated/System/Reflection/AmbiguousMatchException.js",
+        "Resources/.generated/System/Reflection/Binder.js",
+        "Resources/.generated/System/Reflection/BindingFlags.js",
+        "Resources/.generated/System/Reflection/CallingConventions.js",
+        "Resources/.generated/System/Reflection/ICustomAttributeProvider.js",
+        "Resources/.generated/System/Reflection/InvalidFilterCriteriaException.js",
+        "Resources/.generated/System/Reflection/IReflect.js",
+        "Resources/.generated/System/Reflection/MemberTypes.js",
+        "Resources/.generated/System/Reflection/Module.js",
+        "Resources/.generated/System/Reflection/ParameterModifier.js",
         "Resources/.generated/System/Reflection/TypeAttributes.js",
 
         "Resources/.generated/System/Random.js",
+        "Resources/.generated/System/RankException.js",
 
         "Resources/.generated/System/SR.js",
+        "Resources/.generated/System/StringComparison.js",
+        "Resources/AggregateException.js",
+        "Resources/PromiseException.js",
         "Resources/.generated/System/ThrowHelper.js",
+        "Resources/.generated/System/TimeoutException.js",
+
+        "Resources/RegexMatchTimeoutException.js",
 
         "Resources/.generated/System/Text/Encoding.js",
         "Resources/.generated/System/Text/ASCIIEncoding.js",
@@ -209,6 +260,9 @@
         "Resources/.generated/System/Text/UTF8Encoding.js",
 
         "Resources/.generated/System/Threading/Timer.js",
+
+        "Resources/.generated/System/Threading/Tasks/TaskCanceledException.js",
+        "Resources/.generated/System/Threading/Tasks/TaskSchedulerException.js",
 
         "Resources/.generated/System/Version.js",
         "Resources/.generated/System/Version/ParseFailureKind.js",

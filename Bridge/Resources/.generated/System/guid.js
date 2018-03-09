@@ -92,11 +92,11 @@
             $ctor1: function (b) {
                 this.$initialize();
                 if (b == null) {
-                    throw new System.ArgumentNullException("b");
+                    throw new System.ArgumentNullException.$ctor1("b");
                 }
 
                 if (b.length !== 16) {
-                    throw new System.ArgumentException(System.String.format(System.Guid.error1, [Bridge.box(16, System.Int32)]));
+                    throw new System.ArgumentException.$ctor1(System.String.format(System.Guid.error1, [Bridge.box(16, System.Int32)]));
                 }
 
                 this._a = (b[System.Array.index(3, b)] << 24) | (b[System.Array.index(2, b)] << 16) | (b[System.Array.index(1, b)] << 8) | b[System.Array.index(0, b)];
@@ -128,11 +128,11 @@
             $ctor3: function (a, b, c, d) {
                 this.$initialize();
                 if (d == null) {
-                    throw new System.ArgumentNullException("d");
+                    throw new System.ArgumentNullException.$ctor1("d");
                 }
 
                 if (d.length !== 8) {
-                    throw new System.ArgumentException(System.String.format(System.Guid.error1, [Bridge.box(8, System.Int32)]));
+                    throw new System.ArgumentException.$ctor1(System.String.format(System.Guid.error1, [Bridge.box(8, System.Int32)]));
                 }
 
                 this._a = a;
@@ -222,7 +222,7 @@
 
                 if (System.String.isNullOrEmpty(input)) {
                     if (check) {
-                        throw new System.ArgumentNullException("input");
+                        throw new System.ArgumentNullException.$ctor1("input");
                     }
                     return false;
                 }
@@ -281,7 +281,7 @@
                 }
 
                 if (check) {
-                    throw new System.FormatException("input is not in a recognized format");
+                    throw new System.FormatException.$ctor1("input is not in a recognized format");
                 }
 
                 return false;

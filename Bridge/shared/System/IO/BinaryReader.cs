@@ -163,6 +163,7 @@ namespace System.IO
             return (byte)b;
         }
 
+        [CLSCompliant(false)]
         public virtual sbyte ReadSByte()
         {
             FillBuffer(1);
@@ -185,6 +186,7 @@ namespace System.IO
             return (short)(m_buffer[0] | m_buffer[1] << 8);
         }
 
+        [CLSCompliant(false)]
         public virtual ushort ReadUInt16()
         {
             FillBuffer(2);
@@ -209,6 +211,7 @@ namespace System.IO
             }
         }
 
+        [CLSCompliant(false)]
         public virtual uint ReadUInt32()
         {
             FillBuffer(4);
@@ -225,6 +228,7 @@ namespace System.IO
             return (long)((ulong)hi) << 32 | lo;
         }
 
+        [CLSCompliant(false)]
         public virtual ulong ReadUInt64()
         {
             FillBuffer(8);

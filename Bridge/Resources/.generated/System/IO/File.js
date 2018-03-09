@@ -3,7 +3,7 @@
             methods: {
                 OpenText: function (path) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     return new System.IO.StreamReader.$ctor7(path);
                 },
@@ -12,23 +12,23 @@
                 },
                 ReadAllText: function (path) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     if (path.length === 0) {
-                        throw new System.ArgumentException("Argument_EmptyPath");
+                        throw new System.ArgumentException.$ctor1("Argument_EmptyPath");
                     }
 
                     return System.IO.File.InternalReadAllText(path, System.Text.Encoding.UTF8, true);
                 },
                 ReadAllText$1: function (path, encoding) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     if (encoding == null) {
-                        throw new System.ArgumentNullException("encoding");
+                        throw new System.ArgumentNullException.$ctor1("encoding");
                     }
                     if (path.length === 0) {
-                        throw new System.ArgumentException("Argument_EmptyPath");
+                        throw new System.ArgumentException.$ctor1("Argument_EmptyPath");
                     }
 
                     return System.IO.File.InternalReadAllText(path, encoding, true);
@@ -78,23 +78,23 @@
                 },
                 ReadAllLines: function (path) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     if (path.length === 0) {
-                        throw new System.ArgumentException("Argument_EmptyPath");
+                        throw new System.ArgumentException.$ctor1("Argument_EmptyPath");
                     }
 
                     return System.IO.File.InternalReadAllLines(path, System.Text.Encoding.UTF8);
                 },
                 ReadAllLines$1: function (path, encoding) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     if (encoding == null) {
-                        throw new System.ArgumentNullException("encoding");
+                        throw new System.ArgumentNullException.$ctor1("encoding");
                     }
                     if (path.length === 0) {
-                        throw new System.ArgumentException("Argument_EmptyPath");
+                        throw new System.ArgumentException.$ctor1("Argument_EmptyPath");
                     }
 
                     return System.IO.File.InternalReadAllLines(path, encoding);
@@ -120,23 +120,23 @@
                 },
                 ReadLines: function (path) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     if (path.length === 0) {
-                        throw new System.ArgumentException("Argument_EmptyPath", "path");
+                        throw new System.ArgumentException.$ctor3("Argument_EmptyPath", "path");
                     }
 
                     return System.IO.ReadLinesIterator.CreateIterator(path, System.Text.Encoding.UTF8);
                 },
                 ReadLines$1: function (path, encoding) {
                     if (path == null) {
-                        throw new System.ArgumentNullException("path");
+                        throw new System.ArgumentNullException.$ctor1("path");
                     }
                     if (encoding == null) {
-                        throw new System.ArgumentNullException("encoding");
+                        throw new System.ArgumentNullException.$ctor1("encoding");
                     }
                     if (path.length === 0) {
-                        throw new System.ArgumentException("Argument_EmptyPath", "path");
+                        throw new System.ArgumentException.$ctor3("Argument_EmptyPath", "path");
                     }
 
                     return System.IO.ReadLinesIterator.CreateIterator(path, encoding);

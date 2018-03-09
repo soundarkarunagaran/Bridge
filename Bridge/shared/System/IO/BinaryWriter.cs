@@ -154,6 +154,7 @@ namespace System.IO
         // Writes a signed byte to this stream. The current position of the stream
         // is advanced by one.
         //
+        [CLSCompliant(false)]
         public virtual void Write(sbyte value)
         {
             OutStream.WriteByte((byte)value);
@@ -263,6 +264,7 @@ namespace System.IO
         // Writes a two-byte unsigned integer to this stream. The current position
         // of the stream is advanced by two.
         //
+        [CLSCompliant(false)]
         public virtual void Write(ushort value)
         {
             _buffer[0] = (byte)value;
@@ -285,6 +287,7 @@ namespace System.IO
         // Writes a four-byte unsigned integer to this stream. The current position
         // of the stream is advanced by four.
         //
+        [CLSCompliant(false)]
         public virtual void Write(uint value)
         {
             _buffer[0] = (byte)value;
@@ -313,6 +316,7 @@ namespace System.IO
         // Writes an eight-byte unsigned integer to this stream. The current
         // position of the stream is advanced by eight.
         //
+        [CLSCompliant(false)]
         public virtual void Write(ulong value)
         {
             _buffer[0] = (byte)value;

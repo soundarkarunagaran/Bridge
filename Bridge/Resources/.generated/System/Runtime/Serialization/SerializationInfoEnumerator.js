@@ -17,7 +17,7 @@
             Current: {
                 get: function () {
                     if (this._current === false) {
-                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
                         // TODO: SR
                         //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
                     }
@@ -27,7 +27,7 @@
             Name: {
                 get: function () {
                     if (this._current === false) {
-                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
                         // TODO: SR
                         //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
                     }
@@ -37,7 +37,7 @@
             Value: {
                 get: function () {
                     if (this._current === false) {
-                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
                         // TODO: SR
                         //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
                     }
@@ -47,7 +47,7 @@
             ObjectType: {
                 get: function () {
                     if (this._current === false) {
-                        throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
                         // TODO: SR
                         //throw new InvalidOperationException(SR.InvalidOperation_EnumOpCantHappen);
                     }
