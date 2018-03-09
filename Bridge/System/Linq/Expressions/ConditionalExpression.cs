@@ -6,13 +6,13 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 8")]
     public sealed class ConditionalExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression Test { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression IfTrue { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression IfFalse { get; private set; }
 
         internal extern ConditionalExpression();

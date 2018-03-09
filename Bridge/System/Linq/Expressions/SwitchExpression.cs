@@ -9,16 +9,16 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 59")]
     public sealed class SwitchExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression SwitchValue { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<SwitchCase> Cases { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression DefaultBody { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern MethodInfo Comparison { get; private set; }
 
         internal extern SwitchExpression();

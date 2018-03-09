@@ -6,7 +6,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype == 50 && {this}.dtype === 2")]
     public sealed class DynamicIndexExpression : DynamicExpression
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression Argument { get; private set; }
 
         internal extern DynamicIndexExpression();

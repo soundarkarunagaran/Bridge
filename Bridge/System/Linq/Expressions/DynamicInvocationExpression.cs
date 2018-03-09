@@ -8,7 +8,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype == 50 && {this}.dtype === 1")]
     public sealed class DynamicInvocationExpression : DynamicExpression
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         internal extern DynamicInvocationExpression();

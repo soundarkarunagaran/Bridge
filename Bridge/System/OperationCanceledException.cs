@@ -23,7 +23,7 @@ namespace System
         [Bridge.Template("new System.OperationCanceledException({message}, {token}, {innerException})")]
         public extern OperationCanceledException(string message, Exception innerException, CancellationToken token);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern CancellationToken CancellationToken
         {
             get;

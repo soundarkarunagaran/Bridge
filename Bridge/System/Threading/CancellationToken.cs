@@ -7,7 +7,7 @@ namespace System.Threading
     {
         public extern CancellationToken(bool canceled);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public static extern CancellationToken None
         {
             get;

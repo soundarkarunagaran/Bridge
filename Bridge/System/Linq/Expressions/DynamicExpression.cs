@@ -9,7 +9,7 @@ namespace System.Linq.Expressions
         [Bridge.Name("dtype")]
         public extern DynamicExpressionType DynamicType { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression Expression { get; private set; }
 
         internal extern DynamicExpression();

@@ -8,10 +8,10 @@ namespace System.Linq.Expressions
     [Bridge.Name("System.Object")]
     public sealed class ElementInit
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern MethodInfo AddMethod { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         internal extern ElementInit();

@@ -1,30 +1,3 @@
-    System.Diagnostics.Debug = {
-        writeln: function (text) {
-            if (Bridge.global.console && Bridge.global.console.debug) {
-                Bridge.global.console.debug(text);
-            }
-        },
-
-        _fail: function (message) {
-            System.Diagnostics.Debug.writeln(message);
-            debugger;
-        },
-
-        assert: function (condition, message) {
-            if (!condition) {
-                message = 'Assert failed: ' + message;
-
-                if (confirm(message + '\r\n\r\nBreak into debugger?')) {
-                    System.Diagnostics.Debug._fail(message);
-                }
-            }
-        },
-
-        fail: function (message) {
-            System.Diagnostics.Debug._fail(message);
-        }
-    }
-
     Bridge.define("System.Diagnostics.Stopwatch", {
         ctor: function () {
             this.$initialize();
@@ -96,13 +69,13 @@
         }
     });
 
-    if (typeof (window) !== 'undefined' && window.performance && window.performance.now) {
+    if (typeof (window) !== "undefined" && window.performance && window.performance.now) {
         System.Diagnostics.Stopwatch.frequency = new System.Int64(1e6);
         System.Diagnostics.Stopwatch.isHighResolution = true;
         System.Diagnostics.Stopwatch.getTimestamp = function () {
             return new System.Int64(Math.round(window.performance.now() * 1000));
         };
-    } else if (typeof (process) !== 'undefined' && process.hrtime) {
+    } else if (typeof (process) !== "undefined" && process.hrtime) {
         System.Diagnostics.Stopwatch.frequency = new System.Int64(1e9);
         System.Diagnostics.Stopwatch.isHighResolution = true;
         System.Diagnostics.Stopwatch.getTimestamp = function () {

@@ -63,6 +63,17 @@
     <Compile Include="shared\System\ArrayTypeMismatchException.cs" />
     <Compile Include="shared\System\Collections\Generic\ICollectionDebugView.cs" />
     <Compile Include="shared\System\Collections\Generic\IDictionaryDebugView.cs" />
+    <Compile Include="shared\System\Diagnostics\ConditionalAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\Debug.cs" />
+    <Compile Include="shared\System\Diagnostics\Debug.Unix.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerBrowsableAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerDisplayAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerHiddenAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerNonUserCodeAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerStepperBoundaryAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerStepThroughAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerTypeProxyAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\DebuggerVisualizerAttribute.cs" />
     <Compile Include="shared\System\Diagnostics\StackTraceHiddenAttribute.cs" />
     <Compile Include="shared\System\Globalization\DateTimeParse.cs" />
     <Compile Include="shared\System\HResults.cs" />
@@ -74,6 +85,7 @@
     <Compile Include="shared\System\Runtime\Serialization\SerializationException.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationInfoEnumerator.cs" />
     <Compile Include="shared\System\Runtime\Serialization\StreamingContext.cs" />
+    <Compile Include="shared\System\ThreadStaticAttribute.cs" />
     <Compile Include="shared\System\Void.cs" />
     <Compile Include="System\Attributes\SecurityCriticalAttribute.cs" />
     <Compile Include="System\Attributes\SecuritySafeCriticalAttribute.cs" />
@@ -89,10 +101,7 @@
     <Compile Include="shared\System\SR.cs" />
     <Compile Include="shared\System\ThrowHelper.cs" />
     <Compile Include="System\AsyncCallback.cs" />
-    <Compile Include="System\Attributes\CLSCompliantAttribute.cs" />
-    <Compile Include="System\Attributes\DataContractAttribute.cs" />
-    <Compile Include="System\Attributes\DataMemberAttribute.cs" />
-    <Compile Include="System\Attributes\DebuggerDisplayAttribute.cs" />
+    <Compile Include="shared\System\CLSCompliantAttribute.cs" />
     <Compile Include="System\Attributes\HostProtectionAttribute.cs" />
     <Compile Include="System\Attributes\MethodImplAttribute.cs" />
     <Compile Include="System\Attributes\NonSerializedAttribute.cs" />
@@ -290,7 +299,6 @@
     <Compile Include="shared\System\Collections\ObjectModel\ReadOnlyCollection.cs" />
     <Compile Include="System\Comparison.cs" />
     <Compile Include="System\Converter.cs" />
-    <Compile Include="System\Diagnostics\ConditionalAttribute.cs" />
     <Compile Include="System\Diagnostics\Contracts\Contract.cs" />
     <Compile Include="System\Diagnostics\Contracts\ContractAbbreviatorAttribute.cs" />
     <Compile Include="System\Diagnostics\Contracts\ContractArgumentValidatorAttribute.cs" />
@@ -306,8 +314,7 @@
     <Compile Include="System\Diagnostics\Contracts\ContractRuntimeIgnoredAttribute.cs" />
     <Compile Include="System\Diagnostics\Contracts\ContractVerificationAttribute.cs" />
     <Compile Include="System\Diagnostics\Contracts\PureAttribute.cs" />
-    <Compile Include="System\Diagnostics\Debug.cs" />
-    <Compile Include="System\Diagnostics\Debugger.cs" />
+    <Compile Include="runtime\Debugger.cs" />
     <Compile Include="System\Diagnostics\Stopwatch.cs" />
     <Compile Include="System\Diagnostics\SuppressMessageAttribute.cs" />
     <Compile Include="System\Convert.cs" />
@@ -495,6 +502,9 @@
     <Content Include="Resources\.generated\System\DateTimeParse.js" />
     <Content Include="Resources\.generated\System\DateTimeResult.js" />
     <Content Include="Resources\.generated\System\DayOfWeek.js" />
+    <Content Include="Resources\.generated\System\Diagnostics\Debug.js" />
+    <Content Include="Resources\.generated\System\Diagnostics\Debugger.js" />
+    <Content Include="Resources\.generated\System\Diagnostics\Debug\DebugAssertException.js" />
     <Content Include="Resources\.generated\System\Environment.js" />
     <Content Include="Resources\.generated\System\ExceptionArgument.js" />
     <Content Include="Resources\.generated\System\ExceptionResource.js" />

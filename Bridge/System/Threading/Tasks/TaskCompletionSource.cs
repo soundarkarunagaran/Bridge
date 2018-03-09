@@ -11,7 +11,7 @@ namespace System.Threading.Tasks
     {
         public extern TaskCompletionSource();
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Task<TResult> Task
         {
             get;

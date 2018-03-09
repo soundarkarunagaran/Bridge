@@ -7,10 +7,10 @@ namespace System.Linq.Expressions
     [Bridge.Name("System.Object")]
     public sealed class SwitchCase
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<Expression> TestValues { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression Body { get; private set; }
 
         internal extern SwitchCase();

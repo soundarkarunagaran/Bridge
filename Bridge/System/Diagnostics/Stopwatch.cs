@@ -27,7 +27,7 @@ namespace System.Diagnostics
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern bool IsRunning
         {
             get;

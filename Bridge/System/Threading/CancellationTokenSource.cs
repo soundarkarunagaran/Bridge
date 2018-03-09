@@ -12,14 +12,14 @@ namespace System.Threading
         [Bridge.Template("new System.Threading.CancellationTokenSource({delay}.ticks / 10000)")]
         public extern CancellationTokenSource(TimeSpan delay);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern bool IsCancellationRequested
         {
             get;
             private set;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern CancellationToken Token
         {
             get;

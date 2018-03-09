@@ -9,10 +9,10 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.ntype === 31")]
     public sealed class NewExpression : Expression
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public new extern ConstructorInfo Constructor { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<Expression> Arguments { get; private set; }
 
         [Bridge.Name("m")]

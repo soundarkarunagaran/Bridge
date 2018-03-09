@@ -23,7 +23,7 @@ namespace System
         [Bridge.Template("new System.AggregateException({message}, {innerExceptions:array})")]
         public extern AggregateException(string message, params Exception[] innerExceptions);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<Exception> InnerExceptions
         {
             get;

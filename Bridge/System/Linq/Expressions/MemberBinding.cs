@@ -10,7 +10,7 @@ namespace System.Linq.Expressions
         [Bridge.Name("btype")]
         public extern MemberBindingType BindingType { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern MemberInfo Member { get; private set; }
 
         internal extern MemberBinding();

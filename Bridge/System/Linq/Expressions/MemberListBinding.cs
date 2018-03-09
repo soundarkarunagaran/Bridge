@@ -8,7 +8,7 @@ namespace System.Linq.Expressions
     [Bridge.Cast("{this}.btype === 2")]
     public sealed class MemberListBinding : MemberBinding
     {
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern ReadOnlyCollection<ElementInit> Initializers { get; private set; }
 
         internal extern MemberListBinding();

@@ -17,7 +17,7 @@ namespace System.Threading.Tasks
         /// <summary>
         /// Arguments supplied to the promise onError() callback.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern object[] Arguments
         {
             get;

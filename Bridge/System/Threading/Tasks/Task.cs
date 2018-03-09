@@ -11,7 +11,7 @@ namespace System.Threading.Tasks
 
         public extern Task(Action<object> action, object state);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern AggregateException Exception { get; }
 
         public extern bool IsCanceled
@@ -32,7 +32,7 @@ namespace System.Threading.Tasks
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern TaskStatus Status
         {
             get;
