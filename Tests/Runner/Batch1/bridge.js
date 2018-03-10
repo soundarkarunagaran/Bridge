@@ -8648,6 +8648,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             TicksPerDay: System.Int64("864000000000"),
 
             DaysTo1970: 719162,
+            YearDaysByMonth: [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
 
             MinTicks: System.Int64("0"),
             MaxTicks: System.Int64("3652059").mul(System.Int64("864000000000")).sub(1),
@@ -9798,8 +9799,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 return d1;
             },
 
+            // Replaced leap year calculation for performance:
+            // https://jsperf.com/leapyear-calculation/1
             getIsLeapYear: function (year) {
-                return new Date(year, 2, - 1).getDate() === 28;
+                if ((year & 3) != 0) return false;
+                return ((year % 100) != 0 || (year % 400) == 0);
             },
 
             getDaysInMonth: function (year, month) {
@@ -9824,19 +9828,14 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 return dt;
             },
 
+            // Optimized as per: https://jsperf.com/get-day-of-year
             getDayOfYear: function (d) {
                 var dt = System.DateTime.getDate(d),
-                    ny = new Date(dt);
-
-                if (d.kind === 1) {
-                    ny.setUTCMonth(0);
-                    ny.setUTCDate(1);
-                } else {
-                    ny.setMonth(0);
-                    ny.setDate(1);
-                }
-
-                return Math.ceil((dt - ny) / 864e5) + 1;
+                    mn = dt.getMonth(),
+                    dn = dt.getDate(),
+                    dayOfYear = System.DateTime.YearDaysByMonth[mn] + dn;
+                if (mn > 1 && System.DateTime.getIsLeapYear(dt.getFullYear())) dayOfYear++;
+                return dayOfYear;
             },
 
             getDate: function (d) {
