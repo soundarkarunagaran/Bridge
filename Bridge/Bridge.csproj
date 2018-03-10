@@ -64,6 +64,7 @@
     <Compile Include="shared\System\ArgumentException.cs" />
     <Compile Include="shared\System\ArgumentNullException.cs" />
     <Compile Include="shared\System\ArgumentOutOfRangeException.cs" />
+    <Compile Include="shared\System\CharEnumerator.cs" />
     <Compile Include="shared\System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
@@ -337,7 +338,6 @@
     <Compile Include="shared\System\Random.cs" />
     <Compile Include="System\Console.cs" />
     <Compile Include="System\ArraySegment.cs" />
-    <Compile Include="System\CharEnumerator.cs" />
     <Compile Include="System\Collections\Generic\Comparer.cs" />
     <Compile Include="System\Collections\Generic\IComparer.cs" />
     <Compile Include="System\Collections\Generic\IList.cs" />
@@ -497,6 +497,7 @@
     <Content Include="Resources\.generated\System\ArithmeticException.js" />
     <Content Include="Resources\.generated\System\Base64FormattingOptions.js" />
     <Content Include="Resources\.generated\System\BitConverter.js" />
+    <Content Include="Resources\.generated\System\CharEnumerator.js" />
     <Content Include="Resources\.generated\System\Collections\BitArray.js" />
     <Content Include="Resources\.generated\System\Collections\BitArray\BitArrayEnumeratorSimple.js" />
     <Content Include="Resources\.generated\System\Collections\DictionaryEntry.js" />

@@ -66,6 +66,7 @@
         "Resources/Array.js",
         "Resources/ArraySegment.js",
 
+
         "Resources/Collections/KeyValuePair.js",
         "Resources/Collections/Interfaces.js",
         "Resources/Collections/CustomEnumerator.js",
@@ -77,6 +78,8 @@
         "Resources/.generated/System/Collections/Generic/List.js",
         "Resources/.generated/System/Collections/Generic/KeyNotFoundException.js",
         "Resources/Collections/List.js",
+
+        "Resources/.generated/System/CharEnumerator.js",
 
         "Resources/String.js",
         "Resources/Task.js",
