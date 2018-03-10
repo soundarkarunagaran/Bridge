@@ -66,6 +66,7 @@
     <Compile Include="shared\System\ArgumentOutOfRangeException.cs" />
     <Compile Include="shared\System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
+    <Compile Include="shared\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
     <Compile Include="shared\System\OutOfMemoryException.cs" />
     <Compile Include="shared\System\ArithmeticException.cs" />
     <Compile Include="shared\System\ArrayTypeMismatchException.cs" />
@@ -361,7 +362,6 @@
     <Compile Include="System\Diagnostics\Contracts\PureAttribute.cs" />
     <Compile Include="runtime\Debugger.cs" />
     <Compile Include="System\Diagnostics\Stopwatch.cs" />
-    <Compile Include="System\Diagnostics\SuppressMessageAttribute.cs" />
     <Compile Include="System\Enum.cs" />
     <Compile Include="System\Environment.cs" />
     <Compile Include="System\EventArgs.cs" />
