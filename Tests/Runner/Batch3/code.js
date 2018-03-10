@@ -29715,6 +29715,41 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453", {
+        statics: {
+            methods: {
+                TestDerivedGenericInterface: function () {
+                    var $t;
+                    var o1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c2();
+                    var c = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0(), $t.I = 16, $t);
+                    var x = o1.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3453$i1$m1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0, c).getResult();
+
+                    Bridge.Test.NUnit.Assert.AreEqual(c, x);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0", {
+        $kind: "nested class",
+        props: {
+            I: 0
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c1", {
+        $kind: "nested class",
+        methods: {
+            m1: function (TResult, result) {
+                return System.Threading.Tasks.Task.fromResult(result, TResult);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.i1", {
+        $kind: "nested interface"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
@@ -40120,6 +40155,12 @@ Bridge.$N1391Result =                     r;
                 }
             }
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.i1],
+        $kind: "nested class",
+        alias: ["m1", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3453$i1$m1"]
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
