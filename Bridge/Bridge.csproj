@@ -65,6 +65,7 @@
     <Compile Include="shared\System\ArgumentNullException.cs" />
     <Compile Include="shared\System\ArgumentOutOfRangeException.cs" />
     <Compile Include="shared\System\ComponentModel\DefaultValueAttribute.cs" />
+    <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\OutOfMemoryException.cs" />
     <Compile Include="shared\System\ArithmeticException.cs" />
     <Compile Include="shared\System\ArrayTypeMismatchException.cs" />
@@ -205,7 +206,6 @@
     <Compile Include="System\ComponentModel\DataAnnotations\ValidationException.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\ValidationResult.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\Validator.cs" />
-    <Compile Include="System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\Globalization\CalendarAlgorithmType.cs" />
     <Compile Include="shared\System\Globalization\CalendarWeekRule.cs" />
     <Compile Include="shared\System\Globalization\DateTimeStyles.cs" />
