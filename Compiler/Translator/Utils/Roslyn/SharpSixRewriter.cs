@@ -708,7 +708,7 @@ namespace Bridge.Translator
 
             var old = this.fields;
             this.fields = new List<MemberDeclarationSyntax>();
-
+            var isReadOnly = node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1;
             var c = base.VisitStructDeclaration(node) as StructDeclarationSyntax;
 
             if (c != null && this.fields.Count > 0)
@@ -721,6 +721,12 @@ namespace Bridge.Translator
                 c = c.WithCloseBraceToken(c.CloseBraceToken.WithLeadingTrivia(null));
                 list.AddRange(arr);
                 c = c.WithMembers(SyntaxFactory.List(list));
+            }
+
+            if (c != null && isReadOnly)
+            {
+                c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+                c = c.WithAttributeLists(c.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList<AttributeSyntax>(new AttributeSyntax[1] { SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("Bridge.Immutable")) })).WithTrailingTrivia(SyntaxFactory.Whitespace("\n"))));
             }
 
             this.fields = old;
