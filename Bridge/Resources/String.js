@@ -43,19 +43,19 @@ Bridge.define("System.String", {
 
         fromCharArray: function (chars, startIndex, length) {
             if (chars == null) {
-                throw new System.ArgumentNullException("chars");
+                throw new System.ArgumentNullException.$ctor1("chars");
             }
 
             if (startIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
             }
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length");
+                throw new System.ArgumentOutOfRangeException.$ctor1("length");
             }
 
             if (chars.length - startIndex < length) {
-                throw new System.ArgumentOutOfRangeException("startIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
             }
 
             var result = "";
@@ -124,7 +124,7 @@ Bridge.define("System.String", {
             if (count >= 0) {
                 return String(Array(count + 1).join(String.fromCharCode(c)));
             } else {
-                throw new System.ArgumentOutOfRangeException("count", "cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("count", "cannot be less than zero");
             }
         },
 
@@ -138,7 +138,7 @@ Bridge.define("System.String", {
 
         _format: function (provider, format, args) {
             if (format == null) {
-                throw new System.ArgumentNullException("format");
+                throw new System.ArgumentNullException.$ctor1("format");
             }
 
             var me = this,
@@ -168,7 +168,7 @@ Bridge.define("System.String", {
             index = parseInt(index, 10);
 
             if (index > args.length - 1) {
-                throw new System.FormatException("Input string was not in a correct format.");
+                throw new System.FormatException.$ctor1("Input string was not in a correct format.");
             }
 
             value = args[index];
@@ -305,17 +305,17 @@ Bridge.define("System.String", {
             var startIndex = (arguments.length > 2) ? arguments[2] : 0;
 
             if (startIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero");
             }
 
             var length = (arguments.length > 3) ? arguments[3] : str.length - startIndex;
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (length > str.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("Index and length must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index and length must refer to a location within the string");
             }
 
             var s = str.substr(startIndex, length);
@@ -344,7 +344,7 @@ Bridge.define("System.String", {
             var startIndex = (arguments.length > 2) ? arguments[2] : 0;
 
             if (startIndex < 0 || startIndex > str.length) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
             }
 
             if (value === "") {
@@ -354,11 +354,11 @@ Bridge.define("System.String", {
             var length = (arguments.length > 3) ? arguments[3] : str.length - startIndex;
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (length > str.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("Index and length must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index and length must refer to a location within the string");
             }
 
             var s = str.substr(startIndex, length),
@@ -430,11 +430,11 @@ Bridge.define("System.String", {
 
         toCharArray: function (str, startIndex, length) {
             if (startIndex < 0 || startIndex > str.length || startIndex > str.length - length) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
             }
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (!Bridge.hasValue(startIndex)) {
@@ -474,20 +474,20 @@ Bridge.define("System.String", {
             }
 
             if (index < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "StartIndex cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "StartIndex cannot be less than zero");
             }
 
             if (count != null) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than zero");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count cannot be less than zero");
                 }
 
                 if (count > s.length - index) {
-                    throw new System.ArgumentOutOfRangeException("count", "Index and count must refer to a location within the string");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Index and count must refer to a location within the string");
                 }
             } else {
                 if (index >= s.length) {
-                    throw new System.ArgumentOutOfRangeException("startIndex", "startIndex must be less than length of string");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex must be less than length of string");
                 }
             }
 
@@ -499,7 +499,7 @@ Bridge.define("System.String", {
         },
 
         split: function (s, strings, limit, options) {
-            var re = (!Bridge.hasValue(strings) || strings.length === 0) ? new RegExp("\\s", "g") : new RegExp(strings.map(System.String.escape).join('|'), 'g'),
+            var re = (!Bridge.hasValue(strings) || strings.length === 0) ? new RegExp("\\s", "g") : new RegExp(strings.map(System.String.escape).join("|"), "g"),
                 res = [],
                 m,
                 i;
@@ -526,11 +526,11 @@ Bridge.define("System.String", {
         },
 
         trimEnd: function (str, chars) {
-            return str.replace(chars ? new RegExp('[' + System.String.escape(String.fromCharCode.apply(null, chars)) + ']+$') : /\s*$/, '');
+            return str.replace(chars ? new RegExp("[" + System.String.escape(String.fromCharCode.apply(null, chars)) + "]+$") : /\s*$/, "");
         },
 
         trimStart: function (str, chars) {
-            return str.replace(chars ? new RegExp('^[' + System.String.escape(String.fromCharCode.apply(null, chars)) + ']+') : /^\s*/, '');
+            return str.replace(chars ? new RegExp("^[" + System.String.escape(String.fromCharCode.apply(null, chars)) + "]+") : /^\s*/, "");
         },
 
         trim: function (str, chars) {
@@ -538,7 +538,7 @@ Bridge.define("System.String", {
         },
 
         trimStartZeros: function (str) {
-            return str.replace(new RegExp('^[ 0+]+(?=.)'), '');
+            return str.replace(new RegExp("^[ 0+]+(?=.)"), "");
         },
 
         concat: function (values) {
@@ -554,27 +554,27 @@ Bridge.define("System.String", {
 
         copyTo: function (str, sourceIndex, destination, destinationIndex, count) {
             if (destination == null) {
-                throw new System.ArgumentNullException("destination");
+                throw new System.ArgumentNullException.$ctor1("destination");
             }
 
             if (str == null) {
-                throw new System.ArgumentNullException("str");
+                throw new System.ArgumentNullException.$ctor1("str");
             }
 
             if (count < 0) {
-                throw new System.ArgumentOutOfRangeException("count");
+                throw new System.ArgumentOutOfRangeException.$ctor1("count");
             }
 
             if (sourceIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("sourceIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("sourceIndex");
             }
 
             if (count > str.length - sourceIndex) {
-                throw new System.ArgumentOutOfRangeException("sourceIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("sourceIndex");
             }
 
             if (destinationIndex > destination.length - count || destinationIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("destinationIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("destinationIndex");
             }
 
             if (count > 0) {

@@ -576,7 +576,7 @@
                     return 0;
                 }
 
-                throw new System.InvalidOperationException("HashCode cannot be calculated for empty value");
+                throw new System.InvalidOperationException.$ctor1("HashCode cannot be calculated for empty value");
             }
 
             if (deep !== false && value.hasOwnProperty("item1") && Bridge.isPlainObject(value)) {
@@ -656,7 +656,7 @@
 
         getDefaultValue: function (type) {
             if (type == null) {
-                throw new System.ArgumentNullException("type");
+                throw new System.ArgumentNullException.$ctor1("type");
             } else if ((type.getDefaultValue) && type.getDefaultValue.length === 0) {
                 return type.getDefaultValue();
             } else if (Bridge.Reflection.isEnum(type)) {
@@ -863,7 +863,7 @@
             var result = Bridge.is(obj, type, false, allowNull) ? obj : null;
 
             if (result === null) {
-                throw new System.InvalidCastException("Unable to cast type " + (obj ? Bridge.getTypeName(obj) : "'null'") + " to type " + Bridge.getTypeName(type));
+                throw new System.InvalidCastException.$ctor1("Unable to cast type " + (obj ? Bridge.getTypeName(obj) : "'null'") + " to type " + Bridge.getTypeName(type));
             }
 
             if (obj.$boxed && type !== Object && type !== System.Object) {
@@ -1094,7 +1094,7 @@
                 return new Bridge.ArrayEnumerator(obj, T);
             }
 
-            throw new System.InvalidOperationException("Cannot create Enumerator.");
+            throw new System.InvalidOperationException.$ctor1("Cannot create Enumerator.");
         },
 
         getPropertyNames: function (obj, includeFunctions) {
@@ -1525,7 +1525,7 @@
             }
 
             if (instance == null) {
-                throw new System.NullReferenceException("instance is null");
+                throw new System.NullReferenceException.$ctor1("instance is null");
             }
 
             if (T) {
@@ -1877,7 +1877,7 @@
             }
 
             if (isNaN(ms) || ms < -1 || ms > 2147483647) {
-                throw new System.ArgumentOutOfRangeException("timeout", "Number must be either non-negative and less than or equal to Int32.MaxValue or -1");
+                throw new System.ArgumentOutOfRangeException.$ctor4("timeout", "Number must be either non-negative and less than or equal to Int32.MaxValue or -1");
             }
 
             if (ms == -1) {

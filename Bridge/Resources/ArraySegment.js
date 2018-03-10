@@ -1,4 +1,4 @@
-    Bridge.define('System.ArraySegment', {
+    Bridge.define("System.ArraySegment", {
         $kind: "struct",
 
         statics: {
@@ -19,14 +19,14 @@
             }
 
             if (array == null) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             this.array = array;
 
             if (Bridge.isNumber(offset)) {
                 if (offset < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("offset");
                 }
 
                 this.offset = offset;
@@ -36,7 +36,7 @@
 
             if (Bridge.isNumber(count)) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
 
                 this.count = count;

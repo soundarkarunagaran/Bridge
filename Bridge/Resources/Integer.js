@@ -303,7 +303,7 @@
                     str = "" + (+Math.abs(number).toFixed(maxDecLen));
                 }
 
-                isZero = str.split('').every(function (s) { return s === '0' || s === '.'; });
+                isZero = str.split("").every(function (s) { return s === "0" || s === "."; });
 
                 decimalIndex = str.indexOf(".");
 
@@ -470,7 +470,7 @@
                     number = "" + (Math.round(Math.abs(number) * roundingFactor) / roundingFactor);
                 }
 
-                isZero = number.split('').every(function (s) { return s === '0' || s === '.'; });
+                isZero = number.split("").every(function (s) { return s === "0" || s === "."; });
 
                 decimalIndex = number.indexOf(".");
                 integralDigits = decimalIndex < 0 ? number.length : decimalIndex;
@@ -588,7 +588,7 @@
                         return false;
                     }
 
-                    throw new System.ArgumentNullException("s");
+                    throw new System.ArgumentNullException.$ctor1("s");
                 }
 
                 s = s.trim();
@@ -613,7 +613,7 @@
                             return false;
                         }
 
-                        throw new System.FormatException(errMsg);
+                        throw new System.FormatException.$ctor1(errMsg);
                     }
                 }
 
@@ -622,7 +622,7 @@
                         return false;
                     }
 
-                    throw new System.FormatException(errMsg);
+                    throw new System.FormatException.$ctor1(errMsg);
                 }
 
                 if (thousandIndex > -1) {
@@ -656,8 +656,8 @@
 
                 for (var i = 0; i < s.length; i++) {
                     if (!System.Char.isNumber(s[i].charCodeAt(0)) &&
-                        s[i] !== '.' &&
-                        s[i] !== ',' &&
+                        s[i] !== "." &&
+                        s[i] !== "," &&
                         s[i] !== nfInfo.positiveSign &&
                         s[i] !== nfInfo.negativeSign &&
                         s[i] !== point &&
@@ -670,14 +670,14 @@
                                     return false;
                                 }
 
-                                throw new System.FormatException(errMsg);
+                                throw new System.FormatException.$ctor1(errMsg);
                             }
                         } else {
                             if (safe) {
                                 return false;
                             }
 
-                            throw new System.FormatException(errMsg);
+                            throw new System.FormatException.$ctor1(errMsg);
                         }
                     }
                 }
@@ -689,7 +689,7 @@
                         return false;
                     }
 
-                    throw new System.FormatException(errMsg);
+                    throw new System.FormatException.$ctor1(errMsg);
                 }
 
                 result.v = r;
@@ -701,18 +701,18 @@
                 radix = radix || 10;
 
                 if (str == null) {
-                    throw new System.ArgumentNullException("str");
+                    throw new System.ArgumentNullException.$ctor1("str");
                 }
 
                 if ((radix <= 10 && !/^[+-]?[0-9]+$/.test(str))
                     || (radix == 16 && !/^[+-]?[0-9A-F]+$/gi.test(str))) {
-                    throw new System.FormatException("Input string was not in a correct format.");
+                    throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                 }
 
                 var result = parseInt(str, radix);
 
                 if (isNaN(result)) {
-                    throw new System.FormatException("Input string was not in a correct format.");
+                    throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                 }
 
                 if (result < min || result > max) {

@@ -118,7 +118,7 @@
         },
         forAll: function (fromInclusive, toExclusive, predicate) {
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             for (; fromInclusive < toExclusive; fromInclusive++) {
@@ -131,11 +131,11 @@
         },
         forAll$1: function (collection, predicate) {
             if (!collection) {
-                throw new System.ArgumentNullException("collection");
+                throw new System.ArgumentNullException.$ctor1("collection");
             }
 
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             var enumerator = Bridge.getEnumerator(collection);
@@ -154,7 +154,7 @@
         },
         exists: function (fromInclusive, toExclusive, predicate) {
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             for (; fromInclusive < toExclusive; fromInclusive++) {
@@ -167,11 +167,11 @@
         },
         exists$1: function (collection, predicate) {
             if (!collection) {
-                throw new System.ArgumentNullException("collection");
+                throw new System.ArgumentNullException.$ctor1("collection");
             }
 
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             var enumerator = Bridge.getEnumerator(collection);

@@ -594,7 +594,7 @@
                     return 0;
                 }
 
-                throw new System.InvalidOperationException("HashCode cannot be calculated for empty value");
+                throw new System.InvalidOperationException.$ctor1("HashCode cannot be calculated for empty value");
             }
 
             if (deep !== false && value.hasOwnProperty("item1") && Bridge.isPlainObject(value)) {
@@ -674,7 +674,7 @@
 
         getDefaultValue: function (type) {
             if (type == null) {
-                throw new System.ArgumentNullException("type");
+                throw new System.ArgumentNullException.$ctor1("type");
             } else if ((type.getDefaultValue) && type.getDefaultValue.length === 0) {
                 return type.getDefaultValue();
             } else if (Bridge.Reflection.isEnum(type)) {
@@ -881,7 +881,7 @@
             var result = Bridge.is(obj, type, false, allowNull) ? obj : null;
 
             if (result === null) {
-                throw new System.InvalidCastException("Unable to cast type " + (obj ? Bridge.getTypeName(obj) : "'null'") + " to type " + Bridge.getTypeName(type));
+                throw new System.InvalidCastException.$ctor1("Unable to cast type " + (obj ? Bridge.getTypeName(obj) : "'null'") + " to type " + Bridge.getTypeName(type));
             }
 
             if (obj.$boxed && type !== Object && type !== System.Object) {
@@ -1112,7 +1112,7 @@
                 return new Bridge.ArrayEnumerator(obj, T);
             }
 
-            throw new System.InvalidOperationException("Cannot create Enumerator.");
+            throw new System.InvalidOperationException.$ctor1("Cannot create Enumerator.");
         },
 
         getPropertyNames: function (obj, includeFunctions) {
@@ -1543,7 +1543,7 @@
             }
 
             if (instance == null) {
-                throw new System.NullReferenceException("instance is null");
+                throw new System.NullReferenceException.$ctor1("instance is null");
             }
 
             if (T) {
@@ -1895,7 +1895,7 @@
             }
 
             if (isNaN(ms) || ms < -1 || ms > 2147483647) {
-                throw new System.ArgumentOutOfRangeException("timeout", "Number must be either non-negative and less than or equal to Int32.MaxValue or -1");
+                throw new System.ArgumentOutOfRangeException.$ctor4("timeout", "Number must be either non-negative and less than or equal to Int32.MaxValue or -1");
             }
 
             if (ms == -1) {
@@ -2527,9 +2527,9 @@
             Class.$$name = className;
 
             if (isNested) {
-                var lastIndex = Class.$$name.lastIndexOf('.');
+                var lastIndex = Class.$$name.lastIndexOf(".");
 
-                Class.$$name = Class.$$name.substr(0, lastIndex) + '+' + Class.$$name.substr(lastIndex + 1)
+                Class.$$name = Class.$$name.substr(0, lastIndex) + "+" + Class.$$name.substr(lastIndex + 1)
             }
 
             Class.$kind = prop.$kind;
@@ -2546,10 +2546,10 @@
                 var result = Bridge.Reflection.getTypeFullName(gCfg.fn);
 
                 for (i = 0; i < gCfg.args.length; i++) {
-                    result += (i === 0 ? '[' : ',') + '[' + Bridge.Reflection.getTypeQName(gCfg.args[i]) + ']';
+                    result += (i === 0 ? "[" : ",") + "[" + Bridge.Reflection.getTypeQName(gCfg.args[i]) + "]";
                 }
 
-                result += ']';
+                result += "]";
 
                 Class.$$fullname = result;
             } else {
@@ -3400,7 +3400,7 @@ Bridge.Reflection = {
                 names = [],
                 fnStr = fn.toString();
 
-            args = fnStr.slice(fnStr.indexOf('(') + 1, fnStr.indexOf(')')).match(/([^\s,]+)/g) || [];
+            args = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(/([^\s,]+)/g) || [];
 
             for (var i = 0; i < args.length; i++) {
                 names.push(Bridge.Reflection.createTypeParam(args[i], t));
@@ -3432,7 +3432,7 @@ Bridge.Reflection = {
             }
 
             if (!type.$genericTypeDefinition) {
-                throw new System.InvalidOperationException("This operation is only valid on generic types.");
+                throw new System.InvalidOperationException.$ctor1("This operation is only valid on generic types.");
             }
 
             return type.$genericTypeDefinition;
@@ -3545,7 +3545,7 @@ Bridge.Reflection = {
         },
 
         _makeQName: function (name, asm) {
-            return name + (asm ? ', ' + asm.name : '');
+            return name + (asm ? ", " + asm.name : "");
         },
 
         getTypeQName: function (type) {
@@ -3554,9 +3554,9 @@ Bridge.Reflection = {
 
         getTypeName: function (type) {
             var fullName = Bridge.Reflection.getTypeFullName(type),
-                bIndex = fullName.indexOf('['),
-                pIndex = fullName.lastIndexOf('+', bIndex >= 0 ? bIndex : fullName.length),
-                nsIndex = pIndex > -1 ? pIndex : fullName.lastIndexOf('.', bIndex >= 0 ? bIndex : fullName.length);
+                bIndex = fullName.indexOf("["),
+                pIndex = fullName.lastIndexOf("+", bIndex >= 0 ? bIndex : fullName.length),
+                nsIndex = pIndex > -1 ? pIndex : fullName.lastIndexOf(".", bIndex >= 0 ? bIndex : fullName.length);
 
             var name = nsIndex > 0 ? (bIndex >= 0 ? fullName.substring(nsIndex + 1, bIndex) : fullName.substr(nsIndex + 1)) : fullName;
 
@@ -3565,9 +3565,9 @@ Bridge.Reflection = {
 
         getTypeNamespace: function (type, name) {
             var fullName = name || Bridge.Reflection.getTypeFullName(type),
-                bIndex = fullName.indexOf('['),
-                nsIndex = fullName.lastIndexOf('.', bIndex >= 0 ? bIndex : fullName.length),
-                ns = nsIndex > 0 ? fullName.substr(0, nsIndex) : '';
+                bIndex = fullName.indexOf("["),
+                nsIndex = fullName.lastIndexOf(".", bIndex >= 0 ? bIndex : fullName.length),
+                ns = nsIndex > 0 ? fullName.substr(0, nsIndex) : "";
 
             if (type.$assembly) {
                 var parentType = Bridge.Reflection._getAssemblyType(type.$assembly, ns);
@@ -3641,7 +3641,7 @@ Bridge.Reflection = {
                 }
             }
 
-            var a = name.split('.'),
+            var a = name.split("."),
                 scope = asm;
 
             for (var i = 0; i < a.length; i++) {
@@ -3652,7 +3652,7 @@ Bridge.Reflection = {
                 }
             }
 
-            if (typeof scope !== 'function' || !noAsm && scope.$assembly && asm.name !== scope.$assembly.name) {
+            if (typeof scope !== "function" || !noAsm && scope.$assembly && asm.name !== scope.$assembly.name) {
                 return null;
             }
 
@@ -3676,12 +3676,12 @@ Bridge.Reflection = {
                         }
                     }
 
-                    if (typeof (s) === 'function' && Bridge.isUpper(n.charCodeAt(0))) {
+                    if (typeof (s) === "function" && Bridge.isUpper(n.charCodeAt(0))) {
                         result.push(s);
                     }
                 };
 
-                traverse(asm, '');
+                traverse(asm, "");
             }
 
             return result;
@@ -3789,15 +3789,15 @@ Bridge.Reflection = {
                 for (; ;) {
                     var m = re.exec(typeName);
 
-                    if (m && m[0] == "[" && (typeName[m.index + 1] === ']' || typeName[m.index + 1] === ',')) {
+                    if (m && m[0] == "[" && (typeName[m.index + 1] === "]" || typeName[m.index + 1] === ",")) {
                         continue;
                     }
 
-                    if (m && m[0] == "]" && (typeName[m.index - 1] === '[' || typeName[m.index - 1] === ',')) {
+                    if (m && m[0] == "]" && (typeName[m.index - 1] === "[" || typeName[m.index - 1] === ",")) {
                         continue;
                     }
 
-                    if (m && m[0] == "," && (typeName[m.index + 1] === ']' || typeName[m.index + 1] === ',')) {
+                    if (m && m[0] == "," && (typeName[m.index + 1] === "]" || typeName[m.index + 1] === ",")) {
                         continue;
                     }
 
@@ -3820,8 +3820,8 @@ Bridge.Reflection = {
                 tname = typeName.substring(last, m.index);
 
                 switch (m[0]) {
-                    case '[':
-                        if (typeName[m.index + 1] !== '[') {
+                    case "[":
+                        if (typeName[m.index + 1] !== "[") {
                             return null;
                         }
 
@@ -3836,9 +3836,9 @@ Bridge.Reflection = {
                             targs.push(t);
                             m = next();
 
-                            if (m[0] === ']') {
+                            if (m[0] === "]") {
                                 break;
-                            } else if (m[0] !== ',') {
+                            } else if (m[0] !== ",") {
                                 return null;
                             }
                         }
@@ -3851,7 +3851,7 @@ Bridge.Reflection = {
 
                         m = next();
 
-                        if (m && m[0] === ',') {
+                        if (m && m[0] === ",") {
                             next();
 
                             if (!(asm = System.Reflection.Assembly.assemblies[(re.lastIndex > 0 ? typeName.substring(m.index + 1, re.lastIndex - 1) : typeName.substring(m.index + 1)).trim()])) {
@@ -3860,10 +3860,10 @@ Bridge.Reflection = {
                         }
                         break;
 
-                    case ']':
+                    case "]":
                         break;
 
-                    case ',':
+                    case ",":
                         next();
 
                         if (!(asm = System.Reflection.Assembly.assemblies[(re.lastIndex > 0 ? typeName.substring(m.index + 1, re.lastIndex - 1) : typeName.substring(m.index + 1)).trim()])) {
@@ -3920,7 +3920,7 @@ Bridge.Reflection = {
 
         getType: function (typeName, asm) {
             if (typeName == null) {
-                throw new System.ArgumentNullException("typeName");
+                throw new System.ArgumentNullException.$ctor1("typeName");
             }
 
             return typeName ? Bridge.Reflection._getType(typeName, asm) : null;
@@ -4105,7 +4105,7 @@ Bridge.Reflection = {
             var type_md = Bridge.getMetadata(type);
 
             if (type_md && type_md.m) {
-                var mNames = ['g', 's', 'ad', 'r'];
+                var mNames = ["g", "s", "ad", "r"];
 
                 for (var i = 0; i < type_md.m.length; i++) {
                     var m = type_md.m[i];
@@ -4133,7 +4133,7 @@ Bridge.Reflection = {
                     }
 
                     if (r.length > 1) {
-                        throw new System.Reflection.AmbiguousMatchException('Ambiguous match');
+                        throw new System.Reflection.AmbiguousMatchException.$ctor1("Ambiguous match");
                     } else if (r.length === 1) {
                         return r[0];
                     }
@@ -4172,9 +4172,9 @@ Bridge.Reflection = {
         midel: function (mi, target, typeArguments, bind) {
             if (bind !== false) {
                 if (mi.is && !!target) {
-                    throw new System.ArgumentException('Cannot specify target for static method');
+                    throw new System.ArgumentException.$ctor1("Cannot specify target for static method");
                 } else if (!mi.is && !target) {
-                    throw new System.ArgumentException('Must specify target for instance method');
+                    throw new System.ArgumentException.$ctor1("Must specify target for instance method");
                 }
             }
 
@@ -4189,7 +4189,7 @@ Bridge.Reflection = {
 
                 if (mi.tpc) {
                     if (!typeArguments || typeArguments.length !== mi.tpc) {
-                        throw new System.ArgumentException('Wrong number of type arguments');
+                        throw new System.ArgumentException.$ctor1("Wrong number of type arguments");
                     }
 
                     var gMethod = method;
@@ -4199,7 +4199,7 @@ Bridge.Reflection = {
                     }
                 } else {
                     if (typeArguments && typeArguments.length) {
-                        throw new System.ArgumentException('Cannot specify type arguments for non-generic method');
+                        throw new System.ArgumentException.$ctor1("Cannot specify type arguments for non-generic method");
                     }
                 }
 
@@ -4256,9 +4256,9 @@ Bridge.Reflection = {
 
         fieldAccess: function (fi, obj) {
             if (fi.is && !!obj) {
-                throw new System.ArgumentException('Cannot specify target for static field');
+                throw new System.ArgumentException.$ctor1("Cannot specify target for static field");
             } else if (!fi.is && !obj) {
-                throw new System.ArgumentException('Must specify target for instance field');
+                throw new System.ArgumentException.$ctor1("Must specify target for instance field");
             }
 
             obj = fi.is ? fi.td : obj;
@@ -4378,7 +4378,7 @@ Bridge.Reflection = {
         $kind: "interface"
     });
 
-    Bridge.define('System.IComparable$1', function (T) {
+    Bridge.define("System.IComparable$1", function (T) {
         return {
             $kind: "interface",
 
@@ -4402,7 +4402,7 @@ Bridge.Reflection = {
         };
     });
 
-    Bridge.define('System.IEquatable$1', function (T) {
+    Bridge.define("System.IEquatable$1", function (T) {
         return {
             $kind: "interface",
 
@@ -4451,11 +4451,11 @@ Bridge.Reflection = {
 
         checkEnumType: function (enumType) {
             if (!enumType) {
-                throw new System.ArgumentNullException("enumType");
+                throw new System.ArgumentNullException.$ctor1("enumType");
             }
 
             if (enumType.prototype && enumType.$kind !== "enum") {
-                throw new System.ArgumentException("", "enumType");
+                throw new System.ArgumentException.$ctor1("", "enumType");
             }
         },
 
@@ -4495,7 +4495,7 @@ Bridge.Reflection = {
                         }
                     }
                 } else {
-                    var parts = s.split(','),
+                    var parts = s.split(","),
                         value = 0,
                         parsed = true;
 
@@ -4528,7 +4528,7 @@ Bridge.Reflection = {
             }
 
             if (silent !== true) {
-                throw new System.ArgumentException('Invalid Enumeration Value');
+                throw new System.ArgumentException.$ctor3("silent", "Invalid Enumeration Value");
             }
 
             return null;
@@ -4569,8 +4569,7 @@ Bridge.Reflection = {
                         return enumMethods.toName(name);
                     }
                 }
-
-                //throw new System.ArgumentException('Invalid Enumeration Value');
+                
                 return value.toString();
             } else {
                 var parts = [],
@@ -4613,7 +4612,7 @@ Bridge.Reflection = {
                     return "0";
                 }
 
-                return parts.join(', ');
+                return parts.join(", ");
             }
         },
 
@@ -4655,7 +4654,7 @@ Bridge.Reflection = {
             var name;
 
             if (!Bridge.hasValue(value) && (name = "value") || !Bridge.hasValue(format) && (name = "format")) {
-                throw new System.ArgumentNullException(name);
+                throw new System.ArgumentNullException.$ctor1(name);
             }
 
             value = Bridge.unbox(value, true);
@@ -4705,13 +4704,13 @@ Bridge.Reflection = {
             value = Bridge.unbox(value, true);
 
             if (value == null) {
-                throw new System.ArgumentNullException("value");
+                throw new System.ArgumentNullException.$ctor1("value");
             }
 
             var isLong = System.Int64.is64Bit(value);
 
             if (!isLong && !(typeof (value) === "number" && Math.floor(value, 0) === value)) {
-                throw new System.ArgumentException("Argument must be integer", "value");
+                throw new System.ArgumentException.$ctor1("Argument must be integer", "value");
             }
 
             System.Enum.checkEnumType(enumType);
@@ -4801,7 +4800,7 @@ Bridge.Reflection = {
             obj = Bridge.unbox(obj, true);
 
             if (!Bridge.hasValue(obj)) {
-                throw new System.InvalidOperationException("Nullable instance doesn't have a value.");
+                throw new System.InvalidOperationException.$ctor1("Nullable instance doesn't have a value.");
             }
 
             return obj;
@@ -4989,7 +4988,7 @@ Bridge.Reflection = {
 
         getUnderlyingType: function (nullableType) {
             if (!nullableType) {
-                throw new System.ArgumentNullException("nullableType");
+                throw new System.ArgumentNullException.$ctor1("nullableType");
             }
 
             if (Bridge.Reflection.isGenericType(nullableType) &&
@@ -5011,7 +5010,7 @@ Bridge.Reflection = {
 
     System.Nullable = nullable;
 
-    Bridge.define('System.Nullable$1', function (T) {
+    Bridge.define("System.Nullable$1", function (T) {
         return {
             $kind: "struct",
 
@@ -5048,7 +5047,7 @@ Bridge.Reflection = {
 
             parse: function (s) {
                 if (!Bridge.hasValue(s)) {
-                    throw new System.ArgumentNullException("s");
+                    throw new System.ArgumentNullException.$ctor1("s");
                 }
 
                 if (s.length !== 1) {
@@ -5076,7 +5075,7 @@ Bridge.Reflection = {
                 }
 
                 if (str.length != 1) {
-                    throw new System.FormatException("String must be exactly one character long");
+                    throw new System.FormatException.$ctor1("String must be exactly one character long");
                 }
 
                 return str.charCodeAt(index);
@@ -5168,11 +5167,11 @@ Bridge.Reflection = {
 
             isUpper: function (s, index) {
                 if (s == null) {
-                    throw new System.ArgumentNullException("s");
+                    throw new System.ArgumentNullException.$ctor1("s");
                 }
 
                 if ((index >>> 0) >= ((s.length) >>> 0)) {
-                    throw new System.ArgumentOutOfRangeException("index");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
 
                 var c = s.charCodeAt(index);
@@ -5504,7 +5503,7 @@ Bridge.Reflection = {
 
         getAbbreviatedDayName: function (dayofweek) {
             if (dayofweek < 0 || dayofweek > 6) {
-                throw new System.ArgumentOutOfRangeException("dayofweek");
+                throw new System.ArgumentOutOfRangeException$ctor1("dayofweek");
             }
 
             return this.abbreviatedDayNames[dayofweek];
@@ -5512,7 +5511,7 @@ Bridge.Reflection = {
 
         getAbbreviatedMonthName: function (month) {
             if (month < 1 || month > 13) {
-                throw new System.ArgumentOutOfRangeException("month");
+                throw new System.ArgumentOutOfRangeException.$ctor1("month");
             }
 
             return this.abbreviatedMonthNames[month - 1];
@@ -5532,7 +5531,7 @@ Bridge.Reflection = {
                         return null;
                     }
 
-                    throw new System.ArgumentException(null, "format");
+                    throw new System.ArgumentException.$ctor3("", "format");
                 }
 
                 formats = {};
@@ -5557,7 +5556,7 @@ Bridge.Reflection = {
 
         getDayName: function (dayofweek) {
             if (dayofweek < 0 || dayofweek > 6) {
-                throw new System.ArgumentOutOfRangeException("dayofweek");
+                throw new System.ArgumentOutOfRangeException.$ctor1("dayofweek");
             }
 
             return this.dayNames[dayofweek];
@@ -5565,7 +5564,7 @@ Bridge.Reflection = {
 
         getMonthName: function (month) {
             if (month < 1 || month > 13) {
-                throw new System.ArgumentOutOfRangeException("month");
+                throw new System.ArgumentOutOfRangeException.$ctor1("month");
             }
 
             return this.monthNames[month - 1];
@@ -5573,7 +5572,7 @@ Bridge.Reflection = {
 
         getShortestDayName: function (dayOfWeek) {
             if (dayOfWeek < 0 || dayOfWeek > 6) {
-                throw new System.ArgumentOutOfRangeException("dayOfWeek");
+                throw new System.ArgumentOutOfRangeException.$ctor1("dayOfWeek");
             }
 
             return this.shortestDayNames[dayOfWeek];
@@ -5745,7 +5744,7 @@ Bridge.Reflection = {
 
             getCultureInfo: function (name) {
                 if (name == null) {
-                    throw new System.ArgumentNullException("name");
+                    throw new System.ArgumentNullException.$ctor1("name");
                 } else if (name === "") {
                     return System.Globalization.CultureInfo.invariantCulture;
                 }
@@ -5753,7 +5752,7 @@ Bridge.Reflection = {
                 var c = this.cultures[name];
 
                 if (c == null) {
-                    throw new System.Globalization.CultureNotFoundException("name", name);
+                    throw new System.Globalization.CultureNotFoundException.$ctor5("name", name);
                 }
 
                 return c;
@@ -5781,7 +5780,7 @@ Bridge.Reflection = {
             }
 
             if (name == null) {
-                throw new System.ArgumentNullException("name");
+                throw new System.ArgumentNullException.$ctor1("name");
             }
 
             var c;
@@ -5794,7 +5793,7 @@ Bridge.Reflection = {
 
             if (c == null) {
                 if (!create) {
-                    throw new System.Globalization.CultureNotFoundException("name", name);
+                    throw new System.Globalization.CultureNotFoundException.$ctor5("name", name);
                 }
 
                 System.Globalization.CultureInfo.cultures[name] = this;
@@ -6169,7 +6168,7 @@ Bridge.define("System.Boolean", {
 
         parse: function (value) {
             if (!Bridge.hasValue(value)) {
-                throw new System.ArgumentNullException("value");
+                throw new System.ArgumentNullException.$ctor1("value");
             }
 
             var result = {
@@ -6177,7 +6176,7 @@ Bridge.define("System.Boolean", {
             };
 
             if (!System.Boolean.tryParse(value, result)) {
-                throw new System.FormatException("Bad format for Boolean value");
+                throw new System.FormatException.$ctor1("Bad format for Boolean value");
             }
 
             return result.v;
@@ -6547,7 +6546,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     str = "" + (+Math.abs(number).toFixed(maxDecLen));
                 }
 
-                isZero = str.split('').every(function (s) { return s === '0' || s === '.'; });
+                isZero = str.split("").every(function (s) { return s === "0" || s === "."; });
 
                 decimalIndex = str.indexOf(".");
 
@@ -6714,7 +6713,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     number = "" + (Math.round(Math.abs(number) * roundingFactor) / roundingFactor);
                 }
 
-                isZero = number.split('').every(function (s) { return s === '0' || s === '.'; });
+                isZero = number.split("").every(function (s) { return s === "0" || s === "."; });
 
                 decimalIndex = number.indexOf(".");
                 integralDigits = decimalIndex < 0 ? number.length : decimalIndex;
@@ -6832,7 +6831,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return false;
                     }
 
-                    throw new System.ArgumentNullException("s");
+                    throw new System.ArgumentNullException.$ctor1("s");
                 }
 
                 s = s.trim();
@@ -6857,7 +6856,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                             return false;
                         }
 
-                        throw new System.FormatException(errMsg);
+                        throw new System.FormatException.$ctor1(errMsg);
                     }
                 }
 
@@ -6866,7 +6865,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return false;
                     }
 
-                    throw new System.FormatException(errMsg);
+                    throw new System.FormatException.$ctor1(errMsg);
                 }
 
                 if (thousandIndex > -1) {
@@ -6900,8 +6899,8 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
                 for (var i = 0; i < s.length; i++) {
                     if (!System.Char.isNumber(s[i].charCodeAt(0)) &&
-                        s[i] !== '.' &&
-                        s[i] !== ',' &&
+                        s[i] !== "." &&
+                        s[i] !== "," &&
                         s[i] !== nfInfo.positiveSign &&
                         s[i] !== nfInfo.negativeSign &&
                         s[i] !== point &&
@@ -6914,14 +6913,14 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                                     return false;
                                 }
 
-                                throw new System.FormatException(errMsg);
+                                throw new System.FormatException.$ctor1(errMsg);
                             }
                         } else {
                             if (safe) {
                                 return false;
                             }
 
-                            throw new System.FormatException(errMsg);
+                            throw new System.FormatException.$ctor1(errMsg);
                         }
                     }
                 }
@@ -6933,7 +6932,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return false;
                     }
 
-                    throw new System.FormatException(errMsg);
+                    throw new System.FormatException.$ctor1(errMsg);
                 }
 
                 result.v = r;
@@ -6945,18 +6944,18 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 radix = radix || 10;
 
                 if (str == null) {
-                    throw new System.ArgumentNullException("str");
+                    throw new System.ArgumentNullException.$ctor1("str");
                 }
 
                 if ((radix <= 10 && !/^[+-]?[0-9]+$/.test(str))
                     || (radix == 16 && !/^[+-]?[0-9A-F]+$/gi.test(str))) {
-                    throw new System.FormatException("Input string was not in a correct format.");
+                    throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                 }
 
                 var result = parseInt(str, radix);
 
                 if (isNaN(result)) {
-                    throw new System.FormatException("Input string was not in a correct format.");
+                    throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                 }
 
                 if (result < min || result > max) {
@@ -7633,11 +7632,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     System.Int64.parse = function (str) {
         if (str == null) {
-            throw new System.ArgumentNullException("str");
+            throw new System.ArgumentNullException.$ctor1("str");
         }
 
         if (!/^[+-]?[0-9]+$/.test(str)) {
-            throw new System.FormatException("Input string was not in a correct format.");
+            throw new System.FormatException.$ctor1("Input string was not in a correct format.");
         }
 
         var result = new System.Int64(str);
@@ -7952,11 +7951,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     System.UInt64.parse = function (str) {
         if (str == null) {
-            throw new System.ArgumentNullException("str");
+            throw new System.ArgumentNullException.$ctor1("str");
         }
 
         if (!/^[+-]?[0-9]+$/.test(str)) {
-            throw new System.FormatException("Input string was not in a correct format.");
+            throw new System.FormatException.$ctor1("Input string was not in a correct format.");
         }
 
         var result = new System.UInt64(str);
@@ -8093,7 +8092,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         if (T && T.precision && typeof v === "number") {
             var i = Bridge.Int.trunc(v);
-            var length = (i + '').length;
+            var length = (i + "").length;
             var p = T.precision - length;
             if (p < 0) {
                 p = 0;
@@ -8512,7 +8511,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             groupSeparator = f.groupSeparator,
             g1 = +f.groupSize,
             g2 = +f.secondaryGroupSize,
-            arr = x.toFixed(dp, rm).split('.'),
+            arr = x.toFixed(dp, rm).split("."),
             intPart = arr[0],
             fractionPart = arr[1],
             intDigits = isNeg ? intPart.slice(1) : intPart,
@@ -8535,25 +8534,25 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (isNeg) {
-                intPart = '-' + intPart;
+                intPart = "-" + intPart;
             }
         }
 
         return fractionPart
             ? intPart + f.decimalSeparator + ((g2 = +f.fractionGroupSize)
-                ? fractionPart.replace(new RegExp('\\d{' + g2 + '}\\B', 'g'),
-                    '$&' + f.fractionGroupSeparator)
+                ? fractionPart.replace(new RegExp("\\d{" + g2 + "}\\B", "g"),
+                    "$&" + f.fractionGroupSeparator)
                 : fractionPart)
             : intPart;
     };
 
     System.Decimal.prototype.toFormat = function (dp, rm, provider) {
         var config = {
-                decimalSeparator : '.',
-                groupSeparator : ',',
+                decimalSeparator : ".",
+                groupSeparator : ",",
                 groupSize : 3,
                 secondaryGroupSize : 0,
-                fractionGroupSeparator : '\xA0',
+                fractionGroupSeparator : "\xA0",
                 fractionGroupSize : 0
             },
             d;
@@ -8725,7 +8724,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 // Check if Ticks are out of range
                 if (ticks.gt(System.DateTime.MaxTicks) || ticks.lt(0)) {
                     if (throwOnOverflow && throwOnOverflow === true) {
-                        throw new System.ArgumentException("Specified argument was out of the range of valid values.");
+                        throw new System.ArgumentException.$ctor1("Specified argument was out of the range of valid values.");
                     } else {
                         ticks = ticks.add(System.Int64(System.DateTime.$getTzOffset(d1)).mul(10000));
                         d1 = System.DateTime.create$2(ticks, 2);
@@ -9151,7 +9150,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 if (!isNaN(d)) {
                     return new Date(d);
                 } else if (!silent) {
-                    throw new System.FormatException("String does not contain a valid string representation of a date and time.");
+                    throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                 }
             },
 
@@ -9176,7 +9175,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return null;
                     }
 
-                    throw new System.FormatException("String does not contain a valid string representation of a date and time.");
+                    throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                 } else {
                     // TODO: The code below assumes that there are no quotation marks around the UTC/Z format token (the format patterns
                     // used by Bridge appear to use quotation marks throughout (see universalSortableDateTimePattern), including
@@ -9218,7 +9217,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     offset = 0;
 
                 if (str == null) {
-                    throw new System.ArgumentNullException("str");
+                    throw new System.ArgumentNullException.$ctor1("str");
                 }
 
                 format = format || "G";
@@ -9614,7 +9613,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return null;
                     }
 
-                    throw new System.FormatException("String does not contain a valid string representation of a date and time.");
+                    throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                 }
 
                 if (tt) {
@@ -10212,7 +10211,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             if (value === 0) {
                 this.clear();
             } else if (value < 0) {
-                throw new System.ArgumentOutOfRangeException("value", "Length cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("value", "Length cannot be less than zero");
             } else {
                 var l = this.getLength();
 
@@ -10223,7 +10222,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 var delta = value - l;
 
                 if (delta > 0) {
-                    this.append('\0', delta);
+                    this.append("\0", delta);
                 } else {
                     this.remove(l + delta, -delta);
                 }
@@ -10271,7 +10270,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 if (count === 0) {
                     return this;
                 } else if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "cannot be less than zero");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "cannot be less than zero");
                 }
 
                 value = Array(count + 1).join(value).toString();
@@ -10357,7 +10356,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 if (count === 0) {
                     return this;
                 } else if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "cannot be less than zero");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "cannot be less than zero");
                 }
 
                 value = Array(count + 1).join(value).toString();
@@ -10410,15 +10409,15 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         checkLimits: function (value, startIndex, length) {
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (startIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero");
             }
 
             if (length > value.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("Index and length must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("Index and length must refer to a location within the string");
             }
         },
 
@@ -10940,7 +10939,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         },
         forAll: function (fromInclusive, toExclusive, predicate) {
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             for (; fromInclusive < toExclusive; fromInclusive++) {
@@ -10953,11 +10952,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         },
         forAll$1: function (collection, predicate) {
             if (!collection) {
-                throw new System.ArgumentNullException("collection");
+                throw new System.ArgumentNullException.$ctor1("collection");
             }
 
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             var enumerator = Bridge.getEnumerator(collection);
@@ -10976,7 +10975,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         },
         exists: function (fromInclusive, toExclusive, predicate) {
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             for (; fromInclusive < toExclusive; fromInclusive++) {
@@ -10989,11 +10988,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         },
         exists$1: function (collection, predicate) {
             if (!collection) {
-                throw new System.ArgumentNullException("collection");
+                throw new System.ArgumentNullException.$ctor1("collection");
             }
 
             if (!predicate) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             var enumerator = Bridge.getEnumerator(collection);
@@ -11070,11 +11069,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
     var array = {
         toIndex: function (arr, indices) {
             if (indices.length !== (arr.$s ? arr.$s.length : 1)) {
-                throw new System.ArgumentException("Invalid number of indices");
+                throw new System.ArgumentException.$ctor1("Invalid number of indices");
             }
 
             if (indices[0] < 0 || indices[0] >= (arr.$s ? arr.$s[0] : arr.length)) {
-                throw new System.IndexOutOfRangeException("Index 0 out of range");
+                throw new System.IndexOutOfRangeException.$ctor1("Index 0 out of range");
             }
 
             var idx = indices[0],
@@ -11083,7 +11082,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             if (arr.$s) {
                 for (i = 1; i < arr.$s.length; i++) {
                     if (indices[i] < 0 || indices[i] >= arr.$s[i]) {
-                        throw new System.IndexOutOfRangeException("Index " + i + " out of range");
+                        throw new System.IndexOutOfRangeException.$ctor1("Index " + i + " out of range");
                     }
 
                     idx = idx * arr.$s[i] + indices[i];
@@ -11108,14 +11107,14 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         get: function (arr) {
             if (arguments.length < 2) {
-                throw new System.ArgumentNullException("indices");
+                throw new System.ArgumentNullException.$ctor1("indices");
             }
 
             var idx = Array.prototype.slice.call(arguments, 1);
 
             for (var i = 0; i < idx.length; i++) {
                 if (!Bridge.hasValue(idx[i])) {
-                    throw new System.ArgumentNullException("indices");
+                    throw new System.ArgumentNullException.$ctor1("indices");
                 }
             }
 
@@ -11154,7 +11153,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         create: function (defvalue, initValues, T, sizes) {
             if (sizes === null) {
-                throw new System.ArgumentNullException("length");
+                throw new System.ArgumentNullException.$ctor1("length");
             }
 
             var arr = [],
@@ -11174,7 +11173,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     j = sizes[i];
 
                     if (isNaN(j) || j < 0) {
-                        throw new System.ArgumentOutOfRangeException("length");
+                        throw new System.ArgumentOutOfRangeException.$ctor1("length");
                     }
 
                     length *= j;
@@ -11185,7 +11184,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     j = arguments[i];
 
                     if (isNaN(j) || j < 0) {
-                        throw new System.ArgumentOutOfRangeException("length");
+                        throw new System.ArgumentOutOfRangeException.$ctor1("length");
                     }
 
                     length *= j;
@@ -11228,7 +11227,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         init: function (length, value, T, addFn) {
             if (length == null) {
-                throw new System.ArgumentNullException("length");
+                throw new System.ArgumentNullException.$ctor1("length");
             }
 
             if (Bridge.isArray(length)) {
@@ -11241,7 +11240,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (isNaN(length) || length < 0) {
-                throw new System.ArgumentOutOfRangeException("length");
+                throw new System.ArgumentOutOfRangeException.$ctor1("length");
             }
 
             var arr = new Array(length),
@@ -11385,7 +11384,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         checkReadOnly: function (obj, T, msg) {
             if (System.Array.getIsReadOnly(obj, T)) {
-                throw new System.NotSupportedException(msg || "Collection was of a fixed size.");
+                throw new System.NotSupportedException.$ctor1(msg || "Collection was of a fixed size.");
             }
         },
 
@@ -11433,7 +11432,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     return null;
                 }
 
-                throw new System.ArgumentException("The value " + unboxed + "is not of type " + Bridge.getTypeName(type) + " and cannot be used in this generic collection.");
+                throw new System.ArgumentException.$ctor1("The value " + unboxed + "is not of type " + Bridge.getTypeName(type) + " and cannot be used in this generic collection.");
             }
 
             return unboxed;
@@ -11457,7 +11456,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         fill: function (dst, val, index, count) {
             if (!Bridge.hasValue(dst)) {
-                throw new System.ArgumentNullException("dst");
+                throw new System.ArgumentNullException.$ctor1("dst");
             }
 
             if (index < 0 || count < 0 || (index + count) > dst.length) {
@@ -11473,19 +11472,19 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         copy: function (src, spos, dest, dpos, len) {
             if (!dest) {
-                throw new System.ArgumentNullException("dest", "Value cannot be null");
+                throw new System.ArgumentNullException.$ctor3("dest", "Value cannot be null");
             }
 
             if (!src) {
-                throw new System.ArgumentNullException("src", "Value cannot be null");
+                throw new System.ArgumentNullException.$ctor3("src", "Value cannot be null");
             }
 
             if (spos < 0 || dpos < 0 || len < 0) {
-                throw new System.ArgumentOutOfRangeException("Number was less than the array's lower bound in the first dimension");
+                throw new System.ArgumentOutOfRangeException.$ctor1("bound", "Number was less than the array's lower bound in the first dimension");
             }
 
             if (len > (src.length - spos) || len > (dest.length - dpos)) {
-                throw new System.ArgumentException("Destination array was not long enough. Check destIndex and length, and the array's lower bounds");
+                throw new System.ArgumentException.$ctor1("Destination array was not long enough. Check destIndex and length, and the array's lower bounds");
             }
 
             if (spos < dpos && src === dest) {
@@ -11511,7 +11510,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             } else if (Bridge.isFunction(obj[name = "System$Collections$ICollection$copyTo"])) {
                 obj[name](dest, index);
             } else {
-                throw new System.NotImplementedException("copyTo");
+                throw new System.NotImplementedException.$ctor1("copyTo");
             }
         },
 
@@ -11693,7 +11692,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                     return Bridge.getDefaultValue(type);
                 }
 
-                throw new System.ArgumentException("Cannot widen from source type to target type either because the source type is a not a primitive type or the conversion cannot be accomplished.");
+                throw new System.ArgumentException.$ctor1("Cannot widen from source type to target type either because the source type is a not a primitive type or the conversion cannot be accomplished.");
             }
 
             return unboxed;
@@ -11701,7 +11700,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         resize: function (arr, newSize, val) {
             if (newSize < 0) {
-                throw new System.ArgumentOutOfRangeException("newSize", null, null, newSize);
+                throw new System.ArgumentOutOfRangeException.$ctor3("newSize", newSize, "newSize cannot be less than 0.");
             }
 
             var oldSize = 0,
@@ -11724,7 +11723,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         reverse: function (arr, index, length) {
             if (!array) {
-                throw new System.ArgumentNullException("arr");
+                throw new System.ArgumentNullException.$ctor1("arr");
             }
 
             if (!index && index !== 0) {
@@ -11733,11 +11732,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (index < 0 || length < 0) {
-                throw new System.ArgumentOutOfRangeException((index < 0 ? "index" : "length"), "Non-negative number required.");
+                throw new System.ArgumentOutOfRangeException.$ctor4((index < 0 ? "index" : "length"), "Non-negative number required.");
             }
 
             if ((array.length - index) < length) {
-                throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                throw new System.ArgumentException.$ctor1("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
             }
 
             if (System.Array.getRank(arr) !== 1) {
@@ -11758,21 +11757,21 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         binarySearch: function (array, index, length, value, comparer) {
             if (!array) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             var lb = 0;
 
             if (index < lb || length < 0) {
-                throw new System.ArgumentOutOfRangeException(index < lb ? "index" : "length", "Non-negative number required.");
+                throw new System.ArgumentOutOfRangeException.$ctor4(index < lb ? "index" : "length", "Non-negative number required.");
             }
 
             if (array.length - (index - lb) < length) {
-                throw new System.ArgumentException("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
+                throw new System.ArgumentException.$ctor1("Offset and length were out of bounds for the array or count is greater than the number of elements from index to the end of the source collection.");
             }
 
             if (System.Array.getRank(array) !== 1) {
-                throw new System.RankException("Only single dimensional arrays are supported for the requested action.");
+                throw new System.RankException.$ctor1("Only single dimensional arrays are supported for the requested action.");
             }
 
             if (!comparer) {
@@ -11790,7 +11789,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                 try {
                     c = System.Collections.Generic.Comparer$1.get(comparer)(array[i], value);
                 } catch (e) {
-                    throw new System.InvalidOperationException("Failed to compare two elements in the array.", e);
+                    throw new System.InvalidOperationException.$ctor2("Failed to compare two elements in the array.", e);
                 }
 
                 if (c === 0) {
@@ -11809,7 +11808,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         sort: function (array, index, length, comparer) {
             if (!array) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (arguments.length === 2 && typeof index === "function") {
@@ -11893,11 +11892,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         convertAll: function (array, converter) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (!Bridge.hasValue(converter)) {
-                throw new System.ArgumentNullException("converter");
+                throw new System.ArgumentNullException.$ctor1("converter");
             }
 
             var array2 = array.map(converter);
@@ -11907,11 +11906,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         find: function (T, array, match) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (!Bridge.hasValue(match)) {
-                throw new System.ArgumentNullException("match");
+                throw new System.ArgumentNullException.$ctor1("match");
             }
 
             for (var i = 0; i < array.length; i++) {
@@ -11925,11 +11924,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         findAll: function (array, match) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (!Bridge.hasValue(match)) {
-                throw new System.ArgumentNullException("match");
+                throw new System.ArgumentNullException.$ctor1("match");
             }
 
             var list = [];
@@ -11945,7 +11944,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         findIndex: function (array, startIndex, count, match) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (arguments.length === 2) {
@@ -11958,15 +11957,15 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (startIndex < 0 || startIndex > array.length) {
-                throw new System.ArgumentOutOfRangeException("startIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
             }
 
             if (count < 0 || startIndex > array.length - count) {
-                throw new System.ArgumentOutOfRangeException("count");
+                throw new System.ArgumentOutOfRangeException.$ctor1("count");
             }
 
             if (!Bridge.hasValue(match)) {
-                throw new System.ArgumentNullException("match");
+                throw new System.ArgumentNullException.$ctor1("match");
             }
 
             var endIndex = startIndex + count;
@@ -11982,11 +11981,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         findLast: function (T, array, match) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (!Bridge.hasValue(match)) {
-                throw new System.ArgumentNullException("match");
+                throw new System.ArgumentNullException.$ctor1("match");
             }
 
             for (var i = array.length - 1; i >= 0; i--) {
@@ -12000,7 +11999,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         findLastIndex: function (array, startIndex, count, match) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (arguments.length === 2) {
@@ -12013,21 +12012,21 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (!Bridge.hasValue(match)) {
-                throw new System.ArgumentNullException("match");
+                throw new System.ArgumentNullException.$ctor1("match");
             }
 
             if (array.length === 0) {
                 if (startIndex !== -1) {
-                    throw new System.ArgumentOutOfRangeException("startIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                 }
             } else {
                 if (startIndex < 0 || startIndex >= array.length) {
-                    throw new System.ArgumentOutOfRangeException("startIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                 }
             }
 
             if (count < 0 || startIndex - count + 1 < 0) {
-                throw new System.ArgumentOutOfRangeException("count");
+                throw new System.ArgumentOutOfRangeException.$ctor1("count");
             }
 
             var endIndex = startIndex - count;
@@ -12043,11 +12042,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         forEach: function (array, action) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (!Bridge.hasValue(action)) {
-                throw new System.ArgumentNullException("action");
+                throw new System.ArgumentNullException.$ctor1("action");
             }
 
             for (var i = 0; i < array.length; i++) {
@@ -12057,7 +12056,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         indexOfT: function (array, value, startIndex, count) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (arguments.length === 2) {
@@ -12068,11 +12067,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (startIndex < 0 || (startIndex >= array.length && array.length > 0)) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "out of range");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "out of range");
             }
 
             if (count < 0 || count > array.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("count", "out of range");
+                throw new System.ArgumentOutOfRangeException.$ctor4("count", "out of range");
             }
 
             return System.Array.indexOf(array, value, startIndex, count);
@@ -12088,7 +12087,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         lastIndexOfT: function (array, value, startIndex, count) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (arguments.length === 2) {
@@ -12099,11 +12098,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (startIndex < 0 || (startIndex >= array.length && array.length > 0)) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "out of range");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "out of range");
             }
 
             if (count < 0 || startIndex - count + 1 < 0) {
-                throw new System.ArgumentOutOfRangeException("count", "out of range");
+                throw new System.ArgumentOutOfRangeException.$ctor4("count", "out of range");
             }
 
             var endIndex = startIndex - count + 1;
@@ -12125,11 +12124,11 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
         trueForAll: function (array, match) {
             if (!Bridge.hasValue(array)) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (!Bridge.hasValue(match)) {
-                throw new System.ArgumentNullException("match");
+                throw new System.ArgumentNullException.$ctor1("match");
             }
 
             for (var i = 0; i < array.length; i++) {
@@ -12224,7 +12223,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source ArraySegment.js
 
-    Bridge.define('System.ArraySegment', {
+    Bridge.define("System.ArraySegment", {
         $kind: "struct",
 
         statics: {
@@ -12245,14 +12244,14 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
             }
 
             if (array == null) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             this.array = array;
 
             if (Bridge.isNumber(offset)) {
                 if (offset < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("offset");
                 }
 
                 this.offset = offset;
@@ -12262,7 +12261,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
             if (Bridge.isNumber(count)) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
 
                 this.count = count;
@@ -12306,7 +12305,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source KeyValuePair.js
 
-    Bridge.define('System.Collections.Generic.KeyValuePair$2', function (TKey, TValue) {
+    Bridge.define("System.Collections.Generic.KeyValuePair$2", function (TKey, TValue) {
         return {
             $kind: "struct",
 
@@ -12351,29 +12350,29 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
     });
     // @source Interfaces.js
 
-    Bridge.define('System.Collections.IEnumerable', {
+    Bridge.define("System.Collections.IEnumerable", {
         $kind: "interface"
     });
-    Bridge.define('System.Collections.IEnumerator', {
+    Bridge.define("System.Collections.IEnumerator", {
         $kind: "interface"
     });
-    Bridge.define('System.Collections.IEqualityComparer', {
+    Bridge.define("System.Collections.IEqualityComparer", {
         $kind: "interface"
     });
-    Bridge.define('System.Collections.ICollection', {
+    Bridge.define("System.Collections.ICollection", {
         inherits: [System.Collections.IEnumerable],
         $kind: "interface"
     });
-    Bridge.define('System.Collections.IList', {
+    Bridge.define("System.Collections.IList", {
         inherits: [System.Collections.ICollection],
         $kind: "interface"
     });
-    Bridge.define('System.Collections.IDictionary', {
+    Bridge.define("System.Collections.IDictionary", {
         inherits: [System.Collections.ICollection],
         $kind: "interface"
     });
 
-    Bridge.define('System.Collections.Generic.IEnumerator$1', function (T) {
+    Bridge.define("System.Collections.Generic.IEnumerator$1", function (T) {
         return {
             inherits: [System.Collections.IEnumerator],
             $kind: "interface",
@@ -12381,7 +12380,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         };
     });
 
-    Bridge.define('System.Collections.Generic.IEnumerable$1', function (T) {
+    Bridge.define("System.Collections.Generic.IEnumerable$1", function (T) {
         return {
             inherits: [System.Collections.IEnumerable],
             $kind: "interface",
@@ -12389,63 +12388,63 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         };
     });
 
-    Bridge.define('System.Collections.Generic.ICollection$1', function (T) {
+    Bridge.define("System.Collections.Generic.ICollection$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IEnumerable$1(T)],
             $kind: "interface"
         };
     });
 
-    Bridge.define('System.Collections.Generic.IEqualityComparer$1', function (T) {
+    Bridge.define("System.Collections.Generic.IEqualityComparer$1", function (T) {
         return {
             $kind: "interface",
             $variance: [2]
         };
     });
 
-    Bridge.define('System.Collections.Generic.IDictionary$2', function (TKey, TValue) {
+    Bridge.define("System.Collections.Generic.IDictionary$2", function (TKey, TValue) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(System.Collections.Generic.KeyValuePair$2(TKey, TValue))],
             $kind: "interface"
         };
     });
 
-    Bridge.define('System.Collections.Generic.IList$1', function (T) {
+    Bridge.define("System.Collections.Generic.IList$1", function (T) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
             $kind: "interface"
         };
     });
 
-    Bridge.define('System.Collections.Generic.IComparer$1', function (T) {
+    Bridge.define("System.Collections.Generic.IComparer$1", function (T) {
         return {
             $kind: "interface",
             $variance: [2]
         };
     });
 
-    Bridge.define('System.Collections.Generic.ISet$1', function (T) {
+    Bridge.define("System.Collections.Generic.ISet$1", function (T) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
             $kind: "interface"
         };
     });
 
-    Bridge.define('System.Collections.Generic.IReadOnlyCollection$1', function (T) {
+    Bridge.define("System.Collections.Generic.IReadOnlyCollection$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IEnumerable$1(T)],
             $kind: "interface"
         };
     });
 
-    Bridge.define('System.Collections.Generic.IReadOnlyList$1', function (T) {
+    Bridge.define("System.Collections.Generic.IReadOnlyList$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IReadOnlyCollection$1(T)],
             $kind: "interface"
         };
     });
 
-    Bridge.define('System.Collections.Generic.IReadOnlyDictionary$2', function (TKey, TValue) {
+    Bridge.define("System.Collections.Generic.IReadOnlyDictionary$2", function (TKey, TValue) {
         return {
             inherits: [System.Collections.Generic.IReadOnlyCollection$1(System.Collections.Generic.KeyValuePair$2(TKey, TValue))],
             $kind: "interface"
@@ -12454,7 +12453,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source CustomEnumerator.js
 
-    Bridge.define('Bridge.CustomEnumerator', {
+    Bridge.define("Bridge.CustomEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         config: {
@@ -12539,7 +12538,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source ArrayEnumerator.js
 
-    Bridge.define('Bridge.ArrayEnumerator', {
+    Bridge.define("Bridge.ArrayEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         statics: {
@@ -12612,7 +12611,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         Dispose: Bridge.emptyFn
     });
 
-    Bridge.define('Bridge.ArrayEnumerable', {
+    Bridge.define("Bridge.ArrayEnumerable", {
         inherits: [System.Collections.IEnumerable],
 
         config: {
@@ -12633,7 +12632,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source EqualityComparer.js
 
-    Bridge.define('System.Collections.Generic.EqualityComparer$1', function (T) {
+    Bridge.define("System.Collections.Generic.EqualityComparer$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IEqualityComparer$1(T)],
 
@@ -12684,7 +12683,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source Comparer.js
 
-    Bridge.define('System.Collections.Generic.Comparer$1', function (T) {
+    Bridge.define("System.Collections.Generic.Comparer$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IComparer$1(T)],
 
@@ -12724,7 +12723,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
     // @source Dictionary.js
 
-    Bridge.define('System.Collections.Generic.Dictionary$2', function (TKey, TValue) {
+    Bridge.define("System.Collections.Generic.Dictionary$2", function (TKey, TValue) {
         return {
             inherits: [System.Collections.Generic.IDictionary$2(TKey, TValue),
                 System.Collections.IDictionary,
@@ -12808,7 +12807,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         c = e.Current;
                         this.add(c.key, c.value);
                     }
-                } else if (Object.prototype.toString.call(obj) === '[object Object]') {
+                } else if (Object.prototype.toString.call(obj) === "[object Object]") {
                     var names = Object.keys(obj),
                         name;
 
@@ -12958,7 +12957,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
                         return Bridge.getDefaultValue(TValue);
                     }
 
-                    throw new System.Collections.Generic.KeyNotFoundException('Key ' + key + ' does not exist.');
+                    throw new System.Collections.Generic.KeyNotFoundException.$ctor1("Key " + key + " does not exist.");
                 }
 
                 return entry.value;
@@ -12974,7 +12973,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
 
                 if (entry) {
                     if (add) {
-                        throw new System.ArgumentException('Key ' + key + ' already exists.');
+                        throw new System.ArgumentException.$ctor1("Key " + key + " already exists.");
                     }
 
                     entry.value = value;
@@ -13129,7 +13128,7 @@ Bridge.Class.addExtend(System.Boolean, [System.IComparable$1(System.Boolean), Sy
         return [typeKey, typeValue];
     };
 
-    Bridge.define('System.Collections.Generic.DictionaryCollection$1', function (T) {
+    Bridge.define("System.Collections.Generic.DictionaryCollection$1", function (T) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
 
@@ -14070,19 +14069,19 @@ Bridge.define("System.String", {
 
         fromCharArray: function (chars, startIndex, length) {
             if (chars == null) {
-                throw new System.ArgumentNullException("chars");
+                throw new System.ArgumentNullException.$ctor1("chars");
             }
 
             if (startIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
             }
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length");
+                throw new System.ArgumentOutOfRangeException.$ctor1("length");
             }
 
             if (chars.length - startIndex < length) {
-                throw new System.ArgumentOutOfRangeException("startIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
             }
 
             var result = "";
@@ -14151,7 +14150,7 @@ Bridge.define("System.String", {
             if (count >= 0) {
                 return String(Array(count + 1).join(String.fromCharCode(c)));
             } else {
-                throw new System.ArgumentOutOfRangeException("count", "cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("count", "cannot be less than zero");
             }
         },
 
@@ -14165,7 +14164,7 @@ Bridge.define("System.String", {
 
         _format: function (provider, format, args) {
             if (format == null) {
-                throw new System.ArgumentNullException("format");
+                throw new System.ArgumentNullException.$ctor1("format");
             }
 
             var me = this,
@@ -14195,7 +14194,7 @@ Bridge.define("System.String", {
             index = parseInt(index, 10);
 
             if (index > args.length - 1) {
-                throw new System.FormatException("Input string was not in a correct format.");
+                throw new System.FormatException.$ctor1("Input string was not in a correct format.");
             }
 
             value = args[index];
@@ -14332,17 +14331,17 @@ Bridge.define("System.String", {
             var startIndex = (arguments.length > 2) ? arguments[2] : 0;
 
             if (startIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero");
             }
 
             var length = (arguments.length > 3) ? arguments[3] : str.length - startIndex;
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (length > str.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("Index and length must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index and length must refer to a location within the string");
             }
 
             var s = str.substr(startIndex, length);
@@ -14371,7 +14370,7 @@ Bridge.define("System.String", {
             var startIndex = (arguments.length > 2) ? arguments[2] : 0;
 
             if (startIndex < 0 || startIndex > str.length) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
             }
 
             if (value === "") {
@@ -14381,11 +14380,11 @@ Bridge.define("System.String", {
             var length = (arguments.length > 3) ? arguments[3] : str.length - startIndex;
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (length > str.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("Index and length must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index and length must refer to a location within the string");
             }
 
             var s = str.substr(startIndex, length),
@@ -14457,11 +14456,11 @@ Bridge.define("System.String", {
 
         toCharArray: function (str, startIndex, length) {
             if (startIndex < 0 || startIndex > str.length || startIndex > str.length - length) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero and must refer to a location within the string");
             }
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (!Bridge.hasValue(startIndex)) {
@@ -14501,20 +14500,20 @@ Bridge.define("System.String", {
             }
 
             if (index < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "StartIndex cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "StartIndex cannot be less than zero");
             }
 
             if (count != null) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than zero");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count cannot be less than zero");
                 }
 
                 if (count > s.length - index) {
-                    throw new System.ArgumentOutOfRangeException("count", "Index and count must refer to a location within the string");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Index and count must refer to a location within the string");
                 }
             } else {
                 if (index >= s.length) {
-                    throw new System.ArgumentOutOfRangeException("startIndex", "startIndex must be less than length of string");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex must be less than length of string");
                 }
             }
 
@@ -14526,7 +14525,7 @@ Bridge.define("System.String", {
         },
 
         split: function (s, strings, limit, options) {
-            var re = (!Bridge.hasValue(strings) || strings.length === 0) ? new RegExp("\\s", "g") : new RegExp(strings.map(System.String.escape).join('|'), 'g'),
+            var re = (!Bridge.hasValue(strings) || strings.length === 0) ? new RegExp("\\s", "g") : new RegExp(strings.map(System.String.escape).join("|"), "g"),
                 res = [],
                 m,
                 i;
@@ -14553,11 +14552,11 @@ Bridge.define("System.String", {
         },
 
         trimEnd: function (str, chars) {
-            return str.replace(chars ? new RegExp('[' + System.String.escape(String.fromCharCode.apply(null, chars)) + ']+$') : /\s*$/, '');
+            return str.replace(chars ? new RegExp("[" + System.String.escape(String.fromCharCode.apply(null, chars)) + "]+$") : /\s*$/, "");
         },
 
         trimStart: function (str, chars) {
-            return str.replace(chars ? new RegExp('^[' + System.String.escape(String.fromCharCode.apply(null, chars)) + ']+') : /^\s*/, '');
+            return str.replace(chars ? new RegExp("^[" + System.String.escape(String.fromCharCode.apply(null, chars)) + "]+") : /^\s*/, "");
         },
 
         trim: function (str, chars) {
@@ -14565,7 +14564,7 @@ Bridge.define("System.String", {
         },
 
         trimStartZeros: function (str) {
-            return str.replace(new RegExp('^[ 0+]+(?=.)'), '');
+            return str.replace(new RegExp("^[ 0+]+(?=.)"), "");
         },
 
         concat: function (values) {
@@ -14581,27 +14580,27 @@ Bridge.define("System.String", {
 
         copyTo: function (str, sourceIndex, destination, destinationIndex, count) {
             if (destination == null) {
-                throw new System.ArgumentNullException("destination");
+                throw new System.ArgumentNullException.$ctor1("destination");
             }
 
             if (str == null) {
-                throw new System.ArgumentNullException("str");
+                throw new System.ArgumentNullException.$ctor1("str");
             }
 
             if (count < 0) {
-                throw new System.ArgumentOutOfRangeException("count");
+                throw new System.ArgumentOutOfRangeException.$ctor1("count");
             }
 
             if (sourceIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("sourceIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("sourceIndex");
             }
 
             if (count > str.length - sourceIndex) {
-                throw new System.ArgumentOutOfRangeException("sourceIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("sourceIndex");
             }
 
             if (destinationIndex > destination.length - count || destinationIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("destinationIndex");
+                throw new System.ArgumentOutOfRangeException.$ctor1("destinationIndex");
             }
 
             if (count > 0) {
@@ -14707,7 +14706,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                                     System.Array.addRange(exceptions, t.exception.innerExceptions);
                                     break;
                                 default:
-                                    throw new System.InvalidOperationException("Invalid task status: " + t.status);
+                                    throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
                             }
 
                             if (--executing === 0) {
@@ -14734,7 +14733,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 }
 
                 if (!tasks.length) {
-                    throw new System.ArgumentException("At least one task is required");
+                    throw new System.ArgumentException.$ctor1("At least one task is required");
                 }
 
                 var tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -14753,7 +14752,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
                             default:
-                                throw new System.InvalidOperationException("Invalid task status: " + t.status);
+                                throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
                         }
                     });
                 }
@@ -14863,7 +14862,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         start: function () {
             if (this.status !== System.Threading.Tasks.TaskStatus.created) {
-                throw new System.InvalidOperationException("Task was already started.");
+                throw new System.InvalidOperationException.$ctor1("Task was already started.");
             }
 
             var me = this;
@@ -14948,13 +14947,13 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException(null, this);
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
 
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                 default:
-                    throw new System.InvalidOperationException("Task is not yet completed.");
+                    throw new System.InvalidOperationException.$ctor1("Task is not yet completed.");
             }
         },
 
@@ -15006,19 +15005,19 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         setCanceled: function () {
             if (!this.task.cancel()) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
         setResult: function (result) {
             if (!this.task.complete(result)) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
         setException: function (exception) {
             if (!this.trySetException(exception)) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
@@ -15183,7 +15182,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         throwIfCancellationRequested: function () {
             if (this.source.isCancellationRequested) {
-                throw new System.OperationCanceledException(this);
+                throw new System.OperationCanceledException.$ctor1(this);
             }
         },
 
@@ -15385,12 +15384,12 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
         statics: {
             getCustomAttributes: function (o, t, b) {
                 if (o == null) {
-                    throw new System.ArgumentNullException("element");
+                    throw new System.ArgumentNullException.$ctor1("element");
                 }
 
                 if (t == null)
                 {
-                    throw new System.ArgumentNullException("attributeType");
+                    throw new System.ArgumentNullException.$ctor1("attributeType");
                 }
 
                 var r = o.at || [];
@@ -15404,12 +15403,12 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
             getCustomAttributes$1: function (a, t, b) {
                 if (a == null) {
-                    throw new System.ArgumentNullException("element");
+                    throw new System.ArgumentNullException.$ctor1("element");
                 }
 
                 if (t == null)
                 {
-                    throw new System. ArgumentNullException("attributeType");
+                    throw new System.ArgumentNullException.$ctor1("attributeType");
                 }
 
                 return a.getCustomAttributes(t || b);
@@ -15476,7 +15475,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                     } else if (lowCaseVal === "false") {
                         return false;
                     } else {
-                        throw new System.FormatException("String was not recognized as a valid Boolean.");
+                        throw new System.FormatException.$ctor1("String was not recognized as a valid Boolean.");
                     }
 
                 case "object":
@@ -15543,11 +15542,11 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
                     case "string":
                         if (value == null) {
-                            throw new System.ArgumentNullException("value");
+                            throw new System.ArgumentNullException.$ctor1("value");
                         }
 
                         if (value.length !== 1) {
-                            throw new System.FormatException("String must be exactly one character long.");
+                            throw new System.FormatException.$ctor1("String must be exactly one character long.");
                         }
 
                         return value.charCodeAt(0);
@@ -15743,7 +15742,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         toNumberInBase: function (str, fromBase, typeCode) {
             if (fromBase !== 2 && fromBase !== 8 && fromBase !== 10 && fromBase !== 16) {
-                throw new System.ArgumentException("Invalid Base.");
+                throw new System.ArgumentException.$ctor1("Invalid Base.");
             }
 
             var typeCodes = scope.convert.typeCodes;
@@ -15761,7 +15760,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             }
 
             if (str.length === 0) {
-                throw new System.ArgumentOutOfRangeException("Index was out of range. Must be non-negative and less than the size of the collection.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             // Let's process the string in lower case.
@@ -15776,11 +15775,11 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
             if (str[startIndex] === "-") {
                 if (fromBase !== 10) {
-                    throw new System.ArgumentException("String cannot contain a minus sign if the base is not 10.");
+                    throw new System.ArgumentException.$ctor1("String cannot contain a minus sign if the base is not 10.");
                 }
 
                 if (minValue >= 0) {
-                    throw new System.OverflowException("The string was being parsed as an unsigned number and could not have a negative sign.");
+                    throw new System.OverflowException.$ctor1("The string was being parsed as an unsigned number and could not have a negative sign.");
                 }
 
                 isNegative = true;
@@ -15805,7 +15804,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             } else if (fromBase === 16) {
                 allowedCodes = scope.internal.charsToCodes("0123456789abcdef");
             } else {
-                throw new System.ArgumentException("Invalid Base.");
+                throw new System.ArgumentException.$ctor1("Invalid Base.");
             }
 
             // Create charCode-to-Value map
@@ -15830,9 +15829,9 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
                     if (!(code >= firstAllowed && code <= lastAllowed)) {
                         if (j === startIndex) {
-                            throw new System.FormatException("Could not find any recognizable digits.");
+                            throw new System.FormatException.$ctor1("Could not find any recognizable digits.");
                         } else {
-                            throw new System.FormatException("Additional non-parsable characters are at the end of the string.");
+                            throw new System.FormatException.$ctor1("Additional non-parsable characters are at the end of the string.");
                         }
                     }
                 }
@@ -15846,7 +15845,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 }
 
                 if (res.toString(fromBase) !== System.String.trimStartZeros(str)) {
-                    throw new System.OverflowException("Value was either too large or too small.");
+                    throw new System.OverflowException.$ctor1("Value was either too large or too small.");
                 }
 
                 return res;
@@ -15863,13 +15862,13 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                         res += codeValues[code];
 
                         if (res > scope.internal.typeRanges.Int64_MaxValue) {
-                            throw new System.OverflowException("Value was either too large or too small.");
+                            throw new System.OverflowException.$ctor1("Value was either too large or too small.");
                         }
                     } else {
                         if (j === startIndex) {
-                            throw new System.FormatException("Could not find any recognizable digits.");
+                            throw new System.FormatException.$ctor1("Could not find any recognizable digits.");
                         } else {
-                            throw new System.FormatException("Additional non-parsable characters are at the end of the string.");
+                            throw new System.FormatException.$ctor1("Additional non-parsable characters are at the end of the string.");
                         }
                     }
                 }
@@ -15884,7 +15883,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 }
 
                 if (res < minValue || res > maxValue) {
-                    throw new System.OverflowException("Value was either too large or too small.");
+                    throw new System.OverflowException.$ctor1("Value was either too large or too small.");
                 }
 
                 return res;
@@ -15897,7 +15896,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             value = Bridge.unbox(value, true);
 
             if (toBase !== 2 && toBase !== 8 && toBase !== 10 && toBase !== 16) {
-                throw new System.ArgumentException("Invalid Base.");
+                throw new System.ArgumentException.$ctor1("Invalid Base.");
             }
 
             var minValue = scope.internal.getMinValue(typeCode),
@@ -15906,10 +15905,10 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
             if (special) {
                 if (value.lt(minValue) || value.gt(maxValue)) {
-                    throw new System.OverflowException("Value was either too large or too small for an unsigned byte.");
+                    throw new System.OverflowException.$ctor1("Value was either too large or too small for an unsigned byte.");
                 }
             } else if (value < minValue || value > maxValue) {
-                throw new System.OverflowException("Value was either too large or too small for an unsigned byte.");
+                throw new System.OverflowException.$ctor1("Value was either too large or too small for an unsigned byte.");
             }
 
             // Handle negative numbers:
@@ -15942,7 +15941,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             } else if (toBase === 16) {
                 allowedChars = "0123456789abcdef";
             } else {
-                throw new System.ArgumentException("Invalid Base.");
+                throw new System.ArgumentException.$ctor1("Invalid Base.");
             }
 
             // Fill Value-To-Char map:
@@ -15994,7 +15993,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         toBase64String: function (inArray, offset, length, options) {
             if (inArray == null) {
-                throw new System.ArgumentNullException("inArray");
+                throw new System.ArgumentNullException.$ctor1("inArray");
             }
 
             offset = offset || 0;
@@ -16002,21 +16001,21 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             options = options || 0; // 0 - means "None", 1 - stands for "InsertLineBreaks"
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             if (offset < 0) {
-                throw new System.ArgumentOutOfRangeException("offset", "Value must be positive.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offset", "Value must be positive.");
             }
 
             if (options < 0 || options > 1) {
-                throw new System.ArgumentException("Illegal enum value.");
+                throw new System.ArgumentException.$ctor1("Illegal enum value.");
             }
 
             var inArrayLength = inArray.length;
 
             if (offset > (inArrayLength - length)) {
-                throw new System.ArgumentOutOfRangeException("offset", "Offset and length must refer to a position in the string.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offset", "Offset and length must refer to a position in the string.");
             }
 
             if (inArrayLength === 0) {
@@ -16038,35 +16037,35 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         toBase64CharArray: function (inArray, offsetIn, length, outArray, offsetOut, options) {
             if (inArray == null) {
-                throw new System.ArgumentNullException("inArray");
+                throw new System.ArgumentNullException.$ctor1("inArray");
             }
 
             if (outArray == null) {
-                throw new System.ArgumentNullException("outArray");
+                throw new System.ArgumentNullException.$ctor1("outArray");
             }
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             if (offsetIn < 0) {
-                throw new System.ArgumentOutOfRangeException("offsetIn", "Value must be positive.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offsetIn", "Value must be positive.");
             }
 
             if (offsetOut < 0) {
-                throw new System.ArgumentOutOfRangeException("offsetOut", "Value must be positive.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offsetOut", "Value must be positive.");
             }
 
             options = options || 0; // 0 - means "None", 1 - stands for "InsertLineBreaks"
 
             if (options < 0 || options > 1) {
-                throw new System.ArgumentException("Illegal enum value.");
+                throw new System.ArgumentException.$ctor1("Illegal enum value.");
             }
 
             var inArrayLength = inArray.length;
 
             if (offsetIn > inArrayLength - length) {
-                throw new System.ArgumentOutOfRangeException("offsetIn", "Offset and length must refer to a position in the string.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offsetIn", "Offset and length must refer to a position in the string.");
             }
 
             if (inArrayLength === 0) {
@@ -16080,7 +16079,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             var numElementsToCopy = scope.internal.toBase64_CalculateAndValidateOutputLength(length, insertLineBreaks);
 
             if (offsetOut > (outArrayLength - numElementsToCopy)) {
-                throw new System.ArgumentOutOfRangeException("offsetOut", "Either offset did not refer to a position in the string, or there is an insufficient length of destination character array.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offsetOut", "Either offset did not refer to a position in the string, or there is an insufficient length of destination character array.");
             }
 
             var charsArr = [],
@@ -16095,7 +16094,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             // "s" is an unfortunate parameter name, but we need to keep it for backward compat.
 
             if (s == null) {
-                throw new System.ArgumentNullException("s");
+                throw new System.ArgumentNullException.$ctor1("s");
             }
 
             var sChars = s.split(""),
@@ -16106,19 +16105,19 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         fromBase64CharArray: function (inArray, offset, length) {
             if (inArray == null) {
-                throw new System.ArgumentNullException("inArray");
+                throw new System.ArgumentNullException.$ctor1("inArray");
             }
 
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             if (offset < 0) {
-                throw new System.ArgumentOutOfRangeException("offset", "Value must be positive.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offset", "Value must be positive.");
             }
 
             if (offset > (inArray.length - length)) {
-                throw new System.ArgumentOutOfRangeException("offset", "Offset and length must refer to a position in the string.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offset", "Offset and length must refer to a position in the string.");
             }
 
             var chars = scope.internal.codesToChars(inArray),
@@ -16129,7 +16128,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         convertToType: function (typeCode, value, formatProvider) {
             //TODO: #822 IConvertible
-            throw new System.NotSupportedException("IConvertible interface is not supported.");
+            throw new System.NotSupportedException.$ctor1("IConvertible interface is not supported.");
         }
     };
 
@@ -16308,7 +16307,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 case typeCodes.DateTime:
                     return System.DateTime.getMaxValue();
                 default:
-                    throw new System.ArgumentOutOfRangeException("typeCode", "The specified typeCode is undefined.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("typeCode", "The specified typeCode is undefined.");
             }
         },
 
@@ -16387,7 +16386,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 case "string":
                     if (value == null) {
                         if (formatProvider != null) {
-                            throw new System.ArgumentNullException("String", "Value cannot be null.");
+                            throw new System.ArgumentNullException.$ctor3("String", "Value cannot be null.");
                         }
 
                         return 0;
@@ -16397,21 +16396,21 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                         if (typeCode === typeCodes.Decimal) {
                             if (!/^[+-]?(\d+|\d+.|\d*\.\d+)$/.test(value)) {
                                 if (!/^[+-]?[0-9]+$/.test(value)) {
-                                    throw new System.FormatException("Input string was not in a correct format.");
+                                    throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                                 }
                             }
 
                             value = System.Decimal(value, formatProvider);
                         } else {
                             if (!/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/.test(value)) {
-                                throw new System.FormatException("Input string was not in a correct format.");
+                                throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                             }
 
                             value = parseFloat(value);
                         }
                     } else {
                         if (!/^[+-]?[0-9]+$/.test(value)) {
-                            throw new System.FormatException("Input string was not in a correct format.");
+                            throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                         }
 
                         var str = value;
@@ -16434,7 +16433,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                     }
 
                     if (isNaN(value)) {
-                        throw new System.FormatException("Input string was not in a correct format.");
+                        throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                     }
 
                     scope.internal.validateNumberRange(value, typeCode, true);
@@ -16522,7 +16521,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
         },
 
         throwOverflow: function (typeName) {
-            throw new System.OverflowException("Value was either too large or too small for '" + typeName + "'.");
+            throw new System.OverflowException.$ctor1("Value was either too large or too small for '" + typeName + "'.");
         },
 
         roundToInt: function (value, typeCode) {
@@ -16560,7 +16559,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
             var typeName = scope.internal.getTypeCodeName(typeCode);
 
-            throw new System.OverflowException("Value was either too large or too small for an '" + typeName + "'.");
+            throw new System.OverflowException.$ctor1("Value was either too large or too small for an '" + typeName + "'.");
         },
 
         toBase64_CalculateAndValidateOutputLength: function (inputLength, insertLineBreaks) {
@@ -16654,11 +16653,11 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         fromBase64CharPtr: function (input, offset, inputLength) {
             if (inputLength < 0) {
-                throw new System.ArgumentOutOfRangeException("inputLength", "Index was out of range. Must be non-negative and less than the size of the collection.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("inputLength", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             if (offset < 0) {
-                throw new System.ArgumentOutOfRangeException("offset", "Value must be positive.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("offset", "Value must be positive.");
             }
 
             // We need to get rid of any trailing white spaces.
@@ -16677,7 +16676,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             var resultLength = scope.internal.fromBase64_ComputeResultLength(input, offset, inputLength);
 
             if (0 > resultLength) {
-                throw new System.InvalidOperationException("Contract voilation: 0 <= resultLength.");
+                throw new System.InvalidOperationException.$ctor1("Contract voilation: 0 <= resultLength.");
             }
 
             // resultLength can be zero. We will still enter FromBase64_Decode and process the input.
@@ -16776,7 +16775,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
                             // Other chars are illegal:
                         default:
-                            throw new System.FormatException("The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.");
+                            throw new System.FormatException.$ctor1("The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.");
                     }
                 }
 
@@ -16803,12 +16802,12 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             } // end of while
 
             if (!allInputConsumed && !equalityCharEncountered) {
-                throw new System.InvalidOperationException("Contract violation: should never get here.");
+                throw new System.InvalidOperationException.$ctor1("Contract violation: should never get here.");
             }
 
             if (equalityCharEncountered) {
                 if (currCode !== intEq) {
-                    throw new System.InvalidOperationException("Contract violation: currCode == intEq.");
+                    throw new System.InvalidOperationException.$ctor1("Contract violation: currCode == intEq.");
                 }
 
                 // Recall that inputIndex is now one position past where '=' was read.
@@ -16819,7 +16818,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
                     // The '=' did not complete a 4-group. The input must be bad:
                     if ((currBlockCodes & 0x80000000) === 0) {
-                        throw new System.FormatException("Invalid length for a Base-64 char array or string.");
+                        throw new System.FormatException.$ctor1("Invalid length for a Base-64 char array or string.");
                     }
 
                     if ((endDestIndex - destIndex) < 2) {
@@ -16852,7 +16851,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
                         // The '=' did not complete a 4-group. The input must be bad:
                         if ((currBlockCodes & 0x80000000) === 0) {
-                            throw new System.FormatException("Invalid length for a Base-64 char array or string.");
+                            throw new System.FormatException.$ctor1("Invalid length for a Base-64 char array or string.");
                         }
 
                         if ((endDestIndex - destIndex) < 1) {
@@ -16867,7 +16866,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                         currBlockCodes = 0x000000FF;
                     } else {
                         // '=' is not ok at places other than the end:
-                        throw new System.FormatException("The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.");
+                        throw new System.FormatException.$ctor1("The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.");
                     }
                 }
             }
@@ -16875,7 +16874,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             // We get here either from above or by jumping out of the loop:
             // The last block of chars has less than 4 items
             if (currBlockCodes !== 0x000000FF) {
-                throw new System.FormatException("Invalid length for a Base-64 char array or string.");
+                throw new System.FormatException.$ctor1("Invalid length for a Base-64 char array or string.");
             }
 
             // Return how many bytes were actually recovered:
@@ -16887,7 +16886,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 intSpace = " ";
 
             if (inputLength < 0) {
-                throw new System.ArgumentOutOfRangeException("inputLength", "Index was out of range. Must be non-negative and less than the size of the collection.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("inputLength", "Index was out of range. Must be non-negative and less than the size of the collection.");
             }
 
             var endIndex = startIndex + inputLength,
@@ -16911,13 +16910,13 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             }
 
             if (0 > usefulInputLength) {
-                throw new System.InvalidOperationException("Contract violation: 0 <= usefulInputLength.");
+                throw new System.InvalidOperationException.$ctor1("Contract violation: 0 <= usefulInputLength.");
             }
 
             if (0 > padding) {
                 // For legal input, we can assume that 0 <= padding < 3. But it may be more for illegal input.
                 // We will notice it at decode when we see a '=' at the wrong place.
-                throw new System.InvalidOperationException("Contract violation: 0 <= padding.");
+                throw new System.InvalidOperationException.$ctor1("Contract violation: 0 <= padding.");
             }
 
             // Perf: reuse the variable that stored the number of '=' to store the number of bytes encoded by the
@@ -16928,7 +16927,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                 } else if (padding === 2) {
                     padding = 1;
                 } else {
-                    throw new System.FormatException("The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.");
+                    throw new System.FormatException.$ctor1("The input is not a valid Base-64 string as it contains a non-base 64 character, more than two padding characters, or an illegal character among the padding characters.");
                 }
             }
 
@@ -16974,7 +16973,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
         throwInvalidCastEx: function (fromTypeCode, toTypeCode) {
             var fromType = scope.internal.getTypeCodeName(fromTypeCode),                toType = scope.internal.getTypeCodeName(toTypeCode);
 
-            throw new System.InvalidCastException("Invalid cast from '" + fromType + "' to '" + toType + "'.");
+            throw new System.InvalidCastException.$ctor1("Invalid cast from '" + fromType + "' to '" + toType + "'.");
         }
     };
 
@@ -17013,7 +17012,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         connectAsync: function (uri, cancellationToken) {
             if (this.state !== "none") {
-                throw new System.InvalidOperationException("Socket is not in initial state");
+                throw new System.InvalidOperationException.$ctor1("Socket is not in initial state");
             }
 
             this.options.setToReadOnly();
@@ -17061,7 +17060,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
                         return;
                     }
 
-                    throw new System.ArgumentException("Invalid message type.");
+                    throw new System.ArgumentException.$ctor1("Invalid message type.");
                 };
 
                 this.socket.onclose = function (e) {
@@ -17166,7 +17165,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             this.throwIfNotConnected();
 
             if (this.state !== "open") {
-                throw new System.InvalidOperationException("Socket is not in connected state");
+                throw new System.InvalidOperationException.$ctor1("Socket is not in connected state");
             }
 
             var tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -17202,7 +17201,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
             this.throwIfNotConnected();
 
             if (this.state !== "open") {
-                throw new System.InvalidOperationException("Socket is not in connected state");
+                throw new System.InvalidOperationException.$ctor1("Socket is not in connected state");
             }
 
             var tcs = new System.Threading.Tasks.TaskCompletionSource();
@@ -17238,11 +17237,11 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         throwIfNotConnected: function () {
             if (this.disposed) {
-                throw new System.InvalidOperationException("Socket is disposed.");
+                throw new System.InvalidOperationException.$ctor1("Socket is disposed.");
             }
 
             if (this.socket.readyState !== 1) {
-                throw new System.InvalidOperationException("Socket is not connected.");
+                throw new System.InvalidOperationException.$ctor1("Socket is not connected.");
             }
         }
     });
@@ -17256,7 +17255,7 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         setToReadOnly: function () {
             if (this.isReadOnly) {
-                throw new System.InvalidOperationException("Options are already readonly.");
+                throw new System.InvalidOperationException.$ctor1("Options are already readonly.");
             }
 
             this.isReadOnly = true;
@@ -17264,11 +17263,11 @@ Bridge.Class.addExtend(System.String, [System.IComparable$1(System.String), Syst
 
         addSubProtocol: function (subProtocol) {
             if (this.isReadOnly) {
-                throw new System.InvalidOperationException("Socket already started.");
+                throw new System.InvalidOperationException.$ctor1("Socket already started.");
             }
 
             if (this.requestedSubProtocols.indexOf(subProtocol) > -1) {
-                throw new System.ArgumentException("Socket cannot have duplicate sub-protocols.", "subProtocol");
+                throw new System.ArgumentException.$ctor1("Socket cannot have duplicate sub-protocols.", "subProtocol");
             }
 
             this.requestedSubProtocols.push(subProtocol);
@@ -17625,7 +17624,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
         var state = State.Before;
 
         this.getCurrent = yielder.getCurrent;
-        this.reset = function () { throw new Error('Reset is not supported'); };
+        this.reset = function () { throw new Error("Reset is not supported"); };
 
         this.moveNext = function () {
             try {
@@ -19323,7 +19322,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
         });
 
         if (count === 0) {
-            throw new System.InvalidOperationException("Sequence contains no elements");
+            throw new System.InvalidOperationException.$ctor1("Sequence contains no elements");
         }
 
         return (sum instanceof System.Decimal || System.Int64.is64Bit(sum)) ? sum.div(count) : (sum / count);
@@ -20799,7 +20798,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
             setCacheSize: function (value) {
                 if (value < 0) {
-                    throw new System.ArgumentOutOfRangeException("value");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("value");
                 }
 
                 System.Text.RegularExpressions.Regex._cacheSize = value;
@@ -20808,7 +20807,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
             escape: function (str) {
                 if (str == null) {
-                    throw new System.ArgumentNullException("str");
+                    throw new System.ArgumentNullException.$ctor1("str");
                 }
 
                 return System.Text.RegularExpressions.RegexParser.escape(str);
@@ -20816,7 +20815,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
             unescape: function (str) {
                 if (str == null) {
-                    throw new System.ArgumentNullException("str");
+                    throw new System.ArgumentNullException.$ctor1("str");
                 }
 
                 return System.Text.RegularExpressions.RegexParser.unescape(str);
@@ -20935,11 +20934,11 @@ Bridge.assembly("System", {}, function ($asm, globals) {
             var scope = System.Text.RegularExpressions;
 
             if (pattern == null) {
-                throw new System.ArgumentNullException("pattern");
+                throw new System.ArgumentNullException.$ctor1("pattern");
             }
 
             if (options < scope.RegexOptions.None || ((options >> 10) !== 0)) {
-                throw new System.ArgumentOutOfRangeException("options");
+                throw new System.ArgumentOutOfRangeException.$ctor1("options");
             }
 
             if (((options & scope.RegexOptions.ECMAScript) !== 0) &&
@@ -20948,7 +20947,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
                     scope.RegexOptions.Multiline |
                     scope.RegexOptions.CultureInvariant
                 )) !== 0)) {
-                throw new System.ArgumentOutOfRangeException("options");
+                throw new System.ArgumentOutOfRangeException.$ctor1("options");
             }
 
             // Check if the specified options are supported.
@@ -20960,7 +20959,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
                 System.Text.RegularExpressions.RegexOptions.ExplicitCapture;
 
             if ((options | supportedOptions) !== supportedOptions) {
-                throw new System.NotSupportedException("Specified Regex options are not supported.");
+                throw new System.NotSupportedException.$ctor1("Specified Regex options are not supported.");
             }
 
             this._validateMatchTimeout(matchTimeout);
@@ -20992,7 +20991,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         isMatch: function (input, startat) {
             if (input == null) {
-                throw new System.ArgumentNullException("input");
+                throw new System.ArgumentNullException.$ctor1("input");
             }
 
             if (!Bridge.isDefined(startat)) {
@@ -21006,7 +21005,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         match: function (input, startat, arg3) {
             if (input == null) {
-                throw new System.ArgumentNullException("input");
+                throw new System.ArgumentNullException.$ctor1("input");
             }
 
             var length = input.length,
@@ -21025,7 +21024,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         matches: function (input, startat) {
             if (input == null) {
-                throw new System.ArgumentNullException("input");
+                throw new System.ArgumentNullException.$ctor1("input");
             }
 
             if (!Bridge.isDefined(startat)) {
@@ -21109,7 +21108,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         groupNumberFromName: function (name) {
             if (name == null) {
-                throw new System.ArgumentNullException("name");
+                throw new System.ArgumentNullException.$ctor1("name");
             }
 
             // look up name if we have a hashtable of names
@@ -21149,7 +21148,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         replace: function (input, evaluator, count, startat) {
             if (input == null) {
-                throw new System.ArgumentNullException("input");
+                throw new System.ArgumentNullException.$ctor1("input");
             }
 
             if (!Bridge.isDefined(count)) {
@@ -21161,7 +21160,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
             }
 
             if (evaluator == null) {
-                throw new System.ArgumentNullException("evaluator");
+                throw new System.ArgumentNullException.$ctor1("evaluator");
             }
 
             if (Bridge.isFunction(evaluator)) {
@@ -21176,7 +21175,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         split: function (input, count, startat) {
             if (input == null) {
-                throw new System.ArgumentNullException("input");
+                throw new System.ArgumentNullException.$ctor1("input");
             }
 
             if (!Bridge.isDefined(count)) {
@@ -21201,7 +21200,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
                 return;
             }
 
-            throw new System.ArgumentOutOfRangeException("matchTimeout");
+            throw new System.ArgumentOutOfRangeException.$ctor1("matchTimeout");
         }
     });
 
@@ -21304,7 +21303,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
             }
 
             if (i >= this._capcount || i < 0) {
-                throw new System.ArgumentOutOfRangeException("i");
+                throw new System.ArgumentOutOfRangeException.$ctor1("i");
             }
 
             this._ensureCapturesInited();
@@ -21314,7 +21313,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         copyTo: function (array, arrayIndex) {
             if (array == null) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (array.length < arrayIndex + this._capcount) {
@@ -21406,7 +21405,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         getCapture: function () {
             if (this._curindex < 0 || this._curindex >= this._captureColl.getCount()) {
-                throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
             }
 
             return this._captureColl.get(this._curindex);
@@ -21437,7 +21436,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
             synchronized: function (group) {
                 if (group == null) {
-                    throw new System.ArgumentNullException("group");
+                    throw new System.ArgumentNullException.$ctor1("group");
                 }
 
                 // force Captures to be computed.
@@ -21545,7 +21544,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         copyTo: function (array, arrayIndex) {
             if (array == null) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             var count = this.getCount();
@@ -21677,7 +21676,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         getCapture: function () {
             if (this._curindex < 0 || this._curindex >= this._groupColl.getCount()) {
-                throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
             }
 
             return this._groupColl.get(this._curindex);
@@ -21708,7 +21707,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
             synchronized: function (match) {
                 if (match == null) {
-                    throw new System.ArgumentNullException("match");
+                    throw new System.ArgumentNullException.$ctor1("match");
                 }
 
                 // Populate all groups by looking at each one
@@ -21780,11 +21779,11 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         result: function (replacement) {
             if (replacement == null) {
-                throw new System.ArgumentNullException("replacement");
+                throw new System.ArgumentNullException.$ctor1("replacement");
             }
 
             if (this._regex == null) {
-                throw new System.NotSupportedException("Result cannot be called on a failed Match.");
+                throw new System.NotSupportedException.$ctor1("Result cannot be called on a failed Match.");
             }
 
             var repl = System.Text.RegularExpressions.RegexParser.parseReplacement(replacement, this._regex._caps, this._regex._capsize, this._regex._capnames, this._regex._options);
@@ -21907,7 +21906,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
         ctor: function (regex, input, beginning, length, startat) {
             this.$initialize();
             if (startat < 0 || startat > input.Length) {
-                throw new System.ArgumentOutOfRangeException("startat");
+                throw new System.ArgumentOutOfRangeException.$ctor1("startat");
             }
 
             this._regex = regex;
@@ -21943,7 +21942,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
             var match = this._getMatch(i);
 
             if (match == null) {
-                throw new System.ArgumentOutOfRangeException("i");
+                throw new System.ArgumentOutOfRangeException.$ctor1("i");
             }
 
             return match;
@@ -21951,7 +21950,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         copyTo: function (array, arrayIndex) {
             if (array == null) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             var count = this.getCount();
@@ -22057,7 +22056,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         getCurrent: function () {
             if (this._match == null) {
-                throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
             }
 
             return this._match;
@@ -22111,7 +22110,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
             this.$initialize();
 
             if (regex == null) {
-                throw new System.ArgumentNullException("regex");
+                throw new System.ArgumentNullException.$ctor1("regex");
             }
 
             this._runregex = regex;
@@ -22132,7 +22131,7 @@ Bridge.assembly("System", {}, function ($asm, globals) {
 
         run: function (quick, prevlen, input, beginning, length, startat) {
             if (startat < 0 || startat > input.Length) {
-                throw new System.ArgumentOutOfRangeException("start", "Start index cannot be less than 0 or greater than input length.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("start", "Start index cannot be less than 0 or greater than input length.");
             }
 
             if (length < 0 || length > input.Length) {
@@ -22976,15 +22975,15 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
         statics: {
             replace: function (evaluator, regex, input, count, startat) {
                 if (evaluator == null) {
-                    throw new System.ArgumentNullException("evaluator");
+                    throw new System.ArgumentNullException.$ctor1("evaluator");
                 }
 
                 if (count < -1) {
-                    throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than -1.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count cannot be less than -1.");
                 }
 
                 if (startat < 0 || startat > input.length) {
-                    throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("startat", "Start index cannot be less than 0 or greater than input length.");
                 }
 
                 if (count === 0) {
@@ -23067,11 +23066,11 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
             split: function (regex, input, count, startat) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "Count can't be less than 0.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count can't be less than 0.");
                 }
 
                 if (startat < 0 || startat > input.length) {
-                    throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("startat", "Start index cannot be less than 0 or greater than input length.");
                 }
 
                 var result = [];
@@ -23182,7 +23181,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             this._rep = rep;
 
             if (concat._type !== System.Text.RegularExpressions.RegexNode.Concatenate) {
-                throw new System.ArgumentException("Replacement error.");
+                throw new System.ArgumentException.$ctor1("Replacement error.");
             }
 
             var sb = "";
@@ -23217,7 +23216,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         rules.push(-System.Text.RegularExpressions.RegexReplacement.Specials - 1 - slot);
                         break;
                     default:
-                        throw new System.ArgumentException("Replacement error.");
+                        throw new System.ArgumentException.$ctor1("Replacement error.");
                 }
             }
 
@@ -23240,11 +23239,11 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
         replace: function (regex, input, count, startat) {
             if (count < -1) {
-                throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than -1.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count cannot be less than -1.");
             }
 
             if (startat < 0 || startat > input.length) {
-                throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startat", "Start index cannot be less than 0 or greater than input length.");
             }
 
             if (count === 0) {
@@ -23428,7 +23427,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             this.$initialize();
 
             if (pattern == null) {
-                throw new System.ArgumentNullException("pattern");
+                throw new System.ArgumentNullException.$ctor1("pattern");
             }
 
             this._pattern = pattern;
@@ -23444,11 +23443,11 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
         match: function (text, textStart) {
             if (text == null) {
-                throw new System.ArgumentNullException("text");
+                throw new System.ArgumentNullException.$ctor1("text");
             }
 
             if (textStart != null && (textStart < 0 || textStart > text.length)) {
-                throw new System.ArgumentOutOfRangeException("textStart", "Start index cannot be less than 0 or greater than input length.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("textStart", "Start index cannot be less than 0 or greater than input length.");
             }
 
             this._text = text;
@@ -23585,7 +23584,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         break;
 
                     default:
-                        throw new System.InvalidOperationException("Unexpected branch result.");
+                        throw new System.InvalidOperationException.$ctor1("Unexpected branch result.");
                 }
             }
 
@@ -23650,7 +23649,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         break;
 
                     default:
-                        throw new System.InvalidOperationException("Unexpected branch-pass result.");
+                        throw new System.InvalidOperationException.$ctor1("Unexpected branch-pass result.");
                 }
             }
 
@@ -23786,7 +23785,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         break;
 
                     default:
-                        throw new System.InvalidOperationException("Unexpected quantifier value.");
+                        throw new System.InvalidOperationException.$ctor1("Unexpected quantifier value.");
                 }
             } else if (qtoken.type === tokenTypes.quantifierN) {
                 min = qtoken.data.n;
@@ -23815,7 +23814,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
             }
 
             if (branch !== lastBranch) {
-                throw new System.InvalidOperationException("Current branch is supposed to be the last one.");
+                throw new System.InvalidOperationException.$ctor1("Current branch is supposed to be the last one.");
             }
 
             if (branches.length === 1 && branch.type === this._branchType.offset) {
@@ -23975,10 +23974,10 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return this._scanEscapeToken(branches, branch, pass, token);
 
                 case tokenTypes.escCharClassCategory:
-                    throw new System.NotSupportedException("Unicode Category constructions are not supported.");
+                    throw new System.NotSupportedException.$ctor1("Unicode Category constructions are not supported.");
 
                 case tokenTypes.escCharClassBlock:
-                    throw new System.NotSupportedException("Unicode Named block constructions are not supported.");
+                    throw new System.NotSupportedException.$ctor1("Unicode Named block constructions are not supported.");
 
                 case tokenTypes.escCharClassDot:
                     return this._scanDotToken(textEndPos, branches, branch, pass);
@@ -24320,7 +24319,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 } else if (token.data.substractToken.type === tokenTypes.charNegativeGroup) {
                     substractRes = this._scanCharNegativeGroupToken(branches, branch, pass, token.data.substractToken, true);
                 } else {
-                    throw new System.InvalidOperationException("Unexpected substuct group token.");
+                    throw new System.InvalidOperationException.$ctor1("Unexpected substuct group token.");
                 }
 
                 if (substractRes === resKind.ok) {
@@ -24954,7 +24953,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         packedSlotId = sparseSettings.getPackedSlotIdBySlotNumber(groupNumber);
 
                         if (packedSlotId == null) {
-                            throw new System.ArgumentException("Reference to undefined group number " + groupNumber.toString() + ".");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group number " + groupNumber.toString() + ".");
                         }
 
                         if (allowedPackedSlotIds.indexOf(packedSlotId) < 0) {
@@ -24981,7 +24980,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                                 continue;
                             }
 
-                            throw new System.ArgumentException("Reference to undefined group name '" + value + "'.");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group name '" + value + "'.");
                         }
 
                         if (allowedPackedSlotIds.indexOf(packedSlotId) < 0) {
@@ -25031,7 +25030,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                                 packedSlotId = sparseSettings.getPackedSlotIdBySlotNumber(token.data.number);
 
                                 if (packedSlotId == null) {
-                                    throw new System.ArgumentException("Reference to undefined group number " + value + ".");
+                                    throw new System.ArgumentException.$ctor1("Reference to undefined group number " + value + ".");
                                 }
 
                                 token.data.packedSlotId = packedSlotId;
@@ -25431,7 +25430,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                             break;
 
                         default:
-                            throw new System.ArgumentException("Unrecognized grouping construct.");
+                            throw new System.ArgumentException.$ctor1("Unrecognized grouping construct.");
                     }
                 } else if (childToken.type === tokenTypes.groupConstructName) {
                     // ?<name1>
@@ -25443,7 +25442,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     var groupNames = nameExpr.split("-");
 
                     if (groupNames.length === 0 || groupNames.length > 2) {
-                        throw new System.ArgumentException("Invalid group name.");
+                        throw new System.ArgumentException.$ctor1("Invalid group name.");
                     }
 
                     if (groupNames[0].length) {
@@ -25493,7 +25492,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
             _validateGroupName: function (name) {
                 if (!name || !name.length) {
-                    throw new System.ArgumentException("Invalid group name: Group names must begin with a word character.");
+                    throw new System.ArgumentException.$ctor1("Invalid group name: Group names must begin with a word character.");
                 }
 
                 var isDigit = name[0] >= "0" && name[0] <= "9";
@@ -25503,7 +25502,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     var res = scope._matchChars(name, 0, name.length, scope._decSymbols);
 
                     if (res.matchLength !== name.length) {
-                        throw new System.ArgumentException("Invalid group name: Group names must begin with a word character.");
+                        throw new System.ArgumentException.$ctor1("Invalid group name: Group names must begin with a word character.");
                     }
                 }
 
@@ -25526,7 +25525,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         group.balancingSlotId = sparseSettings.getPackedSlotIdBySlotName(group.constructs.name2);
 
                         if (group.balancingSlotId == null) {
-                            throw new System.ArgumentException("Reference to undefined group name '" + group.constructs.name2 + "'.");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group name '" + group.constructs.name2 + "'.");
                         }
                     }
                 }
@@ -25558,14 +25557,14 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                         if (groupNumber <= 9) {
                             // The expressions \1 through \9 are always interpreted as backreferences, and not as octal codes.
-                            throw new System.ArgumentException("Reference to undefined group number " + groupNumber.toString() + ".");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group number " + groupNumber.toString() + ".");
                         }
 
                         // Otherwise, transform the token to OctalNumber:
                         octalCharToken = scope._parseOctalCharToken(token.value, 0, token.length);
 
                         if (octalCharToken == null) {
-                            throw new System.ArgumentException("Unrecognized escape sequence " + token.value.slice(0, 2) + ".");
+                            throw new System.ArgumentException.$ctor1("Unrecognized escape sequence " + token.value.slice(0, 2) + ".");
                         }
 
                         extraLength = token.length - octalCharToken.length;
@@ -25651,15 +25650,15 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
             _parsePatternImpl: function (pattern, settings, startIndex, endIndex) {
                 if (pattern == null) {
-                    throw new System.ArgumentNullException("pattern");
+                    throw new System.ArgumentNullException.$ctor1("pattern");
                 }
 
                 if (startIndex < 0 || startIndex > pattern.length) {
-                    throw new System.ArgumentOutOfRangeException("startIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                 }
 
                 if (endIndex < startIndex || endIndex > pattern.length) {
-                    throw new System.ArgumentOutOfRangeException("endIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("endIndex");
                 }
 
                 var scope = System.Text.RegularExpressions.RegexEngineParser;
@@ -25723,7 +25722,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 if (i + 1 >= endIndex) {
-                    throw new System.ArgumentException("Illegal \\ at end of pattern.");
+                    throw new System.ArgumentException.$ctor1("Illegal \\ at end of pattern.");
                 }
 
                 ch = pattern[i + 1];
@@ -25770,7 +25769,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         }
                     }
 
-                    throw new System.ArgumentException("Malformed \\k<...> named back reference.");
+                    throw new System.ArgumentException.$ctor1("Malformed \\k<...> named back reference.");
                 }
 
                 // Temp fix (until IsWordChar is not supported):
@@ -25791,7 +25790,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 // Unrecognized escape sequence:
-                throw new System.ArgumentException("Unrecognized escape sequence \\" + ch + ".");
+                throw new System.ArgumentException.$ctor1("Unrecognized escape sequence \\" + ch + ".");
             },
 
             _parseOctalCharToken: function (pattern, i, endIndex) {
@@ -25836,7 +25835,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         var hexDigits = scope._matchChars(pattern, i + 2, endIndex, scope._hexSymbols, 2);
 
                         if (hexDigits.matchLength !== 2) {
-                            throw new System.ArgumentException("Insufficient hexadecimal digits.");
+                            throw new System.ArgumentException.$ctor1("Insufficient hexadecimal digits.");
                         }
 
                         var hexVal = parseInt(hexDigits.match, 16);
@@ -25847,7 +25846,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         return token;
                     } else if (ch === "c") {
                         if (i + 2 >= endIndex) {
-                            throw new System.ArgumentException("Missing control character.");
+                            throw new System.ArgumentException.$ctor1("Missing control character.");
                         }
 
                         var ctrlCh = pattern[i + 2];
@@ -25863,12 +25862,12 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                             return token;
                         }
 
-                        throw new System.ArgumentException("Unrecognized control character.");
+                        throw new System.ArgumentException.$ctor1("Unrecognized control character.");
                     } else if (ch === "u") {
                         var ucodeDigits = scope._matchChars(pattern, i + 2, endIndex, scope._hexSymbols, 4);
 
                         if (ucodeDigits.matchLength !== 4) {
-                            throw new System.ArgumentException("Insufficient hexadecimal digits.");
+                            throw new System.ArgumentException.$ctor1("Insufficient hexadecimal digits.");
                         }
 
                         var ucodeVal = parseInt(ucodeDigits.match, 16);
@@ -25910,7 +25909,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                             break;
 
                         default:
-                            throw new System.ArgumentException("Unexpected escaped char: '" + ch + "'.");
+                            throw new System.ArgumentException.$ctor1("Unexpected escaped char: '" + ch + "'.");
                     }
 
                     token.data = { n: escVal, ch: String.fromCharCode(escVal) };
@@ -25931,7 +25930,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         var catNameChars = scope._matchUntil(pattern, i + 2, endIndex, "}"); // the longest category name is 37 + 2 brackets, but .NET does not limit the value on this step
 
                         if (catNameChars.matchLength < 2 || catNameChars.match[0] !== "{" || catNameChars.unmatchLength !== 1) {
-                            throw new System.ArgumentException("Incomplete \p{X} character escape.");
+                            throw new System.ArgumentException.$ctor1("Incomplete \p{X} character escape.");
                         }
 
                         var catName = catNameChars.match.slice(1);
@@ -25944,7 +25943,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                             return scope._createPatternToken(pattern, tokenTypes.escCharClassBlock, i, 2 + catNameChars.matchLength + 1); // "\p{Name}" or "\P{Name}"
                         }
 
-                        throw new System.ArgumentException("Unknown property '" + catName + "'.");
+                        throw new System.ArgumentException.$ctor1("Unknown property '" + catName + "'.");
                     }
 
                     return scope._createPatternToken(pattern, tokenTypes.escCharClass, i, 2); // "\w" or "\W" or "\s" or "\S" or "\d" or "\D"
@@ -26004,7 +26003,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         token = scope._parseEscapedChar(pattern, index, endIndex);
 
                         if (token == null) {
-                            throw new System.ArgumentException("Unrecognized escape sequence \\" + ch + ".");
+                            throw new System.ArgumentException.$ctor1("Unrecognized escape sequence \\" + ch + ".");
                         }
                         toInc = token.length;
                     } else if (ch === "]" && index > startIndex) {
@@ -26017,7 +26016,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     }
 
                     if (noMoreTokenAllowed) {
-                        throw new System.ArgumentException("A subtraction must be the last element in a character class.");
+                        throw new System.ArgumentException.$ctor1("A subtraction must be the last element in a character class.");
                     }
 
                     // Check for interval:
@@ -26039,7 +26038,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 if (closeBracketIndex < 0 || tokens.length < 1) {
-                    throw new System.ArgumentException("Unterminated [] set.");
+                    throw new System.ArgumentException.$ctor1("Unterminated [] set.");
                 }
 
                 var groupToken;
@@ -26113,7 +26112,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 if (startN > endN) {
-                    throw new System.NotSupportedException("[x-y] range in reverse order.");
+                    throw new System.NotSupportedException.$ctor1("[x-y] range in reverse order.");
                 }
 
                 var index = intervalStartToken.index;
@@ -26339,13 +26338,13 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
                 if (isComment) {
                     if (closeBracketIndex < 0) {
-                        throw new System.ArgumentException("Unterminated (?#...) comment.");
+                        throw new System.ArgumentException.$ctor1("Unterminated (?#...) comment.");
                     }
 
                     result = scope._createPatternToken(pattern, tokenTypes.commentInline, i, 1 + closeBracketIndex - i);
                 } else {
                     if (closeBracketIndex < 0) {
-                        throw new System.ArgumentException("Not enough )'s.");
+                        throw new System.ArgumentException.$ctor1("Not enough )'s.");
                     }
 
                     // Parse the "Body" of the group
@@ -26371,14 +26370,14 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                                 ++altCount;
 
                                 if (altCount > 1) {
-                                    throw new System.ArgumentException("Too many | in (?()|).");
+                                    throw new System.ArgumentException.$ctor1("Too many | in (?()|).");
                                 }
                             }
                         }
 
                         if (altCount === 0) {
                             // Though .NET works with this case, it ends up with unexpected result. Let's avoid this behaviour.
-                            throw new System.NotSupportedException("Alternation group without | is not supported.");
+                            throw new System.NotSupportedException.$ctor1("Alternation group without | is not supported.");
                         }
 
                         var altGroupToken = scope._createPatternToken(pattern, tokenTypes.alternationGroup, i, 1 + closeBracketIndex - i, innerTokens, "(", ")");
@@ -26458,7 +26457,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     var nameChars = scope._matchUntil(pattern, i + 2, endIndex, closingCh);
 
                     if (nameChars.unmatchLength !== 1 || nameChars.matchLength === 0) {
-                        throw new System.ArgumentException("Unrecognized grouping construct.");
+                        throw new System.ArgumentException.$ctor1("Unrecognized grouping construct.");
                     }
 
                     var nameFirstCh = nameChars.match.slice(0, 1);
@@ -26469,7 +26468,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                         // RL 1.4 Simple Word Boundaries  The class of <word_character> includes all Alphabetic
                         // values from the Unicode character database, from UnicodeData.txt [UData], plus the U+200C
                         // ZERO WIDTH NON-JOINER and U+200D ZERO WIDTH JOINER.
-                        throw new System.ArgumentException("Invalid group name: Group names must begin with a word character.");
+                        throw new System.ArgumentException.$ctor1("Invalid group name: Group names must begin with a word character.");
                     }
 
                     return scope._createPatternToken(pattern, tokenTypes.groupConstructName, i, 2 + nameChars.matchLength + 1);
@@ -26484,7 +26483,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     return scope._createPatternToken(pattern, imnsxTokenType, i, 1 + imnsxChars.matchLength + imnsxPostfixLen);
                 }
 
-                throw new System.ArgumentException("Unrecognized grouping construct.");
+                throw new System.ArgumentException.$ctor1("Unrecognized grouping construct.");
             },
 
             _parseQuantifierToken: function (pattern, i, endIndex) {
@@ -26520,7 +26519,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                                     token.data.m = parseInt(dec2Chars.match, 10);
 
                                     if (token.data.n > token.data.m) {
-                                        throw new System.ArgumentException("Illegal {x,y} with x > y.");
+                                        throw new System.ArgumentException.$ctor1("Illegal {x,y} with x > y.");
                                     }
                                 }
                             }
@@ -26578,7 +26577,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                 }
 
                 if (expr.type === tokenTypes.commentInline) {
-                    throw new System.ArgumentException("Alternation conditions cannot be comments.");
+                    throw new System.ArgumentException.$ctor1("Alternation conditions cannot be comments.");
                 }
 
                 var children = expr.children;
@@ -26587,7 +26586,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                     constructToken = children[0];
 
                     if (constructToken.type === tokenTypes.groupConstructName) {
-                        throw new System.ArgumentException("Alternation conditions do not capture and cannot be named.");
+                        throw new System.ArgumentException.$ctor1("Alternation conditions do not capture and cannot be named.");
                     }
 
                     if (constructToken.type === tokenTypes.groupConstruct || constructToken.type === tokenTypes.groupConstructImnsx) {
@@ -26606,7 +26605,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
                             var res = scope._matchChars(literalVal, 0, literalVal.length, scope._decSymbols);
 
                             if (res.matchLength !== literalVal.length) {
-                                throw new System.ArgumentException("Malformed Alternation group number: " + literalVal + ".");
+                                throw new System.ArgumentException.$ctor1("Malformed Alternation group number: " + literalVal + ".");
                             }
 
                             var number = parseInt(literalVal, 10);
@@ -38554,7 +38553,7 @@ Bridge.define("System.Text.RegularExpressions.RegexParser", {
 
         handle: function (predicate) {
             if (!Bridge.hasValue(predicate)) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             var count = this.innerExceptions.Count,

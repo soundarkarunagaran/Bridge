@@ -385,11 +385,11 @@
 
     System.Int64.parse = function (str) {
         if (str == null) {
-            throw new System.ArgumentNullException("str");
+            throw new System.ArgumentNullException.$ctor1("str");
         }
 
         if (!/^[+-]?[0-9]+$/.test(str)) {
-            throw new System.FormatException("Input string was not in a correct format.");
+            throw new System.FormatException.$ctor1("Input string was not in a correct format.");
         }
 
         var result = new System.Int64(str);
@@ -704,11 +704,11 @@
 
     System.UInt64.parse = function (str) {
         if (str == null) {
-            throw new System.ArgumentNullException("str");
+            throw new System.ArgumentNullException.$ctor1("str");
         }
 
         if (!/^[+-]?[0-9]+$/.test(str)) {
-            throw new System.FormatException("Input string was not in a correct format.");
+            throw new System.FormatException.$ctor1("Input string was not in a correct format.");
         }
 
         var result = new System.UInt64(str);

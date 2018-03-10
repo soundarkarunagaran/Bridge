@@ -52,7 +52,7 @@
             }
 
             if (i >= this._capcount || i < 0) {
-                throw new System.ArgumentOutOfRangeException("i");
+                throw new System.ArgumentOutOfRangeException.$ctor1("i");
             }
 
             this._ensureCapturesInited();
@@ -62,7 +62,7 @@
 
         copyTo: function (array, arrayIndex) {
             if (array == null) {
-                throw new System.ArgumentNullException("array");
+                throw new System.ArgumentNullException.$ctor1("array");
             }
 
             if (array.length < arrayIndex + this._capcount) {
@@ -154,7 +154,7 @@
 
         getCapture: function () {
             if (this._curindex < 0 || this._curindex >= this._captureColl.getCount()) {
-                throw new System.InvalidOperationException("Enumeration has either not started or has already finished.");
+                throw new System.InvalidOperationException.$ctor1("Enumeration has either not started or has already finished.");
             }
 
             return this._captureColl.get(this._curindex);

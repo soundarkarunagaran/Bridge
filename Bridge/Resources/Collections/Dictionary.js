@@ -1,4 +1,4 @@
-    Bridge.define('System.Collections.Generic.Dictionary$2', function (TKey, TValue) {
+    Bridge.define("System.Collections.Generic.Dictionary$2", function (TKey, TValue) {
         return {
             inherits: [System.Collections.Generic.IDictionary$2(TKey, TValue),
                 System.Collections.IDictionary,
@@ -82,7 +82,7 @@
                         c = e.Current;
                         this.add(c.key, c.value);
                     }
-                } else if (Object.prototype.toString.call(obj) === '[object Object]') {
+                } else if (Object.prototype.toString.call(obj) === "[object Object]") {
                     var names = Object.keys(obj),
                         name;
 
@@ -232,7 +232,7 @@
                         return Bridge.getDefaultValue(TValue);
                     }
 
-                    throw new System.Collections.Generic.KeyNotFoundException('Key ' + key + ' does not exist.');
+                    throw new System.Collections.Generic.KeyNotFoundException.$ctor1("Key " + key + " does not exist.");
                 }
 
                 return entry.value;
@@ -248,7 +248,7 @@
 
                 if (entry) {
                     if (add) {
-                        throw new System.ArgumentException('Key ' + key + ' already exists.');
+                        throw new System.ArgumentException.$ctor1("Key " + key + " already exists.");
                     }
 
                     entry.value = value;
@@ -403,7 +403,7 @@
         return [typeKey, typeValue];
     };
 
-    Bridge.define('System.Collections.Generic.DictionaryCollection$1', function (T) {
+    Bridge.define("System.Collections.Generic.DictionaryCollection$1", function (T) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
 

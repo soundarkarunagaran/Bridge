@@ -423,9 +423,9 @@
             Class.$$name = className;
 
             if (isNested) {
-                var lastIndex = Class.$$name.lastIndexOf('.');
+                var lastIndex = Class.$$name.lastIndexOf(".");
 
-                Class.$$name = Class.$$name.substr(0, lastIndex) + '+' + Class.$$name.substr(lastIndex + 1)
+                Class.$$name = Class.$$name.substr(0, lastIndex) + "+" + Class.$$name.substr(lastIndex + 1)
             }
 
             Class.$kind = prop.$kind;
@@ -442,10 +442,10 @@
                 var result = Bridge.Reflection.getTypeFullName(gCfg.fn);
 
                 for (i = 0; i < gCfg.args.length; i++) {
-                    result += (i === 0 ? '[' : ',') + '[' + Bridge.Reflection.getTypeQName(gCfg.args[i]) + ']';
+                    result += (i === 0 ? "[" : ",") + "[" + Bridge.Reflection.getTypeQName(gCfg.args[i]) + "]";
                 }
 
-                result += ']';
+                result += "]";
 
                 Class.$$fullname = result;
             } else {

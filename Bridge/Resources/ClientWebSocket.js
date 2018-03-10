@@ -29,7 +29,7 @@
 
         connectAsync: function (uri, cancellationToken) {
             if (this.state !== "none") {
-                throw new System.InvalidOperationException("Socket is not in initial state");
+                throw new System.InvalidOperationException.$ctor1("Socket is not in initial state");
             }
 
             this.options.setToReadOnly();
@@ -77,7 +77,7 @@
                         return;
                     }
 
-                    throw new System.ArgumentException("Invalid message type.");
+                    throw new System.ArgumentException.$ctor1("Invalid message type.");
                 };
 
                 this.socket.onclose = function (e) {
@@ -182,7 +182,7 @@
             this.throwIfNotConnected();
 
             if (this.state !== "open") {
-                throw new System.InvalidOperationException("Socket is not in connected state");
+                throw new System.InvalidOperationException.$ctor1("Socket is not in connected state");
             }
 
             var tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -218,7 +218,7 @@
             this.throwIfNotConnected();
 
             if (this.state !== "open") {
-                throw new System.InvalidOperationException("Socket is not in connected state");
+                throw new System.InvalidOperationException.$ctor1("Socket is not in connected state");
             }
 
             var tcs = new System.Threading.Tasks.TaskCompletionSource();
@@ -254,11 +254,11 @@
 
         throwIfNotConnected: function () {
             if (this.disposed) {
-                throw new System.InvalidOperationException("Socket is disposed.");
+                throw new System.InvalidOperationException.$ctor1("Socket is disposed.");
             }
 
             if (this.socket.readyState !== 1) {
-                throw new System.InvalidOperationException("Socket is not connected.");
+                throw new System.InvalidOperationException.$ctor1("Socket is not connected.");
             }
         }
     });
@@ -272,7 +272,7 @@
 
         setToReadOnly: function () {
             if (this.isReadOnly) {
-                throw new System.InvalidOperationException("Options are already readonly.");
+                throw new System.InvalidOperationException.$ctor1("Options are already readonly.");
             }
 
             this.isReadOnly = true;
@@ -280,11 +280,11 @@
 
         addSubProtocol: function (subProtocol) {
             if (this.isReadOnly) {
-                throw new System.InvalidOperationException("Socket already started.");
+                throw new System.InvalidOperationException.$ctor1("Socket already started.");
             }
 
             if (this.requestedSubProtocols.indexOf(subProtocol) > -1) {
-                throw new System.ArgumentException("Socket cannot have duplicate sub-protocols.", "subProtocol");
+                throw new System.ArgumentException.$ctor1("Socket cannot have duplicate sub-protocols.", "subProtocol");
             }
 
             this.requestedSubProtocols.push(subProtocol);

@@ -1,4 +1,4 @@
-    Bridge.define('Bridge.CustomEnumerator', {
+    Bridge.define("Bridge.CustomEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         config: {

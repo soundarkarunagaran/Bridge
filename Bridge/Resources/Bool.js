@@ -23,7 +23,7 @@ Bridge.define("System.Boolean", {
 
         parse: function (value) {
             if (!Bridge.hasValue(value)) {
-                throw new System.ArgumentNullException("value");
+                throw new System.ArgumentNullException.$ctor1("value");
             }
 
             var result = {
@@ -31,7 +31,7 @@ Bridge.define("System.Boolean", {
             };
 
             if (!System.Boolean.tryParse(value, result)) {
-                throw new System.FormatException("Bad format for Boolean value");
+                throw new System.FormatException.$ctor1("Bad format for Boolean value");
             }
 
             return result.v;

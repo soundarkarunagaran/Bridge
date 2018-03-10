@@ -1,4 +1,4 @@
-    Bridge.define('Bridge.ArrayEnumerator', {
+    Bridge.define("Bridge.ArrayEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         statics: {
@@ -71,7 +71,7 @@
         Dispose: Bridge.emptyFn
     });
 
-    Bridge.define('Bridge.ArrayEnumerable', {
+    Bridge.define("Bridge.ArrayEnumerable", {
         inherits: [System.Collections.IEnumerable],
 
         config: {

@@ -123,7 +123,7 @@
         var state = State.Before;
 
         this.getCurrent = yielder.getCurrent;
-        this.reset = function () { throw new Error('Reset is not supported'); };
+        this.reset = function () { throw new Error("Reset is not supported"); };
 
         this.moveNext = function () {
             try {
@@ -1821,7 +1821,7 @@
         });
 
         if (count === 0) {
-            throw new System.InvalidOperationException("Sequence contains no elements");
+            throw new System.InvalidOperationException.$ctor1("Sequence contains no elements");
         }
 
         return (sum instanceof System.Decimal || System.Int64.is64Bit(sum)) ? sum.div(count) : (sum / count);

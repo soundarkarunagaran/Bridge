@@ -88,7 +88,7 @@
                                     System.Array.addRange(exceptions, t.exception.innerExceptions);
                                     break;
                                 default:
-                                    throw new System.InvalidOperationException("Invalid task status: " + t.status);
+                                    throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
                             }
 
                             if (--executing === 0) {
@@ -115,7 +115,7 @@
                 }
 
                 if (!tasks.length) {
-                    throw new System.ArgumentException("At least one task is required");
+                    throw new System.ArgumentException.$ctor1("At least one task is required");
                 }
 
                 var tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -134,7 +134,7 @@
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
                             default:
-                                throw new System.InvalidOperationException("Invalid task status: " + t.status);
+                                throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
                         }
                     });
                 }
@@ -244,7 +244,7 @@
 
         start: function () {
             if (this.status !== System.Threading.Tasks.TaskStatus.created) {
-                throw new System.InvalidOperationException("Task was already started.");
+                throw new System.InvalidOperationException.$ctor1("Task was already started.");
             }
 
             var me = this;
@@ -329,13 +329,13 @@
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException(null, this);
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
 
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                 default:
-                    throw new System.InvalidOperationException("Task is not yet completed.");
+                    throw new System.InvalidOperationException.$ctor1("Task is not yet completed.");
             }
         },
 
@@ -387,19 +387,19 @@
 
         setCanceled: function () {
             if (!this.task.cancel()) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
         setResult: function (result) {
             if (!this.task.complete(result)) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
         setException: function (exception) {
             if (!this.trySetException(exception)) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
@@ -564,7 +564,7 @@
 
         throwIfCancellationRequested: function () {
             if (this.source.isCancellationRequested) {
-                throw new System.OperationCanceledException(this);
+                throw new System.OperationCanceledException.$ctor1(this);
             }
         },
 

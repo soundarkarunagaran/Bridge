@@ -9,7 +9,7 @@
 
         handle: function (predicate) {
             if (!Bridge.hasValue(predicate)) {
-                throw new System.ArgumentNullException("predicate");
+                throw new System.ArgumentNullException.$ctor1("predicate");
             }
 
             var count = this.innerExceptions.Count,

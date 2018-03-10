@@ -16,7 +16,7 @@
 
             synchronized: function (match) {
                 if (match == null) {
-                    throw new System.ArgumentNullException("match");
+                    throw new System.ArgumentNullException.$ctor1("match");
                 }
 
                 // Populate all groups by looking at each one
@@ -88,11 +88,11 @@
 
         result: function (replacement) {
             if (replacement == null) {
-                throw new System.ArgumentNullException("replacement");
+                throw new System.ArgumentNullException.$ctor1("replacement");
             }
 
             if (this._regex == null) {
-                throw new System.NotSupportedException("Result cannot be called on a failed Match.");
+                throw new System.NotSupportedException.$ctor1("Result cannot be called on a failed Match.");
             }
 
             var repl = System.Text.RegularExpressions.RegexParser.parseReplacement(replacement, this._regex._caps, this._regex._capsize, this._regex._capnames, this._regex._options);

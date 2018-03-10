@@ -252,7 +252,7 @@
                     if (!isNaN(d)) {
                         return new Date(d);
                     } else if (!silent) {
-                        throw new System.FormatException("String does not contain a valid string representation of a date and time.");
+                        throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                     }
                 },
 
@@ -277,7 +277,7 @@
                             return null;
                         }
 
-                        throw new System.FormatException("String does not contain a valid string representation of a date and time.");
+                        throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                     } else {
                         // TODO: The code below assumes that there are no quotation marks around the UTC/Z format token (the format patterns
                         // used by Bridge appear to use quotation marks throughout (see universalSortableDateTimePattern), including
@@ -319,7 +319,7 @@
                         offset = 0;
 
                     if (str == null) {
-                        throw new System.ArgumentNullException("str");
+                        throw new System.ArgumentNullException.$ctor1("str");
                     }
 
                     format = format || "G";
@@ -715,7 +715,7 @@
                             return null;
                         }
 
-                        throw new System.FormatException("String does not contain a valid string representation of a date and time.");
+                        throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                     }
 
                     if (tt) {

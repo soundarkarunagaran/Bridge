@@ -30,7 +30,7 @@
             this.$initialize();
 
             if (pattern == null) {
-                throw new System.ArgumentNullException("pattern");
+                throw new System.ArgumentNullException.$ctor1("pattern");
             }
 
             this._pattern = pattern;
@@ -46,11 +46,11 @@
 
         match: function (text, textStart) {
             if (text == null) {
-                throw new System.ArgumentNullException("text");
+                throw new System.ArgumentNullException.$ctor1("text");
             }
 
             if (textStart != null && (textStart < 0 || textStart > text.length)) {
-                throw new System.ArgumentOutOfRangeException("textStart", "Start index cannot be less than 0 or greater than input length.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("textStart", "Start index cannot be less than 0 or greater than input length.");
             }
 
             this._text = text;
@@ -187,7 +187,7 @@
                         break;
 
                     default:
-                        throw new System.InvalidOperationException("Unexpected branch result.");
+                        throw new System.InvalidOperationException.$ctor1("Unexpected branch result.");
                 }
             }
 
@@ -252,7 +252,7 @@
                         break;
 
                     default:
-                        throw new System.InvalidOperationException("Unexpected branch-pass result.");
+                        throw new System.InvalidOperationException.$ctor1("Unexpected branch-pass result.");
                 }
             }
 
@@ -388,7 +388,7 @@
                         break;
 
                     default:
-                        throw new System.InvalidOperationException("Unexpected quantifier value.");
+                        throw new System.InvalidOperationException.$ctor1("Unexpected quantifier value.");
                 }
             } else if (qtoken.type === tokenTypes.quantifierN) {
                 min = qtoken.data.n;
@@ -417,7 +417,7 @@
             }
 
             if (branch !== lastBranch) {
-                throw new System.InvalidOperationException("Current branch is supposed to be the last one.");
+                throw new System.InvalidOperationException.$ctor1("Current branch is supposed to be the last one.");
             }
 
             if (branches.length === 1 && branch.type === this._branchType.offset) {
@@ -577,10 +577,10 @@
                     return this._scanEscapeToken(branches, branch, pass, token);
 
                 case tokenTypes.escCharClassCategory:
-                    throw new System.NotSupportedException("Unicode Category constructions are not supported.");
+                    throw new System.NotSupportedException.$ctor1("Unicode Category constructions are not supported.");
 
                 case tokenTypes.escCharClassBlock:
-                    throw new System.NotSupportedException("Unicode Named block constructions are not supported.");
+                    throw new System.NotSupportedException.$ctor1("Unicode Named block constructions are not supported.");
 
                 case tokenTypes.escCharClassDot:
                     return this._scanDotToken(textEndPos, branches, branch, pass);
@@ -922,7 +922,7 @@
                 } else if (token.data.substractToken.type === tokenTypes.charNegativeGroup) {
                     substractRes = this._scanCharNegativeGroupToken(branches, branch, pass, token.data.substractToken, true);
                 } else {
-                    throw new System.InvalidOperationException("Unexpected substuct group token.");
+                    throw new System.InvalidOperationException.$ctor1("Unexpected substuct group token.");
                 }
 
                 if (substractRes === resKind.ok) {

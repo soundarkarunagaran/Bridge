@@ -86,7 +86,7 @@ Bridge.Reflection = {
                 names = [],
                 fnStr = fn.toString();
 
-            args = fnStr.slice(fnStr.indexOf('(') + 1, fnStr.indexOf(')')).match(/([^\s,]+)/g) || [];
+            args = fnStr.slice(fnStr.indexOf("(") + 1, fnStr.indexOf(")")).match(/([^\s,]+)/g) || [];
 
             for (var i = 0; i < args.length; i++) {
                 names.push(Bridge.Reflection.createTypeParam(args[i], t));
@@ -118,7 +118,7 @@ Bridge.Reflection = {
             }
 
             if (!type.$genericTypeDefinition) {
-                throw new System.InvalidOperationException("This operation is only valid on generic types.");
+                throw new System.InvalidOperationException.$ctor1("This operation is only valid on generic types.");
             }
 
             return type.$genericTypeDefinition;
@@ -231,7 +231,7 @@ Bridge.Reflection = {
         },
 
         _makeQName: function (name, asm) {
-            return name + (asm ? ', ' + asm.name : '');
+            return name + (asm ? ", " + asm.name : "");
         },
 
         getTypeQName: function (type) {
@@ -240,9 +240,9 @@ Bridge.Reflection = {
 
         getTypeName: function (type) {
             var fullName = Bridge.Reflection.getTypeFullName(type),
-                bIndex = fullName.indexOf('['),
-                pIndex = fullName.lastIndexOf('+', bIndex >= 0 ? bIndex : fullName.length),
-                nsIndex = pIndex > -1 ? pIndex : fullName.lastIndexOf('.', bIndex >= 0 ? bIndex : fullName.length);
+                bIndex = fullName.indexOf("["),
+                pIndex = fullName.lastIndexOf("+", bIndex >= 0 ? bIndex : fullName.length),
+                nsIndex = pIndex > -1 ? pIndex : fullName.lastIndexOf(".", bIndex >= 0 ? bIndex : fullName.length);
 
             var name = nsIndex > 0 ? (bIndex >= 0 ? fullName.substring(nsIndex + 1, bIndex) : fullName.substr(nsIndex + 1)) : fullName;
 
@@ -251,9 +251,9 @@ Bridge.Reflection = {
 
         getTypeNamespace: function (type, name) {
             var fullName = name || Bridge.Reflection.getTypeFullName(type),
-                bIndex = fullName.indexOf('['),
-                nsIndex = fullName.lastIndexOf('.', bIndex >= 0 ? bIndex : fullName.length),
-                ns = nsIndex > 0 ? fullName.substr(0, nsIndex) : '';
+                bIndex = fullName.indexOf("["),
+                nsIndex = fullName.lastIndexOf(".", bIndex >= 0 ? bIndex : fullName.length),
+                ns = nsIndex > 0 ? fullName.substr(0, nsIndex) : "";
 
             if (type.$assembly) {
                 var parentType = Bridge.Reflection._getAssemblyType(type.$assembly, ns);
@@ -327,7 +327,7 @@ Bridge.Reflection = {
                 }
             }
 
-            var a = name.split('.'),
+            var a = name.split("."),
                 scope = asm;
 
             for (var i = 0; i < a.length; i++) {
@@ -338,7 +338,7 @@ Bridge.Reflection = {
                 }
             }
 
-            if (typeof scope !== 'function' || !noAsm && scope.$assembly && asm.name !== scope.$assembly.name) {
+            if (typeof scope !== "function" || !noAsm && scope.$assembly && asm.name !== scope.$assembly.name) {
                 return null;
             }
 
@@ -362,12 +362,12 @@ Bridge.Reflection = {
                         }
                     }
 
-                    if (typeof (s) === 'function' && Bridge.isUpper(n.charCodeAt(0))) {
+                    if (typeof (s) === "function" && Bridge.isUpper(n.charCodeAt(0))) {
                         result.push(s);
                     }
                 };
 
-                traverse(asm, '');
+                traverse(asm, "");
             }
 
             return result;
@@ -475,15 +475,15 @@ Bridge.Reflection = {
                 for (; ;) {
                     var m = re.exec(typeName);
 
-                    if (m && m[0] == "[" && (typeName[m.index + 1] === ']' || typeName[m.index + 1] === ',')) {
+                    if (m && m[0] == "[" && (typeName[m.index + 1] === "]" || typeName[m.index + 1] === ",")) {
                         continue;
                     }
 
-                    if (m && m[0] == "]" && (typeName[m.index - 1] === '[' || typeName[m.index - 1] === ',')) {
+                    if (m && m[0] == "]" && (typeName[m.index - 1] === "[" || typeName[m.index - 1] === ",")) {
                         continue;
                     }
 
-                    if (m && m[0] == "," && (typeName[m.index + 1] === ']' || typeName[m.index + 1] === ',')) {
+                    if (m && m[0] == "," && (typeName[m.index + 1] === "]" || typeName[m.index + 1] === ",")) {
                         continue;
                     }
 
@@ -506,8 +506,8 @@ Bridge.Reflection = {
                 tname = typeName.substring(last, m.index);
 
                 switch (m[0]) {
-                    case '[':
-                        if (typeName[m.index + 1] !== '[') {
+                    case "[":
+                        if (typeName[m.index + 1] !== "[") {
                             return null;
                         }
 
@@ -522,9 +522,9 @@ Bridge.Reflection = {
                             targs.push(t);
                             m = next();
 
-                            if (m[0] === ']') {
+                            if (m[0] === "]") {
                                 break;
-                            } else if (m[0] !== ',') {
+                            } else if (m[0] !== ",") {
                                 return null;
                             }
                         }
@@ -537,7 +537,7 @@ Bridge.Reflection = {
 
                         m = next();
 
-                        if (m && m[0] === ',') {
+                        if (m && m[0] === ",") {
                             next();
 
                             if (!(asm = System.Reflection.Assembly.assemblies[(re.lastIndex > 0 ? typeName.substring(m.index + 1, re.lastIndex - 1) : typeName.substring(m.index + 1)).trim()])) {
@@ -546,10 +546,10 @@ Bridge.Reflection = {
                         }
                         break;
 
-                    case ']':
+                    case "]":
                         break;
 
-                    case ',':
+                    case ",":
                         next();
 
                         if (!(asm = System.Reflection.Assembly.assemblies[(re.lastIndex > 0 ? typeName.substring(m.index + 1, re.lastIndex - 1) : typeName.substring(m.index + 1)).trim()])) {
@@ -606,7 +606,7 @@ Bridge.Reflection = {
 
         getType: function (typeName, asm) {
             if (typeName == null) {
-                throw new System.ArgumentNullException("typeName");
+                throw new System.ArgumentNullException.$ctor1("typeName");
             }
 
             return typeName ? Bridge.Reflection._getType(typeName, asm) : null;
@@ -791,7 +791,7 @@ Bridge.Reflection = {
             var type_md = Bridge.getMetadata(type);
 
             if (type_md && type_md.m) {
-                var mNames = ['g', 's', 'ad', 'r'];
+                var mNames = ["g", "s", "ad", "r"];
 
                 for (var i = 0; i < type_md.m.length; i++) {
                     var m = type_md.m[i];
@@ -819,7 +819,7 @@ Bridge.Reflection = {
                     }
 
                     if (r.length > 1) {
-                        throw new System.Reflection.AmbiguousMatchException('Ambiguous match');
+                        throw new System.Reflection.AmbiguousMatchException.$ctor1("Ambiguous match");
                     } else if (r.length === 1) {
                         return r[0];
                     }
@@ -858,9 +858,9 @@ Bridge.Reflection = {
         midel: function (mi, target, typeArguments, bind) {
             if (bind !== false) {
                 if (mi.is && !!target) {
-                    throw new System.ArgumentException('Cannot specify target for static method');
+                    throw new System.ArgumentException.$ctor1("Cannot specify target for static method");
                 } else if (!mi.is && !target) {
-                    throw new System.ArgumentException('Must specify target for instance method');
+                    throw new System.ArgumentException.$ctor1("Must specify target for instance method");
                 }
             }
 
@@ -875,7 +875,7 @@ Bridge.Reflection = {
 
                 if (mi.tpc) {
                     if (!typeArguments || typeArguments.length !== mi.tpc) {
-                        throw new System.ArgumentException('Wrong number of type arguments');
+                        throw new System.ArgumentException.$ctor1("Wrong number of type arguments");
                     }
 
                     var gMethod = method;
@@ -885,7 +885,7 @@ Bridge.Reflection = {
                     }
                 } else {
                     if (typeArguments && typeArguments.length) {
-                        throw new System.ArgumentException('Cannot specify type arguments for non-generic method');
+                        throw new System.ArgumentException.$ctor1("Cannot specify type arguments for non-generic method");
                     }
                 }
 
@@ -942,9 +942,9 @@ Bridge.Reflection = {
 
         fieldAccess: function (fi, obj) {
             if (fi.is && !!obj) {
-                throw new System.ArgumentException('Cannot specify target for static field');
+                throw new System.ArgumentException.$ctor1("Cannot specify target for static field");
             } else if (!fi.is && !obj) {
-                throw new System.ArgumentException('Must specify target for instance field');
+                throw new System.ArgumentException.$ctor1("Must specify target for instance field");
             }
 
             obj = fi.is ? fi.td : obj;
