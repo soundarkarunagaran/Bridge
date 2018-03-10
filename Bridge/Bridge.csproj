@@ -64,6 +64,7 @@
     <Compile Include="shared\System\ArgumentException.cs" />
     <Compile Include="shared\System\ArgumentNullException.cs" />
     <Compile Include="shared\System\ArgumentOutOfRangeException.cs" />
+    <Compile Include="shared\System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="shared\System\OutOfMemoryException.cs" />
     <Compile Include="shared\System\ArithmeticException.cs" />
     <Compile Include="shared\System\ArrayTypeMismatchException.cs" />
@@ -162,7 +163,6 @@
     <Compile Include="shared\System\Collections\Generic\Stack.cs" />
     <Compile Include="System\Collections\HashHelpers.cs" />
     <Compile Include="System\Collections\DictionaryEntry.cs" />
-    <Compile Include="System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="System\ComponentModel\BrowsableAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\AssociationAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\CompareAttribute.cs" />
