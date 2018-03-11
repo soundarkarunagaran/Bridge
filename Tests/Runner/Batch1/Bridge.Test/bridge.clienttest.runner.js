@@ -109,6 +109,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Using static - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestUsingStatic.TestBasic);
             QUnit.test("Case label pattern - TestCase", Bridge.Test.Runtime.BridgeClientTestRunner.TestCaseLabelPattern.TestCase);
             QUnit.test("Is pattern - IsPatternTests", Bridge.Test.Runtime.BridgeClientTestRunner.TestIsPattern.IsPatternTests);
+            QUnit.test("C# 7.2's ReadOnly struct - TestReadOnlyStruct", Bridge.Test.Runtime.BridgeClientTestRunner.TestROStruct.TestReadOnlyStruct);
             QUnit.module("Checked/Unckecked");
             QUnit.test("CheckedInsideUnchecked - TestInt32", Bridge.Test.Runtime.BridgeClientTestRunner.CheckedInsideUncheckedTests.TestInt32);
             QUnit.test("CheckedInsideUnchecked - TestUInt32", Bridge.Test.Runtime.BridgeClientTestRunner.CheckedInsideUncheckedTests.TestUInt32);
@@ -23782,6 +23783,32 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.BasicCSharp.TestReferenceTypes", $t.File = "Batch1\\BasicCSharp\\TestReferenceTypes.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestRunner.TestROStruct", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestROStruct)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestReadOnlyStruct: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestROStruct).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestROStruct, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestReadOnlyStruct()", $t.Line = "42", $t));
+                    Bridge.ClientTest.CSharp7.TestROStruct.TestReadOnlyStruct();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.CSharp7.TestROStruct", $t.File = "Batch1\\CSharp7\\TestROStruct.cs", $t);
                 }
                 return this.context;
             }
