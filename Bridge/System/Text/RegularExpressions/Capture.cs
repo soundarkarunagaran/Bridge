@@ -3,6 +3,7 @@
     /// <summary>
     /// Represents the results from a single successful subexpression capture.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Capture

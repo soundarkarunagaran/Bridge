@@ -1,5 +1,6 @@
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -22,6 +23,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -50,6 +52,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -84,6 +87,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -124,6 +128,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -170,6 +175,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -222,6 +228,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -280,6 +287,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]
@@ -344,6 +352,7 @@ namespace System
         public override extern int GetHashCode();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.IgnoreCast]

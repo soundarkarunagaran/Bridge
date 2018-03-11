@@ -432,10 +432,11 @@ namespace Bridge.Utils
         {
             var self = Instance;
             var v = "";
-
+            
             if (value != null)
             {
-                //@ v = (value.toString == { }.toString) ? JSON.stringify(value, null, 2) : value.toString();
+                //@ var hasToString = value.ToString !== undefined;
+                //@ v = (value.toString == { }.toString && !hasToString) ? JSON.stringify(value, null, 2) : hasToString ? value.ToString() : value.toString();
             }
 
             if (self.BufferedOutput != null)

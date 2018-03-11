@@ -8,6 +8,7 @@ namespace System
     /// <summary>
     /// The String global object is a constructor for strings, or a sequence of characters.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Constructor("String")]
     [Bridge.Reflectable]
@@ -16,7 +17,7 @@ namespace System
         /// <summary>
         /// Gets the number of characters in the current String object.
         /// </summary>
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern int Length
         {
             get;
@@ -642,6 +643,9 @@ namespace System
         /// <returns>true if value matches the beginning of this string; otherwise, false.</returns>
         [Bridge.Template("System.String.startsWith({this}, {value})")]
         public extern bool StartsWith(string value);
+
+        [Bridge.Template("System.String.startsWith({this}, {value}, {ordinal})")]
+        public extern bool StartsWith(string value, StringComparison ordinal);
 
         /// <summary>
         /// Replaces the format item or items in a specified string with the string representation of the corresponding object. A parameter supplies culture-specific formatting information.

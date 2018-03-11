@@ -1,5 +1,8 @@
-﻿namespace System
+﻿using System.Diagnostics;
+
+namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public static class Convert
     {
@@ -53,6 +56,7 @@
         /// Converts the value of the specified 8-bit signed integer to its equivalent Unicode character.
         /// </summary>
         [Bridge.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.SByte + ")")]
+        [CLSCompliant(false)]
         public static extern char ToChar(sbyte value);
 
         /// <summary>
@@ -71,6 +75,7 @@
         /// Converts the value of the specified 16-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
         [Bridge.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt16 + ")")]
+        [CLSCompliant(false)]
         public static extern char ToChar(ushort value);
 
         /// <summary>
@@ -83,6 +88,7 @@
         /// Converts the value of the specified 32-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
         [Bridge.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt32 + ")")]
+        [CLSCompliant(false)]
         public static extern char ToChar(uint value);
 
         /// <summary>
@@ -95,6 +101,7 @@
         /// Converts the value of the specified 64-bit unsigned integer to its equivalent Unicode character.
         /// </summary>
         [Bridge.Template("System.Convert.toChar({value}, null, " + TypeCodeValues.UInt64 + ")")]
+        [CLSCompliant(false)]
         public static extern char ToChar(ulong value);
 
         /// <summary>
@@ -142,6 +149,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toSByte({value})")]
+        [CLSCompliant(false)]
         public static extern sbyte ToSByte(object value);
 
         /// <summary>
@@ -149,18 +157,21 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toSByte({value}, {provider})")]
+        [CLSCompliant(false)]
         public static extern sbyte ToSByte(object value, IFormatProvider provider);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit signed integer.
         /// </summary>
         [Bridge.Template("System.Convert.toSByte({value}, null, " + TypeCodeValues.String + ")")]
+        [CLSCompliant(false)]
         public static extern sbyte ToSByte(string value);
 
         /// <summary>
         /// Converts the value of the specified object to an 8-bit signed integer, using the specified culture-specific formatting information.
         /// </summary>
         [Bridge.Template("System.Convert.toSByte({value}, {provider}, " + TypeCodeValues.String + ")")]
+        [CLSCompliant(false)]
         public static extern sbyte ToSByte(string value, IFormatProvider provider);
 
         #endregion ToSByte
@@ -208,6 +219,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toUInt16({value})")]
+        [CLSCompliant(false)]
         public static extern ushort ToUInt16(object value);
 
         /// <summary>
@@ -215,6 +227,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toUInt16({value}, {provider})")]
+        [CLSCompliant(false)]
         public static extern ushort ToUInt16(object value, IFormatProvider provider);
 
         #endregion ToUInt16
@@ -244,6 +257,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toUInt32({value})")]
+        [CLSCompliant(false)]
         public static extern uint ToUInt32(object value);
 
         /// <summary>
@@ -251,6 +265,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toUInt32({value}, {provider})")]
+        [CLSCompliant(false)]
         public static extern uint ToUInt32(object value, IFormatProvider provider);
 
         #endregion ToUInt32
@@ -280,6 +295,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toUInt64({value})")]
+        [CLSCompliant(false)]
         public static extern ulong ToUInt64(object value);
 
         /// <summary>
@@ -287,6 +303,7 @@
         /// Note: Calling this method for <see cref="DateTime"/> value always throws <see cref="T:System.InvalidCastException"/>.
         /// </summary>
         [Bridge.Template("System.Convert.toUInt64({value}, {provider})")]
+        [CLSCompliant(false)]
         public static extern ulong ToUInt64(object value, IFormatProvider provider);
 
         #endregion ToUInt64
@@ -403,6 +420,7 @@
         /// Converts the string representation of a number in a specified base to an equivalent 8-bit signed integer.
         /// </summary>
         [Bridge.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.SByte + ")")]
+        [CLSCompliant(false)]
         public static extern sbyte ToSByte(string value, int fromBase);
 
         /// <summary>
@@ -415,6 +433,7 @@
         /// Converts the string representation of a number in a specified base to an equivalent 16-bit unsigned integer.
         /// </summary>
         [Bridge.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt16 + ")")]
+        [CLSCompliant(false)]
         public static extern ushort ToUInt16(string value, int fromBase);
 
         /// <summary>
@@ -427,6 +446,7 @@
         /// Converts the string representation of a number in a specified base to an equivalent 32-bit unsigned integer.
         /// </summary>
         [Bridge.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt32 + ")")]
+        [CLSCompliant(false)]
         public static extern uint ToUInt32(string value, int fromBase);
 
         /// <summary>
@@ -439,6 +459,7 @@
         /// Converts the string representation of a number in a specified base to an equivalent 64-bit unsigned integer.
         /// </summary>
         [Bridge.Template("System.Convert.toNumberInBase({value}, {fromBase}, " + TypeCodeValues.UInt64 + ")")]
+        [CLSCompliant(false)]
         public static extern ulong ToUInt64(string value, int fromBase);
 
         #endregion ToNumberFromBase
@@ -543,5 +564,95 @@
         public static extern byte[] FromBase64CharArray(char[] inArray, int offset, int length);
 
         #endregion FromBase64CharArray
+
+        //A typeof operation is fairly expensive (does a system call), so we'll cache these here
+        //statically.  These are exactly lined up with the TypeCode, eg. ConvertType[TypeCode.Int16]
+        //will give you the type of an Int16.
+        internal static readonly Type[] ConvertTypes = {
+            typeof(System.Empty),
+            typeof(Object),
+            typeof(System.DBNull),
+            typeof(Boolean),
+            typeof(Char),
+            typeof(SByte),
+            typeof(Byte),
+            typeof(Int16),
+            typeof(UInt16),
+            typeof(Int32),
+            typeof(UInt32),
+            typeof(Int64),
+            typeof(UInt64),
+            typeof(Single),
+            typeof(Double),
+            typeof(Decimal),
+            typeof(DateTime),
+            typeof(Object), //TypeCode is discontinuous so we need a placeholder.
+            typeof(String)
+        };
+
+        // Need to special case Enum because typecode will be underlying type, e.g. Int32
+        private static readonly Type EnumType = typeof(Enum);
+
+        internal static Object DefaultToType(IConvertible value, Type targetType, IFormatProvider provider)
+        {
+            Debug.Assert(value != null, "[Convert.DefaultToType]value!=null");
+            if (targetType == null)
+            {
+                throw new ArgumentNullException(nameof(targetType));
+            }
+
+            if (ReferenceEquals(value.GetType(), targetType))
+            {
+                return value;
+            }
+
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Boolean]))
+                return value.ToBoolean(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Char]))
+                return value.ToChar(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.SByte]))
+                return value.ToSByte(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Byte]))
+                return value.ToByte(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Int16]))
+                return value.ToInt16(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.UInt16]))
+                return value.ToUInt16(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Int32]))
+                return value.ToInt32(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.UInt32]))
+                return value.ToUInt32(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Int64]))
+                return value.ToInt64(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.UInt64]))
+                return value.ToUInt64(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Single]))
+                return value.ToSingle(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Double]))
+                return value.ToDouble(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Decimal]))
+                return value.ToDecimal(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.DateTime]))
+                return value.ToDateTime(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.String]))
+                return value.ToString(provider);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Object]))
+                return (Object)value;
+            //  Need to special case Enum because typecode will be underlying type, e.g. Int32
+            if (ReferenceEquals(targetType, EnumType))
+                return (Enum)value;
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.DBNull]))
+                throw new InvalidCastException("Object cannot be cast to DBNull.");
+            // TODO: SR
+            //throw new InvalidCastException(SR.InvalidCast_DBNull);
+            if (ReferenceEquals(targetType, ConvertTypes[(int)TypeCode.Empty]))
+                throw new InvalidCastException("Object cannot be cast to Empty.");
+            // TODO: SR
+            //throw new InvalidCastException(SR.InvalidCast_Empty);
+
+            throw new InvalidCastException(string.Format("Invalid cast from '{0}' to '{1}'.", value.GetType().FullName, targetType.FullName));
+            // TODO: SR
+            //throw new InvalidCastException(string.Format(SR.InvalidCast_FromTo, value.GetType().FullName, targetType.FullName));
+        }
     }
 }

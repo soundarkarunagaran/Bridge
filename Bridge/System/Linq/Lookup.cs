@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     [Bridge.Convention(Target = Bridge.ConventionTarget.Member, Member = Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
@@ -25,6 +26,7 @@ namespace System.Linq
         bool Contains(TKey key);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     public class Lookup<TKey, TElement> : ILookup<TKey, TElement>
@@ -46,8 +48,10 @@ namespace System.Linq
 
         public extern bool Contains(TKey key);
 
+        [Bridge.Convention(Bridge.Notation.None)]
         public extern IEnumerator<Grouping<TKey, TElement>> GetEnumerator();
 
+        [Bridge.Convention(Bridge.Notation.None)]
         extern IEnumerator IEnumerable.GetEnumerator();
     }
 }

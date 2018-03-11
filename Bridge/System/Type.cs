@@ -3,6 +3,7 @@ using System.Reflection;
 
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("Function")]
     public class Type
@@ -318,7 +319,7 @@ namespace System
         [Bridge.Template("System.Array.type({this}, {rank})")]
         public extern Type MakeArrayType(int rank);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern object Prototype { get; }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

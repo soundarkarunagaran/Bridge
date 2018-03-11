@@ -134,7 +134,7 @@
                         packedSlotId = sparseSettings.getPackedSlotIdBySlotNumber(groupNumber);
 
                         if (packedSlotId == null) {
-                            throw new System.ArgumentException("Reference to undefined group number " + groupNumber.toString() + ".");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group number " + groupNumber.toString() + ".");
                         }
 
                         if (allowedPackedSlotIds.indexOf(packedSlotId) < 0) {
@@ -161,7 +161,7 @@
                                 continue;
                             }
 
-                            throw new System.ArgumentException("Reference to undefined group name '" + value + "'.");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group name '" + value + "'.");
                         }
 
                         if (allowedPackedSlotIds.indexOf(packedSlotId) < 0) {
@@ -211,7 +211,7 @@
                                 packedSlotId = sparseSettings.getPackedSlotIdBySlotNumber(token.data.number);
 
                                 if (packedSlotId == null) {
-                                    throw new System.ArgumentException("Reference to undefined group number " + value + ".");
+                                    throw new System.ArgumentException.$ctor1("Reference to undefined group number " + value + ".");
                                 }
 
                                 token.data.packedSlotId = packedSlotId;
@@ -611,7 +611,7 @@
                             break;
 
                         default:
-                            throw new System.ArgumentException("Unrecognized grouping construct.");
+                            throw new System.ArgumentException.$ctor1("Unrecognized grouping construct.");
                     }
                 } else if (childToken.type === tokenTypes.groupConstructName) {
                     // ?<name1>
@@ -623,7 +623,7 @@
                     var groupNames = nameExpr.split("-");
 
                     if (groupNames.length === 0 || groupNames.length > 2) {
-                        throw new System.ArgumentException("Invalid group name.");
+                        throw new System.ArgumentException.$ctor1("Invalid group name.");
                     }
 
                     if (groupNames[0].length) {
@@ -673,7 +673,7 @@
 
             _validateGroupName: function (name) {
                 if (!name || !name.length) {
-                    throw new System.ArgumentException("Invalid group name: Group names must begin with a word character.");
+                    throw new System.ArgumentException.$ctor1("Invalid group name: Group names must begin with a word character.");
                 }
 
                 var isDigit = name[0] >= "0" && name[0] <= "9";
@@ -683,7 +683,7 @@
                     var res = scope._matchChars(name, 0, name.length, scope._decSymbols);
 
                     if (res.matchLength !== name.length) {
-                        throw new System.ArgumentException("Invalid group name: Group names must begin with a word character.");
+                        throw new System.ArgumentException.$ctor1("Invalid group name: Group names must begin with a word character.");
                     }
                 }
 
@@ -706,7 +706,7 @@
                         group.balancingSlotId = sparseSettings.getPackedSlotIdBySlotName(group.constructs.name2);
 
                         if (group.balancingSlotId == null) {
-                            throw new System.ArgumentException("Reference to undefined group name '" + group.constructs.name2 + "'.");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group name '" + group.constructs.name2 + "'.");
                         }
                     }
                 }
@@ -738,14 +738,14 @@
 
                         if (groupNumber <= 9) {
                             // The expressions \1 through \9 are always interpreted as backreferences, and not as octal codes.
-                            throw new System.ArgumentException("Reference to undefined group number " + groupNumber.toString() + ".");
+                            throw new System.ArgumentException.$ctor1("Reference to undefined group number " + groupNumber.toString() + ".");
                         }
 
                         // Otherwise, transform the token to OctalNumber:
                         octalCharToken = scope._parseOctalCharToken(token.value, 0, token.length);
 
                         if (octalCharToken == null) {
-                            throw new System.ArgumentException("Unrecognized escape sequence " + token.value.slice(0, 2) + ".");
+                            throw new System.ArgumentException.$ctor1("Unrecognized escape sequence " + token.value.slice(0, 2) + ".");
                         }
 
                         extraLength = token.length - octalCharToken.length;
@@ -831,15 +831,15 @@
 
             _parsePatternImpl: function (pattern, settings, startIndex, endIndex) {
                 if (pattern == null) {
-                    throw new System.ArgumentNullException("pattern");
+                    throw new System.ArgumentNullException.$ctor1("pattern");
                 }
 
                 if (startIndex < 0 || startIndex > pattern.length) {
-                    throw new System.ArgumentOutOfRangeException("startIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                 }
 
                 if (endIndex < startIndex || endIndex > pattern.length) {
-                    throw new System.ArgumentOutOfRangeException("endIndex");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("endIndex");
                 }
 
                 var scope = System.Text.RegularExpressions.RegexEngineParser;
@@ -903,7 +903,7 @@
                 }
 
                 if (i + 1 >= endIndex) {
-                    throw new System.ArgumentException("Illegal \\ at end of pattern.");
+                    throw new System.ArgumentException.$ctor1("Illegal \\ at end of pattern.");
                 }
 
                 ch = pattern[i + 1];
@@ -950,7 +950,7 @@
                         }
                     }
 
-                    throw new System.ArgumentException("Malformed \\k<...> named back reference.");
+                    throw new System.ArgumentException.$ctor1("Malformed \\k<...> named back reference.");
                 }
 
                 // Temp fix (until IsWordChar is not supported):
@@ -971,7 +971,7 @@
                 }
 
                 // Unrecognized escape sequence:
-                throw new System.ArgumentException("Unrecognized escape sequence \\" + ch + ".");
+                throw new System.ArgumentException.$ctor1("Unrecognized escape sequence \\" + ch + ".");
             },
 
             _parseOctalCharToken: function (pattern, i, endIndex) {
@@ -1016,7 +1016,7 @@
                         var hexDigits = scope._matchChars(pattern, i + 2, endIndex, scope._hexSymbols, 2);
 
                         if (hexDigits.matchLength !== 2) {
-                            throw new System.ArgumentException("Insufficient hexadecimal digits.");
+                            throw new System.ArgumentException.$ctor1("Insufficient hexadecimal digits.");
                         }
 
                         var hexVal = parseInt(hexDigits.match, 16);
@@ -1027,7 +1027,7 @@
                         return token;
                     } else if (ch === "c") {
                         if (i + 2 >= endIndex) {
-                            throw new System.ArgumentException("Missing control character.");
+                            throw new System.ArgumentException.$ctor1("Missing control character.");
                         }
 
                         var ctrlCh = pattern[i + 2];
@@ -1043,12 +1043,12 @@
                             return token;
                         }
 
-                        throw new System.ArgumentException("Unrecognized control character.");
+                        throw new System.ArgumentException.$ctor1("Unrecognized control character.");
                     } else if (ch === "u") {
                         var ucodeDigits = scope._matchChars(pattern, i + 2, endIndex, scope._hexSymbols, 4);
 
                         if (ucodeDigits.matchLength !== 4) {
-                            throw new System.ArgumentException("Insufficient hexadecimal digits.");
+                            throw new System.ArgumentException.$ctor1("Insufficient hexadecimal digits.");
                         }
 
                         var ucodeVal = parseInt(ucodeDigits.match, 16);
@@ -1090,7 +1090,7 @@
                             break;
 
                         default:
-                            throw new System.ArgumentException("Unexpected escaped char: '" + ch + "'.");
+                            throw new System.ArgumentException.$ctor1("Unexpected escaped char: '" + ch + "'.");
                     }
 
                     token.data = { n: escVal, ch: String.fromCharCode(escVal) };
@@ -1111,7 +1111,7 @@
                         var catNameChars = scope._matchUntil(pattern, i + 2, endIndex, "}"); // the longest category name is 37 + 2 brackets, but .NET does not limit the value on this step
 
                         if (catNameChars.matchLength < 2 || catNameChars.match[0] !== "{" || catNameChars.unmatchLength !== 1) {
-                            throw new System.ArgumentException("Incomplete \p{X} character escape.");
+                            throw new System.ArgumentException.$ctor1("Incomplete \p{X} character escape.");
                         }
 
                         var catName = catNameChars.match.slice(1);
@@ -1124,7 +1124,7 @@
                             return scope._createPatternToken(pattern, tokenTypes.escCharClassBlock, i, 2 + catNameChars.matchLength + 1); // "\p{Name}" or "\P{Name}"
                         }
 
-                        throw new System.ArgumentException("Unknown property '" + catName + "'.");
+                        throw new System.ArgumentException.$ctor1("Unknown property '" + catName + "'.");
                     }
 
                     return scope._createPatternToken(pattern, tokenTypes.escCharClass, i, 2); // "\w" or "\W" or "\s" or "\S" or "\d" or "\D"
@@ -1184,7 +1184,7 @@
                         token = scope._parseEscapedChar(pattern, index, endIndex);
 
                         if (token == null) {
-                            throw new System.ArgumentException("Unrecognized escape sequence \\" + ch + ".");
+                            throw new System.ArgumentException.$ctor1("Unrecognized escape sequence \\" + ch + ".");
                         }
                         toInc = token.length;
                     } else if (ch === "]" && index > startIndex) {
@@ -1197,7 +1197,7 @@
                     }
 
                     if (noMoreTokenAllowed) {
-                        throw new System.ArgumentException("A subtraction must be the last element in a character class.");
+                        throw new System.ArgumentException.$ctor1("A subtraction must be the last element in a character class.");
                     }
 
                     // Check for interval:
@@ -1219,7 +1219,7 @@
                 }
 
                 if (closeBracketIndex < 0 || tokens.length < 1) {
-                    throw new System.ArgumentException("Unterminated [] set.");
+                    throw new System.ArgumentException.$ctor1("Unterminated [] set.");
                 }
 
                 var groupToken;
@@ -1293,7 +1293,7 @@
                 }
 
                 if (startN > endN) {
-                    throw new System.NotSupportedException("[x-y] range in reverse order.");
+                    throw new System.NotSupportedException.$ctor1("[x-y] range in reverse order.");
                 }
 
                 var index = intervalStartToken.index;
@@ -1519,13 +1519,13 @@
 
                 if (isComment) {
                     if (closeBracketIndex < 0) {
-                        throw new System.ArgumentException("Unterminated (?#...) comment.");
+                        throw new System.ArgumentException.$ctor1("Unterminated (?#...) comment.");
                     }
 
                     result = scope._createPatternToken(pattern, tokenTypes.commentInline, i, 1 + closeBracketIndex - i);
                 } else {
                     if (closeBracketIndex < 0) {
-                        throw new System.ArgumentException("Not enough )'s.");
+                        throw new System.ArgumentException.$ctor1("Not enough )'s.");
                     }
 
                     // Parse the "Body" of the group
@@ -1551,14 +1551,14 @@
                                 ++altCount;
 
                                 if (altCount > 1) {
-                                    throw new System.ArgumentException("Too many | in (?()|).");
+                                    throw new System.ArgumentException.$ctor1("Too many | in (?()|).");
                                 }
                             }
                         }
 
                         if (altCount === 0) {
                             // Though .NET works with this case, it ends up with unexpected result. Let's avoid this behaviour.
-                            throw new System.NotSupportedException("Alternation group without | is not supported.");
+                            throw new System.NotSupportedException.$ctor1("Alternation group without | is not supported.");
                         }
 
                         var altGroupToken = scope._createPatternToken(pattern, tokenTypes.alternationGroup, i, 1 + closeBracketIndex - i, innerTokens, "(", ")");
@@ -1638,7 +1638,7 @@
                     var nameChars = scope._matchUntil(pattern, i + 2, endIndex, closingCh);
 
                     if (nameChars.unmatchLength !== 1 || nameChars.matchLength === 0) {
-                        throw new System.ArgumentException("Unrecognized grouping construct.");
+                        throw new System.ArgumentException.$ctor1("Unrecognized grouping construct.");
                     }
 
                     var nameFirstCh = nameChars.match.slice(0, 1);
@@ -1649,7 +1649,7 @@
                         // RL 1.4 Simple Word Boundaries  The class of <word_character> includes all Alphabetic
                         // values from the Unicode character database, from UnicodeData.txt [UData], plus the U+200C
                         // ZERO WIDTH NON-JOINER and U+200D ZERO WIDTH JOINER.
-                        throw new System.ArgumentException("Invalid group name: Group names must begin with a word character.");
+                        throw new System.ArgumentException.$ctor1("Invalid group name: Group names must begin with a word character.");
                     }
 
                     return scope._createPatternToken(pattern, tokenTypes.groupConstructName, i, 2 + nameChars.matchLength + 1);
@@ -1664,7 +1664,7 @@
                     return scope._createPatternToken(pattern, imnsxTokenType, i, 1 + imnsxChars.matchLength + imnsxPostfixLen);
                 }
 
-                throw new System.ArgumentException("Unrecognized grouping construct.");
+                throw new System.ArgumentException.$ctor1("Unrecognized grouping construct.");
             },
 
             _parseQuantifierToken: function (pattern, i, endIndex) {
@@ -1700,7 +1700,7 @@
                                     token.data.m = parseInt(dec2Chars.match, 10);
 
                                     if (token.data.n > token.data.m) {
-                                        throw new System.ArgumentException("Illegal {x,y} with x > y.");
+                                        throw new System.ArgumentException.$ctor1("Illegal {x,y} with x > y.");
                                     }
                                 }
                             }
@@ -1758,7 +1758,7 @@
                 }
 
                 if (expr.type === tokenTypes.commentInline) {
-                    throw new System.ArgumentException("Alternation conditions cannot be comments.");
+                    throw new System.ArgumentException.$ctor1("Alternation conditions cannot be comments.");
                 }
 
                 var children = expr.children;
@@ -1767,7 +1767,7 @@
                     constructToken = children[0];
 
                     if (constructToken.type === tokenTypes.groupConstructName) {
-                        throw new System.ArgumentException("Alternation conditions do not capture and cannot be named.");
+                        throw new System.ArgumentException.$ctor1("Alternation conditions do not capture and cannot be named.");
                     }
 
                     if (constructToken.type === tokenTypes.groupConstruct || constructToken.type === tokenTypes.groupConstructImnsx) {
@@ -1786,7 +1786,7 @@
                             var res = scope._matchChars(literalVal, 0, literalVal.length, scope._decSymbols);
 
                             if (res.matchLength !== literalVal.length) {
-                                throw new System.ArgumentException("Malformed Alternation group number: " + literalVal + ".");
+                                throw new System.ArgumentException.$ctor1("Malformed Alternation group number: " + literalVal + ".");
                             }
 
                             var number = parseInt(literalVal, 10);

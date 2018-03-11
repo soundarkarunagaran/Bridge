@@ -3,6 +3,7 @@ namespace System
     /// <summary>
     /// Represents the standard input, output, and error streams for console applications.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Unbox(false)]
     [Bridge.Convention(Bridge.Notation.PascalCase)]
     public sealed partial class Console
@@ -163,6 +164,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [Bridge.Name("Write")]
+        [CLSCompliant(false)]
         public static extern void Write(UInt32 value);
 
         /// <summary>
@@ -170,6 +172,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [Bridge.Name("Write")]
+        [CLSCompliant(false)]
         public static extern void Write(UInt64 value);
 
         /// <summary>
@@ -327,6 +330,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [Bridge.Name("WriteLine")]
+        [CLSCompliant(false)]
         public static extern void WriteLine(UInt32 value);
 
         /// <summary>
@@ -334,6 +338,7 @@ namespace System
         /// </summary>
         /// <param name="value">The value to write.</param>
         [Bridge.Name("WriteLine")]
+        [CLSCompliant(false)]
         public static extern void WriteLine(UInt64 value);
 
         /// <summary>

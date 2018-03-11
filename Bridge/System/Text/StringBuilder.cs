@@ -1,5 +1,6 @@
 namespace System.Text
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class StringBuilder : Bridge.IBridgeClass
@@ -62,9 +63,11 @@ namespace System.Text
 
         public extern StringBuilder Append(string value);
 
+        [CLSCompliant(false)]
         public extern StringBuilder Append(uint value);
 
         [Bridge.Template("{this}.append({value}.toString())")]
+        [CLSCompliant(false)]
         public extern StringBuilder Append(ulong value);
 
         [Bridge.Template("append(String.fromCharCode({value}), {repeatCount})")]
@@ -102,9 +105,11 @@ namespace System.Text
 
         public extern StringBuilder Insert(int index, string value);
 
+        [CLSCompliant(false)]
         public extern StringBuilder Insert(int index, uint value);
 
         [Bridge.Template("{this}.insert({index}, {value}.toString())")]
+        [CLSCompliant(false)]
         public extern StringBuilder Insert(int index, ulong value);
 
         public extern StringBuilder Insert(int index, string value, int count);

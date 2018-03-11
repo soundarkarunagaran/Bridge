@@ -29,11 +29,11 @@
                 },
                 Convert$1: function (srcEncoding, dstEncoding, bytes, index, count) {
                     if (srcEncoding == null || dstEncoding == null) {
-                        throw new System.ArgumentNullException(srcEncoding == null ? "srcEncoding" : "dstEncoding");
+                        throw new System.ArgumentNullException.$ctor1(srcEncoding == null ? "srcEncoding" : "dstEncoding");
                     }
 
                     if (bytes == null) {
-                        throw new System.ArgumentNullException("bytes");
+                        throw new System.ArgumentNullException.$ctor1("bytes");
                     }
 
                     return dstEncoding.GetBytes(srcEncoding.GetChars$1(bytes, index, count));
@@ -53,7 +53,7 @@
                         case 12000: 
                             return System.Text.Encoding.UTF32;
                     }
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 },
                 GetEncoding$1: function (codepage) {
                     switch (codepage) {
@@ -70,7 +70,7 @@
                         case "utf-32": 
                             return System.Text.Encoding.UTF32;
                     }
-                    throw new System.NotSupportedException();
+                    throw new System.NotSupportedException.ctor();
                 },
                 GetEncodings: function () {
                     if (System.Text.Encoding._encodings != null) {
@@ -182,7 +182,7 @@
                 var arr = System.String.toCharArray(s, 0, s.length);
 
                 if (chars.length < (((arr.length + charIndex) | 0))) {
-                    throw new System.ArgumentException(null, "chars");
+                    throw new System.ArgumentException.$ctor3(null, "chars");
                 }
 
                 for (var i = 0; i < arr.length; i = (i + 1) | 0) {

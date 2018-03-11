@@ -18,19 +18,19 @@
                 TransformChars: function (buffer, all, index, count) {
                     if (all !== 1) {
                         if (buffer == null) {
-                            throw new System.ArgumentNullException("buffer");
+                            throw new System.ArgumentNullException.$ctor1("buffer");
                         }
 
                         if (index < 0) {
-                            throw new System.ArgumentOutOfRangeException("index", "less than zero");
+                            throw new System.ArgumentOutOfRangeException.$ctor4("index", "less than zero");
                         }
 
                         if (count < 0) {
-                            throw new System.ArgumentOutOfRangeException("count", "less than zero");
+                            throw new System.ArgumentOutOfRangeException.$ctor4("count", "less than zero");
                         }
 
                         if (((index + count) | 0) > buffer.length) {
-                            throw new System.ArgumentException("index plus count specify a position that is not within buffer.");
+                            throw new System.ArgumentException.$ctor1("index plus count specify a position that is not within buffer.");
                         }
                     }
 

@@ -2,6 +2,7 @@ using System.Reflection;
 
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreCast]
     [Bridge.Name("Function")]
@@ -47,6 +48,7 @@ namespace System
         public static extern Delegate CreateDelegate(Type type, object firstArgument, MethodInfo method);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreCast]
     [Bridge.Name("Function")]

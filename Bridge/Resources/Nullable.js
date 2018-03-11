@@ -5,7 +5,7 @@
             obj = Bridge.unbox(obj, true);
 
             if (!Bridge.hasValue(obj)) {
-                throw new System.InvalidOperationException("Nullable instance doesn't have a value.");
+                throw new System.InvalidOperationException.$ctor1("Nullable instance doesn't have a value.");
             }
 
             return obj;
@@ -193,7 +193,7 @@
 
         getUnderlyingType: function (nullableType) {
             if (!nullableType) {
-                throw new System.ArgumentNullException("nullableType");
+                throw new System.ArgumentNullException.$ctor1("nullableType");
             }
 
             if (Bridge.Reflection.isGenericType(nullableType) &&
@@ -215,7 +215,7 @@
 
     System.Nullable = nullable;
 
-    Bridge.define('System.Nullable$1', function (T) {
+    Bridge.define("System.Nullable$1", function (T) {
         return {
             $kind: "struct",
 

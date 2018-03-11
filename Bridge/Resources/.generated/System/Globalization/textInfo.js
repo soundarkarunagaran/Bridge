@@ -1,5 +1,5 @@
     Bridge.define("System.Globalization.TextInfo", {
-        inherits: [System.ICloneable,System.Object],
+        inherits: [System.ICloneable],
         fields: {
             listSeparator: null
         },
@@ -15,7 +15,7 @@
                     return this.listSeparator;
                 },
                 set: function (value) {
-                    this.verifyWritable();
+                    this.VerifyWritable();
 
                     this.listSeparator = value;
                 }
@@ -28,9 +28,9 @@
             clone: function () {
                 return Bridge.copy(new System.Globalization.TextInfo(), this, System.Array.init(["ANSICodePage", "CultureName", "EBCDICCodePage", "IsRightToLeft", "LCID", "listSeparator", "MacCodePage", "OEMCodePage", "IsReadOnly"], System.String));
             },
-            verifyWritable: function () {
+            VerifyWritable: function () {
                 if (this.IsReadOnly) {
-                    throw new System.InvalidOperationException("Instance is read-only.");
+                    throw new System.InvalidOperationException.$ctor1("Instance is read-only.");
                 }
             }
         }

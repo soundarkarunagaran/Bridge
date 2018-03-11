@@ -1,7 +1,7 @@
     var core = {
         global: globals,
 
-        isNode: Object.prototype.toString.call(typeof process !== 'undefined' ? process : 0) === '[object process]',
+        isNode: Object.prototype.toString.call(typeof process !== "undefined" ? process : 0) === "[object process]",
 
         emptyFn: function () { },
 
@@ -168,18 +168,18 @@
         },
 
         isJSObject: function (value) {
-            return Object.prototype.toString.call(value) === '[object Object]';
+            return Object.prototype.toString.call(value) === "[object Object]";
         },
 
         isPlainObject: function (obj) {
-            if (typeof obj == 'object' && obj !== null) {
-                if (typeof Object.getPrototypeOf == 'function') {
+            if (typeof obj == "object" && obj !== null) {
+                if (typeof Object.getPrototypeOf == "function") {
                     var proto = Object.getPrototypeOf(obj);
 
                     return proto === Object.prototype || proto === null;
                 }
 
-                return Object.prototype.toString.call(obj) === '[object Object]';
+                return Object.prototype.toString.call(obj) === "[object Object]";
             }
 
             return false;
@@ -190,7 +190,7 @@
                 return o;
             }
 
-            if (typeof o.toJSON == 'function') {
+            if (typeof o.toJSON == "function") {
                 return o.toJSON();
             }
 
@@ -386,9 +386,9 @@
                 return 0;
             }
 
-            if (typeof (type.createInstance) === 'function') {
+            if (typeof (type.createInstance) === "function") {
                 return type.createInstance();
-            } else if (typeof (type.getDefaultValue) === 'function') {
+            } else if (typeof (type.getDefaultValue) === "function") {
                 return type.getDefaultValue();
             } else if (type === Boolean || type === System.Boolean) {
                 return false;
@@ -399,7 +399,7 @@
             } else if (type === Number) {
                 return 0;
             } else if (type === String || type === System.String) {
-                return '';
+                return "";
             } else if (type && type.$literal) {
                 return type.ctor();
             } else if (args && args.length > 0) {
@@ -576,7 +576,7 @@
                     return 0;
                 }
 
-                throw new System.InvalidOperationException("HashCode cannot be calculated for empty value");
+                throw new System.InvalidOperationException.$ctor1("HashCode cannot be calculated for empty value");
             }
 
             if (deep !== false && value.hasOwnProperty("item1") && Bridge.isPlainObject(value)) {
@@ -656,7 +656,7 @@
 
         getDefaultValue: function (type) {
             if (type == null) {
-                throw new System.ArgumentNullException("type");
+                throw new System.ArgumentNullException.$ctor1("type");
             } else if ((type.getDefaultValue) && type.getDefaultValue.length === 0) {
                 return type.getDefaultValue();
             } else if (Bridge.Reflection.isEnum(type)) {
@@ -863,7 +863,7 @@
             var result = Bridge.is(obj, type, false, allowNull) ? obj : null;
 
             if (result === null) {
-                throw new System.InvalidCastException("Unable to cast type " + (obj ? Bridge.getTypeName(obj) : "'null'") + " to type " + Bridge.getTypeName(type));
+                throw new System.InvalidCastException.$ctor1("Unable to cast type " + (obj ? Bridge.getTypeName(obj) : "'null'") + " to type " + Bridge.getTypeName(type));
             }
 
             if (obj.$boxed && type !== Object && type !== System.Object) {
@@ -957,7 +957,7 @@
                     var item = from[i];
 
                     if (!Bridge.isArray(item)) {
-                        item = [typeof elemFactory === 'undefined' ? item : Bridge.merge(elemFactory(), item)];
+                        item = [typeof elemFactory === "undefined" ? item : Bridge.merge(elemFactory(), item)];
                     }
 
                     fn.apply(to, item);
@@ -1067,26 +1067,26 @@
                 return obj[fnName].call(obj);
             }
 
-            if (!T && obj && obj.getEnumerator) {
-                return obj.getEnumerator();
+            if (!T && obj && obj.GetEnumerator) {
+                return obj.GetEnumerator();
             }
 
             var name;
 
-            if (T && Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator"))) {
+            if (T && Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator"))) {
                 return obj[name]();
             }
 
-            if (T && Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$getEnumerator"))) {
+            if (T && Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$Generic$IEnumerable$1$GetEnumerator"))) {
                 return obj[name]();
             }
 
-            if (Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$IEnumerable$getEnumerator"))) {
+            if (Bridge.isFunction(Bridge.getProperty(obj, name = "System$Collections$IEnumerable$GetEnumerator"))) {
                 return obj[name]();
             }
 
-            if (T && obj && obj.getEnumerator) {
-                return obj.getEnumerator();
+            if (T && obj && obj.GetEnumerator) {
+                return obj.GetEnumerator();
             }
 
             if ((Object.prototype.toString.call(obj) === "[object Array]") ||
@@ -1094,7 +1094,7 @@
                 return new Bridge.ArrayEnumerator(obj, T);
             }
 
-            throw new System.InvalidOperationException("Cannot create enumerator");
+            throw new System.InvalidOperationException.$ctor1("Cannot create Enumerator.");
         },
 
         getPropertyNames: function (obj, includeFunctions) {
@@ -1525,7 +1525,7 @@
             }
 
             if (instance == null) {
-                throw new System.NullReferenceException("instance is null");
+                throw new System.NullReferenceException.$ctor1("instance is null");
             }
 
             if (T) {
@@ -1877,7 +1877,7 @@
             }
 
             if (isNaN(ms) || ms < -1 || ms > 2147483647) {
-                throw new System.ArgumentOutOfRangeException("timeout", "Number must be either non-negative and less than or equal to Int32.MaxValue or -1");
+                throw new System.ArgumentOutOfRangeException.$ctor4("timeout", "Number must be either non-negative and less than or equal to Int32.MaxValue or -1");
             }
 
             if (ms == -1) {

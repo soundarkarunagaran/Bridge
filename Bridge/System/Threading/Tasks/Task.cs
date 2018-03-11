@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace System.Threading.Tasks
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Task : IDisposable, Bridge.IBridgeClass
@@ -10,7 +11,7 @@ namespace System.Threading.Tasks
 
         public extern Task(Action<object> action, object state);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern AggregateException Exception { get; }
 
         public extern bool IsCanceled
@@ -31,7 +32,7 @@ namespace System.Threading.Tasks
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern TaskStatus Status
         {
             get;
@@ -45,6 +46,7 @@ namespace System.Threading.Tasks
 
         public extern TaskAwaiter GetAwaiter();
 
+        [Bridge.Convention(Bridge.Notation.None)]
         public extern void Dispose();
 
         public extern void Complete(object result = null);
@@ -91,6 +93,7 @@ namespace System.Threading.Tasks
         public static extern Task<TResult> FromPromise<TResult>(IPromise promise, Delegate resultHandler, Delegate errorHandler, Delegate progressHandler);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Task<TResult> : Task

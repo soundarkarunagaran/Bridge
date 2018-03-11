@@ -8,6 +8,7 @@ namespace System.ComponentModel.DataAnnotations
     ///     Use the static <see cref="ValidationResult.Success" /> to represent successful validation.
     /// </para>
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public class ValidationResult

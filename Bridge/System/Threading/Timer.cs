@@ -104,6 +104,7 @@
         /// <param name="state">An object containing information to be used by the callback method, or null.</param>
         /// <param name="dueTime">The amount of time to delay before callback is invoked, in milliseconds. Specify Timeout.Infinite to prevent the timer from starting. Specify zero (0) to start the timer immediately.</param>
         /// <param name="period">The time interval between invocations of callback, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
+        [CLSCompliant(false)]
         public Timer(TimerCallback callback, Object state, UInt32 dueTime, UInt32 period)
         {
             TimerSetup(callback, state, dueTime, period);
@@ -232,6 +233,7 @@
         /// <param name="dueTime">The amount of time to delay before the invoking the callback method specified when the Timer was constructed, in milliseconds. Specify Timeout.Infinite to prevent the timer from restarting. Specify zero (0) to restart the timer immediately.</param>
         /// <param name="period">The time interval between invocations of the callback method specified when the Timer was constructed, in milliseconds. Specify Timeout.Infinite to disable periodic signaling.</param>
         /// <returns>true if the timer was successfully updated; otherwise, false.</returns>
+        [CLSCompliant(false)]
         public bool Change(UInt32 dueTime, UInt32 period)
         {
             return ChangeTimer(dueTime, period);
@@ -273,6 +275,7 @@
             this.disposed = true;
         }
 
+        [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
         [Bridge.External]
         [Bridge.Name("Bridge.global")]
         internal class Global

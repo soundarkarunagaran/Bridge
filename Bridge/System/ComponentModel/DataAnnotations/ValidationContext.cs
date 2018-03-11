@@ -5,6 +5,7 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// Describes the context in which a validation is being performed.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public sealed class ValidationContext: IServiceProvider

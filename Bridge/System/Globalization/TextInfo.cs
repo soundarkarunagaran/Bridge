@@ -5,8 +5,7 @@ namespace System.Globalization
     /// <summary>
     /// Defines text properties and behaviors, such as casing, that are specific to a writing system.
     /// </summary>
-    [Bridge.Reflectable]
-    public class TextInfo : ICloneable, Bridge.IBridgeClass
+    public class TextInfo : ICloneable
     {
         private string listSeparator;
 

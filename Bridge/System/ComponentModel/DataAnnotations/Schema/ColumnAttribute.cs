@@ -3,6 +3,7 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// <summary>
     /// Specifies the database column that a property is mapped to.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     [Bridge.External]
     [Bridge.NonScriptable]

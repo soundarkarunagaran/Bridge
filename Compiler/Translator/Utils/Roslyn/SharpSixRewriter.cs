@@ -19,13 +19,15 @@ namespace Bridge.Translator
 
         private readonly ILogger logger;
         private readonly ITranslator translator;
-        private readonly CSharpCompilation compilation;
+        private CSharpCompilation compilation;
         private SemanticModel semanticModel;
         private List<MemberDeclarationSyntax> fields;
         private int tempKey = 1;
         private Stack<ITypeSymbol> currentType;
         private bool hasStaticUsingOrAliases;
-        private bool HasChainingAssigment;
+        private bool hasChainingAssigment;
+        private bool hasIsPattern;
+        private bool hasCasePatternSwitchLabel;
 
         public SharpSixRewriter(ITranslator translator)
         {
@@ -50,8 +52,8 @@ namespace Bridge.Translator
             var result = this.Visit(syntaxTree.GetRoot());
 
             var replacers = new List<ICSharpReplacer>();
-
-            if (this.HasChainingAssigment)
+            
+            if (this.hasChainingAssigment)
             {
                 replacers.Add(new ChainingAssigmentReplacer());
             }
@@ -61,10 +63,26 @@ namespace Bridge.Translator
                 replacers.Add(new UsingStaticReplacer());
             }
 
+            if (this.hasIsPattern)
+            {
+                replacers.Add(new IsPatternReplacer());
+            }
+
+            if (this.hasCasePatternSwitchLabel)
+            {
+                replacers.Add(new SwitchPatternReplacer());
+            }
+            
             foreach (var replacer in replacers)
             {
+                compilation = compilation.ReplaceSyntaxTree(syntaxTree, result.SyntaxTree);
+                syntaxTree = result.SyntaxTree;
+                this.semanticModel = this.compilation.GetSemanticModel(result.SyntaxTree, true);
                 result = replacer.Replace(result, semanticModel);
             }
+
+            compilation = compilation.ReplaceSyntaxTree(syntaxTree, result.SyntaxTree);
+            this.semanticModel = this.compilation.GetSemanticModel(result.SyntaxTree, true);
 
             return result.ToFullString();
         }
@@ -73,7 +91,7 @@ namespace Bridge.Translator
         {
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
 
-            var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp6, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
+            var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
             var syntaxTrees = translator.SourceFiles.Select(s => ParseSourceFile(s, parseOptions)).Where(s => s != null).ToList();
             var references = new MetadataReference[this.translator.References.Count()];
             var i = 0;
@@ -157,6 +175,18 @@ namespace Bridge.Translator
             return false;
         }
 
+        public override SyntaxNode VisitCasePatternSwitchLabel(CasePatternSwitchLabelSyntax node)
+        {
+            this.hasCasePatternSwitchLabel = true;
+            return base.VisitCasePatternSwitchLabel(node);
+        }
+
+        public override SyntaxNode VisitIsPatternExpression(IsPatternExpressionSyntax node)
+        {
+            this.hasIsPattern = true;
+            return base.VisitIsPatternExpression(node);
+        }
+
         public override SyntaxNode VisitAssignmentExpression(AssignmentExpressionSyntax node)
         {
             var identifier = node.Left as IdentifierNameSyntax;
@@ -167,7 +197,7 @@ namespace Bridge.Translator
 
                 if (local != null && local.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
                 {
-                    this.HasChainingAssigment = true;
+                    this.hasChainingAssigment = true;
                 }
             }
             return base.VisitAssignmentExpression(node);
@@ -267,6 +297,30 @@ namespace Bridge.Translator
                     var cast = SyntaxFactory.CastExpression(name, expr);
                     node = node.WithExpression(cast);
                 }
+            }
+
+            return node;
+        }
+
+        public override SyntaxNode VisitConstructorDeclaration(ConstructorDeclarationSyntax node)
+        {
+            node = (ConstructorDeclarationSyntax)base.VisitConstructorDeclaration(node);
+
+            if (node.ExpressionBody != null)
+            {
+                return SyntaxHelper.ToStatementBody(node);
+            }
+
+            return node;
+        }
+
+        public override SyntaxNode VisitDestructorDeclaration(DestructorDeclarationSyntax node)
+        {
+            node = (DestructorDeclarationSyntax)base.VisitDestructorDeclaration(node);
+
+            if (node.ExpressionBody != null)
+            {
+                return SyntaxHelper.ToStatementBody(node);
             }
 
             return node;
@@ -606,6 +660,31 @@ namespace Bridge.Translator
             return node;
         }
 
+        public override SyntaxNode VisitAccessorList(AccessorListSyntax node)
+        {
+            node = (AccessorListSyntax)base.VisitAccessorList(node);
+
+            if (node.Accessors.Any(a => a.ExpressionBody != null))
+            {
+                var list = new List<AccessorDeclarationSyntax>();
+                foreach (var accessor in node.Accessors)
+                {
+                    if (accessor != null && accessor.ExpressionBody != null)
+                    {
+                        list.Add(SyntaxHelper.ToStatementBody(accessor));
+                    }
+                    else
+                    {
+                        list.Add(accessor);
+                    }
+                }
+
+                node = node.WithAccessors(SyntaxFactory.List(list));
+            }            
+
+            return node;
+        }
+
         public override SyntaxNode VisitPropertyDeclaration(PropertyDeclarationSyntax node)
         {
             node = (PropertyDeclarationSyntax)base.VisitPropertyDeclaration(node);
@@ -678,7 +757,7 @@ namespace Bridge.Translator
 
             var old = this.fields;
             this.fields = new List<MemberDeclarationSyntax>();
-
+            var isReadOnly = node.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword) > -1;
             var c = base.VisitStructDeclaration(node) as StructDeclarationSyntax;
 
             if (c != null && this.fields.Count > 0)
@@ -691,6 +770,12 @@ namespace Bridge.Translator
                 c = c.WithCloseBraceToken(c.CloseBraceToken.WithLeadingTrivia(null));
                 list.AddRange(arr);
                 c = c.WithMembers(SyntaxFactory.List(list));
+            }
+
+            if (c != null && isReadOnly)
+            {
+                c = c.WithModifiers(c.Modifiers.RemoveAt(c.Modifiers.IndexOf(SyntaxKind.ReadOnlyKeyword)));
+                c = c.WithAttributeLists(c.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SeparatedList<AttributeSyntax>(new AttributeSyntax[1] { SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("Bridge.Immutable")) })).WithTrailingTrivia(SyntaxFactory.Whitespace("\n"))));
             }
 
             this.fields = old;

@@ -3,6 +3,7 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// Validation attribute to assert a string property, field or parameter does not exceed a maximum length
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
         AllowMultiple = false)]
     [Bridge.External]

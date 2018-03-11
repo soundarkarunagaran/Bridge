@@ -16,10 +16,10 @@
             Current: {
                 get: function () {
                     if (this._index === -2) {
-                        throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has not started. Call MoveNext.");
                     }
                     if (this._index === -1) {
-                        throw new System.InvalidOperationException("Enumeration already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration already finished.");
                     }
                     return this._currentElement;
                 }
@@ -27,17 +27,17 @@
             System$Collections$IEnumerator$Current: {
                 get: function () {
                     if (this._index === -2) {
-                        throw new System.InvalidOperationException("Enumeration has not started. Call MoveNext.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration has not started. Call MoveNext.");
                     }
                     if (this._index === -1) {
-                        throw new System.InvalidOperationException("Enumeration already finished.");
+                        throw new System.InvalidOperationException.$ctor1("Enumeration already finished.");
                     }
                     return this._currentElement;
                 }
             }
         },
         alias: [
-            "dispose", "System$IDisposable$dispose",
+            "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
@@ -54,14 +54,14 @@
             }
         },
         methods: {
-            dispose: function () {
+            Dispose: function () {
                 this._index = -1;
             },
             moveNext: function () {
                 var $t, $t1;
                 var retval;
                 if (this._version !== this._stack._version) {
-                    throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
+                    throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 if (this._index === -2) { // First call to enumerator.
                     this._index = (this._stack._size - 1) | 0;
@@ -85,7 +85,7 @@
             },
             System$Collections$IEnumerator$reset: function () {
                 if (this._version !== this._stack._version) {
-                    throw new System.InvalidOperationException("Collection was modified; enumeration operation may not execute.");
+                    throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
                 this._index = -2;
                 this._currentElement = Bridge.getDefaultValue(T);

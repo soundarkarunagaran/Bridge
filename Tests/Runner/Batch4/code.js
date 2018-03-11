@@ -211,64 +211,6 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
         }
     });
 
-    Bridge.define("Bridge.ClientTest.Batch4.Exceptions.ErrorExceptionTests", {
-        methods: {
-            TypePropertiesAreCorrect_SPI_1564: function () {
-                Bridge.Test.NUnit.Assert.AreEqual("Bridge.ErrorException", Bridge.Reflection.getTypeFullName(Bridge.ErrorException), "Name");
-                Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isClass(Bridge.ErrorException), "IsClass");
-                Bridge.Test.NUnit.Assert.AreEqual(System.Exception, Bridge.Reflection.getBaseType(Bridge.ErrorException), "BaseType");
-                // #1564
-                var d = null;
-                Bridge.ClientTest.Batch4.TestHelper.Safe(function () {
-                    d = new Bridge.ErrorException();
-                });
-                // Test restructure to keep assertion count correct (prevent uncaught test exception)
-                var b1 = false;
-                Bridge.ClientTest.Batch4.TestHelper.Safe(function () {
-                    b1 = Bridge.is(d, Bridge.ErrorException);
-                });
-                Bridge.Test.NUnit.Assert.True(b1, "is InvalidOperationException");
-                var b2 = false;
-                Bridge.ClientTest.Batch4.TestHelper.Safe(function () {
-                    b2 = Bridge.is(d, System.Exception);
-                });
-                Bridge.Test.NUnit.Assert.True(b2, "is Exception");
-
-                var interfaces = Bridge.Reflection.getInterfaces(Bridge.ErrorException);
-                Bridge.Test.NUnit.Assert.AreEqual(0, interfaces.length, "Interfaces length");
-            },
-            ErrorOnlyConstructorWorks_SPI_1564: function () {
-                //var err = new Error
-                //{
-                //    Message = "Some message"
-                //};
-                var err = null;
-                var ex = new Bridge.ErrorException("Some message");
-                Bridge.Test.NUnit.Assert.True(Bridge.is(ex, Bridge.ErrorException), "is ErrorException");
-                Bridge.Test.NUnit.Assert.True(ex.InnerException == null, "InnerException");
-                // #1564
-                Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(ex.Error, err), "Error");
-                Bridge.Test.NUnit.Assert.AreEqual("Some message", ex.Message, "Message");
-                Bridge.Test.NUnit.Assert.AreEqual(err.stack, ex.StackTrace, "Stack");
-            },
-            ErrorAndMessageAndInnerExceptionConstructorWorks_SPI_1564: function () {
-                var inner = new System.Exception("a");
-                //var err = new Error
-                //{
-                //    Message = "Some message"
-                //};
-                var err = null;
-                var ex = new Bridge.ErrorException("Overridden message", inner);
-                Bridge.Test.NUnit.Assert.True(Bridge.is(ex, Bridge.ErrorException), "is ErrorException");
-                // #1564
-                Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(ex.InnerException, inner), "InnerException");
-                Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(ex.Error, err), "Error");
-                Bridge.Test.NUnit.Assert.AreEqual("Overridden message", ex.Message, "Message");
-                Bridge.Test.NUnit.Assert.AreEqual(err.stack, ex.StackTrace, "Stack");
-            }
-        }
-    });
-
     Bridge.define("Bridge.ClientTest.Batch4.FormattableStringTests", {
         methods: {
             ToStringWithFormatProviderWorks_SPI_1651: function () {

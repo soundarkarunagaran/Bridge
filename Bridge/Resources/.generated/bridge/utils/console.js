@@ -82,7 +82,8 @@
                     var v = "";
 
                     if (value != null) {
-                        v = (value.toString == { }.toString) ? JSON.stringify(value, null, 2) : value.toString();
+                        var hasToString = value.ToString !== undefined;
+                        v = (value.toString == { }.toString && !hasToString) ? JSON.stringify(value, null, 2) : hasToString ? value.ToString() : value.toString();
                     }
 
                     if (self.bufferedOutput != null) {
@@ -435,7 +436,7 @@
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }},
             obj2Css: function (obj) {
@@ -450,7 +451,7 @@
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
-                        $t.System$IDisposable$dispose();
+                        $t.System$IDisposable$Dispose();
                     }
                 }
                 return str;

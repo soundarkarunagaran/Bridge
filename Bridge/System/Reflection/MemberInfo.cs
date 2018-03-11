@@ -1,5 +1,6 @@
 namespace System.Reflection
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Object")]
     public class MemberInfo
@@ -119,6 +120,11 @@ namespace System.Reflection
         /// <returns>An array that contains all the custom attributes applied to this member, or an array with zero elements if no attributes are defined.</returns>
         [Bridge.Template("System.Attribute.getCustomAttributes({this}, {attributeType})")]
         public extern object[] GetCustomAttributes(Type attributeType);
+
+        public bool IsDefined(Type attributeType, bool inherit)
+        {
+            throw new NotImplementedException();
+        }
 
         internal extern MemberInfo();
     }

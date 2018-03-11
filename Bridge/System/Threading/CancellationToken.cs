@@ -1,12 +1,13 @@
 namespace System.Threading
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public struct CancellationToken
     {
         public extern CancellationToken(bool canceled);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public static extern CancellationToken None
         {
             get;

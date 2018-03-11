@@ -2,15 +2,15 @@
         statics: {
             replace: function (evaluator, regex, input, count, startat) {
                 if (evaluator == null) {
-                    throw new System.ArgumentNullException("evaluator");
+                    throw new System.ArgumentNullException.$ctor1("evaluator");
                 }
 
                 if (count < -1) {
-                    throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than -1.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count cannot be less than -1.");
                 }
 
                 if (startat < 0 || startat > input.length) {
-                    throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("startat", "Start index cannot be less than 0 or greater than input length.");
                 }
 
                 if (count === 0) {
@@ -93,11 +93,11 @@
 
             split: function (regex, input, count, startat) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "Count can't be less than 0.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count can't be less than 0.");
                 }
 
                 if (startat < 0 || startat > input.length) {
-                    throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("startat", "Start index cannot be less than 0 or greater than input length.");
                 }
 
                 var result = [];
@@ -208,7 +208,7 @@
             this._rep = rep;
 
             if (concat._type !== System.Text.RegularExpressions.RegexNode.Concatenate) {
-                throw new System.ArgumentException("Replacement error.");
+                throw new System.ArgumentException.$ctor1("Replacement error.");
             }
 
             var sb = "";
@@ -243,7 +243,7 @@
                         rules.push(-System.Text.RegularExpressions.RegexReplacement.Specials - 1 - slot);
                         break;
                     default:
-                        throw new System.ArgumentException("Replacement error.");
+                        throw new System.ArgumentException.$ctor1("Replacement error.");
                 }
             }
 
@@ -266,11 +266,11 @@
 
         replace: function (regex, input, count, startat) {
             if (count < -1) {
-                throw new System.ArgumentOutOfRangeException("count", "Count cannot be less than -1.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("count", "Count cannot be less than -1.");
             }
 
             if (startat < 0 || startat > input.length) {
-                throw new System.ArgumentOutOfRangeException("startat", "Start index cannot be less than 0 or greater than input length.");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startat", "Start index cannot be less than 0 or greater than input length.");
             }
 
             if (count === 0) {

@@ -2,9 +2,10 @@ using System.ComponentModel;
 
 namespace System.Reflection
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Unbox(true)]
-    public class FieldInfo : MemberInfo
+    public abstract partial class FieldInfo : MemberInfo
     {
         [Bridge.Name("rt")]
         public extern Type FieldType
@@ -13,7 +14,7 @@ namespace System.Reflection
             private set;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern bool IsInitOnly
         {
             [Bridge.Template("({this}.ro || false)")]

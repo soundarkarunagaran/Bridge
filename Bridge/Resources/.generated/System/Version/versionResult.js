@@ -35,11 +35,11 @@
             getVersionParseException: function () {
                 switch (this.m_failure) {
                     case System.Version.ParseFailureKind.ArgumentNullException: 
-                        return new System.ArgumentNullException(this.m_argumentName);
+                        return new System.ArgumentNullException.$ctor1(this.m_argumentName);
                     case System.Version.ParseFailureKind.ArgumentException: 
-                        return new System.ArgumentException("VersionString");
+                        return new System.ArgumentException.$ctor1("VersionString");
                     case System.Version.ParseFailureKind.ArgumentOutOfRangeException: 
-                        return new System.ArgumentOutOfRangeException(this.m_exceptionArgument, "Cannot be < 0");
+                        return new System.ArgumentOutOfRangeException.$ctor4(this.m_exceptionArgument, "Cannot be < 0");
                     case System.Version.ParseFailureKind.FormatException: 
                         // Regenerate the FormatException as would be thrown by Int32.Parse()
                         try {
@@ -58,9 +58,9 @@
                                 throw $e1;
                             }
                         }
-                        return new System.FormatException("InvalidString");
+                        return new System.FormatException.$ctor1("InvalidString");
                     default: 
-                        return new System.ArgumentException("VersionString");
+                        return new System.ArgumentException.$ctor1("VersionString");
                 }
             },
             getHashCode: function () {

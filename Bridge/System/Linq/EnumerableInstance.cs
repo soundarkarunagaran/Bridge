@@ -3,14 +3,17 @@ using System.Collections.Generic;
 
 namespace System.Linq
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.IgnoreGeneric]
     public class EnumerableInstance<TElement> : IEnumerable<TElement>
     {
         internal extern EnumerableInstance();
 
+        [Bridge.Convention(Bridge.Notation.None)]
         public extern IEnumerator<TElement> GetEnumerator();
 
+        [Bridge.Convention(Bridge.Notation.None)]
         extern IEnumerator IEnumerable.GetEnumerator();
 
         public extern TElement Aggregate(Func<TElement, TElement, TElement> func);
@@ -389,7 +392,7 @@ namespace System.Linq
 
         public static extern IOrderedEnumerable<TSource> ThenByDescending<TSource, TKey>(Func<TSource, TKey> keySelector, IComparer<TKey> comparer);
 
-        [Bridge.Template("{this}.toArray({TElement})")]
+        [Bridge.Template("{this}.ToArray({TElement})")]
         public extern TElement[] ToArray();
 
         [Bridge.Template("{this}.toDictionary({keySelector}, null, {TKey}, {TElement})")]

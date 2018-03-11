@@ -30,7 +30,7 @@
                 }
             }
         },
-        alias: ["Dispose", "System$IDisposable$dispose"],
+        alias: ["Dispose", "System$IDisposable$Dispose"],
         ctors: {
             init: function () {
                 this.lastCharsRead = 0;
@@ -44,13 +44,13 @@
             $ctor2: function (input, encoding, leaveOpen) {
                 this.$initialize();
                 if (input == null) {
-                    throw new System.ArgumentNullException("input");
+                    throw new System.ArgumentNullException.$ctor1("input");
                 }
                 if (encoding == null) {
-                    throw new System.ArgumentNullException("encoding");
+                    throw new System.ArgumentNullException.$ctor1("encoding");
                 }
                 if (!input.CanRead) {
-                    throw new System.ArgumentException("Argument_StreamNotReadable");
+                    throw new System.ArgumentException.$ctor1("Argument_StreamNotReadable");
                 }
                 this.m_stream = input;
                 this.m_encoding = encoding;
@@ -117,16 +117,16 @@
             },
             Read$2: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("index", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException("Argument_InvalidOffLen");
+                    throw new System.ArgumentException.$ctor1("Argument_InvalidOffLen");
                 }
 
                 if (this.m_stream == null) {
@@ -138,16 +138,16 @@
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("index", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException("Argument_InvalidOffLen");
+                    throw new System.ArgumentException.$ctor1("Argument_InvalidOffLen");
                 }
 
                 if (this.m_stream == null) {
@@ -318,7 +318,7 @@
                 }
 
                 if (index < 0 || charsRemaining < 0 || ((index + charsRemaining) | 0) > buffer.length) {
-                    throw new System.ArgumentOutOfRangeException("charsRemaining");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("charsRemaining");
                 }
 
                 while (charsRemaining > 0) {
@@ -438,7 +438,7 @@
                         charsRead = this.m_encoding.GetChars$2(this.m_charBytes, 0, ((internalPos + 1) | 0), this.m_singleChar, 0);
 
                         if (!allowSurrogate && charsRead === 2) {
-                            throw new System.ArgumentException();
+                            throw new System.ArgumentException.ctor();
                         }
                     }
                     catch ($e1) {
@@ -446,7 +446,7 @@
                         // Handle surrogate char
 
                         if (this.m_stream.CanSeek) {
-                            this.m_stream.Seek((posSav.sub(this.m_stream.Position)), System.IO.SeekOrigin.Current);
+                            this.m_stream.Seek((posSav.sub(this.m_stream.Position)), 1);
                         }
                         // else - we can't do much here
 
@@ -472,7 +472,7 @@
             },
             ReadChars: function (count) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (this.m_stream == null) {
                     System.IO.__Error.FileNotOpen();
@@ -495,7 +495,7 @@
             },
             ReadBytes: function (count) {
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (this.m_stream == null) {
                     System.IO.__Error.FileNotOpen();
@@ -528,7 +528,7 @@
             },
             FillBuffer: function (numBytes) {
                 if (this.m_buffer != null && (numBytes < 0 || numBytes > this.m_buffer.length)) {
-                    throw new System.ArgumentOutOfRangeException("numBytes", "ArgumentOutOfRange_BinaryReaderFillBuffer");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("numBytes", "ArgumentOutOfRange_BinaryReaderFillBuffer");
                 }
                 var bytesRead = 0;
                 var n = 0;
@@ -567,7 +567,7 @@
                     // Check for a corrupted stream.  Read a max of 5 bytes.
                     // In a future version, add a DataFormatException.
                     if (shift === 35) {
-                        throw new System.FormatException("Format_Bad7BitInt32");
+                        throw new System.FormatException.$ctor1("Format_Bad7BitInt32");
                     }
 
                     // ReadByte handles end of stream cases for us.

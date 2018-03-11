@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace System.Linq.Expressions
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Object")]
     [Bridge.Cast("{this}.ntype === 18")]
@@ -10,7 +11,7 @@ namespace System.Linq.Expressions
         [Bridge.Name("p")]
         public extern ReadOnlyCollection<ParameterExpression> Parameters { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression Body { get; private set; }
 
         [Bridge.Name("rt")]

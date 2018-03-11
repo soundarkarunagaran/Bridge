@@ -7,8 +7,8 @@ namespace System
     /// The decimal data type.
     /// http://mikemcl.github.io/decimal.js/
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
-    //[Bridge.Name("System.Decimal")]
     [Bridge.Constructor("System.Decimal")]
     [Bridge.Reflectable]
     public struct Decimal : IComparable, IComparable<Decimal>, IEquatable<Decimal>, IFormattable
@@ -38,6 +38,7 @@ namespace System
         public extern Decimal(int i);
 
         [Bridge.Template("System.Decimal({i})")]
+        [CLSCompliant(false)]
         public extern Decimal(uint i);
 
         [Bridge.Template("System.Decimal({f})")]
@@ -47,6 +48,7 @@ namespace System
         public extern Decimal(long n);
 
         [Bridge.Template("System.Decimal({n})")]
+        [CLSCompliant(false)]
         public extern Decimal(ulong n);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -80,12 +82,14 @@ namespace System
         public static extern implicit operator decimal (byte value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator decimal (sbyte value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (short value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator decimal (ushort value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
@@ -95,12 +99,14 @@ namespace System
         public static extern implicit operator decimal (int value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator decimal (uint value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
         public static extern implicit operator decimal (long value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
+        [CLSCompliant(false)]
         public static extern implicit operator decimal (ulong value);
 
         //[Bridge.Template("System.Decimal.lift({value})")]
@@ -113,6 +119,7 @@ namespace System
         public static extern explicit operator byte (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, System.SByte)")]
+        [CLSCompliant(false)]
         public static extern explicit operator sbyte (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, Bridge.Char)")]
@@ -122,18 +129,21 @@ namespace System
         public static extern explicit operator short (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, System.UInt16)")]
+        [CLSCompliant(false)]
         public static extern explicit operator ushort (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, System.Int32)")]
         public static extern explicit operator int (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, System.UInt32)")]
+        [CLSCompliant(false)]
         public static extern explicit operator uint (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, System.Int64)")]
         public static extern explicit operator long (decimal value);
 
         //[Bridge.Template("System.Decimal.toInt({value}, System.UInt64)")]
+        [CLSCompliant(false)]
         public static extern explicit operator ulong (decimal value);
 
         //[Bridge.Template("System.Decimal.toFloat({value})")]
@@ -266,6 +276,7 @@ namespace System
         public static extern byte ToByte(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
+        [CLSCompliant(false)]
         public static extern sbyte ToSByte(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
@@ -275,18 +286,21 @@ namespace System
         public static extern short ToInt16(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
+        [CLSCompliant(false)]
         public static extern ushort ToUInt16(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
         public static extern int ToInt32(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
+        [CLSCompliant(false)]
         public static extern uint ToUInt32(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
         public static extern long ToInt64(decimal value);
 
         [Bridge.Template("System.Decimal.toInt({value})")]
+        [CLSCompliant(false)]
         public static extern ulong ToUInt64(decimal value);
 
         [Bridge.Template("System.Decimal.toFloat({value})")]
@@ -384,6 +398,7 @@ namespace System
         internal static extern decimal FromBytes(byte[] bytes);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Name("System.Object")]
     [Bridge.Constructor("{ }")]
     [Bridge.External]
@@ -441,6 +456,7 @@ namespace System
         public DecimalFormatConfig Format;
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.Name("System.Object")]
     [Bridge.Constructor("{ }")]
     [Bridge.External]

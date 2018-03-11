@@ -48,7 +48,7 @@
                     // Only update the capacity if the MS is expandable and the value is different than the current capacity.
                     // Special behavior if the MS isn't expandable: we don't throw if value is the same as the current capacity
                     if (System.Int64(value).lt(this.Length)) {
-                        throw new System.ArgumentOutOfRangeException("value", "ArgumentOutOfRange_SmallCapacity");
+                        throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_SmallCapacity");
                     }
 
                     if (!this._isOpen) {
@@ -90,7 +90,7 @@
                 },
                 set: function (value) {
                     if (value.lt(System.Int64(0))) {
-                        throw new System.ArgumentOutOfRangeException("value", "ArgumentOutOfRange_NeedNonNegNum");
+                        throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_NeedNonNegNum");
                     }
 
                     if (!this._isOpen) {
@@ -98,7 +98,7 @@
                     }
 
                     if (value.gt(System.Int64(System.IO.MemoryStream.MemStreamMaxLength))) {
-                        throw new System.ArgumentOutOfRangeException("value", "ArgumentOutOfRange_StreamLength");
+                        throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_StreamLength");
                     }
                     this._position = (this._origin + System.Int64.clip32(value)) | 0;
                 }
@@ -112,7 +112,7 @@
                 this.$initialize();
                 System.IO.Stream.ctor.call(this);
                 if (capacity < 0) {
-                    throw new System.ArgumentOutOfRangeException("capacity", "ArgumentOutOfRange_NegativeCapacity");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("capacity", "ArgumentOutOfRange_NegativeCapacity");
                 }
 
                 this._buffer = System.Array.init(capacity, 0, System.Byte);
@@ -130,7 +130,7 @@
                 this.$initialize();
                 System.IO.Stream.ctor.call(this);
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 this._buffer = buffer;
                 this._length = (this._capacity = buffer.length);
@@ -149,16 +149,16 @@
                 this.$initialize();
                 System.IO.Stream.ctor.call(this);
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("index", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException("Argument_InvalidOffLen");
+                    throw new System.ArgumentException.$ctor1("Argument_InvalidOffLen");
                 }
 
                 this._buffer = buffer;
@@ -269,16 +269,16 @@
             },
             Read: function (buffer, offset, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 if (offset < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("offset", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (((buffer.length - offset) | 0) < count) {
-                    throw new System.ArgumentException("Argument_InvalidOffLen");
+                    throw new System.ArgumentException.$ctor1("Argument_InvalidOffLen");
                 }
 
                 if (!this._isOpen) {
@@ -322,10 +322,10 @@
                 }
 
                 if (offset.gt(System.Int64(System.IO.MemoryStream.MemStreamMaxLength))) {
-                    throw new System.ArgumentOutOfRangeException("offset", "ArgumentOutOfRange_StreamLength");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("offset", "ArgumentOutOfRange_StreamLength");
                 }
                 switch (loc) {
-                    case System.IO.SeekOrigin.Begin: 
+                    case 0: 
                         {
                             var tempPosition = ((this._origin + System.Int64.clip32(offset)) | 0);
                             if (offset.lt(System.Int64(0)) || tempPosition < this._origin) {
@@ -334,7 +334,7 @@
                             this._position = tempPosition;
                             break;
                         }
-                    case System.IO.SeekOrigin.Current: 
+                    case 1: 
                         {
                             var tempPosition1 = ((this._position + System.Int64.clip32(offset)) | 0);
                             if (System.Int64(this._position).add(offset).lt(System.Int64(this._origin)) || tempPosition1 < this._origin) {
@@ -343,7 +343,7 @@
                             this._position = tempPosition1;
                             break;
                         }
-                    case System.IO.SeekOrigin.End: 
+                    case 2: 
                         {
                             var tempPosition2 = ((this._length + System.Int64.clip32(offset)) | 0);
                             if (System.Int64(this._length).add(offset).lt(System.Int64(this._origin)) || tempPosition2 < this._origin) {
@@ -353,20 +353,20 @@
                             break;
                         }
                     default: 
-                        throw new System.ArgumentException("Argument_InvalidSeekOrigin");
+                        throw new System.ArgumentException.$ctor1("Argument_InvalidSeekOrigin");
                 }
 
                 return System.Int64(this._position);
             },
             SetLength: function (value) {
                 if (value.lt(System.Int64(0)) || value.gt(System.Int64(2147483647))) {
-                    throw new System.ArgumentOutOfRangeException("value", "ArgumentOutOfRange_StreamLength");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_StreamLength");
                 }
                 this.EnsureWriteable();
 
                 // Origin wasn't publicly exposed above. // Check parameter validation logic in this method if this fails.
                 if (value.gt(System.Int64((((2147483647 - this._origin) | 0))))) {
-                    throw new System.ArgumentOutOfRangeException("value", "ArgumentOutOfRange_StreamLength");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_StreamLength");
                 }
 
                 var newLength = (this._origin + System.Int64.clip32(value)) | 0;
@@ -387,16 +387,16 @@
             },
             Write: function (buffer, offset, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer", "ArgumentNull_Buffer");
+                    throw new System.ArgumentNullException.$ctor3("buffer", "ArgumentNull_Buffer");
                 }
                 if (offset < 0) {
-                    throw new System.ArgumentOutOfRangeException("offset", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("offset", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "ArgumentOutOfRange_NeedNonNegNum");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "ArgumentOutOfRange_NeedNonNegNum");
                 }
                 if (((buffer.length - offset) | 0) < count) {
-                    throw new System.ArgumentException("Argument_InvalidOffLen");
+                    throw new System.ArgumentException.$ctor1("Argument_InvalidOffLen");
                 }
 
                 if (!this._isOpen) {
@@ -459,7 +459,7 @@
             },
             WriteTo: function (stream) {
                 if (stream == null) {
-                    throw new System.ArgumentNullException("stream", "ArgumentNull_Stream");
+                    throw new System.ArgumentNullException.$ctor3("stream", "ArgumentNull_Stream");
                 }
 
                 if (!this._isOpen) {

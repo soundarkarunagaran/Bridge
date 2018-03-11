@@ -31,7 +31,7 @@
             if (value === 0) {
                 this.clear();
             } else if (value < 0) {
-                throw new System.ArgumentOutOfRangeException("value", "Length cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("value", "Length cannot be less than zero");
             } else {
                 var l = this.getLength();
 
@@ -42,7 +42,7 @@
                 var delta = value - l;
 
                 if (delta > 0) {
-                    this.append('\0', delta);
+                    this.append("\0", delta);
                 } else {
                     this.remove(l + delta, -delta);
                 }
@@ -90,7 +90,7 @@
                 if (count === 0) {
                     return this;
                 } else if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "cannot be less than zero");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "cannot be less than zero");
                 }
 
                 value = Array(count + 1).join(value).toString();
@@ -176,7 +176,7 @@
                 if (count === 0) {
                     return this;
                 } else if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count", "cannot be less than zero");
+                    throw new System.ArgumentOutOfRangeException.$ctor4("count", "cannot be less than zero");
                 }
 
                 value = Array(count + 1).join(value).toString();
@@ -229,15 +229,15 @@
 
         checkLimits: function (value, startIndex, length) {
             if (length < 0) {
-                throw new System.ArgumentOutOfRangeException("length", "must be non-negative");
+                throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
             }
 
             if (startIndex < 0) {
-                throw new System.ArgumentOutOfRangeException("startIndex", "startIndex cannot be less than zero");
+                throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero");
             }
 
             if (length > value.length - startIndex) {
-                throw new System.ArgumentOutOfRangeException("Index and length must refer to a location within the string");
+                throw new System.ArgumentOutOfRangeException.$ctor4("Index and length must refer to a location within the string");
             }
         },
 

@@ -3,6 +3,7 @@ namespace System.Globalization
     /// <summary>
     /// Provides culture-specific information about the format of date and time values.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public sealed class DateTimeFormatInfo : IFormatProvider, ICloneable, Bridge.IBridgeClass
@@ -289,7 +290,7 @@ namespace System.Globalization
         /// </summary>
         /// <param name="format">A standard format string.</param>
         /// <returns>An array containing the standard patterns in which date and time values can be formatted using the specified format string.</returns>
-        public extern string[] GetAllDateTimePatterns(string format);
+        public extern string[] GetAllDateTimePatterns(char format);
 
         /// <summary>
         /// Returns the culture-specific full name of the specified day of the week based on the culture associated with the current DateTimeFormatInfo object.

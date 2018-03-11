@@ -1,4 +1,4 @@
-    Bridge.define('Bridge.CustomEnumerator', {
+    Bridge.define("Bridge.CustomEnumerator", {
         inherits: [System.Collections.IEnumerator, System.IDisposable],
 
         config: {
@@ -20,7 +20,7 @@
                 "getCurrent", "System$Collections$IEnumerator$getCurrent",
                 "moveNext", "System$Collections$IEnumerator$moveNext",
                 "reset", "System$Collections$IEnumerator$reset",
-                "dispose", "System$IDisposable$dispose",
+                "Dispose", "System$IDisposable$Dispose",
                 "Current", "System$Collections$IEnumerator$Current"
             ]
         },
@@ -29,7 +29,7 @@
             this.$initialize();
             this.$moveNext = moveNext;
             this.$getCurrent = getCurrent;
-            this.$dispose = dispose;
+            this.$Dispose = dispose;
             this.$reset = reset;
             this.scope = scope;
 
@@ -54,7 +54,7 @@
                 return this.$moveNext.call(this.scope);
             }
             catch (ex) {
-                this.dispose.call(this.scope);
+                this.Dispose.call(this.scope);
 
                 throw ex;
             }
@@ -74,9 +74,9 @@
             }
         },
 
-        dispose: function () {
-            if (this.$dispose) {
-                this.$dispose.call(this.scope);
+        Dispose: function () {
+            if (this.$Dispose) {
+                this.$Dispose.call(this.scope);
             }
         }
     });

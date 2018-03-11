@@ -11,7 +11,7 @@
                 }
             },
             methods: {
-                toIntArrayLength: function (n) {
+                ToIntArrayLength: function (n) {
                     return n > 0 ? (((((Bridge.Int.div((((n - 1) | 0)), System.Collections.Generic.BitHelper.IntSize)) | 0) + 1) | 0)) : 0;
                 }
             }
@@ -28,14 +28,14 @@
             }
         },
         methods: {
-            markBit: function (bitPosition) {
+            MarkBit: function (bitPosition) {
                 var bitArrayIndex = (Bridge.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
                 if (bitArrayIndex < this._length && bitArrayIndex >= 0) {
                     var flag = (System.Collections.Generic.BitHelper.MarkedBitFlag << (bitPosition % System.Collections.Generic.BitHelper.IntSize));
                     this._array[System.Array.index(bitArrayIndex, this._array)] = this._array[System.Array.index(bitArrayIndex, this._array)] | flag;
                 }
             },
-            isMarked: function (bitPosition) {
+            IsMarked: function (bitPosition) {
                 var bitArrayIndex = (Bridge.Int.div(bitPosition, System.Collections.Generic.BitHelper.IntSize)) | 0;
                 if (bitArrayIndex < this._length && bitArrayIndex >= 0) {
                     var flag = (System.Collections.Generic.BitHelper.MarkedBitFlag << (bitPosition % System.Collections.Generic.BitHelper.IntSize));

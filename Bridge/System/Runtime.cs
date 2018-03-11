@@ -34,6 +34,7 @@ namespace System
               Delegate | ReturnValue | GenericParameter
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [AttributeUsage(AttributeTargets.Class)]
     [Bridge.NonScriptable]
@@ -74,6 +75,7 @@ namespace System
     {
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Delegate | AttributeTargets.Interface | AttributeTargets.Event | AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Enum | AttributeTargets.Struct | AttributeTargets.Class, Inherited = false)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -99,6 +101,7 @@ namespace System
 
 namespace System.Runtime.InteropServices
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [ComVisible(true)]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Interface | AttributeTargets.Delegate,
     Inherited = false)]
@@ -115,6 +118,7 @@ namespace System.Runtime.InteropServices
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsageAttribute(AttributeTargets.Parameter)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -122,6 +126,7 @@ namespace System.Runtime.InteropServices
     {
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsageAttribute(AttributeTargets.Parameter)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -132,6 +137,7 @@ namespace System.Runtime.InteropServices
 
 namespace System.Runtime.InteropServices
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [ComVisible(true)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
@@ -150,6 +156,7 @@ namespace System.Runtime.InteropServices
 
 namespace System.Reflection
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -178,6 +185,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -192,6 +200,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -206,6 +215,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -220,6 +230,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -234,6 +245,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -248,6 +260,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -262,6 +275,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -276,6 +290,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -290,6 +305,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly, Inherited = false)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -303,6 +319,7 @@ namespace System.Reflection
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public sealed class DefaultMemberAttribute : Attribute
@@ -319,6 +336,7 @@ namespace System.Reflection
 
 namespace System.Runtime.Versioning
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -344,6 +362,7 @@ namespace System.Runtime.Versioning
 
 namespace System.Runtime.CompilerServices
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -377,6 +396,7 @@ namespace System.Runtime.CompilerServices
     ///     If AllInternalsVisible is not true for a friend assembly, the FriendAccessAllowed attribute
     ///     indicates which internals are shared with that friend assembly.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Class |
                     AttributeTargets.Constructor |
                     AttributeTargets.Enum |
@@ -399,6 +419,7 @@ namespace System.Runtime.CompilerServices
     /// <summary>
     /// If a constructor for a value type takes an instance of this type as a parameter, any attribute applied to that constructor will instead be applied to the default (undeclarable) constructor.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -407,6 +428,7 @@ namespace System.Runtime.CompilerServices
         private extern DummyTypeUsedToAddAttributeToDefaultValueTypeConstructor();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [AttributeUsage(AttributeTargets.Property)]
     [Bridge.NonScriptable]
@@ -421,12 +443,14 @@ namespace System.Runtime.CompilerServices
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field)]
     [Bridge.NonScriptable]
     public sealed class DecimalConstantAttribute : Attribute
     {
         public extern DecimalConstantAttribute(byte scale, byte sign, int hi, int mid, int low);
 
+        [CLSCompliant(false)]
         public extern DecimalConstantAttribute(byte scale, byte sign, uint hi, uint mid, uint low);
 
         public extern decimal Value
@@ -435,6 +459,7 @@ namespace System.Runtime.CompilerServices
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Method)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -443,6 +468,7 @@ namespace System.Runtime.CompilerServices
         public extern ExtensionAttribute();
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter | AttributeTargets.ReturnValue)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -458,6 +484,7 @@ namespace System.Runtime.CompilerServices
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public class CallSite
@@ -470,6 +497,7 @@ namespace System.Runtime.CompilerServices
         public static extern CallSite Create(Type delegateType, CallSiteBinder binder);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public sealed class CallSite<T> : CallSite where T : class
@@ -484,6 +512,7 @@ namespace System.Runtime.CompilerServices
         public static extern CallSite<T> Create(CallSiteBinder binder);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public abstract class CallSiteBinder
@@ -496,6 +525,7 @@ namespace System.Runtime.CompilerServices
         public extern T BindDelegate<T>(CallSite<T> site, object[] args) where T : class;
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public struct AsyncVoidMethodBuilder
@@ -519,6 +549,7 @@ namespace System.Runtime.CompilerServices
         public extern void SetException(Exception exception);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public struct AsyncTaskMethodBuilder
@@ -547,6 +578,7 @@ namespace System.Runtime.CompilerServices
         public extern void SetException(Exception exception);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public struct AsyncTaskMethodBuilder<TResult>
@@ -575,6 +607,7 @@ namespace System.Runtime.CompilerServices
         public extern void SetException(Exception exception);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public interface IAsyncStateMachine
@@ -584,6 +617,7 @@ namespace System.Runtime.CompilerServices
         void SetStateMachine(IAsyncStateMachine stateMachine);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public interface INotifyCompletion
@@ -591,6 +625,7 @@ namespace System.Runtime.CompilerServices
         void OnCompleted(Action continuation);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public interface ICriticalNotifyCompletion : INotifyCompletion
@@ -601,6 +636,7 @@ namespace System.Runtime.CompilerServices
 
 namespace Microsoft.CSharp.RuntimeBinder
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public static class Binder
@@ -644,6 +680,7 @@ namespace Microsoft.CSharp.RuntimeBinder
         ResultDiscarded = 256,
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.NonScriptable]
     public sealed class CSharpArgumentInfo
@@ -667,6 +704,7 @@ namespace Microsoft.CSharp.RuntimeBinder
 
 namespace System.Threading
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Bridge.External]
     [Bridge.NonScriptable]
@@ -677,6 +715,7 @@ namespace System.Threading
         public static extern T CompareExchange<T>(ref T location1, T value, T comparand) where T : class;
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [EditorBrowsable(EditorBrowsableState.Never)]
     [Bridge.External]
     [Bridge.NonScriptable]

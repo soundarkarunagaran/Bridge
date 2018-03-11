@@ -1,7 +1,5 @@
 namespace System.Text
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class UTF7Encoding : Encoding
     {
         private bool allowOptionals;

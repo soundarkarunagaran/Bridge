@@ -1,7 +1,7 @@
     Bridge.define("System.Environment", {
         statics: {
             fields: {
-                variables: null
+                Variables: null
             },
             props: {
                 Location: {
@@ -17,7 +17,7 @@
                 },
                 CommandLine: {
                     get: function () {
-                        return System.Environment.getCommandLineArgs().join(" ");
+                        return System.Environment.GetCommandLineArgs().join(" ");
                     }
                 },
                 CurrentDirectory: {
@@ -90,8 +90,8 @@
                     this.ExitCode = 0;
                 },
                 ctor: function () {
-                    System.Environment.variables = new (System.Collections.Generic.Dictionary$2(System.String,System.String))();
-                    System.Environment.patchDictionary(System.Environment.variables);
+                    System.Environment.Variables = new (System.Collections.Generic.Dictionary$2(System.String,System.String))();
+                    System.Environment.PatchDictionary(System.Environment.Variables);
                 }
             },
             methods: {
@@ -103,22 +103,22 @@
                     var s = System.Environment.GetResourceString(key);
                     return System.String.formatProvider.apply(System.String, [System.Globalization.CultureInfo.getCurrentCulture(), s].concat(values));
                 },
-                patchDictionary: function (d) {
+                PatchDictionary: function (d) {
                     d.noKeyCheck = true;
 
                     return d;
                 },
-                exit: function (exitCode) {
+                Exit: function (exitCode) {
                     System.Environment.ExitCode = exitCode;
                 },
-                expandEnvironmentVariables: function (name) {
+                ExpandEnvironmentVariables: function (name) {
                     var $t;
                     if (name == null) {
-                        throw new System.ArgumentNullException(name);
+                        throw new System.ArgumentNullException.$ctor1(name);
                     }
 
                     // Case sensitive
-                    $t = Bridge.getEnumerator(System.Environment.variables);
+                    $t = Bridge.getEnumerator(System.Environment.Variables);
                     try {
                         while ($t.moveNext()) {
                             var pair = $t.Current;
@@ -126,18 +126,18 @@
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
-                            $t.System$IDisposable$dispose();
+                            $t.System$IDisposable$Dispose();
                         }
                     }
                     return name;
                 },
-                failFast: function (message) {
+                FailFast: function (message) {
                     throw new System.Exception(message);
                 },
-                failFast$1: function (message, exception) {
+                FailFast$1: function (message, exception) {
                     throw new System.Exception(message, exception);
                 },
-                getCommandLineArgs: function () {
+                GetCommandLineArgs: function () {
                     var l = System.Environment.Location;
 
                     if (l) {
@@ -163,57 +163,57 @@
                             }
                         }
 
-                        return args.toArray();
+                        return args.ToArray();
                     }
 
                     return System.Array.init(0, null, System.String);
                 },
-                getEnvironmentVariable: function (variable) {
+                GetEnvironmentVariable: function (variable) {
                     if (variable == null) {
-                        throw new System.ArgumentNullException("variable");
+                        throw new System.ArgumentNullException.$ctor1("variable");
                     }
 
                     var r = { };
 
-                    if (System.Environment.variables.tryGetValue(variable.toLowerCase(), r)) {
+                    if (System.Environment.Variables.tryGetValue(variable.toLowerCase(), r)) {
                         return r.v;
                     }
 
                     return null;
                 },
-                getEnvironmentVariable$1: function (variable, target) {
-                    return System.Environment.getEnvironmentVariable(variable);
+                GetEnvironmentVariable$1: function (variable, target) {
+                    return System.Environment.GetEnvironmentVariable(variable);
                 },
-                getEnvironmentVariables: function () {
-                    return System.Environment.patchDictionary(new (System.Collections.Generic.Dictionary$2(System.String,System.String))(System.Environment.variables));
+                GetEnvironmentVariables: function () {
+                    return System.Environment.PatchDictionary(new (System.Collections.Generic.Dictionary$2(System.String,System.String))(System.Environment.Variables));
                 },
-                getEnvironmentVariables$1: function (target) {
-                    return System.Environment.getEnvironmentVariables();
+                GetEnvironmentVariables$1: function (target) {
+                    return System.Environment.GetEnvironmentVariables();
                 },
-                getLogicalDrives: function () {
+                GetLogicalDrives: function () {
                     return System.Array.init(0, null, System.String);
                 },
-                setEnvironmentVariable: function (variable, value) {
+                SetEnvironmentVariable: function (variable, value) {
                     if (variable == null) {
-                        throw new System.ArgumentNullException("variable");
+                        throw new System.ArgumentNullException.$ctor1("variable");
                     }
 
                     if (System.String.isNullOrEmpty(variable) || System.String.startsWith(variable, String.fromCharCode(0)) || System.String.contains(variable,"=") || variable.length > 32767) {
-                        throw new System.ArgumentException("Incorrect variable (cannot be empty, contain zero character nor equal sign, be longer than 32767).");
+                        throw new System.ArgumentException.$ctor1("Incorrect variable (cannot be empty, contain zero character nor equal sign, be longer than 32767).");
                     }
 
                     variable = variable.toLowerCase();
 
                     if (System.String.isNullOrEmpty(value)) {
-                        if (System.Environment.variables.containsKey(variable)) {
-                            System.Environment.variables.remove(variable);
+                        if (System.Environment.Variables.containsKey(variable)) {
+                            System.Environment.Variables.remove(variable);
                         }
                     } else {
-                        System.Environment.variables.set(variable, value);
+                        System.Environment.Variables.set(variable, value);
                     }
                 },
-                setEnvironmentVariable$1: function (variable, value, target) {
-                    System.Environment.setEnvironmentVariable(variable, value);
+                SetEnvironmentVariable$1: function (variable, value, target) {
+                    System.Environment.SetEnvironmentVariable(variable, value);
                 }
             }
         }

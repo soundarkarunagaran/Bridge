@@ -5,6 +5,7 @@ namespace System.ComponentModel.DataAnnotations
     /// <summary>
     /// An attribute used to specify the filtering behavior for a column.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)]
     [Obsolete("This attribute is no longer in use and will be ignored if applied.")]
     [Bridge.External]

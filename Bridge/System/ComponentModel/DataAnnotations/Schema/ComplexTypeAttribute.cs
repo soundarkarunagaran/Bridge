@@ -6,6 +6,7 @@ namespace System.ComponentModel.DataAnnotations.Schema
     /// entities.
     /// Complex types do not have keys and cannot be managed by the Entity Framework apart from the parent object.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
     [Bridge.External]
     [Bridge.NonScriptable]

@@ -1,5 +1,6 @@
 namespace System.Collections.Generic
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Dictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary,
@@ -24,13 +25,13 @@ namespace System.Collections.Generic
 
         public extern Dictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern IEqualityComparer<TKey> Comparer
         {
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern int Count
         {
             get;
@@ -85,6 +86,7 @@ namespace System.Collections.Generic
         extern bool IDictionary.Contains(object key);
 
         // Stub just to fulfill IDictionary interface.
+        [Bridge.Convention(Bridge.Notation.None)]
         extern IDictionaryEnumerator IDictionary.GetEnumerator();
 
         bool ICollection.IsSynchronized { get { return false; } }
@@ -95,8 +97,10 @@ namespace System.Collections.Generic
 
         public extern bool ContainsValue(TValue value);
 
+        [Bridge.Convention(Bridge.Notation.None)]
         public extern IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator();
 
+        [Bridge.Convention(Bridge.Notation.None)]
         extern IEnumerator IEnumerable.GetEnumerator();
 
         public extern bool Remove(TKey key);

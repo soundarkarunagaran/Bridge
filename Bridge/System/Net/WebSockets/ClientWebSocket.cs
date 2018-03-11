@@ -6,6 +6,7 @@ namespace System.Net.WebSockets
     /// <summary>
     /// Provides a client for connecting to WebSocket services.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class ClientWebSocket : Bridge.IBridgeClass, IDisposable

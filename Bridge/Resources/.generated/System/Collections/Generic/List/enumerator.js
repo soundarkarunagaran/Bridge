@@ -21,14 +21,14 @@
             System$Collections$IEnumerator$Current: {
                 get: function () {
                     if (this.index === 0 || this.index === ((this.list._size + 1) | 0)) {
-                        throw new System.InvalidOperationException();
+                        throw new System.InvalidOperationException.ctor();
                     }
                     return this.Current;
                 }
             }
         },
         alias: [
-            "dispose", "System$IDisposable$dispose",
+            "Dispose", "System$IDisposable$Dispose",
             "moveNext", "System$Collections$IEnumerator$moveNext",
             "Current", ["System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"]
         ],
@@ -45,7 +45,7 @@
             }
         },
         methods: {
-            dispose: function () { },
+            Dispose: function () { },
             moveNext: function () {
 
                 var localList = this.list;
@@ -55,11 +55,11 @@
                     this.index = (this.index + 1) | 0;
                     return true;
                 }
-                return this.moveNextRare();
+                return this.MoveNextRare();
             },
-            moveNextRare: function () {
+            MoveNextRare: function () {
                 if (this.version !== this.list._version) {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 }
 
                 this.index = (this.list._size + 1) | 0;
@@ -68,7 +68,7 @@
             },
             System$Collections$IEnumerator$reset: function () {
                 if (this.version !== this.list._version) {
-                    throw new System.InvalidOperationException();
+                    throw new System.InvalidOperationException.ctor();
                 }
 
                 this.index = 0;

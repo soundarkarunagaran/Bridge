@@ -5,10 +5,24 @@ namespace System
     /// <summary>
     /// Represents an instant in time, typically expressed as a date and time of day.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public struct DateTime : IComparable, IComparable<DateTime>, IEquatable<DateTime>, IFormattable
     {
+
+        [Bridge.Template("System.DateTime.TicksPerDay")]
+        private const long TicksPerDay = 864000000000;
+
+        [Bridge.Template("System.DateTime.DaysTo1970")]
+        internal const int DaysTo1970 = 719162;
+
+        [Bridge.Template("System.DateTime.MinTicks")]
+        internal const long MinTicks = 0;
+
+        [Bridge.Template("System.DateTime.MaxTicks")]
+        internal const long MaxTicks = 3652059 * 864000000000 - 1;
+
         /// <summary>
         /// Represents the largest possible value of DateTime. This field is read-only.
         /// </summary>
@@ -147,6 +161,28 @@ namespace System
         /// <returns>A new object that has the same number of ticks as the object represented by the value parameter and the DateTimeKind value specified by the kind parameter.</returns>
         [Bridge.Template("System.DateTime.specifyKind({0}, {1})")]
         public extern static DateTime SpecifyKind(DateTime value, DateTimeKind kind);
+
+        /// <summary>
+        /// Creates a DateTime from a Windows filetime. A Windows filetime is a long representing the date and time as the number of 100-nanosecond intervals that have elapsed since 1/1/1601 12:00am.
+        /// </summary>
+        /// <param name="fileTime">Ticks</param>
+        /// <returns>DateTime</returns>
+        [Bridge.Template("System.DateTime.FromFileTime({0})")]
+        public extern static DateTime FromFileTime(long fileTime);
+
+        /// <summary>
+        /// Creates a DateTime from a Windows filetime. A Windows filetime is a long representing the date and time as the number of 100-nanosecond intervals that have elapsed since 1/1/1601 12:00am UTC.
+        /// </summary>
+        /// <param name="fileTime">Ticks</param>
+        /// <returns>DateTime</returns>
+        [Bridge.Template("System.DateTime.FromFileTimeUtc({0})")]
+        public extern static DateTime FromFileTimeUtc(long fileTime);
+
+        [Bridge.Template("System.DateTime.ToFileTime({this})")]
+        public extern long ToFileTime();
+
+        [Bridge.Template("System.DateTime.ToFileTimeUtc({this})")]
+        public extern long ToFileTimeUtc();
 
         [Bridge.Template(Fn = "System.DateTime.format")]
         public override extern string ToString();
@@ -442,6 +478,13 @@ namespace System
         /// <returns>An object whose Kind property is Local, and whose value is the local time equivalent to the value of the current DateTime object, or MaxValue if the converted value is too large to be represented by a DateTime object, or MinValue if the converted value is too small to be represented as a DateTime object.</returns>
         [Bridge.Template("System.DateTime.toLocalTime({this})")]
         public extern DateTime ToLocalTime();
+
+        /// <summary>
+        /// Converts the value of the current DateTime object to local time.
+        /// </summary>
+        /// <returns>An object whose Kind property is Local, and whose value is the local time equivalent to the value of the current DateTime object, or MaxValue if the converted value is too large to be represented by a DateTime object, or MinValue if the converted value is too small to be represented as a DateTime object.</returns>
+        [Bridge.Template("System.DateTime.toLocalTime({this}, {0})")]
+        public extern DateTime ToLocalTime(bool throwOnOverflow);
 
         /// <summary>
         /// Converts the value of the current DateTime object to its equivalent short date string representation.

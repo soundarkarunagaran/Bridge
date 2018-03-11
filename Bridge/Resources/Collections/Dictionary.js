@@ -1,4 +1,4 @@
-    Bridge.define('System.Collections.Generic.Dictionary$2', function (TKey, TValue) {
+    Bridge.define("System.Collections.Generic.Dictionary$2", function (TKey, TValue) {
         return {
             inherits: [System.Collections.Generic.IDictionary$2(TKey, TValue),
                 System.Collections.IDictionary,
@@ -34,7 +34,7 @@
                     "set", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$setItem",
                     "add", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$add",
                     "containsKey", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$containsKey",
-                    "getEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Collections$Generic$KeyValuePair$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$getEnumerator", "System$Collections$Generic$IEnumerable$1$getEnumerator"],
+                    "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Collections$Generic$KeyValuePair$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
                     "remove", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$remove",
                     "tryGetValue", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$tryGetValue",
                     "getIsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(System.Collections.Generic.KeyValuePair$2(TKey, TValue)) + "$getIsReadOnly",
@@ -82,7 +82,7 @@
                         c = e.Current;
                         this.add(c.key, c.value);
                     }
-                } else if (Object.prototype.toString.call(obj) === '[object Object]') {
+                } else if (Object.prototype.toString.call(obj) === "[object Object]") {
                     var names = Object.keys(obj),
                         name;
 
@@ -112,7 +112,7 @@
             },
 
             copyTo: function (array, arrayIndex) {
-                var items = System.Linq.Enumerable.from(this).toArray();
+                var items = System.Linq.Enumerable.from(this).ToArray();
 
                 System.Array.copy(items, 0, array, arrayIndex, items.length);
             },
@@ -232,7 +232,7 @@
                         return Bridge.getDefaultValue(TValue);
                     }
 
-                    throw new System.Collections.Generic.KeyNotFoundException('Key ' + key + ' does not exist.');
+                    throw new System.Collections.Generic.KeyNotFoundException.$ctor1("Key " + key + " does not exist.");
                 }
 
                 return entry.value;
@@ -248,7 +248,7 @@
 
                 if (entry) {
                     if (add) {
-                        throw new System.ArgumentException('Key ' + key + ' already exists.');
+                        throw new System.ArgumentException.$ctor1("Key " + key + " already exists.");
                     }
 
                     entry.value = value;
@@ -371,7 +371,7 @@
                 }, null, this, System.Collections.Generic.KeyValuePair$2(TKey, TValue));
             },
 
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return this.getCustomEnumerator(function (e) {
                     return e;
                 });
@@ -403,13 +403,13 @@
         return [typeKey, typeValue];
     };
 
-    Bridge.define('System.Collections.Generic.DictionaryCollection$1', function (T) {
+    Bridge.define("System.Collections.Generic.DictionaryCollection$1", function (T) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
 
             config: {
                 alias: [
-                  "getEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$getEnumerator", "System$Collections$Generic$IEnumerable$1$getEnumerator"],
+                  "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
                   "getCount", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$getCount",
                   "add", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$add",
                   "clear", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$clear",
@@ -428,7 +428,7 @@
                 return this.dictionary.getCount();
             },
 
-            getEnumerator: function () {
+            GetEnumerator: function () {
                 return this.dictionary.getCustomEnumerator(this.keys ? function (e) {
                     return e.key;
                 } : function (e) {

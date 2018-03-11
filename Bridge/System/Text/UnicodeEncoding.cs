@@ -1,7 +1,5 @@
 namespace System.Text
 {
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public class UnicodeEncoding : Encoding
     {
         private bool bigEndian;

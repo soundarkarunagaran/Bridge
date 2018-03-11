@@ -9,11 +9,11 @@
 
         checkEnumType: function (enumType) {
             if (!enumType) {
-                throw new System.ArgumentNullException("enumType");
+                throw new System.ArgumentNullException.$ctor1("enumType");
             }
 
             if (enumType.prototype && enumType.$kind !== "enum") {
-                throw new System.ArgumentException("", "enumType");
+                throw new System.ArgumentException.$ctor1("", "enumType");
             }
         },
 
@@ -53,7 +53,7 @@
                         }
                     }
                 } else {
-                    var parts = s.split(','),
+                    var parts = s.split(","),
                         value = 0,
                         parsed = true;
 
@@ -86,7 +86,7 @@
             }
 
             if (silent !== true) {
-                throw new System.ArgumentException('Invalid Enumeration Value');
+                throw new System.ArgumentException.$ctor3("silent", "Invalid Enumeration Value");
             }
 
             return null;
@@ -127,8 +127,7 @@
                         return enumMethods.toName(name);
                     }
                 }
-
-                //throw new System.ArgumentException('Invalid Enumeration Value');
+                
                 return value.toString();
             } else {
                 var parts = [],
@@ -171,7 +170,7 @@
                     return "0";
                 }
 
-                return parts.join(', ');
+                return parts.join(", ");
             }
         },
 
@@ -213,7 +212,7 @@
             var name;
 
             if (!Bridge.hasValue(value) && (name = "value") || !Bridge.hasValue(format) && (name = "format")) {
-                throw new System.ArgumentNullException(name);
+                throw new System.ArgumentNullException.$ctor1(name);
             }
 
             value = Bridge.unbox(value, true);
@@ -263,13 +262,13 @@
             value = Bridge.unbox(value, true);
 
             if (value == null) {
-                throw new System.ArgumentNullException("value");
+                throw new System.ArgumentNullException.$ctor1("value");
             }
 
             var isLong = System.Int64.is64Bit(value);
 
             if (!isLong && !(typeof (value) === "number" && Math.floor(value, 0) === value)) {
-                throw new System.ArgumentException("Argument must be integer", "value");
+                throw new System.ArgumentException.$ctor1("Argument must be integer", "value");
             }
 
             System.Enum.checkEnumType(enumType);

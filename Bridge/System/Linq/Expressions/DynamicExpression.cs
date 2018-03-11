@@ -1,5 +1,6 @@
 namespace System.Linq.Expressions
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Name("System.Object")]
     [Bridge.Cast("{this}.ntype == 50")]
@@ -8,7 +9,7 @@ namespace System.Linq.Expressions
         [Bridge.Name("dtype")]
         public extern DynamicExpressionType DynamicType { get; private set; }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Expression Expression { get; private set; }
 
         internal extern DynamicExpression();

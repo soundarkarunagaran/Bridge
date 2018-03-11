@@ -12,14 +12,14 @@
             methods: {
                 Synchronized: function (reader) {
                     if (reader == null) {
-                        throw new System.ArgumentNullException("reader");
+                        throw new System.ArgumentNullException.$ctor1("reader");
                     }
 
                     return reader;
                 }
             }
         },
-        alias: ["Dispose", "System$IDisposable$dispose"],
+        alias: ["Dispose", "System$IDisposable$Dispose"],
         ctors: {
             ctor: function () {
                 this.$initialize();
@@ -42,16 +42,16 @@
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 if (index < 0) {
-                    throw new System.ArgumentOutOfRangeException("index");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
                 if (count < 0) {
-                    throw new System.ArgumentOutOfRangeException("count");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 var n = 0;

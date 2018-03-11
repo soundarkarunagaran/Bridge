@@ -3,9 +3,7 @@ namespace System.Text
     /// <summary>
     /// Represents a character encoding.
     /// </summary>
-    [Bridge.Reflectable]
-    [Bridge.Convention]
-    public abstract class Encoding : Bridge.IBridgeClass
+    public abstract class Encoding
     {
         internal bool _hasError;
 

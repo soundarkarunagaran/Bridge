@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Exception : Bridge.IBridgeClass
@@ -43,6 +44,12 @@ namespace System
         public virtual extern string StackTrace
         {
             get;
+        }
+
+        public extern int HResult
+        {
+            get;
+            protected set;
         }
 
         public extern Exception();

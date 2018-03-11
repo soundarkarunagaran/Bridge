@@ -1,5 +1,6 @@
 namespace System.Diagnostics
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public class Stopwatch
     {
@@ -26,7 +27,7 @@ namespace System.Diagnostics
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern bool IsRunning
         {
             get;

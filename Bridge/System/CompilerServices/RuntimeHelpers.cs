@@ -2,6 +2,7 @@ using System.ComponentModel;
 
 namespace System.Runtime.CompilerServices
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     public static class RuntimeHelpers
     {

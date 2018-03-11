@@ -1,5 +1,6 @@
 namespace System.Collections.Generic
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Immutable]
     [Bridge.Reflectable]
@@ -7,13 +8,13 @@ namespace System.Collections.Generic
     {
         public extern KeyValuePair(TKey key, TValue value);
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern TKey Key
         {
             get;
         }
 
-        [Bridge.Convention(Bridge.Notation.CamelCase)] //[Field]
+        [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern TValue Value
         {
             get;

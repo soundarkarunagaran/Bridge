@@ -3,6 +3,7 @@ namespace System.Text.RegularExpressions
     /// <summary>
     /// Represents the results from a single capturing group.
     /// </summary>
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public class Group : Capture

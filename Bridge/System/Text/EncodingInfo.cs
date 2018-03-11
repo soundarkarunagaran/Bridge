@@ -3,8 +3,6 @@ namespace System.Text
     /// <summary>
     /// Provides basic information about an encoding.
     /// </summary>
-    [Bridge.Reflectable]
-    [Bridge.Convention]
     public sealed class EncodingInfo
     {
         internal EncodingInfo(int codePage, string name, string displayName)

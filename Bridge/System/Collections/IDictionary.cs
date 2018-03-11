@@ -42,6 +42,7 @@ namespace System.Collections
         /// An System.Collections.IDictionaryEnumerator object for the System.Collections.IDictionary
         /// object.
         /// </returns>
+        [Bridge.Convention(Bridge.Notation.None)]
         new IDictionaryEnumerator GetEnumerator();
 
         /// <summary>

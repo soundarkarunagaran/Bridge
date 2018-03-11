@@ -92,13 +92,13 @@
                 this.$initialize();
                 System.IO.TextReader.ctor.call(this);
                 if (stream == null || encoding == null) {
-                    throw new System.ArgumentNullException((stream == null ? "stream" : "encoding"));
+                    throw new System.ArgumentNullException.$ctor1((stream == null ? "stream" : "encoding"));
                 }
                 if (!stream.CanRead) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
                 if (bufferSize <= 0) {
-                    throw new System.ArgumentOutOfRangeException("bufferSize");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("bufferSize");
                 }
 
                 this.Init$1(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, leaveOpen);
@@ -125,16 +125,16 @@
                 // or we'll create a FileStream on disk and we won't close it until
                 // the finalizer runs, causing problems for applications.
                 if (path == null || encoding == null) {
-                    throw new System.ArgumentNullException((path == null ? "path" : "encoding"));
+                    throw new System.ArgumentNullException.$ctor1((path == null ? "path" : "encoding"));
                 }
                 if (path.length === 0) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
                 if (bufferSize <= 0) {
-                    throw new System.ArgumentOutOfRangeException("bufferSize");
+                    throw new System.ArgumentOutOfRangeException.$ctor1("bufferSize");
                 }
 
-                var stream = new System.IO.FileStream.$ctor1(path, System.IO.FileMode.Open);
+                var stream = new System.IO.FileStream.$ctor1(path, 3);
                 this.Init$1(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, false);
             }
         },
@@ -219,13 +219,13 @@
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 if (index < 0 || count < 0) {
-                    throw new System.ArgumentOutOfRangeException((index < 0 ? "index" : "count"));
+                    throw new System.ArgumentOutOfRangeException.$ctor1((index < 0 ? "index" : "count"));
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 if (this.stream == null) {
@@ -339,13 +339,13 @@
             },
             ReadBlock: function (buffer, index, count) {
                 if (buffer == null) {
-                    throw new System.ArgumentNullException("buffer");
+                    throw new System.ArgumentNullException.$ctor1("buffer");
                 }
                 if (index < 0 || count < 0) {
-                    throw new System.ArgumentOutOfRangeException((index < 0 ? "index" : "count"));
+                    throw new System.ArgumentOutOfRangeException.$ctor1((index < 0 ? "index" : "count"));
                 }
                 if (((buffer.length - index) | 0) < count) {
-                    throw new System.ArgumentException();
+                    throw new System.ArgumentException.ctor();
                 }
 
                 if (this.stream == null) {

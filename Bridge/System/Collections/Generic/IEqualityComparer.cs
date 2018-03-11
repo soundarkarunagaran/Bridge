@@ -12,6 +12,7 @@ namespace System.Collections.Generic
         int GetHashCode(T obj);
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
     public abstract class EqualityComparer<T> : IEqualityComparer<T>, Bridge.IBridgeClass
