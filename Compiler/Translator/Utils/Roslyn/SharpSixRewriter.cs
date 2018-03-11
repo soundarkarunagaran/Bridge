@@ -157,6 +157,19 @@ namespace Bridge.Translator
             return false;
         }
 
+        public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
+        {
+            node =  (LiteralExpressionSyntax)base.VisitLiteralExpression(node);
+
+            if (node.Kind() == SyntaxKind.NumericLiteralExpression && node.Token.ContainsDiagnostics)
+            {
+                dynamic value = node.Token.Value;
+                node = node.WithToken(SyntaxFactory.Literal(value));
+            }
+
+            return node;
+        }
+
         public override SyntaxNode VisitAssignmentExpression(AssignmentExpressionSyntax node)
         {
             var identifier = node.Left as IdentifierNameSyntax;
@@ -278,6 +291,7 @@ namespace Bridge.Translator
             var spanStart = node.SpanStart;
             var si = node.ArgumentList.Arguments.Count > 0 ? semanticModel.GetSymbolInfo(node.ArgumentList.Arguments[0].Expression) : default(SymbolInfo);
             var costValue = (string)semanticModel.GetConstantValue(node).Value;
+            var conditionalParent = node.GetParent<ConditionalAccessExpressionSyntax>();
 
             node = (InvocationExpressionSyntax)base.VisitInvocationExpression(node);
             if (node.Expression is IdentifierNameSyntax &&
@@ -308,7 +322,7 @@ namespace Bridge.Translator
                         var genericName = SyntaxHelper.GenerateGenericName(name.Identifier, method.TypeArguments);
                         genericName = genericName.WithLeadingTrivia(name.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(name.GetTrailingTrivia().ExcludeDirectivies());
 
-                        if (method.MethodKind == MethodKind.ReducedExtension && node.GetParent<ConditionalAccessExpressionSyntax>() == null)
+                        if (method.MethodKind == MethodKind.ReducedExtension && conditionalParent == null)
                         {
                             var target = ma.Expression;
                             var clsName = method.ContainingType.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart);
@@ -331,6 +345,7 @@ namespace Bridge.Translator
         public override SyntaxNode VisitInterpolatedStringExpression(InterpolatedStringExpressionSyntax node)
         {
             var isInterpolatedString = semanticModel.GetConversion(node).IsInterpolatedString;
+
             node = (InterpolatedStringExpressionSyntax)base.VisitInterpolatedStringExpression(node);
             string methodNameToCall;
             string classNameToCall;
@@ -349,9 +364,11 @@ namespace Bridge.Translator
             string str = "";
             int placeholder = 0;
             var expressions = new List<ExpressionSyntax>();
+            var idx = -1;
 
             foreach (var content in node.Contents)
             {
+                idx++;
                 var interpolatedStringTextSyntax = content as InterpolatedStringTextSyntax;
                 if (interpolatedStringTextSyntax != null)
                 {
@@ -365,7 +382,16 @@ namespace Bridge.Translator
 
                     if (interpolation.AlignmentClause != null)
                     {
-                        var value = semanticModel.GetConstantValue(interpolation.AlignmentClause.Value).Value;
+                        object value = null;
+
+                        if (interpolation.AlignmentClause.Value is LiteralExpressionSyntax)
+                        {
+                            value = ((LiteralExpressionSyntax)interpolation.AlignmentClause.Value).Token.Value;
+                        }
+                        else
+                        {
+                            value = semanticModel.GetConstantValue(interpolation.AlignmentClause.Value).Value;
+                        }
 
                         if (value == null)
                         {

@@ -89,6 +89,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Virtual methods - TestB", Bridge.Test.Runtime.BridgeClientTestRunner.TestVirtualMethods.TestB);
             QUnit.test("Auto properties - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestAutoProps.TestBasic);
             QUnit.test("Await in catch and finally - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestAwaitInCatchFinally.TestBasic);
+            QUnit.test("Binary Literals - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestBinaryLiterals.TestBasic);
             QUnit.test("ConditionAccess - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestConditionAccess.TestBasic);
             QUnit.test("Exception filter - TestFalseFilter", Bridge.Test.Runtime.BridgeClientTestRunner.TestExceptionFilter.TestFalseFilter);
             QUnit.test("Exception filter - TestTrueFilter", Bridge.Test.Runtime.BridgeClientTestRunner.TestExceptionFilter.TestTrueFilter);
@@ -22863,6 +22864,32 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.CSharp6.TestAwaitInCatchFinally", $t.File = "Batch1\\CSharp6\\TestAwaitInCatchFinally.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestRunner.TestBinaryLiterals", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp6.TestBinaryLiterals)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestBasic: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp6.TestBinaryLiterals).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestBinaryLiterals, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestBasic()", $t.Line = "10", $t));
+                    Bridge.ClientTest.CSharp6.TestBinaryLiterals.TestBasic();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.CSharp6.TestBinaryLiterals", $t.File = "Batch1\\CSharp7\\TestBinaryLiterals.cs", $t);
                 }
                 return this.context;
             }
