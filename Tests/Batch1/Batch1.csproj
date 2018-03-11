@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
     <NoStdLib>True</NoStdLib>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
     <NoStdLib>True</NoStdLib>
     <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -54,6 +56,7 @@
     <Compile Include="Collections\Generic\StackTests.cs" />
     <Compile Include="Collections\Native\Constants.cs" />
     <Compile Include="CSharp7\TestCaseLabelPattern.cs" />
+    <Compile Include="CSharp7\TestROStruct.cs" />
     <Compile Include="CSharp7\TestIsPattern.cs" />
     <Compile Include="DelegateTests.cs" />
     <Compile Include="IFormattableTests.cs" />
