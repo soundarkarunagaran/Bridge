@@ -44,6 +44,7 @@
         "Resources/Exception.js",
         "Resources/.generated/System/SystemException.js",
         "Resources/.generated/System/OutOfMemoryException.js",
+        "Resources/.generated/System/ArrayTypeMismatchException.js",
 
         "Resources/.generated/System/Resources/MissingManifestResourceException.js",
 
@@ -80,7 +81,12 @@
         "Resources/Collections/Interfaces.js",
 
         "Resources/.generated/System/Collections/IEnumerator.js",
+        "Resources/.generated/System/Collections/IComparer.js",
+        "Resources/.generated/System/Collections/IEqualityComparer.js",
+        "Resources/.generated/System/Collections/IStructuralComparable.js",
+        "Resources/.generated/System/Collections/IStructuralEquatable.js",
         "Resources/.generated/System/Collections/Generic/IEnumerator.js",
+        "Resources/.generated/System/Collections/Generic/IComparer.js",
 
         "Resources/Collections/CustomEnumerator.js",
         "Resources/Collections/ArrayEnumerator.js",
@@ -118,6 +124,8 @@
         "Resources/.generated/System/Runtime/Serialization/SerializationInfoEnumerator.js",
         "Resources/.generated/System/Runtime/Serialization/StreamingContext.js",
         "Resources/.generated/System/Runtime/Serialization/StreamingContextStates.js",
+
+        "Resources/.generated/System/Security/SecurityException.js",
 
         "Resources/.generated/System/UnauthorizedAccessException.js",
         "Resources/.generated/System/UnhandledExceptionEventArgs.js",
@@ -161,6 +169,8 @@
         "Resources/.generated/System/Collections/Generic/Stack.js",
         "Resources/.generated/System/Collections/Generic/Stack/Enumerator.js",
         "Resources/.generated/System/Collections/HashHelpers.js",
+
+        "Resources/.generated/System/Collections/ObjectModel/Collection.js",
         "Resources/.generated/System/Collections/ObjectModel/ReadOnlyCollection.js",
 
         "Resources/.generated/System/ComponentModel/BrowsableAttribute.js",
@@ -197,6 +207,7 @@
         "Resources/.generated/System/IndexOutOfRangeException.js",
         "Resources/.generated/System/InvalidCastException.js",
         "Resources/.generated/System/InvalidOperationException.js",
+        "Resources/.generated/System/ObjectDisposedException.js",
         "Resources/.generated/System/InvalidProgramException.js",
 
         "Resources/.generated/System/Globalization/Calendar.js",
@@ -229,6 +240,8 @@
         "Resources/.generated/System/IO/EndOfStreamException.js",
         "Resources/.generated/System/IO/File.js",
         "Resources/.generated/System/IO/FileMode.js",
+        "Resources/.generated/System/IO/FileOptions.js",
+        "Resources/.generated/System/IO/FileShare.js",
         "Resources/.generated/System/IO/FileStream.js",
         "Resources/.generated/System/IO/Iterator.js",
         "Resources/.generated/System/IO/MemoryStream.js",

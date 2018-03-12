@@ -1,17 +1,17 @@
-/*
- * https://github.com/Microsoft/referencesource/blob/master/mscorlib/system/io/seekorigin.cs
- */
+// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the MIT license.
+// See the LICENSE file in the project root for more information.
 
 namespace System.IO
 {
-    /// <summary>
-    /// Provides seek reference points.  To seek to the end of a stream, call stream.Seek(0, SeekOrigin.End).
-    /// </summary>
+    // Provides seek reference points.  To seek to the end of a stream,
+    // call stream.Seek(0, SeekOrigin.End).
     [Bridge.Enum(Bridge.Emit.Value)]
     public enum SeekOrigin
     {
-        Begin,
-        Current,
-        End
+        // These constants match Win32's FILE_BEGIN, FILE_CURRENT, and FILE_END
+        Begin = 0,
+        Current = 1,
+        End = 2,
     }
 }

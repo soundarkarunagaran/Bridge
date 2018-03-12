@@ -47,9 +47,7 @@ namespace System
     {
         internal static void ThrowArrayTypeMismatchException()
         {
-            throw NotImplemented.ByDesign;
-            // TODO: NotSupported
-            //throw new ArrayTypeMismatchException();
+            throw new ArrayTypeMismatchException();
         }
 
         internal static void ThrowInvalidTypeWithPointersNotSupported(Type targetType)
@@ -206,18 +204,12 @@ namespace System
 
         internal static void ThrowSerializationException(ExceptionResource resource)
         {
-            throw NotImplemented.ByDesign;
-
-            // TODO: NotSupported
-            //throw new SerializationException(GetResourceString(resource));
+            throw new SerializationException(GetResourceString(resource));
         }
 
         internal static void ThrowSecurityException(ExceptionResource resource)
         {
-            throw NotImplemented.ByDesign;
-
-            // TODO: NotSupported
-            //throw new System.Security.SecurityException(GetResourceString(resource));
+            throw new System.Security.SecurityException(GetResourceString(resource));
         }
 
         internal static void ThrowRankException(ExceptionResource resource)
@@ -232,34 +224,22 @@ namespace System
 
         internal static void ThrowUnauthorizedAccessException(ExceptionResource resource)
         {
-            throw NotImplemented.ByDesign;
-
-            // TODO: NotSupported
-            //throw new UnauthorizedAccessException(GetResourceString(resource));
+            throw new UnauthorizedAccessException(GetResourceString(resource));
         }
 
         internal static void ThrowObjectDisposedException(string objectName, ExceptionResource resource)
         {
-            throw NotImplemented.ByDesign;
-
-            // TODO: NotSupported
-            //throw new ObjectDisposedException(objectName, GetResourceString(resource));
+            throw new ObjectDisposedException(objectName, GetResourceString(resource));
         }
 
         internal static void ThrowObjectDisposedException(ExceptionResource resource)
         {
-            throw NotImplemented.ByDesign;
-
-            // TODO: NotSupported
-            //throw new ObjectDisposedException(null, GetResourceString(resource));
+            throw new ObjectDisposedException(null, GetResourceString(resource));
         }
 
         internal static void ThrowObjectDisposedException_MemoryDisposed()
         {
-            throw NotImplemented.ByDesign;
-
-            // TODO: NotSupported
-            //throw new ObjectDisposedException("OwnedMemory<T>", GetResourceString(ExceptionResource.MemoryDisposed));
+            throw new ObjectDisposedException("OwnedMemory<T>", GetResourceString(ExceptionResource.MemoryDisposed));
         }
 
         internal static void ThrowNotSupportedException()

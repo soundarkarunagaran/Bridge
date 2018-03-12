@@ -1,9 +1,6 @@
     Bridge.define("System.Collections.IEnumerable", {
         $kind: "interface"
     });
-    Bridge.define("System.Collections.IEqualityComparer", {
-        $kind: "interface"
-    });
     Bridge.define("System.Collections.ICollection", {
         inherits: [System.Collections.IEnumerable],
         $kind: "interface"
@@ -50,13 +47,6 @@
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
             $kind: "interface"
-        };
-    });
-
-    Bridge.define("System.Collections.Generic.IComparer$1", function (T) {
-        return {
-            $kind: "interface",
-            $variance: [2]
         };
     });
 

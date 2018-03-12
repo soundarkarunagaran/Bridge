@@ -67,8 +67,15 @@
     <Compile Include="shared\System\AttributeTargets.cs" />
     <Compile Include="shared\System\AttributeUsageAttribute.cs" />
     <Compile Include="shared\System\CharEnumerator.cs" />
+    <Compile Include="shared\System\Collections\Generic\HashSet.cs" />
+    <Compile Include="shared\System\Collections\Generic\IComparer.cs" />
     <Compile Include="shared\System\Collections\Generic\IEnumerator.cs" />
+    <Compile Include="shared\System\Collections\IComparer.cs" />
     <Compile Include="shared\System\Collections\IEnumerator.cs" />
+    <Compile Include="shared\System\Collections\IEqualityComparer.cs" />
+    <Compile Include="shared\System\Collections\IStructuralComparable.cs" />
+    <Compile Include="shared\System\Collections\IStructuralEquatable.cs" />
+    <Compile Include="shared\System\Collections\ObjectModel\Collection.cs" />
     <Compile Include="shared\System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
@@ -77,6 +84,10 @@
     <Compile Include="shared\System\Globalization\DaylightTime.cs" />
     <Compile Include="shared\System\Globalization\SortVersion.cs" />
     <Compile Include="shared\System\Globalization\UnicodeCategory.cs" />
+    <Compile Include="shared\System\IO\FileOptions.cs" />
+    <Compile Include="shared\System\IO\FileShare.cs" />
+    <Compile Include="shared\System\IO\MemoryStream.cs" />
+    <Compile Include="shared\System\ObjectDisposedException.cs" />
     <Compile Include="shared\System\ObsoleteAttribute.cs" />
     <Compile Include="shared\System\OutOfMemoryException.cs" />
     <Compile Include="shared\System\ArithmeticException.cs" />
@@ -158,6 +169,7 @@
     <Compile Include="shared\System\Runtime\Versioning\TargetFrameworkAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalScope.cs" />
+    <Compile Include="shared\System\Security\SecurityException.cs" />
     <Compile Include="shared\System\Security\SecuritySafeCriticalAttribute.cs" />
     <Compile Include="shared\System\SerializableAttribute.cs" />
     <Compile Include="shared\System\StringComparison.cs" />
@@ -191,13 +203,12 @@
     <Compile Include="shared\System\Collections\BitArrray.cs" />
     <Compile Include="shared\System\Collections\Generic\BitHelper.cs" />
     <Compile Include="System\Collections\Generic\EnumerableHelpers.cs" />
-    <Compile Include="shared\System\Collections\Generic\HashSet.cs" />
     <Compile Include="System\Collections\Generic\IReadOnlyDictionary.cs" />
     <Compile Include="System\Collections\Generic\IReadOnlyCollection.cs" />
     <Compile Include="shared\System\Collections\Generic\Queue.cs" />
     <Compile Include="shared\System\Collections\Generic\Stack.cs" />
-    <Compile Include="System\Collections\HashHelpers.cs" />
     <Compile Include="System\Collections\DictionaryEntry.cs" />
+    <Compile Include="System\Collections\HashHelpers.cs" />
     <Compile Include="System\ComponentModel\BrowsableAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\AssociationAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\CompareAttribute.cs" />
@@ -257,7 +268,6 @@
     <Compile Include="shared\System\IO\FileMode.cs" />
     <Compile Include="System\IO\FileStream.cs" />
     <Compile Include="shared\System\IO\IOException.cs" />
-    <Compile Include="shared\System\IO\MemoryStream.cs" />
     <Compile Include="shared\System\IO\ReadLinesIterator.cs" />
     <Compile Include="shared\System\IO\SeekOrigin.cs" />
     <Compile Include="shared\System\IO\Stream.cs" />
@@ -369,7 +379,6 @@
     <Compile Include="shared\System\Random.cs" />
     <Compile Include="System\Console.cs" />
     <Compile Include="System\Collections\Generic\Comparer.cs" />
-    <Compile Include="System\Collections\Generic\IComparer.cs" />
     <Compile Include="System\Collections\Generic\IList.cs" />
     <Compile Include="System\Collections\Generic\ISet.cs" />
     <Compile Include="shared\System\Collections\ObjectModel\ReadOnlyCollection.cs" />
@@ -488,7 +497,6 @@
     </Compile>
     <Compile Include="System\Collections\ICollection.cs" />
     <Compile Include="System\Collections\IEnumerable.cs" />
-    <Compile Include="System\Collections\IEqualityComparer.cs" />
     <Compile Include="Bridge\Error.cs" />
     <Compile Include="System\IFormattable.cs" />
     <Compile Include="System\Decimal.cs" />
@@ -522,6 +530,7 @@
     <Content Include="Resources\.generated\System\ArgumentNullException.js" />
     <Content Include="Resources\.generated\System\ArgumentOutOfRangeException.js" />
     <Content Include="Resources\.generated\System\ArithmeticException.js" />
+    <Content Include="Resources\.generated\System\ArrayTypeMismatchException.js" />
     <Content Include="Resources\.generated\System\Base64FormattingOptions.js" />
     <Content Include="Resources\.generated\System\BitConverter.js" />
     <Content Include="Resources\.generated\System\CharEnumerator.js" />
@@ -537,7 +546,9 @@
     <Content Include="Resources\.generated\System\Collections\Generic\HashSet\Enumerator.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\HashSet\Slot.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\ICollectionDebugView.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\IComparer.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\IDictionaryDebugView.js" />
+    <Content Include="Resources\.generated\System\Collections\Generic\IEnumerator.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\KeyNotFoundException.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\List.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\List\Enumerator.js" />
@@ -546,7 +557,13 @@
     <Content Include="Resources\.generated\System\Collections\Generic\Stack.js" />
     <Content Include="Resources\.generated\System\Collections\Generic\Stack\Enumerator.js" />
     <Content Include="Resources\.generated\System\Collections\HashHelpers.js" />
+    <Content Include="Resources\.generated\System\Collections\IComparer.js" />
     <Content Include="Resources\.generated\System\Collections\IDictionaryEnumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\IEnumerator.js" />
+    <Content Include="Resources\.generated\System\Collections\IEqualityComparer.js" />
+    <Content Include="Resources\.generated\System\Collections\IStructuralComparable.js" />
+    <Content Include="Resources\.generated\System\Collections\IStructuralEquatable.js" />
+    <Content Include="Resources\.generated\System\Collections\ObjectModel\Collection.js" />
     <Content Include="Resources\.generated\System\Collections\ObjectModel\ReadOnlyCollection.js" />
     <Content Include="Resources\.generated\System\ComponentModel\BrowsableAttribute.js" />
     <Content Include="Resources\.generated\System\ComponentModel\DefaultValueAttribute.js" />
@@ -597,6 +614,8 @@
     <Content Include="Resources\.generated\System\IO\EndOfStreamException.js" />
     <Content Include="Resources\.generated\System\IO\File.js" />
     <Content Include="Resources\.generated\System\IO\FileMode.js" />
+    <Content Include="Resources\.generated\System\IO\FileOptions.js" />
+    <Content Include="Resources\.generated\System\IO\FileShare.js" />
     <Content Include="Resources\.generated\System\IO\FileStream.js" />
     <Content Include="Resources\.generated\System\IO\IOException.js" />
     <Content Include="Resources\.generated\System\IO\Iterator.js" />
@@ -620,6 +639,7 @@
     <Content Include="Resources\.generated\System\NotImplementedException.js" />
     <Content Include="Resources\.generated\System\NotSupportedException.js" />
     <Content Include="Resources\.generated\System\NullReferenceException.js" />
+    <Content Include="Resources\.generated\System\ObjectDisposedException.js" />
     <Content Include="Resources\.generated\System\OperationCanceledException.js" />
     <Content Include="Resources\.generated\System\OutOfMemoryException.js" />
     <Content Include="Resources\.generated\System\OverflowException.js" />
@@ -650,6 +670,7 @@
     <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationInfoEnumerator.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\StreamingContext.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\StreamingContextStates.js" />
+    <Content Include="Resources\.generated\System\Security\SecurityException.js" />
     <Content Include="Resources\.generated\System\SerializableAttribute.js" />
     <Content Include="Resources\.generated\System\SR.js" />
     <Content Include="Resources\.generated\System\StringComparison.js" />

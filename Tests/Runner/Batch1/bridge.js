@@ -5402,6 +5402,29 @@
         }
     });
 
+    // @source ArrayTypeMismatchException.js
+
+    Bridge.define("System.ArrayTypeMismatchException", {
+        inherits: [System.SystemException],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, "Attempted to access an element as a type incompatible with the array.");
+                this.HResult = -2146233085;
+            },
+            $ctor1: function (message) {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = -2146233085;
+            },
+            $ctor2: function (message, innerException) {
+                this.$initialize();
+                System.SystemException.$ctor2.call(this, message, innerException);
+                this.HResult = -2146233085;
+            }
+        }
+    });
+
     // @source MissingManifestResourceException.js
 
     Bridge.define("System.Resources.MissingManifestResourceException", {
@@ -12610,9 +12633,6 @@
     Bridge.define("System.Collections.IEnumerable", {
         $kind: "interface"
     });
-    Bridge.define("System.Collections.IEqualityComparer", {
-        $kind: "interface"
-    });
     Bridge.define("System.Collections.ICollection", {
         inherits: [System.Collections.IEnumerable],
         $kind: "interface"
@@ -12662,13 +12682,6 @@
         };
     });
 
-    Bridge.define("System.Collections.Generic.IComparer$1", function (T) {
-        return {
-            $kind: "interface",
-            $variance: [2]
-        };
-    });
-
     Bridge.define("System.Collections.Generic.ISet$1", function (T) {
         return {
             inherits: [System.Collections.Generic.ICollection$1(T)],
@@ -12703,12 +12716,43 @@
         $kind: "interface"
     });
 
+    // @source IComparer.js
+
+    Bridge.define("System.Collections.IComparer", {
+        $kind: "interface"
+    });
+
+    // @source IEqualityComparer.js
+
+    Bridge.define("System.Collections.IEqualityComparer", {
+        $kind: "interface"
+    });
+
+    // @source IStructuralComparable.js
+
+    Bridge.define("System.Collections.IStructuralComparable", {
+        $kind: "interface"
+    });
+
+    // @source IStructuralEquatable.js
+
+    Bridge.define("System.Collections.IStructuralEquatable", {
+        $kind: "interface"
+    });
+
     // @source IEnumerator.js
 
     Bridge.definei("System.Collections.Generic.IEnumerator$1", function (T) { return {
         inherits: [System.IDisposable,System.Collections.IEnumerator],
         $kind: "interface",
         $variance: [1]
+    }; });
+
+    // @source IComparer.js
+
+    Bridge.definei("System.Collections.Generic.IComparer$1", function (T) { return {
+        $kind: "interface",
+        $variance: [2]
     }; });
 
     // @source CustomEnumerator.js
@@ -21101,6 +21145,78 @@
             }
         },
         $flags: true
+    });
+
+    // @source SecurityException.js
+
+    Bridge.define("System.Security.SecurityException", {
+        inherits: [System.SystemException],
+        statics: {
+            fields: {
+                DemandedName: null,
+                GrantedSetName: null,
+                RefusedSetName: null,
+                DeniedName: null,
+                PermitOnlyName: null,
+                UrlName: null
+            },
+            ctors: {
+                init: function () {
+                    this.DemandedName = "Demanded";
+                    this.GrantedSetName = "GrantedSet";
+                    this.RefusedSetName = "RefusedSet";
+                    this.DeniedName = "Denied";
+                    this.PermitOnlyName = "PermitOnly";
+                    this.UrlName = "Url";
+                }
+            }
+        },
+        props: {
+            Demanded: null,
+            DenySetInstance: null,
+            GrantedSet: null,
+            Method: null,
+            PermissionState: null,
+            PermissionType: null,
+            PermitOnlySetInstance: null,
+            RefusedSet: null,
+            Url: null
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, "Security error.");
+                this.HResult = -2146233078;
+            },
+            $ctor1: function (message) {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = -2146233078;
+            },
+            $ctor2: function (message, inner) {
+                this.$initialize();
+                System.SystemException.$ctor2.call(this, message, inner);
+                this.HResult = -2146233078;
+            },
+            $ctor3: function (message, type) {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = -2146233078;
+                this.PermissionType = type;
+            },
+            $ctor4: function (message, type, state) {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = -2146233078;
+                this.PermissionType = type;
+                this.PermissionState = state;
+            }
+        },
+        methods: {
+            toString: function () {
+                return Bridge.toString(this);
+            }
+        }
     });
 
     // @source UnauthorizedAccessException.js
@@ -30010,6 +30126,327 @@
         }
     });
 
+    // @source Collection.js
+
+    Bridge.define("System.Collections.ObjectModel.Collection$1", function (T) { return {
+        inherits: [System.Collections.Generic.IList$1(T),System.Collections.IList,System.Collections.Generic.IReadOnlyList$1(T)],
+        statics: {
+            methods: {
+                IsCompatibleObject: function (value) {
+                    return ((Bridge.is(value, T)) || (value == null && Bridge.getDefaultValue(T) == null));
+                }
+            }
+        },
+        fields: {
+            items: null,
+            _syncRoot: null
+        },
+        props: {
+            Count: {
+                get: function () {
+                    return System.Array.getCount(this.items, T);
+                }
+            },
+            Items: {
+                get: function () {
+                    return this.items;
+                }
+            },
+            System$Collections$Generic$ICollection$1$IsReadOnly: {
+                get: function () {
+                    return System.Array.getIsReadOnly(this.items, T);
+                }
+            },
+            System$Collections$ICollection$IsSynchronized: {
+                get: function () {
+                    return false;
+                }
+            },
+            System$Collections$ICollection$SyncRoot: {
+                get: function () {
+                    if (this._syncRoot == null) {
+                        var c = Bridge.as(this.items, System.Collections.ICollection);
+                        if (c != null) {
+                            this._syncRoot = c.System$Collections$ICollection$SyncRoot;
+                        } else {
+                            throw System.NotImplemented.ByDesign;
+                        }
+                    }
+                    return this._syncRoot;
+                }
+            },
+            System$Collections$IList$IsReadOnly: {
+                get: function () {
+                    return System.Array.getIsReadOnly(this.items, T);
+                }
+            },
+            System$Collections$IList$IsFixedSize: {
+                get: function () {
+                    var list = Bridge.as(this.items, System.Collections.IList);
+                    if (list != null) {
+                        return list.System$Collections$IList$IsFixedSize;
+                    }
+                    return System.Array.getIsReadOnly(this.items, T);
+                }
+            }
+        },
+        alias: [
+            "Count", ["System$Collections$Generic$IReadOnlyCollection$1$" + Bridge.getTypeAlias(T) + "$Count", "System$Collections$Generic$IReadOnlyCollection$1$Count"],
+            "Count", "System$Collections$ICollection$Count",
+            "Count", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$Count",
+            "getItem", ["System$Collections$Generic$IReadOnlyList$1$" + Bridge.getTypeAlias(T) + "$getItem", "System$Collections$Generic$IReadOnlyList$1$getItem"],
+            "setItem", ["System$Collections$Generic$IReadOnlyList$1$" + Bridge.getTypeAlias(T) + "$setItem", "System$Collections$Generic$IReadOnlyList$1$setItem"],
+            "getItem", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$getItem",
+            "setItem", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$setItem",
+            "add", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$add",
+            "clear", "System$Collections$IList$clear",
+            "clear", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$clear",
+            "copyTo", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$copyTo",
+            "contains", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$contains",
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$" + Bridge.getTypeAlias(T) + "$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
+            "indexOf", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$indexOf",
+            "insert", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$insert",
+            "remove", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$remove",
+            "removeAt", "System$Collections$IList$removeAt",
+            "removeAt", "System$Collections$Generic$IList$1$" + Bridge.getTypeAlias(T) + "$removeAt",
+            "System$Collections$Generic$ICollection$1$IsReadOnly", "System$Collections$Generic$ICollection$1$" + Bridge.getTypeAlias(T) + "$IsReadOnly"
+        ],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                this.items = new (System.Collections.Generic.List$1(T)).ctor();
+            },
+            $ctor1: function (list) {
+                this.$initialize();
+                if (list == null) {
+                    System.ThrowHelper.ThrowArgumentNullException(System.ExceptionArgument.list);
+                }
+                this.items = list;
+            }
+        },
+        methods: {
+            getItem: function (index) {
+                return System.Array.getItem(this.items, index, T);
+            },
+            setItem: function (index, value) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                if (index < 0 || index >= System.Array.getCount(this.items, T)) {
+                    System.ThrowHelper.ThrowArgumentOutOfRange_IndexException();
+                }
+
+                this.SetItem(index, value);
+            },
+            System$Collections$IList$getItem: function (index) {
+                return System.Array.getItem(this.items, index, T);
+            },
+            System$Collections$IList$setItem: function (index, value) {
+                System.ThrowHelper.IfNullAndNullsAreIllegalThenThrow(T, value, System.ExceptionArgument.value);
+
+                try {
+                    this.setItem(index, Bridge.cast(Bridge.unbox(value), T));
+                }
+                catch ($e1) {
+                    $e1 = System.Exception.create($e1);
+                    if (Bridge.is($e1, System.InvalidCastException)) {
+                        System.ThrowHelper.ThrowWrongValueTypeArgumentException(System.Object, value, T);
+                    } else {
+                        throw $e1;
+                    }
+                }
+            },
+            add: function (item) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                var index = System.Array.getCount(this.items, T);
+                this.InsertItem(index, item);
+            },
+            System$Collections$IList$add: function (value) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+                System.ThrowHelper.IfNullAndNullsAreIllegalThenThrow(T, value, System.ExceptionArgument.value);
+
+                try {
+                    this.add(Bridge.cast(Bridge.unbox(value), T));
+                }
+                catch ($e1) {
+                    $e1 = System.Exception.create($e1);
+                    if (Bridge.is($e1, System.InvalidCastException)) {
+                        System.ThrowHelper.ThrowWrongValueTypeArgumentException(System.Object, value, T);
+                    } else {
+                        throw $e1;
+                    }
+                }
+
+                return ((this.Count - 1) | 0);
+            },
+            clear: function () {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                this.ClearItems();
+            },
+            copyTo: function (array, index) {
+                System.Array.copyTo(this.items, array, index, T);
+            },
+            System$Collections$ICollection$copyTo: function (array, index) {
+                if (array == null) {
+                    System.ThrowHelper.ThrowArgumentNullException(System.ExceptionArgument.array);
+                }
+
+                if (System.Array.getRank(array) !== 1) {
+                    System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_RankMultiDimNotSupported);
+                }
+
+                if (System.Array.getLower(array, 0) !== 0) {
+                    System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_NonZeroLowerBound);
+                }
+
+                if (index < 0) {
+                    System.ThrowHelper.ThrowIndexArgumentOutOfRange_NeedNonNegNumException();
+                }
+
+                if (((array.length - index) | 0) < this.Count) {
+                    System.ThrowHelper.ThrowArgumentException(System.ExceptionResource.Arg_ArrayPlusOffTooSmall);
+                }
+
+                var tArray = Bridge.as(array, System.Array.type(T));
+                if (tArray != null) {
+                    System.Array.copyTo(this.items, tArray, index, T);
+                } else {
+                    var targetType = (Bridge.getType(array).$elementType || null);
+                    var sourceType = T;
+                    if (!(Bridge.Reflection.isAssignableFrom(targetType, sourceType) || Bridge.Reflection.isAssignableFrom(sourceType, targetType))) {
+                        System.ThrowHelper.ThrowArgumentException_Argument_InvalidArrayType();
+                    }
+
+                    var objects = Bridge.as(array, System.Array.type(System.Object));
+                    if (objects == null) {
+                        System.ThrowHelper.ThrowArgumentException_Argument_InvalidArrayType();
+                    }
+
+                    var count = System.Array.getCount(this.items, T);
+                    try {
+                        for (var i = 0; i < count; i = (i + 1) | 0) {
+                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.items, i, T);
+                        }
+                    }
+                    catch ($e1) {
+                        $e1 = System.Exception.create($e1);
+                        if (Bridge.is($e1, System.ArrayTypeMismatchException)) {
+                            System.ThrowHelper.ThrowArgumentException_Argument_InvalidArrayType();
+                        } else {
+                            throw $e1;
+                        }
+                    }
+                }
+            },
+            contains: function (item) {
+                return System.Array.contains(this.items, item, T);
+            },
+            System$Collections$IList$contains: function (value) {
+                if (System.Collections.ObjectModel.Collection$1(T).IsCompatibleObject(value)) {
+                    return this.contains(Bridge.cast(Bridge.unbox(value), T));
+                }
+                return false;
+            },
+            GetEnumerator: function () {
+                return Bridge.getEnumerator(this.items, T);
+            },
+            System$Collections$IEnumerable$GetEnumerator: function () {
+                return Bridge.getEnumerator(Bridge.cast(this.items, System.Collections.IEnumerable));
+            },
+            indexOf: function (item) {
+                return System.Array.indexOf(this.items, item, 0, null, T);
+            },
+            System$Collections$IList$indexOf: function (value) {
+                if (System.Collections.ObjectModel.Collection$1(T).IsCompatibleObject(value)) {
+                    return this.indexOf(Bridge.cast(Bridge.unbox(value), T));
+                }
+                return -1;
+            },
+            insert: function (index, item) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                if (index < 0 || index > System.Array.getCount(this.items, T)) {
+                    System.ThrowHelper.ThrowArgumentOutOfRangeException$2(System.ExceptionArgument.index, System.ExceptionResource.ArgumentOutOfRange_ListInsert);
+                }
+
+                this.InsertItem(index, item);
+            },
+            System$Collections$IList$insert: function (index, value) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+                System.ThrowHelper.IfNullAndNullsAreIllegalThenThrow(T, value, System.ExceptionArgument.value);
+
+                try {
+                    this.insert(index, Bridge.cast(Bridge.unbox(value), T));
+                }
+                catch ($e1) {
+                    $e1 = System.Exception.create($e1);
+                    if (Bridge.is($e1, System.InvalidCastException)) {
+                        System.ThrowHelper.ThrowWrongValueTypeArgumentException(System.Object, value, T);
+                    } else {
+                        throw $e1;
+                    }
+                }
+            },
+            remove: function (item) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                var index = System.Array.indexOf(this.items, item, 0, null, T);
+                if (index < 0) {
+                    return false;
+                }
+                this.RemoveItem(index);
+                return true;
+            },
+            System$Collections$IList$remove: function (value) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                if (System.Collections.ObjectModel.Collection$1(T).IsCompatibleObject(value)) {
+                    this.remove(Bridge.cast(Bridge.unbox(value), T));
+                }
+            },
+            removeAt: function (index) {
+                if (System.Array.getIsReadOnly(this.items, T)) {
+                    System.ThrowHelper.ThrowNotSupportedException$1(System.ExceptionResource.NotSupported_ReadOnlyCollection);
+                }
+
+                if (index < 0 || index >= System.Array.getCount(this.items, T)) {
+                    System.ThrowHelper.ThrowArgumentOutOfRange_IndexException();
+                }
+
+                this.RemoveItem(index);
+            },
+            ClearItems: function () {
+                System.Array.clear(this.items, T);
+            },
+            InsertItem: function (index, item) {
+                System.Array.insert(this.items, index, item, T);
+            },
+            RemoveItem: function (index) {
+                System.Array.removeAt(this.items, index, T);
+            },
+            SetItem: function (index, item) {
+                System.Array.setItem(this.items, index, item, T);
+            }
+        }
+    }; });
+
     // @source ReadOnlyCollection.js
 
     Bridge.define("System.Collections.ObjectModel.ReadOnlyCollection$1", function (T) { return {
@@ -32138,6 +32575,55 @@
                 this.$initialize();
                 System.SystemException.$ctor2.call(this, message, innerException);
                 this.HResult = -2146233079;
+            }
+        }
+    });
+
+    // @source ObjectDisposedException.js
+
+    Bridge.define("System.ObjectDisposedException", {
+        inherits: [System.InvalidOperationException],
+        fields: {
+            _objectName: null
+        },
+        props: {
+            Message: {
+                get: function () {
+                    var name = this.ObjectName;
+                    if (name == null || name.length === 0) {
+                        return Bridge.ensureBaseProperty(this, "Message").$System$Exception$Message;
+                    }
+
+                    var objectDisposed = System.SR.Format("Object name: '{0}'.", name);
+                    return (Bridge.ensureBaseProperty(this, "Message").$System$Exception$Message || "") + ("\n" || "") + (objectDisposed || "");
+                }
+            },
+            ObjectName: {
+                get: function () {
+                    if (this._objectName == null) {
+                        return "";
+                    }
+                    return this._objectName;
+                }
+            }
+        },
+        ctors: {
+            ctor: function () {
+                System.ObjectDisposedException.$ctor3.call(this, null, "Cannot access a disposed object.");
+            },
+            $ctor1: function (objectName) {
+                System.ObjectDisposedException.$ctor3.call(this, objectName, "Cannot access a disposed object.");
+            },
+            $ctor3: function (objectName, message) {
+                this.$initialize();
+                System.InvalidOperationException.$ctor1.call(this, message);
+                this.HResult = -2146232798;
+                this._objectName = objectName;
+            },
+            $ctor2: function (message, innerException) {
+                this.$initialize();
+                System.InvalidOperationException.$ctor2.call(this, message, innerException);
+                this.HResult = -2146232798;
             }
         }
     });
@@ -34791,31 +35277,27 @@
     // @source IOException.js
 
     Bridge.define("System.IO.IOException", {
-        inherits: [System.Exception],
-        fields: {
-            _maybeFullPath: null
-        },
+        inherits: [System.SystemException],
         ctors: {
             ctor: function () {
                 this.$initialize();
-                System.Exception.ctor.call(this, "Arg_IOException");
+                System.SystemException.$ctor1.call(this, "I/O error occurred.");
+                this.HResult = -2146232800;
             },
             $ctor1: function (message) {
                 this.$initialize();
-                System.Exception.ctor.call(this, message);
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = -2146232800;
             },
             $ctor3: function (message, hresult) {
                 this.$initialize();
-                System.Exception.ctor.call(this, message);
-            },
-            $ctor4: function (message, hresult, maybeFullPath) {
-                this.$initialize();
-                System.Exception.ctor.call(this, message);
-                this._maybeFullPath = maybeFullPath;
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = hresult;
             },
             $ctor2: function (message, innerException) {
                 this.$initialize();
-                System.Exception.ctor.call(this, message, innerException);
+                System.SystemException.$ctor2.call(this, message, innerException);
+                this.HResult = -2146232800;
             }
         }
     });
@@ -35002,6 +35484,41 @@
                 Append: 6
             }
         }
+    });
+
+    // @source FileOptions.js
+
+    Bridge.define("System.IO.FileOptions", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                None: 0,
+                WriteThrough: -2147483648,
+                Asynchronous: 1073741824,
+                RandomAccess: 268435456,
+                DeleteOnClose: 67108864,
+                SequentialScan: 134217728,
+                Encrypted: 16384
+            }
+        },
+        $flags: true
+    });
+
+    // @source FileShare.js
+
+    Bridge.define("System.IO.FileShare", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                None: 0,
+                Read: 1,
+                Write: 2,
+                ReadWrite: 3,
+                Delete: 4,
+                Inheritable: 16
+            }
+        },
+        $flags: true
     });
 
     // @source FileStream.js
@@ -38392,7 +38909,7 @@
         statics: {
             methods: {
                 ThrowArrayTypeMismatchException: function () {
-                    throw System.NotImplemented.ByDesign;
+                    throw new System.ArrayTypeMismatchException.ctor();
                 },
                 ThrowInvalidTypeWithPointersNotSupported: function (targetType) {
                     throw new System.ArgumentException.$ctor1(System.SR.Format("Cannot use type '{0}'. Only value types without pointers or references are supported.", targetType));
@@ -38476,12 +38993,10 @@
                     System.ThrowHelper.ThrowInvalidOperationException(System.ExceptionResource.Memory_OutstandingReferences);
                 },
                 ThrowSerializationException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.Runtime.Serialization.SerializationException.$ctor1(System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowSecurityException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.Security.SecurityException.$ctor1(System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowRankException: function (resource) {
                     throw new System.RankException.$ctor1(System.ThrowHelper.GetResourceString(resource));
@@ -38493,20 +39008,16 @@
                     throw new System.NotSupportedException.ctor();
                 },
                 ThrowUnauthorizedAccessException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.UnauthorizedAccessException.$ctor1(System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowObjectDisposedException$1: function (objectName, resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.ObjectDisposedException.$ctor3(objectName, System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowObjectDisposedException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.ObjectDisposedException.$ctor3(null, System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowObjectDisposedException_MemoryDisposed: function () {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.ObjectDisposedException.$ctor3("OwnedMemory<T>", System.ThrowHelper.GetResourceString(System.ExceptionResource.MemoryDisposed));
                 },
                 ThrowAggregateException: function (exceptions) {
                     throw new System.AggregateException(null, exceptions);

@@ -2,7 +2,7 @@
         statics: {
             methods: {
                 ThrowArrayTypeMismatchException: function () {
-                    throw System.NotImplemented.ByDesign;
+                    throw new System.ArrayTypeMismatchException.ctor();
                 },
                 ThrowInvalidTypeWithPointersNotSupported: function (targetType) {
                     throw new System.ArgumentException.$ctor1(System.SR.Format("Cannot use type '{0}'. Only value types without pointers or references are supported.", targetType));
@@ -86,12 +86,10 @@
                     System.ThrowHelper.ThrowInvalidOperationException(System.ExceptionResource.Memory_OutstandingReferences);
                 },
                 ThrowSerializationException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.Runtime.Serialization.SerializationException.$ctor1(System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowSecurityException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.Security.SecurityException.$ctor1(System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowRankException: function (resource) {
                     throw new System.RankException.$ctor1(System.ThrowHelper.GetResourceString(resource));
@@ -103,20 +101,16 @@
                     throw new System.NotSupportedException.ctor();
                 },
                 ThrowUnauthorizedAccessException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.UnauthorizedAccessException.$ctor1(System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowObjectDisposedException$1: function (objectName, resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.ObjectDisposedException.$ctor3(objectName, System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowObjectDisposedException: function (resource) {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.ObjectDisposedException.$ctor3(null, System.ThrowHelper.GetResourceString(resource));
                 },
                 ThrowObjectDisposedException_MemoryDisposed: function () {
-                    throw System.NotImplemented.ByDesign;
-
+                    throw new System.ObjectDisposedException.$ctor3("OwnedMemory<T>", System.ThrowHelper.GetResourceString(System.ExceptionResource.MemoryDisposed));
                 },
                 ThrowAggregateException: function (exceptions) {
                     throw new System.AggregateException(null, exceptions);
