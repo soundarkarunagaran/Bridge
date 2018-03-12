@@ -64,12 +64,16 @@
     <Compile Include="shared\System\ArgumentException.cs" />
     <Compile Include="shared\System\ArgumentNullException.cs" />
     <Compile Include="shared\System\ArgumentOutOfRangeException.cs" />
+    <Compile Include="shared\System\AttributeTargets.cs" />
+    <Compile Include="shared\System\AttributeUsageAttribute.cs" />
     <Compile Include="shared\System\CharEnumerator.cs" />
     <Compile Include="shared\System\Collections\Generic\IEnumerator.cs" />
     <Compile Include="shared\System\Collections\IEnumerator.cs" />
     <Compile Include="shared\System\ComponentModel\DefaultValueAttribute.cs" />
     <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
+    <Compile Include="shared\System\FlagsAttribute.cs" />
+    <Compile Include="shared\System\ObsoleteAttribute.cs" />
     <Compile Include="shared\System\OutOfMemoryException.cs" />
     <Compile Include="shared\System\ArithmeticException.cs" />
     <Compile Include="shared\System\ArrayTypeMismatchException.cs" />
