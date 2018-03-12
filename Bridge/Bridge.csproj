@@ -152,6 +152,7 @@
     <Compile Include="shared\System\Security\SecurityCriticalAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalScope.cs" />
     <Compile Include="shared\System\Security\SecuritySafeCriticalAttribute.cs" />
+    <Compile Include="shared\System\SerializableAttribute.cs" />
     <Compile Include="shared\System\StringComparison.cs" />
     <Compile Include="shared\System\StringSplitOptions.cs" />
     <Compile Include="shared\System\SystemException.cs" />
@@ -261,7 +262,6 @@
     <Compile Include="shared\System\NotImplementedException.cs" />
     <Compile Include="shared\System\NotSupportedException.cs" />
     <Compile Include="System\RegexMatchTimeoutException.cs" />
-    <Compile Include="System\SerializableAttribute.cs" />
     <Compile Include="Attributes\UnboxAttribute.cs" />
     <Compile Include="Attributes\GlobalMethodsAttribute.cs" />
     <Compile Include="Attributes\MixinAttribute.cs" />
@@ -634,6 +634,7 @@
     <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationInfoEnumerator.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\StreamingContext.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\StreamingContextStates.js" />
+    <Content Include="Resources\.generated\System\SerializableAttribute.js" />
     <Content Include="Resources\.generated\System\SR.js" />
     <Content Include="Resources\.generated\System\StringComparison.js" />
     <Content Include="Resources\.generated\System\StringSplitOptions.js" />

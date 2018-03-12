@@ -51,6 +51,7 @@
         "Resources/Globalization.js",
 
         "Resources/.generated/System/Environment.js",
+        "Resources/.generated/System/StringSplitOptions.js",
 
         "Resources/Math.js",
         "Resources/Bool.js",
@@ -91,6 +92,7 @@
         "Resources/Task.js",
         "Resources/Validation.js",
         "Resources/Attribute.js",
+        "Resources/.generated/System/SerializableAttribute.js",
         "Resources/INotifyPropertyChanged.js",
         "Resources/Convert.js",
         "Resources/ClientWebSocket.js",
