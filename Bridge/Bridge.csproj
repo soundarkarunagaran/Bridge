@@ -149,6 +149,7 @@
     <Compile Include="shared\System\Runtime\Serialization\SerializationException.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationInfoEnumerator.cs" />
     <Compile Include="shared\System\Runtime\Serialization\StreamingContext.cs" />
+    <Compile Include="shared\System\Runtime\Versioning\NonVersionableAttribute.cs" />
     <Compile Include="shared\System\Runtime\Versioning\TargetFrameworkAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalScope.cs" />
@@ -161,6 +162,9 @@
     <Compile Include="shared\System\Threading\Tasks\TaskSchedulerException.cs" />
     <Compile Include="shared\System\ThreadStaticAttribute.cs" />
     <Compile Include="shared\System\TimeoutException.cs" />
+    <Compile Include="shared\System\UnauthorizedAccessException.cs" />
+    <Compile Include="shared\System\UnhandledExceptionEventArgs.cs" />
+    <Compile Include="shared\System\UnhandledExceptionEventHandler.cs" />
     <Compile Include="shared\System\UnitySerializationHolder.cs" />
     <Compile Include="shared\System\Void.cs" />
     <Compile Include="shared\System\Collections\Generic\IDictionaryEnumerator.cs" />
@@ -174,6 +178,7 @@
     <Compile Include="shared\System\SR.cs" />
     <Compile Include="shared\System\ThrowHelper.cs" />
     <Compile Include="System\AggregateException.cs" />
+    <Compile Include="System\ArraySegment.cs" />
     <Compile Include="System\AsyncCallback.cs" />
     <Compile Include="shared\System\CLSCompliantAttribute.cs" />
     <Compile Include="System\Attributes\HostProtectionAttribute.cs" />
@@ -358,7 +363,6 @@
     <Compile Include="System\Linq\Expressions\UnaryExpression.cs" />
     <Compile Include="shared\System\Random.cs" />
     <Compile Include="System\Console.cs" />
-    <Compile Include="System\ArraySegment.cs" />
     <Compile Include="System\Collections\Generic\Comparer.cs" />
     <Compile Include="System\Collections\Generic\IComparer.cs" />
     <Compile Include="System\Collections\Generic\IList.cs" />
@@ -442,7 +446,6 @@
     <Compile Include="System\TypeCode.cs" />
     <Compile Include="System\IServiceProvider.cs" />
     <Compile Include="System\Uri.cs" />
-    <Compile Include="System\Version.cs" />
     <Compile Include="Bridge\This.cs" />
     <Compile Include="System\Array.cs" />
     <Compile Include="System\Boolean.cs" />
@@ -499,6 +502,7 @@
     <Compile Include="System\TimeSpan.cs" />
     <Compile Include="Bridge\Union.cs" />
     <Compile Include="System\Tuple.cs" />
+    <Compile Include="System\Version.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\.auxiliary\AssemblyEnd.js" />
@@ -654,6 +658,8 @@
     <Content Include="Resources\.generated\System\ThrowHelper.js" />
     <Content Include="Resources\.generated\System\TimeoutException.js" />
     <Content Include="Resources\.generated\System\TokenType.js" />
+    <Content Include="Resources\.generated\System\UnauthorizedAccessException.js" />
+    <Content Include="Resources\.generated\System\UnhandledExceptionEventArgs.js" />
     <Content Include="Resources\.generated\System\UnitySerializationHolder.js" />
     <Content Include="Resources\.generated\System\Version.js" />
     <Content Include="Resources\.generated\System\Version\ParseFailureKind.js" />
@@ -1495,8 +1501,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\.generated\System\Void.js" />
-    <Content Include="Resources\Bool.js" />
     <Content Include="Resources\ArraySegment.js" />
+    <Content Include="Resources\Bool.js" />
     <Content Include="Resources\Collections\KeyValuePair.js" />
     <Content Include="Resources\DateTimeHelpers.js" />
     <Content Include="Resources\Diagnostics.js" />

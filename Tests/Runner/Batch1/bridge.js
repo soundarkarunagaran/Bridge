@@ -6086,6 +6086,19 @@
         }
     });
 
+    // @source StringSplitOptions.js
+
+    Bridge.define("System.StringSplitOptions", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                None: 0,
+                RemoveEmptyEntries: 1
+            }
+        },
+        $flags: true
+    });
+
     // @source Math.js
 
     Bridge.Math = {
@@ -15461,6 +15474,18 @@
         }
     });
 
+    // @source SerializableAttribute.js
+
+    Bridge.define("System.SerializableAttribute", {
+        inherits: [System.Attribute],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                System.Attribute.ctor.call(this);
+            }
+        }
+    });
+
     // @source INotifyPropertyChanged.js
 
     Bridge.define("System.ComponentModel.INotifyPropertyChanged", {
@@ -20818,6 +20843,57 @@
             }
         },
         $flags: true
+    });
+
+    // @source UnauthorizedAccessException.js
+
+    Bridge.define("System.UnauthorizedAccessException", {
+        inherits: [System.SystemException],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, "Attempted to perform an unauthorized operation.");
+                this.HResult = -2147024891;
+            },
+            $ctor1: function (message) {
+                this.$initialize();
+                System.SystemException.$ctor1.call(this, message);
+                this.HResult = -2147024891;
+            },
+            $ctor2: function (message, inner) {
+                this.$initialize();
+                System.SystemException.$ctor2.call(this, message, inner);
+                this.HResult = -2147024891;
+            }
+        }
+    });
+
+    // @source UnhandledExceptionEventArgs.js
+
+    Bridge.define("System.UnhandledExceptionEventArgs", {
+        fields: {
+            _exception: null,
+            _isTerminating: false
+        },
+        props: {
+            ExceptionObject: {
+                get: function () {
+                    return this._exception;
+                }
+            },
+            IsTerminating: {
+                get: function () {
+                    return this._isTerminating;
+                }
+            }
+        },
+        ctors: {
+            ctor: function (exception, isTerminating) {
+                this.$initialize();
+                this._exception = exception;
+                this._isTerminating = isTerminating;
+            }
+        }
     });
 
     // @source Regex.js
