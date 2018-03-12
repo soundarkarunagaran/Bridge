@@ -59,8 +59,6 @@
                     }
                 },
                 GetSystemTwoDigitYearSetting: function (CalID, defaultYearValue) {
-                    // TODO: Revised [Revised to Invarient 2029]
-                    //int twoDigitYearMax = CalendarData.GetTwoDigitYearMax(CalID);
                     var twoDigitYearMax = 2029;
                     if (twoDigitYearMax < 0) {
                         twoDigitYearMax = defaultYearValue;
@@ -107,13 +105,6 @@
             CurrentEraValue: {
                 get: function () {
                     throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported
-                    //if (_currentEraValue == -1)
-                    //{
-                    //    Debug.Assert(BaseCalendarID != CalendarId.UNINITIALIZED_VALUE, "[Calendar.CurrentEraValue] Expected a real calendar ID");
-                    //    _currentEraValue = CalendarData.GetCalendarData(BaseCalendarID).iCurrentEra;
-                    //}
-                    //return (_currentEraValue);
                 }
             },
             DaysInYearBeforeMinSupportedYear: {
@@ -139,7 +130,6 @@
             },
             ctor: function () {
                 this.$initialize();
-                //Do-nothing constructor.
             }
         },
         methods: {
@@ -150,8 +140,6 @@
             },
             VerifyWritable: function () {
                 if (this._isReadOnly) {
-                    // TODO: SR
-                    //throw new InvalidOperationException(SR.InvalidOperation_ReadOnly);
                     throw new System.InvalidOperationException.$ctor1("Instance is read-only.");
                 }
             },
@@ -159,17 +147,8 @@
                 this._isReadOnly = readOnly;
             },
             Add: function (time, value, scale) {
-                // From ECMA CLI spec, Partition III, section 3.27:
-                //
-                // If overflow occurs converting a floating-point type to an integer, or if the floating-point value 
-                // being converted to an integer is a NaN, the value returned is unspecified. 
-                //
-                // Based upon this, this method should be performing the comparison against the double
-                // before attempting a cast. Otherwise, the result is undefined.
                 var tempMillis = (value * scale + (value >= 0 ? 0.5 : -0.5));
                 if (!((tempMillis > -315537897600000.0) && (tempMillis < 315537897600000.0))) {
-                    // TODO: SR
-                    //throw new ArgumentOutOfRangeException(nameof(value), SR.ArgumentOutOfRange_AddValue);
                     throw new System.ArgumentOutOfRangeException.$ctor4("value", "Value to add was out of range.");
                 }
 
@@ -218,10 +197,7 @@
                 return (System.Int64.clip32((System.DateTime.getTicks(time).div(System.Globalization.Calendar.TicksPerSecond)).mod(System.Int64(60))));
             },
             GetFirstDayWeekOfYear: function (time, firstDayOfWeek) {
-                var dayOfYear = (this.GetDayOfYear(time) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
-                // Calculate the day of week for the first day of the year.
-                // dayOfWeek - (dayOfYear % 7) is the day of week for the first day of this year.  Note that
-                // this value can be less than 0.  It's fine since we are making it positive again in calculating offset.
+                var dayOfYear = (this.GetDayOfYear(time) - 1) | 0;
                 var dayForJan1 = (this.GetDayOfWeek(time) - (dayOfYear % 7)) | 0;
                 var offset = (((((dayForJan1 - firstDayOfWeek) | 0) + 14) | 0)) % 7;
                 return (((((Bridge.Int.div((((dayOfYear + offset) | 0)), 7)) | 0) + 1) | 0));
@@ -231,89 +207,40 @@
                 var offset;
                 var day;
 
-                var dayOfYear = (this.GetDayOfYear(time) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
-                //
-                // Calculate the number of days between the first day of year (1/1) and the first day of the week.
-                // This value will be a positive value from 0 ~ 6.  We call this value as "offset".
-                //
-                // If offset is 0, it means that the 1/1 is the start of the first week.
-                //     Assume the first day of the week is Monday, it will look like this:
-                //     Sun      Mon     Tue     Wed     Thu     Fri     Sat
-                //     12/31    1/1     1/2     1/3     1/4     1/5     1/6
-                //              +--> First week starts here.
-                //
-                // If offset is 1, it means that the first day of the week is 1 day ahead of 1/1.
-                //     Assume the first day of the week is Monday, it will look like this:
-                //     Sun      Mon     Tue     Wed     Thu     Fri     Sat
-                //     1/1      1/2     1/3     1/4     1/5     1/6     1/7
-                //              +--> First week starts here.
-                //
-                // If offset is 2, it means that the first day of the week is 2 days ahead of 1/1.
-                //     Assume the first day of the week is Monday, it will look like this:
-                //     Sat      Sun     Mon     Tue     Wed     Thu     Fri     Sat
-                //     1/1      1/2     1/3     1/4     1/5     1/6     1/7     1/8
-                //                      +--> First week starts here.
+                var dayOfYear = (this.GetDayOfYear(time) - 1) | 0;
 
 
 
-                // Day of week is 0-based.
-                // Get the day of week for 1/1.  This can be derived from the day of week of the target day.
-                // Note that we can get a negative value.  It's ok since we are going to make it a positive value when calculating the offset.
                 dayForJan1 = (this.GetDayOfWeek(time) - (dayOfYear % 7)) | 0;
 
-                // Now, calculate the offset.  Subtract the first day of week from the dayForJan1.  And make it a positive value.
                 offset = (((((firstDayOfWeek - dayForJan1) | 0) + 14) | 0)) % 7;
                 if (offset !== 0 && offset >= fullDays) {
-                    //
-                    // If the offset is greater than the value of fullDays, it means that
-                    // the first week of the year starts on the week where Jan/1 falls on.
-                    //
                     offset = (offset - 7) | 0;
                 }
-                //
-                // Calculate the day of year for specified time by taking offset into account.
-                //
                 day = (dayOfYear - offset) | 0;
                 if (day >= 0) {
-                    //
-                    // If the day of year value is greater than zero, get the week of year.
-                    //
                     return (((((Bridge.Int.div(day, 7)) | 0) + 1) | 0));
                 }
-                //
-                // Otherwise, the specified time falls on the week of previous year.
-                // Call this method again by passing the last day of previous year.
-                //
-                // the last day of the previous year may "underflow" to no longer be a valid date time for
-                // this calendar if we just subtract so we need the subclass to provide us with 
-                // that information
                 if (System.DateTime.lte(time, System.DateTime.addDays(this.MinSupportedDateTime, dayOfYear))) {
                     return this.GetWeekOfYearOfMinSupportedDateTime(firstDayOfWeek, fullDays);
                 }
                 return (this.GetWeekOfYearFullDays(System.DateTime.addDays(time, ((-(((dayOfYear + 1) | 0))) | 0)), firstDayOfWeek, fullDays));
             },
             GetWeekOfYearOfMinSupportedDateTime: function (firstDayOfWeek, minimumDaysInFirstWeek) {
-                var dayOfYear = (this.GetDayOfYear(this.MinSupportedDateTime) - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
+                var dayOfYear = (this.GetDayOfYear(this.MinSupportedDateTime) - 1) | 0;
                 var dayOfWeekOfFirstOfYear = (this.GetDayOfWeek(this.MinSupportedDateTime) - dayOfYear % 7) | 0;
 
-                // Calculate the offset (how many days from the start of the year to the start of the week)
                 var offset = (((((firstDayOfWeek + 7) | 0) - dayOfWeekOfFirstOfYear) | 0)) % 7;
                 if (offset === 0 || offset >= minimumDaysInFirstWeek) {
-                    // First of year falls in the first week of the year
                     return 1;
                 }
 
-                var daysInYearBeforeMinSupportedYear = (this.DaysInYearBeforeMinSupportedYear - 1) | 0; // Make the day of year to be 0-based, so that 1/1 is day 0.
+                var daysInYearBeforeMinSupportedYear = (this.DaysInYearBeforeMinSupportedYear - 1) | 0;
                 var dayOfWeekOfFirstOfPreviousYear = (((dayOfWeekOfFirstOfYear - 1) | 0) - (daysInYearBeforeMinSupportedYear % 7)) | 0;
 
-                // starting from first day of the year, how many days do you have to go forward
-                // before getting to the first day of the week?
                 var daysInInitialPartialWeek = (((((firstDayOfWeek - dayOfWeekOfFirstOfPreviousYear) | 0) + 14) | 0)) % 7;
                 var day = (daysInYearBeforeMinSupportedYear - daysInInitialPartialWeek) | 0;
                 if (daysInInitialPartialWeek >= minimumDaysInFirstWeek) {
-                    // If the offset is greater than the minimum Days in the first week, it means that
-                    // First of year is part of the first week of the year even though it is only a partial week
-                    // add another week
                     day = (day + 7) | 0;
                 }
 
@@ -389,14 +316,10 @@
             ToFourDigitYear: function (year) {
                 if (year < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor4("year", "Non-negative number required.");
-                    // TODO: SR
-                    //SR.ArgumentOutOfRange_NeedNonNegNum);
                 }
                 if (year < 100) {
                     return (((Bridge.Int.mul((((((Bridge.Int.div(this.TwoDigitYearMax, 100)) | 0) - (year > this.TwoDigitYearMax % 100 ? 1 : 0)) | 0)), 100) + year) | 0));
                 }
-                // If the year value is above 100, just return the year value.  Don't have to do
-                // the TwoDigitYearMax comparison.
                 return (year);
             }
         }

@@ -117,7 +117,6 @@
                         throw new System.ArgumentNullException.$ctor1(name);
                     }
 
-                    // Case sensitive
                     $t = Bridge.getEnumerator(System.Environment.Variables);
                     try {
                         while ($t.moveNext()) {

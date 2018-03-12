@@ -12,8 +12,6 @@
                 UTF8NoBOM: {
                     get: function () {
                         if (System.IO.StreamWriter._UTF8NoBOM == null) {
-                            // No need for double lock - we just want to avoid extra
-                            // allocations in the common case.
                             var noBOM = new System.Text.UTF8Encoding.$ctor2(false, true);
                             System.IO.StreamWriter._UTF8NoBOM = noBOM;
                         }
@@ -77,7 +75,7 @@
         ctors: {
             ctor: function () {
                 this.$initialize();
-                System.IO.TextWriter.$ctor1.call(this, null); // Ask for CurrentCulture all the time
+                System.IO.TextWriter.$ctor1.call(this, null);
             },
             $ctor1: function (stream) {
                 System.IO.StreamWriter.$ctor4.call(this, stream, System.IO.StreamWriter.UTF8NoBOM, System.IO.StreamWriter.DefaultBufferSize, false);
@@ -131,8 +129,6 @@
                 this.charBuffer = System.Array.init(bufferSize, 0, System.Char);
                 this.byteBuffer = System.Array.init(this.encoding.GetMaxByteCount(bufferSize), 0, System.Byte);
                 this.charLen = bufferSize;
-                // If we're appending to a Stream that already has data, don't write
-                // the preamble.
                 if (this.stream.CanSeek && this.stream.Position.gt(System.Int64(0))) {
                     this.haveWrittenPreamble = true;
                 }
@@ -143,26 +139,15 @@
             },
             Dispose$1: function (disposing) {
                 try {
-                    // We need to flush any buffered data if we are being closed/disposed.
-                    // Also, we never close the handles for stdout & friends.  So we can safely
-                    // write any buffered data to those streams even during finalization, which
-                    // is generally the right thing to do.
                     if (this.stream != null) {
-                        // Note: flush on the underlying stream can throw (ex., low disk space)
                         if (disposing) {
                             this.Flush$1(true, true);
                         }
                     }
                 }
                 finally {
-                    // Dispose of our resources if this StreamWriter is closable.
-                    // Note: Console.Out and other such non closable streamwriters should be left alone
                     if (!this.LeaveOpen && this.stream != null) {
                         try {
-                            // Attempt to close the stream even if there was an IO error from Flushing.
-                            // Note that Stream.Close() can potentially throw here (may or may not be
-                            // due to the same Flush error). In this case, we still need to ensure
-                            // cleaning up internal resources, hence the finally block.
                             if (disposing) {
                                 this.stream.Close();
                             }
@@ -182,15 +167,10 @@
                 this.Flush$1(true, true);
             },
             Flush$1: function (flushStream, flushEncoder) {
-                // flushEncoder should be true at the end of the file and if
-                // the user explicitly calls Flush (though not if AutoFlush is true).
-                // This is required to flush any dangling characters from our UTF-7
-                // and UTF-8 encoders.
                 if (this.stream == null) {
                     System.IO.__Error.WriterClosed();
                 }
 
-                // Perf boost for Flush on non-dirty writers.
                 if (this.charPos === 0 && (!flushStream && !flushEncoder)) {
                     return;
                 }
@@ -207,9 +187,6 @@
                 if (count > 0) {
                     this.stream.Write(this.byteBuffer, 0, count);
                 }
-                // By definition, calling Flush should flush the stream, but this is
-                // only necessary if we passed in true for flushStream.  The Web
-                // Services guys have some perf tests where flushing needlessly hurts.
                 if (flushStream) {
                     this.stream.Flush();
                 }
@@ -225,8 +202,6 @@
                 }
             },
             Write$2: function (buffer) {
-                // This may be faster than the one with the index & count since it
-                // has to do less argument checking.
                 if (buffer == null) {
                     return;
                 }

@@ -70,7 +70,6 @@
                 this.$initialize();
                 this._bytesRead = bytesRead;
                 this._stateObject = asyncStateObject;
-                //_isWrite = false;
             },
             $ctor2: function (asyncStateObject) {
                 this.$initialize();

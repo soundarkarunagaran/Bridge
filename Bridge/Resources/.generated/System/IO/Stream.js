@@ -120,11 +120,7 @@
 
                 this.Close();
             },
-            Dispose$1: function (disposing) {
-                // Note: Never change this to call other virtual methods on Stream
-                // like Write, since the state on subclasses has already been
-                // torn down.  This is the last code to run on cleanup for a stream.
-            },
+            Dispose$1: function (disposing) { },
             BeginRead: function (buffer, offset, count, callback, state) {
                 return this.BeginReadInternal(buffer, offset, count, callback, state, false);
             },
@@ -174,12 +170,6 @@
             },
             BlockingBeginRead: function (buffer, offset, count, callback, state) {
 
-                // To avoid a race with a stream's position pointer & generating ----
-                // conditions with internal buffer indexes in our own streams that
-                // don't natively support async IO operations when there are multiple
-                // async requests outstanding, we will block the application's main
-                // thread and do the IO synchronously.
-                // This can't perform well - use a different approach.
                 var asyncResult;
                 try {
                     var numRead = this.Read(buffer, offset, count);
@@ -204,12 +194,6 @@
             },
             BlockingBeginWrite: function (buffer, offset, count, callback, state) {
 
-                // To avoid a race with a stream's position pointer & generating ----
-                // conditions with internal buffer indexes in our own streams that
-                // don't natively support async IO operations when there are multiple
-                // async requests outstanding, we will block the application's main
-                // thread and do the IO synchronously.
-                // This can't perform well - use a different approach.
                 var asyncResult;
                 try {
                     this.Write(buffer, offset, count);

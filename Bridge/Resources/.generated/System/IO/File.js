@@ -52,7 +52,6 @@
                     var bytes;
                     var fs = new System.IO.FileStream.$ctor1(path, 3);
                     try {
-                        // Do a blocking read
                         var index = 0;
                         var fileLength = fs.Length;
                         if (fileLength.gt(System.Int64(2147483647))) {

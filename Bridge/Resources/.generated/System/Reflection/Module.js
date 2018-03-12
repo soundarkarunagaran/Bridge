@@ -15,16 +15,12 @@
             },
             methods: {
                 FilterTypeNameImpl: function (cls, filterCriteria) {
-                    // Check that the criteria object is a String object
                     if (filterCriteria == null || !(Bridge.is(filterCriteria, System.String))) {
                         throw new System.Reflection.InvalidFilterCriteriaException.$ctor1("A String must be provided for the filter criteria.");
                     }
-                    // TODO: SR
-                    //throw new InvalidFilterCriteriaException(SR.InvalidFilterCriteriaException_CritString);
 
                     var str = Bridge.cast(filterCriteria, System.String);
 
-                    // Check to see if this is a prefix or exact match requirement
                     if (str.length > 0 && str.charCodeAt(((str.length - 1) | 0)) === 42) {
                         str = str.substr(0, ((str.length - 1) | 0));
                         return System.String.startsWith(Bridge.Reflection.getTypeName(cls), str, 4);
@@ -34,15 +30,12 @@
                 },
                 FilterTypeNameIgnoreCaseImpl: function (cls, filterCriteria) {
                     var $t;
-                    // Check that the criteria object is a String object
                     if (filterCriteria == null || !(Bridge.is(filterCriteria, System.String))) {
                         throw new System.Reflection.InvalidFilterCriteriaException.$ctor1("A String must be provided for the filter criteria.");
                     }
-                    //throw new InvalidFilterCriteriaException(SR.InvalidFilterCriteriaException_CritString);
 
                     var str = Bridge.cast(filterCriteria, System.String);
 
-                    // Check to see if this is a prefix or exact match requirement
                     if (str.length > 0 && str.charCodeAt(((str.length - 1) | 0)) === 42) {
                         str = str.substr(0, ((str.length - 1) | 0));
                         var name = Bridge.Reflection.getTypeName(cls);

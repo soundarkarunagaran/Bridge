@@ -15,8 +15,6 @@
             },
             methods: {
                 IsCompatibleObject: function (value) {
-                    // Non-null values are fine.  Only accept nulls if T is a class or Nullable<U>.
-                    // Note that default(T) is not equal to null for value types except when T is Nullable<U>.
                     return ((Bridge.is(value, T)) || (value == null && Bridge.getDefaultValue(T) == null));
                 }
             }
@@ -143,8 +141,6 @@
                 } else {
                     this._size = 0;
                     this._items = System.Collections.Generic.List$1(T)._emptyArray;
-                    // This enumerable could be empty.  Let Add allocate a new array, if needed.
-                    // Note it will also go to _defaultCapacity first, not 1, then 2, etc.
 
                     var en = Bridge.getEnumerator(collection, T);
                     try {
@@ -162,7 +158,6 @@
         },
         methods: {
             getItem: function (index) {
-                // Following trick can reduce the range check by one
                 if ((index >>> 0) >= (this._size >>> 0)) {
                     throw new System.ArgumentOutOfRangeException.ctor();
                 }
@@ -248,7 +243,7 @@
             },
             clear: function () {
                 if (this._size > 0) {
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), 0, this._size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.
+                    System.Array.fill(this._items, Bridge.getDefaultValue(T), 0, this._size);
                     this._size = 0;
                 }
                 this._version = (this._version + 1) | 0;
@@ -304,18 +299,14 @@
                     throw new System.ArgumentException.ctor();
                 }
 
-                // Delegate rest of error checking to Array.Copy.
                 System.Array.copy(this._items, index, array, arrayIndex, count);
             },
             copyTo: function (array, arrayIndex) {
-                // Delegate rest of error checking to Array.Copy.
                 System.Array.copy(this._items, 0, array, arrayIndex, this._size);
             },
             EnsureCapacity: function (min) {
                 if (this._items.length < min) {
                     var newCapacity = this._items.length === 0 ? System.Collections.Generic.List$1(T)._defaultCapacity : Bridge.Int.mul(this._items.length, 2);
-                    // Allow the list to grow to maximum possible capacity (~2G elements) before encountering overflow.
-                    // Note that this check works even when _items.Length overflowed thanks to the (uint) cast
                     if ((newCapacity >>> 0) > 2146435071) {
                         newCapacity = 2146435071;
                     }
@@ -404,18 +395,15 @@
                 }
 
                 if (this._size === 0) {
-                    // Special case for 0 length List
                     if (startIndex !== -1) {
                         throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                     }
                 } else {
-                    // Make sure we're not out of range
                     if ((startIndex >>> 0) >= (this._size >>> 0)) {
                         throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                     }
                 }
 
-                // 2nd have of this also catches when startIndex == MAXINT, so MAXINT - 0 + 1 == -1, which is < 0.
                 if (count < 0 || ((((startIndex - count) | 0) + 1) | 0) < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
@@ -500,7 +488,6 @@
                 return System.Array.indexOfT(this._items, item, index, count);
             },
             insert: function (index, item) {
-                // Note that insertions at the end are legal.
                 if ((index >>> 0) > (this._size >>> 0)) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("index");
                 }
@@ -541,7 +528,7 @@
                 }
 
                 var c = Bridge.as(collection, System.Collections.Generic.ICollection$1(T));
-                if (c != null) { // if collection is ICollection<T>
+                if (c != null) {
                     var count = System.Array.getCount(c, T);
                     if (count > 0) {
                         this.EnsureCapacity(((this._size + count) | 0));
@@ -549,11 +536,8 @@
                             System.Array.copy(this._items, index, this._items, ((index + count) | 0), ((this._size - index) | 0));
                         }
 
-                        // If we're inserting a List into itself, we want to be able to deal with that.
                         if (Bridge.referenceEquals(this, c)) {
-                            // Copy first part of _items to insert location
                             System.Array.copy(this._items, 0, this._items, index, index);
-                            // Copy last part of _items back to inserted location
                             System.Array.copy(this._items, ((index + count) | 0), this._items, Bridge.Int.mul(index, 2), ((this._size - index) | 0));
                         } else {
                             var itemsToInsert = System.Array.init(count, function (){
@@ -580,7 +564,7 @@
                 this._version = (this._version + 1) | 0;
             },
             LastIndexOf: function (item) {
-                if (this._size === 0) { // Special case for empty list
+                if (this._size === 0) {
                     return -1;
                 } else {
                     return this.LastIndexOf$2(item, ((this._size - 1) | 0), this._size);
@@ -601,7 +585,7 @@
                     throw new System.ArgumentOutOfRangeException.$ctor1("count");
                 }
 
-                if (this._size === 0) { // Special case for empty list
+                if (this._size === 0) {
                     return -1;
                 }
 
@@ -634,9 +618,8 @@
                     throw new System.ArgumentNullException.$ctor1("match");
                 }
 
-                var freeIndex = 0; // the first free slot in items array
+                var freeIndex = 0;
 
-                // Find the first item which needs to be removed.
                 while (freeIndex < this._size && !match(this._items[System.Array.index(freeIndex, this._items)])) {
                     freeIndex = (freeIndex + 1) | 0;
                 }
@@ -646,13 +629,11 @@
 
                 var current = (freeIndex + 1) | 0;
                 while (current < this._size) {
-                    // Find the first item which needs to be kept.
                     while (current < this._size && match(this._items[System.Array.index(current, this._items)])) {
                         current = (current + 1) | 0;
                     }
 
                     if (current < this._size) {
-                        // copy item to the free slot.
                         this._items[System.Array.index(Bridge.identity(freeIndex, (freeIndex = (freeIndex + 1) | 0)), this._items)] = this._items[System.Array.index(Bridge.identity(current, (current = (current + 1) | 0)), this._items)];
                     }
                 }

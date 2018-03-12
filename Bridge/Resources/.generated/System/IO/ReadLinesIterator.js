@@ -34,20 +34,12 @@
                         return true;
                     }
 
-                    // To maintain 4.0 behavior we Dispose
-                    // after reading to the end of the reader.
                     this.Dispose();
                 }
 
                 return false;
             },
             Clone: function () {
-                // NOTE: To maintain the same behavior with the previous yield-based
-                // iterator in 4.0, we have all the IEnumerator<T> instances share the same
-                // underlying reader. If we have already been disposed, _reader will be null,
-                // which will cause CreateIterator to simply new up a new instance to start up
-                // a new iteration. Dev10 Bugs 904764 has been filed to fix this in next side-
-                // by-side release.
                 return System.IO.ReadLinesIterator.CreateIterator$1(this._path, this._encoding, this._reader);
             },
             Dispose$1: function (disposing) {

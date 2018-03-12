@@ -15,6 +15,9 @@
   "html": {
     "disabled": true
   },
+  "rules": {
+    "inlineComment": "Plain"
+  },
   "resources": [
     {
       // File paths relative to project root

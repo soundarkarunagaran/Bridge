@@ -228,7 +228,7 @@
                 }, T);
                 if (this._size === 0) {
                     return arr;
-                } // consider replacing with Array.Empty<T>() to be consistent with non-generic Queue
+                }
 
                 if (this._head < this._tail) {
                     System.Array.copy(this._array, this._head, arr, 0, this._size);
@@ -258,8 +258,6 @@
                 this._version = (this._version + 1) | 0;
             },
             MoveNext: function (index) {
-                // It is tempting to use the remainder operator here but it is actually much slower
-                // than a simple comparison and a rarely taken branch.
                 var tmp = (index + 1) | 0;
                 return (tmp === this._array.length) ? 0 : tmp;
             },

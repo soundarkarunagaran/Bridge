@@ -44,8 +44,6 @@
                 this.Dispose$1(true);
             },
             Dispose$1: function (disposing) {
-                // Do not destroy _sb, so that we can extract this after we are
-                // done writing (similar to MemoryStream's GetBuffer & ToArray methods)
                 this._isOpen = false;
                 System.IO.TextWriter.prototype.Dispose$1.call(this, disposing);
             },

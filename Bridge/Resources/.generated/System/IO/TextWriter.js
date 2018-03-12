@@ -54,7 +54,7 @@
             },
             ctor: function () {
                 this.$initialize();
-                this.InternalFormatProvider = null; // Ask for CurrentCulture all the time.
+                this.InternalFormatProvider = null;
             },
             $ctor1: function (formatProvider) {
                 this.$initialize();
@@ -198,19 +198,10 @@
                 if (value == null) {
                     this.WriteLine();
                 } else {
-                    // We'd ideally like WriteLine to be atomic, in that one call
-                    // to WriteLine equals one call to the OS (ie, so writing to
-                    // console while simultaneously calling printf will guarantee we
-                    // write out a string and new line chars, without any interference).
-                    // Additionally, we need to call ToCharArray on Strings anyways,
-                    // so allocating a char[] here isn't any worse than what we were
-                    // doing anyways.  We do reduce the number of calls to the
-                    // backing store this way, potentially.
                     var vLen = value.length;
                     var nlLen = this.CoreNewLine.length;
                     var chars = System.Array.init(((vLen + nlLen) | 0), 0, System.Char);
                     System.String.copyTo(value, 0, chars, 0, vLen);
-                    // CoreNewLine will almost always be 2 chars, and possibly 1.
                     if (nlLen === 2) {
                         chars[System.Array.index(vLen, chars)] = this.CoreNewLine[System.Array.index(0, this.CoreNewLine)];
                         chars[System.Array.index(((vLen + 1) | 0), chars)] = this.CoreNewLine[System.Array.index(1, this.CoreNewLine)];
@@ -230,8 +221,6 @@
                 if (value == null) {
                     this.WriteLine();
                 } else {
-                    // Call WriteLine(value.ToString), not Write(Object), WriteLine().
-                    // This makes calls to WriteLine(Object) atomic.
                     var f = Bridge.as(value, System.IFormattable);
                     if (f != null) {
                         this.WriteLine$11(Bridge.format(f, null, this.FormatProvider));

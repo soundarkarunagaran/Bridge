@@ -14,15 +14,7 @@
         methods: {
             GetRealObject: function (context) {
                 throw System.NotImplemented.ByDesign;
-                // TODO: NotSupported
-                //if (_unityType != NullUnity)
-                //{
-                //    throw new ArgumentException(SR.Format("Type '{0}' is not deserializable.", _data ?? "UnityType"));
-                //    // TODO: SR
-                //    //throw new ArgumentException(SR.Format(SR.Argument_InvalidUnity, _data ?? "UnityType"));
-                //}
 
-                //return DBNull.Value;
             }
         }
     });

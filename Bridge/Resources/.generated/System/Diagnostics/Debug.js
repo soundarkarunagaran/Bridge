@@ -71,8 +71,6 @@
 
                         try {
                             throw System.NotImplemented.ByDesign;
-                            // TODO: NotSupported
-                            //stackTrace = Internal.Runtime.Augments.EnvironmentAugments.StackTrace;
                         }
                         catch ($e1) {
                             $e1 = System.Exception.create($e1);
@@ -96,13 +94,6 @@
                 FormatAssert: function (stackTrace, message, detailMessage) {
                     var newLine = (System.Diagnostics.Debug.GetIndentString() || "") + ("\n" || "");
                     return "---- DEBUG ASSERTION FAILED ----" + (newLine || "") + "---- Assert Short Message ----" + (newLine || "") + (message || "") + (newLine || "") + "---- Assert Long Message ----" + (newLine || "") + (detailMessage || "") + (newLine || "") + (stackTrace || "");
-                    // TODO: SR
-                    //return SR.DebugAssertBanner + newLine
-                    //       + SR.DebugAssertShortMessage + newLine
-                    //       + message + newLine
-                    //       + SR.DebugAssertLongMessage + newLine
-                    //       + detailMessage + newLine
-                    //       + stackTrace;
                 },
                 WriteLine$2: function (message) {
                     System.Diagnostics.Debug.Write$2((message || "") + ("\n" || ""));
@@ -206,9 +197,6 @@
                     if (System.Diagnostics.Debugger.IsAttached) {
                         System.Diagnostics.Debugger.Break();
                     } else {
-                        // In Core, we do not show a dialog.
-                        // Fail in order to avoid anyone catching an exception and masking
-                        // an assert failure.
                         var ex = new System.Diagnostics.Debug.DebugAssertException(message, detailMessage, stackTrace);
                         System.Environment.FailFast$1(ex.Message, ex);
                     }
@@ -226,51 +214,17 @@
                     } else {
                         System.Console.WriteLine(message);
 
-                        // TODO: NotSupported
-                        //Interop.Sys.SysLog(Interop.Sys.SysLogPriority.LOG_USER | Interop.Sys.SysLogPriority.LOG_DEBUG, "%s", message);
                     }
                 },
                 WriteToStderr: function (message) {
                     System.Console.WriteLine(message);
 
-                    // TODO: NotSupported
 
 
-                    //const int BufferLength = 256;
 
-                    //unsafe
-                    //{
-                    //    byte* buf = stackalloc byte[BufferLength];
-                    //    int bufCount;
-                    //    int i = 0;
 
-                    //    while (i < message.Length)
-                    //    {
-                    //        for (bufCount = 0; bufCount < BufferLength && i < message.Length; i++)
-                    //        {
-                    //            if (message[i] <= 0x7F)
-                    //            {
-                    //                buf[bufCount] = (byte)message[i];
-                    //                bufCount++;
-                    //            }
-                    //        }
 
-                    //        int totalBytesWritten = 0;
-                    //        while (bufCount > 0)
-                    //        {
-                    //            int bytesWritten = Interop.Sys.Write(2 /* stderr */, buf + totalBytesWritten, bufCount);
-                    //            if (bytesWritten < 0)
-                    //            {
-                    //                // On error, simply stop writing the debug output.  This could commonly happen if stderr
-                    //                // was piped to a program that ended before this program did, resulting in EPIPE errors.
-                    //                return;
-                    //            }
 
-                    //            bufCount -= bytesWritten;
-                    //            totalBytesWritten += bytesWritten;
-                    //        }
-                    //    }
-                    //}
                 }
             }
         }

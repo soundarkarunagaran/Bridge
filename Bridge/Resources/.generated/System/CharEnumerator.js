@@ -16,11 +16,9 @@
                     if (this._index === -1) {
                         throw new System.InvalidOperationException.$ctor1("Enumeration has not started. Call MoveNext.");
                     }
-                    //throw new InvalidOperationException(SR.InvalidOperation_EnumNotStarted);
                     if (this._index >= this._str.length) {
                         throw new System.InvalidOperationException.$ctor1("Enumeration already finished.");
                     }
-                    //throw new InvalidOperationException(SR.InvalidOperation_EnumEnded);
                     return this._currentElement;
                 }
             }

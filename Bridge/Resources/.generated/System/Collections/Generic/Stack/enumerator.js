@@ -63,7 +63,7 @@
                 if (this._version !== this._stack._version) {
                     throw new System.InvalidOperationException.$ctor1("Collection was modified; enumeration operation may not execute.");
                 }
-                if (this._index === -2) { // First call to enumerator.
+                if (this._index === -2) {
                     this._index = (this._stack._size - 1) | 0;
                     retval = (this._index >= 0);
                     if (retval) {
@@ -71,7 +71,7 @@
                     }
                     return retval;
                 }
-                if (this._index === -1) { // End of enumeration.
+                if (this._index === -1) {
                     return false;
                 }
 

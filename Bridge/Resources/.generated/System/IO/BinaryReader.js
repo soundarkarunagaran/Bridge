@@ -55,18 +55,13 @@
                 this.m_stream = input;
                 this.m_encoding = encoding;
                 this.m_maxCharsSize = encoding.GetMaxCharCount(System.IO.BinaryReader.MaxCharBytesSize);
-                var minBufferSize = encoding.GetMaxByteCount(1); // max bytes per one char
+                var minBufferSize = encoding.GetMaxByteCount(1);
                 if (minBufferSize < 23) {
                     minBufferSize = 23;
                 }
                 this.m_buffer = System.Array.init(minBufferSize, 0, System.Byte);
-                // m_charBuffer and m_charBytes will be left null.
 
-                // For Encodings that always use 2 bytes per char (or more),
-                // special case them here to make Read() & Peek() faster.
                 this.m_2BytesPerChar = Bridge.is(encoding, System.Text.UnicodeEncoding);
-                // check if BinaryReader is based on MemoryStream, and keep this for it's life
-                // we cannot use "as" operator, since derived classes are not allowed
                 this.m_isMemoryStream = (Bridge.referenceEquals(Bridge.getType(this.m_stream), System.IO.MemoryStream));
                 this.m_leaveOpen = leaveOpen;
 
@@ -133,7 +128,6 @@
                     System.IO.__Error.FileNotOpen();
                 }
 
-                // SafeCritical: index and count have already been verified to be a valid range for the buffer
                 return this.InternalReadChars(buffer, index, count);
             },
             Read$1: function (buffer, index, count) {
@@ -160,7 +154,6 @@
                 return (this.m_buffer[System.Array.index(0, this.m_buffer)] !== 0);
             },
             ReadByte: function () {
-                // Inlined to avoid some method call overhead with FillBuffer.
                 if (this.m_stream == null) {
                     System.IO.__Error.FileNotOpen();
                 }
@@ -195,7 +188,6 @@
                     if (this.m_stream == null) {
                         System.IO.__Error.FileNotOpen();
                     }
-                    // read directly from MemoryStream buffer
                     var mStream = Bridge.as(this.m_stream, System.IO.MemoryStream);
 
                     return mStream.InternalReadInt32();
@@ -243,7 +235,6 @@
                     var e;
                     if (Bridge.is($e1, System.ArgumentException)) {
                         e = $e1;
-                        // ReadDecimal cannot leak out ArgumentException
                         throw new System.IO.IOException.$ctor2("Arg_DecBitCtor", e);
                     } else {
                         throw $e1;
@@ -262,7 +253,6 @@
                 var readLength;
                 var charsRead;
 
-                // Length of the string in bytes, not chars
                 stringLength = this.Read7BitEncodedInt();
                 if (stringLength < 0) {
                     throw new System.IO.IOException.$ctor1("IO.IO_InvalidStringLen_Len");
@@ -340,18 +330,11 @@
                     index = (index + 1) | 0;
                 }
 
-                // this should never fail
 
-                // we may have read fewer than the number of characters requested if end of stream reached
-                // or if the encoding makes the char count too big for the buffer (e.g. fallback sequence)
                 return (((count - charsRemaining) | 0));
             },
             InternalReadOneChar: function (allowSurrogate) {
                 if (allowSurrogate === void 0) { allowSurrogate = false; }
-                // I know having a separate InternalReadOneChar method seems a little
-                // redundant, but this makes a scenario like the security parser code
-                // 20% faster, in addition to the optimizations for UnicodeEncoding I
-                // put in InternalReadChars.
                 var charsRead = 0;
                 var numBytes = 0;
                 var posSav = System.Int64(0);
@@ -361,7 +344,7 @@
                 }
 
                 if (this.m_charBytes == null) {
-                    this.m_charBytes = System.Array.init(System.IO.BinaryReader.MaxCharBytesSize, 0, System.Byte); //
+                    this.m_charBytes = System.Array.init(System.IO.BinaryReader.MaxCharBytesSize, 0, System.Byte);
                 }
                 if (this.m_singleChar == null) {
                     this.m_singleChar = System.Array.init(2, 0, System.Char);
@@ -443,12 +426,10 @@
                     }
                     catch ($e1) {
                         $e1 = System.Exception.create($e1);
-                        // Handle surrogate char
 
                         if (this.m_stream.CanSeek) {
                             this.m_stream.Seek((posSav.sub(this.m_stream.Position)), 1);
                         }
-                        // else - we can't do much here
 
                         throw $e1;
                     }
@@ -482,12 +463,11 @@
                     return System.Array.init(0, 0, System.Char);
                 }
 
-                // SafeCritical: we own the chars buffer, and therefore can guarantee that the index and count are valid
                 var chars = System.Array.init(count, 0, System.Char);
                 var n = this.InternalReadChars(chars, 0, count);
                 if (n !== count) {
                     var copy = System.Array.init(n, 0, System.Char);
-                    System.Array.copy(chars, 0, copy, 0, Bridge.Int.mul(2, n)); // sizeof(char)
+                    System.Array.copy(chars, 0, copy, 0, Bridge.Int.mul(2, n));
                     chars = copy;
                 }
 
@@ -518,7 +498,6 @@
                 } while (count > 0);
 
                 if (numRead !== result.length) {
-                    // Trim array.  This should happen on EOF & possibly net streams.
                     var copy = System.Array.init(numRead, 0, System.Byte);
                     System.Array.copy(result, 0, copy, 0, numRead);
                     result = copy;
@@ -537,9 +516,6 @@
                     System.IO.__Error.FileNotOpen();
                 }
 
-                // Need to find a good threshold for calling ReadByte() repeatedly
-                // vs. calling Read(byte[], int, int) for both buffered & unbuffered
-                // streams.
                 if (numBytes === 1) {
                     n = this.m_stream.ReadByte();
                     if (n === -1) {
@@ -558,19 +534,14 @@
                 } while (bytesRead < numBytes);
             },
             Read7BitEncodedInt: function () {
-                // Read out an Int32 7 bits at a time.  The high bit
-                // of the byte when on means to continue reading more bytes.
                 var count = 0;
                 var shift = 0;
                 var b;
                 do {
-                    // Check for a corrupted stream.  Read a max of 5 bytes.
-                    // In a future version, add a DataFormatException.
                     if (shift === 35) {
                         throw new System.FormatException.$ctor1("Format_Bad7BitInt32");
                     }
 
-                    // ReadByte handles end of stream cases for us.
                     b = this.ReadByte();
                     count = count | ((b & 127) << shift);
                     shift = (shift + 7) | 0;

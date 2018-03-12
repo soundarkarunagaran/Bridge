@@ -14,8 +14,6 @@
                 if (parameterCount <= 0) {
                     throw new System.ArgumentException.$ctor1("Must specify one or more parameters.");
                 }
-                // TODO: SR
-                //throw new ArgumentException(SR.Arg_ParmArraySize);
 
                 this._byRef = System.Array.init(parameterCount, false, System.Boolean);
             },

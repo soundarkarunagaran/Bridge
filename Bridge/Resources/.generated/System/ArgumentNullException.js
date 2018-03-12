@@ -4,7 +4,6 @@
             ctor: function () {
                 this.$initialize();
                 System.ArgumentException.$ctor1.call(this, "Value cannot be null.");
-                // Use E_POINTER - COM used that for null pointers.  Description is "invalid pointer"
                 this.HResult = -2147467261;
             },
             $ctor1: function (paramName) {

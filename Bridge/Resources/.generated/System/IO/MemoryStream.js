@@ -45,8 +45,6 @@
                     return ((this._capacity - this._origin) | 0);
                 },
                 set: function (value) {
-                    // Only update the capacity if the MS is expandable and the value is different than the current capacity.
-                    // Special behavior if the MS isn't expandable: we don't throw if value is the same as the current capacity
                     if (System.Int64(value).lt(this.Length)) {
                         throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_SmallCapacity");
                     }
@@ -58,7 +56,6 @@
                         System.IO.__Error.MemoryStreamNotExpandable();
                     }
 
-                    // MemoryStream has this invariant: _origin > 0 => !expandable (see ctors)
                     if (this._expandable && value !== this._capacity) {
                         if (value > 0) {
                             var newBuffer = System.Array.init(value, 0, System.Byte);
@@ -120,7 +117,7 @@
                 this._expandable = true;
                 this._writable = true;
                 this._exposable = true;
-                this._origin = 0; // Must be 0 for byte[]'s created by MemoryStream
+                this._origin = 0;
                 this._isOpen = true;
             },
             $ctor1: function (buffer) {
@@ -165,7 +162,7 @@
                 this._origin = (this._position = index);
                 this._length = (this._capacity = (index + count) | 0);
                 this._writable = writable;
-                this._exposable = publiclyVisible; // Can TryGetBuffer/GetBuffer return the array?
+                this._exposable = publiclyVisible;
                 this._expandable = false;
                 this._isOpen = true;
             }
@@ -185,12 +182,10 @@
                     }
                 }
                 finally {
-                    // Call base.Close() to cleanup async IO resources
                     System.IO.Stream.prototype.Dispose$1.call(this, disposing);
                 }
             },
             EnsureCapacity: function (value) {
-                // Check for overflow
                 if (value < 0) {
                     throw new System.IO.IOException.$ctor1("IO.IO_StreamTooLong");
                 }
@@ -199,13 +194,9 @@
                     if (newCapacity < 256) {
                         newCapacity = 256;
                     }
-                    // We are ok with this overflowing since the next statement will deal
-                    // with the cases where _capacity*2 overflows.
                     if (newCapacity < Bridge.Int.mul(this._capacity, 2)) {
                         newCapacity = Bridge.Int.mul(this._capacity, 2);
                     }
-                    // We want to expand the array up to Array.MaxArrayLengthOneDimensional
-                    // And we want to give the user the value that they asked for
                     if ((((Bridge.Int.mul(this._capacity, 2))) >>> 0) > 2147483591) {
                         newCapacity = value > 2147483591 ? value : 2147483591;
                     }
@@ -245,7 +236,7 @@
                     System.IO.__Error.StreamIsClosed();
                 }
 
-                var pos = ((this._position = (this._position + 4) | 0)); // use temp to avoid ----
+                var pos = ((this._position = (this._position + 4) | 0));
                 if (pos > this._length) {
                     this._position = this._length;
                     System.IO.__Error.EndOfFile();
@@ -263,7 +254,8 @@
                 }
                 if (n < 0) {
                     n = 0;
-                } // len is less than 2^31 -1.
+                }
+
                 this._position = (this._position + n) | 0;
                 return n;
             },
@@ -291,7 +283,8 @@
                 }
                 if (n <= 0) {
                     return 0;
-                } // len is less than 2^31 -1.
+                }
+
 
                 if (n <= 8) {
                     var byteCount = n;
@@ -364,7 +357,6 @@
                 }
                 this.EnsureWriteable();
 
-                // Origin wasn't publicly exposed above. // Check parameter validation logic in this method if this fails.
                 if (value.gt(System.Int64((((2147483647 - this._origin) | 0))))) {
                     throw new System.ArgumentOutOfRangeException.$ctor4("value", "ArgumentOutOfRange_StreamLength");
                 }
@@ -405,7 +397,6 @@
                 this.EnsureWriteable();
 
                 var i = (this._position + count) | 0;
-                // Check for overflow
                 if (i < 0) {
                     throw new System.IO.IOException.$ctor1("IO.IO_StreamTooLong");
                 }

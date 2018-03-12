@@ -44,78 +44,15 @@
 
                     return key;
 
-                    // TODO: NotSupported
 
 
 
-                    //bool lockTaken = false;
-                    //try
-                    //{
-                    //    Monitor.Enter(_lock, ref lockTaken);
 
-                    //    // Are we recursively looking up the same resource?  Note - our backout code will set
-                    //    // the ResourceHelper's currentlyLoading stack to null if an exception occurs.
-                    //    if (_currentlyLoading != null && _currentlyLoading.Count > 0 && _currentlyLoading.LastIndexOf(key) != -1)
-                    //    {
-                    //        // We can start infinitely recursing for one resource lookup,
-                    //        // then during our failure reporting, start infinitely recursing again.
-                    //        // avoid that.
-                    //        if (_infinitelyRecursingCount > 0)
-                    //        {
-                    //            return key;
-                    //        }
-                    //        _infinitelyRecursingCount++;
 
-                    //        // Note: our infrastructure for reporting this exception will again cause resource lookup.
-                    //        // This is the most direct way of dealing with that problem.
-                    //        string message = $"Infinite recursion during resource lookup within {System.CoreLib.Name}.  This may be a bug in {System.CoreLib.Name}, or potentially in certain extensibility points such as assembly resolve events or CultureInfo names.  Resource name: {key}";
-                    //        Environment.FailFast(message);
-                    //    }
-                    //    if (_currentlyLoading == null)
-                    //        _currentlyLoading = new List<string>();
 
-                    //    // Call class constructors preemptively, so that we cannot get into an infinite
-                    //    // loop constructing a TypeInitializationException.  If this were omitted,
-                    //    // we could get the Infinite recursion assert above by failing type initialization
-                    //    // between the Push and Pop calls below.
-                    //    if (!_resourceManagerInited)
-                    //    {
-                    //        RuntimeHelpers.RunClassConstructor(typeof(ResourceManager).TypeHandle);
-                    //        RuntimeHelpers.RunClassConstructor(typeof(ResourceReader).TypeHandle);
-                    //        RuntimeHelpers.RunClassConstructor(typeof(RuntimeResourceSet).TypeHandle);
-                    //        RuntimeHelpers.RunClassConstructor(typeof(BinaryReader).TypeHandle);
-                    //        _resourceManagerInited = true;
-                    //    }
 
-                    //    _currentlyLoading.Add(key); // Push
 
-                    //    if (ResourceManager == null)
-                    //    {
-                    //        ResourceManager = new ResourceManager(SR.ResourceType);
-                    //    }
-                    //    string s = ResourceManager.GetString(key, null);
-                    //    _currentlyLoading.RemoveAt(_currentlyLoading.Count - 1); // Pop
 
-                    //    Debug.Assert(s != null, "Managed resource string lookup failed.  Was your resource name misspelled?  Did you rebuild mscorlib after adding a resource to resources.txt?  Debug this w/ cordbg and bug whoever owns the code that called SR.GetResourceString.  Resource name was: \"" + key + "\"");
-                    //    return s ?? key;
-                    //}
-                    //catch
-                    //{
-                    //    if (lockTaken)
-                    //    {
-                    //        // Backout code - throw away potentially corrupt state
-                    //        ResourceManager = null;
-                    //        _currentlyLoading = null;
-                    //    }
-                    //    throw;
-                    //}
-                    //finally
-                    //{
-                    //    if (lockTaken)
-                    //    {
-                    //        Monitor.Exit(_lock);
-                    //    }
-                    //}
                 },
                 Format$3: function (resourceFormat, args) {
                     if (args === void 0) { args = []; }

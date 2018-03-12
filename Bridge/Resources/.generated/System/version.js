@@ -351,7 +351,6 @@
                     return false;
                 }
 
-                // check that major, minor, build & revision numbers match
                 if ((this._Major !== obj._Major) || (this._Minor !== obj._Minor) || (this._Build !== obj._Build) || (this._Revision !== obj._Revision)) {
                     return false;
                 }
@@ -359,8 +358,6 @@
                 return true;
             },
             getHashCode: function () {
-                // Let's assume that most version numbers will be pretty small and just
-                // OR some lower order bits together.
 
                 var accumulator = 0;
 

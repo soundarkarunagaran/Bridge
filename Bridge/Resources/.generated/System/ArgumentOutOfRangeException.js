@@ -9,8 +9,6 @@
                     var s = Bridge.ensureBaseProperty(this, "Message").$System$ArgumentException$Message;
                     if (this._actualValue != null) {
                         var valueMessage = System.SR.Format("Actual value was {0}.", Bridge.toString(this._actualValue));
-                        // TODO: SR
-                        //String valueMessage = SR.Format(SR.ArgumentOutOfRange_ActualValue, _actualValue.ToString());
                         if (s == null) {
                             return valueMessage;
                         }

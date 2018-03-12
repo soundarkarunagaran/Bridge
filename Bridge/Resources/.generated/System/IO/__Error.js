@@ -26,11 +26,9 @@
                     throw new System.ArgumentException.$ctor1("Arg_WrongAsyncResult");
                 },
                 EndReadCalledTwice: function () {
-                    // Should ideally be InvalidOperationExc but we can't maitain parity with Stream and FileStream without some work
                     throw new System.ArgumentException.$ctor1("InvalidOperation_EndReadCalledMultiple");
                 },
                 EndWriteCalledTwice: function () {
-                    // Should ideally be InvalidOperationExc but we can't maintain parity with Stream and FileStream without some work
                     throw new System.ArgumentException.$ctor1("InvalidOperation_EndWriteCalledMultiple");
                 },
                 WriteNotSupported: function () {

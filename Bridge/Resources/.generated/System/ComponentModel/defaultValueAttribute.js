@@ -14,19 +14,13 @@
             $ctor11: function (type, value) {
                 this.$initialize();
                 System.Attribute.ctor.call(this);
-                // The try/catch here is because attributes should never throw exceptions.  We would fail to
-                // load an otherwise normal class.
                 try {
                     if ((type.prototype instanceof System.Enum)) {
                         this._value = System.Enum.parse(type, value, true);
                     } else if (Bridge.referenceEquals(type, System.TimeSpan)) {
                         throw System.NotImplemented.ByDesign;
-                        // TODO: NotSupported
-                        //_value = TimeSpan.Parse(value);
                     } else {
                         throw System.NotImplemented.ByDesign;
-                        // TODO: NotSupported
-                        //_value = Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
                     }
                 }
                 catch ($e1) {

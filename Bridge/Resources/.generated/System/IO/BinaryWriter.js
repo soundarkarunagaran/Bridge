@@ -203,9 +203,7 @@
                 this.OutStream.Write(buffer, 0, len);
             },
             Write7BitEncodedInt: function (value) {
-                // Write out an int 7 bits at a time.  The high bit of the byte,
-                // when on, tells reader to continue reading more bytes.
-                var v = value >>> 0; // support negative numbers
+                var v = value >>> 0;
                 while (v >= 128) {
                     this.Write$1(((((v | 128) >>> 0)) & 255));
                     v = v >>> 7;

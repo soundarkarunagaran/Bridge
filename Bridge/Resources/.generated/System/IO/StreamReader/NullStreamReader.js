@@ -21,9 +21,7 @@
             }
         },
         methods: {
-            Dispose$1: function (disposing) {
-                // Do nothing - this is essentially unclosable.
-            },
+            Dispose$1: function (disposing) { },
             Peek: function () {
                 return -1;
             },

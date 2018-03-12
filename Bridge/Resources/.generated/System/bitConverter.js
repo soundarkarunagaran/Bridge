@@ -138,7 +138,7 @@
                         throw new System.ArgumentNullException.$ctor1("value");
                     }
 
-                    if (startIndex < 0 || startIndex >= value.length && startIndex > 0) { // Don't throw for a 0 length array.
+                    if (startIndex < 0 || startIndex >= value.length && startIndex > 0) {
                         throw new System.ArgumentOutOfRangeException.$ctor1("startIndex");
                     }
 
@@ -155,7 +155,6 @@
                     }
 
                     if (length > (715827882)) {
-                        // (Int32.MaxValue / 3) == 715,827,882 Bytes == 699 MB
                         throw new System.ArgumentOutOfRangeException.$ctor4("length", Bridge.toString((715827882)));
                     }
 
@@ -172,7 +171,6 @@
                         chArray[System.Array.index(((i + 2) | 0), chArray)] = 45;
                     }
 
-                    // We don't need the last '-' character
                     return System.String.fromCharArray(chArray, 0, ((chArray.length - 1) | 0));
                 },
                 toString: function (value) {

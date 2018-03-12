@@ -62,7 +62,6 @@
                         return false;
                     }
 
-                    // This may block on pipes!
                     var numRead = this.ReadBuffer();
                     return numRead === 0;
                 }
@@ -121,9 +120,6 @@
             $ctor12: function (path, encoding, detectEncodingFromByteOrderMarks, bufferSize, checkHost) {
                 this.$initialize();
                 System.IO.TextReader.ctor.call(this);
-                // Don't open a Stream before checking for invalid arguments,
-                // or we'll create a FileStream on disk and we won't close it until
-                // the finalizer runs, causing problems for applications.
                 if (path == null || encoding == null) {
                     throw new System.ArgumentNullException.$ctor1((path == null ? "path" : "encoding"));
                 }
@@ -162,11 +158,7 @@
                 this.Dispose$1(true);
             },
             Dispose$1: function (disposing) {
-                // Dispose of our resources if this StreamReader is closable.
-                // Note that Console.In should be left open.
                 try {
-                    // Note that Stream.Close() can potentially throw here. So we need to
-                    // ensure cleaning up internal resources, inside the finally block.
                     if (!this.LeaveOpen && disposing && (this.stream != null)) {
                         this.stream.Close();
                     }
@@ -234,8 +226,6 @@
 
 
                 var charsRead = 0;
-                // As a perf optimization, if we had exactly one buffer's worth of
-                // data read in, let's try writing directly to the user's buffer.
                 var readToUserBuffer = { v : false };
                 while (count > 0) {
                     var n = (this.charLen - this.charPos) | 0;
@@ -244,7 +234,7 @@
                     }
                     if (n === 0) {
                         break;
-                    } // We're at EOF
+                    }
                     if (n > count) {
                         n = count;
                     }
@@ -254,9 +244,6 @@
                     }
                     charsRead = (charsRead + n) | 0;
                     count = (count - n) | 0;
-                    // This function shouldn't block for an indefinite amount of time,
-                    // or reading from a network stream won't work right.  If we got
-                    // fewer bytes than we requested, then we want to break right here.
                     if (this._isBlocked) {
                         break;
                     }
@@ -328,11 +315,10 @@
                     System.IO.__Error.ReaderClosed();
                 }
 
-                // Call ReadBuffer, then pull data out of charBuffer.
                 var sb = new System.Text.StringBuilder("", ((this.charLen - this.charPos) | 0));
                 do {
                     sb.append(System.String.fromCharArray(this.charBuffer, this.charPos, ((this.charLen - this.charPos) | 0)));
-                    this.charPos = this.charLen; // Note we consumed these characters
+                    this.charPos = this.charLen;
                     this.ReadBuffer();
                 } while (this.charLen > 0);
                 return sb.toString();
@@ -365,13 +351,11 @@
                 this._detectEncoding = false;
                 var changedEncoding = false;
                 if (this.byteBuffer[System.Array.index(0, this.byteBuffer)] === 254 && this.byteBuffer[System.Array.index(1, this.byteBuffer)] === 255) {
-                    // Big Endian Unicode
 
                     this.encoding = new System.Text.UnicodeEncoding.$ctor1(true, true);
                     this.CompressBuffer(2);
                     changedEncoding = true;
                 } else if (this.byteBuffer[System.Array.index(0, this.byteBuffer)] === 255 && this.byteBuffer[System.Array.index(1, this.byteBuffer)] === 254) {
-                    // Little Endian Unicode, or possibly little endian UTF32
                     if (this.byteLen < 4 || this.byteBuffer[System.Array.index(2, this.byteBuffer)] !== 0 || this.byteBuffer[System.Array.index(3, this.byteBuffer)] !== 0) {
                         this.encoding = new System.Text.UnicodeEncoding.$ctor1(false, true);
                         this.CompressBuffer(2);
@@ -382,20 +366,16 @@
                         changedEncoding = true;
                     }
                 } else if (this.byteLen >= 3 && this.byteBuffer[System.Array.index(0, this.byteBuffer)] === 239 && this.byteBuffer[System.Array.index(1, this.byteBuffer)] === 187 && this.byteBuffer[System.Array.index(2, this.byteBuffer)] === 191) {
-                    // UTF-8
                     this.encoding = System.Text.Encoding.UTF8;
                     this.CompressBuffer(3);
                     changedEncoding = true;
                 } else if (this.byteLen >= 4 && this.byteBuffer[System.Array.index(0, this.byteBuffer)] === 0 && this.byteBuffer[System.Array.index(1, this.byteBuffer)] === 0 && this.byteBuffer[System.Array.index(2, this.byteBuffer)] === 254 && this.byteBuffer[System.Array.index(3, this.byteBuffer)] === 255) {
-                    // Big Endian UTF32
                     this.encoding = new System.Text.UTF32Encoding.$ctor1(true, true);
                     this.CompressBuffer(4);
                     changedEncoding = true;
                 } else if (this.byteLen === 2) {
                     this._detectEncoding = true;
                 }
-                // Note: in the future, if we change this algorithm significantly,
-                // we can support checking for the preamble of the given encoding.
 
                 if (changedEncoding) {
                     this._maxCharsPerBuffer = this.encoding.GetMaxCharCount(this.byteBuffer.length);
@@ -417,27 +397,18 @@
                         return this.charLen;
                     }
 
-                    // _isBlocked == whether we read fewer bytes than we asked for.
-                    // Note we must check it here because CompressBuffer or
-                    // DetectEncoding will change byteLen.
                     this._isBlocked = (this.byteLen < this.byteBuffer.length);
 
-                    // Check for preamble before detect encoding. This is not to override the
-                    // user suppplied Encoding for the one we implicitly detect. The user could
-                    // customize the encoding which we will loose, such as ThrowOnError on UTF8
                     if (this.IsPreamble()) {
                         continue;
                     }
 
-                    // If we're supposed to detect the encoding and haven't done so yet,
-                    // do it.  Note this may need to be called more than once.
                     if (this._detectEncoding && this.byteLen >= 2) {
                         this.DetectEncoding();
                     }
 
                     this.charLen = (this.charLen + (this.encoding.GetChars$2(this.byteBuffer, 0, this.byteLen, this.charBuffer, this.charLen))) | 0;
                 } while (this.charLen === 0);
-                //Console.WriteLine("ReadBuffer called.  chars: "+charLen);
                 return this.charLen;
             },
             ReadBuffer$1: function (userBuffer, userOffset, desiredChars, readToUserBuffer) {
@@ -448,17 +419,6 @@
 
                 var charsRead = 0;
 
-                // As a perf optimization, we can decode characters DIRECTLY into a
-                // user's char[].  We absolutely must not write more characters
-                // into the user's buffer than they asked for.  Calculating
-                // encoding.GetMaxCharCount(byteLen) each time is potentially very
-                // expensive - instead, cache the number of chars a full buffer's
-                // worth of data may produce.  Yes, this makes the perf optimization
-                // less aggressive, in that all reads that asked for fewer than AND
-                // returned fewer than _maxCharsPerBuffer chars won't get the user
-                // buffer optimization.  This affects reads where the end of the
-                // Stream comes in the middle somewhere, and when you ask for
-                // fewer chars than your buffer could produce.
                 readToUserBuffer.v = desiredChars >= this._maxCharsPerBuffer;
 
                 do {
@@ -471,40 +431,29 @@
                         break;
                     }
 
-                    // _isBlocked == whether we read fewer bytes than we asked for.
-                    // Note we must check it here because CompressBuffer or
-                    // DetectEncoding will change byteLen.
                     this._isBlocked = (this.byteLen < this.byteBuffer.length);
 
-                    // Check for preamble before detect encoding. This is not to override the
-                    // user suppplied Encoding for the one we implicitly detect. The user could
-                    // customize the encoding which we will loose, such as ThrowOnError on UTF8
-                    // Note: we don't need to recompute readToUserBuffer optimization as IsPreamble
-                    // doesn't change the encoding or affect _maxCharsPerBuffer
                     if (this.IsPreamble()) {
                         continue;
                     }
 
-                    // On the first call to ReadBuffer, if we're supposed to detect the encoding, do it.
                     if (this._detectEncoding && this.byteLen >= 2) {
                         this.DetectEncoding();
-                        // DetectEncoding changes some buffer state.  Recompute this.
                         readToUserBuffer.v = desiredChars >= this._maxCharsPerBuffer;
                     }
 
                     this.charPos = 0;
                     if (readToUserBuffer.v) {
                         charsRead = (charsRead + (this.encoding.GetChars$2(this.byteBuffer, 0, this.byteLen, userBuffer, ((userOffset + charsRead) | 0)))) | 0;
-                        this.charLen = 0; // StreamReader's buffer is empty.
+                        this.charLen = 0;
                     } else {
                         charsRead = this.encoding.GetChars$2(this.byteBuffer, 0, this.byteLen, this.charBuffer, charsRead);
-                        this.charLen = (this.charLen + charsRead) | 0; // Number of chars in StreamReader's buffer.
+                        this.charLen = (this.charLen + charsRead) | 0;
                     }
                 } while (charsRead === 0);
 
                 this._isBlocked = !!(this._isBlocked & charsRead < desiredChars);
 
-                //Console.WriteLine("ReadBuffer: charsRead: "+charsRead+"  readToUserBuffer: "+readToUserBuffer);
                 return charsRead;
             },
             ReadLine: function () {
@@ -523,8 +472,6 @@
                     var i = this.charPos;
                     do {
                         var ch = this.charBuffer[System.Array.index(i, this.charBuffer)];
-                        // Note the following common line feed chars:
-                        // \n - UNIX   \r\n - DOS   \r - Mac
                         if (ch === 13 || ch === 10) {
                             var s;
                             if (sb != null) {

@@ -30,13 +30,11 @@
                 var ii;
                 var mj, mk;
 
-                //Initialize our Seed array.
-                //This algorithm comes from Numerical Recipes in C (2nd Ed.)
                 var subtraction = (seed === -2147483648) ? 2147483647 : Math.abs(seed);
                 mj = (System.Random.MSEED - subtraction) | 0;
                 this.SeedArray[System.Array.index(55, this.SeedArray)] = mj;
                 mk = 1;
-                for (var i = 1; i < 55; i = (i + 1) | 0) { //Apparently the range [1..55] is special (Knuth) and so we're wasting the 0'th position.
+                for (var i = 1; i < 55; i = (i + 1) | 0) {
                     ii = (Bridge.Int.mul(21, i)) % 55;
                     this.SeedArray[System.Array.index(ii, this.SeedArray)] = mk;
                     mk = (mj - mk) | 0;
@@ -60,8 +58,6 @@
         },
         methods: {
             Sample: function () {
-                //Including this division at the end gives us significantly improved
-                //random number distribution.
                 return (this.InternalSample() * (4.6566128752457969E-10));
             },
             InternalSample: function () {
@@ -116,19 +112,14 @@
                 return Bridge.Int.clip32(this.Sample() * maxValue);
             },
             GetSampleForLargeRange: function () {
-                // The distribution of double value returned by Sample
-                // is not distributed well enough for a large range.
-                // If we use Sample for a range [Int32.MinValue..Int32.MaxValue)
-                // We will end up getting even numbers only.
 
                 var result = this.InternalSample();
-                // Note we can't use addition here. The distribution will be bad if we do that.
-                var negative = (this.InternalSample() % 2 === 0) ? true : false; // decide the sign based on second sample
+                var negative = (this.InternalSample() % 2 === 0) ? true : false;
                 if (negative) {
                     result = (-result) | 0;
                 }
                 var d = result;
-                d += (2147483646); // get a number in range [0 .. 2 * Int32MaxValue - 1)
+                d += (2147483646);
                 d /= 4294967293;
                 return d;
             },

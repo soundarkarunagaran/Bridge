@@ -78,29 +78,12 @@
                 },
                 Parse$2: function (input, formatProvider, styles) {
                     throw System.NotImplemented.ByDesign;
-                    // TODO: NotSupported [DateTimeFormatInfo]
-                    //styles = ValidateStyles(styles, "styles");
-                    //TimeSpan offset;
-                    //DateTime dateResult = DateTimeParse.Parse(input,
-                    //                                          DateTimeFormatInfo.GetInstance(formatProvider),
-                    //                                          styles,
-                    //                                          out offset);
-                    //return new DateTimeOffset(dateResult.Ticks, offset);
                 },
                 ParseExact: function (input, format, formatProvider) {
                     return System.DateTimeOffset.ParseExact$1(input, format, formatProvider, 0);
                 },
                 ParseExact$1: function (input, format, formatProvider, styles) {
                     throw System.NotImplemented.ByDesign;
-                    //TODO: NotSupported [DateTimeFormatInfo]
-                    //styles = ValidateStyles(styles, "styles");
-                    //TimeSpan offset;
-                    //DateTime dateResult = DateTimeParse.ParseExact(input,
-                    //                                               format,
-                    //                                               DateTimeFormatInfo.GetInstance(formatProvider),
-                    //                                               styles,
-                    //                                               out offset);
-                    //return new DateTimeOffset(dateResult.Ticks, offset);
                 },
                 TryParse: function (input, result) {
                     var offset = { };
@@ -120,16 +103,10 @@
                     return System.Int64.clip16(offset.getTicks().div(System.Int64(600000000)));
                 },
                 ValidateDate: function (dateTime, offset) {
-                    // The key validation is that both the UTC and clock times fit. The clock time is validated
-                    // by the DateTime constructor.
-                    // This operation cannot overflow because offset should have already been validated to be within
-                    // 14 hours and the DateTime instance is more than that distance from the boundaries of Int64.
                     var utcTicks = System.DateTime.getTicks(dateTime).sub(offset.getTicks());
                     if (utcTicks.lt(System.DateTime.MinTicks) || utcTicks.gt(System.DateTime.MaxTicks)) {
                         throw new System.ArgumentOutOfRangeException.$ctor4("offset", System.Environment.GetResourceString("Argument_UTCOutOfRange"));
                     }
-                    // make sure the Kind is set to Unspecified
-                    //
                     return System.DateTime.create$2(utcTicks, 0);
                 },
                 op_Implicit: function (dateTime) {
@@ -206,7 +183,7 @@
                 }
             },
             DayOfYear: {
-                get: function () { // leap year
+                get: function () {
                     return System.DateTime.getDayOfYear(this.ClockDateTime);
                 }
             },
@@ -273,7 +250,6 @@
             $ctor5: function (ticks, offset) {
                 this.$initialize();
                 this.m_offsetMinutes = System.DateTimeOffset.ValidateOffset(offset);
-                // Let the DateTime constructor do the range checks
                 var dateTime = System.DateTime.create$2(ticks);
                 this.m_dateTime = System.DateTimeOffset.ValidateDate(dateTime, offset);
             },
@@ -281,11 +257,8 @@
                 this.$initialize();
                 var offset;
                 if (System.DateTime.getKind(dateTime) !== 1) {
-                    // Local and Unspecified are both treated as Local
                     offset = System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow());
 
-                    // TODO: Revised [TimeZoneInfo not supported]
-                    //offset = TimeZoneInfo.GetLocalUtcOffset(dateTime, TimeZoneInfoOptions.NoThrowOnInvalidTime);
                 } else {
                     offset = new System.TimeSpan(System.Int64(0));
                 }
@@ -295,8 +268,6 @@
             $ctor2: function (dateTime, offset) {
                 this.$initialize();
                 if (System.DateTime.getKind(dateTime) === 2) {
-                    // TODO: Revised [TimeZoneInfo not supported]
-                    //if (offset != TimeZoneInfo.GetLocalUtcOffset(dateTime, TimeZoneInfoOptions.NoThrowOnInvalidTime)) {
                     if (System.TimeSpan.neq(offset, (System.DateTime.subdd(System.DateTime.getNow(), System.DateTime.getUtcNow())))) {
                         throw new System.ArgumentException.$ctor3(System.Environment.GetResourceString("Argument_OffsetLocalMismatch"), "offset");
                     }
@@ -392,12 +363,6 @@
                 return Bridge.equalsT(this.UtcDateTime, other.UtcDateTime);
             },
             EqualsExact: function (other) {
-                //
-                // returns true when the ClockDateTime, Kind, and Offset match
-                //
-                // currently the Kind should always be Unspecified, but there is always the possibility that a future version
-                // of DateTimeOffset overloads the Kind field
-                //
                 return (Bridge.equals(this.ClockDateTime, other.ClockDateTime) && System.TimeSpan.eq(this.Offset, other.Offset) && System.DateTime.getKind(this.ClockDateTime) === System.DateTime.getKind(other.ClockDateTime));
             },
             System$Runtime$Serialization$IDeserializationCallback$OnDeserialization: function (sender) {
@@ -429,28 +394,10 @@
                 return System.DateTime.ToFileTime(this.UtcDateTime);
             },
             ToUnixTimeSeconds: function () {
-                // Truncate sub-second precision before offsetting by the Unix Epoch to avoid
-                // the last digit being off by one for dates that result in negative Unix times.
-                //
-                // For example, consider the DateTimeOffset 12/31/1969 12:59:59.001 +0
-                //   ticks            = 621355967990010000
-                //   ticksFromEpoch   = ticks - UnixEpochTicks                   = -9990000
-                //   secondsFromEpoch = ticksFromEpoch / TimeSpan.TicksPerSecond = 0
-                //
-                // Notice that secondsFromEpoch is rounded *up* by the truncation induced by integer division,
-                // whereas we actually always want to round *down* when converting to Unix time. This happens
-                // automatically for positive Unix time values. Now the example becomes:
-                //   seconds          = ticks / TimeSpan.TicksPerSecond = 62135596799
-                //   secondsFromEpoch = seconds - UnixEpochSeconds      = -1
-                //
-                // In other words, we want to consistently round toward the time 1/1/0001 00:00:00,
-                // rather than toward the Unix Epoch (1/1/1970 00:00:00).
                 var seconds = System.DateTime.getTicks(this.UtcDateTime).div(System.Int64(10000000));
                 return seconds.sub(System.DateTimeOffset.UnixEpochSeconds);
             },
             ToUnixTimeMilliseconds: function () {
-                // Truncate sub-millisecond precision before offsetting by the Unix Epoch to avoid
-                // the last digit being off by one for dates that result in negative Unix times
                 var milliseconds = System.DateTime.getTicks(this.UtcDateTime).div(System.Int64(10000));
                 return milliseconds.sub(System.DateTimeOffset.UnixEpochMilliseconds);
             },
@@ -462,28 +409,16 @@
             },
             toString: function () {
                 return System.DateTime.format(this.DateTime);
-                // TODO: NotSupported [DateTimeFormatInfo]
-                //Contract.Ensures(Contract.Result<String>() != null);
-                //return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.CurrentInfo, Offset);
             },
             ToString$1: function (format) {
                 return System.DateTime.format(this.DateTime, format);
-                // TODO: NotSupported [DateTimeFormatInfo]
-                //Contract.Ensures(Contract.Result<String>() != null);
-                //return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.CurrentInfo, Offset);
             },
             ToString: function (formatProvider) {
                 return System.DateTime.format(this.DateTime, null, formatProvider);
-                // TODO: NotSupported [DateTimeFormatInfo]
-                //Contract.Ensures(Contract.Result<String>() != null);
-                //return DateTimeFormat.Format(ClockDateTime, null, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
             },
             format: function (format, formatProvider) {
                 return System.DateTime.format(this.DateTime, format, formatProvider);
 
-                // TODO: NotSupported [DateTimeFormatInfo]
-                //Contract.Ensures(Contract.Result<String>() != null);
-                //return DateTimeFormat.Format(ClockDateTime, format, DateTimeFormatInfo.GetInstance(formatProvider), Offset);
             },
             ToUniversalTime: function () {
                 return new System.DateTimeOffset.$ctor1(this.UtcDateTime);

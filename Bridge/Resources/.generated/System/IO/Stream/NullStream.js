@@ -36,9 +36,7 @@
             }
         },
         methods: {
-            Dispose$1: function (disposing) {
-                // Do nothing - we don't want NullStream singleton (static) to be closable
-            },
+            Dispose$1: function (disposing) { },
             Flush: function () { },
             BeginRead: function (buffer, offset, count, callback, state) {
                 if (!this.CanRead) {

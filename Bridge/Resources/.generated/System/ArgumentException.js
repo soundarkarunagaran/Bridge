@@ -9,8 +9,6 @@
                     var s = Bridge.ensureBaseProperty(this, "Message").$System$Exception$Message;
                     if (!System.String.isNullOrEmpty(this._paramName)) {
                         var resourceString = System.SR.Format("Parameter name: {0}", this._paramName);
-                        // TODO: SR
-                        //String resourceString = SR.Format(SR.Arg_ParamName_Name, _paramName);
                         return (s || "") + ("\n" || "") + (resourceString || "");
                     } else {
                         return s;

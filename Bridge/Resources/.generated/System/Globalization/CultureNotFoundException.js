@@ -5,8 +5,6 @@
                 DefaultMessage: {
                     get: function () {
                         return "Culture is not supported.";
-                        // TODO: SR
-                        //return SR.Argument_CultureNotSupported;
                     }
                 }
             }
@@ -36,8 +34,6 @@
                     var s = Bridge.ensureBaseProperty(this, "Message").$System$ArgumentException$Message;
                     if (this._invalidCultureId != null || this._invalidCultureName != null) {
                         var valueMessage = System.SR.Format("{0} is an invalid culture identifier.", this.FormatedInvalidCultureId);
-                        // TODO: SR
-                        //String valueMessage = SR.Format(SR.Argument_CultureInvalidIdentifier, FormatedInvalidCultureId);
                         if (s == null) {
                             return valueMessage;
                         }

@@ -23,13 +23,10 @@
                     get: function () {
                         if (System.Globalization.DateTimeFormatInfoScanner.s_knownWords == null) {
                             var temp = new (System.Collections.Generic.Dictionary$2(System.String,System.String))();
-                            // Add known words into the hash table.
 
-                            // Skip these special symbols.                        
                             temp.add("/", "");
                             temp.add("-", "");
                             temp.add(".", "");
-                            // Skip known CJK suffixes.
                             temp.add(System.Globalization.DateTimeFormatInfoScanner.CJKYearSuff, "");
                             temp.add(System.Globalization.DateTimeFormatInfoScanner.CJKMonthSuff, "");
                             temp.add(System.Globalization.DateTimeFormatInfoScanner.CJKDaySuff, "");
@@ -74,25 +71,19 @@
                     while (currentIndex < pattern.length) {
                         var ch = pattern.charCodeAt(currentIndex);
                         if (ch === 92) {
-                            // Escaped character. Look ahead one character.
                             currentIndex = (currentIndex + 1) | 0;
                             if (currentIndex < pattern.length) {
                                 ch = pattern.charCodeAt(currentIndex);
                                 if (ch === 39) {
-                                    // Skip the leading single quote.  We will
-                                    // stop at the first letter.
                                     continue;
                                 }
-                                // Fall thru to check if this is a letter.
                             } else {
-                                // End of string
                                 break;
                             }
                         }
                         if (System.Char.isLetter(ch) || ch === 39 || ch === 46) {
                             break;
                         }
-                        // Skip the current char since it is not a letter.
                         currentIndex = (currentIndex + 1) | 0;
                     }
                     return (currentIndex);
@@ -102,11 +93,9 @@
                     while (((index = (index + 1) | 0)) < pattern.length && pattern.charCodeAt(index) === ch) {
                         count.v = (count.v + 1) | 0;
                     }
-                    // Return the updated position.
                     return (index);
                 },
                 GetFormatFlagGenitiveMonth: function (monthNames, genitveMonthNames, abbrevMonthNames, genetiveAbbrevMonthNames) {
-                    // If we have different names in regular and genitive month names, use genitive month flag.
                     return ((!System.Globalization.DateTimeFormatInfoScanner.EqualStringArrays(monthNames, genitveMonthNames) || !System.Globalization.DateTimeFormatInfoScanner.EqualStringArrays(abbrevMonthNames, genetiveAbbrevMonthNames)) ? 1 : 0);
                 },
                 GetFormatFlagUseSpaceInMonthNames: function (monthNames, genitveMonthNames, abbrevMonthNames, genetiveAbbrevMonthNames) {
@@ -123,17 +112,14 @@
                     return (calID === 8 ? 10 : 0);
                 },
                 EqualStringArrays: function (array1, array2) {
-                    // Shortcut if they're the same array
                     if (Bridge.referenceEquals(array1, array2)) {
                         return true;
                     }
 
-                    // This is effectively impossible
                     if (array1.length !== array2.length) {
                         return false;
                     }
 
-                    // Check each string 
                     for (var i = 0; i < array1.length; i = (i + 1) | 0) {
                         if (!System.String.equals(array1[System.Array.index(i, array1)], array2[System.Array.index(i, array2)])) {
                             return false;
@@ -144,8 +130,6 @@
                 },
                 ArrayElementsHaveSpace: function (array) {
                     for (var i = 0; i < array.length; i = (i + 1) | 0) {
-                        // it is faster to check for space character manually instead of calling IndexOf
-                        // so we don't have to go to native code side.
                         for (var j = 0; j < array[System.Array.index(i, array)].length; j = (j + 1) | 0) {
                             if (System.Char.isWhiteSpace(String.fromCharCode(array[System.Array.index(i, array)].charCodeAt(j)))) {
                                 return true;
@@ -157,12 +141,9 @@
                 },
                 ArrayElementsBeginWithDigit: function (array) {
                     for (var i = 0; i < array.length; i = (i + 1) | 0) {
-                        // it is faster to check for space character manually instead of calling IndexOf
-                        // so we don't have to go to native code side.
                         if (array[System.Array.index(i, array)].length > 0 && array[System.Array.index(i, array)].charCodeAt(0) >= 48 && array[System.Array.index(i, array)].charCodeAt(0) <= 57) {
                             var index = 1;
                             while (index < array[System.Array.index(i, array)].length && array[System.Array.index(i, array)].charCodeAt(index) >= 48 && array[System.Array.index(i, array)].charCodeAt(index) <= 57) {
-                                // Skip other digits.
                                 index = (index + 1) | 0;
                             }
                             if (index === array[System.Array.index(i, array)].length) {
@@ -170,20 +151,14 @@
                             }
 
                             if (index === ((array[System.Array.index(i, array)].length - 1) | 0)) {
-                                // Skip known CJK month suffix.
-                                // CJK uses month name like "1\x6708", since \x6708 is a known month suffix,
-                                // we don't need the UseDigitPrefixInTokens since it is slower.
                                 switch (array[System.Array.index(i, array)].charCodeAt(index)) {
                                     case 26376: 
-                                    case 50900:  // CJKMonthSuff // KoreanMonthSuff
+                                    case 50900: 
                                         return (false);
                                 }
                             }
 
                             if (index === ((array[System.Array.index(i, array)].length - 4) | 0)) {
-                                // Skip known CJK month suffix.
-                                // Starting with Windows 8, the CJK months for some cultures looks like: "1' \x6708'" 
-                                // instead of just "1\x6708"
                                 if (array[System.Array.index(i, array)].charCodeAt(index) === 39 && array[System.Array.index(i, array)].charCodeAt(((index + 1) | 0)) === 32 && array[System.Array.index(i, array)].charCodeAt(((index + 2) | 0)) === 26376 && array[System.Array.index(i, array)].charCodeAt(((index + 3) | 0)) === 39) {
                                     return (false);
                                 }
@@ -209,7 +184,6 @@
         methods: {
             AddDateWordOrPostfix: function (formatPostfix, str) {
                 if (str.length > 0) {
-                    // Some cultures use . like an abbreviation
                     if (System.String.equals(str, ".")) {
                         this.AddIgnorableSymbols(".");
                         return;
@@ -220,7 +194,6 @@
                             this.m_dateWords = new (System.Collections.Generic.List$1(System.String)).ctor();
                         }
                         if (Bridge.referenceEquals(formatPostfix, "MMMM")) {
-                            // Add the word into the ArrayList as "\xfffe" + real month postfix.
                             var temp = String.fromCharCode(System.Globalization.DateTimeFormatInfoScanner.MonthPostfixChar) + (str || "");
                             if (!this.m_dateWords.contains(temp)) {
                                 this.m_dateWords.add(temp);
@@ -230,7 +203,6 @@
                                 this.m_dateWords.add(str);
                             }
                             if (str.charCodeAt(((str.length - 1) | 0)) === 46) {
-                                // Old version ignore the trialing dot in the date words. Support this as well.
                                 var strWithoutDot = str.substr(0, ((str.length - 1) | 0));
                                 if (!this.m_dateWords.contains(strWithoutDot)) {
                                     this.m_dateWords.add(strWithoutDot);
@@ -241,47 +213,32 @@
                 }
             },
             AddDateWords: function (pattern, index, formatPostfix) {
-                // Skip any whitespaces so we will start from a letter.
                 var newIndex = System.Globalization.DateTimeFormatInfoScanner.SkipWhiteSpacesAndNonLetter(pattern, index);
                 if (newIndex !== index && formatPostfix != null) {
-                    // There are whitespaces. This will not be a postfix.
                     formatPostfix = null;
                 }
                 index = newIndex;
 
-                // This is the first char added into dateWord.  
-                // Skip all non-letter character.  We will add the first letter into DateWord.
                 var dateWord = new System.Text.StringBuilder();
-                // We assume that date words should start with a letter. 
-                // Skip anything until we see a letter.
 
                 while (index < pattern.length) {
                     var ch = pattern.charCodeAt(index);
                     if (ch === 39) {
-                        // We have seen the end of quote.  Add the word if we do not see it before, 
-                        // and break the while loop.                    
                         this.AddDateWordOrPostfix(formatPostfix, dateWord.toString());
                         index = (index + 1) | 0;
                         break;
                     } else if (ch === 92) {
-                        //
-                        // Escaped character.  Look ahead one character
-                        //
 
-                        // Skip escaped backslash.
                         index = (index + 1) | 0;
                         if (index < pattern.length) {
                             dateWord.append(String.fromCharCode(pattern.charCodeAt(index)));
                             index = (index + 1) | 0;
                         }
                     } else if (System.Char.isWhiteSpace(String.fromCharCode(ch))) {
-                        // Found a whitespace.  We have to add the current date word/postfix.
                         this.AddDateWordOrPostfix(formatPostfix, dateWord.toString());
                         if (formatPostfix != null) {
-                            // Done with postfix.  The rest will be regular date word.
                             formatPostfix = null;
                         }
-                        // Reset the dateWord.
                         dateWord.setLength(0);
                         index = (index + 1) | 0;
                     } else {
@@ -293,17 +250,14 @@
             },
             AddIgnorableSymbols: function (text) {
                 if (this.m_dateWords == null) {
-                    // Create the date word array.
                     this.m_dateWords = new (System.Collections.Generic.List$1(System.String)).ctor();
                 }
-                // Add the ignorable symbol into the ArrayList.
                 var temp = String.fromCharCode(System.Globalization.DateTimeFormatInfoScanner.IgnorableSymbolChar) + (text || "");
                 if (!this.m_dateWords.contains(temp)) {
                     this.m_dateWords.add(temp);
                 }
             },
             ScanDateWord: function (pattern) {
-                // Check if we have found all of the year/month/day pattern.
                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
 
                 var i = 0;
@@ -313,7 +267,6 @@
 
                     switch (ch) {
                         case 39: 
-                            // Find a beginning quote.  Search until the end quote.
                             i = this.AddDateWords(pattern, ((i + 1) | 0), null);
                             break;
                         case 77: 
@@ -332,21 +285,14 @@
                         case 100: 
                             i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 100, i, chCount);
                             if (chCount.v <= 2) {
-                                // Only count "d" & "dd".
-                                // ddd, dddd are day names.  Do not count them.
                                 this._ymdFlags |= System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundDayPatternFlag;
                             }
                             break;
                         case 92: 
-                            // Found a escaped char not in a quoted string.  Skip the current backslash
-                            // and its next character.
                             i = (i + 2) | 0;
                             break;
                         case 46: 
                             if (this._ymdFlags === System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundYMDPatternFlag) {
-                                // If we find a dot immediately after the we have seen all of the y, m, d pattern.
-                                // treat it as a ignroable symbol.  Check for comments in AddIgnorableSymbols for
-                                // more details.
                                 this.AddIgnorableSymbols(".");
                                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
                             }
@@ -354,46 +300,37 @@
                             break;
                         default: 
                             if (this._ymdFlags === System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundYMDPatternFlag && !System.Char.isWhiteSpace(String.fromCharCode(ch))) {
-                                // We are not seeing "." after YMD. Clear the flag.
                                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
                             }
-                            // We are not in quote.  Skip the current character.
                             i = (i + 1) | 0;
                             break;
                     }
                 }
             },
             GetDateWordsOfDTFI: function (dtfi) {
-                // Enumarate all LongDatePatterns, and get the DateWords and scan for month postfix.
                 var datePatterns = dtfi.getAllDateTimePatterns(68);
                 var i;
 
-                // Scan the long date patterns
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
                     this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
-                // Scan the short date patterns
                 datePatterns = dtfi.getAllDateTimePatterns(100);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
                     this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
-                // Scan the YearMonth patterns.
                 datePatterns = dtfi.getAllDateTimePatterns(121);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
                     this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
-                // Scan the month/day pattern
                 this.ScanDateWord(dtfi.monthDayPattern);
 
-                // Scan the long time patterns.
                 datePatterns = dtfi.getAllDateTimePatterns(84);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
                     this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);
                 }
 
-                // Scan the short time patterns.
                 datePatterns = dtfi.getAllDateTimePatterns(116);
                 for (i = 0; i < datePatterns.length; i = (i + 1) | 0) {
                     this.ScanDateWord(datePatterns[System.Array.index(i, datePatterns)]);

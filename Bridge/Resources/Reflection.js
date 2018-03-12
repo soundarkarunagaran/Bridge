@@ -1,4 +1,4 @@
-Bridge.Reflection = {
+    Bridge.Reflection = {
         deferredMeta: [],
 
         setMetadata: function (type, metadata) {

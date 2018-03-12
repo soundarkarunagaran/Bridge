@@ -71,7 +71,7 @@
         },
         methods: {
             Clear: function () {
-                System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size); // Don't need to doc this but we clear the elements so that the gc can reclaim the references.
+                System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size);
                 this._size = 0;
                 this._version = (this._version + 1) | 0;
             },
@@ -110,7 +110,6 @@
                         array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0)), this._array)];
                     }
                 } else {
-                    // Legacy fallback in case we ever end up copying within the same array.
                     System.Array.copy(this._array, 0, array, arrayIndex, this._size);
                     System.Array.reverse(array, arrayIndex, this._size);
                 }
@@ -175,7 +174,7 @@
                 }
                 this._version = (this._version + 1) | 0;
                 var item = this._array[System.Array.index(((this._size = (this._size - 1) | 0)), this._array)];
-                this._array[System.Array.index(this._size, this._array)] = Bridge.getDefaultValue(T); // Free memory quicker.
+                this._array[System.Array.index(this._size, this._array)] = Bridge.getDefaultValue(T);
                 return item;
             },
             Push: function (item) {

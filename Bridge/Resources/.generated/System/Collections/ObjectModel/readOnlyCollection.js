@@ -3,8 +3,6 @@
         statics: {
             methods: {
                 IsCompatibleObject: function (value) {
-                    // Non-null values are fine.  Only accept nulls if T is a class or Nullable<U>.
-                    // Note that default(T) is not equal to null for value types except when T is Nullable<U>.
                     return ((Bridge.is(value, T)) || (value == null && Bridge.getDefaultValue(T) == null));
                 }
             }
@@ -129,22 +127,12 @@
                 if (items != null) {
                     System.Array.copyTo(this.list, items, index, T);
                 } else {
-                    //
-                    // Catch the obvious case assignment will fail.
-                    // We can found all possible problems by doing the check though.
-                    // For example, if the element type of the Array is derived from T,
-                    // we can't figure out if we can successfully copy the element beforehand.
-                    //
                     var targetType = (Bridge.getType(array).$elementType || null);
                     var sourceType = T;
                     if (!(Bridge.Reflection.isAssignableFrom(targetType, sourceType) || Bridge.Reflection.isAssignableFrom(sourceType, targetType))) {
                         throw new System.ArgumentException.ctor();
                     }
 
-                    //
-                    // We can't cast array of value type to object[], so we don't support
-                    // widening of primitive types here.
-                    //
                     var objects = Bridge.as(array, System.Array.type(System.Object));
                     if (objects == null) {
                         throw new System.ArgumentException.ctor();

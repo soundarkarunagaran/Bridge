@@ -38,21 +38,18 @@
 
                     var newints = System.Collections.BitArray.GetArrayLength(value, System.Collections.BitArray.BitsPerInt32);
                     if (newints > this.m_array.length || ((newints + System.Collections.BitArray._ShrinkThreshold) | 0) < this.m_array.length) {
-                        // grow or shrink (if wasting more than _ShrinkThreshold ints)
                         var newarray = System.Array.init(newints, 0, System.Int32);
                         System.Array.copy(this.m_array, 0, newarray, 0, newints > this.m_array.length ? this.m_array.length : newints);
                         this.m_array = newarray;
                     }
 
                     if (value > this.m_length) {
-                        // clear high bit values in the last int
                         var last = (System.Collections.BitArray.GetArrayLength(this.m_length, System.Collections.BitArray.BitsPerInt32) - 1) | 0;
                         var bits = this.m_length % 32;
                         if (bits > 0) {
                             this.m_array[System.Array.index(last, this.m_array)] = this.m_array[System.Array.index(last, this.m_array)] & ((((1 << bits) - 1) | 0));
                         }
 
-                        // clear remaining int values
                         System.Array.fill(this.m_array, 0, ((last + 1) | 0), ((((newints - last) | 0) - 1) | 0));
                     }
 
@@ -112,9 +109,6 @@
                 if (bytes == null) {
                     throw new System.ArgumentNullException.$ctor1("bytes");
                 }
-                // this value is chosen to prevent overflow when computing m_length.
-                // m_length is of type int32 and is exposed as a property, so
-                // type of m_length can't be changed to accommodate.
                 if (bytes.length > 268435455) {
                     throw new System.ArgumentException.$ctor3(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", [Bridge.box(System.Collections.BitArray.BitsPerByte, System.Int32)]), "bytes");
                 }
@@ -169,7 +163,6 @@
                 if (values == null) {
                     throw new System.ArgumentNullException.$ctor1("values");
                 }
-                // this value is chosen to prevent overflow when computing m_length
                 if (values.length > 67108863) {
                     throw new System.ArgumentException.$ctor3(System.String.format("The input array length must not exceed Int32.MaxValue / {0}. Otherwise BitArray.Length would exceed Int32.MaxValue.", [Bridge.box(System.Collections.BitArray.BitsPerInt32, System.Int32)]), "values");
                 }
@@ -226,7 +219,7 @@
 
                     var b = Bridge.cast(array, System.Array.type(System.Byte));
                     for (var i = 0; i < arrayLength; i = (i + 1) | 0) {
-                        b[System.Array.index(((index + i) | 0), b)] = ((this.m_array[System.Array.index(((Bridge.Int.div(i, 4)) | 0), this.m_array)] >> (Bridge.Int.mul((i % 4), 8))) & 255) & 255; // Shift to bring the required byte to LSB, then mask
+                        b[System.Array.index(((index + i) | 0), b)] = ((this.m_array[System.Array.index(((Bridge.Int.div(i, 4)) | 0), this.m_array)] >> (Bridge.Int.mul((i % 4), 8))) & 255) & 255;
                     }
                 } else if (Bridge.is(array, System.Array.type(System.Boolean))) {
                     if (((array.length - index) | 0) < this.m_length) {

@@ -41,7 +41,6 @@
                     case System.Version.ParseFailureKind.ArgumentOutOfRangeException: 
                         return new System.ArgumentOutOfRangeException.$ctor4(this.m_exceptionArgument, "Cannot be < 0");
                     case System.Version.ParseFailureKind.FormatException: 
-                        // Regenerate the FormatException as would be thrown by Int32.Parse()
                         try {
                             System.Int32.parse(this.m_exceptionArgument);
                         }
