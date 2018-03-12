@@ -6,7 +6,7 @@
   "outputBy": "Project",
   "fileNameCasing": "CamelCase",
   "logging": {
-    "level": "Trace"
+    "level": "None"
   },
   "html": {
     "disabled": true
