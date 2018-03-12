@@ -5465,6 +5465,258 @@
         }
     });
 
+    // @source BidiCategory.js
+
+    Bridge.define("System.Globalization.BidiCategory", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                LeftToRight: 0,
+                LeftToRightEmbedding: 1,
+                LeftToRightOverride: 2,
+                RightToLeft: 3,
+                RightToLeftArabic: 4,
+                RightToLeftEmbedding: 5,
+                RightToLeftOverride: 6,
+                PopDirectionalFormat: 7,
+                EuropeanNumber: 8,
+                EuropeanNumberSeparator: 9,
+                EuropeanNumberTerminator: 10,
+                ArabicNumber: 11,
+                CommonNumberSeparator: 12,
+                NonSpacingMark: 13,
+                BoundaryNeutral: 14,
+                ParagraphSeparator: 15,
+                SegmentSeparator: 16,
+                Whitespace: 17,
+                OtherNeutrals: 18,
+                LeftToRightIsolate: 19,
+                RightToLeftIsolate: 20,
+                FirstStrongIsolate: 21,
+                PopDirectionIsolate: 22
+            }
+        }
+    });
+
+    // @source SortVersion.js
+
+    Bridge.define("System.Globalization.SortVersion", {
+        inherits: function () { return [System.IEquatable$1(System.Globalization.SortVersion)]; },
+        statics: {
+            methods: {
+                op_Equality: function (left, right) {
+                    if (left != null) {
+                        return left.equalsT(right);
+                    }
+
+                    if (right != null) {
+                        return right.equalsT(left);
+                    }
+
+                    return true;
+                },
+                op_Inequality: function (left, right) {
+                    return !(System.Globalization.SortVersion.op_Equality(left, right));
+                }
+            }
+        },
+        fields: {
+            m_NlsVersion: 0,
+            m_SortId: null
+        },
+        props: {
+            FullVersion: {
+                get: function () {
+                    return this.m_NlsVersion;
+                }
+            },
+            SortId: {
+                get: function () {
+                    return this.m_SortId;
+                }
+            }
+        },
+        alias: ["equalsT", "System$IEquatable$1$System$Globalization$SortVersion$equalsT"],
+        ctors: {
+            init: function () {
+                this.m_SortId = new System.Guid();
+            },
+            ctor: function (fullVersion, sortId) {
+                this.$initialize();
+                this.m_SortId = sortId;
+                this.m_NlsVersion = fullVersion;
+            },
+            $ctor1: function (nlsVersion, effectiveId, customVersion) {
+                this.$initialize();
+                this.m_NlsVersion = nlsVersion;
+
+                if (System.Guid.op_Equality(customVersion, System.Guid.Empty)) {
+                    var b1 = (effectiveId >> 24) & 255;
+                    var b2 = ((effectiveId & 16711680) >> 16) & 255;
+                    var b3 = ((effectiveId & 65280) >> 8) & 255;
+                    var b4 = (effectiveId & 255) & 255;
+                    customVersion = new System.Guid.$ctor2(0, 0, 0, 0, 0, 0, 0, b1, b2, b3, b4);
+                }
+
+                this.m_SortId = customVersion;
+            }
+        },
+        methods: {
+            equals: function (obj) {
+                var n = Bridge.as(obj, System.Globalization.SortVersion);
+                if (System.Globalization.SortVersion.op_Inequality(n, null)) {
+                    return this.equalsT(n);
+                }
+
+                return false;
+            },
+            equalsT: function (other) {
+                if (System.Globalization.SortVersion.op_Equality(other, null)) {
+                    return false;
+                }
+
+                return this.m_NlsVersion === other.m_NlsVersion && System.Guid.op_Equality(this.m_SortId, other.m_SortId);
+            },
+            getHashCode: function () {
+                return Bridge.Int.mul(this.m_NlsVersion, 7) | this.m_SortId.getHashCode();
+            }
+        }
+    });
+
+    // @source UnicodeCategory.js
+
+    Bridge.define("System.Globalization.UnicodeCategory", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                UppercaseLetter: 0,
+                LowercaseLetter: 1,
+                TitlecaseLetter: 2,
+                ModifierLetter: 3,
+                OtherLetter: 4,
+                NonSpacingMark: 5,
+                SpacingCombiningMark: 6,
+                EnclosingMark: 7,
+                DecimalDigitNumber: 8,
+                LetterNumber: 9,
+                OtherNumber: 10,
+                SpaceSeparator: 11,
+                LineSeparator: 12,
+                ParagraphSeparator: 13,
+                Control: 14,
+                Format: 15,
+                Surrogate: 16,
+                PrivateUse: 17,
+                ConnectorPunctuation: 18,
+                DashPunctuation: 19,
+                OpenPunctuation: 20,
+                ClosePunctuation: 21,
+                InitialQuotePunctuation: 22,
+                FinalQuotePunctuation: 23,
+                OtherPunctuation: 24,
+                MathSymbol: 25,
+                CurrencySymbol: 26,
+                ModifierSymbol: 27,
+                OtherSymbol: 28,
+                OtherNotAssigned: 29
+            }
+        }
+    });
+
+    // @source DaylightTimeStruct.js
+
+    Bridge.define("System.Globalization.DaylightTimeStruct", {
+        $kind: "struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new System.Globalization.DaylightTimeStruct(); }
+            }
+        },
+        fields: {
+            Start: null,
+            End: null,
+            Delta: null
+        },
+        ctors: {
+            init: function () {
+                this.Start = System.DateTime.getDefaultValue();
+                this.End = System.DateTime.getDefaultValue();
+                this.Delta = new System.TimeSpan();
+            },
+            $ctor1: function (start, end, delta) {
+                this.$initialize();
+                this.Start = start;
+                this.End = end;
+                this.Delta = delta;
+            },
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            getHashCode: function () {
+                var h = Bridge.addHash([7445027511, this.Start, this.End, this.Delta]);
+                return h;
+            },
+            equals: function (o) {
+                if (!Bridge.is(o, System.Globalization.DaylightTimeStruct)) {
+                    return false;
+                }
+                return Bridge.equals(this.Start, o.Start) && Bridge.equals(this.End, o.End) && Bridge.equals(this.Delta, o.Delta);
+            },
+            $clone: function (to) {
+                var s = to || new System.Globalization.DaylightTimeStruct();
+                s.Start = this.Start;
+                s.End = this.End;
+                s.Delta = this.Delta;
+                return s;
+            }
+        }
+    });
+
+    // @source DaylightTime.js
+
+    Bridge.define("System.Globalization.DaylightTime", {
+        fields: {
+            _start: null,
+            _end: null,
+            _delta: null
+        },
+        props: {
+            Start: {
+                get: function () {
+                    return this._start;
+                }
+            },
+            End: {
+                get: function () {
+                    return this._end;
+                }
+            },
+            Delta: {
+                get: function () {
+                    return this._delta;
+                }
+            }
+        },
+        ctors: {
+            init: function () {
+                this._start = System.DateTime.getDefaultValue();
+                this._end = System.DateTime.getDefaultValue();
+                this._delta = new System.TimeSpan();
+            },
+            ctor: function () {
+                this.$initialize();
+            },
+            $ctor1: function (start, end, delta) {
+                this.$initialize();
+                this._start = start;
+                this._end = end;
+                this._delta = delta;
+            }
+        }
+    });
+
     // @source Globalization.js
 
     Bridge.define("System.Globalization.DateTimeFormatInfo", {
@@ -20576,6 +20828,12 @@
     // @source IObjectReference.js
 
     Bridge.define("System.Runtime.Serialization.IObjectReference", {
+        $kind: "interface"
+    });
+
+    // @source ISafeSerializationData.js
+
+    Bridge.define("System.Runtime.Serialization.ISafeSerializationData", {
         $kind: "interface"
     });
 

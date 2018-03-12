@@ -73,6 +73,10 @@
     <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
     <Compile Include="shared\System\FlagsAttribute.cs" />
+    <Compile Include="shared\System\Globalization\BidiCategory.cs" />
+    <Compile Include="shared\System\Globalization\DaylightTime.cs" />
+    <Compile Include="shared\System\Globalization\SortVersion.cs" />
+    <Compile Include="shared\System\Globalization\UnicodeCategory.cs" />
     <Compile Include="shared\System\ObsoleteAttribute.cs" />
     <Compile Include="shared\System\OutOfMemoryException.cs" />
     <Compile Include="shared\System\ArithmeticException.cs" />
@@ -146,6 +150,7 @@
     <Compile Include="shared\System\Runtime\Serialization\IDeserializationCallback.cs" />
     <Compile Include="shared\System\Runtime\Serialization\IFormatterConverter.cs" />
     <Compile Include="shared\System\Runtime\Serialization\IObjectReference.cs" />
+    <Compile Include="shared\System\Runtime\Serialization\ISafeSerializationData.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationException.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationInfoEnumerator.cs" />
     <Compile Include="shared\System\Runtime\Serialization\StreamingContext.cs" />
@@ -563,6 +568,7 @@
     <Content Include="Resources\.generated\System\FormatException.js" />
     <Content Include="Resources\.generated\System\FormattableString.js" />
     <Content Include="Resources\.generated\System\FormattableStringImpl.js" />
+    <Content Include="Resources\.generated\System\Globalization\BidiCategory.js" />
     <Content Include="Resources\.generated\System\Globalization\Calendar.js" />
     <Content Include="Resources\.generated\System\Globalization\CalendarAlgorithmType.js" />
     <Content Include="Resources\.generated\System\Globalization\CalendarId.js" />
@@ -571,9 +577,13 @@
     <Content Include="Resources\.generated\System\Globalization\DateTimeFormatInfoScanner.js" />
     <Content Include="Resources\.generated\System\Globalization\DateTimeFormatInfoScanner\FoundDatePattern.js" />
     <Content Include="Resources\.generated\System\Globalization\DateTimeStyles.js" />
+    <Content Include="Resources\.generated\System\Globalization\DaylightTime.js" />
+    <Content Include="Resources\.generated\System\Globalization\DaylightTimeStruct.js" />
     <Content Include="Resources\.generated\System\Globalization\FORMATFLAGS.js" />
     <Content Include="Resources\.generated\System\Globalization\GlobalizationMode.js" />
+    <Content Include="Resources\.generated\System\Globalization\SortVersion.js" />
     <Content Include="Resources\.generated\System\Globalization\TextInfo.js" />
+    <Content Include="Resources\.generated\System\Globalization\UnicodeCategory.js" />
     <Content Include="Resources\.generated\System\Guid.js" />
     <Content Include="Resources\.generated\System\HResults.js" />
     <Content Include="Resources\.generated\System\IConvertible.js" />
@@ -633,6 +643,7 @@
     <Content Include="Resources\.generated\System\Runtime\Serialization\IDeserializationCallback.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\IFormatterConverter.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\IObjectReference.js" />
+    <Content Include="Resources\.generated\System\Runtime\Serialization\ISafeSerializationData.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\ISerializable.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationEntry.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\SerializationException.js" />
