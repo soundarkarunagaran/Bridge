@@ -1,9 +1,6 @@
     Bridge.define("System.Collections.IEnumerable", {
         $kind: "interface"
     });
-    Bridge.define("System.Collections.IEnumerator", {
-        $kind: "interface"
-    });
     Bridge.define("System.Collections.IEqualityComparer", {
         $kind: "interface"
     });
@@ -18,14 +15,6 @@
     Bridge.define("System.Collections.IDictionary", {
         inherits: [System.Collections.ICollection],
         $kind: "interface"
-    });
-
-    Bridge.define("System.Collections.Generic.IEnumerator$1", function (T) {
-        return {
-            inherits: [System.Collections.IEnumerator],
-            $kind: "interface",
-            $variance: [1]
-        };
     });
 
     Bridge.define("System.Collections.Generic.IEnumerable$1", function (T) {

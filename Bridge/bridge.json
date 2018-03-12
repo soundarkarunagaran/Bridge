@@ -66,9 +66,12 @@
         "Resources/Array.js",
         "Resources/ArraySegment.js",
 
-
         "Resources/Collections/KeyValuePair.js",
         "Resources/Collections/Interfaces.js",
+
+        "Resources/.generated/System/Collections/IEnumerator.js",
+        "Resources/.generated/System/Collections/Generic/IEnumerator.js",
+
         "Resources/Collections/CustomEnumerator.js",
         "Resources/Collections/ArrayEnumerator.js",
         "Resources/Collections/EqualityComparer.js",
