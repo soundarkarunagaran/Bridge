@@ -5,61 +5,6 @@ using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-namespace System.Runtime.InteropServices
-{
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
-    [ComVisible(true)]
-    [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Interface | AttributeTargets.Delegate,
-    Inherited = false)]
-    [Bridge.External]
-    [Bridge.NonScriptable]
-    public sealed class ComVisibleAttribute : Attribute
-    {
-        public extern ComVisibleAttribute(bool visibility);
-
-        public extern bool Value
-        {
-            get;
-            private set;
-        }
-    }
-
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
-    [AttributeUsageAttribute(AttributeTargets.Parameter)]
-    [Bridge.External]
-    [Bridge.NonScriptable]
-    public sealed class OutAttribute : Attribute
-    {
-    }
-
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
-    [AttributeUsageAttribute(AttributeTargets.Parameter)]
-    [Bridge.External]
-    [Bridge.NonScriptable]
-    public sealed class InAttribute : Attribute
-    {
-    }
-}
-
-namespace System.Runtime.InteropServices
-{
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
-    [ComVisible(true)]
-    [AttributeUsage(AttributeTargets.Assembly)]
-    [Bridge.External]
-    [Bridge.NonScriptable]
-    public sealed class GuidAttribute : Attribute
-    {
-        public extern GuidAttribute(string guid);
-
-        public extern string Value
-        {
-            get;
-            private set;
-        }
-    }
-}
-
 namespace System.Reflection
 {
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
