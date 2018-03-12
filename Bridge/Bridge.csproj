@@ -29,6 +29,7 @@
     <NoStdLib>true</NoStdLib>
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>1591, 0626, 0824, 0660, 0661</NoWarn>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -41,6 +42,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <NoWarn>1591, 0626, 0824, 0660, 0661</NoWarn>
     <DocumentationFile>bin\Release\Bridge.xml</DocumentationFile>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
