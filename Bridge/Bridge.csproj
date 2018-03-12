@@ -149,6 +149,7 @@
     <Compile Include="shared\System\Runtime\Serialization\SerializationException.cs" />
     <Compile Include="shared\System\Runtime\Serialization\SerializationInfoEnumerator.cs" />
     <Compile Include="shared\System\Runtime\Serialization\StreamingContext.cs" />
+    <Compile Include="shared\System\Runtime\Versioning\TargetFrameworkAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalAttribute.cs" />
     <Compile Include="shared\System\Security\SecurityCriticalScope.cs" />
     <Compile Include="shared\System\Security\SecuritySafeCriticalAttribute.cs" />

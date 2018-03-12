@@ -185,32 +185,6 @@ namespace System.Reflection
     }
 }
 
-namespace System.Runtime.Versioning
-{
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
-    [AttributeUsage(AttributeTargets.Assembly)]
-    [Bridge.External]
-    [Bridge.NonScriptable]
-    public sealed class TargetFrameworkAttribute : Attribute
-    {
-        public extern TargetFrameworkAttribute();
-
-        public extern TargetFrameworkAttribute(string frameworkName);
-
-        public extern string FrameworkDisplayName
-        {
-            get;
-            set;
-        }
-
-        public extern string FrameworkName
-        {
-            get;
-            private set;
-        }
-    }
-}
-
 namespace System.Runtime.CompilerServices
 {
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
