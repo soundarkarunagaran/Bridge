@@ -233,6 +233,7 @@
         "Resources/.generated/System/ParseFailureKind.js",
         "Resources/.generated/System/ParseFlags.js",
 
+        "Resources/.generated/System/IO/StringBuilderCache.js",
         "Resources/.generated/System/IO/BinaryReader.js",
         "Resources/.generated/System/IO/BinaryWriter.js",
         "Resources/.generated/System/IO/Stream.js",
