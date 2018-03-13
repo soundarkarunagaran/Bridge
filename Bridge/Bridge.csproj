@@ -82,6 +82,7 @@
     <Compile Include="shared\System\ComponentModel\EditorBrowsableAttribute.cs" />
     <Compile Include="shared\System\Diagnostics\CodeAnalysis\SuppressMessageAttribute.cs" />
     <Compile Include="shared\System\FlagsAttribute.cs" />
+    <Compile Include="shared\System\FormattableString.cs" />
     <Compile Include="shared\System\Globalization\BidiCategory.cs" />
     <Compile Include="shared\System\Globalization\DaylightTime.cs" />
     <Compile Include="shared\System\Globalization\SortVersion.cs" />
@@ -140,6 +141,11 @@
     <Compile Include="shared\System\Reflection\TypeFilter.cs" />
     <Compile Include="shared\System\Resources\MissingManifestResourceException.cs" />
     <Compile Include="shared\System\Resources\ResourceManager.cs" />
+    <Compile Include="shared\System\Runtime\CompilerServices\CallerFilePathAttribute.cs" />
+    <Compile Include="shared\System\Runtime\CompilerServices\CallerLineNumberAttribute.cs" />
+    <Compile Include="shared\System\Runtime\CompilerServices\CallerMemberNameAttribute.cs" />
+    <Compile Include="shared\System\Runtime\CompilerServices\FormattableStringFactory.cs" />
+    <Compile Include="shared\System\Runtime\CompilerServices\IsVolatile.cs" />
     <Compile Include="shared\System\Runtime\CompilerServices\MethodCodeType.cs" />
     <Compile Include="shared\System\Runtime\CompilerServices\MethodImplAttribute.cs" />
     <Compile Include="shared\System\Runtime\CompilerServices\MethodImplOptions.cs" />
@@ -332,11 +338,7 @@
     <Compile Include="System\Collections\Generic\IReadOnlyList.cs" />
     <Compile Include="System\Collections\IDictionary.cs" />
     <Compile Include="System\Collections\IList.cs" />
-    <Compile Include="System\CompilerServices\CallerInformationAttributes.cs" />
-    <Compile Include="System\CompilerServices\FormattableStringFactory.cs" />
     <Compile Include="System\CompilerServices\RuntimeHelpers.cs" />
-    <Compile Include="System\CompilerServices\IsVolatile.cs" />
-    <Compile Include="System\FormattableString.cs" />
     <Compile Include="System\Guid.cs" />
     <Compile Include="System\Linq\Expressions\BinaryExpression.cs" />
     <Compile Include="System\Linq\Expressions\BlockExpression.cs" />
@@ -586,7 +588,6 @@
     <Content Include="Resources\.generated\System\ExceptionResource.js" />
     <Content Include="Resources\.generated\System\FormatException.js" />
     <Content Include="Resources\.generated\System\FormattableString.js" />
-    <Content Include="Resources\.generated\System\FormattableStringImpl.js" />
     <Content Include="Resources\.generated\System\Globalization\BidiCategory.js" />
     <Content Include="Resources\.generated\System\Globalization\Calendar.js" />
     <Content Include="Resources\.generated\System\Globalization\CalendarAlgorithmType.js" />
@@ -662,6 +663,7 @@
     <Content Include="Resources\.generated\System\Reflection\TypeAttributes.js" />
     <Content Include="Resources\.generated\System\Resources\MissingManifestResourceException.js" />
     <Content Include="Resources\.generated\System\Runtime\CompilerServices\FormattableStringFactory.js" />
+    <Content Include="Resources\.generated\System\Runtime\CompilerServices\FormattableStringFactory\ConcreteFormattableString.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\IDeserializationCallback.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\IFormatterConverter.js" />
     <Content Include="Resources\.generated\System\Runtime\Serialization\IObjectReference.js" />

@@ -112,8 +112,6 @@
         "Resources/Generator.js",
         "Resources/linq.js",
 
-        "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
-
         "Resources/.generated/System/Runtime/Serialization/IDeserializationCallback.js",
         "Resources/.generated/System/Runtime/Serialization/IFormatterConverter.js",
         "Resources/.generated/System/Runtime/Serialization/IObjectReference.js",
@@ -201,7 +199,10 @@
         "Resources/.generated/System/FormatException.js",
 
         "Resources/.generated/System/FormattableString.js",
-        "Resources/.generated/System/FormattableStringImpl.js",
+
+        "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory/ConcreteFormattableString.js",
+        "Resources/.generated/System/Runtime/CompilerServices/FormattableStringFactory.js",
+
         "Resources/.generated/System/Guid.js",
 
         "Resources/.generated/System/IndexOutOfRangeException.js",

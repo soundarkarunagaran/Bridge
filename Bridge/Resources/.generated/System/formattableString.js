@@ -2,17 +2,21 @@
         inherits: [System.IFormattable],
         statics: {
             methods: {
-                invariant: function (formattable) {
-                    return formattable.toString$1(System.Globalization.CultureInfo.invariantCulture);
+                Invariant: function (formattable) {
+                    if (formattable == null) {
+                        throw new System.ArgumentNullException.$ctor1("formattable");
+                    }
+
+                    return formattable.ToString(System.Globalization.CultureInfo.invariantCulture);
                 }
             }
         },
         methods: {
-            toString: function () {
-                return this.toString$1(System.Globalization.CultureInfo.getCurrentCulture());
+            System$IFormattable$format: function (ignored, formatProvider) {
+                return this.ToString(formatProvider);
             },
-            System$IFormattable$format: function (format, formatProvider) {
-                return this.toString$1(formatProvider);
+            toString: function () {
+                return this.ToString(System.Globalization.CultureInfo.getCurrentCulture());
             }
         }
     });
