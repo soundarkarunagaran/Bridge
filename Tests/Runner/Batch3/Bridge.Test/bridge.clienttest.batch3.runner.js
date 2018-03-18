@@ -16159,7 +16159,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestDerivedGenericInterface: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3453, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDerivedGenericInterface()", $t.Line = "35", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3453, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDerivedGenericInterface()", $t.Line = "60", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.TestDerivedGenericInterface();
                 }
             }

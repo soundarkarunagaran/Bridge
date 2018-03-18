@@ -29715,21 +29715,45 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in ensuring Bridge emits correct code
+     representing a derived class implementing a generic interface.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453", {
         statics: {
             methods: {
+                /**
+                 * To explore the issue, we create an instance of the interface
+                 implementing class, then call its cross-implemented method
+                 specifying the simple, unrelated, class.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453
+                 * @return  {void}
+                 */
                 TestDerivedGenericInterface: function () {
                     var $t;
                     var o1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c2();
                     var c = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0(), $t.I = 16, $t);
                     var x = o1.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3453$i1$m1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0, c).getResult();
 
-                    Bridge.Test.NUnit.Assert.AreEqual(c, x);
+                    Bridge.Test.NUnit.Assert.AreEqual(c, x, "The value from the derived class matches the value passed.");
                 }
             }
         }
     });
 
+    /**
+     * A simple class, to be the specialization parameter to the class.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c0", {
         $kind: "nested class",
         props: {
@@ -29737,6 +29761,13 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * A class implementing the contract from the interface, but not
+     contract-bound to the interface.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c1", {
         $kind: "nested class",
         methods: {
@@ -29746,6 +29777,13 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Interface with a generics-enabled contract method.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.i1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.i1", {
         $kind: "nested interface"
     });
@@ -40157,6 +40195,16 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * An empty class, just extending both the class and the
+     interface itself, so that it would bind the implementation to the
+     contract with the interface.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c2
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.i1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.c1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3453.i1],
         $kind: "nested class",
