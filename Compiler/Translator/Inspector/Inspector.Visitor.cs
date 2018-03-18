@@ -512,7 +512,7 @@ namespace Bridge.Translator
                                 }
                             }
                         }
-                    }                    
+                    }
                 }
 
                 var autoInitializer = info.AutoPropertyInitializers.FirstOrDefault(f => f.Name == key);
@@ -853,7 +853,7 @@ namespace Bridge.Translator
                         Name = ((MemberResolveResult)((OperatorResolveResult)s).Operands[0]).Member.Name,
                         Value = ((OperatorResolveResult)s).Operands[1].ConstantValue
                     }).ToList();
-                
+
                 if (args.Count == 1)
                 {
                     var obj = args[0];

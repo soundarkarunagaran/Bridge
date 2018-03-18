@@ -1,20 +1,18 @@
-using Bridge;
-
 namespace System.Runtime.CompilerServices
 {
-    [NonScriptable]
+    [Bridge.NonScriptable]
     [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
     public class CallerLineNumberAttribute : Attribute
     {
     }
 
-    [NonScriptable]
+    [Bridge.NonScriptable]
     [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
     public class CallerFilePathAttribute : Attribute
     {
     }
 
-    [NonScriptable]
+    [Bridge.NonScriptable]
     [AttributeUsage(AttributeTargets.Parameter, Inherited = false)]
     public class CallerMemberNameAttribute : Attribute
     {

@@ -1,5 +1,5 @@
 /**
- * @compiler Bridge.NET 16.8.3
+ * @compiler Bridge.NET 17.0.0
  */
 Bridge.assembly("TestProject", function ($asm, globals) {
     "use strict";
