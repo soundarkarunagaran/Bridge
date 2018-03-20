@@ -172,8 +172,6 @@ namespace Bridge.Translator
                 {
                     dynamic value = node.Token.Value;
                     node = node.WithToken(SyntaxFactory.Literal(value));
-
-                    var type = semanticModel.GetSpeculativeTypeInfo(spanStart, node, SpeculativeBindingOption.BindAsExpression);
                 }                
             }
 
