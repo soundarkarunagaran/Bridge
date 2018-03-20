@@ -9,6 +9,7 @@ using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using LanguageVersion = Microsoft.CodeAnalysis.CSharp.LanguageVersion;
 
 namespace Bridge.Translator
@@ -73,7 +74,7 @@ namespace Bridge.Translator
         {
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
 
-            var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp6, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
+            var parseOptions = new CSharpParseOptions(LanguageVersion.CSharp7, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
             var syntaxTrees = translator.SourceFiles.Select(s => ParseSourceFile(s, parseOptions)).Where(s => s != null).ToList();
             var references = new MetadataReference[this.translator.References.Count()];
             var i = 0;
@@ -157,14 +158,23 @@ namespace Bridge.Translator
             return false;
         }
 
+        private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
         public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
         {
+            var spanStart = node.SpanStart;
             node =  (LiteralExpressionSyntax)base.VisitLiteralExpression(node);
 
-            if (node.Kind() == SyntaxKind.NumericLiteralExpression && node.Token.ContainsDiagnostics)
+            if (node.Kind() == SyntaxKind.NumericLiteralExpression)
             {
-                dynamic value = node.Token.Value;
-                node = node.WithToken(SyntaxFactory.Literal(value));
+                var text = node.Token.Text;
+
+                if (node.Token.ValueText != node.Token.Text && binaryLiteral.Match(text).Success)
+                {
+                    dynamic value = node.Token.Value;
+                    node = node.WithToken(SyntaxFactory.Literal(value));
+
+                    var type = semanticModel.GetSpeculativeTypeInfo(spanStart, node, SpeculativeBindingOption.BindAsExpression);
+                }                
             }
 
             return node;
