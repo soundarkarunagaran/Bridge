@@ -1,5 +1,6 @@
 namespace System
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public abstract class FormattableString : IFormattable
     {
         protected extern FormattableString();
@@ -36,6 +37,7 @@ namespace System
         }
     }
 
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     internal class FormattableStringImpl : FormattableString
     {
         private object[] args;

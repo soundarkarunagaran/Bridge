@@ -3,7 +3,7 @@
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$dispose"
+                "Dispose", "System$IDisposable$Dispose"
             ]
         },
 
@@ -88,7 +88,7 @@
                                     System.Array.addRange(exceptions, t.exception.innerExceptions);
                                     break;
                                 default:
-                                    throw new System.InvalidOperationException("Invalid task status: " + t.status);
+                                    throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
                             }
 
                             if (--executing === 0) {
@@ -115,7 +115,7 @@
                 }
 
                 if (!tasks.length) {
-                    throw new System.ArgumentException("At least one task is required");
+                    throw new System.ArgumentException.$ctor1("At least one task is required");
                 }
 
                 var tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -134,7 +134,7 @@
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
                             default:
-                                throw new System.InvalidOperationException("Invalid task status: " + t.status);
+                                throw new System.InvalidOperationException.$ctor1("Invalid task status: " + t.status);
                         }
                     });
                 }
@@ -244,7 +244,7 @@
 
         start: function () {
             if (this.status !== System.Threading.Tasks.TaskStatus.created) {
-                throw new System.InvalidOperationException("Task was already started.");
+                throw new System.InvalidOperationException.$ctor1("Task was already started.");
             }
 
             var me = this;
@@ -329,13 +329,13 @@
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException(null, this);
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
 
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                 default:
-                    throw new System.InvalidOperationException("Task is not yet completed.");
+                    throw new System.InvalidOperationException.$ctor1("Task is not yet completed.");
             }
         },
 
@@ -343,7 +343,7 @@
             return this._getResult(false);
         },
 
-        dispose: function () {},
+        Dispose: function () {},
 
         getAwaiter: function () {
             return this;
@@ -357,7 +357,7 @@
     Bridge.define("System.Threading.Tasks.Task$1", function (T) {
         return {
             inherits: [System.Threading.Tasks.Task],
-            ctor: function(action, state) {
+            ctor: function (action, state) {
                 this.$initialize();
                 System.Threading.Tasks.Task.ctor.call(this, action, state);
             }
@@ -387,19 +387,19 @@
 
         setCanceled: function () {
             if (!this.task.cancel()) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
         setResult: function (result) {
             if (!this.task.complete(result)) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
         setException: function (exception) {
             if (!this.trySetException(exception)) {
-                throw new System.InvalidOperationException("Task was already completed.");
+                throw new System.InvalidOperationException.$ctor1("Task was already completed.");
             }
         },
 
@@ -425,7 +425,7 @@
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$dispose"
+                "Dispose", "System$IDisposable$Dispose"
             ]
         },
 
@@ -488,6 +488,7 @@
                     f: f,
                     s: s
                 };
+
                 this.handlers.push(o);
 
                 return new System.Threading.CancellationTokenRegistration(this, o);
@@ -502,7 +503,7 @@
             }
         },
 
-        dispose: function () {
+        Dispose: function () {
             this.clean();
         },
 
@@ -516,7 +517,7 @@
 
             if (this.links) {
                 for (var i = 0; i < this.links.length; i++) {
-                    this.links[i].dispose();
+                    this.links[i].Dispose();
                 }
 
                 this.links = null;
@@ -563,7 +564,7 @@
 
         throwIfCancellationRequested: function () {
             if (this.source.isCancellationRequested) {
-                throw new System.OperationCanceledException(this);
+                throw new System.OperationCanceledException.$ctor1(this);
             }
         },
 
@@ -616,7 +617,7 @@
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$dispose"
+                "Dispose", "System$IDisposable$Dispose"
             ]
         },
 
@@ -626,7 +627,7 @@
             this.o = o;
         },
 
-        dispose: function () {
+        Dispose: function () {
             if (this.cts) {
                 this.cts.deregister(this.o);
                 this.cts = this.o = null;

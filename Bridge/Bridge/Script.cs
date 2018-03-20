@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Bridge
 {
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [External]
     [Name("Bridge")]
     public static class Script
