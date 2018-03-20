@@ -9,6 +9,7 @@ using System.Collections.Immutable;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using LanguageVersion = Microsoft.CodeAnalysis.CSharp.LanguageVersion;
 
 namespace Bridge.Translator
@@ -175,14 +176,21 @@ namespace Bridge.Translator
             return false;
         }
 
+        private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
         public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
         {
+            var spanStart = node.SpanStart;
             node =  (LiteralExpressionSyntax)base.VisitLiteralExpression(node);
 
-            if (node.Kind() == SyntaxKind.NumericLiteralExpression && node.Token.ContainsDiagnostics)
+            if (node.Kind() == SyntaxKind.NumericLiteralExpression)
             {
-                dynamic value = node.Token.Value;
-                node = node.WithToken(SyntaxFactory.Literal(value));
+                var text = node.Token.Text;
+
+                if (node.Token.ValueText != node.Token.Text && binaryLiteral.Match(text).Success)
+                {
+                    dynamic value = node.Token.Value;
+                    node = node.WithToken(SyntaxFactory.Literal(value));
+                }                
             }
 
             return node;
