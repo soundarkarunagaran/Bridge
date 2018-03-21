@@ -1,8 +1,11 @@
 using Bridge.Test.NUnit;
-using Stuff = System.ComponentModel;
 
-namespace Bridge.ClientTest.CSharp6
+namespace Bridge.ClientTest.CSharp7
 {
+    /// <summary>
+    /// The test here consists in ensuring C#7's binary literal expressions
+    /// are supported by Bridge.
+    /// </summary>
     [Category(Constants.MODULE_BASIC_CSHARP)]
     [TestFixture(TestNameFormat = "Binary Literals - {0}")]
     public class TestBinaryLiterals
@@ -19,13 +22,13 @@ namespace Bridge.ClientTest.CSharp6
             int myCustomData = 1___________2__________3___4____5_____6;
             double realdata = 1_000.111_1e1_00;
 
-            Assert.AreEqual(50, c);
-            Assert.AreEqual(100, f);
-            Assert.AreEqual(10000, binaryData);
-            Assert.AreEqual(11111, hexaDecimalData);
-            Assert.AreEqual(104567789, decimalData);
-            Assert.AreEqual(123456, myCustomData);
-            Assert.AreEqual(1.0001111E+103, realdata);
+            Assert.AreEqual(50, c, "'0B110010' can be parsed.");
+            Assert.AreEqual(100, f, "'0b110010 * 2' can be parsed.");
+            Assert.AreEqual(10000, binaryData, "'0B0010_0111_0001_0000' can be parsed.");
+            Assert.AreEqual(11111, hexaDecimalData, "'0X2B_67' can be parsed.");
+            Assert.AreEqual(104567789, decimalData, "'104_567_789' can be parsed.");
+            Assert.AreEqual(123456, myCustomData, "'1___________2__________3___4____5_____6' can be parsed.");
+            Assert.AreEqual(1.0001111E+103, realdata, "'1_000.111_1e1_00' can be parsed.");
         }
     }
 }
