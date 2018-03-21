@@ -7,7 +7,7 @@ namespace Bridge
     /// By default, Bridge applies unboxing. Add this attributes with allow = false to override this behaviour.
     /// </summary>
     [NonScriptable]
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Interface)]
+    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property | AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Field)]
     public class UnboxAttribute : Attribute
     {
         /// <summary>
