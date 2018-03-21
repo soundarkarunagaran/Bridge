@@ -214,12 +214,12 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch4.FormattableStringTests", {
         methods: {
             ToStringWithFormatProviderWorks_SPI_1651: function () {
-                var s = System.Runtime.CompilerServices.FormattableStringFactory.create("x = {0}, y = {0:FMT}", [new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormattable()]);
+                var s = System.Runtime.CompilerServices.FormattableStringFactory.Create("x = {0}, y = {0:FMT}", [new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormattable()]);
                 // #1651
-                Bridge.Test.NUnit.Assert.AreEqual("x = Formatted: MyFormatProvider, y = Formatted: FMT, MyFormatProvider", s.toString$1(new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormatProvider()));
+                Bridge.Test.NUnit.Assert.AreEqual("x = Formatted: MyFormatProvider, y = Formatted: FMT, MyFormatProvider", s.ToString(new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormatProvider()));
             },
             IFormattableToStringWorks_SPI_1633_1651: function () {
-                var s = System.Runtime.CompilerServices.FormattableStringFactory.create("x = {0}, y = {0:FMT}", [new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormattable()]);
+                var s = System.Runtime.CompilerServices.FormattableStringFactory.Create("x = {0}, y = {0:FMT}", [new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormattable()]);
                 // #1633
                 // #1651
                 Bridge.Test.NUnit.Assert.AreEqual("x = Formatted: MyFormatProvider, y = Formatted: FMT, MyFormatProvider", Bridge.format(s, null, new Bridge.ClientTest.Batch4.FormattableStringTests.MyFormatProvider()));
