@@ -30229,21 +30229,79 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in checking whether a KeyValuePair object can be
+     used as a dictionary key.
+     *
      * @public
      * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3483
      */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3483", {
         statics: {
             methods: {
+                /**
+                 * Test it by creating a dictionary with KeyValuePair&lt;Guid, Guid&gt;
+                 as its key and a string as its value.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3483
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3483
+                 * @return  {void}
+                 */
                 KeyValuePairAsDictionaryKeyWorks: function () {
-                    var val = "MyValue";
-                    var g = new System.Guid.$ctor4("9B9AAC17-22BB-425C-AA93-9C02C5146965");
-                    var a = new (System.Collections.Generic.KeyValuePair$2(System.Guid,System.Guid)).$ctor1(g, System.Guid.Empty);
+                    // * Including elements of original test case
+                    var guid = new System.Guid.$ctor4("9B9AAC17-22BB-425C-AA93-9C02C5146965");
+                    var key_org = new (System.Collections.Generic.KeyValuePair$2(System.Guid,System.Guid)).$ctor1(guid, System.Guid.Empty);
                     var dict = new (System.Collections.Generic.Dictionary$2(System.Collections.Generic.KeyValuePair$2(System.Guid,System.Guid),System.String))();
-                    dict.set(a, val);
-                    var b = new (System.Collections.Generic.KeyValuePair$2(System.Guid,System.Guid)).$ctor1(g, System.Guid.Empty);
+                    dict.set(key_org, "MyValue");
 
-                    Bridge.Test.NUnit.Assert.AreEqual(val, dict.get(b), "KeyValuePair as Dictionary key works. See Issue #3483");
+                    // another instance of the same valued pair as key_org
+                    var new_key = new (System.Collections.Generic.KeyValuePair$2(System.Guid,System.Guid)).$ctor1(guid, System.Guid.Empty);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("MyValue", dict.get(new_key), "Originally reported test case works.");
+
+                    // *** Simplified tests
+
+                    // * Inline instance key vs variable-bound instance key
+                    var test1 = new (System.Collections.Generic.Dictionary$2(System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32),System.Int32))();
+                    test1.add(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1), 1);
+
+                    // this should match the key added above
+                    var test1_probe = new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, test1.get(test1_probe), "Fetching from different instance works.");
+
+                    // * Inline instance key vs another inline instance key
+                    var test2 = new (System.Collections.Generic.Dictionary$2(System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32),System.Int32))();
+                    test2.add(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1), 1);
+
+                    // the key here should match the key added above
+                    Bridge.Test.NUnit.Assert.AreEqual(1, test2.get(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1)), "Fetching from inline instance works.");
+
+                    // * Both variable-bound key instances (different instances)
+                    // Keys must be the same
+                    var test3_probeA = new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1);
+                    var test3_probeB = new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1);
+
+                    var test3 = new (System.Collections.Generic.Dictionary$2(System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32),System.Int32))();
+                    test3.add(test3_probeA, 1);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, test3.get(test3_probeA), "Fetching from same instance works.");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, test3.get(test3_probeB), "Fetching from different instance with same value works");
+
+                    // * Indexer operator value binding
+                    var test4 = new (System.Collections.Generic.Dictionary$2(System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32),System.Int32))();
+                    test4.set(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1), 1);
+
+                    // the key here should match the key added above
+                    Bridge.Test.NUnit.Assert.AreEqual(1, test4.get(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1)), "Fetching after assigning with array indexer operator works.");
+
+                    // * Get method value fetching
+                    var test5 = new (System.Collections.Generic.Dictionary$2(System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32),System.Int32))();
+                    test5.add(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1), 1);
+
+                    // the key here should match the key added above
+                    Bridge.Test.NUnit.Assert.AreEqual(1, test5.get(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1)), "Fetching via the Get() method works.");
                 }
             }
         }
