@@ -14804,7 +14804,6 @@ Bridge.$N1391Result =                     r;
                 TestExternalObjectLiteral: function () {
                     var config = { Name: "test" };
 
-                    Bridge.Test.NUnit.Assert.AreEqual(1, Object.keys(config).length);
                     Bridge.Test.NUnit.Assert.AreEqual("test", config.Name);
                 }
             }
