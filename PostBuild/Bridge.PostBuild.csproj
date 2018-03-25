@@ -50,6 +50,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="readme.md" />
   </ItemGroup>
   <!-- NuGet packaging starts -->
