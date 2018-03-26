@@ -11,17 +11,17 @@ namespace Bridge.ClientTest.CSharp7
     public class TestExpressionBodyMember
     {
         /// <summary>
-        /// Instantiate the different expression embodiment enabled classes
+        /// Instantiate the different expression body enabled classes
         /// and explore the side effects of the defined expressions.
         /// </summary>
         [Test]
         public static void Test()
         {
             var common = new Common();
-            Assert.True(common.Initialized, "Simple expression embodiment of members works.");
+            Assert.True(common.Initialized, "Simple expression-bodied members works.");
 
             common.ExampleText = "test";
-            Assert.AreEqual("test", common.ExampleText, "Get/set (property) expression embodiment works.");
+            Assert.AreEqual("test", common.ExampleText, "Get/set (property) expression body works.");
         }
 
         /// <summary>
