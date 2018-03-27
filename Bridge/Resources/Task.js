@@ -268,13 +268,11 @@
         runCallbacks: function () {
             var me = this;
 
-            setTimeout(function () {
-                for (var i = 0; i < me.callbacks.length; i++) {
-                    me.callbacks[i](me);
-                }
+            for (var i = 0; i < me.callbacks.length; i++) {
+                me.callbacks[i](me);
+            }
 
-                delete me.callbacks;
-            }, 0);
+            delete me.callbacks;
         },
 
         complete: function (result) {

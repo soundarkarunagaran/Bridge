@@ -29971,6 +29971,268 @@ Bridge.$N1391Result =                     r;
         $kind: "nested interface"
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476", {
+        statics: {
+            methods: {
+                TestTaskCompletionSource: function () {
+                    var $step = 0,
+                        $task1, 
+                        $jumpFromFinally, 
+                        done, 
+                        temp, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        done = Bridge.Test.NUnit.Assert.Async();
+                                        temp = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp(done);
+
+                                        temp.SomeEvent1();
+
+                                        $task1 = System.Threading.Tasks.Task.delay(1000);
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $task1.getAwaitedResult();
+                                        temp.SomeEvent2();
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
+                                }
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp", {
+        $kind: "nested class",
+        fields: {
+            testData: false,
+            done: null,
+            source: null
+        },
+        ctors: {
+            ctor: function (done) {
+                this.$initialize();
+                this.testData = true;
+                this.done = done;
+                this.source = new System.Threading.Tasks.TaskCompletionSource();
+            }
+        },
+        methods: {
+            SomeEvent1: function () {
+                this.Method1().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp.f1);
+            },
+            SomeEvent2: function () {
+                this.Method2().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp.f1);
+            },
+            Method1: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $task2, 
+                    $taskResult2, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    oResult, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1,2], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        // wait for second click
+                                        // BTW: remove this line and compiler will fail
+                                        $task1 = this.source.task;
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        oResult = $taskResult1;
+
+                                        // do some finishing
+                                        $task2 = this.Method4();
+                                        $step = 2;
+                                        $task2.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 2: {
+                                        $taskResult2 = $task2.getAwaitedResult();
+                                        $tcs.setResult($taskResult2);
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method2: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        //wake up second activity
+                                        this.source.setResult(null);
+
+                                        //do some finishing
+                                        $task1 = this.Method3();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        $tcs.setResult($taskResult1);
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method3: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        // call whatever
+                                        $task1 = this.Method5();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        this.testData = false;
+
+                                        $tcs.setResult("");
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method4: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        // Expected: True
+                                        Bridge.Test.NUnit.Assert.True(this.testData);
+
+                                        $task1 = this.Method5();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        // Expected: True
+                                        Bridge.Test.NUnit.Assert.True(this.testData);
+                                        this.done();
+                                        $tcs.setResult("");
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method5: function () {
+                return System.Threading.Tasks.Task.fromResult("", System.String);
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp, {
+        f1: function (r_) {
+            // something
+        }
+    });
+
     /**
      * @public
      * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3478
