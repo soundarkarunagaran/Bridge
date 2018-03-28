@@ -62,6 +62,7 @@
     <Compile Include="CSharp7\TestROStruct.cs" />
     <Compile Include="CSharp7\TestIsPattern.cs" />
     <Compile Include="CSharp7\TestExpressionBodyMember.cs" />
+    <Compile Include="CSharp7\TestLocalFunctions.cs" />
     <Compile Include="CSharp7\TestThrowExpression.cs" />
     <Compile Include="CSharp7\TestValueTupleAndDeconstruction.cs" />
     <Compile Include="DelegateTests.cs" />

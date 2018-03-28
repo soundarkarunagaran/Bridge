@@ -32,6 +32,7 @@ namespace Bridge.Translator
         private bool hasChainingAssigment;
         private bool hasIsPattern;
         private bool hasCasePatternSwitchLabel;
+        private bool hasLocalFunctions;
 
         public SharpSixRewriter(ITranslator translator)
         {
@@ -73,7 +74,12 @@ namespace Bridge.Translator
             result = this.Visit(syntaxTree.GetRoot());
 
             var replacers = new List<ICSharpReplacer>();
-            
+
+            if (this.hasLocalFunctions)
+            {
+                replacers.Add(new LocalFunctionReplacer());
+            }
+
             if (this.hasChainingAssigment)
             {
                 replacers.Add(new ChainingAssigmentReplacer());
@@ -200,6 +206,12 @@ namespace Bridge.Translator
                 return true;    // A param array needs to be created
 
             return false;
+        }
+
+        public override SyntaxNode VisitLocalFunctionStatement(LocalFunctionStatementSyntax node)
+        {
+            this.hasLocalFunctions = true;
+            return base.VisitLocalFunctionStatement(node);
         }
 
         private void ThrowRefNotSupported(SyntaxNode node)
