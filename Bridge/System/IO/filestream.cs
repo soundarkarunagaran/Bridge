@@ -274,7 +274,7 @@ namespace System.IO
             {
                 var req = new XMLHttpRequest();
                 req.Open("GET", path, false);
-                req.OverrideMimeType("text/plain; charset=binary-data");
+                req.OverrideMimeType("text/plain; charset=x-user-defined");
                 req.Send(null);
                 if (req.Status != 200)
                 {
