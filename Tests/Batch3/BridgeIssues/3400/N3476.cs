@@ -5,10 +5,17 @@ using System.Threading.Tasks;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The test here consists in ensuring async tasks can't have the
+    /// flow broken, which results in race conditions and data corruption.
+    /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#3476 - {0}")]
     public class Bridge3476
     {
+        /// <summary>
+        /// A class to implement the async tasks that can be called.
+        /// </summary>
         public class Temp
         {
             public Temp(Action done)
@@ -66,12 +73,12 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             public async Task<string> Method4()
             {
                 // Expected: True
-                Assert.True(testData);
+                Assert.True(testData, "Data not corrupt as the first task runs.");
 
                 await Method5();
 
                 // Expected: True
-                Assert.True(testData);
+                Assert.True(testData, "Data does not get corrupt as the second task runs.");
                 done();
                 return "";
             }
@@ -86,6 +93,10 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             TaskCompletionSource<object> source;
         }
 
+        /// <summary>
+        /// Run the tasks expecting that Temp.Method4 call would assert as true
+        /// testData value in both calls.
+        /// </summary>
         [Test(ExpectedCount = 2)]
         public async static void TestTaskCompletionSource()
         {
