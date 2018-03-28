@@ -51,7 +51,7 @@ namespace Bridge.ClientTest.CSharp7
         {
             (var x1, var y1) = new Point(1, 2);
             Assert.AreEqual(1, x1, "Point class' deconstructor returned the expected ValueTuple (1/2).");
-            Assert.AreEqual(2, y1, "Point class' descontructor returned the expected ValueTuple (2/2).");
+            Assert.AreEqual(2, y1, "Point class' deconstructor returned the expected ValueTuple (2/2).");
 
             var price = GetPrice(1);
             Assert.AreEqual(500, price.price, "Method returning a Value Tuple gives the expected tuple (1/2).");
