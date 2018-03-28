@@ -79,7 +79,8 @@ namespace Bridge.Translator
                     }
                 }
 
-                var isVoid = fn.ReturnType.ToString() == "void";
+                var isVoid = fn.ReturnType is PredefinedTypeSyntax ptsInstance && ptsInstance.Keyword.Kind() == SyntaxKind.VoidKeyword;
+
                 TypeSyntax varType;
 
                 if (customDelegate)
