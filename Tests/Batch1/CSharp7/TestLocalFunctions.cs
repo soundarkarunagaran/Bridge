@@ -20,9 +20,15 @@ namespace Bridge.ClientTest.CSharp7
             {
                 Assert.True(true, "Local functions can be called.");
             }
+
             int Add(int x, int y)
             {
                 return x + y;
+            }
+
+            LocalRetType AddCustomType(int x, int y)
+            {
+                return new LocalRetType() { Value = x + y };
             }
 
             void Multiply(int x, int y, out int res)
@@ -34,10 +40,17 @@ namespace Bridge.ClientTest.CSharp7
 
             Assert.AreEqual(40, Add(15, 25), "Local function returning a value works.");
 
+            var customTypeResult = AddCustomType(1, 2);
+            Assert.AreEqual(3, customTypeResult.Value, "Local function returning a custom type works.");
+
             int multiRes;
             Multiply(20, 2, out multiRes);
-
             Assert.AreEqual(40, multiRes, "Local function with 'out' parameter works.");
+        }
+
+        public class LocalRetType
+        {
+            public int Value { get; set; }
         }
     }
 }
