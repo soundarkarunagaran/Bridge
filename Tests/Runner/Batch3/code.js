@@ -29971,9 +29971,26 @@ Bridge.$N1391Result =                     r;
         $kind: "nested interface"
     });
 
+    /**
+     * The test here consists in ensuring async tasks can't have the
+     flow broken, which results in race conditions and data corruption.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476", {
         statics: {
             methods: {
+                /**
+                 * Run the tasks expecting that Temp.Method4 call would assert as true
+                 testData value in both calls.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476
+                 * @return  {void}
+                 */
                 TestTaskCompletionSource: function () {
                     var $step = 0,
                         $task1, 
@@ -30013,6 +30030,12 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * A class to implement the async tasks that can be called.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp", {
         $kind: "nested class",
         fields: {
@@ -30189,7 +30212,7 @@ Bridge.$N1391Result =                     r;
                                 switch ($step) {
                                     case 0: {
                                         // Expected: True
-                                        Bridge.Test.NUnit.Assert.True(this.testData);
+                                        Bridge.Test.NUnit.Assert.True(this.testData, "Data not corrupt as the first task runs.");
 
                                         $task1 = this.Method5();
                                         $step = 1;
@@ -30199,7 +30222,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $taskResult1 = $task1.getAwaitedResult();
                                         // Expected: True
-                                        Bridge.Test.NUnit.Assert.True(this.testData);
+                                        Bridge.Test.NUnit.Assert.True(this.testData, "Data does not get corrupt as the second task runs.");
                                         this.done();
                                         $tcs.setResult("");
                                         return;
