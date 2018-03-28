@@ -13,7 +13,7 @@ namespace Bridge.ClientTest.CSharp7
         /// Explores several 'is' pattern syntax variations, and fail if they
         /// do not behave the expected way.
         /// </summary>
-        [Test(ExpectedCount = 3)]
+        [Test(ExpectedCount = 4)]
         public static void LocalFunctionTests()
         {
             void DoNothing()

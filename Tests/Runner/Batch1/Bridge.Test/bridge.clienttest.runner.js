@@ -23767,7 +23767,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 LocalFunctionTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestLocalFunctions).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LocalFunctionTests()", $t.Line = "16", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestLocalFunctions).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions, 4, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LocalFunctionTests()", $t.Line = "16", $t));
                     Bridge.ClientTest.CSharp7.TestLocalFunctions.LocalFunctionTests();
                 }
             }
