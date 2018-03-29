@@ -351,7 +351,7 @@ namespace Bridge.Translator
             }
             else
             {
-                if(colon)
+                if (colon)
                 {
                     this.WriteScript(name);
                 }

@@ -30,10 +30,34 @@ namespace Bridge.Translator
             );
         }
 
+        public static InvocationExpressionSyntax GenerateInvocation(string methodName, string targetIdentifier, ArgumentSyntax[] arguments = null, ITypeSymbol[] typeArguments = null)
+        {
+            var methodIdentifier = GenerateMethodIdentifier(methodName, targetIdentifier, typeArguments);
+            return SyntaxFactory.InvocationExpression(methodIdentifier, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(arguments ?? new ArgumentSyntax[] { })));
+        }
+
+        public static InvocationExpressionSyntax GenerateInvocation(string methodName, ExpressionSyntax targetIdentifier, ArgumentSyntax[] arguments = null, ITypeSymbol[] typeArguments = null)
+        {
+            var methodIdentifier = GenerateMethodIdentifier(methodName, targetIdentifier, typeArguments);
+            return SyntaxFactory.InvocationExpression(methodIdentifier, SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(arguments ?? new ArgumentSyntax[] { })));
+        }
+
         /// <summary>
         /// Generates the method call.
         /// </summary>
         public static ExpressionStatementSyntax GenerateMethodCall(string methodName, string targetIdentifier, ArgumentSyntax[] arguments = null, ITypeSymbol[] typeArguments = null)
+        {
+            var methodIdentifier = GenerateMethodIdentifier(methodName, targetIdentifier, typeArguments);
+            return SyntaxFactory.ExpressionStatement(
+                SyntaxFactory.InvocationExpression(methodIdentifier,
+                SyntaxFactory.ArgumentList(SyntaxFactory.SeparatedList(arguments ?? new ArgumentSyntax[] { })))
+            );
+        }
+
+        /// <summary>
+        /// Generates the method call.
+        /// </summary>
+        public static ExpressionStatementSyntax GenerateMethodCall(string methodName, ExpressionSyntax targetIdentifier, ArgumentSyntax[] arguments = null, ITypeSymbol[] typeArguments = null)
         {
             var methodIdentifier = GenerateMethodIdentifier(methodName, targetIdentifier, typeArguments);
             return SyntaxFactory.ExpressionStatement(
@@ -54,6 +78,14 @@ namespace Bridge.Translator
                     SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(typeArguments.Select(GenerateTypeSyntax))));
             }
             return methodIdentifier;
+        }
+
+        /// <summary>
+        /// Generates the method identifier.
+        /// </summary>
+        public static ExpressionSyntax GenerateMethodIdentifier(string methodName, ExpressionSyntax targetIdentifierOrTypeName, ITypeSymbol[] typeArguments = null)
+        {
+            return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, targetIdentifierOrTypeName, SyntaxFactory.IdentifierName(methodName));
         }
 
         /// <summary>
@@ -561,6 +593,38 @@ namespace Bridge.Translator
             var body = method.ExpressionBody.Expression.WithLeadingTrivia(SyntaxFactory.Space);
 
             return method.WithBody(SyntaxFactory.Block(isVoid ? SyntaxFactory.ExpressionStatement(body) : (StatementSyntax)SyntaxFactory.ReturnStatement(body)))
+                         .WithExpressionBody(null)
+                         .WithSemicolonToken(SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken))
+                         .WithTrailingTrivia(method.GetTrailingTrivia());
+        }
+
+        public static ConstructorDeclarationSyntax ToStatementBody(ConstructorDeclarationSyntax method)
+        {
+            var body = method.ExpressionBody.Expression.WithLeadingTrivia(SyntaxFactory.Space);
+
+            return method.WithBody(SyntaxFactory.Block(SyntaxFactory.ExpressionStatement(body)))
+                         .WithExpressionBody(null)
+                         .WithSemicolonToken(SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken))
+                         .WithTrailingTrivia(method.GetTrailingTrivia());
+        }
+
+        public static DestructorDeclarationSyntax ToStatementBody(DestructorDeclarationSyntax method)
+        {
+            var body = method.ExpressionBody.Expression.WithLeadingTrivia(SyntaxFactory.Space);
+
+            return method.WithBody(SyntaxFactory.Block(SyntaxFactory.ExpressionStatement(body)))
+                         .WithExpressionBody(null)
+                         .WithSemicolonToken(SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken))
+                         .WithTrailingTrivia(method.GetTrailingTrivia());
+        }
+
+        public static AccessorDeclarationSyntax ToStatementBody(AccessorDeclarationSyntax method)
+        {
+            var needReturn = method.Keyword.Kind() == SyntaxKind.GetKeyword;
+
+            var body = method.ExpressionBody.Expression.WithLeadingTrivia(SyntaxFactory.Space);
+
+            return method.WithBody(SyntaxFactory.Block(needReturn ? (StatementSyntax)SyntaxFactory.ReturnStatement(body) : SyntaxFactory.ExpressionStatement(body)))
                          .WithExpressionBody(null)
                          .WithSemicolonToken(SyntaxFactory.MissingToken(SyntaxKind.SemicolonToken))
                          .WithTrailingTrivia(method.GetTrailingTrivia());
