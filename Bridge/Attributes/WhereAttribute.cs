@@ -25,6 +25,13 @@ namespace Bridge
         public bool EnableExplicitConversion { get; set; }
 
         /// <summary>
+        /// Configures a constraint type for the specified type parameter.
+        /// </summary>
+        /// <param name="typeParameterName">Type parameter name. Prefer "nameof(T)" whenever possible.</param>
+        /// <param name="constraintType">A constraint type that the type parameter must be convertible from.</param>
+        public extern WhereAttribute(string typeParameterName, Type constraintType);
+
+        /// <summary>
         /// Configures constraint(s) for the specified type parameter.
         /// </summary>
         /// <param name="typeParameterName">Type parameter name. Prefer "nameof(T)" whenever possible.</param>
@@ -36,7 +43,7 @@ namespace Bridge
         /// Prefer the overloaded ctor accepting types whenever possible.
         /// </summary>
         /// <param name="typeParameterName">Type parameter name: prefer "nameof(T)" whenever possible.</param>
-        /// <param name="constraintTypes">One or more constraint type names that the type parameter must be convertible from.</param>
-        public extern WhereAttribute(string typeParameterName, params string[] constraintTypes);
+        /// <param name="constraintTypeNames">One or more constraint type names that the type parameter must be convertible from.</param>
+        public extern WhereAttribute(string typeParameterName, params string[] constraintTypeNames);
     }
 }
