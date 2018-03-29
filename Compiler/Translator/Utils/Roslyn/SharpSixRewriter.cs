@@ -291,7 +291,7 @@ namespace Bridge.Translator
                 elements = ((INamedTypeSymbol)type).TupleElements;
                 foreach (var el in elements)
                 {
-                    types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type));
+                    types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, semanticModel, node.GetLocation().SourceSpan.Start));
                 }
             }
             node = (TupleExpressionSyntax)base.VisitTupleExpression(node);

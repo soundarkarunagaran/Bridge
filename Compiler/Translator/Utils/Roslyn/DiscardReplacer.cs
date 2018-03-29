@@ -75,7 +75,7 @@ namespace Bridge.Translator
                         }
 
                         var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-                        var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                        var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, discard.Parent.GetLocation().SourceSpan.Start)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
                             SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(instance))
                         ));
 
@@ -124,7 +124,7 @@ namespace Bridge.Translator
                         }
 
                         var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-                        var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                        var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, discardVar.Expression.GetLocation().SourceSpan.Start)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
                             SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(instance))
                         ));
 
@@ -158,7 +158,7 @@ namespace Bridge.Translator
                             if (designation != null)
                             {
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
-                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo.Type, model, outVar.Expression.GetLocation().SourceSpan.Start)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
                                     SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                 ));
 

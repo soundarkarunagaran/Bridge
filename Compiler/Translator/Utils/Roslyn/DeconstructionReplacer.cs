@@ -53,7 +53,7 @@ namespace Bridge.Translator
                             {
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
                                 var typeInfo = model.GetTypeInfo(de).Type;
-                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo, model, arg.Expression.GetLocation().SourceSpan.Start)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
                                     SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                 ));
 
@@ -85,7 +85,7 @@ namespace Bridge.Translator
                         var elements = ((INamedTypeSymbol)typeInfo).TupleElements;
                         foreach (var el in elements)
                         {
-                            types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type));
+                            types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, declaration.GetLocation().SourceSpan.Start));
                         }
                     }
                     else

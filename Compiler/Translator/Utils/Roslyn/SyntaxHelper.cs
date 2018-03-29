@@ -221,6 +221,11 @@ namespace Bridge.Translator
             return SyntaxFactory.IdentifierName(type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
         }
 
+        public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type, SemanticModel model, int pos)
+        {
+            return SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(model, pos));
+        }        
+
         /// <summary>
         /// Generates the name of the generic.
         /// </summary>
