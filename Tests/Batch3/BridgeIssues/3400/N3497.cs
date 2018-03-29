@@ -18,17 +18,14 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         public static void TestDownloadingOfBinaryFile()
         {
             // The test file by the link below contains 256 bytes, counting from 0 to 255.
-
-            // TODO: Eventually, "testFilePath" should point to https://raw.githubusercontent.com/bridgedotnet/Bridge/master/Tests/Batch3/BridgeIssues/3400/N3497_TestData.txt
-            // The path below should be treated as temporary.
-            const string testFilePath = "https://raw.githubusercontent.com/AndreyChechel/Bridge/Attachments/Issues/Attachments/Issue3497_TestFile.txt";
+            const string testFilePath = "resources/testdata.bin";
 
             var bytes = System.IO.File.ReadAllBytes(testFilePath);
-            Assert.AreEqual(256, bytes.Length, "Checking array length.");
+            Assert.AreEqual(256, bytes.Length, "File length is correct.");
 
             for (var i = 0; i < 256; i++)
             {
-                Assert.AreEqual(i, bytes[i], $"Verifying bytes[{i}].");
+                Assert.AreEqual(i, bytes[i], $"Byte #{i} has the expected value.");
             }
         }
     }
