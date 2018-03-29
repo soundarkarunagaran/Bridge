@@ -35608,7 +35608,7 @@
                     } else {
                         var req = new XMLHttpRequest();
                         req.open("GET", path, false);
-                        req.overrideMimeType("text/plain; charset=binary-data");
+                        req.overrideMimeType("text/plain; charset=x-user-defined");
                         req.send(null);
                         if (req.status !== 200) {
                             throw new System.IO.IOException.$ctor1(System.String.concat("Status of request to " + (path || "") + " returned status: ", req.status));

@@ -30591,6 +30591,41 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test verifies that binary data is not changed by the browser
+     after it was downloaded from a remote location.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3497
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3497", {
+        statics: {
+            methods: {
+                /**
+                 * Downloads a binary file containing bytes from the range [0, 255],
+                 and verifies the received data matches the expected result.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3497
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3497
+                 * @return  {void}
+                 */
+                TestDownloadingOfBinaryFile: function () {
+                    // The test file by the link below contains 256 bytes, counting from 0 to 255.
+                    var testFilePath = "resources/testdata.bin";
+
+                    var bytes = System.IO.File.ReadAllBytes(testFilePath);
+                    Bridge.Test.NUnit.Assert.AreEqual(256, bytes.length, "File length is correct.");
+
+                    for (var i = 0; i < 256; i = (i + 1) | 0) {
+                        Bridge.Test.NUnit.Assert.AreEqual(i, bytes[System.Array.index(i, bytes)], System.String.format("Byte #{0} has the expected value.", [Bridge.box(i, System.Int32)]));
+                    }
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
