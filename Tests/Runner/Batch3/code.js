@@ -30626,6 +30626,64 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502", {
+        statics: {
+            methods: {
+                GetList: function () {
+                    return new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.TestList$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass))(System.Linq.Enumerable.range(1, 10).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.f1));
+                },
+                TestInvariance: function () {
+                    var $t;
+                    var list = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.GetList();
+
+                    var readable = Bridge.cast(list, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestReadValue$1(System.Collections.Generic.IReadOnlyList$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass)));
+
+                    var i = 0;
+                    $t = Bridge.getEnumerator(readable[Bridge.geti(readable, "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$System$Collections$Generic$IReadOnlyList$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$BaseClass$Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$Value")], Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass);
+                    try {
+                        while ($t.moveNext()) {
+                            var item = $t.Current;
+                            Bridge.Test.NUnit.Assert.AreEqual(((i = (i + 1) | 0)), item.Value);
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$Dispose();
+                        }
+                    }}
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502, {
+        f1: function (i) {
+            return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass(i);
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass", {
+        $kind: "nested class",
+        props: {
+            Value: 0
+        },
+        ctors: {
+            ctor: function (i) {
+                this.$initialize();
+                this.Value = i;
+            }
+        }
+    });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestInterface$1", function (T) { return {
+        $kind: "nested interface"
+    }; });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestReadValue$1", function (T) { return {
+        $kind: "nested interface",
+        $variance: [1]
+    }; });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
@@ -41048,6 +41106,42 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         alias: ["m1", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3453$i1$m1"]
     });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass],
+        $kind: "nested class",
+        ctors: {
+            ctor: function (i) {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass.ctor.call(this, i);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.TestList$1", function (T) { return {
+        inherits: [System.Collections.Generic.List$1(T),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestInterface$1(T),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestReadValue$1(System.Collections.Generic.IReadOnlyList$1(T))],
+        $kind: "nested class",
+        props: {
+            TestCount: 0,
+            Value: {
+                get: function () {
+                    return this;
+                }
+            }
+        },
+        alias: [
+            "TestCount", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestInterface$1$" + Bridge.getTypeAlias(T) + "$TestCount",
+            "Value", ["Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$System$Collections$Generic$IReadOnlyList$1$" + Bridge.getTypeAlias(T) + "$Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$Value"]
+        ],
+        ctors: {
+            ctor: function (items) {
+                this.$initialize();
+                System.Collections.Generic.List$1(T).ctor.call(this);
+                this.AddRange(items);
+                this.TestCount = this.Count;
+            }
+        }
+    }; });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
