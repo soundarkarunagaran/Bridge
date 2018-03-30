@@ -224,7 +224,7 @@ namespace Bridge.Translator
         public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type, SemanticModel model, int pos)
         {
             return SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(model, pos));
-        }        
+        }
 
         /// <summary>
         /// Generates the name of the generic.
@@ -790,7 +790,7 @@ namespace Bridge.Translator
                     return true;
                 }
 
-                var value = (int) attr.ConstructorArguments[0].Value;
+                var value = (int)attr.ConstructorArguments[0].Value;
 
                 switch (value)
                 {
