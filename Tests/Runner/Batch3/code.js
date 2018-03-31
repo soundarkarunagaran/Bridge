@@ -24,6 +24,13 @@ var Bridge3001_SomeLib = (function () {
 
     return Bridge3001_SomeLib;
 }());
+var Bridge3494_A = (function () {
+    function Bridge3494_A(s) {
+        Bridge3494_A.InstancesCount++;
+    }
+    Bridge3494_A.InstancesCount = 0;
+    return Bridge3494_A;
+}());
 
 /**
  * Bridge Test library - test github issues up to #1999
@@ -30589,6 +30596,31 @@ Bridge.$N1391Result =                     r;
                 }
             }
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494", {
+        statics: {
+            methods: {
+                TestExtrenalClasCtor: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge3494_A.InstancesCount);
+
+                    var a = new Bridge3494_A();
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge3494_A.InstancesCount);
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, Bridge3494_A));
+
+                    for (var i = 0; i < 10; i = (i + 1) | 0) {
+                        var b = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494.B();
+                        Bridge.Test.NUnit.Assert.True(Bridge.is(b, Bridge3494_A));
+                    }
+                    Bridge.Test.NUnit.Assert.AreEqual(11, Bridge3494_A.InstancesCount);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494.B", {
+        inherits: [Bridge3494_A],
+        $kind: "nested class"
     });
 
     /**
