@@ -24,6 +24,13 @@ var Bridge3001_SomeLib = (function () {
 
     return Bridge3001_SomeLib;
 }());
+var Bridge3485_A = (function () {
+    function A() {
+        this.V1 = "value1";
+        this.V2 = "value2";
+    }
+    return A;
+}());
 
 /**
  * Bridge Test library - test github issues up to #1999
@@ -30587,6 +30594,33 @@ Bridge.$N1391Result =                     r;
                     // the key here should match the key added above
                     Bridge.Test.NUnit.Assert.AreEqual(1, test5.get(new (System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).$ctor1(1, 1)), "Fetching via the Get() method works.");
                 }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485", {
+        statics: {
+            methods: {
+                TestExternalVirtualProperty: function () {
+                    var v1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B().GetV1();
+                    var v2 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B().GetV2();
+
+                    Bridge.Test.NUnit.Assert.AreEqual("value1", v1);
+                    Bridge.Test.NUnit.Assert.AreEqual("value2", v2);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B", {
+        inherits: [Bridge3485_A],
+        $kind: "nested class",
+        methods: {
+            GetV1: function () {
+                return this.V1;
+            },
+            GetV2: function () {
+                return Bridge.ensureBaseProperty(this, "V2", "Bridge3485_A").$Bridge3485_A$V2;
             }
         }
     });

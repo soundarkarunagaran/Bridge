@@ -276,7 +276,7 @@
             return proxy;
         },
 
-        ensureBaseProperty: function (scope, name) {
+        ensureBaseProperty: function (scope, name, alias) {
             var scopeType = Bridge.getType(scope),
                 descriptors = scopeType.$descriptors || [];
 
@@ -286,24 +286,40 @@
                 return scope;
             }
 
-            for (var j = 0; j < descriptors.length; j++) {
-                var d = descriptors[j];
+            if ((!scopeType.$descriptors || scopeType.$descriptors.length === 0) && alias) {
+                var aliasCfg = {},
+                    aliasName = "$" + alias + "$" + name;
 
-                if (d.name === name) {
-                    var aliasCfg = {},
-                        aliasName = "$" + Bridge.getTypeAlias(d.cls) + "$" + name;
+                aliasCfg.get = function () {
+                    return scope[name];
+                };
 
-                    if (d.get) {
-                        aliasCfg.get = d.get;
-                    }
+                aliasCfg.set = function (value) {
+                    scope[name] = value;
+                };
 
-                    if (d.set) {
-                        aliasCfg.set = d.set;
-                    }
-
-                    Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
-                }
+                Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
             }
+            else {
+                for (var j = 0; j < descriptors.length; j++) {
+                    var d = descriptors[j];
+
+                    if (d.name === name) {
+                        var aliasCfg = {},
+                            aliasName = "$" + Bridge.getTypeAlias(d.cls) + "$" + name;
+
+                        if (d.get) {
+                            aliasCfg.get = d.get;
+                        }
+
+                        if (d.set) {
+                            aliasCfg.set = d.set;
+                        }
+
+                        Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
+                    }
+                }
+            }            
 
             scope.$propMap[name] = true;
 
