@@ -1,4 +1,5 @@
 using Bridge.Test.NUnit;
+using System.Collections.Generic;
 
 namespace Bridge.ClientTest.CSharp7
 {
@@ -46,6 +47,18 @@ namespace Bridge.ClientTest.CSharp7
             int multiRes;
             Multiply(20, 2, out multiRes);
             Assert.AreEqual(40, multiRes, "Local function with 'out' parameter works.");
+        }
+
+        [Test]
+        public static void TestArrowLocalFunction()
+        {
+            var numbers = new List<string>() { "one", "two" };
+
+            var length = numbers.Count;
+
+            string Length() => $"length is {length}";
+
+            Assert.AreEqual("length is 2", Length());
         }
 
         public class LocalRetType

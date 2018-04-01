@@ -114,6 +114,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Expression-bodied members - Test", Bridge.Test.Runtime.BridgeClientTestRunner.TestExpressionBodyMember.Test);
             QUnit.test("Is pattern - IsPatternTests", Bridge.Test.Runtime.BridgeClientTestRunner.TestIsPattern.IsPatternTests);
             QUnit.test("Local function - LocalFunctionTests", Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions.LocalFunctionTests);
+            QUnit.test("Local function - TestArrowLocalFunction", Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions.TestArrowLocalFunction);
             QUnit.test("C# 7.2's ReadOnly struct - TestReadOnlyStruct", Bridge.Test.Runtime.BridgeClientTestRunner.TestROStruct.TestReadOnlyStruct);
             QUnit.test("Throw expressions - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestThrowExpression.TestBasic);
             QUnit.test("ValueTuple and deconstruction - TestBasic", Bridge.Test.Runtime.BridgeClientTestRunner.TestValueTupleAndDeconstruction.TestBasic);
@@ -23767,8 +23768,13 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 LocalFunctionTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestLocalFunctions).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions, 4, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LocalFunctionTests()", $t.Line = "16", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestLocalFunctions).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions, 4, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LocalFunctionTests()", $t.Line = "17", $t));
                     Bridge.ClientTest.CSharp7.TestLocalFunctions.LocalFunctionTests();
+                },
+                TestArrowLocalFunction: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.CSharp7.TestLocalFunctions).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TestLocalFunctions, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestArrowLocalFunction()", $t.Line = "46", $t));
+                    Bridge.ClientTest.CSharp7.TestLocalFunctions.TestArrowLocalFunction();
                 }
             }
         },
