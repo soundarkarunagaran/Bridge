@@ -30626,6 +30626,40 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499", {
+        statics: {
+            methods: {
+                TestKeysWithSimilarHashCode: function () {
+                    var superDict = new (System.Collections.Generic.Dictionary$2(System.Guid,System.String))();
+
+
+                    var x1 = "str1";
+                    var guid1 = new System.Guid.$ctor4("00000003-0000-0000-0001-00001c000000");
+                    var x2 = "str2";
+                    var guid2 = new System.Guid.$ctor4("00000001-0000-0000-0001-000004000000");
+                    var x3 = "str3";
+                    var guid3 = new System.Guid.$ctor4("00000003-0000-0000-0001-000022000000");
+
+                    superDict.add(guid1, x1);
+                    superDict.add(guid2, x2);
+                    superDict.add(guid3, x3);
+
+                    var keys = superDict.getKeys();
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(keys).count());
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid1, System.Guid));
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid2, System.Guid));
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid3, System.Guid));
+
+                    var values = superDict.getValues();
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(values).count());
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x1, System.String));
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x2, System.String));
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x3, System.String));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {

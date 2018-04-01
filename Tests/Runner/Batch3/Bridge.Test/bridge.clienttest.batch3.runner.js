@@ -745,6 +745,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3478 - TestDateTimeTzMath", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3478.TestDateTimeTzMath);
             QUnit.test("#3483 - KeyValuePairAsDictionaryKeyWorks", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3483.KeyValuePairAsDictionaryKeyWorks);
             QUnit.test("#3497 - TestDownloadingOfBinaryFile", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3497.TestDownloadingOfBinaryFile);
+            QUnit.test("#3499 - TestKeysWithSimilarHashCode", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499.TestKeysWithSimilarHashCode);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
             QUnit.test("#447 - CheckInlineCalls", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineCalls);
@@ -16340,6 +16341,32 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3497", $t.File = "Batch3\\BridgeIssues\\3400\\N3497.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestKeysWithSimilarHashCode: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestKeysWithSimilarHashCode()", $t.Line = "12", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499.TestKeysWithSimilarHashCode();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499", $t.File = "Batch3\\BridgeIssues\\3400\\N3499.cs", $t);
                 }
                 return this.context;
             }
