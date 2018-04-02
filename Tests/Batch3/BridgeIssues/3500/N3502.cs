@@ -5,6 +5,11 @@ using System.Linq;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The test here consists in checking whether a casting/inheritance
+    /// scenario involving variance triggers a runtime error in built
+    /// Bridge code.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3502 - {0}")]
     public class Bridge3502
     {
@@ -51,6 +56,11 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             return new TestList<SubClass>(Enumerable.Range(1, 10).Select(i => new SubClass(i)));
         }
 
+        /// <summary>
+        /// Test by instantiating the class as one of the interfaces that it
+        /// implements. Then, cast that instance to the other interface also
+        /// implemented by the actual class.
+        /// </summary>
         [Test(ExpectedCount = 10)]
         public static void TestInvariance()
         {
@@ -61,7 +71,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             int i = 0;
             foreach (var item in readable.Value)
             {
-                Assert.AreEqual(++i, item.Value);
+                Assert.AreEqual(++i, item.Value, "Variance cast works for value at position #" + i + ".");
             }
         }
     }
