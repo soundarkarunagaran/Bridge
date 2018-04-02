@@ -1,5 +1,5 @@
 /**
- * @version   : 17.0.0 - Bridge.NET
+ * @version   : 17.0.0-beta0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
  * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
@@ -276,7 +276,7 @@
             return proxy;
         },
 
-        ensureBaseProperty: function (scope, name) {
+        ensureBaseProperty: function (scope, name, alias) {
             var scopeType = Bridge.getType(scope),
                 descriptors = scopeType.$descriptors || [];
 
@@ -286,22 +286,38 @@
                 return scope;
             }
 
-            for (var j = 0; j < descriptors.length; j++) {
-                var d = descriptors[j];
+            if ((!scopeType.$descriptors || scopeType.$descriptors.length === 0) && alias) {
+                var aliasCfg = {},
+                    aliasName = "$" + alias + "$" + name;
 
-                if (d.name === name) {
-                    var aliasCfg = {},
-                        aliasName = "$" + Bridge.getTypeAlias(d.cls) + "$" + name;
+                aliasCfg.get = function () {
+                    return scope[name];
+                };
 
-                    if (d.get) {
-                        aliasCfg.get = d.get;
+                aliasCfg.set = function (value) {
+                    scope[name] = value;
+                };
+
+                Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
+            }
+            else {
+                for (var j = 0; j < descriptors.length; j++) {
+                    var d = descriptors[j];
+
+                    if (d.name === name) {
+                        var aliasCfg = {},
+                            aliasName = "$" + Bridge.getTypeAlias(d.cls) + "$" + name;
+
+                        if (d.get) {
+                            aliasCfg.get = d.get;
+                        }
+
+                        if (d.set) {
+                            aliasCfg.set = d.set;
+                        }
+
+                        Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
                     }
-
-                    if (d.set) {
-                        aliasCfg.set = d.set;
-                    }
-
-                    Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
                 }
             }
 
@@ -3361,8 +3377,8 @@
     // @source SystemAssemblyVersion.js
 
     Bridge.init(function () {
-        Bridge.SystemAssembly.version = "17.0.0";
-        Bridge.SystemAssembly.compiler = "17.0.0";
+        Bridge.SystemAssembly.version = "17.0.0-beta0";
+        Bridge.SystemAssembly.compiler = "17.0.0-beta0";
     });
 
     Bridge.define("Bridge.Utils.SystemAssemblyVersion");
@@ -12751,7 +12767,8 @@
     Bridge.define("System.Collections.Generic.IReadOnlyList$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IReadOnlyCollection$1(T)],
-            $kind: "interface"
+            $kind: "interface",
+            $variance: [1]
         };
     });
 

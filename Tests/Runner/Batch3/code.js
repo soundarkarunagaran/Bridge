@@ -24,6 +24,13 @@ var Bridge3001_SomeLib = (function () {
 
     return Bridge3001_SomeLib;
 }());
+var Bridge3485_A = (function () {
+    function A() {
+        this.V1 = "value1";
+        this.V2 = "value2";
+    }
+    return A;
+}());
 var Bridge3494_A = (function () {
     function Bridge3494_A(s) {
         Bridge3494_A.InstancesCount++;
@@ -34,10 +41,10 @@ var Bridge3494_A = (function () {
 
 /**
  * Bridge Test library - test github issues up to #1999
- * @version 17.0.0
+ * @version 17.0.0-beta0
  * @author Object.NET, Inc.
  * @copyright Copyright 2008-2018 Object.NET, Inc.
- * @compiler Bridge.NET 17.0.0
+ * @compiler Bridge.NET 17.0.0-beta0
  */
 Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     "use strict";
@@ -29989,8 +29996,8 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 /**
-                 * Run the tasks expecting that Temp.Method4 call would assert as true
-                 testData value in both calls.
+                 * Run the tasks expecting that Case0.Method4 call would assert as true
+                 testData value in both events.
                  *
                  * @static
                  * @public
@@ -29998,21 +30005,21 @@ Bridge.$N1391Result =                     r;
                  * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476
                  * @return  {void}
                  */
-                TestTaskCompletionSource: function () {
+                TestTaskCase0: function () {
                     var $step = 0,
                         $task1, 
                         $jumpFromFinally, 
                         done, 
-                        temp, 
+                        case0, 
                         $asyncBody = Bridge.fn.bind(this, function () {
                             for (;;) {
                                 $step = System.Array.min([0,1], $step);
                                 switch ($step) {
                                     case 0: {
                                         done = Bridge.Test.NUnit.Assert.Async();
-                                        temp = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp(done);
+                                        case0 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0(done);
 
-                                        temp.SomeEvent1();
+                                        case0.SomeEvent1();
 
                                         $task1 = System.Threading.Tasks.Task.delay(1000);
                                         $step = 1;
@@ -30021,7 +30028,7 @@ Bridge.$N1391Result =                     r;
                                     }
                                     case 1: {
                                         $task1.getAwaitedResult();
-                                        temp.SomeEvent2();
+                                        case0.SomeEvent2();
                                         return;
                                     }
                                     default: {
@@ -30032,6 +30039,25 @@ Bridge.$N1391Result =                     r;
                         }, arguments);
 
                     $asyncBody();
+                },
+                /**
+                 * Run the tasks expecting that Temp.Method4 call would assert as true
+                 testData value in both calls.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476
+                 * @return  {void}
+                 */
+                TestTaskCase1: function () {
+                    var done = Bridge.Test.NUnit.Assert.Async();
+                    var case1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case1(done);
+
+                    case1.SomeEvent1();
+                    case1.SomeEvent1();
+                    case1.SomeEvent2();
+                    case1.SomeEvent1();
                 }
             }
         }
@@ -30041,9 +30067,9 @@ Bridge.$N1391Result =                     r;
      * A class to implement the async tasks that can be called.
      *
      * @public
-     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0
      */
-    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp", {
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0", {
         $kind: "nested class",
         fields: {
             testData: false,
@@ -30060,10 +30086,10 @@ Bridge.$N1391Result =                     r;
         },
         methods: {
             SomeEvent1: function () {
-                this.Method1().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp.f1);
+                this.Method1().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0.f1);
             },
             SomeEvent2: function () {
-                this.Method2().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp.f1);
+                this.Method2().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0.f1);
             },
             Method1: function () {
                 var $step = 0,
@@ -30083,7 +30109,6 @@ Bridge.$N1391Result =                     r;
                                 switch ($step) {
                                     case 0: {
                                         // wait for second click
-                                        // BTW: remove this line and compiler will fail
                                         $task1 = this.source.task;
                                         $step = 1;
                                         $task1.continueWith($asyncBody);
@@ -30255,12 +30280,233 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp", $asm.$);
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0", $asm.$);
 
-    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Temp, {
-        f1: function (r_) {
-            // something
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case0, {
+        f1: function (r_) { }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case1", {
+        $kind: "nested class",
+        fields: {
+            iTestData: 0,
+            source: null,
+            done: null,
+            chkCount: 0
+        },
+        ctors: {
+            init: function () {
+                this.chkCount = 1;
+            },
+            ctor: function (done) {
+                this.$initialize();
+                this.iTestData = 0;
+                this.done = done;
+                this.source = new System.Threading.Tasks.TaskCompletionSource();
+            }
+        },
+        methods: {
+            SomeEvent1: function () {
+                this.Method1().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case1.f1);
+            },
+            SomeEvent2: function () {
+                this.Method2().continueWith($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case1.f1);
+            },
+            Method1: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $task2, 
+                    $taskResult2, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    oResult, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1,2], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        // wait for second click
+                                        $task1 = this.source.task;
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        oResult = $taskResult1;
+
+                                        // do some finishing
+                                        $task2 = this.Method4();
+                                        $step = 2;
+                                        $task2.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 2: {
+                                        $taskResult2 = $task2.getAwaitedResult();
+                                        $tcs.setResult($taskResult2);
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method2: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        //wake up second activity
+                                        this.source.setResult(null);
+
+                                        //do some finishing
+                                        $task1 = this.Method3();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        $tcs.setResult($taskResult1);
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method3: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        // call whatever
+                                        $task1 = this.Method5();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        $tcs.setResult("");
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method4: function () {
+                var $step = 0,
+                    $task1, 
+                    $taskResult1, 
+                    $jumpFromFinally, 
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                    $returnValue, 
+                    iStoreValue, 
+                    $async_e, 
+                    $asyncBody = Bridge.fn.bind(this, function () {
+                        try {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        this.iTestData = (this.iTestData + 1) | 0;
+                                        iStoreValue = this.iTestData;
+                                        $task1 = this.Method5();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        // Expected: iStoreValue == iTestData
+                                        Bridge.Test.NUnit.Assert.AreEqual(iStoreValue, this.iTestData, "Data did not get corrupt with the async-await calls (." + this.chkCount + "/3).");
+
+                                        if (Bridge.identity(this.chkCount, (this.chkCount = (this.chkCount + 1) | 0)) >= 3) {
+                                            this.done();
+                                        }
+
+                                        $tcs.setResult("");
+                                        return;
+                                    }
+                                    default: {
+                                        $tcs.setResult(null);
+                                        return;
+                                    }
+                                }
+                            }
+                        } catch($async_e1) {
+                            $async_e = System.Exception.create($async_e1);
+                            $tcs.setException($async_e);
+                        }
+                    }, arguments);
+
+                $asyncBody();
+                return $tcs.task;
+            },
+            Method5: function () {
+                return System.Threading.Tasks.Task.fromResult("", System.String);
+            }
         }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case1", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3476.Case1, {
+        f1: function (r_) { }
     });
 
     /**
@@ -30598,21 +30844,77 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485", {
+        statics: {
+            methods: {
+                /**
+                 * The tests consists in just instantiating a class, which inherits
+                 from an external-marked class, and references a property that's
+                 declared in the base class after the 'virtual' keyword, thus that
+                 should have been inherited by the class instance.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485
+                 * @return  {void}
+                 */
+                TestExternalVirtualProperty: function () {
+                    var v1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B().GetV1();
+                    var v2 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B().GetV2();
+
+                    Bridge.Test.NUnit.Assert.AreEqual("value1", v1, "Non-virtual inherited property reference works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("value2", v2, "Virtual inherited property reference works.");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B", {
+        inherits: [Bridge3485_A],
+        $kind: "nested class",
+        methods: {
+            GetV1: function () {
+                return this.V1;
+            },
+            GetV2: function () {
+                return Bridge.ensureBaseProperty(this, "V2", "Bridge3485_A").$Bridge3485_A$V2;
+            }
+        }
+    });
+
+    /**
+     * Test whether constructor calls are correctly issued when instantiating
+     classes that inherit from external classes.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494", {
         statics: {
             methods: {
+                /**
+                 * Instantiate classes several times and checks the return types and
+                 values.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494
+                 * @return  {void}
+                 */
                 TestExtrenalClasCtor: function () {
-                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge3494_A.InstancesCount);
+                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge3494_A.InstancesCount, "Amount of instances of a class are initially zero.");
 
                     var a = new Bridge3494_A();
-                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge3494_A.InstancesCount);
-                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, Bridge3494_A));
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge3494_A.InstancesCount, "Amount if instances of a class are 1 after one instance of it is created.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, Bridge3494_A), "Casting to object once allows 'is' to infer it is relative to the class.");
 
                     for (var i = 0; i < 10; i = (i + 1) | 0) {
                         var b = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3494.B();
-                        Bridge.Test.NUnit.Assert.True(Bridge.is(b, Bridge3494_A));
+                        Bridge.Test.NUnit.Assert.True(Bridge.is(b, Bridge3494_A), "Casting to object " + (((i + 1) | 0)) + " time" + ((i > 0 ? "s" : "") || "") + " allows inferring its base class instance.");
                     }
-                    Bridge.Test.NUnit.Assert.AreEqual(11, Bridge3494_A.InstancesCount);
+                    Bridge.Test.NUnit.Assert.AreEqual(11, Bridge3494_A.InstancesCount, "Instantiating a class that inherits from the other counts as instance count of the base class.");
                 }
             }
         }
@@ -30657,6 +30959,83 @@ Bridge.$N1391Result =                     r;
             }
         }
     });
+
+    /**
+     * The test here consists in checking whether a casting/inheritance
+     scenario involving variance triggers a runtime error in built
+     Bridge code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502", {
+        statics: {
+            methods: {
+                GetList: function () {
+                    return new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.TestList$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass))(System.Linq.Enumerable.range(1, 10).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.f1));
+                },
+                /**
+                 * Test by instantiating the class as one of the interfaces that it
+                 implements. Then, cast that instance to the other interface also
+                 implemented by the actual class.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502
+                 * @return  {void}
+                 */
+                TestInvariance: function () {
+                    var $t;
+                    var list = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.GetList();
+
+                    var readable = Bridge.cast(list, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestReadValue$1(System.Collections.Generic.IReadOnlyList$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass)));
+
+                    var i = 0;
+                    $t = Bridge.getEnumerator(readable[Bridge.geti(readable, "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$System$Collections$Generic$IReadOnlyList$1$Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$BaseClass$Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$Value")], Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass);
+                    try {
+                        while ($t.moveNext()) {
+                            var item = $t.Current;
+                            Bridge.Test.NUnit.Assert.AreEqual(((i = (i + 1) | 0)), item.Value, "Variance cast works for value at position #" + i + ".");
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$Dispose();
+                        }
+                    }}
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502, {
+        f1: function (i) {
+            return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass(i);
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass", {
+        $kind: "nested class",
+        props: {
+            Value: 0
+        },
+        ctors: {
+            ctor: function (i) {
+                this.$initialize();
+                this.Value = i;
+            }
+        }
+    });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestInterface$1", function (T) { return {
+        $kind: "nested interface"
+    }; });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestReadValue$1", function (T) { return {
+        $kind: "nested interface",
+        $variance: [1]
+    }; });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
@@ -41080,6 +41459,42 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         alias: ["m1", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3453$i1$m1"]
     });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass],
+        $kind: "nested class",
+        ctors: {
+            ctor: function (i) {
+                this.$initialize();
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass.ctor.call(this, i);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.TestList$1", function (T) { return {
+        inherits: [System.Collections.Generic.List$1(T),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestInterface$1(T),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.ITestReadValue$1(System.Collections.Generic.IReadOnlyList$1(T))],
+        $kind: "nested class",
+        props: {
+            TestCount: 0,
+            Value: {
+                get: function () {
+                    return this;
+                }
+            }
+        },
+        alias: [
+            "TestCount", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestInterface$1$" + Bridge.getTypeAlias(T) + "$TestCount",
+            "Value", ["Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$System$Collections$Generic$IReadOnlyList$1$" + Bridge.getTypeAlias(T) + "$Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3502$ITestReadValue$1$Value"]
+        ],
+        ctors: {
+            ctor: function (items) {
+                this.$initialize();
+                System.Collections.Generic.List$1(T).ctor.call(this);
+                this.AddRange(items);
+                this.TestCount = this.Count;
+            }
+        }
+    }; });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
