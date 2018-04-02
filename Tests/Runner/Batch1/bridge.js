@@ -319,7 +319,7 @@
                         Bridge.property(scope, aliasName, aliasCfg, false, scopeType, true);
                     }
                 }
-            }            
+            }
 
             scope.$propMap[name] = true;
 

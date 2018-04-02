@@ -30840,12 +30840,24 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485", {
         statics: {
             methods: {
+                /**
+                 * The tests consists in just instantiating a class, which inherits
+                 from an external-marked class, and references a property that's
+                 declared in the base class after the 'virtual' keyword, thus that
+                 should have been inherited by the class instance.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485
+                 * @return  {void}
+                 */
                 TestExternalVirtualProperty: function () {
                     var v1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B().GetV1();
                     var v2 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.B().GetV2();
 
-                    Bridge.Test.NUnit.Assert.AreEqual("value1", v1);
-                    Bridge.Test.NUnit.Assert.AreEqual("value2", v2);
+                    Bridge.Test.NUnit.Assert.AreEqual("value1", v1, "Non-virtual inherited property reference works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("value2", v2, "Virtual inherited property reference works.");
                 }
             }
         }

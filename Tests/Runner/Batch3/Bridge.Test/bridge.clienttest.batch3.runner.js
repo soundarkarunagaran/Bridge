@@ -16335,7 +16335,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestExternalVirtualProperty: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3485, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestExternalVirtualProperty()", $t.Line = "39", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3485, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestExternalVirtualProperty()", $t.Line = "49", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3485.TestExternalVirtualProperty();
                 }
             }
