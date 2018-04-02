@@ -1,5 +1,5 @@
 /**
- * @version   : 17.0.0 - Bridge.NET
+ * @version   : 17.0.0-beta0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
  * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
@@ -3363,8 +3363,8 @@
     // @source SystemAssemblyVersion.js
 
     Bridge.init(function () {
-        Bridge.SystemAssembly.version = "17.0.0";
-        Bridge.SystemAssembly.compiler = "17.0.0";
+        Bridge.SystemAssembly.version = "17.0.0-beta0";
+        Bridge.SystemAssembly.compiler = "17.0.0-beta0";
     });
 
     Bridge.define("Bridge.Utils.SystemAssemblyVersion");
@@ -12753,7 +12753,8 @@
     Bridge.define("System.Collections.Generic.IReadOnlyList$1", function (T) {
         return {
             inherits: [System.Collections.Generic.IReadOnlyCollection$1(T)],
-            $kind: "interface"
+            $kind: "interface",
+            $variance: [1]
         };
     });
 
