@@ -30865,12 +30865,31 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in checking whether a casting/inheritance
+     scenario involving variance triggers a runtime error in built
+     Bridge code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502", {
         statics: {
             methods: {
                 GetList: function () {
                     return new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.TestList$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass))(System.Linq.Enumerable.range(1, 10).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.f1));
                 },
+                /**
+                 * Test by instantiating the class as one of the interfaces that it
+                 implements. Then, cast that instance to the other interface also
+                 implemented by the actual class.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502
+                 * @return  {void}
+                 */
                 TestInvariance: function () {
                     var $t;
                     var list = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.GetList();
@@ -30882,7 +30901,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t.moveNext()) {
                             var item = $t.Current;
-                            Bridge.Test.NUnit.Assert.AreEqual(((i = (i + 1) | 0)), item.Value);
+                            Bridge.Test.NUnit.Assert.AreEqual(((i = (i + 1) | 0)), item.Value, "Variance cast works for value at position #" + i + ".");
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
