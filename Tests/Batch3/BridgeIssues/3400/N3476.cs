@@ -16,9 +16,9 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         /// <summary>
         /// A class to implement the async tasks that can be called.
         /// </summary>
-        public class Temp
+        public class Case0
         {
-            public Temp(Action done)
+            public Case0(Action done)
             {
                 testData = true;
                 this.done = done;
@@ -27,24 +27,17 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             public void SomeEvent1()
             {
-                Method1().ContinueWith(
-                    r_ => {
-                    // something
-                });
+                Method1().ContinueWith(r_ => { });
             }
 
             public void SomeEvent2()
             {
-                Method2().ContinueWith(
-                    r_ => {
-                    // something
-                });
+                Method2().ContinueWith(r_ => { });
             }
 
             public async Task<string> Method1()
             {
                 // wait for second click
-                // BTW: remove this line and compiler will fail
                 object oResult = await source.Task;
 
                 // do some finishing
@@ -93,21 +86,110 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             TaskCompletionSource<object> source;
         }
 
+        public class Case1
+        {
+            public Case1(Action done)
+            {
+                iTestData = 0;
+                this.done = done;
+                source = new TaskCompletionSource<object>();
+            }
+
+            public void SomeEvent1()
+            {
+                Method1().ContinueWith(r_ => { });
+            }
+
+            public void SomeEvent2()
+            {
+                Method2().ContinueWith(r_ => { });
+            }
+
+            public async Task<string> Method1()
+            {
+                // wait for second click
+                object oResult = await source.Task;
+
+                // do some finishing
+                return await Method4();
+            }
+
+            public async Task<string> Method2()
+            {
+                //wake up second activity
+                source.SetResult(null);
+
+                //do some finishing
+                return await Method3();
+            }
+
+            public async Task<string> Method3()
+            {
+                // call whatever
+                await Method5();
+
+                return "";
+            }
+
+            public async Task<string> Method4()
+            {
+                iTestData++;
+                int iStoreValue = iTestData;
+                await Method5();
+
+                // Expected: iStoreValue == iTestData
+                Assert.AreEqual(iStoreValue, iTestData, "Data did not get corrupt with the async-await calls (." + chkCount + "/3).");
+
+                if (chkCount++ >= 3)
+                {
+                    done();
+                }
+
+                return "";
+            }
+            public Task<string> Method5()
+            {
+                return Task.FromResult<string>("");
+            }
+
+            int iTestData;
+            TaskCompletionSource<object> source;
+            private Action done;
+            int chkCount = 1;
+        }
+
+        /// <summary>
+        /// Run the tasks expecting that Case0.Method4 call would assert as true
+        /// testData value in both events.
+        /// </summary>
+        [Test(ExpectedCount = 2)]
+        public async static void TestTaskCase0()
+        {
+            var done = Assert.Async();
+            var case0 = new Case0(done);
+
+            case0.SomeEvent1();
+
+            await Task.Delay(1000);
+
+            case0.SomeEvent2();
+        }
+
         /// <summary>
         /// Run the tasks expecting that Temp.Method4 call would assert as true
         /// testData value in both calls.
         /// </summary>
-        [Test(ExpectedCount = 2)]
-        public async static void TestTaskCompletionSource()
+        [Test(ExpectedCount = 3)]
+        public static void TestTaskCase1()
         {
             var done = Assert.Async();
-            var temp = new Temp(done);
+            var case1 = new Case1(done);
 
-            temp.SomeEvent1();
-
-            await Task.Delay(1000);
-
-            temp.SomeEvent2();
+            case1.SomeEvent1();
+            case1.SomeEvent1();
+            case1.SomeEvent2();
+            case1.SomeEvent1();
         }
+
     }
 }
