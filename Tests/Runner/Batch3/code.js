@@ -30960,9 +30960,25 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Tests dictionary keys as System.Guids against issues fetching the values.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499", {
         statics: {
             methods: {
+                /**
+                 * Original test case provided by the reporter. The second Guid key
+                 does not trigger the problem whereas the third does.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499
+                 * @return  {void}
+                 */
                 TestKeysWithSimilarHashCode: function () {
                     var superDict = new (System.Collections.Generic.Dictionary$2(System.Guid,System.String))();
 
@@ -30979,16 +30995,47 @@ Bridge.$N1391Result =                     r;
                     superDict.add(guid3, x3);
 
                     var keys = superDict.getKeys();
-                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(keys).count());
-                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid1, System.Guid));
-                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid2, System.Guid));
-                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid3, System.Guid));
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(keys).count(), "Can fetch key count from dictionary.");
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid1, System.Guid), "Can fetch key matching first Guid value.");
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid2, System.Guid), "Can fetch key matching second Guid value.");
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(keys, guid3, System.Guid), "Can fetch key matching third Guid value.");
 
                     var values = superDict.getValues();
-                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(values).count());
-                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x1, System.String));
-                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x2, System.String));
-                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x3, System.String));
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(values).count(), "Can fetch value count from dictionary.");
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x1, System.String), "Can fetch value matching first string value.");
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x2, System.String), "Can fetch value matching second string value.");
+                    Bridge.Test.NUnit.Assert.True(System.Array.contains(values, x3, System.String), "Can fetch value matching third string value.");
+                },
+                /**
+                 * This expands and generalizes the test by making dictionaries with
+                 increasing levels of similarity and fetching the values.
+                 Originally this broke at position 19 (or 20, as position 19 is a
+                 hyphen).
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499
+                 * @return  {void}
+                 */
+                TestKeysWithIncreasingSimilarity: function () {
+                    var guidstr = "00000000-0000-0000-0000-000000000000";
+                    var guid1 = new System.Guid.$ctor4(guidstr);
+
+                    for (var i = 0; i < guidstr.length; i = (i + 1) | 0) {
+                        if (guidstr.charCodeAt(i) === 45) {
+                            continue;
+                        }
+
+                        var guidstr2 = (guidstr.substr(0, i) || "") + "1" + (guidstr.substr(((i + 1) | 0)) || "");
+                        var guid2 = new System.Guid.$ctor4(guidstr2);
+
+                        var dict = new (System.Collections.Generic.Dictionary$2(System.Guid,System.Int32))();
+                        dict.add(guid1, ((0 + i) | 0));
+                        dict.add(guid2, ((1 + i) | 0));
+
+                        Bridge.Test.NUnit.Assert.AreEqual(2, System.Array.getCount(dict.getValues(), System.Int32), "'Values' works when difference is at position #" + (((i + 1) | 0)));
+                    }
                 }
             }
         }

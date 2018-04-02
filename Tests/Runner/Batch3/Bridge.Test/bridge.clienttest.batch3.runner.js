@@ -750,6 +750,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3494 - TestExtrenalClasCtor", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3494.TestExtrenalClasCtor);
             QUnit.test("#3497 - TestDownloadingOfBinaryFile", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3497.TestDownloadingOfBinaryFile);
             QUnit.test("#3499 - TestKeysWithSimilarHashCode", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499.TestKeysWithSimilarHashCode);
+            QUnit.test("#3499 - TestKeysWithIncreasingSimilarity", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499.TestKeysWithIncreasingSimilarity);
             QUnit.test("#381 - TestUseCase", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge381.TestUseCase);
             QUnit.test("#447 - CheckInlineExpression", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineExpression);
             QUnit.test("#447 - CheckInlineCalls", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge447.CheckInlineCalls);
@@ -16415,8 +16416,13 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestKeysWithSimilarHashCode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestKeysWithSimilarHashCode()", $t.Line = "12", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestKeysWithSimilarHashCode()", $t.Line = "19", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499.TestKeysWithSimilarHashCode();
+                },
+                TestKeysWithIncreasingSimilarity: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3499, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestKeysWithIncreasingSimilarity()", $t.Line = "55", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3499.TestKeysWithIncreasingSimilarity();
                 }
             }
         },
