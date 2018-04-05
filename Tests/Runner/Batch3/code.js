@@ -31118,6 +31118,29 @@ Bridge.$N1391Result =                     r;
         $variance: [1]
     }; });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513", {
+        statics: {
+            methods: {
+                Run: function (a) {
+                    a();
+                },
+                TestExtensionMethodAsAction: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513.Run(function () { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513SomeEx.Print("Hello, World!"); });
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513SomeEx", {
+        statics: {
+            methods: {
+                Print: function (message) {
+                    Bridge.Test.NUnit.Assert.AreEqual("Hello, World!", message);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
