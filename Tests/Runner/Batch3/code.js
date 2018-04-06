@@ -31118,6 +31118,52 @@ Bridge.$N1391Result =                     r;
         $variance: [1]
     }; });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519", {
+        statics: {
+            fields: {
+                Keys: null,
+                SMap: null,
+                vMap: null
+            },
+            ctors: {
+                init: function () {
+                    this.Keys = System.Array.init(["a", "b"], System.String);
+                    this.SMap = new (System.Collections.Generic.Dictionary$2(System.String,System.String))();
+                    this.vMap = new (System.Collections.Generic.Dictionary$2(System.String,System.String))();
+                }
+            },
+            methods: {
+                RegExpEscape: function (s) {
+                    // because of this string magic happens :)
+                    return s.replace(/[-\/\^$*+?.()|[\]{}]/g, '\\$&');
+
+                },
+                TestInjectScript: function () {
+                    var $t;
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.set("a", "b");
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.set("c", "d");
+
+                    $t = Bridge.getEnumerator(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.Keys);
+                    try {
+                        while ($t.moveNext()) {
+                            var vote = $t.Current;
+                            // colon and \n missing
+                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.vMap.set(vote, vote);
+                            var a = 1;
+                            Bridge.Test.NUnit.Assert.AreEqual(1, a);
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$Dispose();
+                        }
+                    }
+                    Bridge.Test.NUnit.Assert.AreEqual("b", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.get("a"));
+                    Bridge.Test.NUnit.Assert.AreEqual("d", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.get("c"));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
