@@ -31118,6 +31118,60 @@ Bridge.$N1391Result =                     r;
         $variance: [1]
     }; });
 
+    /**
+     * The test here consists in ensuring conversion from an extension method
+     to Action works in Bridge.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513", {
+        statics: {
+            methods: {
+                Run: function (a) {
+                    a();
+                },
+                /**
+                 * Tests passing the string's extension method as a parameter to the
+                 'Action'-parametered function and checking whether the result is
+                 the expected one.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513
+                 * @return  {void}
+                 */
+                TestExtensionMethodAsAction: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513StringExtension.StaticMessage = "Inline extension conversion works.";
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513.Run(function () { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513StringExtension.Print("Hello, World!"); });
+
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513StringExtension.StaticMessage = "Variable-bound extension conversion works.";
+                    var str = "Hello, World!";
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513.Run(function () { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513StringExtension.Print(str); });
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513StringExtension", {
+        statics: {
+            fields: {
+                StaticMessage: null
+            },
+            ctors: {
+                init: function () {
+                    this.StaticMessage = "passed";
+                }
+            },
+            methods: {
+                Print: function (message) {
+                    Bridge.Test.NUnit.Assert.AreEqual("Hello, World!", message, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3513StringExtension.StaticMessage);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519", {
         statics: {
             fields: {
