@@ -31172,6 +31172,13 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The tests here consists in ensuring some types of provided Script.Write
+     input won't break Bridge output code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519", {
         statics: {
             fields: {
@@ -31192,6 +31199,39 @@ Bridge.$N1391Result =                     r;
                     return s.replace(/[-\/\^$*+?.()|[\]{}]/g, '\\$&');
 
                 },
+                /**
+                 * This should break the very code execution if wrong
+                 *
+                 * @static
+                 * @private
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519
+                 * @return  {string}
+                 */
+                SpaceWritten: function () { /// Variable is assigned but its value is never used
+
+
+                    var i = 0; /// Variable is assigned but its value is never used
+
+
+                    return 
+                },
+                NothingWritten: function () { /// Variable is assigned but its value is never used
+
+
+                    var i = 0;
+                    return 
+                },
+                /**
+                 * Tests by issuing the Script-Write-driven methods and checking
+                 whether they provide valid JavaScript output code..
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519
+                 * @return  {void}
+                 */
                 TestInjectScript: function () {
                     var $t;
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.set("a", "b");
@@ -31204,15 +31244,18 @@ Bridge.$N1391Result =                     r;
                             // colon and \n missing
                             Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.vMap.set(vote, vote);
                             var a = 1;
-                            Bridge.Test.NUnit.Assert.AreEqual(1, a);
+                            Bridge.Test.NUnit.Assert.AreEqual(1, a, "Code can run and key '" + (vote || "") + "' value is correct");
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
                             $t.System$IDisposable$Dispose();
                         }
                     }
-                    Bridge.Test.NUnit.Assert.AreEqual("b", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.get("a"));
-                    Bridge.Test.NUnit.Assert.AreEqual("d", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.get("c"));
+                    Bridge.Test.NUnit.Assert.AreEqual("b", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.get("a"), "'a' still maps to 'b'");
+                    Bridge.Test.NUnit.Assert.AreEqual("d", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SMap.get("c"), "'c' still maps to 'd'");
+
+                    Bridge.Test.NUnit.Assert.Null(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SpaceWritten(), "Blank Script.Write works");
+                    Bridge.Test.NUnit.Assert.Null(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.NothingWritten(), "Empty Script.Write works");
                 }
             }
         }
