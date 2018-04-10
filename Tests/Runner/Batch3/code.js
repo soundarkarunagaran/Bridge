@@ -31172,6 +31172,24 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516", {
+        statics: {
+            methods: {
+                TestExternalCastRule: function () {
+                    var obj = "test";
+                    var el = obj;
+
+                    Bridge.Test.NUnit.Assert.AreEqual("test", el);
+
+                    obj = new (System.Collections.Generic.List$1(System.String)).ctor();
+                    Bridge.Test.NUnit.Assert.Throws$2(System.InvalidCastException, function () {
+                        obj = Bridge.cast(obj, System.Collections.Generic.IEqualityComparer$1(System.String));
+                    });
+                }
+            }
+        }
+    });
+
     /**
      * The tests here consists in ensuring some types of provided Script.Write
      input won't break Bridge output code.
@@ -31209,17 +31227,11 @@ Bridge.$N1391Result =                     r;
                  * @return  {string}
                  */
                 SpaceWritten: function () { /// Variable is assigned but its value is never used
-
-
                     var i = 0; /// Variable is assigned but its value is never used
-
-
                     return 
                 },
                 NothingWritten: function () { /// Variable is assigned but its value is never used
-
-
-                    var i = 0;
+                    var i = 0; /// Variable is assigned but its value is never used
                     return 
                 },
                 /**
