@@ -28,7 +28,9 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3418 - TestEventTemplate", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3418.TestEventTemplate);
             QUnit.test("#3502 - TestInvariance", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3502.TestInvariance);
             QUnit.test("#3513 - TestExtensionMethodAsAction", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3513.TestExtensionMethodAsAction);
-            QUnit.test("#3516 - TestExternalCastRule", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516.TestExternalCastRule);
+            QUnit.test("#3516 - TestPlainExternalCastRule", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516.TestPlainExternalCastRule);
+            QUnit.test("#3516 - TestManagedExternalCastRule", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516.TestManagedExternalCastRule);
+            QUnit.test("#3516 - TestDefaultExternalCastRule", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516.TestDefaultExternalCastRule);
             QUnit.test("#3519 - TestInjectScript", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3519.TestInjectScript);
             QUnit.module("Issues3");
             QUnit.test("#69 - ThisKeywordInStructConstructorWorks", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge069.ThisKeywordInStructConstructorWorks);
@@ -16500,10 +16502,20 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
         $kind: "nested class",
         statics: {
             methods: {
-                TestExternalCastRule: function (assert) {
+                TestPlainExternalCastRule: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestExternalCastRule()", $t.Line = "14", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516.TestExternalCastRule();
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestPlainExternalCastRule()", $t.Line = "21", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516.TestPlainExternalCastRule();
+                },
+                TestManagedExternalCastRule: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestManagedExternalCastRule()", $t.Line = "44", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516.TestManagedExternalCastRule();
+                },
+                TestDefaultExternalCastRule: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3516, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDefaultExternalCastRule()", $t.Line = "58", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3516.TestDefaultExternalCastRule();
                 }
             }
         },
