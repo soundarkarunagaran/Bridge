@@ -108,7 +108,7 @@ namespace Bridge.Translator.Tests
 #endif
         [TestCase("20", false, true, TestName = "IntegrationTest 20 - Bridge.json autoProperty:plain")]
         [TestCase("22", false, true, TestName = "IntegrationTest 22 - Global Methods with nested classes")]
-        [TestCase("23", false, true, TestName = "IntegrationTest 23 - Compiler Extension Test")]
+        [TestCase("28", false, true, TestName = "IntegrationTest 28 - Compiler Extension Test")]
         public void Test(string folder, bool isToBuild, bool useSpecialFileCompare, string markedContentFiles = null)
         {
             var logDir = Path.GetDirectoryName(Helpers.FileHelper.GetExecutingAssemblyPath());
