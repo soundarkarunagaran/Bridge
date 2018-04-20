@@ -77,8 +77,8 @@ namespace Bridge.Contract
         None = 0,
         LowerCase = 1,
         UpperCase = 2,
-        LowerCamelCase = 3,
-        UpperCamelCase = 4
+        CamelCase = 3,
+        PascalCase = 4
     }
 
     public enum NameRuleLevel
@@ -137,8 +137,8 @@ namespace Bridge.Contract
 
         private static readonly List<NameRule> defaultRules = new List<NameRule>
         {
-            //new NameRule { Member = NotationMember.Method, Notation = Notation.LowerCamelCase},
-            //new NameRule { Member = NotationMember.Field, Notation = Notation.LowerCamelCase}
+            //new NameRule { Member = NotationMember.Method, Notation = Notation.CamelCase},
+            //new NameRule { Member = NotationMember.Field, Notation = Notation.CamelCase}
         };
 
         public static string Convert(NameSemantic semantic)
@@ -183,7 +183,7 @@ namespace Bridge.Contract
                     case Notation.LowerCase:
                         name = name.ToLowerInvariant();
                         break;
-                    case Notation.LowerCamelCase:
+                    case Notation.CamelCase:
                         var rejectRule = rule.Level != NameRuleLevel.Member && semantic.Entity is IMember &&
                                          !semantic.IsCustomName &&
                                          semantic.Entity.Name.Length > 1 &&
@@ -213,7 +213,7 @@ namespace Bridge.Contract
                         }
 
                         break;
-                    case Notation.UpperCamelCase:
+                    case Notation.PascalCase:
                         name = name.ToCamelCase();
                         break;
                     default:
@@ -440,7 +440,7 @@ namespace Bridge.Contract
             return acceptable;
         }
         private static readonly NameRule ConstructorRule = new NameRule { CustomName = JS.Funcs.CONSTRUCTOR, Level = NameRuleLevel.Member };
-        private static readonly NameRule LowerCamelCaseRule = new NameRule {Notation = Notation.LowerCamelCase, Level = NameRuleLevel.Assembly };
+        private static readonly NameRule LowerCamelCaseRule = new NameRule {Notation = Notation.CamelCase, Level = NameRuleLevel.Assembly };
         private static readonly NameRule LowerCaseRule = new NameRule { Notation = Notation.LowerCase, Level = NameRuleLevel.Assembly };
         private static readonly NameRule UpperCaseRule = new NameRule { Notation = Notation.UpperCase, Level = NameRuleLevel.Assembly };
         private static readonly NameRule DefaultCaseRule = new NameRule { Notation = Notation.None, Level = NameRuleLevel.Assembly };
@@ -563,7 +563,7 @@ namespace Bridge.Contract
 
                 interfaceRules = NameConvertor.GetVirtualMemberRules(semantic);
             }
-            else if(semantic.Entity is ITypeDefinition)
+            else if (semantic.Entity is ITypeDefinition)
             {
                 classRules = NameConvertor.GetClassRules(semantic, (ITypeDefinition)semantic.Entity);
             }
@@ -585,7 +585,7 @@ namespace Bridge.Contract
 
             var rules = new List<NameRule>();
 
-            if(memberRule != null)
+            if (memberRule != null)
             {
                 rules.Add(memberRule);
             }

@@ -10,12 +10,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          * @class Module2217_AMD.TestProject.Issues.N2217.N2217_AMD
          */
         Bridge.define("TestProject.Issues.N2217.N2217_AMD", {
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_AMD,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; }
-                }
-            },
             methods: {
                 /**
                  * @instance
@@ -39,12 +35,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          * @class Module2217_Auto.TestProject.Issues.N2217.N2217_Auto
          */
         Bridge.define("TestProject.Issues.N2217.N2217_Auto", {
-            $scope: Module2217_Auto,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; }
-                }
-            }
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
+            $scope: Module2217_Auto
         });
         return Module2217_Auto;
     });
@@ -56,12 +48,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          * @class Module2217_CommonJS.TestProject.Issues.N2217.N2217_CommonJS
          */
         Bridge.define("TestProject.Issues.N2217.N2217_CommonJS", {
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_CommonJS,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; }
-                }
-            },
             methods: {
                 /**
                  * @instance
@@ -85,12 +73,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          * @class Module2217_ES6.TestProject.Issues.N2217.N2217_ES6
          */
         Bridge.define("TestProject.Issues.N2217.N2217_ES6", {
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_ES6,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; }
-                }
-            },
             methods: {
                 /**
                  * @instance
@@ -109,86 +93,88 @@ Bridge.assembly("TestProject", function ($asm, globals) {
 
     define("MyModule", ["Module2217_Auto"], function (Module2217_Auto) {
         var MyModule = { };
-    /**
-     * @public
-     * @class TestProject.Issues.N2217.N2217_Loader
-     */
-    Bridge.define("TestProject.Issues.N2217.N2217_Loader", {
-        methods: {
-            /**
-             * @instance
-             * @public
-             * @this TestProject.Issues.N2217.N2217_Loader
-             * @memberof TestProject.Issues.N2217.N2217_Loader
-             * @return  {void}
-             */
-            LoadManualModule: function () {
-                // N2217_Loader Should NOT be wrapped by module N2217_Manual
-                var manual = new Module2217_Manual.TestProject.Issues.N2217.N2217_Manual();
+        /**
+         * @public
+         * @class MyModule.TestProject.Issues.N2217.N2217_Loader
+         */
+        Bridge.define("TestProject.Issues.N2217.N2217_Loader", {
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Load","t":8,"sn":"Load","rt":System.Void},{"a":2,"n":"LoadManualModule","t":8,"sn":"LoadManualModule","rt":System.Void}]}; },
+            $scope: MyModule,
+            methods: {
+                /**
+                 * @instance
+                 * @public
+                 * @this MyModule.TestProject.Issues.N2217.N2217_Loader
+                 * @memberof MyModule.TestProject.Issues.N2217.N2217_Loader
+                 * @return  {void}
+                 */
+                LoadManualModule: function () {
+                    // N2217_Loader Should NOT be wrapped by module N2217_Manual
+                    var manual = new Module2217_Manual.TestProject.Issues.N2217.N2217_Manual();
 
-                // N2217_Loader Should be wrapped by module N2217_Auto
-                var auto = new Module2217_Auto.TestProject.Issues.N2217.N2217_Auto();
-            },
-            /**
-             * @instance
-             * @public
-             * @this TestProject.Issues.N2217.N2217_Loader
-             * @memberof TestProject.Issues.N2217.N2217_Loader
-             * @return  {void}
-             */
-            Load: function () {
-                var $step = 0,
-                    $task1, 
-                    $task2, 
-                    $task3, 
-                    $task4, 
-                    $jumpFromFinally, 
-                    $asyncBody = Bridge.fn.bind(this, function () {
-                        for (;;) {
-                            $step = System.Array.min([0,1,2,3,4], $step);
-                            switch ($step) {
-                                case 0: {
-                                    $task1 = Bridge.loadModule({amd: ["Module2217_AMD"]}, function () { Module2217_AMD = arguments[0]; });
-                                    $step = 1;
-                                    $task1.continueWith($asyncBody, true);
-                                    return;
-                                }
-                                case 1: {
-                                    $task1.getAwaitedResult();
-                                    $task2 = Bridge.loadModule({cjs: ["Module2217_CommonJS"]}, function () { Module2217_CommonJS = arguments[0]; });
-                                    $step = 2;
-                                    $task2.continueWith($asyncBody, true);
-                                    return;
-                                }
-                                case 2: {
-                                    $task2.getAwaitedResult();
-                                    $task3 = Bridge.loadModule({cjs: ["Module2217_ES6"]}, function () { Module2217_ES6 = arguments[0]; });
-                                    $step = 3;
-                                    $task3.continueWith($asyncBody, true);
-                                    return;
-                                }
-                                case 3: {
-                                    $task3.getAwaitedResult();
-                                    $task4 = Bridge.loadModule({amd: ["Module2217_UMD"]}, function () { Module2217_UMD = arguments[0]; });
-                                    $step = 4;
-                                    $task4.continueWith($asyncBody, true);
-                                    return;
-                                }
-                                case 4: {
-                                    $task4.getAwaitedResult();
-                                    return;
-                                }
-                                default: {
-                                    return;
+                    // N2217_Loader Should be wrapped by module N2217_Auto
+                    var auto = new Module2217_Auto.TestProject.Issues.N2217.N2217_Auto();
+                },
+                /**
+                 * @instance
+                 * @public
+                 * @this MyModule.TestProject.Issues.N2217.N2217_Loader
+                 * @memberof MyModule.TestProject.Issues.N2217.N2217_Loader
+                 * @return  {void}
+                 */
+                Load: function () {
+                    var $step = 0,
+                        $task1, 
+                        $task2, 
+                        $task3, 
+                        $task4, 
+                        $jumpFromFinally, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0,1,2,3,4], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        $task1 = Bridge.loadModule({amd: ["Module2217_AMD"]}, function () { Module2217_AMD = arguments[0]; });
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $task1.getAwaitedResult();
+                                        $task2 = Bridge.loadModule({cjs: ["Module2217_CommonJS"]}, function () { Module2217_CommonJS = arguments[0]; });
+                                        $step = 2;
+                                        $task2.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 2: {
+                                        $task2.getAwaitedResult();
+                                        $task3 = Bridge.loadModule({cjs: ["Module2217_ES6"]}, function () { Module2217_ES6 = arguments[0]; });
+                                        $step = 3;
+                                        $task3.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 3: {
+                                        $task3.getAwaitedResult();
+                                        $task4 = Bridge.loadModule({amd: ["Module2217_UMD"]}, function () { Module2217_UMD = arguments[0]; });
+                                        $step = 4;
+                                        $task4.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 4: {
+                                        $task4.getAwaitedResult();
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
                                 }
                             }
-                        }
-                    }, arguments);
+                        }, arguments);
 
-                $asyncBody();
+                    $asyncBody();
+                }
             }
-        }
-    });
+        });
         return MyModule;
     });
 
@@ -199,12 +185,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          * @class Module2217_Manual.TestProject.Issues.N2217.N2217_Manual
          */
         Bridge.define("TestProject.Issues.N2217.N2217_Manual", {
-            $scope: Module2217_Manual,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; }
-                }
-            }
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
+            $scope: Module2217_Manual
         });
         return Module2217_Manual;
     });
@@ -224,12 +206,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          * @class Module2217_UMD.TestProject.Issues.N2217.N2217_UMD
          */
         Bridge.define("TestProject.Issues.N2217.N2217_UMD", {
+            $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_UMD,
-            statics: {
-                methods: {
-                    $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; }
-                }
-            },
             methods: {
                 /**
                  * @instance

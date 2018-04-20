@@ -292,6 +292,7 @@ namespace Bridge.Translator
             StringBuilder currentOutput = null;
             this.Emitter.NamedBoxedFunctions = new Dictionary<IType, Dictionary<string, string>>();
 
+            this.Emitter.HasModules = this.Emitter.Types.Any(t => t.Module != null);
             foreach (var type in this.Emitter.Types)
             {
                 this.Emitter.Translator.Plugins.BeforeTypeEmit(this.Emitter, type);
@@ -374,43 +375,47 @@ namespace Bridge.Translator
             this.EmitNamedBoxedFunctions();
 
             this.Emitter.NamespacesCache = new Dictionary<string, int>();
-            foreach (var type in this.Emitter.Types)
+
+            if (!this.Emitter.HasModules && this.Emitter.AssemblyInfo.Reflection.Target != MetadataTarget.Type)
             {
-                var typeDef = type.Type.GetDefinition();
-                bool isGlobal = false;
-                if (typeDef != null)
+                foreach (var type in this.Emitter.Types)
                 {
-                    isGlobal = typeDef.HasGlobalMethodsAttribute().HasValue || typeDef.GetMixin() != null;
-                }
+                    var typeDef = type.Type.GetDefinition();
+                    bool isGlobal = false;
+                    if (typeDef != null)
+                    {
+                        isGlobal = typeDef.HasGlobalMethodsAttribute().HasValue || typeDef.GetMixin() != null;
+                    }
 
-                if (typeDef.FullName != "System.Object")
-                {
-                    var name = BridgeTypes.ToJsName(typeDef, this.Emitter);
+                    if (typeDef.FullName != "System.Object")
+                    {
+                        var name = BridgeTypes.ToJsName(typeDef, this.Emitter);
 
-                    if (name == "Object")
+                        if (name == "Object")
+                        {
+                            continue;
+                        }
+                    }
+
+                    var isObjectLiteral = typeDef.IsObjectLiteral();
+                    var isPlainMode = isObjectLiteral && typeDef.GetObjectCreateMode() == 0;
+
+                    if (isPlainMode)
                     {
                         continue;
                     }
-                }
 
-                var isObjectLiteral = typeDef.IsObjectLiteral();
-                var isPlainMode = isObjectLiteral && typeDef.GetObjectCreateMode() == 0;
+                    if (isGlobal || this.Emitter.TypeInfo.Module != null || reflectedTypes.Any(t => t == type.Type))
+                    {
+                        continue;
+                    }
 
-                if (isPlainMode)
-                {
-                    continue;
-                }
+                    var meta = MetadataUtils.ConstructTypeMetadata(typeDef, this.Emitter, true, type.TypeDeclaration.GetParent<SyntaxTree>());
 
-                if (isGlobal || this.Emitter.TypeInfo.Module != null || reflectedTypes.Any(t => t == type.Type))
-                {
-                    continue;
-                }
-
-                var meta = MetadataUtils.ConstructTypeMetadata(typeDef, this.Emitter, true, type.TypeDeclaration.GetParent<SyntaxTree>());
-
-                if (meta != null)
-                {
-                    addMeta(type.Type, meta);
+                    if (meta != null)
+                    {
+                        addMeta(type.Type, meta);
+                    }
                 }
             }
 
@@ -428,7 +433,7 @@ namespace Bridge.Translator
                         tree = tInfo.TypeDeclaration.GetParent<SyntaxTree>();
                     }
 
-                    if (tInfo != null && tInfo.Module != null)
+                    if (tInfo != null && tInfo.Module != null || this.Emitter.HasModules || this.Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.Type)
                     {
                         continue;
                     }
@@ -498,6 +503,9 @@ namespace Bridge.Translator
                         }
                     }
 
+                    // TODO: ensure this imprints meta data in the format:
+                    // string.Format("$m('{0}', function ({2}) {{ return {1}; }});", MetadataUtils.GetTypeName(meta.Key, this.Emitter, false, true, false), metaData.ToString(Formatting.None), typeArgs)
+                    // Notice the quotes in {0} were introduced in commit 99df7a4a00ec962051690ad5605588a236e2ac7b.
                     foreach (var nsMeta in metas.Values)
                     {
                         foreach (var meta in nsMeta)

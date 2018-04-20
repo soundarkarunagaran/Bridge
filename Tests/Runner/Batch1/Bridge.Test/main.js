@@ -302,7 +302,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
-                            $t.System$IDisposable$dispose();
+                            $t.System$IDisposable$Dispose();
                         }
                     }},
                 Init: function () {
@@ -427,7 +427,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                     }
                     catch (ex) {
                         ex = System.Exception.create(ex);
-                        actual = Bridge.Reflection.getTypeFullName(Bridge.getType(ex));
+                        actual = Bridge.Reflection.getTypeFullName(System.Exception);
                     }
 
                     Bridge.Test.NUnit.Assert.SetStack(stackOffset);

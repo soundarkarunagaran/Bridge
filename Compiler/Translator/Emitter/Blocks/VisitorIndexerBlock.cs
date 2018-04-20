@@ -124,7 +124,7 @@ namespace Bridge.Translator
 
                 if (script == null)
                 {
-                    if(YieldBlock.HasYield(accessor.Body))
+                    if (YieldBlock.HasYield(accessor.Body))
                     {
                         new GeneratorBlock(this.Emitter, accessor).Emit();
                     }

@@ -157,8 +157,6 @@ namespace Bridge.Translator
                     };
         }
 
-      
-
         private void LogProductInfo()
         {
             var compilerInfo = this.GetCompilerVersion();

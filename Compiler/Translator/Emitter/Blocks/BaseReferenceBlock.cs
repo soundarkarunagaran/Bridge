@@ -38,7 +38,7 @@ namespace Bridge.Translator
                 if (rr != null)
                 {
                     member = rr.Member;
-                        
+
                     if (rr.IsVirtualCall)
                     {
                         proto = true;
@@ -77,7 +77,14 @@ namespace Bridge.Translator
                     if (this.Emitter.GetInline(member) == null)
                     {
                         var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName(true);
-                        this.Write(JS.Types.Bridge.ENSURE_BASE_PROPERTY + "(this, " + this.Emitter.ToJavaScript(name) + ")");
+                        this.Write(JS.Types.Bridge.ENSURE_BASE_PROPERTY + "(this, " + this.Emitter.ToJavaScript(name));
+
+                        if (member.DeclaringTypeDefinition.IsExternal() && !member.DeclaringTypeDefinition.IsBridgeClass())
+                        {
+                            this.Write(", \"" + BridgeTypes.ToJsName(member.DeclaringType, this.Emitter, isAlias: true) + "\"");
+                        }
+
+                        this.Write(")");
                     }
                     else
                     {

@@ -82,7 +82,7 @@ namespace Bridge.Translator.TypeScript
         protected virtual void EmitClassHeader()
         {
             var typeDef = this.Emitter.GetTypeDefinition();
-            string name = this.Emitter.GetCustomTypeName(typeDef, false);
+            string name = this.Emitter.GetCustomTypeName(typeDef, true, false);
             this.IsGeneric = typeDef.TypeParameterCount > 0;
 
             if (name.IsEmpty())
@@ -94,12 +94,11 @@ namespace Bridge.Translator.TypeScript
                     this.DefName = BridgeTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
                 }
             }
-
-            if (this.Namespace != null)
+            else if (this.IsGeneric)
             {
-                this.Write("export ");
+                this.DefName = this.Emitter.GetCustomTypeName(typeDef, true);
             }
-            
+
             this.Write("interface ");
 
             this.JsName = name;
@@ -174,11 +173,6 @@ namespace Bridge.Translator.TypeScript
                 this.EndBlock();
 
                 this.WriteNewLine();
-
-                if (this.Namespace != null)
-                {
-                    this.Write("export ");
-                }
 
                 this.Write("interface ");
 
@@ -257,7 +251,7 @@ namespace Bridge.Translator.TypeScript
                         continue;
                     }
 
-                    string customName = this.Emitter.GetCustomTypeName(typeDef, false);
+                    string customName = this.Emitter.GetCustomTypeName(typeDef, true);
                     string defName = customName;
 
                     if (defName.IsEmpty())
@@ -273,7 +267,7 @@ namespace Bridge.Translator.TypeScript
                     if (typeDef.Kind == TypeKind.Enum)
                     {
                         var parentTypeDef = this.Emitter.GetTypeDefinition();
-                        string parentName = this.Emitter.GetCustomTypeName(parentTypeDef, false);
+                        string parentName = this.Emitter.GetCustomTypeName(parentTypeDef, false, false);
                         if (parentName.IsEmpty())
                         {
                             parentName = this.TypeInfo.Type.Name;
@@ -305,7 +299,7 @@ namespace Bridge.Translator.TypeScript
                 this.WriteNewLine();
                 this.EndBlock();
             }
-            
+
             if (this.TypeInfo.ParentType == null && !isInterface)
             {
                 string name = BridgeTypes.ToTypeScriptName(this.TypeInfo.Type, this.Emitter, true, true);
@@ -338,7 +332,7 @@ namespace Bridge.Translator.TypeScript
                 }
 
                 var typeDef = this.Emitter.GetTypeDefinition();
-                string name = this.Emitter.GetCustomTypeName(typeDef, false);
+                string name = this.Emitter.GetCustomTypeName(typeDef, true);
                 if (name.IsEmpty())
                 {
                     name = BridgeTypes.ToJsName(this.TypeInfo.Type, this.Emitter, true, true, nomodule: true);

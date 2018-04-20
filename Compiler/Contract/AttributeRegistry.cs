@@ -14,7 +14,7 @@ namespace Bridge.Contract
 {
     /// <summary>
     /// This registry centralizes the access to attributes to unify the logic and allow
-    /// injection of attributes during compiletime. 
+    /// injection of attributes during compiletime.
     /// </summary>
     public static class AttributeRegistry
     {
@@ -312,7 +312,7 @@ namespace Bridge.Contract
             var value = attr.PositionalArguments.First().ConstantValue;
             if (value is bool)
             {
-                rule.Notation = (bool)value ? Notation.LowerCamelCase : Notation.None;
+                rule.Notation = (bool)value ? Notation.CamelCase : Notation.None;
             }
             else if (value is string)
             {
@@ -449,6 +449,14 @@ namespace Bridge.Contract
 
                     case nameof(CompilerRule.AutoProperty):
                         rule.AutoProperty = (AutoPropertyRule)(int)value.ConstantValue;
+                        break;
+
+                    case nameof(CompilerRule.InlineComment):
+                        rule.InlineComment = (InlineCommentRule)(int)value.ConstantValue;
+                        break;
+
+                    case nameof(CompilerRule.ExternalCast):
+                        rule.ExternalCast = (ExternalCastRule)(int)value.ConstantValue;
                         break;
 
                     default:
@@ -870,7 +878,7 @@ namespace Bridge.Contract
                     }
                 }
 
-                // If an attribute defines 'public const bool IsCommonEvent=true' 
+                // If an attribute defines 'public const bool IsCommonEvent=true'
                 // then the first parameter of the attribute constructor defines the name of the event
                 bool isCommon = false;
                 var commonField = attr.AttributeType.GetFields(f => f.Name == "IsCommonEvent");
@@ -947,8 +955,8 @@ namespace Bridge.Contract
                 return argument.ConstantValue.ToString();
             }
 
-            // another possibilitiy is having an enum, in this case we need to find the 
-            // matching enum field and we will use the field name 
+            // another possibilitiy is having an enum, in this case we need to find the
+            // matching enum field and we will use the field name
             var type = argument.Type;
             var fields = type.GetFields(f =>
             {

@@ -524,5 +524,10 @@ namespace Bridge.Translator
         {
             get; set;
         }
+
+        public bool HasModules
+        {
+            get; set;
+        }
     }
 }

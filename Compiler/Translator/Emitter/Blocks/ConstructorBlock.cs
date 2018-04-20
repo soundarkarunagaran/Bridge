@@ -719,7 +719,7 @@ namespace Bridge.Translator
             if (initializer.ConstructorInitializerType == ConstructorInitializerType.Base)
             {
                 var baseType = this.TypeInfo.Type.GetBaseClassDefinition();
-                var baseName = JS.Funcs.CONSTRUCTOR;
+                string baseName = null;
                 isBaseObjectLiteral = baseType.IsObjectLiteral();
 
                 if (ctor.Initializer != null && !ctor.Initializer.IsNull)
@@ -743,7 +743,7 @@ namespace Bridge.Translator
                     name = BridgeTypes.ToJsName(baseType, this.Emitter);
                 }
 
-                if(!isObjectLiteral && isBaseObjectLiteral)
+                if (!isObjectLiteral && isBaseObjectLiteral)
                 {
                     this.Write(JS.Types.Bridge.COPY_PROPERTIES);
                     this.WriteOpenParentheses();
@@ -752,6 +752,32 @@ namespace Bridge.Translator
                 }
 
                 this.Write(name, ".");
+
+                if (baseName == null)
+                {
+                    var baseIType = this.Emitter.BridgeTypes.Get(baseType).Type;
+
+                    var baseCtor = baseIType.GetConstructors().SingleOrDefault(c => c.Parameters.Count == 0);
+                    if (baseCtor == null)
+                    {
+                        baseCtor = baseIType.GetConstructors().SingleOrDefault(c => c.Parameters.All(p => p.IsOptional));
+                    }
+
+                    if (baseCtor == null)
+                    {
+                        baseCtor = baseIType.GetConstructors().SingleOrDefault(c => c.Parameters.Count == 1 && c.Parameters.First().IsParams);
+                    }
+
+                    if (baseCtor != null)
+                    {
+                        baseName = OverloadsCollection.Create(this.Emitter, baseCtor).GetOverloadName();
+                    }
+                    else
+                    {
+                        baseName = JS.Funcs.CONSTRUCTOR;
+                    }
+                }
+
                 this.Write(baseName);
 
                 if (!isObjectLiteral)

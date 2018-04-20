@@ -152,7 +152,7 @@ namespace Bridge.Translator
                 this.WriteComma();
 
                 var interfaceName = Helpers.GetPropertyRef(resolveResult.Member, this.Emitter, isSetter, ignoreInterface:false);
-                
+
                 if (interfaceName.StartsWith("\""))
                 {
                     this.Write(interfaceName);
@@ -216,7 +216,7 @@ namespace Bridge.Translator
             {
                 inlineCode = Helpers.ConvertTokens(this.Emitter, inlineCode, rr.Member);
             }
-            
+
             bool hasThis = inlineCode != null && inlineCode.Contains("{this}");
 
             if (inlineCode != null && inlineCode.StartsWith("<self>"))
@@ -814,7 +814,7 @@ namespace Bridge.Translator
                             "(",
                             isBase ? "this, " : "",
                             paramsStr,
-                            "){0})"));
+                            ") {0})"));
 
                         this.RemoveTempVar(targetVar);
                     }
@@ -843,7 +843,7 @@ namespace Bridge.Translator
                             "(",
                             isBase ? "this, " : "",
                             paramsStr,
-                            "){0})"));
+                            ") {0})"));
                     }
                 }
                 else
@@ -1277,7 +1277,7 @@ namespace Bridge.Translator
                             targetVar,
                             ".get([",
                             paramsStr,
-                            "]){0})"), () =>
+                            "]) {0})"), () =>
                             {
                                 this.RemoveTempVar(targetVar);
                             });
@@ -1304,7 +1304,7 @@ namespace Bridge.Translator
                             trg,
                             ".get([",
                             paramsStr,
-                            "]){0})"));
+                            "]) {0})"));
                     }
                 }
                 else

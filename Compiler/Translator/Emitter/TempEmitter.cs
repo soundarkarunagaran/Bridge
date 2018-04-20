@@ -17,6 +17,11 @@ namespace Bridge.Translator
 
         }
 
+        public bool HasModules
+        {
+            get; set;
+        }
+
         public Dictionary<AnonymousType, IAnonymousTypeConfig> AnonymousTypes
         {
             get
@@ -1755,7 +1760,7 @@ namespace Bridge.Translator
             throw new NotImplementedException();
         }
 
-        public string GetCustomTypeName(ITypeDefinition type, bool excludeNs)
+        public string GetCustomTypeName(ITypeDefinition type, bool excludeNs, bool asDefinition = true)
         {
             throw new NotImplementedException();
         }

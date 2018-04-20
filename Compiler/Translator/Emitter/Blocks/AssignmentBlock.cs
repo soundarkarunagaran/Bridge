@@ -779,7 +779,15 @@ namespace Bridge.Translator
                 if (proto && prop != null && prop.Setter == null)
                 {
                     var name = OverloadsCollection.Create(this.Emitter, mrr.Member).GetOverloadName();
-                    this.Write(JS.Types.Bridge.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\")");
+                    this.Write(JS.Types.Bridge.ENSURE_BASE_PROPERTY + "(this, \"" + name + "\"");
+
+                    if (mrr.Member.DeclaringTypeDefinition.IsExternal() && !mrr.Member.DeclaringTypeDefinition.IsBridgeClass())
+                    {
+                        this.Write(", \"" + BridgeTypes.ToJsName(mrr.Member.DeclaringType, this.Emitter, isAlias: true) + "\"");
+                    }
+
+                    this.Write(")");
+
                     this.WriteDot();
                     var alias = BridgeTypes.ToJsName(mrr.Member.DeclaringType, this.Emitter, isAlias: true);
                     if (alias.StartsWith("\""))

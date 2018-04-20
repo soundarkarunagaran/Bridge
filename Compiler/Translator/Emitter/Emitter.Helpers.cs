@@ -252,7 +252,7 @@ namespace Bridge.Translator
         }
 
         private Stack<ITypeDefinition> _stack = new Stack<ITypeDefinition>();
-        public virtual string GetCustomTypeName(ITypeDefinition type, bool excludeNs)
+        public virtual string GetCustomTypeName(ITypeDefinition type, bool excludeNs, bool asDefinition = true)
         {
             if (this._stack.Contains(type))
             {
@@ -307,6 +307,37 @@ namespace Bridge.Translator
 
             if (!string.IsNullOrEmpty(name))
             {
+                if (excludeNs)
+                {
+                    var idx = name.LastIndexOf('.');
+
+                    if (idx > -1)
+                    {
+                        name = name.Substring(idx + 1);
+                    }
+                }
+
+                var typeDef = BridgeTypes.Get(type).Type;
+
+                if (typeDef != null && !asDefinition && typeDef.TypeArguments.Count > 0 && !typeDef.IsIgnoreGeneric(true))
+                {
+                    StringBuilder sb = new StringBuilder(name);
+                    bool needComma = false;
+                    sb.Append("<");
+                    foreach (var typeArg in typeDef.TypeArguments)
+                    {
+                        if (needComma)
+                        {
+                            sb.Append(",");
+                        }
+
+                        needComma = true;
+                        sb.Append(BridgeTypes.ToTypeScriptName(typeArg, this));
+                    }
+                    sb.Append(">");
+                    name = sb.ToString();
+                }
+
                 return name;
             }
 
@@ -328,7 +359,6 @@ namespace Bridge.Translator
                     name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.GetParentNames(this, type);
                 }
 
-
                 var typeName = this.GetTypeName(type);
                 name = (string.IsNullOrEmpty(name) ? "" : (name + ".")) + BridgeTypes.ConvertName(changeCase ? typeName.ToLowerCamelCase() : typeName);
 
@@ -346,7 +376,6 @@ namespace Bridge.Translator
 
             return null;
         }
-
 
         public string GetLiteralEntityName(ICSharpCode.NRefactory.TypeSystem.IEntity member)
         {

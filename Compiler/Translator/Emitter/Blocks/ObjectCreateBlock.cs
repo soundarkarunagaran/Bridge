@@ -199,7 +199,6 @@ namespace Bridge.Translator
                         this.Write(customCtor);
                     }
 
-                    
                     if (!isTypeParam && !type.IsExternal() && type.Methods.Count(m => m.IsConstructor && !m.IsDefaultStructConstructor() && !m.IsStatic) > (type.IsValueType() || isObjectLiteral ? 0 : 1))
                     {
                         this.WriteDot();

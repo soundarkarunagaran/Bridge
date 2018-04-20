@@ -632,7 +632,7 @@ namespace Bridge.Translator
                         result[index] = namedArg.Expression;
                         names[index] = namedArg.Name;
                         named = true;
-                        
+
                         if (paramsArg == null && parameters.FirstOrDefault(p => p.Name == namedArg.Name).IsParams)
                         {
                             if (resolveResult.Member.DeclaringTypeDefinition == null || !resolveResult.Member.DeclaringTypeDefinition.IsExternal())

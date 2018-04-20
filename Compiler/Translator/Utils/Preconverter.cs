@@ -132,7 +132,7 @@ namespace Bridge.Translator
             {
                 this.Rules = Contract.Rules.Default;
             }
-            
+
             base.VisitMethodDeclaration(methodDeclaration);
         }
 
@@ -305,7 +305,7 @@ namespace Bridge.Translator
 
         private void ExecuteCompilerExtension(MethodDeclaration methodDeclaration, IMethod method)
         {
-            // validate signature 
+            // validate signature
             if (method.Parameters.Count != 1 ||
                 method.Parameters[0].Type.FullName != "Bridge.CompilerServices.ICompilerContext")
             {
@@ -560,9 +560,9 @@ namespace Bridge.Translator
             catch(Exception e)
             {
                 var fileName = invocationExpression.GetParent<SyntaxTree>()?.FileName;
-                
+
                 this.log.Warn(string.Format("VisitInvocationExpression fails in {0} ({1}): {2}", fileName, invocationExpression.StartLocation.ToString(), e.Message));
-            }            
+            }
 
             return base.VisitInvocationExpression(invocationExpression);
         }

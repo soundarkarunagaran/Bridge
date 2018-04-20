@@ -167,6 +167,11 @@ namespace Bridge.Translator
 
             var isGeneric = type.TypeArguments.Count > 0 && !type.IsIgnoreGeneric();
 
+            if (emitter.GetTypeDefinition(type).IsObjectLiteral())
+            {
+                return "{}";
+            }
+
             return string.Concat("new ", isGeneric ? "(" : "", BridgeTypes.ToJsName(type, emitter), isGeneric ? ")" : "", "()");
         }
 

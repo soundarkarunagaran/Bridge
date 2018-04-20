@@ -80,7 +80,7 @@ namespace Bridge.Translator
             XmlToJsDoc.EmitComment(this, this.MethodDeclaration);
             var isEntryPoint = Helpers.IsEntryPointMethod(this.Emitter, this.MethodDeclaration);
 
-            string name = overloads.GetOverloadName(false, null, OverloadsCollection.ExcludeTypeParameterForDefinition(_member));
+            string name = overloads.GetOverloadName(false, null, excludeTypeOnly: OverloadsCollection.ExcludeTypeParameterForDefinition(_member));
 
             if (isEntryPoint)
             {
