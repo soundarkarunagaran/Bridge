@@ -947,6 +947,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("TimeSpan - SubtractionOperatorWorks", Bridge.Test.Runtime.BridgeClientTestRunner.TimeSpanTests.SubtractionOperatorWorks);
             QUnit.test("TimeSpan - UnaryPlusWorks", Bridge.Test.Runtime.BridgeClientTestRunner.TimeSpanTests.UnaryPlusWorks);
             QUnit.test("TimeSpan - UnaryMinusWorks", Bridge.Test.Runtime.BridgeClientTestRunner.TimeSpanTests.UnaryMinusWorks);
+            QUnit.test("TimeSpan - ParseWorks", Bridge.Test.Runtime.BridgeClientTestRunner.TimeSpanTests.ParseWorks);
             QUnit.module("Decimal Math");
             QUnit.test("TestSubtractOperator", Bridge.Test.Runtime.BridgeClientTestRunner.DecimalMathTests.TestSubtractOperator);
             QUnit.test("TestRemainderOperator", Bridge.Test.Runtime.BridgeClientTestRunner.DecimalMathTests.TestRemainderOperator);
@@ -24756,6 +24757,11 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                     var $t;
                     var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.SimpleTypes.TimeSpanTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TimeSpanTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "UnaryMinusWorks()", $t.Line = "301", $t));
                     t.Fixture.UnaryMinusWorks();
+                },
+                ParseWorks: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.SimpleTypes.TimeSpanTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TimeSpanTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ParseWorks()", $t.Line = "310", $t));
+                    t.Fixture.ParseWorks();
                 }
             }
         },

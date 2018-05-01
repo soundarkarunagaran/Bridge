@@ -306,5 +306,74 @@ namespace Bridge.ClientTest.SimpleTypes
             Assert.True((object)actual is TimeSpan, "Should be TimeSpan");
             Assert.AreEqual((((((3 * 24) - 2) * 60 + 1) * 60) - 5) * 1000 + 4, actual.TotalMilliseconds, "Ticks should be correct");
         }
+
+        [Test]
+        public void ParseWorks()
+        {
+            var str = "01:02:03";
+            var ts = TimeSpan.Parse(str);
+            
+            Assert.AreEqual(0, ts.Days);
+            Assert.AreEqual(1, ts.Hours);
+            Assert.AreEqual(2, ts.Minutes);
+            Assert.AreEqual(3, ts.Seconds);
+            Assert.AreEqual(0, ts.Milliseconds);
+
+            str = "-01:02:03";
+            ts = TimeSpan.Parse(str);
+
+            Assert.AreEqual(0, ts.Days);
+            Assert.AreEqual(-1, ts.Hours);
+            Assert.AreEqual(-2, ts.Minutes);
+            Assert.AreEqual(-3, ts.Seconds);
+            Assert.AreEqual(0, ts.Milliseconds);
+            Assert.True(ts.Ticks < 0);
+
+            str = "01:02:03.999";
+            ts = TimeSpan.Parse(str);
+
+            Assert.AreEqual(0, ts.Days);
+            Assert.AreEqual(1, ts.Hours);
+            Assert.AreEqual(2, ts.Minutes);
+            Assert.AreEqual(3, ts.Seconds);
+            Assert.AreEqual(999, ts.Milliseconds);
+
+            str = "04:01:02:03";
+            ts = TimeSpan.Parse(str);
+
+            Assert.AreEqual(4, ts.Days);
+            Assert.AreEqual(1, ts.Hours);
+            Assert.AreEqual(2, ts.Minutes);
+            Assert.AreEqual(3, ts.Seconds);
+            Assert.AreEqual(0, ts.Milliseconds);
+
+            str = "04.01:02:03";
+            ts = TimeSpan.Parse(str);
+
+            Assert.AreEqual(4, ts.Days);
+            Assert.AreEqual(1, ts.Hours);
+            Assert.AreEqual(2, ts.Minutes);
+            Assert.AreEqual(3, ts.Seconds);
+            Assert.AreEqual(0, ts.Milliseconds);
+
+            str = "-04.01:02:03";
+            ts = TimeSpan.Parse(str);
+
+            Assert.AreEqual(-4, ts.Days);
+            Assert.AreEqual(-1, ts.Hours);
+            Assert.AreEqual(-2, ts.Minutes);
+            Assert.AreEqual(-3, ts.Seconds);
+            Assert.AreEqual(0, ts.Milliseconds);
+            Assert.True(ts.Ticks < 0);
+
+            str = "04.01:02:03.999";
+            ts = TimeSpan.Parse(str);
+
+            Assert.AreEqual(4, ts.Days);
+            Assert.AreEqual(1, ts.Hours);
+            Assert.AreEqual(2, ts.Minutes);
+            Assert.AreEqual(3, ts.Seconds);
+            Assert.AreEqual(999, ts.Milliseconds);
+        }
     }
 }
