@@ -313,67 +313,67 @@ namespace Bridge.ClientTest.SimpleTypes
             var str = "01:02:03";
             var ts = TimeSpan.Parse(str);
             
-            Assert.AreEqual(0, ts.Days);
-            Assert.AreEqual(1, ts.Hours);
-            Assert.AreEqual(2, ts.Minutes);
-            Assert.AreEqual(3, ts.Seconds);
-            Assert.AreEqual(0, ts.Milliseconds);
+            Assert.AreEqual(0, ts.Days, "Could parse amount of days from HH:MM:SS time span.");
+            Assert.AreEqual(1, ts.Hours, "Could parse amount of hours from HH:MM:SS time span.");
+            Assert.AreEqual(2, ts.Minutes, "Could parse amount of minutes from HH:MM:SS time span.");
+            Assert.AreEqual(3, ts.Seconds, "Could parse amount of seconds from HH:MM:SS time span.");
+            Assert.AreEqual(0, ts.Milliseconds, "Could parse amount of milliseconds from HH:MM:SS time span.");
 
             str = "-01:02:03";
             ts = TimeSpan.Parse(str);
 
-            Assert.AreEqual(0, ts.Days);
-            Assert.AreEqual(-1, ts.Hours);
-            Assert.AreEqual(-2, ts.Minutes);
-            Assert.AreEqual(-3, ts.Seconds);
-            Assert.AreEqual(0, ts.Milliseconds);
-            Assert.True(ts.Ticks < 0);
+            Assert.AreEqual(0, ts.Days, "Could parse amount of days from -HH:MM:SS time span.");
+            Assert.AreEqual(-1, ts.Hours, "Could parse amount of hours from -HH:MM:SS time span.");
+            Assert.AreEqual(-2, ts.Minutes, "Could parse amount of minutes from -HH:MM:SS time span.");
+            Assert.AreEqual(-3, ts.Seconds, "Could parse amount of seconds from -HH:MM:SS time span.");
+            Assert.AreEqual(0, ts.Milliseconds, "Could parse amount of milliseconds from -HH:MM:SS time span.");
+            Assert.True(ts.Ticks < 0, "Amount of ticks in less than zero on -HH:MM:SS time span.");
 
             str = "01:02:03.999";
             ts = TimeSpan.Parse(str);
 
-            Assert.AreEqual(0, ts.Days);
-            Assert.AreEqual(1, ts.Hours);
-            Assert.AreEqual(2, ts.Minutes);
-            Assert.AreEqual(3, ts.Seconds);
-            Assert.AreEqual(999, ts.Milliseconds);
+            Assert.AreEqual(0, ts.Days, "Could parse amount of days from HH:MM:SS.sss time span.");
+            Assert.AreEqual(1, ts.Hours, "Could parse amount of hours from HH:MM:SS.sss time span.");
+            Assert.AreEqual(2, ts.Minutes, "Could parse amount of minutes from HH:MM:SS.sss time span.");
+            Assert.AreEqual(3, ts.Seconds, "Could parse amount of seconds from HH:MM:SS.sss time span.");
+            Assert.AreEqual(999, ts.Milliseconds, "Could parse amount of milliseconds from HH:MM:SS.sss time span.");
 
             str = "04:01:02:03";
             ts = TimeSpan.Parse(str);
 
-            Assert.AreEqual(4, ts.Days);
-            Assert.AreEqual(1, ts.Hours);
-            Assert.AreEqual(2, ts.Minutes);
-            Assert.AreEqual(3, ts.Seconds);
-            Assert.AreEqual(0, ts.Milliseconds);
+            Assert.AreEqual(4, ts.Days, "Could parse amount of days from DD:HH:MM:SS time span.");
+            Assert.AreEqual(1, ts.Hours, "Could parse amount of hours from DD:HH:MM:SS time span.");
+            Assert.AreEqual(2, ts.Minutes, "Could parse amount of minutes from DD:HH:MM:SS time span.");
+            Assert.AreEqual(3, ts.Seconds, "Could parse amount of seconds from DD:HH:MM:SS time span.");
+            Assert.AreEqual(0, ts.Milliseconds, "Could parse amount of milisseconds from DD:HH:MM:SS time span.");
 
             str = "04.01:02:03";
             ts = TimeSpan.Parse(str);
 
-            Assert.AreEqual(4, ts.Days);
-            Assert.AreEqual(1, ts.Hours);
-            Assert.AreEqual(2, ts.Minutes);
-            Assert.AreEqual(3, ts.Seconds);
-            Assert.AreEqual(0, ts.Milliseconds);
+            Assert.AreEqual(4, ts.Days, "Could parse amount of days from DD.HH:MM:SS time span.");
+            Assert.AreEqual(1, ts.Hours, "Could parse amount of hours from DD.HH:MM:SS time span.");
+            Assert.AreEqual(2, ts.Minutes, "Could parse amount of minutes from DD.HH:MM:SS time span.");
+            Assert.AreEqual(3, ts.Seconds, "Could parse amount of seconds from DD.HH:MM:SS time span.");
+            Assert.AreEqual(0, ts.Milliseconds, "Could parse amount of milisseconds from DD.HH:MM:SS time span.");
 
             str = "-04.01:02:03";
             ts = TimeSpan.Parse(str);
 
-            Assert.AreEqual(-4, ts.Days);
-            Assert.AreEqual(-1, ts.Hours);
-            Assert.AreEqual(-2, ts.Minutes);
-            Assert.AreEqual(-3, ts.Seconds);
-            Assert.AreEqual(0, ts.Milliseconds);
-            Assert.True(ts.Ticks < 0);
+            Assert.AreEqual(-4, ts.Days, "Could parse amount of days from -DD.HH:MM:SS time span.");
+            Assert.AreEqual(-1, ts.Hours, "Could parse amount of hours from -DD.HH:MM:SS time span.");
+            Assert.AreEqual(-2, ts.Minutes, "Could parse amount of minutes from -DD.HH:MM:SS time span.");
+            Assert.AreEqual(-3, ts.Seconds, "Could parse amount of seconds from -DD.HH:MM:SS time span.");
+            Assert.AreEqual(0, ts.Milliseconds, "Could parse amount of milisseconds from -DD.HH:MM:SS time span.");
+            Assert.True(ts.Ticks < 0, "Amount of ticks in less than zero on -DD.HH:MM:SS time span.");
 
             str = "04.01:02:03.999";
             ts = TimeSpan.Parse(str);
 
-            Assert.AreEqual(4, ts.Days);
-            Assert.AreEqual(1, ts.Hours);
-            Assert.AreEqual(2, ts.Minutes);
-            Assert.AreEqual(3, ts.Seconds);
-            Assert.AreEqual(999, ts.Milliseconds);
+            Assert.AreEqual(4, ts.Days, "Could parse amount of days from DD.HH:MM:SS.sss time span.");
+            Assert.AreEqual(1, ts.Hours, "Could parse amount of hours from DD.HH:MM:SS.sss time span.");
+            Assert.AreEqual(2, ts.Minutes, "Could parse amount of minutes from DD.HH:MM:SS.sss time span.");
+            Assert.AreEqual(3, ts.Seconds, "Could parse amount of seconds from DD.HH:MM:SS.sss time span.");
+            Assert.AreEqual(999, ts.Milliseconds, "Could parse amount of milliseconds from DD.HH:MM:SS.sss time span.");
         }
     }
 }
