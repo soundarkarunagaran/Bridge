@@ -36,6 +36,7 @@ namespace Bridge.Translator
         {
             var localFns = root.DescendantNodes().OfType<LocalFunctionStatementSyntax>();
             var updatedBlocks = new Dictionary<BlockSyntax, List<StatementSyntax>>();
+            var initForBlocks = new Dictionary<BlockSyntax, List<StatementSyntax>>();
             var updatedClasses = new Dictionary<TypeDeclarationSyntax, List<DelegateDeclarationSyntax>>();
 
             foreach (var fn in localFns)
@@ -43,6 +44,12 @@ namespace Bridge.Translator
                 var block = fn.Ancestors().OfType<BlockSyntax>().First();
                 var usage = GetFirstUsageLocalFunc(model, fn, block);
                 var beforeStatement = usage?.Ancestors().OfType<StatementSyntax>().FirstOrDefault(ss => ss.Parent == block);
+
+                if (beforeStatement is LocalFunctionStatementSyntax beforeFn)
+                {
+                    usage = GetFirstUsageLocalFunc(model, beforeFn, block);
+                    beforeStatement = usage?.Ancestors().OfType<StatementSyntax>().FirstOrDefault(ss => ss.Parent == block);
+                }
 
                 var customDelegate = false;
 
@@ -157,23 +164,37 @@ namespace Bridge.Translator
                     {
                         prms.Add(SyntaxFactory.Parameter(prm.Identifier));
                     }
-                }                
+                }
 
-                var varDecl = SyntaxFactory.VariableDeclaration(varType).WithVariables(SyntaxFactory.SingletonSeparatedList(
-                    SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(fn.Identifier.ValueText)).WithInitializer
-                    (
-                        SyntaxFactory.EqualsValueClause(SyntaxFactory.ParenthesizedLambdaExpression(fn.Body ?? (CSharpSyntaxNode)fn.ExpressionBody.Expression).WithParameterList(
-                            SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(prms))
-                        ))
+                var initVar = SyntaxFactory.LocalDeclarationStatement(SyntaxFactory.VariableDeclaration(varType).WithVariables(
+                    SyntaxFactory.SingletonSeparatedList(
+                        SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(fn.Identifier.ValueText)).WithInitializer
+                        (
+                            SyntaxFactory.EqualsValueClause(SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression))
+                        )
                     )
-                )).NormalizeWhitespace();
+                )).NormalizeWhitespace().WithTrailingTrivia(SyntaxFactory.Whitespace(Emitter.NEW_LINE));
+
+                var assignment = SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression, 
+                    SyntaxFactory.IdentifierName(fn.Identifier.ValueText),
+                    SyntaxFactory.ParenthesizedLambdaExpression(fn.Body ?? (CSharpSyntaxNode)fn.ExpressionBody.Expression).WithParameterList(
+                        SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(prms))
+                    )
+                )).NormalizeWhitespace().WithTrailingTrivia(SyntaxFactory.Whitespace(Emitter.NEW_LINE));
 
                 var statements = updatedBlocks.ContainsKey(block) ? updatedBlocks[block] : block.Statements.ToList();
                 var fnIdx = statements.IndexOf(fn);
-                //statements.Remove(fn);
-                statements.Insert(beforeStatement != null ? statements.IndexOf(beforeStatement) : Math.Max(0, fnIdx), SyntaxFactory.LocalDeclarationStatement(varDecl).WithTrailingTrivia(SyntaxFactory.Whitespace("\n")));
-
+                statements.Insert(beforeStatement != null ? statements.IndexOf(beforeStatement) : Math.Max(0, fnIdx), assignment);
                 updatedBlocks[block] = statements;
+
+                statements = initForBlocks.ContainsKey(block) ? initForBlocks[block] : new List<StatementSyntax>();
+                statements.Insert(0, initVar);
+                initForBlocks[block] = statements;
+            }
+
+            foreach (var key in initForBlocks.Keys)
+            {
+                updatedBlocks[key] = initForBlocks[key].Concat(updatedBlocks[key]).ToList();
             }
 
             if (updatedClasses.Count > 0)

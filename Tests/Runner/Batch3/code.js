@@ -31350,12 +31350,79 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestUnusedLocalFn: function () {
+                    var test = null;
                     var a = 15;
-                    var test = function () {
+                    test = function () {
                         return a > 10;
                     }; /// Local function is declared but never used /// Local function is declared but never used
 
                     Bridge.Test.NUnit.Assert.AreEqual(15, a, "Unused local function does not result in broken Bridge code.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here ensures that local functions' recursion works with
+     Bridge translated code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3560
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3560", {
+        statics: {
+            methods: {
+                /**
+                 * Tests local function recursion.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3560
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3560
+                 * @return  {void}
+                 */
+                TestLocalFunctionRecursion: function () {
+                    var F = null;
+                    var i = 0;
+                    F = function (x) {
+                        i = (i + 1) | 0;
+                        if (x > 0) {
+                            F(((x - 1) | 0));
+                        }
+                    };
+                    F(10);
+
+
+
+                    Bridge.Test.NUnit.Assert.AreEqual(11, i, "Recursive local function call result in the expected value.");
+                },
+                /**
+                 * Tests local function referencing.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3560
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3560
+                 * @return  {void}
+                 */
+                TestLocalFunctionsReferences: function () {
+                    var G = null;
+                    var F = null;
+                    var buffer = "";
+                    F = function () {
+                        buffer = (buffer || "") + "F";
+                        G();
+                    };
+                    G = function () {
+                        buffer = (buffer || "") + "G";
+                    };
+                    F();
+
+
+
+
+
+                    Bridge.Test.NUnit.Assert.AreEqual("FG", buffer, "Local function referencing results in the expected side effect.");
                 }
             }
         }
