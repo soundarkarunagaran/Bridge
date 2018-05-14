@@ -14,7 +14,7 @@ namespace Bridge.Translator
         public SyntaxNode Replace(SyntaxNode root, SemanticModel model)
         {
             var switches = root.DescendantNodes().OfType<SwitchStatementSyntax>().Where(sw => {
-                return sw.Sections.Any(s => s.Labels.Any(l => l is CasePatternSwitchLabelSyntax));
+                return sw.Sections.Any(s => s.Labels.Any(l => l is CasePatternSwitchLabelSyntax || l is CaseSwitchLabelSyntax csl && csl.Value is CastExpressionSyntax ce && ce.Expression.Kind() == SyntaxKind.DefaultLiteralExpression));
             });
 
             var tempKey = 0;
@@ -135,7 +135,29 @@ namespace Bridge.Translator
                 if (item is CaseSwitchLabelSyntax)
                 {
                     var label = (CaseSwitchLabelSyntax)item;
-                    conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expressionSyntax, label.Value));
+
+                    if (label.Value is CastExpressionSyntax ce && ce.Expression.Kind() == SyntaxKind.DefaultLiteralExpression)
+                    {
+                        conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.LogicalAndExpression,
+                            SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expressionSyntax, ce.Type),
+                            //SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expressionSyntax, SyntaxFactory.DefaultExpression(ce.Type))
+                            SyntaxFactory.InvocationExpression(SyntaxFactory.MemberAccessExpression(
+                                                SyntaxKind.SimpleMemberAccessExpression,
+                                                SyntaxFactory.IdentifierName("System.Object"),
+                                                SyntaxFactory.IdentifierName("Equals")), SyntaxFactory.ArgumentList(
+                                                SyntaxFactory.SeparatedList<ArgumentSyntax>(
+                                                    new SyntaxNodeOrToken[]{
+                                                        SyntaxFactory.Argument(expressionSyntax),
+                                                        SyntaxFactory.Token(SyntaxKind.CommaToken),
+                                                        SyntaxFactory.Argument(
+                                                            SyntaxFactory.DefaultExpression(ce.Type)
+                                                            )})))
+                        ));
+                    }
+                    else
+                    {                        
+                        conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expressionSyntax, label.Value));
+                    }                    
                 }
                 else if (item is CasePatternSwitchLabelSyntax)
                 {
@@ -165,6 +187,11 @@ namespace Bridge.Translator
 
                             conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, expressionSyntax, declarationType));
                         }
+                    }
+                    else if (label.Pattern is ConstantPatternSyntax)
+                    {
+                        var constPattern = (ConstantPatternSyntax)label.Pattern;
+                        conditionList.Add(SyntaxFactory.BinaryExpression(SyntaxKind.EqualsExpression, expressionSyntax, constPattern.Expression));
                     }
 
                     if (label.WhenClause != null)

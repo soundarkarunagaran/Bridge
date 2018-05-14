@@ -308,6 +308,7 @@ namespace Bridge.Translator
         {
             var rewriter = new SharpSixRewriter(this);
             var result = new string[this.SourceFiles.Count];
+            
             Task.WaitAll(this.SourceFiles.Select((file, index) => Task.Run(() => result[index] = new SharpSixRewriter(rewriter).Rewrite(index))).ToArray());
             return result;
         }
@@ -351,7 +352,7 @@ namespace Bridge.Translator
                         errors.Add(fileName + ":" + error.Region.BeginLine + "," + error.Region.BeginColumn + ": " + error.Message);
                     }
 
-                    throw new EmitterException(syntaxTree, string.Format("Error parsing code." + Environment.NewLine + String.Join(Environment.NewLine, errors)));
+                    throw new EmitterException(syntaxTree, "Error parsing code." + Environment.NewLine + String.Join(Environment.NewLine, errors));
                 }
 
                 var expandResult = new QueryExpressionExpander().ExpandQueryExpressions(syntaxTree);

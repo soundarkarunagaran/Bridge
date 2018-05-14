@@ -65,7 +65,10 @@ namespace Bridge.Translator
                 return new Tuple<SyntaxTree, SemanticModel>(newTree, semanticModel);
             };
 
-            var result = new DeconstructionReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater);
+            var result = new ExpressionBodyToStatementRewriter(semanticModel).Visit(syntaxTree.GetRoot());
+            modelUpdater(result);
+
+            result = new DeconstructionReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater);
             modelUpdater(result);
 
             result = new DiscardReplacer().Replace(syntaxTree.GetRoot(), semanticModel, modelUpdater);
@@ -208,6 +211,18 @@ namespace Bridge.Translator
             return false;
         }
 
+        public override SyntaxNode VisitCaseSwitchLabel(CaseSwitchLabelSyntax node)
+        {
+            node =  (CaseSwitchLabelSyntax)base.VisitCaseSwitchLabel(node);
+
+            if (node.Value is CastExpressionSyntax ce && ce.Expression.Kind() == SyntaxKind.DefaultLiteralExpression)
+            {
+                this.hasCasePatternSwitchLabel = true;
+            }
+
+            return node;
+        }
+
         public override SyntaxNode VisitBinaryExpression(BinaryExpressionSyntax node)
         {
             var symbol = semanticModel.GetSymbolInfo(node.Right).Symbol;
@@ -334,7 +349,7 @@ namespace Bridge.Translator
                 var typeInfo = semanticModel.GetTypeInfo(node);
                 var type = typeInfo.Type ?? typeInfo.ConvertedType;
 
-                if (type != null)
+                if (type != null && type.TypeKind != TypeKind.Error)
                 {
                     return SyntaxFactory.DefaultExpression(SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, node.GetLocation().SourceSpan.Start)));
                 }
