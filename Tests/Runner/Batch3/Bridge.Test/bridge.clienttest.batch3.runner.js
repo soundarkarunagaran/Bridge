@@ -46,6 +46,9 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3588 - TestOperatorTemplate", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3588.TestOperatorTemplate);
             QUnit.test("#3589 - TestUsingStaticOnGeneric", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3589.TestUsingStaticOnGeneric);
             QUnit.test("#3590 - TestExternalExpandParams", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3590.TestExternalExpandParams);
+            QUnit.test("#3593 - CheckStringStartsWithString", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593.CheckStringStartsWithString);
+            QUnit.test("#3593 - CheckStringEndsWithString", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593.CheckStringEndsWithString);
+            QUnit.test("#3593 - CheckAdditionalBrokenCases", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593.CheckAdditionalBrokenCases);
             QUnit.test("#3599 - TestCustomListImplementation", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3599.TestCustomListImplementation);
             QUnit.module("Issues3");
             QUnit.test("#69 - ThisKeywordInStructConstructorWorks", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge069.ThisKeywordInStructConstructorWorks);
@@ -16869,6 +16872,42 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3590", $t.File = "Batch3\\BridgeIssues\\3500\\N3590.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                CheckStringStartsWithString: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CheckStringStartsWithString()", $t.Line = "17", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593.CheckStringStartsWithString();
+                },
+                CheckStringEndsWithString: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CheckStringEndsWithString()", $t.Line = "80", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593.CheckStringEndsWithString();
+                },
+                CheckAdditionalBrokenCases: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3593, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CheckAdditionalBrokenCases()", $t.Line = "148", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593.CheckAdditionalBrokenCases();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3593", $t.File = "Batch3\\BridgeIssues\\3500\\N3593.cs", $t);
                 }
                 return this.context;
             }
