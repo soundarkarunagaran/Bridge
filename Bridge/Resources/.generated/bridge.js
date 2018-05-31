@@ -11823,8 +11823,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         },
 
         checkReadOnly: function (obj, T, msg) {
-            if (System.Array.getIsReadOnly(obj, T)) {
-                throw new System.NotSupportedException.$ctor1(msg || "Collection was of a fixed size.");
+            if (Bridge.isArray(obj)) {
+                if (T) {
+                    throw new System.NotSupportedException.$ctor1(msg || "Collection was of a fixed size.");
+                }
+            } else if (System.Array.getIsReadOnly(obj, T)) {
+                throw new System.NotSupportedException.$ctor1(msg || "Collection is read-only.");
             }
         },
 
@@ -30772,7 +30776,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 get: function () {
                     var list = Bridge.as(this.items, System.Collections.IList);
                     if (list != null) {
-                        return list.System$Collections$IList$IsFixedSize;
+                        return System.Array.isFixedSize(list);
                     }
                     return System.Array.getIsReadOnly(this.items, T);
                 }
