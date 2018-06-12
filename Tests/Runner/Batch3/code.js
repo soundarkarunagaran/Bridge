@@ -33536,9 +33536,28 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The tests here consists in ensuring emission order of local functions
+     obey the order they are actually entered in code.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3625
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3625", {
         statics: {
             methods: {
+                /**
+                 * Tests the order by declaring two local funcions, in such a way
+                 that the second calls the first. If the local function is not
+                 emitted in the correct order, the return value would not match
+                 the expected one.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3625
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3625
+                 * @return  {void}
+                 */
                 TestLocalFns: function () {
                     var Two = null;
                     var One = null;
@@ -33547,11 +33566,11 @@ Bridge.$N1391Result =                     r;
 
                     One = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3625.f1;
 
-                    Bridge.Test.NUnit.Assert.AreEqual("One", One("One"));
+                    Bridge.Test.NUnit.Assert.AreEqual("One", One("One"), "First local function call matches expected result.");
                     Two = function (msg) {
                         return "Two:" + (One(msg) || "");
                     };
-                    Bridge.Test.NUnit.Assert.AreEqual("Two:One", Two("One"));
+                    Bridge.Test.NUnit.Assert.AreEqual("Two:One", Two("One"), "Second local function call matches expected result.");
                 }
             }
         }
