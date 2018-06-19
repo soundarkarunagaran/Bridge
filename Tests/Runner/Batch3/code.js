@@ -33537,6 +33537,51 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
+     * The test here consists in ensuring 'Managed' boxing rule works on
+     nullable enums.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612", {
+        statics: {
+            methods: {
+                SetModeStronglyTyped: function (mode) {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612.SetMode(Bridge.box(mode, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612.Mode, System.Nullable.toStringFn(System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612.Mode)), System.Nullable.getHashCode));
+                },
+                SetMode: function (mode) {
+                    var $t;
+                    Bridge.Test.NUnit.Assert.AreEqual("Null", Bridge.unbox(($t = mode, $t != null ? $t : "Null")));
+                },
+                /**
+                 * Ensures a null "nullable enum" is emitted as "Null" instead of
+                 throwing an exception.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612
+                 * @return  {void}
+                 */
+                TestEnumNullable: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612.SetModeStronglyTyped(null);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3612.Mode", {
+        $kind: "nested enum",
+        statics: {
+            fields: {
+                Slow: 0,
+                Medium: 1,
+                Fast: 2
+            }
+        }
+    });
+
+    /**
      * The tests here consists in ensuring emission order of local functions
      obey the order they are actually entered in code.
      *
