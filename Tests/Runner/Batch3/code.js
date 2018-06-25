@@ -51,6 +51,16 @@ var Bridge3622_A = (function () {
     }
     return Bridge3622_A;
 }());
+var Bridge3627_Logger = (function () {
+    function Bridge3627_Logger() {
+    }
+    Bridge3627_Logger.prototype.Log = function (s) {
+        var args = [].slice.call(arguments, 1);
+        var msg = args.join(", ");
+        return arguments[0] + ": " + msg;
+    };
+    return Bridge3627_Logger;
+}());
 
 /**
  * Bridge Test library - test github issues up to #1999
@@ -33852,6 +33862,36 @@ Bridge.$N1391Result =                     r;
 
                     result = System.String.format("{{T{{E{{S{{T{{:{{{0}}}H}}e{1}l}}lo}}Wor}}ld}}", l1, l2);
                     Bridge.Test.NUnit.Assert.AreEqual("{T{E{S{T{:{l1s}H}el2sl}lo}Wor}ld}", result, "Six-bracket-enclosed composite format works.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Ensures External class with ExpandParams attribute references won't
+     incur into double 'apply()' calls.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3627
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3627", {
+        statics: {
+            methods: {
+                /**
+                 * Instantiates and reference the external class, expecting it should
+                 return a composed string according to its external implementation.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3627
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3627
+                 * @return  {void}
+                 */
+                TestExpandParams: function () {
+                    var arr = System.Array.init(["one", "two", "three"], System.String);
+
+                    var logger = new Bridge3627_Logger();
+                    Bridge.Test.NUnit.Assert.AreEqual("Info: one, two, three", logger.Log.apply(logger, ["Info"].concat(arr)), "External+ExpandParams method call returns the expected result.");
                 }
             }
         }
