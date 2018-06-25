@@ -38,6 +38,13 @@ var Bridge3494_A = (function () {
     Bridge3494_A.InstancesCount = 0;
     return Bridge3494_A;
 }());
+var Bridge3528_A = (function () {
+    function Bridge3528_A() {
+        this[1] = "one";
+        this[2] = "two";
+    }
+    return Bridge3528_A;
+}());
 var Bridge3622_A = (function () {
     function Bridge3622_A() {
         this.A_initialized = true;
@@ -31340,6 +31347,35 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.Null(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.SpaceWritten(), "Blank Script.Write works");
                     Bridge.Test.NUnit.Assert.Null(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3519.NothingWritten(), "Empty Script.Write works");
                 }
+            }
+        }
+    });
+
+    /**
+     * Ensures GetIndexerVal implementation on classes carry on to indexer
+     methods in inherited, mapped and external classes.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3528
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3528", {
+        statics: {
+            methods: {
+                TestExternalBaseIndexer: function () {
+                    var b = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3528.B();
+                    Bridge.Test.NUnit.Assert.AreEqual("one", b[1], "Value by bracket indexer can be fetched.");
+                    Bridge.Test.NUnit.Assert.AreEqual("one", b.GetIndexerVal(1), "Value by indexer method can be fetched.");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3528.B", {
+        inherits: [Bridge3528_A],
+        $kind: "nested class",
+        methods: {
+            GetIndexerVal: function (n) {
+                return this[n];
             }
         }
     });
