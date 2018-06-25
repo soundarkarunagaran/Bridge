@@ -38,6 +38,12 @@ var Bridge3494_A = (function () {
     Bridge3494_A.InstancesCount = 0;
     return Bridge3494_A;
 }());
+var Bridge3622_A = (function () {
+    function Bridge3622_A() {
+        this.A_initialized = true;
+    }
+    return Bridge3622_A;
+}());
 
 /**
  * Bridge Test library - test github issues up to #1999
@@ -734,6 +740,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         ctors: {
             ctor: function (n) {
                 this.$initialize();
+                SomeExternalNamespace.SomeNonBridgeClass.call(this);
                 this.number = n;
             }
         },
@@ -33676,6 +33683,52 @@ Bridge.$N1391Result =                     r;
             var byteVal = 255;
             var boxed = Bridge.box(byteVal, System.Byte);
             var unboxed = System.Nullable.getValue(Bridge.cast(Bridge.unbox(boxed, System.Int32), System.Int32));
+        }
+    });
+
+    /**
+     * Ensuring base class calling works even when inheriting from an
+     external class.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622", {
+        statics: {
+            methods: {
+                /**
+                 * Tests by instantiating the child class and checking whether the
+                 arbitrarily-crafted external class constructor was called.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622
+                 * @return  {void}
+                 */
+                TestExternalBaseDefaultCtor: function () {
+                    var b = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622.B();
+                    Bridge.Test.NUnit.Assert.AreEqual(true, Bridge.unbox(b.A_initialized), "External, inherited, and mapped class' constructor called.");
+                }
+            }
+        }
+    });
+
+    /**
+     * A class inheriting from the mapped C# class.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622.B
+     * @augments Bridge3622_A
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3622.B", {
+        inherits: [Bridge.virtualc("Bridge3622_A")],
+        $kind: "nested class",
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                Bridge.virtualc("Bridge3622_A").call(this);
+            }
         }
     });
 

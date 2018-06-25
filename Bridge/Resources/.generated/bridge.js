@@ -21904,6 +21904,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         ctors: {
             ctor: function (exception, isTerminating) {
                 this.$initialize();
+                System.Object.call(this);
                 this._exception = exception;
                 this._isTerminating = isTerminating;
             }
