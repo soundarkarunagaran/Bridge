@@ -28323,11 +28323,11 @@ Bridge.$N1391Result =                     r;
                 var type = Bridge.getType(this);
                 var method = Bridge.Reflection.getMembers(type, 8, 284, "CheckDateTime");
 
-                Bridge.Reflection.midel(method, this).apply(null, System.Array.init([Bridge.box(time, System.DateTime, System.DateTime.format)], System.Object));
+                Bridge.Reflection.midel(method, this).apply(null, Bridge.unbox(System.Array.init([Bridge.box(time, System.DateTime, System.DateTime.format)], System.Object)));
 
                 method = Bridge.Reflection.getMembers(type, 8, 284, "CheckInt");
 
-                Bridge.Reflection.midel(method, this).apply(null, System.Array.init([Bridge.box(5, System.Int32)], System.Object));
+                Bridge.Reflection.midel(method, this).apply(null, Bridge.unbox(System.Array.init([Bridge.box(5, System.Int32)], System.Object)));
             },
             CheckDateTime: function (time) {
                 if (System.DateTime.gt(System.DateTime.getMaxValue(), time)) {
@@ -33892,6 +33892,39 @@ Bridge.$N1391Result =                     r;
 
                     var logger = new Bridge3627_Logger();
                     Bridge.Test.NUnit.Assert.AreEqual("Info: one, two, three", logger.Log.apply(logger, ["Info"].concat(arr)), "External+ExpandParams method call returns the expected result.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Ensures implicit operator is emitted when the variable declaration
+     defines its type and there is an implicit operator available.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628", {
+        statics: {
+            methods: {
+                /**
+                 * Tests by instantiating the classes with an explicit cast and
+                 omitted cast, expecting both to result in the same structure.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628
+                 * @return  {void}
+                 */
+                TestConversion: function () {
+                    var good = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
+                    var bad = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
+                    Bridge.Test.NUnit.Assert.True(0 === System.Linq.Enumerable.from(good).count() && System.Linq.Enumerable.from(good).count() === System.Linq.Enumerable.from(bad).count(), "Implicit casting works (original test case, array elements dropped).");
+
+                    var good_b = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
+                    var bad_b = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
+                    Bridge.Test.NUnit.Assert.True(5 === good_b.f.length && good_b.f.length === bad_b.f.length, "Implicit casting works (modified test, keeping array elements).");
                 }
             }
         }
@@ -44367,6 +44400,68 @@ Bridge.$N1391Result =                     r;
             "Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3550$IProbe$Value",
             "Text", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3550$IProbe$Text"
         ]
+    });
+
+    /**
+     * Original sample, as elements are dropped.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A
+     * @implements  System.Collections.Generic.IEnumerable$1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A", {
+        inherits: [System.Collections.Generic.IEnumerable$1(System.Object)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                /**
+                 * just drop whatever is provided. Result's count will always be 0.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A
+                 * @param   {Array.<object>}                                        f
+                 * @return  {Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A}
+                 */
+                op_Implicit: function (f) {
+                    return null;
+                }
+            }
+        },
+        alias: ["GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Object$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"]]
+    });
+
+    /**
+     * A sample where the number of elements is kept.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B
+     * @implements  System.Collections.Generic.IEnumerable$1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B", {
+        inherits: [System.Collections.Generic.IEnumerable$1(System.Object)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                op_Implicit: function (f) {
+                    return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B.$ctor1(f);
+                }
+            }
+        },
+        fields: {
+            f: null
+        },
+        alias: ["GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Object$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"]],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+            },
+            $ctor1: function (f) {
+                this.$initialize();
+                this.f = f;
+            }
+        }
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
