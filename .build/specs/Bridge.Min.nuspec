@@ -73,6 +73,7 @@
     <file src="../../Compiler/Translator/bin/Release/Microsoft.Build.dll" target="tools/Microsoft.Build.dll" />
     <file src="../../Compiler/Translator/bin/Release/Microsoft.Build.Framework.dll" target="tools/Microsoft.Build.Framework.dll" />
     <file src="../../Compiler/Translator/bin/Release/Microsoft.Build.Utilities.Core.dll" target="tools/Microsoft.Build.Utilities.Core.dll" />
+    <file src="../../Compiler/Translator/bin/Release/System.Threading.Tasks.Dataflow.dll" target="tools/System.Threading.Tasks.Dataflow.dll" />
     <file src="../../Compiler/Translator/bin/Release/System.Runtime.InteropServices.RuntimeInformation.dll" target="tools/System.Runtime.InteropServices.RuntimeInformation.dll" />
   </files>
 </package>
