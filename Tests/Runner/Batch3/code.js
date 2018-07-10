@@ -34201,6 +34201,93 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Ensures nullable versions of structs' .Value member is copied rather
+     than referenced when bound to a non-nullable version of the struct.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658", {
+        statics: {
+            methods: {
+                /**
+                 * Instantiate a nullable version of the struct above, then bind its
+                 '.Value' member to a non-nullable instance. Change the value of the
+                 copy and checks it did not affect the value of the original copy.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658
+                 * @return  {void}
+                 */
+                TestNullableClone: function () {
+                    var $t;
+                    // Initialize a nullable struct variable
+                    var A = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658.Point(), $t.X = 10, $t.Y = 20, $t);
+                    Bridge.Test.NUnit.Assert.AreEqual(10, System.Nullable.getValue(A).X, "Initialized nullable struct value works.");
+                    Bridge.Test.NUnit.Assert.AreEqual(20, System.Nullable.getValue(A).Y, "Another initialized value also works.");
+
+                    // Copy the struct and modify the copy. Observe that the original struct variable is also modified.
+                    var B = System.Nullable.getValue(A).$clone();
+                    B.X = 100;
+                    B.Y = 200;
+
+                    Bridge.Test.NUnit.Assert.AreEqual(10, System.Nullable.getValue(A).X, "Original struct value untouched when changing struct copy's value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(20, System.Nullable.getValue(A).Y, "Another struct member also not changed due to changes in the copy.");
+
+                    Bridge.Test.NUnit.Assert.AreEqual(100, B.X, "Value change in copied struct is reflected therein.");
+                    Bridge.Test.NUnit.Assert.AreEqual(200, B.Y, "Another value change is also effective.");
+                }
+            }
+        }
+    });
+
+    /**
+     * An ordinary struct. It will be used as nullable and .Value bound to
+     another insance to check whether they are copied or just
+     referenced.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658.Point
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658.Point", {
+        $kind: "nested struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658.Point(); }
+            }
+        },
+        props: {
+            X: 0,
+            Y: 0
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+            }
+        },
+        methods: {
+            getHashCode: function () {
+                var h = Bridge.addHash([1852403652, this.X, this.Y]);
+                return h;
+            },
+            equals: function (o) {
+                if (!Bridge.is(o, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658.Point)) {
+                    return false;
+                }
+                return Bridge.equals(this.X, o.X) && Bridge.equals(this.Y, o.Y);
+            },
+            $clone: function (to) {
+                var s = to || new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3658.Point();
+                s.X = this.X;
+                s.Y = this.Y;
+                return s;
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
