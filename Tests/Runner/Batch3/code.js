@@ -34431,6 +34431,203 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Ensures nested using works in a yield resumable method.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678", {
+        statics: {
+            methods: {
+                TestNestedUsing: function () {
+                    var a = System.Array.init(["1", "2", "3"], System.String);
+                    var b = System.Array.init(["4", "5", "6"], System.String);
+                    var fn = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678.f1;
+                    var result = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions.Zipper(System.String, System.String, System.String, a, b, fn);
+                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", System.Linq.Enumerable.from(result).ToArray().join("."), "Nested usings in a yield resumable method produces valid javascript code.");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678, {
+        f1: function (s1, s2) {
+            return (s1 || "") + (s2 || "");
+        }
+    });
+
+    /**
+     * @memberof System
+     * @callback System.Func
+     * @param   {A}    arg1    
+     * @param   {B}    arg2
+     * @return  {T}
+     */
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions", {
+        statics: {
+            methods: {
+                /**
+                 * Implements the scenario required to reproduce a potential malformed
+                 javascript output by exploring nested using statements within a
+                 yield resumable method.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions
+                 * @param   {Function}                                    A       
+                 * @param   {Function}                                    B       
+                 * @param   {Function}                                    T       
+                 * @param   {System.Collections.Generic.IEnumerable$1}    seqA    
+                 * @param   {System.Collections.Generic.IEnumerable$1}    seqB    
+                 * @param   {System.Func}                                 func
+                 * @return  {System.Collections.Generic.IEnumerable$1}
+                 */
+                Zipper: function (A, B, T, seqA, seqB, func) {
+                    return new (Bridge.GeneratorEnumerable$1(T))(Bridge.fn.bind(this, function (A, B, T, seqA, seqB, func) {
+                        var $step = 0,
+                            $jumpFromFinally,
+                            $returnValue,
+                            iteratorA,
+                            iteratorB,
+                            isDoneA,
+                            isDoneB,
+                            $async_e,
+                            $async_e1,
+                            $async_e2;
+
+                        var $enumerator = new (Bridge.GeneratorEnumerator$1(T))(Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    switch ($step) {
+                                        case 0: {
+                                            iteratorA = Bridge.getEnumerator(seqA, A);
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            iteratorB = Bridge.getEnumerator(seqB, B);
+                                            $step = 2;
+                                            continue;
+                                        }
+                                        case 2: {
+                                            if ( true ) {
+                                                    $step = 3;
+                                                    continue;
+                                                } 
+                                                $step = 5;
+                                                continue;
+                                        }
+                                        case 3: {
+                                            isDoneA = !iteratorA.System$Collections$IEnumerator$moveNext();
+                                                isDoneB = !iteratorB.System$Collections$IEnumerator$moveNext();
+
+
+
+                                                if (isDoneA || isDoneB) {
+                                                    $step = 5;
+                                                    continue;
+                                                }
+
+                                                $enumerator.current = func(iteratorA[Bridge.geti(iteratorA, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(A) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")], iteratorB[Bridge.geti(iteratorB, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(B) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                                                $step = 4;
+                                                return true;
+                                        }
+                                        case 4: {
+                                            
+                                                $step = 2;
+                                                continue;
+                                        }
+                                        case 5: {
+                                            $step = 6;
+                                            continue;
+                                        }
+                                        case 6: {
+                                            if (Bridge.hasValue(iteratorB)) iteratorB.System$IDisposable$Dispose();
+
+                                                if ($jumpFromFinally > -1) {
+                                                    $step = 8;
+                                                    continue;
+                                                } else if ($async_e) {
+                                                    throw $async_e;
+                                                    return;
+                                                } else if (Bridge.isDefined($returnValue)) {
+                                                    $step = 8;
+                                                    continue;
+                                                }
+                                            $step = 7;
+                                            continue;
+                                        }
+                                        case 7: {
+                                            $step = 8;
+                                            continue;
+                                        }
+                                        case 8: {
+                                            if (Bridge.hasValue(iteratorA)) iteratorA.System$IDisposable$Dispose();
+
+                                                if ($jumpFromFinally > -1) {
+                                                    $step = $jumpFromFinally;
+                                                    $jumpFromFinally = null;
+                                                } else if ($async_e) {
+                                                    throw $async_e;
+                                                    return;
+                                                } else if (Bridge.isDefined($returnValue)) {
+                                                    $tcs.setResult($returnValue);
+                                                    return;
+                                                }
+                                            $step = 9;
+                                            continue;
+                                        }
+                                        case 9: {
+
+                                        }
+                                        default: {
+                                            return false;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                if ($step >= 2 && $step <= 5){
+
+                                    $step = 6;
+                                    $enumerator.moveNext();
+                                    return;
+                                }
+                                if ($step >= 1 && $step <= 7){
+
+                                    $step = 8;
+                                    $enumerator.moveNext();
+                                    return;
+                                }
+                                throw $async_e;
+                            }
+                        }), function () {
+                            if ($step >= 2 && $step <= 5){
+
+                                $step = 6;
+                                $enumerator.moveNext();
+                                return;
+                            }
+                            if ($step >= 1 && $step <= 7){
+
+                                $step = 8;
+                                $enumerator.moveNext();
+                                return;
+                            }
+
+                        });
+                        return $enumerator;
+                    }, arguments));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
@@ -45445,12 +45642,6 @@ Bridge.$N1391Result =                     r;
         },
         alias: ["Value", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3222$IProperty$1$" + Bridge.getTypeAlias(T) + "$Value$1"]
     }; });
-
-    /**
-     * @memberof System
-     * @callback System.Func
-     * @return  {Bridge.ClientTest.Batch3.BridgeIssues.Bridge3269.Cavy}
-     */
 
     /**
      * Parameter class, that implements the base interface above
