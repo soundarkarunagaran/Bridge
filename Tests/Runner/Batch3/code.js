@@ -34680,6 +34680,20 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3683", {
+        statics: {
+            methods: {
+                TestIsAbstract: function () {
+                    var abstractType = Function;
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isAbstract(abstractType), "Abstract type's 'IsAbstract' is true.");
+
+                    var concreteType = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3683;
+                    Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isAbstract(concreteType), "Concrete type's 'IsAbstract' is false.");
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
