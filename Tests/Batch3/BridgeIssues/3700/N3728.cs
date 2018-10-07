@@ -14,7 +14,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             List<(Guid A, int B)> list = new List<(Guid A, int B)>();
             list.Add((Guid.NewGuid(), 123));
 
-            Assert.AreEqual(123, list.First().B);
+            Assert.AreEqual(123, list.First().B, "Generics with ValueTuple Enumerables works.");
         }
     }
 }
