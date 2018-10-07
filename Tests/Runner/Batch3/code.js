@@ -17640,7 +17640,7 @@ Bridge.$N1391Result =                     r;
             },
             methods: {
                 TestPropertyInitializer: function () {
-                    var d2 = { Value2: Bridge.getDefaultValue(System.Int32), Value1: Bridge.getDefaultValue(System.Int32) };
+                    var d2 = { Value2: 0, Value1: 0 };
                     Bridge.Test.NUnit.Assert.AreEqual(0, d2.Value1);
                     Bridge.Test.NUnit.Assert.AreEqual(0, d2.Value2);
 
@@ -34803,6 +34803,33 @@ Bridge.$N1391Result =                     r;
                     list.add(new (System.ValueTuple$2(System.Guid,System.Int32)).$ctor1(System.Guid.NewGuid(), 123));
 
                     Bridge.Test.NUnit.Assert.AreEqual(123, System.Linq.Enumerable.from(list).first().Item2, "Generics with ValueTuple Enumerables works.");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3733", {
+        statics: {
+            fields: {
+                A: 0,
+                B: 0,
+                C: 0,
+                Test: null
+            },
+            ctors: {
+                init: function () {
+                    this.A = 10;
+                    this.B = 20;
+                    this.C = 20;
+                    this.Test = System.Array.init(200, 0, System.Int32);
+                }
+            },
+            methods: {
+                TestConstants: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(10, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3733.A, "A is 10");
+                    Bridge.Test.NUnit.Assert.AreEqual(20, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3733.B, "B is 20");
+                    Bridge.Test.NUnit.Assert.False(false, "A is not greater than B");
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3733.B, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3733.C, "C received value from A");
                 }
             }
         }
