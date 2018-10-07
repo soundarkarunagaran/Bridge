@@ -34802,7 +34802,7 @@ Bridge.$N1391Result =                     r;
                     var list = new (System.Collections.Generic.List$1(System.ValueTuple$2(System.Guid,System.Int32))).ctor();
                     list.add(new (System.ValueTuple$2(System.Guid,System.Int32)).$ctor1(System.Guid.NewGuid(), 123));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(123, System.Linq.Enumerable.from(list).first().Item2);
+                    Bridge.Test.NUnit.Assert.AreEqual(123, System.Linq.Enumerable.from(list).first().Item2, "Generics with ValueTuple Enumerables works.");
                 }
             }
         }
