@@ -34808,6 +34808,31 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729", {
+        statics: {
+            methods: {
+                TestAliases: function () {
+                    var c2 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Class2();
+                    var c1 = c2;
+                    var i2 = c2;
+                    var i3 = c2;
+                    var i1 = c2;
+
+                    c1.Name = "test";
+
+                    Bridge.Test.NUnit.Assert.AreEqual("test", c2.Name);
+                    Bridge.Test.NUnit.Assert.AreEqual("test", i1.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name);
+                    Bridge.Test.NUnit.Assert.AreEqual("test", i2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name);
+                    Bridge.Test.NUnit.Assert.AreEqual("test", i3.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface1", {
+        $kind: "nested interface"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3733", {
         statics: {
             fields: {
@@ -45389,6 +45414,25 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Class1$1", function (T) { return {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface1],
+        $kind: "nested class",
+        fields: {
+            Name: null
+        },
+        alias: ["Name", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name"]
+    }; });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface3", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface1],
+        $kind: "nested interface"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface1],
+        $kind: "nested interface"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
         methods: {
@@ -45948,6 +45992,12 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2],
         $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Class2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Class1$1(System.String),Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface2,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Interface3],
+        $kind: "nested class",
+        alias: ["Name", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name"]
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {
