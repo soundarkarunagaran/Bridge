@@ -326,7 +326,7 @@ namespace Bridge.Translator
             return SyntaxFactory.IdentifierName(type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
         }
 
-        public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type, SemanticModel model, int pos)
+        public static TypeSyntax GenerateTypeSyntax(ITypeSymbol type, SemanticModel model, int pos, SharpSixRewriter rewriter)
         {
             if (type.IsTupleType)
             {
@@ -334,10 +334,16 @@ namespace Bridge.Translator
                 var types = new List<TypeSyntax>();
                 foreach (var el in elements)
                 {
-                    types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, pos));
+                    types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, pos, rewriter));
                 }
 
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+            }
+
+            var typeName = type.FullyQualifiedName(false);
+            if (rewriter.usingStaticNames.Any(n => typeName.StartsWith(n + '.')))
+            {
+                return SyntaxFactory.ParseTypeName(type.ToDisplayString());
             }
 
             return SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(model, pos));
@@ -353,9 +359,9 @@ namespace Bridge.Translator
             );
         }
 
-        public static GenericNameSyntax GenerateGenericName(SyntaxToken name, IEnumerable<ITypeSymbol> types, SemanticModel model, int pos)
+        public static GenericNameSyntax GenerateGenericName(SyntaxToken name, IEnumerable<ITypeSymbol> types, SemanticModel model, int pos, SharpSixRewriter rewriter)
         {
-            return SyntaxFactory.GenericName(name, SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types.Select((type) => GenerateTypeSyntax(type, model, pos)))));
+            return SyntaxFactory.GenericName(name, SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList(types.Select((type) => GenerateTypeSyntax(type, model, pos, rewriter)))));
         }
 
         /// <summary>

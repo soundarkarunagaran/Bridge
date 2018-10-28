@@ -44,7 +44,7 @@ namespace Bridge.Translator
             }).FirstOrDefault();
         }
 
-        public SyntaxNode Replace(SyntaxNode root, SemanticModel model)
+        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             var localFns = root.DescendantNodes().OfType<LocalFunctionStatementSyntax>();
             var updatedBlocks = new Dictionary<SyntaxNode, List<StatementSyntax>>();

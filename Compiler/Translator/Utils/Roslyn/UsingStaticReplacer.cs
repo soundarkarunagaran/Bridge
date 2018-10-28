@@ -11,7 +11,7 @@ namespace Bridge.Translator
 {
     public class UsingStaticReplacer : ICSharpReplacer
     {
-        public SyntaxNode Replace(SyntaxNode root, SemanticModel model)
+        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             var unit = root as CompilationUnitSyntax;
             var removingUsings = new List<UsingDirectiveSyntax>();

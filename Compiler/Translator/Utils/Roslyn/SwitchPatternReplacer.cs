@@ -11,7 +11,7 @@ namespace Bridge.Translator
 {
     public class SwitchPatternReplacer : ICSharpReplacer
     {
-        public SyntaxNode Replace(SyntaxNode root, SemanticModel model)
+        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             var switches = root.DescendantNodes().OfType<SwitchStatementSyntax>().Where(sw => {
                 return sw.Sections.Any(s => s.Labels.Any(l => l is CasePatternSwitchLabelSyntax || l is CaseSwitchLabelSyntax csl && csl.Value is CastExpressionSyntax ce && ce.Expression.Kind() == SyntaxKind.DefaultLiteralExpression));

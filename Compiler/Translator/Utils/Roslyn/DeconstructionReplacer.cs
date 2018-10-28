@@ -12,9 +12,9 @@ namespace Bridge.Translator
 {
     public class DeconstructionReplacer
     {
-        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, Func<SyntaxNode, Tuple<SyntaxTree, SemanticModel>> updater)
+        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, Func<SyntaxNode, Tuple<SyntaxTree, SemanticModel>> updater, SharpSixRewriter rewriter)
         {
-            root = InsertVariables(root, model);
+            root = InsertVariables(root, model, rewriter);
             var tuple = updater(root);
             root = tuple.Item1.GetRoot();
             model = tuple.Item2;
@@ -29,7 +29,7 @@ namespace Bridge.Translator
             return root;
         }
 
-        public SyntaxNode InsertVariables(SyntaxNode root, SemanticModel model)
+        public SyntaxNode InsertVariables(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             var tuples = root
                 .DescendantNodes()
@@ -55,7 +55,7 @@ namespace Bridge.Translator
                                 {
                                     var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
                                     var typeInfo = model.GetTypeInfo(de).Type;
-                                    var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo, model, arg.Expression.GetLocation().SourceSpan.Start)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
+                                    var varDecl = SyntaxFactory.VariableDeclaration(SyntaxHelper.GenerateTypeSyntax(typeInfo, model, arg.Expression.GetLocation().SourceSpan.Start, rewriter)).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
                                         SyntaxFactory.VariableDeclarator(SyntaxFactory.Identifier(designation.Identifier.ValueText))
                                     ));
 
@@ -94,7 +94,7 @@ namespace Bridge.Translator
                             var elements = ((INamedTypeSymbol)typeInfo).TupleElements;
                             foreach (var el in elements)
                             {
-                                types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, declaration.GetLocation().SourceSpan.Start));
+                                types.Add(SyntaxHelper.GenerateTypeSyntax(el.Type, model, declaration.GetLocation().SourceSpan.Start, rewriter));
                             }
                         }
                         else

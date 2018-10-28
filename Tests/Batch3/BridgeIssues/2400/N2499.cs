@@ -75,6 +75,11 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                         return -1;
                     }
 
+                    if (y.Name == theLittle)
+                    {
+                        return 1;
+                    }
+
                     return string.Compare(x.Name, y.Name);
                 }
             );

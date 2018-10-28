@@ -11,7 +11,7 @@ namespace Bridge.Translator
 {
     public class IsPatternReplacer : ICSharpReplacer
     {
-        public SyntaxNode Replace(SyntaxNode root, SemanticModel model)
+        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             root = InsertVariables(root, model);
             return ReplacePatterns(root, model);

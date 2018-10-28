@@ -9,6 +9,6 @@ namespace Bridge.Translator
 {
     public interface ICSharpReplacer
     {
-        SyntaxNode Replace(SyntaxNode root, SemanticModel model);
+        SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter);
     }
 }

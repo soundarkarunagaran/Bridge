@@ -11,7 +11,7 @@ namespace Bridge.Translator
 {
     public class ChainingAssigmentReplacer : ICSharpReplacer
     {
-        public SyntaxNode Replace(SyntaxNode root, SemanticModel model)
+        public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             var assignments = root.DescendantNodes().OfType<AssignmentExpressionSyntax>();
             var updatedBlocks = new Dictionary<BlockSyntax, List<StatementSyntax>>();

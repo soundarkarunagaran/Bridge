@@ -18645,6 +18645,10 @@ Bridge.$N1391Result =                     r;
                                 return -1;
                             }
 
+                            if (Bridge.referenceEquals(y.Name, theLittle)) {
+                                return 1;
+                            }
+
                             return System.String.compare(x.Name, y.Name);
                         });
 
@@ -34833,6 +34837,51 @@ Bridge.$N1391Result =                     r;
                 }
             }
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742", {
+        statics: {
+            methods: {
+                TestGenericUsingStatic: function () {
+                    var objects = System.Array.init(3, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.MyClass$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom.HTMLSpanElement1));
+
+                    var result = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.ClassName.Fetch(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom.HTMLSpanElement1, objects);
+                    Bridge.Test.NUnit.Assert.NotNull(result);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.ClassName", {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                Fetch: function (T, objects) {
+                    //code here
+                    return System.Array.init(10, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.MyClass$1(T));
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.MyClass$1", function (T) { return {
+        $kind: "nested class",
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+
+            }
+        }
+    }; });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static");
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom", {
+        $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom.HTMLSpanElement1", {
+        $kind: "nested class"
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
