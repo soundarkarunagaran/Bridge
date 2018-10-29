@@ -30051,6 +30051,20 @@ Bridge.$N1391Result =                     r;
         $kind: "nested interface"
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467", {
+        statics: {
+            methods: {
+                TestGenericUsingStatic: function () {
+                    Bridge.Test.NUnit.Assert.NotNull(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1());
+                }
+            }
+        }
+    });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_ITest$1", function (T) { return {
+        $kind: "interface"
+    }; });
+
     /**
      * The test here consists in ensuring async tasks can't have the
      flow broken, which results in race conditions and data corruption.
@@ -45278,6 +45292,10 @@ Bridge.$N1391Result =                     r;
         alias: ["m1", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3453$i1$m1"]
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1.NestedClass", {
+        $kind: "nested class"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.SubClass", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3502.BaseClass],
         $kind: "nested class",
@@ -45948,6 +45966,10 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some2", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.Some1,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3432.ISome2],
         $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_ITest$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1.NestedClass)]
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {
