@@ -34405,6 +34405,20 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3672", {
+        statics: {
+            methods: {
+                TestStringComparer: function () {
+                    var str1 = "ab";
+                    var str2 = "Cd";
+                    var strC = new (System.Collections.Generic.Comparer$1(System.String))(System.Collections.Generic.Comparer$1.$default.fn);
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, strC.compare(str1, str2), "string.Compare(a, b) works.");
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, System.String.compare(str1, str2), "string.CompareTo(a) works.");
+                }
+            }
+        }
+    });
+
     /**
      * Ensures nested using works in a yield resumable method.
      *

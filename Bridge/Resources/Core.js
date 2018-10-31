@@ -1479,11 +1479,9 @@
                 }
 
                 throw new System.NullReferenceException();
-            } else if (Bridge.isNumber(a) || Bridge.isString(a) || Bridge.isBoolean(a)) {
-                if (Bridge.isString(a) && !Bridge.hasValue(b)) {
-                    return 1;
-                }
-
+            } else if (Bridge.isString(a)) {
+                return System.String.compare(a, b);
+            } else if (Bridge.isNumber(a) || Bridge.isBoolean(a)) {
                 return a < b ? -1 : (a > b ? 1 : 0);
             } else if (Bridge.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
