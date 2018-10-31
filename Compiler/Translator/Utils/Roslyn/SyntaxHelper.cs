@@ -323,6 +323,19 @@ namespace Bridge.Translator
 
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
             }
+
+            if (type is INamedTypeSymbol namedType && namedType.IsGenericType)
+            {
+                var elements = namedType.TypeArguments;
+                var types = new List<TypeSyntax>();
+                foreach (var el in elements)
+                {
+                    types.Add(SyntaxHelper.GenerateTypeSyntax(el));
+                }
+
+                return SyntaxFactory.GenericName(SyntaxFactory.Identifier(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None))), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+            }
+
             return SyntaxFactory.IdentifierName(type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
         }
 
@@ -338,6 +351,18 @@ namespace Bridge.Translator
                 }
 
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
+            }
+
+            if (type is INamedTypeSymbol namedType && namedType.IsGenericType)
+            {
+                var elements = namedType.TypeArguments;
+                var types = new List<TypeSyntax>();
+                foreach (var el in elements)
+                {
+                    types.Add(SyntaxHelper.GenerateTypeSyntax(el, model, pos));
+                }
+
+                return SyntaxFactory.GenericName(SyntaxFactory.Identifier(type.ToMinimalDisplayString(model, pos, new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None))), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
             }
 
             return SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(model, pos));

@@ -34835,6 +34835,107 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754", {
+        statics: {
+            methods: {
+                TestGnericParameterValueTuple: function () {
+                    var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test();
+
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", System.Linq.Enumerable.from(test).first().Item1);
+                    Bridge.Test.NUnit.Assert.NotNull(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1));
+                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1).first()));
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754, {
+        f1: function (item) {
+            return item.Item2;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test", {
+        inherits: [System.Collections.Generic.IEnumerable$1(System.ValueTuple$2(System.String,System.String))],
+        $kind: "nested class",
+        fields: {
+            data: null
+        },
+        alias: ["GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$ValueTuple$2$System$String$System$String$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"]],
+        ctors: {
+            init: function () {
+                this.data = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test.f1(new (System.Collections.Generic.Dictionary$2(System.String,System.String))());
+            }
+        },
+        methods: {
+            GetEnumerator: function () {
+                var $step = 0,
+                    $jumpFromFinally,
+                    $returnValue,
+                    $t,
+                    pair,
+                    $async_e;
+
+                var $enumerator = new (Bridge.GeneratorEnumerator$1(System.ValueTuple$2(System.String,System.String)))(Bridge.fn.bind(this, function () {
+                    try {
+                        for (;;) {
+                            switch ($step) {
+                                case 0: {
+                                    $t = Bridge.getEnumerator(this.data);
+                                        $step = 1;
+                                        continue;
+                                }
+                                case 1: {
+                                    if ($t.moveNext()) {
+                                            pair = $t.Current;
+                                            $step = 2;
+                                            continue;
+                                        }
+                                    $step = 4;
+                                    continue;
+                                }
+                                case 2: {
+                                    $enumerator.current = new (System.ValueTuple$2(System.String,System.String)).$ctor1(pair.key, pair.value);
+                                        $step = 3;
+                                        return true;
+                                }
+                                case 3: {
+                                    $step = 1;
+                                    continue;
+                                }
+                                case 4: {
+
+                                }
+                                default: {
+                                    return false;
+                                }
+                            }
+                        }
+                    } catch($async_e1) {
+                        $async_e = System.Exception.create($async_e1);
+                        throw $async_e;
+                    }
+                }));
+                return $enumerator;
+            },
+            System$Collections$IEnumerable$GetEnumerator: function () {
+                return this.GetEnumerator();
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test, {
+        f1: function (_o1) {
+            _o1.add("a1", "b1");
+            _o1.add("a2", "b2");
+            return _o1;
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
