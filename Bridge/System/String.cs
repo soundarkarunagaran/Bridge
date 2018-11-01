@@ -367,7 +367,7 @@ namespace System
         /// <param name="value">The string to seek.</param>
         /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
         /// <returns>The index position of the value parameter if that string is found, or -1 if it is not. If value is Empty, the return value is 0.</returns>
-        [Bridge.Template("System.String.indexOf({this}, {value}, 0, {this}.length, {comparisonType})")]
+        [Bridge.Template("System.String.indexOf({this}, {value}, 0, null, {comparisonType})")]
         public extern int IndexOf(string value, StringComparison comparisonType);
 
         /// <summary>
@@ -377,7 +377,7 @@ namespace System
         /// <param name="startIndex">The search starting position.</param>
         /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
         /// <returns>The zero-based index position of the value parameter from the start of the current instance if that string is found, or -1 if it is not. If value is Empty, the return value is startIndex.</returns>
-        [Bridge.Template("System.String.indexOf({this}, {value}, {startIndex}, {this}.length, {comparisonType})")]
+        [Bridge.Template("System.String.indexOf({this}, {value}, {startIndex}, null, {comparisonType})")]
         public extern int IndexOf(string value, int startIndex, StringComparison comparisonType);
 
         /// <summary>

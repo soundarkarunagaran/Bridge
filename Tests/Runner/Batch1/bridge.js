@@ -14993,7 +14993,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     throw new System.ArgumentOutOfRangeException.$ctor4("startIndex", "startIndex cannot be less than zero");
                 }
 
-                var length = (arguments.length > 3) ? arguments[3] : str.length - startIndex;
+                var length = str.length - startIndex;
+
+                if (arguments.length > 3 && arguments[3] != null) {
+                    length = arguments[3];
+                }
 
                 if (length < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");
@@ -15036,7 +15040,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return (arguments.length > 2) ? startIndex : 0;
                 }
 
-                var length = (arguments.length > 3) ? arguments[3] : str.length - startIndex;
+                var length = str.length - startIndex;
+
+                if (arguments.length > 3 && arguments[3] != null) {
+                    length = arguments[3];
+                }
 
                 if (length < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor4("length", "must be non-negative");

@@ -34602,6 +34602,20 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3679", {
+        statics: {
+            methods: {
+                TestStringIndexOf: function () {
+                    var msg = "Hello, World!";
+
+                    var i = System.String.indexOf(msg, "world", 3, null, 3);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(7, i);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3682", {
         statics: {
             methods: {
