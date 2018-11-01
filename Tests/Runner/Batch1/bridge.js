@@ -431,7 +431,12 @@
             })(name, scope, statics);
         },
 
-        createInstance: function (type, args) {
+        createInstance: function (type, nonPublic, args) {
+            if (Bridge.isArray(nonPublic)) {
+                args = nonPublic;
+                nonPublic = false;
+            }
+
             if (type === System.Decimal) {
                 return System.Decimal.Zero;
             }
@@ -476,20 +481,31 @@
                 return Bridge.Reflection.applyConstructor(type, args);
             } 
 
+            if (type.$kind === 'interface') {
+                throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
+            }
+
             var ctors = Bridge.Reflection.getMembers(type, 1, 54);
 
             if (ctors.length > 0) {
-                ctors = ctors.filter(function (c) { return !c.isSynthetic; });
+                var pctors = ctors.filter(function (c) { return !c.isSynthetic; });
 
-                for (var idx = 0; idx < ctors.length; idx++) {
-                    var c = ctors[idx],
+                for (var idx = 0; idx < pctors.length; idx++) {
+                    var c = pctors[idx],
                         isDefault = (c.pi || []).length === 0;
 
                     if (isDefault) {
-                        return Bridge.Reflection.invokeCI(c, []);
+                        if (nonPublic || c.a === 2) {
+                            return Bridge.Reflection.invokeCI(c, []);
+                        }
+                        throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
                     }
                 }
-            }
+
+                if (type.$$name && !(ctors.length == 1 && ctors[0].isSynthetic)) {
+                    throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
+                }
+            }            
 
             return new type();
         },
@@ -34953,6 +34969,30 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 this.$initialize();
                 System.SystemException.$ctor2.call(this, message, inner);
                 this.HResult = -2146233030;
+            }
+        }
+    });
+
+    // @source MissingMethodException.js
+
+    Bridge.define("System.MissingMethodException", {
+        inherits: [System.Exception],
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                System.Exception.ctor.call(this, "Attempted to access a missing method.");
+            },
+            $ctor1: function (message) {
+                this.$initialize();
+                System.Exception.ctor.call(this, message);
+            },
+            $ctor2: function (message, inner) {
+                this.$initialize();
+                System.Exception.ctor.call(this, message, inner);
+            },
+            $ctor3: function (className, methodName) {
+                this.$initialize();
+                System.Exception.ctor.call(this, (className || "") + "." + (methodName || "") + " Due to: Attempted to access a missing member.");
             }
         }
     });

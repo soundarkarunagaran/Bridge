@@ -413,7 +413,12 @@
             })(name, scope, statics);
         },
 
-        createInstance: function (type, args) {
+        createInstance: function (type, nonPublic, args) {
+            if (Bridge.isArray(nonPublic)) {
+                args = nonPublic;
+                nonPublic = false;
+            }
+
             if (type === System.Decimal) {
                 return System.Decimal.Zero;
             }
@@ -458,20 +463,31 @@
                 return Bridge.Reflection.applyConstructor(type, args);
             } 
 
+            if (type.$kind === 'interface') {
+                throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
+            }
+
             var ctors = Bridge.Reflection.getMembers(type, 1, 54);
 
             if (ctors.length > 0) {
-                ctors = ctors.filter(function (c) { return !c.isSynthetic; });
+                var pctors = ctors.filter(function (c) { return !c.isSynthetic; });
 
-                for (var idx = 0; idx < ctors.length; idx++) {
-                    var c = ctors[idx],
+                for (var idx = 0; idx < pctors.length; idx++) {
+                    var c = pctors[idx],
                         isDefault = (c.pi || []).length === 0;
 
                     if (isDefault) {
-                        return Bridge.Reflection.invokeCI(c, []);
+                        if (nonPublic || c.a === 2) {
+                            return Bridge.Reflection.invokeCI(c, []);
+                        }
+                        throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
                     }
                 }
-            }
+
+                if (type.$$name && !(ctors.length == 1 && ctors[0].isSynthetic)) {
+                    throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
+                }
+            }            
 
             return new type();
         },

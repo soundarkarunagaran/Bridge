@@ -229,6 +229,7 @@
         "Resources/.generated/System/InvalidOperationException.js",
         "Resources/.generated/System/ObjectDisposedException.js",
         "Resources/.generated/System/InvalidProgramException.js",
+        "Resources/.generated/System/MissingMethodException.js",
 
         "Resources/.generated/System/Globalization/Calendar.js",
         "Resources/.generated/System/Globalization/CalendarAlgorithmType.js",
