@@ -143,7 +143,7 @@ namespace Bridge.Translator
                 this.Emitter.LocalsMap[lrr.Variable] = result + (oldValue.EndsWith(".v") ? ".v" : "");
             }
 
-            if (this.Emitter.IsAsync && !this.Emitter.AsyncVariables.Contains(result))
+            if (this.Emitter.IsAsync && !this.Emitter.AsyncVariables.Contains(result) && (lrr == null || !lrr.IsParameter))
             {
                 this.Emitter.AsyncVariables.Add(result);
             }

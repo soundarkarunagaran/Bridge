@@ -22997,7 +22997,6 @@ Bridge.$N1391Result =                     r;
         var $step = 0,
             $task1, 
             $taskResult1, 
-            _o1, 
             $jumpFromFinally, 
             $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
             $returnValue, 
