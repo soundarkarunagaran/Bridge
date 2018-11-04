@@ -3735,11 +3735,15 @@
         },
 
         getTypeAssembly: function (type) {
-            if (System.Array.contains([Date, Number, Boolean, String, Function, Array], type) || type.$isArray) {
-                return Bridge.SystemAssembly;
-            } else {
-                return type.$assembly || Bridge.SystemAssembly;
+            if (type.$isArray) {
+                return type.$elementType.$assembly;
             }
+
+            if (System.Array.contains([Date, Number, Boolean, String, Function, Array], type)) {
+                return Bridge.SystemAssembly;
+            }
+
+            return type.$assembly || Bridge.SystemAssembly;
         },
 
         _extractArrayRank: function (name) {

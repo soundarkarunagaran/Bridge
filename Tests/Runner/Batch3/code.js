@@ -34835,6 +34835,22 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746", {
+        statics: {
+            methods: {
+                TestAssemblyName: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual("mscorlib", Bridge.Reflection.getTypeAssembly(System.Object).name);
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3", Bridge.Reflection.getTypeAssembly(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass).name);
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3", Bridge.Reflection.getTypeAssembly(System.Array.type(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass)).name);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass", {
+        $kind: "nested class"
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
