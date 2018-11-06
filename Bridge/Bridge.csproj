@@ -232,6 +232,7 @@
     <Compile Include="System\BitConverter.cs" />
     <Compile Include="shared\System\Collections\BitArrray.cs" />
     <Compile Include="shared\System\Collections\Generic\BitHelper.cs" />
+    <Compile Include="System\Collections\Comparer.cs" />
     <Compile Include="System\Collections\Generic\Dictionary.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -241,8 +242,13 @@
     <Compile Include="System\Collections\Generic\IReadOnlyCollection.cs" />
     <Compile Include="shared\System\Collections\Generic\Queue.cs" />
     <Compile Include="shared\System\Collections\Generic\Stack.cs" />
+    <Compile Include="System\Collections\Generic\LinkedList.cs" />
+    <Compile Include="System\Collections\Generic\SortedSet.cs" />
+    <Compile Include="System\Collections\Generic\SortedList.cs" />
     <Compile Include="System\Collections\HashHelpers.cs" />
     <Compile Include="System\Collections\IDictionary.cs" />
+    <Compile Include="System\Collections\KeyValuePairs.cs" />
+    <Compile Include="System\Collections\SortedList.cs" />
     <Compile Include="System\ComponentModel\BrowsableAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\AssociationAttribute.cs" />
     <Compile Include="System\ComponentModel\DataAnnotations\CompareAttribute.cs" />

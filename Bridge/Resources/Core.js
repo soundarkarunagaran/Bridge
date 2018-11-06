@@ -38,11 +38,11 @@
         },
 
         geti: function (scope, name1, name2) {
-            if (Bridge.hasValue(scope[name1])) {
+            if (scope[name1] !== undefined) {
                 return name1;
             }
 
-            if (name2 && Bridge.hasValue(scope[name2])) {
+            if (name2 && scope[name2] != undefined) {
                 return name2;
             }
 

@@ -87,6 +87,6 @@ namespace System.Collections
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        bool Remove(Object key);
+        void Remove(Object key);
     }
 }
