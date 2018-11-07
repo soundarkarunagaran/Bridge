@@ -34835,6 +34835,67 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383", {
+        statics: {
+            methods: {
+                TestConditionalAccess: function () {
+                    var $t, $t1, $t2;
+                    // Create a new instance of class A
+                    var instanceA = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestA();
+
+                    // ** Work-around example **
+                    var innerClassWorkaround = Bridge.cast((($t = instanceA.InstanceB) != null ? $t.InstanceC : null), Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestC);
+                    Bridge.Test.NUnit.Assert.AreEqual("String Value", innerClassWorkaround.Value, "Parens grouping association workaround works.");
+
+                    // Maybe "nicer" workaround?
+                    var innerClass2 = Bridge.as((($t1 = instanceA.InstanceB) != null ? $t1.InstanceC : null), Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestC);
+                    Bridge.Test.NUnit.Assert.AreEqual("String Value", innerClass2.Value, "'as' casting works.");
+
+                    // ** Bug example **
+                    // Bridge.NET: Exception thrown: Unable to cast TestB to TestC.
+                    var innerClass = Bridge.cast((($t2 = instanceA.InstanceB) != null ? $t2.InstanceC : null), Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestC);
+                    Bridge.Test.NUnit.Assert.AreEqual("String Value", innerClass.Value, "No grouping association works.");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestA", {
+        $kind: "nested class",
+        props: {
+            InstanceB: null
+        },
+        ctors: {
+            init: function () {
+                this.InstanceB = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestB();
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestB", {
+        $kind: "nested class",
+        props: {
+            InstanceC: null
+        },
+        ctors: {
+            init: function () {
+                this.InstanceC = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestC();
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge37383.TestC", {
+        $kind: "nested class",
+        props: {
+            Value: null
+        },
+        ctors: {
+            init: function () {
+                this.Value = "String Value";
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
