@@ -199,6 +199,8 @@ namespace Bridge.Translator
             this.WriteFor();
             this.WriteOpenParentheses();
 
+            var old = this.Emitter.IsAsync;
+            this.Emitter.IsAsync = false;
             foreach (var item in forStatement.Initializers)
             {
                 if (item != forStatement.Initializers.First())
@@ -208,6 +210,7 @@ namespace Bridge.Translator
 
                 item.AcceptVisitor(this.Emitter);
             }
+            this.Emitter.IsAsync = old;
 
             this.WriteSemiColon();
             this.WriteSpace();
