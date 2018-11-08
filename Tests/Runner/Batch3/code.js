@@ -34835,6 +34835,92 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759", {
+        statics: {
+            methods: {
+                ExtArrWithBoxingEnabled: function (i) {
+                    return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759_Exts.Arr("{0:0000}", [Bridge.box(System.DateTime.getMonth(i), System.Int32)]);
+                },
+                ExtInstWithBoxingEnabled: function (i) {
+                    return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759_Exts.Inst("{0:0000}", System.DateTime.getMonth(i));
+                },
+                ExtObjWithBoxingEnabled: function (i) {
+                    return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759_Exts.Obj("{0:0000}", Bridge.box(System.DateTime.getMonth(i), System.Int32));
+                },
+                RegularCallWithBoxingEnabled: function (i) {
+                    return System.String.format("{0:0000}", [Bridge.box(System.DateTime.getMonth(i), System.Int32)]);
+                },
+                TestBoxing: function () {
+                    var bug = 0;
+
+                    var x = System.DateTime.create(2001, 2, 3);
+                    try {
+                        if (!Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759.ExtArrWithBoxingEnabled(x), "0002")) {
+                            bug = (bug + 1) | 0;
+                            Bridge.Test.NUnit.Assert.Fail("[1] didn't get expected value");
+                        }
+                    } catch ($e1) {
+                        $e1 = System.Exception.create($e1);
+                        bug = (bug + 1) | 0;
+                        Bridge.Test.NUnit.Assert.Fail("[2] call failed");
+                    }
+
+                    try {
+                        if (!Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759.ExtInstWithBoxingEnabled(x), "0002")) {
+                            bug = (bug + 1) | 0;
+                            Bridge.Test.NUnit.Assert.Fail("[3] didn't get expected value");
+                        }
+                    } catch ($e2) {
+                        $e2 = System.Exception.create($e2);
+                        bug = (bug + 1) | 0;
+                        Bridge.Test.NUnit.Assert.Fail("[4] call failed");
+                    }
+
+                    try {
+                        if (!Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759.ExtObjWithBoxingEnabled(x), "0002")) {
+                            bug = (bug + 1) | 0;
+                            Bridge.Test.NUnit.Assert.Fail("[5] didn't get expected value");
+                        }
+                    } catch ($e3) {
+                        $e3 = System.Exception.create($e3);
+                        bug = (bug + 1) | 0;
+                        Bridge.Test.NUnit.Assert.Fail("[6] call failed");
+                    }
+
+                    try {
+                        if (!Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759.RegularCallWithBoxingEnabled(x), "0002")) {
+                            bug = (bug + 1) | 0;
+                            Bridge.Test.NUnit.Assert.Fail("[7] didn't get expected value");
+                        }
+                    } catch ($e4) {
+                        $e4 = System.Exception.create($e4);
+                        bug = (bug + 1) | 0;
+                        Bridge.Test.NUnit.Assert.Fail("[8] call failed");
+                    }
+
+                    Bridge.Test.NUnit.Assert.AreEqual(0, bug);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759_Exts", {
+        statics: {
+            methods: {
+                Arr: function (self, args) {
+                    if (args === void 0) { args = []; }
+                    return System.String.format.apply(System.String, [self].concat(args));
+                },
+                Inst: function (self, arg) {
+                    return System.String.format(self, [Bridge.box(arg, System.Int32)]);
+                },
+                Obj: function (self, arg) {
+                    return System.String.format(self, [arg]);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
