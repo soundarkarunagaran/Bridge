@@ -281,6 +281,7 @@ namespace Bridge.Translator
             var symbol = semanticModel.GetSymbolInfo(node.Expression).Symbol;
             var typeInfo = semanticModel.GetTypeInfo(node.Expression);
             var type = typeInfo.Type ?? typeInfo.ConvertedType;
+            var pos = node.Expression.GetLocation().SourceSpan.Start;
 
             node = (RefExpressionSyntax)base.VisitRefExpression(node);
 
@@ -290,7 +291,7 @@ namespace Bridge.Translator
             }
             
             var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("Bridge.Ref"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(new []{
-                SyntaxHelper.GenerateTypeSyntax(type, semanticModel, node.Expression.GetLocation().SourceSpan.Start)
+                SyntaxHelper.GenerateTypeSyntax(type, semanticModel, pos)
             })))).WithArgumentList(SyntaxFactory.ArgumentList(
                 SyntaxFactory.SeparatedList<ArgumentSyntax>(
                     new SyntaxNodeOrToken[]{
@@ -346,6 +347,7 @@ namespace Bridge.Translator
         public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
         {
             var spanStart = node.SpanStart;
+            var pos = node.GetLocation().SourceSpan.Start;
             node =  (LiteralExpressionSyntax)base.VisitLiteralExpression(node);
 
             if (node.Kind() == SyntaxKind.NumericLiteralExpression)
@@ -365,7 +367,7 @@ namespace Bridge.Translator
 
                 if (type != null && type.TypeKind != TypeKind.Error)
                 {
-                    return SyntaxFactory.DefaultExpression(SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, node.GetLocation().SourceSpan.Start)));
+                    return SyntaxFactory.DefaultExpression(SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, pos)));
                 }
             }
 
@@ -639,6 +641,7 @@ namespace Bridge.Translator
             var si = node.ArgumentList.Arguments.Count > 0 ? semanticModel.GetSymbolInfo(node.ArgumentList.Arguments[0].Expression) : default(SymbolInfo);
             var costValue = (string)semanticModel.GetConstantValue(node).Value;
             var conditionalParent = node.GetParent<ConditionalAccessExpressionSyntax>();
+            var pos = node.GetLocation().SourceSpan.Start;
 
             node = (InvocationExpressionSyntax)base.VisitInvocationExpression(node);
             if (node.Expression is IdentifierNameSyntax &&
@@ -658,7 +661,7 @@ namespace Bridge.Translator
                     {
                         var name = (IdentifierNameSyntax)expr;
 
-                        var genericName = SyntaxHelper.GenerateGenericName(name.Identifier, method.TypeArguments, semanticModel, node.GetLocation().SourceSpan.Start);
+                        var genericName = SyntaxHelper.GenerateGenericName(name.Identifier, method.TypeArguments, semanticModel, pos);
                         genericName = genericName.WithLeadingTrivia(name.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(name.GetTrailingTrivia().ExcludeDirectivies());
                         node = node.WithExpression(genericName);
                     }
@@ -666,7 +669,7 @@ namespace Bridge.Translator
                     {
                         expr = ma.Name;
                         var name = (IdentifierNameSyntax)expr;
-                        var genericName = SyntaxHelper.GenerateGenericName(name.Identifier, method.TypeArguments, semanticModel, node.GetLocation().SourceSpan.Start);
+                        var genericName = SyntaxHelper.GenerateGenericName(name.Identifier, method.TypeArguments, semanticModel, pos);
                         genericName = genericName.WithLeadingTrivia(name.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(name.GetTrailingTrivia().ExcludeDirectivies());
 
                         if (method.MethodKind == MethodKind.ReducedExtension && conditionalParent == null)
@@ -834,7 +837,7 @@ namespace Bridge.Translator
                 INamedTypeSymbol namedType = symbol as INamedTypeSymbol;
                 if (namedType != null && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), namedType.TypeArguments, semanticModel, node.GetLocation().SourceSpan.Start);
+                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), namedType.TypeArguments, semanticModel, spanStart);
                 }
 
                 return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart), node.GetTrailingTrivia()));
@@ -854,7 +857,7 @@ namespace Bridge.Translator
             {
                 if (methodSymbol != null && methodSymbol.IsGenericMethod && methodSymbol.TypeArguments.Length > 0 && !methodSymbol.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), methodSymbol.TypeArguments, semanticModel, node.GetLocation().SourceSpan.Start);
+                    return SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false), node.GetTrailingTrivia()), methodSymbol.TypeArguments, semanticModel, spanStart);
                 }
 
                 return SyntaxFactory.IdentifierName(SyntaxFactory.Identifier(node.GetLeadingTrivia(), symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart), node.GetTrailingTrivia()));
@@ -1004,7 +1007,7 @@ namespace Bridge.Translator
                 INamedTypeSymbol namedType = symbol as INamedTypeSymbol;
                 if (namedType != null && namedType.IsGenericType && namedType.TypeArguments.Length > 0 && !namedType.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    var genericName = SyntaxHelper.GenerateGenericName(node.Identifier, namedType.TypeArguments, semanticModel, node.GetLocation().SourceSpan.Start);
+                    var genericName = SyntaxHelper.GenerateGenericName(node.Identifier, namedType.TypeArguments, semanticModel, spanStart);
                     return genericName.WithLeadingTrivia(node.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(node.GetTrailingTrivia().ExcludeDirectivies());
                 }
 
@@ -1027,7 +1030,7 @@ namespace Bridge.Translator
             {
                 if (methodSymbol != null && methodSymbol.IsGenericMethod && methodSymbol.TypeArguments.Length > 0 && !methodSymbol.TypeArguments.Any(SyntaxHelper.IsAnonymous))
                 {
-                    var genericName = SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false)), methodSymbol.TypeArguments, semanticModel, node.GetLocation().SourceSpan.Start);
+                    var genericName = SyntaxHelper.GenerateGenericName(SyntaxFactory.Identifier(symbol.GetFullyQualifiedNameAndValidate(this.semanticModel, spanStart, false)), methodSymbol.TypeArguments, semanticModel, spanStart);
                     return genericName.WithLeadingTrivia(node.GetLeadingTrivia().ExcludeDirectivies()).WithTrailingTrivia(node.GetTrailingTrivia().ExcludeDirectivies());
                 }
 
@@ -1733,6 +1736,7 @@ namespace Bridge.Translator
             }
 
             var typeInfo = semanticModel.GetTypeInfo(node);
+            var pos = node.GetLocation().SourceSpan.Start;
 
             node = (ThrowExpressionSyntax)base.VisitThrowExpression(node);
 
@@ -1750,7 +1754,7 @@ namespace Bridge.Translator
                                     .WithTypeArgumentList(
                                         SyntaxFactory.TypeArgumentList(
                                             SyntaxFactory.SingletonSeparatedList<TypeSyntax>(
-                                                SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, node.GetLocation().SourceSpan.Start))
+                                                SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(semanticModel, pos))
                                                 ))
                                         .WithLessThanToken(
                                             SyntaxFactory.Token(SyntaxKind.LessThanToken))
