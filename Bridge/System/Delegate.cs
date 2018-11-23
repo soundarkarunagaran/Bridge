@@ -46,6 +46,9 @@ namespace System
 
         [Bridge.Template("Bridge.Reflection.createDelegate({method}, {firstArgument})")]
         public static extern Delegate CreateDelegate(Type type, object firstArgument, MethodInfo method);
+
+        [Bridge.Template("Bridge.fn.getInvocationList({this})")]
+        public extern Delegate[] GetInvocationList();
     }
 
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
@@ -65,8 +68,5 @@ namespace System
 
         [Bridge.Template("!Bridge.staticEquals({a}, {b})")]
         public static extern bool operator !=(MulticastDelegate a, MulticastDelegate b);
-
-        [Bridge.Template("Bridge.fn.getInvocationList({this})")]
-        public extern Delegate[] GetInvocationList();
     }
 }
