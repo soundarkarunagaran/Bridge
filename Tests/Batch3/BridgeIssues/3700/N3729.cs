@@ -2,6 +2,9 @@ using Bridge.Test.NUnit;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// Tests whether a scenario on multiple inheritance and generics works.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3729 - {0}")]
     public class Bridge3729
     {
@@ -32,6 +35,10 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
         }
 
+        /// <summary>
+        /// Instantiate the classes, and also cast them into their interfaces
+        /// and check whether the 'AutoProperty.Plain' property works.
+        /// </summary>
         [Test]
         public static void TestAliases()
         {
@@ -43,10 +50,10 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             c1.Name = "test";
 
-            Assert.AreEqual("test", c2.Name);
-            Assert.AreEqual("test", i1.Name);
-            Assert.AreEqual("test", i2.Name);
-            Assert.AreEqual("test", i3.Name);
+            Assert.AreEqual("test", c2.Name, "Generic class, multiple-inheritance works.");
+            Assert.AreEqual("test", i1.Name, "Base-level interface works.");
+            Assert.AreEqual("test", i2.Name, "Inherit-driven interface 1 works.");
+            Assert.AreEqual("test", i3.Name, "Inherit-driven interface 2 works.");
         }
     }
 }
