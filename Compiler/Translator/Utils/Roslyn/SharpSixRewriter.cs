@@ -811,7 +811,7 @@ namespace Bridge.Translator
                               symbol is ITypeSymbol &&
                               symbol.ContainingType != null &&
                               thisType != null &&
-                              !thisType.InheritsFromOrEquals(symbol.ContainingType) &&
+                              (!thisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax) &&
                               !thisType.Equals(symbol);
 
             var qns = nodeParent as QualifiedNameSyntax;
@@ -847,7 +847,7 @@ namespace Bridge.Translator
             IMethodSymbol methodSymbol = null;
 
             if (symbol != null && symbol.IsStatic && symbol.ContainingType != null
-                && thisType != null && !thisType.InheritsFromOrEquals(symbol.ContainingType)
+                && thisType != null && (!thisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax)
                 && !(nodeParent is MemberAccessExpressionSyntax)
                 && (
                     (methodSymbol = symbol as IMethodSymbol) != null
@@ -981,7 +981,7 @@ namespace Bridge.Translator
                               symbol is ITypeSymbol &&
                               symbol.ContainingType != null &&
                               thisType != null &&
-                              !thisType.InheritsFromOrEquals(symbol.ContainingType) &&
+                              (!thisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax) &&
                               !thisType.Equals(symbol);
 
             var qns = node.Parent as QualifiedNameSyntax;
@@ -1018,7 +1018,7 @@ namespace Bridge.Translator
             IMethodSymbol methodSymbol = null;
 
             if (symbol != null && symbol.IsStatic && symbol.ContainingType != null
-                && thisType != null && !thisType.InheritsFromOrEquals(symbol.ContainingType)
+                && thisType != null && (!thisType.InheritsFromOrEquals(symbol.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax)
                 && !(node.Parent is MemberAccessExpressionSyntax)
                 && !(node.Parent is QualifiedNameSyntax)
                 && (
@@ -1075,7 +1075,7 @@ namespace Bridge.Translator
                 && (symbol.Value.IsStatic || symbol.Value.Kind == SymbolKind.NamedType)
                 && symbol.Value.ContainingType != null
                 && thisType != null
-                && !thisType.InheritsFromOrEquals(symbol.Value.ContainingType)
+                && (!thisType.InheritsFromOrEquals(symbol.Value.ContainingType) || node.Parent != null && node.Parent.Parent is GenericNameSyntax)
                 && (symbol.Value.Kind == SymbolKind.Method || symbol.Value.Kind == SymbolKind.Property || symbol.Value.Kind == SymbolKind.Field || symbol.Value.Kind == SymbolKind.Event || symbol.Value.Kind == SymbolKind.NamedType))
             {
                 return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression,
@@ -1090,7 +1090,7 @@ namespace Bridge.Translator
                 && symbol.Value.Kind == SymbolKind.NamedType
                 && symbolNode.Value.IsStatic
                 && symbol.Value.ContainingType != null
-                && thisType != null && !thisType.InheritsFromOrEquals((ITypeSymbol)symbol.Value)
+                && thisType != null && (!thisType.InheritsFromOrEquals((ITypeSymbol)symbol.Value) || node.Parent != null && node.Parent.Parent is GenericNameSyntax)
                 && !((ITypeSymbol)symbol.Value).IsAccessibleIn(thisType)
                 && (symbol.Value.Kind == SymbolKind.Method || symbol.Value.Kind == SymbolKind.Property || symbol.Value.Kind == SymbolKind.Field || symbol.Value.Kind == SymbolKind.Event || symbol.Value.Kind == SymbolKind.NamedType))
             {
