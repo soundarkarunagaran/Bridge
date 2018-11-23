@@ -570,8 +570,7 @@ namespace Bridge.Translator
                 }
 
                 if (pType.TypeKind == TypeKind.Delegate || parameter.IsParams && ((IArrayTypeSymbol)parameter.Type).ElementType.TypeKind == TypeKind.Delegate)
-                {
-                    var name = SyntaxFactory.IdentifierName(pType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)).WithoutTrivia();
+                {                    
                     var expr = node.Expression;
 
                     if (expr is LambdaExpressionSyntax || expr is AnonymousMethodExpressionSyntax || expr is QueryExpressionSyntax)
@@ -579,7 +578,16 @@ namespace Bridge.Translator
                         expr = SyntaxFactory.ParenthesizedExpression(expr);
                     }
 
-                    var cast = SyntaxFactory.CastExpression(name, expr);
+                    var cast = SyntaxFactory.CastExpression(
+                        SyntaxHelper.GenerateTypeSyntax(
+                            pType,
+                            this.semanticModel,
+                            node.Expression.GetLocation().SourceSpan.Start,
+                            this
+                        ),
+                        expr
+                    );
+
                     node = node.WithExpression(cast);
                 }
             }
