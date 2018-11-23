@@ -14,6 +14,9 @@ namespace System
         [Bridge.Template("Bridge.createInstance({type})")]
         public static extern object CreateInstance(Type type);
 
+        [Bridge.Template("Bridge.createInstance({type}, {nonPublic})")]
+        public static extern object CreateInstance(Type type, bool nonPublic);
+
         [Bridge.Template("Bridge.createInstance({T})")]
         public static extern T CreateInstance<T>();
     }

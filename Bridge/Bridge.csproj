@@ -290,6 +290,7 @@
     <Compile Include="shared\System\Globalization\DateTimeStyles.cs" />
     <Compile Include="System\Convert.cs" />
     <Compile Include="System\DateTime.cs" />
+    <Compile Include="System\MissingMethodException.cs" />
     <Compile Include="System\Globalization\DateTimeFormatInfo.cs" />
     <Compile Include="System\Guid.cs" />
     <Compile Include="System\IAsyncResult.cs" />
