@@ -1950,6 +1950,7 @@ namespace Bridge.Translator
             }
 
             bool needParenthesized = node.Parent is BinaryExpressionSyntax
+                                     || node.Parent is CastExpressionSyntax
                                      || node.Parent is AwaitExpressionSyntax
                                      || node.Parent is PostfixUnaryExpressionSyntax
                                      || node.Parent is PrefixUnaryExpressionSyntax;
