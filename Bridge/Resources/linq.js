@@ -2602,9 +2602,6 @@
                 if (result !== 0) {
                     return result;
                 }
-
-                x = System.String.swapCase(x);
-                y = System.String.swapCase(y);
             }
 
             return Bridge.compare(x, y);
