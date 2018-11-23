@@ -192,8 +192,8 @@ namespace Bridge.Translator
                                     }
                                 }
 
-                                if (derivedMember != null && !derivedMember.ImplementedInterfaceMembers.Contains(interfaceMember))
-                                {
+                                if (derivedMember != null && !derivedMember.ImplementedInterfaceMembers.Contains(interfaceMember) && !this.CurrentType.InstanceConfig.Alias.Any(a => typeDeclaration.Equals(a.Entity) && interfaceMember.Equals(a.InterfaceMember) && derivedMember.Equals(a.DerivedMember)))
+                                {                                    
                                     this.CurrentType.InstanceConfig.Alias.Add(new TypeConfigItem { Entity = typeDeclaration, InterfaceMember = interfaceMember, DerivedMember = derivedMember });
                                     break;
                                 }
