@@ -1,5 +1,4 @@
 using Bridge.Test.NUnit;
-using System.Threading.Tasks;
 using static Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
@@ -15,6 +14,9 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         }
     }
 
+    /// <summary>
+    /// Ensures no invalid token "?" is generated out of code in this scenario.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3742 - {0}")]
     public class Bridge3742
     {
@@ -34,13 +36,17 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             }
         }
 
+        /// <summary>
+        /// Just checks whether the result is not null. If the issue is
+        /// present, the code won't run at all.
+        /// </summary>
         [Test]
         public static void TestGenericUsingStatic()
         {
             var objects = new MyClass<HTMLSpanElement1>[3];
 
             var result = ClassName.Fetch(objects);
-            Assert.NotNull(result);
+            Assert.NotNull(result, "Valid code is generated in this scenario.");
         }
     }
 }
