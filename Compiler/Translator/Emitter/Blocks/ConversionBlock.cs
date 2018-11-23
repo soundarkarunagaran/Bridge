@@ -336,6 +336,7 @@ namespace Bridge.Translator
             int level, ResolveResult rr, bool ignoreConversionResolveResult = false, bool ignoreBoxing = false)
         {
             bool isExtensionMethodArgument = false;
+            bool isBoxing = conversion.IsBoxingConversion;
             if (expression.Parent is MemberReferenceExpression && expression.Parent.Parent is InvocationExpression)
             {
                 var inv_rr = block.Emitter.Resolver.ResolveNode(expression.Parent.Parent, block.Emitter) as CSharpInvocationResolveResult;
@@ -344,6 +345,11 @@ namespace Bridge.Translator
                 {
                     conversion = block.Emitter.Resolver.Resolver.GetConversion((Expression)expression.Parent);
                     isExtensionMethodArgument = true;
+
+                    if (expression.Parent.Parent is InvocationExpression ie && ie.Target is MemberReferenceExpression mre && expression.Equals(mre.Target))
+                    {
+                        isBoxing = conversion.IsBoxingConversion;
+                    }
                 }
             }
 
@@ -440,7 +446,7 @@ namespace Bridge.Translator
                     || rr.Type.IsKnownType(KnownTypeCode.NullableOfT) && ConversionBlock.IsBoxable(NullableType.GetUnderlyingType(rr.Type), block.Emitter);
                 var nullable = rr.Type.IsKnownType(KnownTypeCode.NullableOfT);
 
-                if (conversion.IsBoxingConversion && !isStringConcat && block.Emitter.Rules.Boxing == BoxingRule.Managed)
+                if (isBoxing && !isStringConcat && block.Emitter.Rules.Boxing == BoxingRule.Managed)
                 {
                     if (!nobox && needBox && !isArgument)
                     {
