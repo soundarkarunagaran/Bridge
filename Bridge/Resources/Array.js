@@ -747,6 +747,44 @@
             return ~lo;
         },
 
+        sortDict: function (keys, values, index, length, comparer) {
+            if (!comparer) {
+                comparer = System.Collections.Generic.Comparer$1.$default;
+            }
+
+            var list = [],
+                fn = Bridge.fn.bind(comparer, System.Collections.Generic.Comparer$1.get(comparer));
+
+            if (length == null) {
+                length = keys.length;
+            }
+
+            for (var j = 0; j < keys.length; j++) {
+                list.push({ key: keys[j], value: values[j] });
+            }
+
+            if (index === 0 && length === list.length) {
+                list.sort(function (x, y) {
+                    return fn(x.key, y.key);
+                });
+            } else {
+                var newarray = list.slice(index, index + length);
+
+                newarray.sort(function (x, y) {
+                    return fn(x.key, y.key);
+                });
+
+                for (var i = index; i < (index + length); i++) {
+                    list[i] = newarray[i - index];
+                }
+            }
+
+            for (var k = 0; k < list.length; k++) {
+                keys[k] = list[k].key;
+                values[k] = list[k].value;
+            }
+        },
+
         sort: function (array, index, length, comparer) {
             if (!array) {
                 throw new System.ArgumentNullException.$ctor1("array");

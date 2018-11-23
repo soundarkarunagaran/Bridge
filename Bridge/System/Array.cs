@@ -256,6 +256,12 @@ namespace System
         [Bridge.Template("System.Array.sort({array}, {index}, {length}, {comparer})")]
         public static extern void Sort<T>(T[] array, int index, int length, IComparer<T> comparer);
 
+        [Bridge.Template("System.Array.sortDict({keys}, {values}, {index}, {length}, {comparer})")]
+        public static extern void Sort<T,V>(T[] keys, V[] values, int index, int length, IComparer<T> comparer);
+
+        [Bridge.Template("System.Array.sortDict({keys}, {values}, 0, null, {comparer})")]
+        public static extern void Sort<T, V>(T[] keys, V[] values, IComparer<T> comparer);
+
         [Bridge.Template("System.Array.sort({array}, {index}, {length})")]
         public static extern void Sort<T>(T[] array, int index, int length);
 

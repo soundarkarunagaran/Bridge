@@ -160,7 +160,7 @@ namespace System.Collections.Generic
 
         extern void IDictionary.Add(object key, object value);
 
-        extern bool IDictionary.Remove(object key);
+        extern void IDictionary.Remove(object key);
 
         extern ICollection IDictionary.Keys
         {
