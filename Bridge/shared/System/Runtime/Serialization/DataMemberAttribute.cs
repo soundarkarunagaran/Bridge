@@ -35,7 +35,7 @@ namespace System.Runtime.Serialization
             {
                 if (value < 0)
                     throw new InvalidDataContractException("Property 'Order' in DataMemberAttribute attribute cannot be a negative number.");
-                // TODO: SR    
+                // TODO: SR
                 //throw new InvalidDataContractException(SR.OrderCannotBeNegative);
                 _order = value;
             }

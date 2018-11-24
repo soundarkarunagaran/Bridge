@@ -5,16 +5,16 @@
 /*============================================================
 **
 ** Interface:  DictionaryEntry
-** 
-** 
+**
+**
 **
 **
 ** Purpose: Return Value for IDictionaryEnumerator::GetEntry
 **
-** 
+**
 ===========================================================*/
 namespace System.Collections {
-    
+
     using System;
     // A DictionaryEntry holds a key and a value from a dictionary.
     // It is returned by IDictionaryEnumerator::GetEntry().
@@ -24,7 +24,7 @@ namespace System.Collections {
     {
         private Object _key;
         private Object _value;
-    
+
         // Constructs a new DictionaryEnumerator by setting the Key
         // and Value fields appropriately.
         public DictionaryEntry(Object key, Object value) {
@@ -36,7 +36,7 @@ namespace System.Collections {
             get {
                 return _key;
             }
-            
+
             set {
                 _key = value;
             }

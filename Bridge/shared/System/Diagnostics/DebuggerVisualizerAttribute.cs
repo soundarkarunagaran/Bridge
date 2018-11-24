@@ -77,7 +77,7 @@ namespace System.Diagnostics
         public string VisualizerTypeName { get; }
 
         public string Description { get; set; }
-        
+
         public Type Target
         {
             // TODO: C#7

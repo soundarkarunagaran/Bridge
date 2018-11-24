@@ -8,7 +8,7 @@ namespace System.Diagnostics
     //      Never       never show this element
     //      Expanded    expansion of the class is done, so that all visible internal members are shown
     //      Collapsed   expansion of the class is not performed. Internal visible members are hidden
-    //      RootHidden  The target element itself should not be shown, but should instead be 
+    //      RootHidden  The target element itself should not be shown, but should instead be
     //                  automatically expanded to have its members displayed.
     //  Default value is collapsed
 
@@ -19,14 +19,14 @@ namespace System.Diagnostics
     {
         Never = 0,
         //Expanded is not supported in this release
-        //Expanded = 1, 
+        //Expanded = 1,
         Collapsed = 2,
         RootHidden = 3
     }
 
 
-    // the one currently supported with the csee.dat 
-    // (mcee.dat, autoexp.dat) file. 
+    // the one currently supported with the csee.dat
+    // (mcee.dat, autoexp.dat) file.
     [Bridge.NonScriptable]
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false)]
     public sealed class DebuggerBrowsableAttribute : Attribute

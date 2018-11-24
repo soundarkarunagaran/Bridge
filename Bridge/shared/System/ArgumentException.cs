@@ -16,7 +16,7 @@ using System.Runtime.Serialization;
 
 namespace System
 {
-    // The ArgumentException is thrown when an argument does not meet 
+    // The ArgumentException is thrown when an argument does not meet
     // the contract of the method.  Ideally it should give a meaningful error
     // message describing what was wrong and which parameter is incorrect.
     [Serializable]
@@ -25,8 +25,8 @@ namespace System
     {
         private String _paramName;
 
-        // Creates a new ArgumentException with its message 
-        // string set to the empty string. 
+        // Creates a new ArgumentException with its message
+        // string set to the empty string.
         public ArgumentException()
             : base("Value does not fall within the expected range.")
         // TODO: SR
@@ -35,9 +35,9 @@ namespace System
             HResult = HResults.COR_E_ARGUMENT;
         }
 
-        // Creates a new ArgumentException with its message 
-        // string set to message. 
-        // 
+        // Creates a new ArgumentException with its message
+        // string set to message.
+        //
         public ArgumentException(String message)
             : base(message)
         {

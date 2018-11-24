@@ -98,7 +98,7 @@ namespace System.IO
         {
             Dispose(true);
         }
-        
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -115,7 +115,7 @@ namespace System.IO
             m_singleChar = null;
             m_charBuffer = null;
         }
-        
+
         public void Dispose()
         {
             Dispose(true);

@@ -14,7 +14,7 @@ namespace System.Runtime.Serialization
         //private static String s_nullMessage = SR.SerializationException;
         private static String s_nullMessage = "Serialization error.";
 
-        // Creates a new SerializationException with its message 
+        // Creates a new SerializationException with its message
         // string set to a default message.
         public SerializationException()
             : base(s_nullMessage)

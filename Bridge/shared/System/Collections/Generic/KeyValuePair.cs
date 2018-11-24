@@ -5,13 +5,13 @@
 /*============================================================
 **
 ** Interface:  KeyValuePair
-** 
-** 
+**
+**
 **
 **
 ** Purpose: Generic key-value pair for dictionary enumerators.
 **
-** 
+**
 ===========================================================*/
 namespace System.Collections.Generic
 {

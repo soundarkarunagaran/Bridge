@@ -4,14 +4,14 @@
 
 /*============================================================
 **
-** 
-** 
+**
+**
 **
 **
 ** Purpose: Default way to access String and Object resources
 ** from an assembly.
 **
-** 
+**
 ===========================================================*/
 
 namespace System.Resources

@@ -144,7 +144,7 @@ namespace System.Globalization
         //
         //  ReadOnly
         //
-        //  Create a cloned readonly instance or return the input one if it is 
+        //  Create a cloned readonly instance or return the input one if it is
         //  readonly.
         //
         ////////////////////////////////////////////////////////////////////////
@@ -222,8 +222,8 @@ namespace System.Globalization
         {
             // From ECMA CLI spec, Partition III, section 3.27:
             //
-            // If overflow occurs converting a floating-point type to an integer, or if the floating-point value 
-            // being converted to an integer is a NaN, the value returned is unspecified. 
+            // If overflow occurs converting a floating-point type to an integer, or if the floating-point value
+            // being converted to an integer is a NaN, the value returned is unspecified.
             //
             // Based upon this, this method should be performing the comparison against the double
             // before attempting a cast. Otherwise, the result is undefined.
@@ -577,7 +577,7 @@ namespace System.Globalization
             // Call this method again by passing the last day of previous year.
             //
             // the last day of the previous year may "underflow" to no longer be a valid date time for
-            // this calendar if we just subtract so we need the subclass to provide us with 
+            // this calendar if we just subtract so we need the subclass to provide us with
             // that information
             if (time <= MinSupportedDateTime.AddDays(dayOfYear))
             {

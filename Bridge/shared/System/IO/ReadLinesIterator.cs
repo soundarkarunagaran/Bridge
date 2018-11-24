@@ -124,7 +124,7 @@ namespace System.IO
 
             return false;
         }
-        
+
         protected override Iterator<string> Clone()
         {
             // NOTE: To maintain the same behavior with the previous yield-based
@@ -135,7 +135,7 @@ namespace System.IO
             // by-side release.
             return CreateIterator(_path, _encoding, _reader);
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             try

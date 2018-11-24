@@ -8,13 +8,13 @@ using System.Runtime.InteropServices;
 namespace System.IO
 {
     // Maps to FILE_FLAG_DELETE_ON_CLOSE and similar values from winbase.h.
-    // We didn't expose a number of these values because we didn't believe 
+    // We didn't expose a number of these values because we didn't believe
     // a number of them made sense in managed code, at least not yet.
     [Bridge.Enum(Bridge.Emit.Value)]
     [Flags]
     public enum FileOptions
     {
-        // NOTE: any change to FileOptions enum needs to be 
+        // NOTE: any change to FileOptions enum needs to be
         // matched in the FileStream ctor for error validation
         None = 0,
         WriteThrough = unchecked((int)0x80000000),

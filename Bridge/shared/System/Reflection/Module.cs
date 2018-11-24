@@ -140,7 +140,7 @@ namespace System.Reflection
 
         private const BindingFlags DefaultLookup = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
 
-        // FilterTypeName 
+        // FilterTypeName
         // This method will filter the class based upon the name.  It supports
         //    a trailing wild card.
         private static bool FilterTypeNameImpl(Type cls, object filterCriteria)

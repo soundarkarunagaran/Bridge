@@ -22,8 +22,8 @@ namespace System
     public class OutOfMemoryException : SystemException
     {
         // Creates a new ArithmeticException with its message string set to
-        // the empty string, its HRESULT set to COR_E_ARITHMETIC, 
-        // and its ExceptionInfo reference set to null. 
+        // the empty string, its HRESULT set to COR_E_ARITHMETIC,
+        // and its ExceptionInfo reference set to null.
         public OutOfMemoryException()
             : base("Insufficient memory to continue the execution of the program.")
         {
@@ -31,9 +31,9 @@ namespace System
         }
 
         // Creates a new ArithmeticException with its message string set to
-        // message, its HRESULT set to COR_E_ARITHMETIC, 
-        // and its ExceptionInfo reference set to null. 
-        // 
+        // message, its HRESULT set to COR_E_ARITHMETIC,
+        // and its ExceptionInfo reference set to null.
+        //
         public OutOfMemoryException(String message)
             : base(message)
         {

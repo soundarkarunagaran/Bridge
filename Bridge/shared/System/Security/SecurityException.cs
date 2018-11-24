@@ -70,7 +70,7 @@ namespace System.Security
         // TODO: NotSupported
         //public override void GetObjectData(SerializationInfo info, StreamingContext context)
         //{
-        //    base.GetObjectData(info, context); 
+        //    base.GetObjectData(info, context);
         //    info.AddValue(DemandedName, Demanded, typeof(string));
         //    info.AddValue(GrantedSetName, GrantedSet, typeof(string));
         //    info.AddValue(RefusedSetName, RefusedSet, typeof(string));

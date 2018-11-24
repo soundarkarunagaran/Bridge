@@ -270,7 +270,7 @@ namespace System.IO
                 _stream.Seek(value, SeekOrigin.Begin);
             }
         }
-        
+
         protected override void Dispose(bool disposing)
         {
 

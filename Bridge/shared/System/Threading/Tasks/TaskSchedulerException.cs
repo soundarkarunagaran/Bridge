@@ -30,8 +30,8 @@ namespace System.Threading.Tasks
         /// Initializes a new instance of the <see cref="T:System.Threading.Tasks.TaskSchedulerException"/> class.
         /// </summary>
         // TODO: SR
-        //public TaskSchedulerException() : base(SR.TaskSchedulerException_ctor_DefaultMessage) // 
-        public TaskSchedulerException() : base("An exception was thrown by a TaskScheduler.") // 
+        //public TaskSchedulerException() : base(SR.TaskSchedulerException_ctor_DefaultMessage) //
+        public TaskSchedulerException() : base("An exception was thrown by a TaskScheduler.") //
         {
         }
 

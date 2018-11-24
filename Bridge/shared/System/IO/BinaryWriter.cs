@@ -91,7 +91,7 @@ namespace System.IO
         {
             Dispose(true);
         }
-        
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

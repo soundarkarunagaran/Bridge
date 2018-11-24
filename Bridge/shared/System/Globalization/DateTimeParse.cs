@@ -217,7 +217,7 @@ namespace System {
         //        // flags from the caller and return the result.
         //        DateTimeResult innerResult = new DateTimeResult();       // The buffer to store the parsing result.
         //        innerResult.Init();
-        //        innerResult.flags = result.flags;                
+        //        innerResult.flags = result.flags;
         //        if (TryParseExact(s, formats[i], dtfi, style, ref innerResult)) {
         //            result.parsedDate = innerResult.parsedDate;
         //            result.timeZoneOffset = innerResult.timeZoneOffset;
@@ -345,7 +345,7 @@ namespace System {
         //        //
         //        ////////////////////////////////////////////////////////////////////////////
 
-        ////          End       NumEnd      NumAmPm     NumSpace    NumDaySep   NumTimesep  MonthEnd    MonthSpace  MonthDSep   NumDateSuff NumTimeSuff     DayOfWeek     YearSpace   YearDateSep YearEnd     TimeZone   Era         UTCTimeMark   
+        ////          End       NumEnd      NumAmPm     NumSpace    NumDaySep   NumTimesep  MonthEnd    MonthSpace  MonthDSep   NumDateSuff NumTimeSuff     DayOfWeek     YearSpace   YearDateSep YearEnd     TimeZone   Era         UTCTimeMark
         //private static DS[][] dateParsingStates = {
         //// DS.BEGIN                                                                             // DS.BEGIN
         //new DS[] { DS.BEGIN, DS.ERROR,   DS.TX_N,    DS.N,       DS.D_Nd,    DS.T_Nt,    DS.ERROR,   DS.D_M,     DS.D_M,     DS.D_S,     DS.T_S,         DS.BEGIN,     DS.D_Y,     DS.D_Y,     DS.ERROR,   DS.BEGIN,  DS.BEGIN,    DS.ERROR},
@@ -592,7 +592,7 @@ namespace System {
         //                        return false;
         //                    }
         //                }
-        //            }                        
+        //            }
         //            return true;
         //        }
 
@@ -669,7 +669,7 @@ namespace System {
         //                                LexTraceExit("0020 (value like \"12:01\" or \"12:\" followed by a non-TZ number", dps);
         //                                return false;
         //                            }
-        //                        }                        
+        //                        }
         //                    }
 
         //                    dtok.num = tokenValue;
@@ -712,7 +712,7 @@ namespace System {
         //                                        return false;
         //                                    }
 
-        //                                    // we have the date and time separators are same and getting a year number, then change the token to YearDateSep as 
+        //                                    // we have the date and time separators are same and getting a year number, then change the token to YearDateSep as
         //                                    // we are sure we are not parsing time.
         //                                    dtok.dtt = DTT.YearDateSep;
         //                                    break;
@@ -720,7 +720,7 @@ namespace System {
         //                                case TokenType.SEP_DateOrOffset:
         //                                    // The separator is either a date separator or the start of a time zone offset. If the token will complete the date then
         //                                    // process just the number and roll back the index so that the outer loop can attempt to parse the time zone offset.
-        //                                    if ((dateParsingStates[(int)dps][(int) DTT.YearDateSep] == DS.ERROR) 
+        //                                    if ((dateParsingStates[(int)dps][(int) DTT.YearDateSep] == DS.ERROR)
         //                                        && (dateParsingStates[(int)dps][(int) DTT.YearSpace] > DS.ERROR)) {
         //                                        str.Index = indexBeforeSeparator;
         //                                        str.m_current = charBeforeSeparator;
@@ -729,7 +729,7 @@ namespace System {
         //                                    else {
         //                                        dtok.dtt = DTT.YearDateSep;
         //                                    }
-        //                                    break;                                    
+        //                                    break;
         //                                case TokenType.SEP_YearSuff:
         //                                case TokenType.SEP_MonthSuff:
         //                                case TokenType.SEP_DaySuff:
@@ -774,7 +774,7 @@ namespace System {
         //                                raw.timeMark = (sep == TokenType.SEP_Am ? TM.AM : TM.PM);
         //                                dtok.dtt = DTT.NumAmpm;
         //                                // Fix AM/PM parsing case, e.g. "1/10 5 AM"
-        //                                if (dps == DS.D_NN 
+        //                                if (dps == DS.D_NN
         //#if !FEATURE_CORECLR
         //                                    && enableAmPmParseAdjustment
         //#endif
@@ -810,19 +810,19 @@ namespace System {
         //                        case TokenType.SEP_DateOrOffset:
         //                            // The separator is either a date separator or the start of a time zone offset. If the token will complete the date then
         //                            // process just the number and roll back the index so that the outer loop can attempt to parse the time zone offset.
-        //                            if ((dateParsingStates[(int)dps][(int) DTT.NumDatesep] == DS.ERROR) 
+        //                            if ((dateParsingStates[(int)dps][(int) DTT.NumDatesep] == DS.ERROR)
         //                                && (dateParsingStates[(int)dps][(int) DTT.NumSpace] > DS.ERROR)) {
         //                                str.Index = indexBeforeSeparator;
         //                                str.m_current = charBeforeSeparator;
         //                                dtok.dtt = DTT.NumSpace;
         //                            }
-        //                            else {                                
+        //                            else {
         //                                dtok.dtt = DTT.NumDatesep;
         //                            }
         //                            raw.AddNumber(dtok.num);
-        //                            break;                            
+        //                            break;
         //                        case TokenType.SEP_Time:
-        //                            if (raw.hasSameDateAndTimeSeparators && 
+        //                            if (raw.hasSameDateAndTimeSeparators &&
         //                                (dps == DS.D_Y || dps == DS.D_YN || dps == DS.D_YNd || dps == DS.D_YM || dps == DS.D_YMd))
         //                            {
         //                                // we are parsing a date and we have the time separator same as date separator, so we mark the token as date separator
@@ -841,7 +841,7 @@ namespace System {
         //                                result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", e);
         //                                LexTraceExit("0075 (Calendar.ToFourDigitYear failed)", dps);
         //                                return false;
-        //                            }   
+        //                            }
         //                            dtok.dtt    = DTT.NumDatesuff;
         //                            dtok.suffix = sep;
         //                            break;
@@ -926,13 +926,13 @@ namespace System {
         //                            case TokenType.SEP_DateOrOffset:
         //                                // The separator is either a date separator or the start of a time zone offset. If the token will complete the date then
         //                                // process just the number and roll back the index so that the outer loop can attempt to parse the time zone offset.
-        //                                if ((dateParsingStates[(int)dps][(int) DTT.NumDatesep] == DS.ERROR) 
+        //                                if ((dateParsingStates[(int)dps][(int) DTT.NumDatesep] == DS.ERROR)
         //                                    && (dateParsingStates[(int)dps][(int) DTT.NumSpace] > DS.ERROR)) {
         //                                    str.Index = indexBeforeSeparator;
         //                                    str.m_current = charBeforeSeparator;
         //                                    dtok.dtt = DTT.NumSpace;
         //                                }
-        //                                else {                                
+        //                                else {
         //                                    dtok.dtt = DTT.NumDatesep;
         //                                }
         //                                break;
@@ -983,20 +983,20 @@ namespace System {
         //                                    return false;
         //                                }
 
-        //                                // we have the date and time separators are same and getting a Month name, then change the token to MonthDatesep as 
+        //                                // we have the date and time separators are same and getting a Month name, then change the token to MonthDatesep as
         //                                // we are sure we are not parsing time.
         //                                dtok.dtt = DTT.MonthDatesep;
         //                                break;
         //                            case TokenType.SEP_DateOrOffset:
         //                                // The separator is either a date separator or the start of a time zone offset. If the token will complete the date then
         //                                // process just the number and roll back the index so that the outer loop can attempt to parse the time zone offset.
-        //                                if ((dateParsingStates[(int)dps][(int) DTT.MonthDatesep] == DS.ERROR) 
+        //                                if ((dateParsingStates[(int)dps][(int) DTT.MonthDatesep] == DS.ERROR)
         //                                    && (dateParsingStates[(int)dps][(int) DTT.MonthSpace] > DS.ERROR)) {
         //                                    str.Index = indexBeforeSeparator;
         //                                    str.m_current = charBeforeSeparator;
         //                                    dtok.dtt = DTT.MonthSpace;
         //                                }
-        //                                else {                                
+        //                                else {
         //                                    dtok.dtt = DTT.MonthDatesep;
         //                                }
         //                                break;
@@ -1090,7 +1090,7 @@ namespace System {
         //                        return (false);
         //                    }
 
-        //#if !FEATURE_CORECLR                    
+        //#if !FEATURE_CORECLR
         //                    // If DateTimeParseIgnorePunctuation is defined, we want to have the V1.1 behavior of just
         //                    // ignoring any unrecognized punctuation and moving on to the next character
         //                    if (Environment.GetCompatibilityFlag(CompatibilityFlag.DateTimeParseIgnorePunctuation) && ((result.flags & ParseFlags.CaptureOffset) == 0)) {
@@ -1110,7 +1110,7 @@ namespace System {
         //                        else {
         //                            // Time zone parse attempt failed. Fall through to punctuation handling.
         //                            str.Index = originalIndex;
-        //                        }                                                
+        //                        }
         //                    }
 
         //                    // Visual Basic implements string to date conversions on top of DateTime.Parse:
@@ -1118,7 +1118,7 @@ namespace System {
         //                    //
         //                    if (VerifyValidPunctuation(ref str)) {
         //                        LexTraceExit("0230 (success)", dps);
-        //                        return true;                                
+        //                        return true;
         //                    }
 
         //                    result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
@@ -1169,9 +1169,9 @@ namespace System {
         //                    // The has was un-paired
         //                    return false;
         //                }
-        //                // Valid Hash usage: eat the hash and continue. 
-        //                str.GetNext();  
-        //                return true;                                                                    
+        //                // Valid Hash usage: eat the hash and continue.
+        //                str.GetNext();
+        //                return true;
         //            }
         //            else if (ch == '\0') {
         //                for (int i = str.Index; i < str.len; i++) {
@@ -1184,7 +1184,7 @@ namespace System {
         //                str.Index = str.len;
         //                return true;
         //            }
-        //            return false;            
+        //            return false;
         //        }
 
         //        private const int ORDER_YMD = 0;     // The order of date is Year/Month/Day.
@@ -1463,7 +1463,7 @@ namespace System {
         //        {
         //            // Note, longer term these checks should be done at the end of the parse. This current
         //            // way of checking creates order dependence with parsing the era name.
-        //            if (result.calendar.IsValidDay(year, month, day, result.era)) 
+        //            if (result.calendar.IsValidDay(year, month, day, result.era))
         //            {
         //                result.SetDate(year, month, day);                           // YMD
         //                return (true);
@@ -1620,7 +1620,7 @@ namespace System {
         //                }
         //            }
 
-        //            GetDefaultYear(ref result, ref styles);            
+        //            GetDefaultYear(ref result, ref styles);
         //            if (!SetDateYMD(ref result, result.Year, raw.month, raw.GetNumber(0))) {
         //                result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
         //                return false;
@@ -2010,7 +2010,7 @@ namespace System {
         //            {
         //                // the year value is out of range
         //                result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
-        //                return false;            
+        //                return false;
         //            }
         //            result.Day = 1;
         //            return true;
@@ -2342,7 +2342,7 @@ namespace System {
             //return false;
         }
 
-  
+
 //        //
 //        // This is the real method to do the parsing work.
 //        //
@@ -2450,7 +2450,7 @@ namespace System {
 //                    {
 //                        if (dtok.dtt == DTT.YearEnd || dtok.dtt == DTT.YearSpace || dtok.dtt == DTT.YearDateSep)
 //                        {
-//                            // When time and date separators are same and we are hitting a year number while the first parsed part of the string was recognized 
+//                            // When time and date separators are same and we are hitting a year number while the first parsed part of the string was recognized
 //                            // as part of time (and not a date) DS.T_Nt, DS.T_NNt then change the state to be a date so we try to parse it as a date instead
 //                            if (dps == DS.T_Nt)
 //                            {
@@ -2467,7 +2467,7 @@ namespace System {
 //                        {
 //                            switch (dtok.dtt)
 //                            {
-//                                // we have the case of Serbia have dates in forms 'd.M.yyyy.' so we can expect '.' after the date parts. 
+//                                // we have the case of Serbia have dates in forms 'd.M.yyyy.' so we can expect '.' after the date parts.
 //                                // changing the token to end with space instead of Date Separator will avoid failing the parsing.
 
 //                                case DTT.YearDateSep:  dtok.dtt = atEnd ? DTT.YearEnd  : DTT.YearSpace;  break;
@@ -2482,7 +2482,7 @@ namespace System {
 //                    // Advance to the next state, and continue
 //                    //
 //                    dps = dateParsingStates[(int)dps][(int)dtok.dtt];
-                    
+
 //                    if (dps == DS.ERROR)
 //                    {
 //                        result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
@@ -2579,14 +2579,14 @@ namespace System {
 //        private static Boolean DetermineTimeZoneAdjustments(ref DateTimeResult result, DateTimeStyles styles, Boolean bTimeOnly) {
 
 //            if ((result.flags & ParseFlags.CaptureOffset) != 0) {
-//                // This is a DateTimeOffset parse, so the offset will actually be captured directly, and 
+//                // This is a DateTimeOffset parse, so the offset will actually be captured directly, and
 //                // no adjustment is required in most cases
 //                return DateTimeOffsetTimeZonePostProcessing(ref result, styles);
 //            }
 //#if FEATURE_CORECLR // on CoreCLR DateTime is also restricted to +- 14:00, just like DateTimeOffset
 //            else {
 //                Int64 offsetTicks = result.timeZoneOffset.Ticks;
-            
+
 //                // the DateTime offset must be within +- 14:00 hours.
 //                if (offsetTicks < DateTimeOffset.MinOffset || offsetTicks > DateTimeOffset.MaxOffset) {
 //                    result.SetFailure(ParseFailureKind.Format, "Format_OffsetOutOfRange", null);
@@ -2646,7 +2646,7 @@ namespace System {
 //        // Apply validation and adjustments specific to DateTimeOffset
 //        private static Boolean DateTimeOffsetTimeZonePostProcessing(ref DateTimeResult result, DateTimeStyles styles) {
 
-//            // For DateTimeOffset, default to the Utc or Local offset when an offset was not specified by 
+//            // For DateTimeOffset, default to the Utc or Local offset when an offset was not specified by
 //            // the input string.
 //            if ((result.flags & ParseFlags.TimeZoneUsed) == 0) {
 //                if ((styles & DateTimeStyles.AssumeUniversal) != 0) {
@@ -2660,13 +2660,13 @@ namespace System {
 //            }
 
 //            Int64 offsetTicks = result.timeZoneOffset.Ticks;
-            
+
 //            // there should be no overflow, because the offset can be no more than -+100 hours and the date already
 //            // fits within a DateTime.
 //            Int64 utcTicks = result.parsedDate.Ticks - offsetTicks;
-            
+
 //            // For DateTimeOffset, both the parsed time and the corresponding UTC value must be within the boundaries
-//            // of a DateTime instance.            
+//            // of a DateTime instance.
 //            if (utcTicks < DateTime.MinTicks || utcTicks > DateTime.MaxTicks) {
 //                result.SetFailure(ParseFailureKind.Format, "Format_UTCOutOfRange", null);
 //                return false;
@@ -2693,10 +2693,10 @@ namespace System {
 //                result.parsedDate = new DateTime(utcTicks, DateTimeKind.Utc);
 //                result.timeZoneOffset = TimeSpan.Zero;
 //            }
-            
-//            return true;            
+
+//            return true;
 //        }
-        
+
 
 //        //
 //        // Adjust the specified time to universal time based on the supplied timezone.
@@ -2829,17 +2829,17 @@ namespace System {
 //                if (str.Match('#')) {
 //                    if (!VerifyValidPunctuation(ref str)) {
 //                        result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
-//                        return false;                        
+//                        return false;
 //                    }
 //                    str.SkipWhiteSpaces();
 //                }
 //                if (str.Match('\0')) {
 //                    if (!VerifyValidPunctuation(ref str)) {
 //                        result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
-//                        return false;                        
+//                        return false;
 //                    }
 //                }
-//                if (str.GetNext()) {                
+//                if (str.GetNext()) {
 //                    // If this is true, there were non-white space characters remaining in the DateTime
 //                    result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
 //                    return false;
@@ -2853,7 +2853,7 @@ namespace System {
 //                result.SetFailure(ParseFailureKind.FormatBadDateTimeCalendar, "Format_BadDateTimeCalendar", null);
 //                return false;
 //            }
-            
+
 //            time = time.AddTicks((long)Math.Round(partSecond * Calendar.TicksPerSecond));
 //            result.parsedDate = time;
 //            if (!DetermineTimeZoneAdjustments(ref result, styles, false)) {
@@ -3373,7 +3373,7 @@ namespace System {
 //                }
 //            }
 
-//            // assume the offset is Local            
+//            // assume the offset is Local
 //            return DateTime.Now;
 //        }
 
@@ -3390,7 +3390,7 @@ namespace System {
 //                //
 //                // if ((month or day is set) and (year is not set and time zone is set))
 //                //
-//                if (  ((result.Month != -1) || (result.Day != -1)) 
+//                if (  ((result.Month != -1) || (result.Day != -1))
 //                    && ((result.Year == -1 || ((result.flags & ParseFlags.YearDefault) != 0)) && (result.flags & ParseFlags.TimeZoneUsed) != 0) ) {
 //                    result.SetFailure(ParseFailureKind.Format, "Format_MissingIncompleteDate", null);
 //                    return false;
@@ -3418,7 +3418,7 @@ namespace System {
 //                --      --      --      CurrentYear Current month   Current day     So this means that if the date string only contains time, you will get current date.
 
 //                */
-                
+
 //                DateTime now = GetDateTimeNow(ref result, ref styles);
 //                if (result.Month == -1 && result.Day == -1) {
 //                    if (result.Year == -1) {
@@ -3479,7 +3479,7 @@ namespace System {
 //                case 'R':       // RFC 1123 Standard.  (in Universal time)
 //                    parseInfo.calendar = GregorianCalendar.GetDefaultInstance();
 //                    dtfi = DateTimeFormatInfo.InvariantInfo;
-                    
+
 //                    if ((result.flags & ParseFlags.CaptureOffset) != 0) {
 //                        result.flags |= ParseFlags.Rfc1123Pattern;
 //                    }
@@ -3787,7 +3787,7 @@ namespace System {
 //                case ':':
 //                    // We match the separator in time pattern with the character in the time string if both equal to ':' or the date separator is matching the characters in the date string
 //                    // We have to exclude the case when the time separator is more than one character and starts with ':' something like "::" for instance.
-//                    if (((dtfi.TimeSeparator.Length > 1 && dtfi.TimeSeparator[0] == ':') || !str.Match(':')) && 
+//                    if (((dtfi.TimeSeparator.Length > 1 && dtfi.TimeSeparator[0] == ':') || !str.Match(':')) &&
 //                        !str.Match(dtfi.TimeSeparator)) {
 //                        // A time separator is expected.
 //                        result.SetFailure(ParseFailureKind.Format, "Format_BadDateTime", null);
@@ -3797,7 +3797,7 @@ namespace System {
 //                case '/':
 //                    // We match the separator in date pattern with the character in the date string if both equal to '/' or the date separator is matching the characters in the date string
 //                    // We have to exclude the case when the date separator is more than one character and starts with '/' something like "//" for instance.
-//                    if (((dtfi.DateSeparator.Length > 1 && dtfi.DateSeparator[0] == '/') || !str.Match('/')) && 
+//                    if (((dtfi.DateSeparator.Length > 1 && dtfi.DateSeparator[0] == '/') || !str.Match('/')) &&
 //                        !str.Match(dtfi.DateSeparator))
 //                    {
 //                        // A date separator is expected.
@@ -3831,7 +3831,7 @@ namespace System {
 //                    }
 
 //                    // The "r" and "u" formats incorrectly quoted 'GMT' and 'Z', respectively.  We cannot
-//                    // correct this mistake for DateTime.ParseExact for compatibility reasons, but we can 
+//                    // correct this mistake for DateTime.ParseExact for compatibility reasons, but we can
 //                    // fix it for DateTimeOffset.ParseExact as DateTimeOffset has not been publically released
 //                    // with this issue.
 //                    if ((result.flags & ParseFlags.CaptureOffset) != 0) {
@@ -3871,7 +3871,7 @@ namespace System {
 //                        return false;
 //                    }
 //                    break;
-//                case '.': 
+//                case '.':
 //                    if (!str.Match(ch)) {
 //                        if (format.GetNext()) {
 //                            // If we encounter the pattern ".F", and the dot is not present, it is an optional
@@ -4032,7 +4032,7 @@ namespace System {
 //                }
 //                formatParam = ExpandPredefinedFormat(formatParam, ref dtfi, ref parseInfo, ref result);
 //            }
-            
+
 //            bool bTimeOnly = false;
 //            result.calendar = parseInfo.calendar;
 
@@ -4073,7 +4073,7 @@ namespace System {
 //                if (!ParseByFormat(ref str, ref format, ref parseInfo, dtfi, ref result)) {
 //                   return (false);
 //                }
-//            }                
+//            }
 
 //            if (str.Index < str.Value.Length - 1) {
 //                // There are still remaining character in str.
@@ -4262,14 +4262,14 @@ namespace System {
 //                return String.Empty;
 //            if (strs.Length == 1)
 //                return Hex(strs[0]);
-         
+
 //            int curLineLength  =  0;
-//            int maxLineLength  = 55; 
+//            int maxLineLength  = 55;
 //            int newLinePadding = 20;
 
 
 //            //invariant: strs.Length >= 2
-//            StringBuilder buffer = new StringBuilder();           
+//            StringBuilder buffer = new StringBuilder();
 //            buffer.Append(Hex(strs[0]));
 //            curLineLength = buffer.Length;
 //            String s;
@@ -4362,7 +4362,7 @@ namespace System {
 //        // Flag to indicate if we encouter an digit, we should check for token or not.
 //        // In some cultures, such as mn-MN, it uses "\x0031\x00a0\x0434\x04af\x0433\x044d\x044d\x0440\x00a0\x0441\x0430\x0440" in month names.
 //        private bool m_checkDigitToken;
-        
+
 //        internal __DTString(String str, DateTimeFormatInfo dtfi, bool checkDigitToken) : this (str, dtfi)
 //        {
 //            m_checkDigitToken = checkDigitToken;
@@ -4374,7 +4374,7 @@ namespace System {
 //            Value = str;
 //            len = Value.Length;
 
-//            m_current = '\0';            
+//            m_current = '\0';
 //            if (dtfi != null)
 //            {
 //                m_info = dtfi.CompareInfo;
@@ -4488,9 +4488,9 @@ namespace System {
 //                        Index = save;
 //                        m_current = saveCh;
 //                    }
-                    
-//                } 
-                
+
+//                }
+
 //            } else if (Char.IsWhiteSpace( m_current)) {
 //                // Just skip to the next character.
 //                while (++Index < len) {

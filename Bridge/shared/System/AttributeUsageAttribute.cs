@@ -7,7 +7,7 @@
 **
 **
 ** Purpose: The class denotes how to specify the usage of an attribute
-**          
+**
 **
 ===========================================================*/
 
@@ -26,7 +26,7 @@ namespace System
 
         internal static AttributeUsageAttribute Default = new AttributeUsageAttribute(AttributeTargets.All);
 
-        //Constructors 
+        //Constructors
         public AttributeUsageAttribute(AttributeTargets validOn)
         {
             _attributeTarget = validOn;

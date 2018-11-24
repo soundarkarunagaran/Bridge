@@ -153,7 +153,7 @@ namespace System.IO
         {
             if (!CanWrite) __Error.WriteNotSupported();
         }
-        
+
         protected override void Dispose(bool disposing)
         {
             try

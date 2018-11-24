@@ -14,9 +14,9 @@ namespace System.Collections.Generic
         // Returns the current element of the enumeration. The returned value is
         // undefined before the first call to MoveNext and following a
         // call to MoveNext that returned false. Multiple calls to
-        // GetCurrent with no intervening calls to MoveNext 
+        // GetCurrent with no intervening calls to MoveNext
         // will return the same object.
-        // 
+        //
         // TODO: NotSupported
         ///// <include file='doc\IEnumerator.uex' path='docs/doc[@for="IEnumerator.Current"]/*' />
         new T Current
