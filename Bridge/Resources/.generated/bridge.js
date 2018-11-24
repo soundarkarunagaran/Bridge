@@ -10375,13 +10375,17 @@ Bridge.define("System.ValueType", {
                     dt.setUTCMinutes(0);
                     dt.setUTCSeconds(0);
                     dt.setUTCMilliseconds(0);
+                    dt.kind = 1;
                 } else {
                     dt.setHours(0);
                     dt.setMinutes(0);
                     dt.setSeconds(0);
                     dt.setMilliseconds(0);
+                    dt.kind = 2;
                 }
 
+                dt.ticks = this.getTicks(dt);
+                
                 return dt;
             },
 

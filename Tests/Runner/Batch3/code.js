@@ -35405,6 +35405,23 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3757", {
+        statics: {
+            methods: {
+                TestDate: function () {
+                    var a = System.DateTime.getDate(System.DateTime.create(2001, 2, 3, 4, 5, 6));
+                    var b = System.DateTime.create(2001, 2, 3, 4, 5, 7);
+                    var c = System.DateTime.getDate(System.DateTime.create(2001, 2, 3, 4, 5, 8));
+
+                    Bridge.Test.NUnit.Assert.True(!Bridge.equalsT(b, a)); //gist of issue: throws exception due to wrong DateTime.js $clearTime
+                    //next two are safety guards that fix doesn't introduce new bugs
+                    Bridge.Test.NUnit.Assert.True(!Bridge.equalsT(a, b));
+                    Bridge.Test.NUnit.Assert.True(Bridge.equalsT(a, c));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3759", {
         statics: {
             methods: {
