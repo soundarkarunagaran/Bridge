@@ -184,8 +184,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<string> expected = new List<string>(setLength - 2);
                     foreach (string value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<string> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -212,7 +216,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     string firstElement = set.ElementAt(0);
                     string lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -343,7 +349,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (string value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -364,7 +372,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (string value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -377,7 +387,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -676,8 +688,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<int> expected = new List<int>(setLength - 2);
                     foreach (int value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<int> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -704,7 +720,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     int firstElement = set.ElementAt(0);
                     int lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -835,7 +853,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (int value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -856,7 +876,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (int value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -869,7 +891,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -1236,8 +1260,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<int> expected = new List<int>(setLength - 2);
                     foreach (int value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<int> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -1264,7 +1292,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     int firstElement = set.ElementAt(0);
                     int lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -1395,7 +1425,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (int value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -1416,7 +1448,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (int value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -1429,7 +1463,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -1721,8 +1757,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<EquatableBackwardsOrder> expected = new List<EquatableBackwardsOrder>(setLength - 2);
                     foreach (EquatableBackwardsOrder value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<EquatableBackwardsOrder> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -1749,7 +1789,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     EquatableBackwardsOrder firstElement = set.ElementAt(0);
                     EquatableBackwardsOrder lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -1880,7 +1922,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (EquatableBackwardsOrder value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -1901,7 +1945,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (EquatableBackwardsOrder value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -1914,7 +1960,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -2215,8 +2263,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<int> expected = new List<int>(setLength - 2);
                     foreach (int value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<int> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -2243,7 +2295,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     int firstElement = set.ElementAt(0);
                     int lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -2374,7 +2428,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (int value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -2395,7 +2451,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (int value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -2408,7 +2466,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -2719,8 +2779,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<int> expected = new List<int>(setLength - 2);
                     foreach (int value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<int> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -2747,7 +2811,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     int firstElement = set.ElementAt(0);
                     int lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -2878,7 +2944,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (int value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -2899,7 +2967,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (int value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -2912,7 +2982,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -3223,8 +3295,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<int> expected = new List<int>(setLength - 2);
                     foreach (int value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<int> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -3251,7 +3327,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     int firstElement = set.ElementAt(0);
                     int lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -3382,7 +3460,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (int value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -3403,7 +3483,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (int value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -3416,7 +3498,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 
@@ -3727,8 +3811,12 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     List<int> expected = new List<int>(setLength - 2);
                     foreach (int value in set)
+                    {
                         if (comparer.Compare(value, firstElement) >= 0 && comparer.Compare(value, lastElement) <= 0)
+                        {
                             expected.Add(value);
+                        }
+                    }
 
                     SortedSet<int> view = set.GetViewBetween(firstElement, lastElement);
                     Assert.AreEqual(expected.Count, view.Count);
@@ -3755,7 +3843,9 @@ namespace Bridge.ClientTest.Collections.Generic
                     int firstElement = set.ElementAt(0);
                     int lastElement = set.ElementAt(setLength - 1);
                     if (comparer.Compare(firstElement, lastElement) < 0)
+                    {
                         Assert.Throws<ArgumentException>(() => set.GetViewBetween(lastElement, firstElement));
+                    }
                 }
             }
 
@@ -3886,7 +3976,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Sort(GetIComparer());
                 int expectedIndex = 0;
                 foreach (int value in set)
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -3907,7 +3999,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 expected.Reverse();
                 int expectedIndex = 0;
                 foreach (int value in set.Reverse())
+                {
                     Assert.AreEqual(expected[expectedIndex++], value);
+                }
             }
 
 
@@ -3920,7 +4014,9 @@ namespace Bridge.ClientTest.Collections.Generic
             for (int i = 0; i < 10000; i++)
             {
                 if (!sortedSet.Contains(i))
+                {
                     sortedSet.Add(i);
+                }
             }
             SortedSet<int> mySubSet = sortedSet.GetViewBetween(45, 90);
 

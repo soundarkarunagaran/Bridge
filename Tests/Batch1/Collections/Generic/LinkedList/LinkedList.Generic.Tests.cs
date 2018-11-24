@@ -154,14 +154,22 @@ namespace Bridge.ClientTest.Collections.Generic
             Assert.AreEqual(expectedList, node.List); //"Err_0821279 Expected Node List"
 
             if (expectedPreviousNull)
+            {
                 Assert.Null(node.Previous); //"Expected node.Previous to be null."
+            }
             else
+            {
                 Assert.NotNull(node.Previous); //"Expected node.Previous not to be null"
+            }
 
             if (expectedNextNull)
+            {
                 Assert.Null(node.Next); //"Expected node.Next to be null."
+            }
             else
+            {
                 Assert.NotNull(node.Next); //"Expected node.Next not to be null"
+            }
         }
 
         /// <summary>
@@ -265,7 +273,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 for (int i = 0; i < itemsVisited.Length; ++i)
                 {
                     if (itemsVisited[i])
+                    {
                         continue;
+                    }
                     if ((expectedItems[i] == null && currentItem == null)
                         || (expectedItems[i] != null && expectedItems[i].Equals(currentItem)))
                     {

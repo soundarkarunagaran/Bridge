@@ -167,14 +167,22 @@ namespace Bridge.ClientTest.Collections.Generic
             Assert.AreDeepEqual(expectedList.ToArray(), node.List.ToArray()); //"Err_0821279 Expected Node List"
 
             if (expectedPreviousNull)
+            {
                 Assert.Null(node.Previous); //"Expected node.Previous to be null."
+            }
             else
+            {
                 Assert.NotNull(node.Previous); //"Expected node.Previous not to be null"
+            }
 
             if (expectedNextNull)
+            {
                 Assert.Null(node.Next); //"Expected node.Next to be null."
+            }
             else
+            {
                 Assert.NotNull(node.Next); //"Expected node.Next not to be null"
+            }
         }
 
         /// <summary>
@@ -204,7 +212,9 @@ namespace Bridge.ClientTest.Collections.Generic
 
                 //[] Verify we have not gotten more items then we expected
                 Assert.True(iterations < expectedCount,
-                    "Err_9844awpa More items have been returned from the enumerator(" + iterations + " items) than are in the expectedElements(" + expectedCount + " items)");
+                    "Err_9844awpa More items have been returned from the enumerator(" +
+                    iterations + " items) than are in the expectedElements(" +
+                    expectedCount + " items)");
 
                 //[] Verify Current returned the correct value
                 Assert.AreEqual(currentItem, expectedItems[iterations]); //"Err_1432pauy Current returned unexpected value at index: " + iterations
@@ -338,7 +348,9 @@ namespace Bridge.ClientTest.Collections.Generic
         {
             LinkedList_Person given = obj as LinkedList_Person;
             if (given == null)
+            {
                 return false;
+            }
 
             bool isNameEqual = Name.Equals(given.Name);
             bool isAgeEqual = Age.Equals(given.Age);
@@ -397,6 +409,7 @@ namespace Bridge.ClientTest.Collections.Generic
             headItems = new string[arraySize];
             tailItems = new string[arraySize];
             headItemsReverse = new string[arraySize];
+
             for (int i = 0; i < arraySize; i++)
             {
                 int index = (arraySize - 1) - i;
@@ -422,15 +435,20 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
             //[] Node is the Tail
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -444,7 +462,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 2, headItems.Length - 2);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First.Next, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -459,7 +479,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -476,15 +498,20 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
             //[] Call AddAfter several times remove some of the items
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -499,7 +526,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, tailItems[i]);
+            }
 
             string[] tempItems2 = new string[tempItems.Length + tailItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -510,29 +539,42 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddAfter several times remove all of the items
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
             //[] Call AddAfter several times then call Clear
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
@@ -540,6 +582,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddLast(headItems[0]);
             linkedList.AddLast(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
             {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
@@ -599,6 +642,7 @@ namespace Bridge.ClientTest.Collections.Generic
             tailItems = new string[arraySize];
             headItemsReverse = new string[arraySize];
             tailItemsReverse = new string[arraySize];
+
             for (int i = 0; i < arraySize; i++)
             {
                 int index = (arraySize - 1) - i;
@@ -625,15 +669,20 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
             //[] Node is the Tail
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -646,7 +695,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 2, headItems.Length - 2);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First.Next, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -661,7 +712,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -678,7 +731,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous.Previous, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -687,7 +742,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(headItems[i]));
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -702,7 +759,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(tailItems[i]));
+            }
 
             string[] tempItems2 = new string[tempItems.Length + tailItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -713,29 +772,43 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddAfter several times remove all of the items
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(headItems[i]));
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
             //[] Call AddAfter several times then call Clear
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(headItems[i]));
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<string>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
@@ -743,6 +816,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddLast(headItems[0]);
             linkedList.AddLast(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
             {
                 if (0 == (i & 1))
@@ -842,6 +916,7 @@ namespace Bridge.ClientTest.Collections.Generic
             tailItems = new string[arraySize];
             headItemsReverse = new string[arraySize];
             tailItemsReverse = new string[arraySize];
+
             for (int i = 0; i < arraySize; i++)
             {
                 int index = (arraySize - 1) - i;
@@ -862,8 +937,11 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Node is the Head
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
@@ -873,8 +951,11 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems = new string[headItems.Length];
             Array.Copy(headItems, 1, tempItems, 0, headItems.Length - 1);
             tempItems[tempItems.Length - 1] = headItems[0];
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -888,7 +969,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First.Next, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -903,7 +986,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -920,15 +1005,20 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
             //[] Call AddBefore several times remove some of the items
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -944,7 +1034,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, tailItems[i]);
+            }
 
             string[] tempItems2 = new string[tailItemsReverse.Length + tempItems.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -955,29 +1047,42 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddBefore several times remove all of the items
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
             //[] Call AddBefore several times then call Clear
             linkedList.Clear();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -985,6 +1090,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddLast(headItems[0]);
             linkedList.AddLast(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
             {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
@@ -1043,6 +1149,7 @@ namespace Bridge.ClientTest.Collections.Generic
             tailItems = new string[arraySize];
             headItemsReverse = new string[arraySize];
             tailItemsReverse = new string[arraySize];
+
             for (int i = 0; i < arraySize; i++)
             {
                 int index = (arraySize - 1) - i;
@@ -1063,8 +1170,11 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Node is the Head
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
@@ -1074,8 +1184,11 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems = new string[headItems.Length];
             Array.Copy(headItems, 1, tempItems, 0, headItems.Length - 1);
             tempItems[tempItems.Length - 1] = headItems[0];
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -1088,7 +1201,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First.Next, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -1103,7 +1218,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -1120,7 +1237,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous.Previous, new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -1128,7 +1247,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(headItems[i]));
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -1143,7 +1264,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(tailItems[i]));
+            }
 
             string[] tempItems2 = new string[tailItemsReverse.Length + tempItems.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -1154,15 +1277,23 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddBefore several times remove all of the items
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(headItems[i]));
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -1170,13 +1301,18 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(headItems[i]));
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -1184,6 +1320,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
             linkedList.AddLast(headItems[0]);
             linkedList.AddLast(tailItems[0]);
+
             for (int i = 1; i < arraySize; ++i)
             {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<string>(headItems[i]));
@@ -1272,6 +1409,7 @@ namespace Bridge.ClientTest.Collections.Generic
             tailItems = new string[arraySize];
             headItemsReverse = new string[arraySize];
             tailItemsReverse = new string[arraySize];
+
             for (int i = 0; i < arraySize; i++)
             {
                 int index = (arraySize - 1) - i;
@@ -1290,15 +1428,21 @@ namespace Bridge.ClientTest.Collections.Generic
 
             //[] Call AddHead(string) several times
             linkedList = new LinkedList<string>();
+
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
             //[] Call AddHead(string) several times remove some of the items
             linkedList = new LinkedList<string>();
+
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -1313,7 +1457,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(tailItems[i]);
+            }
 
             tempItems2 = new string[tempItems.Length + tailItemsReverse.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -1322,26 +1468,37 @@ namespace Bridge.ClientTest.Collections.Generic
 
             //[] Call AddHead(string) several times remove all of the items
             linkedList = new LinkedList<string>();
+
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
             //[] Call AddHead(string) several times then call Clear
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             linkedList.Clear();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -1391,14 +1548,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddHead(LinkedListNode<string>) several times
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
             //[] Call AddHead(LinkedListNode<string>) several times remove some of the items
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<string>(headItems[i]));
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -1412,7 +1573,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<string>(tailItems[i]));
+            }
 
             tempItems2 = new string[tailItemsReverse.Length + tempItems.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -1423,13 +1586,19 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<string>(headItems[i]));
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<string>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -1510,14 +1679,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(string) several times
             linkedList.Clear();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
             //[] Call AddTail(string) several times remove some of the items
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             linkedList.Remove(tailItems[2]);
             linkedList.Remove(tailItems[tailItems.Length - 3]);
@@ -1533,7 +1706,9 @@ namespace Bridge.ClientTest.Collections.Generic
 
             //[] adding some more items to the tail of the linked list.
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             string[] tempItems2 = new string[tempItems.Length + headItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -1543,12 +1718,16 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(string) several times then call Clear
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             linkedList.Clear();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -1603,14 +1782,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(LinkedListNode<string>) several times
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<string>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
             //[] Call AddTail(LinkedListNode<string>) several times remove some of the items
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<string>(tailItems[i]));
+            }
 
             linkedList.Remove(tailItems[2]);
             linkedList.Remove(tailItems[tailItems.Length - 3]);
@@ -1625,7 +1808,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<string>(headItems[i]));
+            }
 
             string[] tempItems2 = new string[tempItems.Length + headItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -1636,12 +1821,16 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(string) several times then call Clear
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<string>(tailItems[i]));
+            }
 
             linkedList.Clear();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<string>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -1763,7 +1952,9 @@ namespace Bridge.ClientTest.Collections.Generic
         private static IEnumerable<T2> Clone<T2>(T2[] source)
         {
             if (source == null)
+            {
                 return null;
+            }
             return (T2[])source.Clone();
         }
 
@@ -1815,7 +2006,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find on a collection with multiple items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_5808ajdoi Expected Find to return false with an non null item not in the collection size=16"
             Assert.Null(linkedList.Find(default(string))); //"Err_5588aied Expected Find to return false with an null item not in the collection size=16"
@@ -1824,9 +2017,13 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find on a collection with duplicate items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_8548ajia Expected Find to return false with an non null item not in the collection size=16"
             Assert.Null(linkedList.Find(default(string))); //"Err_3108qoa Expected Find to return false with an null item not in the collection size=16"
@@ -1839,7 +2036,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find with default(string) at the beginning
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddFirst(default(string));
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_8548ajia Expected Find to return false with an non null item not in the collection default(string) at the beginning"
@@ -1853,10 +2052,14 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find with default(string) in the middle
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(string));
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             Assert.Null(linkedList.Find(CreateT(seed++))); //"Err_78585ajhed Expected Find to return false with an non null item not in the collection default(string) in the middle"
 
@@ -1874,7 +2077,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find on a collection with duplicate items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(string));
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_208089ajdi Expected Find to return false with an non null item not in the collection default(string) at the end"
@@ -1950,9 +2155,13 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast on a collection with duplicate items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             Assert.Null(linkedList.FindLast(tailItems[0])); //"Err_8548ajia Expected FindLast to return false with an non null item not in the collection size=16"
             Assert.Null(linkedList.FindLast(default(string))); //"Err_3108qoa Expected FindLast to return false with an null item not in the collection size=16"
@@ -1964,7 +2173,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast with default(string) at the beginning
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddFirst(default(string));
 
             Assert.Null(linkedList.FindLast(tailItems[0])); //"Err_8548ajia Expected FindLast to return false with an non null item not in the collection default(string) at the beginning"
@@ -1973,10 +2184,14 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast with default(string) in the middle
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(string));
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             Assert.Null(linkedList.FindLast(CreateT(seed++))); //"Err_78585ajhed Expected FindLast to return false with an non null item not in the collection default(string) in the middle"
 
@@ -1989,7 +2204,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast on a collection with duplicate items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(string));
 
             Assert.Null(linkedList.FindLast(tailItems[0])); //"Err_208089ajdi Expected FindLast to return false with an non null item not in the collection default(string) at the end"
@@ -2113,7 +2330,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call RemoveHead on a collection with 16 items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
@@ -2128,14 +2347,20 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Mix RemoveHead and RemoveTail call
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
                 if ((i & 1) == 0)
+                {
                     linkedList.RemoveFirst();
+                }
                 else
+                {
                     linkedList.RemoveLast();
+                }
 
                 int startIndex = (i / 2) + 1;
                 int length = arraySize - i - 1;
@@ -2220,7 +2445,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call RemoveHead on a collection with 16 items in it
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
@@ -2234,14 +2461,20 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Mix RemoveHead and RemoveTail call
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
                 if ((i & 1) == 0)
+                {
                     linkedList.RemoveFirst();
+                }
                 else
+                {
                     linkedList.RemoveLast();
+                }
                 int startIndex = (i / 2) + 1;
                 int length = arraySize - i - 1;
                 string[] expectedItems = new string[length];
@@ -2375,7 +2608,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Remove all the items starting with the first collection size=16
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
@@ -2390,7 +2625,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Remove all the items starting with the last collection size=16
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = arraySize - 1; 0 <= i; --i)
             {
@@ -2403,7 +2640,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Remove some items in the middle
             linkedList = new LinkedList<string>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             linkedList.Remove(linkedList.First.Next.Next); //Remove when  VS Whidbey: 234648 is resolved		
             linkedList.Remove(linkedList.Last.Previous.Previous); //Remove when  VS Whidbey: 234648 is resolved		
@@ -2426,7 +2665,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<string>();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             linkedList.AddLast(default(string));
 
@@ -2454,10 +2695,14 @@ namespace Bridge.ClientTest.Collections.Generic
             }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(items[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(items[i]);
+            }
 
             currentNode = linkedList.First;
             index = 0;
@@ -2614,7 +2859,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2622,7 +2869,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -2636,7 +2885,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 2, headItems.Length - 2);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First.Next, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2651,7 +2902,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2668,7 +2921,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2676,7 +2931,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -2691,7 +2948,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, tailItems[i]);
+            }
 
             int[] tempItems2 = new int[tempItems.Length + tailItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -2703,14 +2962,20 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
@@ -2718,13 +2983,17 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, headItems[i]);
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
@@ -2817,7 +3086,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2825,7 +3096,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -2838,7 +3111,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 2, headItems.Length - 2);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.First.Next, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2853,7 +3128,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2870,7 +3147,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last.Previous.Previous, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -2879,7 +3158,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(headItems[i]));
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -2894,7 +3175,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(tailItems[i]));
+            }
 
             int[] tempItems2 = new int[tempItems.Length + tailItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -2906,14 +3189,20 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(headItems[i]));
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
@@ -2921,13 +3210,17 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(headItems[i]));
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddAfter(linkedList.Last, new LinkedListNode<int>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
@@ -3055,7 +3348,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
@@ -3066,7 +3361,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Copy(headItems, 1, tempItems, 0, headItems.Length - 1);
             tempItems[tempItems.Length - 1] = headItems[0];
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3080,7 +3377,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First.Next, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3095,7 +3394,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3112,7 +3413,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous.Previous, headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3120,7 +3423,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -3136,7 +3441,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, tailItems[i]);
+            }
 
             int[] tempItems2 = new int[tailItemsReverse.Length + tempItems.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -3148,14 +3455,20 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -3163,13 +3476,17 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Clear();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, headItems[i]);
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -3256,7 +3573,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
@@ -3267,7 +3586,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Copy(headItems, 1, tempItems, 0, headItems.Length - 1);
             tempItems[tempItems.Length - 1] = headItems[0];
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3280,7 +3601,9 @@ namespace Bridge.ClientTest.Collections.Generic
             Array.Reverse(tempItems, 1, headItems.Length - 1);
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First.Next, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3295,7 +3618,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[1];
 
             for (int i = 2; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3312,7 +3637,9 @@ namespace Bridge.ClientTest.Collections.Generic
             tempItems[tempItems.Length - 1] = headItems[2];
 
             for (int i = 3; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.Last.Previous.Previous, new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tempItems);
 
@@ -3320,7 +3647,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(headItems[i]));
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -3335,7 +3664,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(tailItems[i]));
+            }
 
             int[] tempItems2 = new int[tailItemsReverse.Length + tempItems.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -3347,14 +3678,20 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(headItems[i]));
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -3362,13 +3699,17 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
             linkedList.AddFirst(headItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(headItems[i]));
+            }
 
             linkedList.Clear();
 
             linkedList.AddFirst(tailItems[0]);
             for (int i = 1; i < arraySize; ++i)
+            {
                 linkedList.AddBefore(linkedList.First, new LinkedListNode<int>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -3483,14 +3824,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddHead(int) several times
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
             //[] Call AddHead(int) several times remove some of the items
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -3505,7 +3850,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(tailItems[i]);
+            }
 
             tempItems2 = new int[tempItems.Length + tailItemsReverse.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -3515,25 +3862,35 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddHead(int) several times remove all of the items
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
             //[] Call AddHead(int) several times then call Clear
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             linkedList.Clear();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -3583,14 +3940,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddHead(LinkedListNode<int>) several times
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItemsReverse);
 
             //[] Call AddHead(LinkedListNode<int>) several times remove some of the items
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<int>(headItems[i]));
+            }
 
             linkedList.Remove(headItems[2]);
             linkedList.Remove(headItems[headItems.Length - 3]);
@@ -3604,7 +3965,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<int>(tailItems[i]));
+            }
 
             tempItems2 = new int[tailItemsReverse.Length + tempItems.Length];
             Array.Copy(tailItemsReverse, 0, tempItems2, 0, tailItemsReverse.Length);
@@ -3615,13 +3978,19 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<int>(headItems[i]));
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.RemoveFirst();
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(new LinkedListNode<int>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItemsReverse);
 
@@ -3702,14 +4071,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(int) several times
             linkedList.Clear();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
             //[] Call AddTail(int) several times remove some of the items
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             linkedList.Remove(tailItems[2]);
             linkedList.Remove(tailItems[tailItems.Length - 3]);
@@ -3725,7 +4098,9 @@ namespace Bridge.ClientTest.Collections.Generic
 
             //[] adding some more items to the tail of the linked list.
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             int[] tempItems2 = new int[tempItems.Length + headItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -3735,12 +4110,16 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(int) several times then call Clear
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             linkedList.Clear();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -3795,14 +4174,18 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(LinkedListNode<int>) several times
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<int>(tailItems[i]));
+            }
 
             InitialItems_Tests(linkedList, tailItems);
 
             //[] Call AddTail(LinkedListNode<int>) several times remove some of the items
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<int>(tailItems[i]));
+            }
 
             linkedList.Remove(tailItems[2]);
             linkedList.Remove(tailItems[tailItems.Length - 3]);
@@ -3817,7 +4200,9 @@ namespace Bridge.ClientTest.Collections.Generic
             InitialItems_Tests(linkedList, tempItems);
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<int>(headItems[i]));
+            }
 
             int[] tempItems2 = new int[tempItems.Length + headItems.Length];
             Array.Copy(tempItems, 0, tempItems2, 0, tempItems.Length);
@@ -3828,12 +4213,16 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call AddTail(int) several times then call Clear
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<int>(tailItems[i]));
+            }
 
             linkedList.Clear();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(new LinkedListNode<int>(headItems[i]));
+            }
 
             InitialItems_Tests(linkedList, headItems);
 
@@ -3955,7 +4344,9 @@ namespace Bridge.ClientTest.Collections.Generic
         private static IEnumerable<T2> Clone<T2>(T2[] source)
         {
             if (source == null)
+            {
                 return null;
+            }
             return (T2[])source.Clone();
         }
 
@@ -4007,7 +4398,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find on a collection with multiple items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_5808ajdoi Expected Find to return false with an non null item not in the collection size=16"
             Assert.Null(linkedList.Find(default(int))); //"Err_5588aied Expected Find to return false with an null item not in the collection size=16"
@@ -4016,9 +4409,13 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find on a collection with duplicate items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_8548ajia Expected Find to return false with an non null item not in the collection size=16"
             Assert.Null(linkedList.Find(default(int))); //"Err_3108qoa Expected Find to return false with an null item not in the collection size=16"
@@ -4031,7 +4428,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find with default(int) at the beginning
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddFirst(default(int));
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_8548ajia Expected Find to return false with an non null item not in the collection default(int) at the beginning"
@@ -4045,10 +4444,14 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find with default(int) in the middle
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(int));
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             Assert.Null(linkedList.Find(CreateT(seed++))); //"Err_78585ajhed Expected Find to return false with an non null item not in the collection default(int) in the middle"
 
@@ -4066,7 +4469,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Find on a collection with duplicate items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(int));
 
             Assert.Null(linkedList.Find(tailItems[0])); //"Err_208089ajdi Expected Find to return false with an non null item not in the collection default(int) at the end"
@@ -4142,9 +4547,13 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast on a collection with duplicate items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             Assert.Null(linkedList.FindLast(tailItems[0])); //"Err_8548ajia Expected FindLast to return false with an non null item not in the collection size=16"
             Assert.Null(linkedList.FindLast(default(int))); //"Err_3108qoa Expected FindLast to return false with an null item not in the collection size=16"
@@ -4156,7 +4565,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast with default(int) at the beginning
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddFirst(default(int));
 
             Assert.Null(linkedList.FindLast(tailItems[0])); //"Err_8548ajia Expected FindLast to return false with an non null item not in the collection default(int) at the beginning"
@@ -4165,10 +4576,14 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast with default(int) in the middle
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(int));
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(tailItems[i]);
+            }
 
             Assert.Null(linkedList.FindLast(CreateT(seed++))); //"Err_78585ajhed Expected FindLast to return false with an non null item not in the collection default(int) in the middle"
 
@@ -4181,7 +4596,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call FindLast on a collection with duplicate items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < headItems.Length; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
             linkedList.AddLast(default(int));
 
             Assert.Null(linkedList.FindLast(tailItems[0])); //"Err_208089ajdi Expected FindLast to return false with an non null item not in the collection default(int) at the end"
@@ -4305,7 +4722,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call RemoveHead on a collection with 16 items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
@@ -4320,14 +4739,20 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Mix RemoveHead and RemoveTail call
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
                 if ((i & 1) == 0)
+                {
                     linkedList.RemoveFirst();
+                }
                 else
+                {
                     linkedList.RemoveLast();
+                }
 
                 int startIndex = (i / 2) + 1;
                 int length = arraySize - i - 1;
@@ -4412,7 +4837,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call RemoveHead on a collection with 16 items in it
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
@@ -4426,14 +4853,20 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Mix RemoveHead and RemoveTail call
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
                 if ((i & 1) == 0)
+                {
                     linkedList.RemoveFirst();
+                }
                 else
+                {
                     linkedList.RemoveLast();
+                }
                 int startIndex = (i / 2) + 1;
                 int length = arraySize - i - 1;
                 int[] expectedItems = new int[length];
@@ -4567,7 +5000,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Remove all the items starting with the first collection size=16
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
             {
@@ -4582,7 +5017,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Call Remove all the items starting with the last collection size=16
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             for (int i = arraySize - 1; 0 <= i; --i)
             {
@@ -4595,7 +5032,9 @@ namespace Bridge.ClientTest.Collections.Generic
             //[] Remove some items in the middle
             linkedList = new LinkedList<int>();
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddFirst(headItems[i]);
+            }
 
             linkedList.Remove(linkedList.First.Next.Next); //Remove when  VS Whidbey: 234648 is resolved		
             linkedList.Remove(linkedList.Last.Previous.Previous); //Remove when  VS Whidbey: 234648 is resolved		
@@ -4618,7 +5057,9 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList = new LinkedList<int>();
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(headItems[i]);
+            }
 
             linkedList.AddLast(default(int));
 
@@ -4646,10 +5087,14 @@ namespace Bridge.ClientTest.Collections.Generic
             }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(items[i]);
+            }
 
             for (int i = 0; i < arraySize; ++i)
+            {
                 linkedList.AddLast(items[i]);
+            }
 
             currentNode = linkedList.First;
             index = 0;

@@ -65,14 +65,20 @@ namespace Bridge.ClientTest.Collections.Generic.Base
                         yield return new object[] { enumerableType, count, count + 2, 2, 0 };           // Enumerable that is 2 longer with 2 matching element
                         yield return new object[] { enumerableType, count, count - 1, count - 1, 0 };   // Enumerable with all elements matching minus one
                         yield return new object[] { enumerableType, count, count, 2, 0 };               // Enumerable of the same size with 2 matching element
+
                         if ((enumerableType == EnumerableType.List || enumerableType == EnumerableType.Queue))
+                        {
                             yield return new object[] { enumerableType, count, count, 0, 1 };           // Enumerable with 1 element duplicated
+                        }
                     }
 
                     if (count >= 3)
                     {
                         if ((enumerableType == EnumerableType.List || enumerableType == EnumerableType.Queue))
+                        {
                             yield return new object[] { enumerableType, count, count, 0, 1 };           // Enumerable with all elements duplicated
+                        }
+
                         yield return new object[] { enumerableType, count, count - 1, 2, 0 };           // Enumerable that is 1 smaller with 2 matching elements
                     }
                 }
@@ -127,11 +133,15 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             if (enumerableToMatchTo != null)
             {
                 match = enumerableToMatchTo.ToList();
+
                 for (int i = 0; i < numberOfMatchingElements; i++)
                 {
                     queue.Enqueue(match[i]);
+
                     while (duplicateAdded++ < numberOfDuplicateElements)
+                    {
                         queue.Enqueue(match[i]);
+                    }
                 }
             }
 
@@ -139,20 +149,32 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             while (queue.Count < count)
             {
                 T toEnqueue = CreateT(seed++);
+
                 while (queue.Contains(toEnqueue) || (match != null && match.Contains(toEnqueue))) // Don't want any unexpectedly duplicate values
+                {
                     toEnqueue = CreateT(seed++);
+                }
+
                 queue.Enqueue(toEnqueue);
+
                 while (duplicateAdded++ < numberOfDuplicateElements)
+                {
                     queue.Enqueue(toEnqueue);
+                }
             }
 
             // Validate that the Enumerable fits the guidelines as expected
             Debug.Assert(queue.Count == count);
+
             if (match != null)
             {
                 int actualMatchingCount = 0;
+
                 foreach (T lookingFor in match)
+                {
                     actualMatchingCount += queue.Contains(lookingFor) ? 1 : 0;
+                }
+
                 Assert.AreEqual(numberOfMatchingElements, actualMatchingCount);
             }
 
@@ -176,11 +198,15 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             if (enumerableToMatchTo != null)
             {
                 match = enumerableToMatchTo.ToList();
+
                 for (int i = 0; i < numberOfMatchingElements; i++)
                 {
                     list.Add(match[i]);
+
                     while (duplicateAdded++ < numberOfDuplicateElements)
+                    {
                         list.Add(match[i]);
+                    }
                 }
             }
 
@@ -188,20 +214,32 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             while (list.Count < count)
             {
                 T toAdd = CreateT(seed++);
+
                 while (list.Contains(toAdd) || (match != null && match.Contains(toAdd))) // Don't want any unexpectedly duplicate values
+                {
                     toAdd = CreateT(seed++);
+                }
+
                 list.Add(toAdd);
+
                 while (duplicateAdded++ < numberOfDuplicateElements)
+                {
                     list.Add(toAdd);
+                }
             }
 
             // Validate that the Enumerable fits the guidelines as expected
             Debug.Assert(list.Count == count);
+
             if (match != null)
             {
                 int actualMatchingCount = 0;
+
                 foreach (T lookingFor in match)
+                {
                     actualMatchingCount += list.Contains(lookingFor) ? 1 : 0;
+                }
+
                 Assert.AreEqual(numberOfMatchingElements, actualMatchingCount);
             }
 
@@ -224,26 +262,38 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             if (enumerableToMatchTo != null)
             {
                 match = enumerableToMatchTo.ToList();
+
                 for (int i = 0; i < numberOfMatchingElements; i++)
+                {
                     set.Add(match[i]);
+                }
             }
 
             // Add elements to reach the desired count
             while (set.Count < count)
             {
                 T toAdd = CreateT(seed++);
+
                 while (set.Contains(toAdd) || (match != null && match.Contains(toAdd, GetIEqualityComparer()))) // Don't want any unexpectedly duplicate values
+                {
                     toAdd = CreateT(seed++);
+                }
+
                 set.Add(toAdd);
             }
 
             // Validate that the Enumerable fits the guidelines as expected
             Debug.Assert(set.Count == count);
+
             if (match != null)
             {
                 int actualMatchingCount = 0;
+
                 foreach (T lookingFor in match)
+                {
                     actualMatchingCount += set.Contains(lookingFor) ? 1 : 0;
+                }
+
                 Assert.AreEqual(numberOfMatchingElements, actualMatchingCount);
             }
 
@@ -266,16 +316,23 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             if (enumerableToMatchTo != null)
             {
                 match = enumerableToMatchTo.ToList();
+
                 for (int i = 0; i < numberOfMatchingElements; i++)
+                {
                     set.Add(match[i]);
+                }
             }
 
             // Add elements to reach the desired count
             while (set.Count < count)
             {
                 T toAdd = CreateT(seed++);
+
                 while (set.Contains(toAdd) || (match != null && match.Contains(toAdd, GetIEqualityComparer()))) // Don't want any unexpectedly duplicate values
+                {
                     toAdd = CreateT(seed++);
+                }
+
                 set.Add(toAdd);
             }
 
@@ -284,8 +341,12 @@ namespace Bridge.ClientTest.Collections.Generic.Base
             if (match != null)
             {
                 int actualMatchingCount = 0;
+
                 foreach (T lookingFor in match)
+                {
                     actualMatchingCount += set.Contains(lookingFor) ? 1 : 0;
+                }
+
                 Assert.AreEqual(numberOfMatchingElements, actualMatchingCount);
             }
 
@@ -295,6 +356,7 @@ namespace Bridge.ClientTest.Collections.Generic.Base
         protected IEnumerable<T> CreateLazyEnumerable(IEnumerable<T> enumerableToMatchTo, int count, int numberOfMatchingElements, int numberOfDuplicateElements)
         {
             IEnumerable<T> list = CreateList(enumerableToMatchTo, count, numberOfMatchingElements, numberOfDuplicateElements);
+
             return list.Select(item => item);
         }
 
@@ -308,6 +370,7 @@ namespace Bridge.ClientTest.Collections.Generic.Base
         {
             ISet<T> collection = GenericISetFactory();
             AddToCollection(collection, count);
+
             return collection;
         }
 
@@ -315,11 +378,15 @@ namespace Bridge.ClientTest.Collections.Generic.Base
         {
             int seed = 9600;
             ISet<T> set = (ISet<T>)collection;
+
             while (set.Count < numberOfItemsToAdd)
             {
                 T toAdd = CreateT(seed++);
+
                 while (set.Contains(toAdd) || (InvalidValues.Count() > 0 && InvalidValues.Contains(toAdd, GetIEqualityComparer())))
+                {
                     toAdd = CreateT(seed++);
+                }
                 set.Add(toAdd);
             }
         }

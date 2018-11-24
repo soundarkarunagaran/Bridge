@@ -24,7 +24,9 @@ namespace Bridge.ClientTest.Collections.Generic
             int seed = 840;
             TKey missingKey = CreateTKey(seed++);
             while (dictionary.ContainsKey(missingKey) || missingKey.Equals(default(TKey)))
+            {
                 missingKey = CreateTKey(seed++);
+            }
             return missingKey;
         }
 
@@ -50,7 +52,9 @@ namespace Bridge.ClientTest.Collections.Generic
             {
                 KeyValuePair<TKey, TValue> toAdd = CreateT(seed++);
                 while (casted.ContainsKey(toAdd.Key))
+                {
                     toAdd = CreateT(seed++);
+                }
                 collection.Add(toAdd);
             }
         }

@@ -21,7 +21,9 @@ namespace Bridge.ClientTest.Collections.Generic
             int seed = 840;
             object missingKey = CreateTKey(seed++);
             while (dictionary.Contains(missingKey) || missingKey.Equals(null))
+            {
                 missingKey = CreateTKey(seed++);
+            }
             return missingKey;
         }
 

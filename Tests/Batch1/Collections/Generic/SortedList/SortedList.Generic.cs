@@ -225,11 +225,17 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     //if the array needs to grow, it doubles the size
                     if (i == capacity)
+                    {
                         capacity *= 2;
+                    }
                     if (i <= capacity + 1)
+                    {
                         Assert.AreEqual(capacity, dictionary.Capacity);
+                    }
                     else
+                    {
                         Assert.AreEqual(i, dictionary.Capacity);
+                    }
                 }
 
             }
@@ -253,13 +259,19 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     //if the array needs to grow, it doubles the size
                     if (i == capacity)
+                    {
                         capacity *= 2;
+                    }
                 }
                 dictionary.Clear();
                 if (count == 0)
+                {
                     Assert.AreEqual(0, dictionary.Capacity);
+                }
                 else
+                {
                     Assert.AreEqual(capacity, dictionary.Capacity);
+                }
 
             }
 
@@ -299,7 +311,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int seed = 4315;
                 string notPresent = CreateTValue(seed++);
                 while (dictionary.Values.Contains(notPresent))
+                {
                     notPresent = CreateTValue(seed++);
+                }
                 Assert.False(dictionary.ContainsValue(notPresent));
             }
         }
@@ -317,7 +331,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int seed = 4315;
                 KeyValuePair<string, string> notPresent = CreateT(seed++);
                 while (dictionary.Contains(notPresent))
+                {
                     notPresent = CreateT(seed++);
+                }
                 dictionary.Add(notPresent.Key, notPresent.Value);
                 Assert.True(dictionary.ContainsValue(notPresent.Value));
 
@@ -351,7 +367,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int seed = 4315;
                 string notPresent = CreateTKey(seed++);
                 while (dictionary.ContainsKey(notPresent))
+                {
                     notPresent = CreateTKey(seed++);
+                }
                 dictionary.Add(notPresent, default(string));
                 Assert.True(dictionary.ContainsValue(default(string)));
             }
@@ -418,7 +436,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 string key = GetNewKey(dictionary);
                 string value = default(string);
                 while (dictionary.ContainsValue(value))
+                {
                     dictionary.RemoveAt(dictionary.IndexOfValue(value));
+                }
 
                 List<string> keys = dictionary.Keys.ToList();
                 keys.Add(key);
@@ -444,11 +464,17 @@ namespace Bridge.ClientTest.Collections.Generic
                 string key2 = CreateTKey(seed++);
                 string value = CreateTValue(seed++);
                 while (dictionary.ContainsKey(key1))
+                {
                     key1 = CreateTKey(seed++);
+                }
                 while (key1.Equals(key2) || dictionary.ContainsKey(key2))
+                {
                     key2 = CreateTKey(seed++);
+                }
                 while (dictionary.ContainsValue(value))
+                {
                     dictionary.RemoveAt(dictionary.IndexOfValue(value));
+                }
 
                 List<string> keys = dictionary.Keys.ToList();
                 keys.Add(key1);
@@ -876,11 +902,17 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     //if the array needs to grow, it doubles the size
                     if (i == capacity)
+                    {
                         capacity *= 2;
+                    }
                     if (i <= capacity + 1)
+                    {
                         Assert.AreEqual(capacity, dictionary.Capacity);
+                    }
                     else
+                    {
                         Assert.AreEqual(i, dictionary.Capacity);
+                    }
                 }
 
             }
@@ -904,13 +936,19 @@ namespace Bridge.ClientTest.Collections.Generic
 
                     //if the array needs to grow, it doubles the size
                     if (i == capacity)
+                    {
                         capacity *= 2;
+                    }
                 }
                 dictionary.Clear();
                 if (count == 0)
+                {
                     Assert.AreEqual(0, dictionary.Capacity);
+                }
                 else
+                {
                     Assert.AreEqual(capacity, dictionary.Capacity);
+                }
 
             }
 
@@ -950,7 +988,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int seed = 4315;
                 int notPresent = CreateTValue(seed++);
                 while (dictionary.Values.Contains(notPresent))
+                {
                     notPresent = CreateTValue(seed++);
+                }
                 Assert.False(dictionary.ContainsValue(notPresent));
             }
         }
@@ -968,7 +1008,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int seed = 4315;
                 KeyValuePair<int, int> notPresent = CreateT(seed++);
                 while (dictionary.Contains(notPresent))
+                {
                     notPresent = CreateT(seed++);
+                }
                 dictionary.Add(notPresent.Key, notPresent.Value);
                 Assert.True(dictionary.ContainsValue(notPresent.Value));
 
@@ -1002,7 +1044,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int seed = 4315;
                 int notPresent = CreateTKey(seed++);
                 while (dictionary.ContainsKey(notPresent))
+                {
                     notPresent = CreateTKey(seed++);
+                }
                 dictionary.Add(notPresent, default(int));
                 Assert.True(dictionary.ContainsValue(default(int)));
             }
@@ -1088,7 +1132,9 @@ namespace Bridge.ClientTest.Collections.Generic
                 int key = GetNewKey(dictionary);
                 int value = default(int);
                 while (dictionary.ContainsValue(value))
+                {
                     dictionary.RemoveAt(dictionary.IndexOfValue(value));
+                }
 
                 List<int> keys = dictionary.Keys.ToList();
                 keys.Add(key);
@@ -1114,11 +1160,17 @@ namespace Bridge.ClientTest.Collections.Generic
                 int key2 = CreateTKey(seed++);
                 int value = CreateTValue(seed++);
                 while (dictionary.ContainsKey(key1))
+                {
                     key1 = CreateTKey(seed++);
+                }
                 while (key1.Equals(key2) || dictionary.ContainsKey(key2))
+                {
                     key2 = CreateTKey(seed++);
+                }
                 while (dictionary.ContainsValue(value))
+                {
                     dictionary.RemoveAt(dictionary.IndexOfValue(value));
+                }
 
                 List<int> keys = dictionary.Keys.ToList();
                 keys.Add(key1);
