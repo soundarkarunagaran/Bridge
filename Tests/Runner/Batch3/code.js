@@ -46003,7 +46003,7 @@ Bridge.$N1391Result =                     r;
     });
 
     /**
-     * This overrides the interface's member by a member with same name 
+     * This overrides the interface's member by a member with same name
      and a different type.
      *
      * @public
