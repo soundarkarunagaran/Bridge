@@ -640,7 +640,7 @@ namespace Bridge.Contract
 
                     typeDef = typeDef.DeclaringTypeDefinition;
                 }
-                while (typeDef != null && type.Module == null);                
+                while (typeDef != null && type.Module == null);
 
                 if (type.Module == null)
                 {

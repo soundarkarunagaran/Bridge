@@ -91,10 +91,10 @@ namespace System
             [Bridge.Template("getSeconds()")]
             get;
         }
-        
+
         [Bridge.Template("TimeToTicks({0}, {1}, {2})")]
         internal extern static long TimeToTicks(int hour, int minute, int second);
-        
+
         // internal so that DateTime doesn't have to call an extra get
         // method for some arithmetic operations.
         [Bridge.Template("getTicks()")]

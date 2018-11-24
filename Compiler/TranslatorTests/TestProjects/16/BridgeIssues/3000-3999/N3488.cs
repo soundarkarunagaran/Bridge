@@ -5,7 +5,7 @@
     /// require(["Test", "Test", "Test"], function (Test, lib2, lib3) {
     /// not this:
     /// require(["Test"], function (Test) {
-    /// 
+    ///
     /// In othre words, should require the same name three times, and
     /// for each, include the respective namespace as one of the
     /// function's parameters.

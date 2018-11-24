@@ -94,7 +94,7 @@ namespace Bridge.Translator
                                 locals.Add(local);
 
                                 updatedStatements[beforeStatement] = locals;
-                            }                            
+                            }
 
                             updatedDiscards[discard] = instance;
                         }
@@ -275,7 +275,7 @@ namespace Bridge.Translator
                 }
 
                 return SyntaxFactory.Argument(SyntaxFactory.IdentifierName(designation.Identifier)).WithRefKindKeyword(SyntaxFactory.Token(SyntaxKind.OutKeyword)).WithRefOrOutKeyword(SyntaxFactory.Token(SyntaxKind.OutKeyword)).NormalizeWhitespace();
-            });        
+            });
 
             foreach (var annotation in annotatedStatemnts.Keys)
             {

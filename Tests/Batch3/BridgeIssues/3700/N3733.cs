@@ -10,7 +10,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
         private const int C = A > B ? A : B;
         private static readonly int[] Test = new int[C * 10];
-                                                             
+
         [Test]
         public static void TestConstants()
         {

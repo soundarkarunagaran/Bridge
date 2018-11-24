@@ -61,7 +61,7 @@ namespace Bridge.ClientTest.Collections.Generic
 
                 IDictionary dictionary = new SortedList<string, int>();
                 Assert.Throws<ArgumentNullException>(() => dictionary[GetNewKey(dictionary)] = null);
-            }            
+            }
         }
 
         [Test]
@@ -76,7 +76,7 @@ namespace Bridge.ClientTest.Collections.Generic
                 IDictionary dictionary = new SortedList<string, string>();
                 Assert.Throws<ArgumentNullException>(() => dictionary[23] = CreateTValue(12345));
                 Assert.True(dictionary.Count == 0);
-            }            
+            }
         }
 
         [Test]

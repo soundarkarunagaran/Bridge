@@ -308,7 +308,7 @@ namespace Bridge.Translator
                 if (typeDef == null || !this.Emitter.Validator.IsExternalType(typeDef))
                 {
                     return false;
-                }                
+                }
 
                 var fullName = type.FullName;
 

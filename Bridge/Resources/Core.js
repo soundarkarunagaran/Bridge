@@ -130,7 +130,7 @@
                     t = System.Enum.getUnderlyingType(t);
                 }
 
-                if (T && T !== t && !Bridge.isObject(T)) { 
+                if (T && T !== t && !Bridge.isObject(T)) {
                     throw new System.InvalidCastException.$ctor1("Specified cast is not valid.");
                 }
 
@@ -461,7 +461,7 @@
                 return type.ctor();
             } else if (args && args.length > 0) {
                 return Bridge.Reflection.applyConstructor(type, args);
-            } 
+            }
 
             if (type.$kind === 'interface') {
                 throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
@@ -487,7 +487,7 @@
                 if (type.$$name && !(ctors.length == 1 && ctors[0].isSynthetic)) {
                     throw new System.MissingMethodException.$ctor1('Default constructor not found for type ' + Bridge.getTypeName(type));
                 }
-            }            
+            }
 
             return new type();
         },
@@ -1621,7 +1621,7 @@
                 throw new System.NullReferenceException.$ctor1("instance is null");
             }
 
-            if (T) {               
+            if (T) {
                 var type = Bridge.getType(instance);
                 return Bridge.Reflection.isAssignableFrom(T, type) ? type : T;
             }

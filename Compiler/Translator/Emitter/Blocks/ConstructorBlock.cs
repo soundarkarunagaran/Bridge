@@ -612,7 +612,7 @@ namespace Bridge.Translator
                     requireNewLine = false;
                 }
 
-                
+
                 string name = null;
                 if (this.TypeInfo.GetBaseTypes(this.Emitter).Any())
                 {

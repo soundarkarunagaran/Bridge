@@ -231,7 +231,7 @@ namespace System.IO
             {
                 return 0;
             }
-            
+
             var byteBuffer = Bridge.Script.Write<dynamic>("new Uint8Array(this.GetInternalBuffer())");
             if (num > 8)
             {

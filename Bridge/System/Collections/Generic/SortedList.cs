@@ -57,7 +57,7 @@ namespace System.Collections.Generic
         // elements are compared to each other using the IComparable
         // interface, which in that case must be implemented by the keys of all
         // entries added to the sorted list.
-        // 
+        //
         public SortedList(IComparer<TKey> comparer)
             : this()
         {
@@ -75,7 +75,7 @@ namespace System.Collections.Generic
         // comparer is null, the elements are compared to each other using
         // the IComparable interface, which in that case must be implemented
         // by the keys of all entries added to the sorted list.
-        // 
+        //
         public SortedList(int capacity, IComparer<TKey> comparer)
             : this(comparer)
         {
@@ -87,7 +87,7 @@ namespace System.Collections.Generic
         // to the IComparable interface, which must be implemented by the
         // keys of all entries in the the given dictionary as well as keys
         // subsequently added to the sorted list.
-        // 
+        //
         public SortedList(IDictionary<TKey, TValue> dictionary)
             : this(dictionary, null)
         {
@@ -100,7 +100,7 @@ namespace System.Collections.Generic
         // IComparable interface, which in that case must be implemented
         // by the keys of all entries in the the given dictionary as well as keys
         // subsequently added to the sorted list.
-        // 
+        //
         public SortedList(IDictionary<TKey, TValue> dictionary, IComparer<TKey> comparer)
             : this((dictionary != null ? dictionary.Count : 0), comparer)
         {
@@ -115,7 +115,7 @@ namespace System.Collections.Generic
 
         // Adds an entry with the given key and value to this sorted list. An
         // ArgumentException is thrown if the key is already present in the sorted list.
-        // 
+        //
         public void Add(TKey key, TValue value)
         {
             if (key == null) ThrowHelper.ThrowArgumentNullException(ExceptionArgument.key);
@@ -156,7 +156,7 @@ namespace System.Collections.Generic
         // keys and values of the list, and thus also indicates the maximum number
         // of entries the list can contain before a reallocation of the internal
         // arrays is required.
-        // 
+        //
         public int Capacity
         {
             get
@@ -230,7 +230,7 @@ namespace System.Collections.Generic
         }
 
         // Returns the number of entries in this sorted list.
-        // 
+        //
         public int Count
         {
             get
@@ -242,7 +242,7 @@ namespace System.Collections.Generic
         // Returns a collection representing the keys of this sorted list. This
         // method returns the same object as GetKeyList, but typed as an
         // ICollection instead of an IList.
-        // 
+        //
         public IList<TKey> Keys
         {
             get
@@ -278,7 +278,7 @@ namespace System.Collections.Generic
         // Returns a collection representing the values of this sorted list. This
         // method returns the same object as GetValueList, but typed as an
         // ICollection instead of an IList.
-        // 
+        //
         public IList<TValue> Values
         {
             get
@@ -376,7 +376,7 @@ namespace System.Collections.Generic
         }
 
         // Checks if this sorted list contains an entry with the given key.
-        // 
+        //
         public bool ContainsKey(TKey key)
         {
             return IndexOfKey(key) >= 0;
@@ -387,7 +387,7 @@ namespace System.Collections.Generic
         // using the Object.Equals method. This method performs a linear
         // search and is substantially slower than the Contains
         // method.
-        // 
+        //
         public bool ContainsValue(TValue value)
         {
             return IndexOfValue(value) >= 0;
@@ -493,7 +493,7 @@ namespace System.Collections.Generic
         }
 
         // Returns the value of the entry at the given index.
-        // 
+        //
         private TValue GetByIndex(int index)
         {
             if (index < 0 || index >= _size)
@@ -524,7 +524,7 @@ namespace System.Collections.Generic
 
 
         // Returns the key of the entry at the given index.
-        // 
+        //
         private TKey GetKey(int index)
         {
             if (index < 0 || index >= _size) ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_Index);
@@ -534,7 +534,7 @@ namespace System.Collections.Generic
 
         // Returns the value associated with the given key. If an entry with the
         // given key is not found, the returned value is null.
-        // 
+        //
         public TValue this[TKey key]
         {
             get
@@ -606,9 +606,9 @@ namespace System.Collections.Generic
         // key is located through a binary search, and thus the average execution
         // time of this method is proportional to Log2(size), where
         // size is the size of this sorted list. The returned value is -1 if
-        // the given key does not occur in this sorted list. Null is an invalid 
+        // the given key does not occur in this sorted list. Null is an invalid
         // key value.
-        // 
+        //
         public int IndexOfKey(TKey key)
         {
             if (key == null)
@@ -622,7 +622,7 @@ namespace System.Collections.Generic
         // thus the average execution time of this method is proportional to the
         // size of this sorted list. The elements of the list are compared to the
         // given value using the Object.Equals method.
-        // 
+        //
         public int IndexOfValue(TValue value)
         {
             return Array.IndexOf(values, value, 0, _size);
@@ -658,7 +658,7 @@ namespace System.Collections.Generic
 
         // Removes the entry at the given index. The size of the sorted list is
         // decreased by one.
-        // 
+        //
         public void RemoveAt(int index)
         {
             if (index < 0 || index >= _size) ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument.index, ExceptionResource.ArgumentOutOfRange_Index);
@@ -676,7 +676,7 @@ namespace System.Collections.Generic
         // Removes an entry from this sorted list. If an entry with the specified
         // key exists in the sorted list, it is removed. An ArgumentException is
         // thrown if the key is null.
-        // 
+        //
         public bool Remove(TKey key)
         {
             int i = IndexOfKey(key);
@@ -698,10 +698,10 @@ namespace System.Collections.Generic
         // it is known that no new elements will be added to the sorted list. To
         // completely clear a sorted list and release all memory referenced by the
         // sorted list, execute the following statements:
-        // 
+        //
         // SortedList.Clear();
         // SortedList.TrimExcess();
-        // 
+        //
         public void TrimExcess()
         {
             int threshold = (int)(((double)keys.Length) * 0.9);

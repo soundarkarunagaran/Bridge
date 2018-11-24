@@ -105,7 +105,7 @@ namespace Bridge.Translator
             {
                 replacers.Add(new SwitchPatternReplacer());
             }
-            
+
             foreach (var replacer in replacers)
             {
                 modelUpdater(result);
@@ -246,7 +246,7 @@ namespace Bridge.Translator
             node = newNode as BinaryExpressionSyntax;
             if (node != null && node.OperatorToken.Kind() == SyntaxKind.IsKeyword && !(symbol is ITypeSymbol))
             {
-                //node = node.WithOperatorToken(SyntaxFactory.Token(SyntaxKind.EqualsEqualsToken));                
+                //node = node.WithOperatorToken(SyntaxFactory.Token(SyntaxKind.EqualsEqualsToken));
                 newNode = SyntaxFactory.InvocationExpression(SyntaxFactory.MemberAccessExpression(
                                     SyntaxKind.SimpleMemberAccessExpression,
                                     node.Left,
@@ -291,7 +291,7 @@ namespace Bridge.Translator
             {
                 return node.Expression.NormalizeWhitespace().WithTrailingTrivia(node.GetTrailingTrivia()).WithLeadingTrivia(node.GetLeadingTrivia());
             }
-            
+
             var createExpression = SyntaxFactory.ObjectCreationExpression(SyntaxFactory.GenericName(SyntaxFactory.Identifier("Bridge.Ref"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(new []{
                 SyntaxHelper.GenerateTypeSyntax(type, semanticModel, pos, this)
             })))).WithArgumentList(SyntaxFactory.ArgumentList(
@@ -345,7 +345,7 @@ namespace Bridge.Translator
             return node;
         }
 
-        private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);        
+        private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
 
         public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
         {
@@ -361,7 +361,7 @@ namespace Bridge.Translator
                 {
                     dynamic value = node.Token.Value;
                     node = node.WithToken(SyntaxFactory.Literal(value));
-                }                
+                }
             }
             else if (node.Kind() == SyntaxKind.DefaultLiteralExpression)
             {
@@ -572,7 +572,7 @@ namespace Bridge.Translator
                 }
 
                 if (pType.TypeKind == TypeKind.Delegate || parameter.IsParams && ((IArrayTypeSymbol)parameter.Type).ElementType.TypeKind == TypeKind.Delegate)
-                {                    
+                {
                     var expr = node.Expression;
 
                     if (expr is LambdaExpressionSyntax || expr is AnonymousMethodExpressionSyntax || expr is QueryExpressionSyntax)
@@ -880,7 +880,7 @@ namespace Bridge.Translator
 
         public override SyntaxNode VisitEqualsValueClause(EqualsValueClauseSyntax node)
         {
-            var value = semanticModel.GetConstantValue(node.Value);            
+            var value = semanticModel.GetConstantValue(node.Value);
             var newNode = base.VisitEqualsValueClause(node);
 
             if (value.HasValue && value.Value != null && newNode is EqualsValueClauseSyntax evc && !(node.Value is CastExpressionSyntax) && !(node.Value is LiteralExpressionSyntax))
@@ -956,7 +956,7 @@ namespace Bridge.Translator
                     }
 
                     return evc.WithValue(literal);
-                }                              
+                }
             }
 
             return newNode;
@@ -982,7 +982,7 @@ namespace Bridge.Translator
 
                 return newNode;
             }
-            
+
             var isAlias = semanticModel.GetAliasInfo(node) != null;
 
             ITypeSymbol thisType = this.currentType.Count == 0 ? null : this.currentType.Peek();
@@ -1134,7 +1134,7 @@ namespace Bridge.Translator
                 }
 
                 node = node.WithAccessors(SyntaxFactory.List(list));
-            }            
+            }
 
             return node;
         }

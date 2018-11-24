@@ -36,11 +36,11 @@ namespace System
         [Bridge.Template("<self>{this:type}")]
         public extern Type GetType();
 
-        // Returns a new object instance that is a memberwise copy of this 
+        // Returns a new object instance that is a memberwise copy of this
         // object.  This is always a shallow copy of the instance. The method is protected
         // so that other object may only call this method on themselves.  It is entended to
         // support the ICloneable interface.
-        // 
+        //
         // TODO: NotSupported
         //[System.Security.SecuritySafeCritical]  // auto-generated
         //[ResourceExposure(ResourceScope.None)]

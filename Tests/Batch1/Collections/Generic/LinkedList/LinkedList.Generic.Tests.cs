@@ -45,7 +45,7 @@ namespace Bridge.ClientTest.Collections.Generic
 
         /// <summary>
         /// Verifies that the tail/head properties are valid and
-        /// can iterate through the list (backwards and forwards) to 
+        /// can iterate through the list (backwards and forwards) to
         /// verify the contents of the list.
         /// </summary>
         internal static void VerifyState(LinkedList<T> linkedList, T[] expectedItems)
@@ -263,7 +263,7 @@ namespace Bridge.ClientTest.Collections.Generic
 
                 object tempItem;
 
-                //[] Verify we have not gotten more items then we expected                
+                //[] Verify we have not gotten more items then we expected
                 Assert.True(iterations < expectedCount,
                     "Err_9844awpa More items have been returned from the enumerator(" + iterations + " items) then are in the expectedElements(" + expectedCount + " items)");
 
@@ -289,7 +289,7 @@ namespace Bridge.ClientTest.Collections.Generic
                 //[] Verify Current always returns the same value every time it is called
                 for (int i = 0; i < 3; i++)
                 {
-                    tempItem = enumerator.Current;                    
+                    tempItem = enumerator.Current;
                     Assert.AreEqual(currentItem, tempItem, "Current is returning inconsistent results Current."); //"Err_8776phaw Current is returning inconsistent results Current."
                 }
 

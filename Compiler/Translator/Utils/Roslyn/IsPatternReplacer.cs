@@ -116,14 +116,14 @@ namespace Bridge.Translator
                     }
                     else if (annotatedNode is SimpleLambdaExpressionSyntax sl && !(sl.Body is BlockSyntax))
                     {
-                        lambdaExpression = sl.WithBody(SyntaxFactory.Block(list)).NormalizeWhitespace();                        
+                        lambdaExpression = sl.WithBody(SyntaxFactory.Block(list)).NormalizeWhitespace();
                     }
 
                     if (lambdaExpression != null)
                     {
                         root = root.ReplaceNode(annotatedNode, lambdaExpression);
                         continue;
-                    }                    
+                    }
                 }
 
                 if(annotatedNode.Parent is BlockSyntax || !(annotatedNode is StatementSyntax))

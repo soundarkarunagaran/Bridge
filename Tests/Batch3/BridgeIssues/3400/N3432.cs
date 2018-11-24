@@ -22,7 +22,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         }
 
         /// <summary>
-        /// This overrides the interface's member by a member with same name 
+        /// This overrides the interface's member by a member with same name
         /// and a different type.
         /// </summary>
         public class Some1 : ISome1

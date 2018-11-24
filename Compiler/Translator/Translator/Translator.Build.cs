@@ -213,7 +213,7 @@ namespace Bridge.Translator
             {
                 StringBuilder sb = new StringBuilder("C# Compilation Failed");
                 sb.AppendLine();
-                
+
                 baseDir = File.Exists(this.Location) ? Path.GetDirectoryName(this.Location) : Path.GetFullPath(this.Location);
 
                 foreach (var d in emitResult.Diagnostics.Where(d => d.Severity == DiagnosticSeverity.Error))

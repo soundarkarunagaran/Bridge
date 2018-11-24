@@ -17,7 +17,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
     public class Bridge3599
     {
 
-#pragma warning disable CS0169 // The field is never used 
+#pragma warning disable CS0169 // The field is never used
 
         public class SortedList<TK, TV> :
             IDictionary<TK, TV>
@@ -74,7 +74,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // elements are compared to each other using the IComparable
             // interface, which in that case must be implemented by the keys of all
             // entries added to the sorted list.
-            // 
+            //
             public SortedList(IComparer<TK> comparer)
                 : this()
             {
@@ -92,7 +92,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // comparer is null, the elements are compared to each other using
             // the IComparable interface, which in that case must be implemented
             // by the keys of all entries added to the sorted list.
-            // 
+            //
             public SortedList(int capacity, IComparer<TK> comparer)
                 : this(comparer)
             {
@@ -104,7 +104,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // to the IComparable interface, which must be implemented by the
             // keys of all entries in the given dictionary as well as keys
             // subsequently added to the sorted list.
-            // 
+            //
             public SortedList(IDictionary<TK, TV> dictionary)
                 : this(dictionary, null)
             {
@@ -117,7 +117,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // IComparable interface, which in that case must be implemented
             // by the keys of all entries in the given dictionary as well as keys
             // subsequently added to the sorted list.
-            // 
+            //
             public SortedList(IDictionary<TK, TV> dictionary, IComparer<TK> comparer)
                 : this((dictionary != null ? dictionary.Count : 0), comparer)
             {
@@ -152,7 +152,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             // Adds an entry with the given key and value to this sorted list. An
             // ArgumentException is thrown if the key is already present in the sorted list.
-            // 
+            //
             public void Add(TK key, TV value)
             {
                 if (key == null) throw new ArgumentNullException(nameof(key));
@@ -193,7 +193,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // keys and values of the list, and thus also indicates the maximum number
             // of entries the list can contain before a reallocation of the internal
             // arrays is required.
-            // 
+            //
             public int Capacity
             {
                 get
@@ -269,7 +269,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // Returns a collection representing the values of this sorted list. This
             // method returns the same object as GetValueList, but typed as an
             // ICollection instead of an IList.
-            // 
+            //
             public IList<TV> Values
             {
                 get
@@ -442,7 +442,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // key is located through a binary search, and thus the average execution
             // time of this method is proportional to Log2(size), where
             // size is the size of this sorted list. The returned value is -1 if
-            // the given key does not occur in this sorted list. Null is an invalid 
+            // the given key does not occur in this sorted list. Null is an invalid
             // key value.
             public int IndexOfKey(TK key)
             {
@@ -530,7 +530,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             // it is known that no new elements will be added to the sorted list. To
             // completely clear a sorted list and release all memory referenced by the
             // sorted list, execute the following statements:
-            // 
+            //
             // SortedList.Clear();
             // SortedList.TrimExcess();
             public void TrimExcess()
@@ -1049,7 +1049,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 }
             }
 
-#pragma warning restore CS0169 // The field is never used 
+#pragma warning restore CS0169 // The field is never used
 
         }
 

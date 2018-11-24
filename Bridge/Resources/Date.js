@@ -94,7 +94,7 @@
                         d1 = this.create$2(ticks, 2);
                     }
                 }
-                
+
                 return d1;
             },
 
@@ -225,9 +225,9 @@
             },
 
             ToFileTimeUtc: function (d) {
-                return (this.getKind(d) !== 0) ? this.getTicks(this.toUniversalTime(d)) : this.getTicks(d); 
+                return (this.getKind(d) !== 0) ? this.getTicks(this.toUniversalTime(d)) : this.getTicks(d);
             },
- 
+
             isUseGenitiveForm: function (format, index, tokenLen, patternToMatch) {
                 var i,
                     repeat = 0;
@@ -1163,7 +1163,7 @@
                 }
 
                 dt.ticks = this.getTicks(dt);
-                
+
                 return dt;
             },
 

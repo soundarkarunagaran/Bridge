@@ -148,7 +148,7 @@ namespace Bridge.Translator
                     else
                     {
                         result.Add("a", (int)typedef.Accessibility);
-                    }                    
+                    }
                 }
 
                 if (typedef.IsStatic)

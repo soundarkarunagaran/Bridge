@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#3478 - {0}")]
@@ -158,7 +158,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         [Test]
         public static void TestDateTimeTzMath()

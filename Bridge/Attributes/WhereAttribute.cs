@@ -4,7 +4,7 @@ namespace Bridge
 {
     /// <summary>
     /// Allows to configure flexible constraints for generic type parameters.
-    /// 
+    ///
     /// Provided multiple instances of [Where] attribute applied to a single generic type parameter,
     /// Bridge will not raise a compilation error if at least one [Where] attribute was met by the type argument.
     /// </summary>

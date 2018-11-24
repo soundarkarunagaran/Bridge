@@ -480,7 +480,7 @@
             }
             else {
                 prototype = extend ? new extend[0].$$initCtor() : (objectType.$$initCtor ? new objectType.$$initCtor() : new objectType());
-            }            
+            }
 
             Class.$$initCtor = function () { };
             Class.$$initCtor.prototype = prototype;
@@ -1077,7 +1077,7 @@
                                 task.continueWith(function () {
                                     setTimeout(function () {
                                         task.getAwaitedResult();
-                                    }, 0);                                    
+                                    }, 0);
                                 });
                             }
                         });

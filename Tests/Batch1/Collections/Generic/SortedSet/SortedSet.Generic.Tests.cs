@@ -29,6 +29,6 @@ namespace Bridge.ClientTest.Collections.Generic
 
         #endregion
 
-        
+
     }
 }

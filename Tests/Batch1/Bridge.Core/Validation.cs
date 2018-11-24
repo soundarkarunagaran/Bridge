@@ -110,7 +110,7 @@ namespace Bridge.ClientTest.Batch1.Bridge
             Assert.False(Validation.Email("ab@c d.ef"), "Email 'ab@c d.ef' is not valid.");
             Assert.False(Validation.Email("ab@cd.ef/"), "Email 'ab@cd.ef/' is not valid.");
             Assert.False(Validation.Email("http://ab@cd.ef"), "Email 'http://ab@cd.ef' is not valid.");
-            
+
             //should mailto:// be accepted here?.. guess this falls under the 'url' check
         }
 

@@ -69,7 +69,7 @@ namespace Bridge.Translator.Tests
             writer.Write(runJsFileContents);
             writer.Flush();
             runJsFileResource.Position = 0;
-            
+
             CopyBridgeandRunJsFiles(nodeJsExeFilePath, runJsFileResource, logger);
         }
 

@@ -432,7 +432,7 @@ namespace Bridge.Utils
         {
             var self = Instance;
             var v = "";
-            
+
             if (value != null)
             {
                 //@ var hasToString = value.ToString !== undefined;

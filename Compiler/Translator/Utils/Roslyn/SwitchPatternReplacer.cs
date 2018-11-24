@@ -267,7 +267,7 @@ namespace Bridge.Translator
             if (conditionList.Count == 1)
             {
                 return new Tuple<ExpressionSyntax, List<VariableDeclarationSyntax>, List<ExpressionSyntax>>(conditionList.First(), variables, whens);
-            }                
+            }
 
             ExpressionSyntax condition = conditionList[0];
             for (int i = 1; i < conditionList.Count; ++i)

@@ -312,7 +312,7 @@ namespace Bridge.ClientTest.SimpleTypes
         {
             var str = "01:02:03";
             var ts = TimeSpan.Parse(str);
-            
+
             Assert.AreEqual(0, ts.Days, "Could parse amount of days from HH:MM:SS time span.");
             Assert.AreEqual(1, ts.Hours, "Could parse amount of hours from HH:MM:SS time span.");
             Assert.AreEqual(2, ts.Minutes, "Could parse amount of minutes from HH:MM:SS time span.");

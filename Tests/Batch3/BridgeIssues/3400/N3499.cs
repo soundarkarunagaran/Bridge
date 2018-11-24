@@ -21,7 +21,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             Dictionary<Guid, string> superDict = new Dictionary<Guid, string>();
 
-            
+
             var x1 = "str1";
             Guid guid1 = new Guid("00000003-0000-0000-0001-00001c000000");
             var x2 = "str2";

@@ -12,7 +12,7 @@
         private IComparer comparer;
         private KeyList keyList;
         private ValueList valueList;
-        
+
         private static Object[] emptyArray = new object[0];
 
         public SortedList()
@@ -51,7 +51,7 @@
         // comparer is null, the elements are compared to each other using
         // the IComparable interface, which in that case must be implemented
         // by the keys of all entries added to the sorted list.
-        // 
+        //
         public SortedList(IComparer comparer, int capacity)
             : this(comparer)
         {
@@ -63,7 +63,7 @@
         // to the IComparable interface, which must be implemented by the
         // keys of all entries in the the given dictionary as well as keys
         // subsequently added to the sorted list.
-        // 
+        //
         public SortedList(IDictionary d)
             : this(d, null)
         {
@@ -76,7 +76,7 @@
         // IComparable interface, which in that case must be implemented
         // by the keys of all entries in the the given dictionary as well as keys
         // subsequently added to the sorted list.
-        // 
+        //
         public SortedList(IDictionary d, IComparer comparer)
             : this(comparer, (d != null ? d.Count : 0))
         {
@@ -91,7 +91,7 @@
 
         // Adds an entry with the given key and value to this sorted list. An
         // ArgumentException is thrown if the key is already present in the sorted list.
-        // 
+        //
         public virtual void Add(Object key, Object value)
         {
             if (key == null) throw new ArgumentNullException("key");
@@ -107,7 +107,7 @@
         // keys and values of the list, and thus also indicates the maximum number
         // of entries the list can contain before a reallocation of the internal
         // arrays is required.
-        // 
+        //
         public virtual int Capacity
         {
             get
@@ -145,7 +145,7 @@
         }
 
         // Returns the number of entries in this sorted list.
-        // 
+        //
         public virtual int Count
         {
             get
@@ -157,7 +157,7 @@
         // Returns a collection representing the keys of this sorted list. This
         // method returns the same object as GetKeyList, but typed as an
         // ICollection instead of an IList.
-        // 
+        //
         public virtual ICollection Keys
         {
             get
@@ -169,7 +169,7 @@
         // Returns a collection representing the values of this sorted list. This
         // method returns the same object as GetValueList, but typed as an
         // ICollection instead of an IList.
-        // 
+        //
         public virtual ICollection Values
         {
             get
@@ -215,8 +215,8 @@
 
         }
 
-        // Makes a virtually identical copy of this SortedList.  This is a shallow 
-        // copy.  IE, the Objects in the SortedList are not cloned - we copy the 
+        // Makes a virtually identical copy of this SortedList.  This is a shallow
+        // copy.  IE, the Objects in the SortedList are not cloned - we copy the
         // references to those objects.
         public virtual Object Clone()
         {
@@ -232,14 +232,14 @@
 
 
         // Checks if this sorted list contains an entry with the given key.
-        // 
+        //
         public virtual bool Contains(Object key)
         {
             return IndexOfKey(key) >= 0;
         }
 
         // Checks if this sorted list contains an entry with the given key.
-        // 
+        //
         public virtual bool ContainsKey(Object key)
         {
             // Yes, this is a SPEC'ed duplicate of Contains().
@@ -251,7 +251,7 @@
         // using the Object.Equals method. This method performs a linear
         // search and is substantially slower than the Contains
         // method.
-        // 
+        //
         public virtual bool ContainsValue(Object value)
         {
             return IndexOfValue(value) >= 0;
@@ -303,7 +303,7 @@
         }
 
         // Returns the value of the entry at the given index.
-        // 
+        //
         public virtual Object GetByIndex(int index)
         {
             if (index < 0 || index >= Count)
@@ -312,8 +312,8 @@
             return values[index];
         }
 
-        // Returns an IEnumerator for this sorted list.  If modifications 
-        // made to the sorted list while an enumeration is in progress, 
+        // Returns an IEnumerator for this sorted list.  If modifications
+        // made to the sorted list while an enumeration is in progress,
         // the MoveNext and Remove methods
         // of the enumerator will throw an exception.
         //
@@ -322,8 +322,8 @@
             return new SortedListEnumerator(this, 0, _size, SortedListEnumerator.DictEntry);
         }
 
-        // Returns an IDictionaryEnumerator for this sorted list.  If modifications 
-        // made to the sorted list while an enumeration is in progress, 
+        // Returns an IDictionaryEnumerator for this sorted list.  If modifications
+        // made to the sorted list while an enumeration is in progress,
         // the MoveNext and Remove methods
         // of the enumerator will throw an exception.
         //
@@ -333,7 +333,7 @@
         }
 
         // Returns the key of the entry at the given index.
-        // 
+        //
         public virtual Object GetKey(int index)
         {
             if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException("index");
@@ -351,7 +351,7 @@
         // throw exceptions), but it does allow removal of elements (through the
         // Remove and RemoveRange methods or through an enumerator).
         // Null is an invalid key value.
-        // 
+        //
         public virtual IList GetKeyList()
         {
             if (keyList == null) keyList = new KeyList(this);
@@ -368,7 +368,7 @@
         // methods throw exceptions), but it does allow modification and removal of
         // elements (through the Remove, RemoveRange, Set and
         // SetRange methods or through an enumerator).
-        // 
+        //
         public virtual IList GetValueList()
         {
             if (valueList == null) valueList = new ValueList(this);
@@ -377,7 +377,7 @@
 
         // Returns the value associated with the given key. If an entry with the
         // given key is not found, the returned value is null.
-        // 
+        //
         public virtual Object this[Object key]
         {
             get
@@ -405,9 +405,9 @@
         // key is located through a binary search, and thus the average execution
         // time of this method is proportional to Log2(size), where
         // size is the size of this sorted list. The returned value is -1 if
-        // the given key does not occur in this sorted list. Null is an invalid 
+        // the given key does not occur in this sorted list. Null is an invalid
         // key value.
-        // 
+        //
         public virtual int IndexOfKey(Object key)
         {
             if (key == null)
@@ -422,7 +422,7 @@
         // thus the average execution time of this method is proportional to the
         // size of this sorted list. The elements of the list are compared to the
         // given value using the Object.Equals method.
-        // 
+        //
         public virtual int IndexOfValue(Object value)
         {
             return Array.IndexOf(values, value, 0, _size);
@@ -445,7 +445,7 @@
 
         // Removes the entry at the given index. The size of the sorted list is
         // decreased by one.
-        // 
+        //
         public virtual void RemoveAt(int index)
         {
             if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException("index");
@@ -464,7 +464,7 @@
         // Removes an entry from this sorted list. If an entry with the specified
         // key exists in the sorted list, it is removed. An ArgumentException is
         // thrown if the key is null.
-        // 
+        //
         public virtual void Remove(Object key)
         {
             int i = IndexOfKey(key);
@@ -474,7 +474,7 @@
 
         // Sets the value at an index to a given value.  The previous value of
         // the given entry is overwritten.
-        // 
+        //
         public virtual void SetByIndex(int index, Object value)
         {
             if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException("index");
@@ -496,10 +496,10 @@
         // it is known that no new elements will be added to the sorted list. To
         // completely clear a sorted list and release all memory referenced by the
         // sorted list, execute the following statements:
-        // 
+        //
         // sortedList.Clear();
         // sortedList.TrimToSize();
-        // 
+        //
         public virtual void TrimToSize()
         {
             Capacity = _size;

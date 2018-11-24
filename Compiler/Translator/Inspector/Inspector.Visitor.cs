@@ -193,7 +193,7 @@ namespace Bridge.Translator
                                 }
 
                                 if (derivedMember != null && !derivedMember.ImplementedInterfaceMembers.Contains(interfaceMember) && !this.CurrentType.InstanceConfig.Alias.Any(a => typeDeclaration.Equals(a.Entity) && interfaceMember.Equals(a.InterfaceMember) && derivedMember.Equals(a.DerivedMember)))
-                                {                                    
+                                {
                                     this.CurrentType.InstanceConfig.Alias.Add(new TypeConfigItem { Entity = typeDeclaration, InterfaceMember = interfaceMember, DerivedMember = derivedMember });
                                     break;
                                 }
@@ -1025,7 +1025,7 @@ namespace Bridge.Translator
 
                     if (nameObj is string)
                     {
-                        dependency.DependencyName = nameObj.ToString();                        
+                        dependency.DependencyName = nameObj.ToString();
                     }
 
                     nameObj = this.GetAttributeArgumentValue(attr, resolveResult, 1);

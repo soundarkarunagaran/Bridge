@@ -1358,7 +1358,7 @@ namespace Bridge.Translator
             else
             {
                 indexerExpression.Target.AcceptVisitor(this.Emitter);
-            }            
+            }
 
             if (!isSimple)
             {

@@ -4,7 +4,7 @@ using System;
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
     /// <summary>
-    /// Testing to ensure that DateTime DayOfYear property is returning the correct values at various times throughout a normal year and leapyear. 
+    /// Testing to ensure that DateTime DayOfYear property is returning the correct values at various times throughout a normal year and leapyear.
     /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#3450 - {0}")]

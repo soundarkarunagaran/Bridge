@@ -17,7 +17,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             return ("testsf0", "testsf1");
         }
-        
+
         /// <summary>
         /// Checks each case of tuples against the expected returned value.
         /// </summary>

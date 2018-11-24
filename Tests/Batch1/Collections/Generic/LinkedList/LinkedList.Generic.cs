@@ -40,7 +40,7 @@ namespace Bridge.ClientTest.Collections.Generic
 
         /// <summary>
         /// Verifies that the tail/head properties are valid and
-        /// can iterate through the list (backwards and forwards) to 
+        /// can iterate through the list (backwards and forwards) to
         /// verify the contents of the list.
         /// </summary>
         private static void VerifyState(LinkedList<T> linkedList, T[] expectedItems)
@@ -277,7 +277,7 @@ namespace Bridge.ClientTest.Collections.Generic
                 object currentItem = enumerator.Current;
                 object tempItem;
 
-                //[] Verify we have not gotten more items then we expected                
+                //[] Verify we have not gotten more items then we expected
                 Assert.True(iterations < expectedCount,
                     "Err_9844awpa More items have been returned from the enumerator(" + iterations + " items) then are in the expectedElements(" + expectedCount + " items)");
 
@@ -519,7 +519,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[headItems.Length - 6];
             Array.Copy(headItems, 3, tempItems, 0, headItems.Length - 6);
 
@@ -752,7 +752,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[headItems.Length - 6];
             Array.Copy(headItems, 3, tempItems, 0, headItems.Length - 6);
 
@@ -1027,7 +1027,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
 
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
 
@@ -1257,7 +1257,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
 
@@ -1450,7 +1450,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             // expected items are headItems in reverse order, or a subset of them.
             tempItems = new string[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
@@ -1567,7 +1567,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
             InitialItems_Tests(linkedList, tempItems);
@@ -1698,7 +1698,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(tailItems[tailItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[tailItems.Length - 6];
             Array.Copy(tailItems, 3, tempItems, 0, tailItems.Length - 6);
 
@@ -1802,7 +1802,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
 
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new string[tailItems.Length - 6];
             Array.Copy(tailItems, 3, tempItems, 0, tailItems.Length - 6);
             InitialItems_Tests(linkedList, tempItems);
@@ -2651,7 +2651,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(linkedList.First); //Remove when  VS Whidbey: 234648 is resolved		
             linkedList.Remove(linkedList.Last); //Remove when  VS Whidbey: 234648 is resolved
 
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             string[] headItemsReverse = new string[arraySize];
             Array.Copy(headItems, headItemsReverse, headItems.Length);
             Array.Reverse(headItemsReverse);
@@ -2941,7 +2941,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[headItems.Length - 6];
             Array.Copy(headItems, 3, tempItems, 0, headItems.Length - 6);
 
@@ -3168,7 +3168,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[headItems.Length - 6];
             Array.Copy(headItems, 3, tempItems, 0, headItems.Length - 6);
 
@@ -3434,7 +3434,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
 
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
 
@@ -3657,7 +3657,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
 
@@ -3843,7 +3843,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             // expected items are headItems in reverse order, or a subset of them.
             tempItems = new int[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
@@ -3959,7 +3959,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(headItems[headItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[headItemsReverse.Length - 6];
             Array.Copy(headItemsReverse, 3, tempItems, 0, headItemsReverse.Length - 6);
             InitialItems_Tests(linkedList, tempItems);
@@ -4090,7 +4090,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(tailItems[tailItems.Length - 2]);
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[tailItems.Length - 6];
             Array.Copy(tailItems, 3, tempItems, 0, tailItems.Length - 6);
 
@@ -4194,7 +4194,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.RemoveFirst();
             linkedList.RemoveLast();
 
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             tempItems = new int[tailItems.Length - 6];
             Array.Copy(tailItems, 3, tempItems, 0, tailItems.Length - 6);
             InitialItems_Tests(linkedList, tempItems);
@@ -5043,7 +5043,7 @@ namespace Bridge.ClientTest.Collections.Generic
             linkedList.Remove(linkedList.First); //Remove when  VS Whidbey: 234648 is resolved		
             linkedList.Remove(linkedList.Last); //Remove when  VS Whidbey: 234648 is resolved
 
-            //With the above remove we should have removed the first and last 3 items 
+            //With the above remove we should have removed the first and last 3 items
             int[] headItemsReverse = new int[arraySize];
             Array.Copy(headItems, headItemsReverse, headItems.Length);
             Array.Reverse(headItemsReverse);

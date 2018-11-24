@@ -26,7 +26,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         }
 
         /// <summary>
-        /// Tests whether 
+        /// Tests whether
         /// </summary>
         [Test]
         public static void TestNullConditional()

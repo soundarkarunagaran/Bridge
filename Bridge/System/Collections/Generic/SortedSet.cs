@@ -12,14 +12,14 @@ namespace System.Collections.Generic
     // 2. Every leaf (nil node) is black
     // 3. If a node is red, then both its children are black
     // 4. Every simple path from a node to a descendant leaf contains the same number of black nodes
-    // 
-    // The basic idea of red-black tree is to represent 2-3-4 trees as standard BSTs but to add one extra bit of information  
-    // per node to encode 3-nodes and 4-nodes. 
+    //
+    // The basic idea of red-black tree is to represent 2-3-4 trees as standard BSTs but to add one extra bit of information
+    // per node to encode 3-nodes and 4-nodes.
     // 4-nodes will be represented as:          B
     //                                                              R            R
-    // 3 -node will be represented as:           B             or         B     
+    // 3 -node will be represented as:           B             or         B
     //                                                              R          B               B       R
-    // 
+    //
     // For a detailed description of the algorithm, take a look at "Algorithms" by Robert Sedgewick.
     //
 
@@ -203,8 +203,8 @@ namespace System.Collections.Generic
         //
         // Do a in order walk on tree and calls the delegate for each node.
         // If the action delegate returns false, stop the walk.
-        // 
-        // Return true if the entire tree has been walked. 
+        //
+        // Return true if the entire tree has been walked.
         // Otherwise returns false.
         //
         internal bool InOrderTreeWalk(TreeWalkPredicate<T> action)
@@ -212,7 +212,7 @@ namespace System.Collections.Generic
             return InOrderTreeWalk(action, false);
         }
 
-        // Allows for the change in traversal direction. Reverse visits nodes in descending order 
+        // Allows for the change in traversal direction. Reverse visits nodes in descending order
         internal virtual bool InOrderTreeWalk(TreeWalkPredicate<T> action, bool reverse)
         {
             if (root == null)
@@ -222,7 +222,7 @@ namespace System.Collections.Generic
 
             // The maximum height of a red-black tree is 2*lg(n+1).
             // See page 264 of "Introduction to algorithms" by Thomas H. Cormen
-            // note: this should be logbase2, but since the stack grows itself, we 
+            // note: this should be logbase2, but since the stack grows itself, we
             // don't want the extra cost
             Stack<Node> stack = new Stack<Node>(2 * (int)(SortedSet<T>.log2(Count + 1)));
             Node current = root;
@@ -250,11 +250,11 @@ namespace System.Collections.Generic
         }
 
         //
-        // Do a left to right breadth first walk on tree and 
+        // Do a left to right breadth first walk on tree and
         // calls the delegate for each node.
         // If the action delegate returns false, stop the walk.
-        // 
-        // Return true if the entire tree has been walked. 
+        //
+        // Return true if the entire tree has been walked.
         // Otherwise returns false.
         //
         internal virtual bool BreadthFirstTreeWalk(TreeWalkPredicate<T> action)
@@ -348,9 +348,9 @@ namespace System.Collections.Generic
 
         #region ICollection<T> Members
         /// <summary>
-        /// Add the value ITEM to the tree, returns true if added, false if duplicate 
+        /// Add the value ITEM to the tree, returns true if added, false if duplicate
         /// </summary>
-        /// <param name="item">item to be added</param> 
+        /// <param name="item">item to be added</param>
         public bool Add(T item)
         {
             return AddIfNotPresent(item);
@@ -363,9 +363,9 @@ namespace System.Collections.Generic
 
 
         /// <summary>
-        /// Adds ITEM to the tree if not already present. Returns TRUE if value was successfully added         
+        /// Adds ITEM to the tree if not already present. Returns TRUE if value was successfully added
         /// or FALSE if it is a duplicate
-        /// </summary>        
+        /// </summary>
         internal virtual bool AddIfNotPresent(T item)
         {
             if (root == null)
@@ -377,10 +377,10 @@ namespace System.Collections.Generic
             }
 
             //
-            // Search for a node at bottom to insert the new node. 
+            // Search for a node at bottom to insert the new node.
             // If we can guanratee the node we found is not a 4-node, it would be easy to do insertion.
             // We split 4-nodes along the search path.
-            // 
+            //
             Node current = root;
             Node parent = null;
             Node grandParent = null;
@@ -403,7 +403,7 @@ namespace System.Collections.Generic
                     return false;
                 }
 
-                // split a 4-node into two 2-nodes                
+                // split a 4-node into two 2-nodes
                 if (Is4Node(current))
                 {
                     Split4Node(current);
@@ -462,13 +462,13 @@ namespace System.Collections.Generic
             }
 
 
-            // Search for a node and then find its succesor. 
-            // Then copy the item from the succesor to the matching node and delete the successor. 
-            // If a node doesn't have a successor, we can replace it with its left child (if not empty.) 
+            // Search for a node and then find its succesor.
+            // Then copy the item from the succesor to the matching node and delete the successor.
+            // If a node doesn't have a successor, we can replace it with its left child (if not empty.)
             // or delete the matching node.
-            // 
+            //
             // In top-down implementation, it is important to make sure the node to be deleted is not a 2-node.
-            // Following code will make sure the node on the path is not a 2 Node. 
+            // Following code will make sure the node on the path is not a 2 Node.
 
             //even if we don't actually remove from the set, we may be altering its structure (by doing rotations
             //and such). so update version to disable any enumerators/subsets working on it
@@ -493,8 +493,8 @@ namespace System.Collections.Generic
                         Node sibling = GetSibling(current, parent);
                         if (sibling.IsRed)
                         {
-                            // If parent is a 3-node, flip the orientation of the red link. 
-                            // We can acheive this by a single rotation        
+                            // If parent is a 3-node, flip the orientation of the red link.
+                            // We can acheive this by a single rotation
                             // This case is converted to one of other cased below.
                             Debug.Assert(!parent.IsRed, "parent must be a black node!");
                             if (parent.Right == sibling)
@@ -510,7 +510,7 @@ namespace System.Collections.Generic
                             sibling.IsRed = false;    // parent's color
                             // sibling becomes child of grandParent or root after rotation. Update link from grandParent or root
                             ReplaceChildOfNodeOrRoot(grandParent, parent, sibling);
-                            // sibling will become grandParent of current node 
+                            // sibling will become grandParent of current node
                             grandParent = sibling;
                             if (parent == match)
                             {
@@ -756,10 +756,10 @@ namespace System.Collections.Generic
         }
 
         // After calling InsertionBalance, we need to make sure current and parent up-to-date.
-        // It doesn't matter if we keep grandParent and greatGrantParent up-to-date 
+        // It doesn't matter if we keep grandParent and greatGrantParent up-to-date
         // because we won't need to split again in the next node.
         // By the time we need to split again, everything will be correctly set.
-        //  
+        //
         private void InsertionBalance(Node current, ref Node parent, Node grandParent, Node greatGrandParent)
         {
             Debug.Assert(grandParent != null, "Grand parent cannot be null here!");
@@ -774,7 +774,7 @@ namespace System.Collections.Generic
             else
             {  // different orientaton, double rotation
                 newChildOfGreatGrandParent = currentIsOnRight ? RotateLeftRight(grandParent) : RotateRightLeft(grandParent);
-                // current node now becomes the child of greatgrandparent 
+                // current node now becomes the child of greatgrandparent
                 parent = greatGrandParent;
             }
             // grand parent will become a child of either parent of current.
@@ -819,8 +819,8 @@ namespace System.Collections.Generic
             child2.IsRed = true;
         }
 
-        // Replace the child of a parent node. 
-        // If the parent node is null, replace the root.        
+        // Replace the child of a parent node.
+        // If the parent node is null, replace the root.
         private void ReplaceChildOfNodeOrRoot(Node parent, Node child, Node newChild)
         {
             if (parent != null)
@@ -895,7 +895,7 @@ namespace System.Collections.Generic
             return null;
         }
 
-        //used for bithelpers. Note that this implementation is completely different 
+        //used for bithelpers. Note that this implementation is completely different
         //from the Subset's. The two should not be mixed. This indexes as if the tree were an array.
         //http://en.wikipedia.org/wiki/Binary_Tree#Methods_for_storing_binary_trees
         internal virtual int InternalIndexOf(T item)
@@ -1033,7 +1033,7 @@ namespace System.Collections.Generic
         /// Create a new set comparer for this set, where this set's members' equality is defined by the
         /// memberEqualityComparer. Note that this equality comparer's definition of equality must be the
         /// same as this set's Comparer's definition of equality
-        /// </summary>                
+        /// </summary>
         public static IEqualityComparer<SortedSet<T>> CreateSetComparer(IEqualityComparer<T> memberEqualityComparer)
         {
             return new SortedSetEqualityComparer<T>(memberEqualityComparer);
@@ -1043,7 +1043,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Decides whether these sets are the same, given the comparer. If the EC's are the same, we can
         /// just use SetEquals, but if they aren't then we have to manually check with the given comparer
-        /// </summary>        
+        /// </summary>
         internal static bool SortedSetEquals(SortedSet<T> set1, SortedSet<T> set2, IComparer<T> comparer)
         {
             // handle null cases first
@@ -1118,11 +1118,11 @@ namespace System.Collections.Generic
         #region ISet Members
 
         /// <summary>
-        /// Transform this set into its union with the IEnumerable OTHER            
-        ///Attempts to insert each element and rejects it if it exists.          
-        /// NOTE: The caller object is important as UnionWith uses the Comparator 
-        ///associated with THIS to check equality                                
-        /// Throws ArgumentNullException if OTHER is null                         
+        /// Transform this set into its union with the IEnumerable OTHER
+        ///Attempts to insert each element and rejects it if it exists.
+        /// NOTE: The caller object is important as UnionWith uses the Comparator
+        ///associated with THIS to check equality
+        /// Throws ArgumentNullException if OTHER is null
         /// </summary>
         /// <param name="other"></param>
         public void UnionWith(IEnumerable<T> other)
@@ -1209,7 +1209,7 @@ namespace System.Collections.Generic
 
 
             //what does this do?
-            //you're given a sorted array... say 1 2 3 4 5 6 
+            //you're given a sorted array... say 1 2 3 4 5 6
             //2 cases:
             //    If there are odd # of elements, pick the middle element (in this case 4), and compute
             //    its left and right branches
@@ -1219,7 +1219,7 @@ namespace System.Collections.Generic
             //    now add 4 as a red node to the lowest element on the right branch
             //             3                       3
             //         1       5       ->     1        5
-            //           2       6             2     4   6            
+            //           2       6             2     4   6
             //    As we're adding to the leftmost of the right branch, nesting will not hurt the red-black properties
             //    Leaf nodes are red if they have no sibling (if there are 2 nodes or if a node trickles
             //    down to the bottom
@@ -1284,12 +1284,12 @@ namespace System.Collections.Generic
 
 
         /// <summary>
-        /// Transform this set into its intersection with the IEnumerable OTHER     
-        /// NOTE: The caller object is important as IntersectionWith uses the        
-        /// comparator associated with THIS to check equality                        
-        /// Throws ArgumentNullException if OTHER is null                         
+        /// Transform this set into its intersection with the IEnumerable OTHER
+        /// NOTE: The caller object is important as IntersectionWith uses the
+        /// comparator associated with THIS to check equality
+        /// Throws ArgumentNullException if OTHER is null
         /// </summary>
-        /// <param name="other"></param>   
+        /// <param name="other"></param>
         public virtual void IntersectWith(IEnumerable<T> other)
         {
             if (other == null)
@@ -1375,10 +1375,10 @@ namespace System.Collections.Generic
 
 
         /// <summary>
-        ///  Transform this set into its complement with the IEnumerable OTHER       
-        ///  NOTE: The caller object is important as ExceptWith uses the        
-        ///  comparator associated with THIS to check equality                        
-        ///  Throws ArgumentNullException if OTHER is null                           
+        ///  Transform this set into its complement with the IEnumerable OTHER
+        ///  NOTE: The caller object is important as ExceptWith uses the
+        ///  comparator associated with THIS to check equality
+        ///  Throws ArgumentNullException if OTHER is null
         /// </summary>
         /// <param name="other"></param>
         public void ExceptWith(IEnumerable<T> other)
@@ -1401,7 +1401,7 @@ namespace System.Collections.Generic
 
             if (asSorted != null && AreComparersEqual(this, asSorted))
             {
-                //outside range, no point doing anything               
+                //outside range, no point doing anything
                 if (!(comparer.Compare(asSorted.Max, this.Min) < 0 || comparer.Compare(asSorted.Min, this.Max) > 0))
                 {
                     T min = this.Min;
@@ -1425,9 +1425,9 @@ namespace System.Collections.Generic
 
         /// <summary>
         ///  Transform this set so it contains elements in THIS or OTHER but not both
-        ///  NOTE: The caller object is important as SymmetricExceptWith uses the        
-        ///  comparator associated with THIS to check equality                        
-        ///  Throws ArgumentNullException if OTHER is null                           
+        ///  NOTE: The caller object is important as SymmetricExceptWith uses the
+        ///  comparator associated with THIS to check equality
+        ///  Throws ArgumentNullException if OTHER is null
         /// </summary>
         /// <param name="other"></param>
         public void SymmetricExceptWith(IEnumerable<T> other)
@@ -1478,7 +1478,7 @@ namespace System.Collections.Generic
             {
                 //yes, it is classier to say
                 //if (!this.Remove(item))this.Add(item);
-                //but this ends up saving on rotations                    
+                //but this ends up saving on rotations
                 if (this.Contains(item))
                 {
                     this.Remove(item);
@@ -1668,7 +1668,7 @@ namespace System.Collections.Generic
 
 
             //do it one way for HashSets
- 
+
             HashSet<T> asHash = other as HashSet<T>;
             if (asHash != null && comparer.Equals(Comparer<T>.Default) && asHash.Comparer.Equals(EqualityComparer<T>.Default)) {
                 return asHash.IsProperSubsetOf(this);
@@ -1737,7 +1737,7 @@ namespace System.Collections.Generic
             }
 
             //worst case: mark every element in my set and see if i've counted all
-            //O(N) by size of other            
+            //O(N) by size of other
             ElementCount result = CheckUniqueAndUnfoundElements(other, true);
             return (result.uniqueCount == Count && result.unfoundCount == 0);
         }
@@ -1786,14 +1786,14 @@ namespace System.Collections.Generic
         /// <summary>
         /// This works similar to HashSet's CheckUniqueAndUnfound (description below), except that the bit
         /// array maps differently than in the HashSet. We can only use this for the bulk boolean checks.
-        /// 
+        ///
         /// Determines counts that can be used to determine equality, subset, and superset. This
         /// is only used when other is an IEnumerable and not a HashSet. If other is a HashSet
-        /// these properties can be checked faster without use of marking because we can assume 
+        /// these properties can be checked faster without use of marking because we can assume
         /// other has no duplicates.
-        /// 
+        ///
         /// The following count checks are performed by callers:
-        /// 1. Equals: checks if unfoundCount = 0 and uniqueFoundCount = Count; i.e. everything 
+        /// 1. Equals: checks if unfoundCount = 0 and uniqueFoundCount = Count; i.e. everything
         /// in other is in this and everything in this is in other
         /// 2. Subset: checks if unfoundCount >= 0 and uniqueFoundCount = Count; i.e. other may
         /// have elements not in this and everything in this is in other
@@ -1802,7 +1802,7 @@ namespace System.Collections.Generic
         /// 4. Proper superset: checks if unfound count = 0 and uniqueFoundCount strictly less
         /// than Count; i.e. everything in other was in this and this had at least one element
         /// not contained in other.
-        /// 
+        ///
         /// An earlier implementation used delegates to perform these checks rather than returning
         /// an ElementCount struct; however this was changed due to the perf overhead of delegates.
         /// </summary>
@@ -1821,7 +1821,7 @@ namespace System.Collections.Generic
         {
             ElementCount result;
 
-            // need special case in case this has no elements. 
+            // need special case in case this has no elements.
             if (Count == 0)
             {
                 int numElementsInOther = 0;
@@ -1945,7 +1945,7 @@ namespace System.Collections.Generic
         /// Any changes made to the subset reflect in the actual tree
         /// </summary>
         /// <param name="lowerValue">Lowest Value allowed in the subset</param>
-        /// <param name="upperValue">Highest Value allowed in the subset</param>        
+        /// <param name="upperValue">Highest Value allowed in the subset</param>
         public virtual SortedSet<T> GetViewBetween(T lowerValue, T upperValue)
         {
             if (Comparer.Compare(lowerValue, upperValue) > 0)
@@ -1980,7 +1980,7 @@ namespace System.Collections.Generic
             //anything <=10 is added, but there is no upperbound. These features Head(), Tail(), were punted
             //in the spec, and are not available, but the framework is there to make them available at some point.
             bool lBoundActive, uBoundActive;
-            //used to see if the count is out of date            
+            //used to see if the count is out of date
 
             public TreeSubSet(SortedSet<T> Underlying, T Min, T Max, bool lowerBoundActive, bool upperBoundActive)
                 : base(Underlying.Comparer)
@@ -1990,7 +1990,7 @@ namespace System.Collections.Generic
                 max = Max;
                 lBoundActive = lowerBoundActive;
                 uBoundActive = upperBoundActive;
-                root = underlying.FindRange(min, max, lBoundActive, uBoundActive); // root is first element within range                                
+                root = underlying.FindRange(min, max, lBoundActive, uBoundActive); // root is first element within range
                 count = 0;
                 version = -1;
                 VersionCheckImpl();
@@ -2003,7 +2003,7 @@ namespace System.Collections.Generic
 
             /// <summary>
             /// Additions to this tree need to be added to the underlying tree as well
-            /// </summary>           
+            /// </summary>
 
             internal override bool AddIfNotPresent(T item)
             {
@@ -2256,7 +2256,7 @@ namespace System.Collections.Generic
 
         #endregion
 
-        
+
 
         #region Helper Classes
         internal class Node
@@ -2268,14 +2268,14 @@ namespace System.Collections.Generic
 
             public Node(T item)
             {
-                // The default color will be red, we never need to create a black node directly.                
+                // The default color will be red, we never need to create a black node directly.
                 this.Item = item;
                 IsRed = true;
             }
 
             public Node(T item, bool isRed)
             {
-                // The default color will be red, we never need to create a black node directly.                
+                // The default color will be red, we never need to create a black node directly.
                 this.Item = item;
                 this.IsRed = isRed;
             }
@@ -2472,7 +2472,7 @@ namespace System.Collections.Generic
         /// <param name="actualValue">The value from the set that the search found, or the default value of <typeparamref name="T"/> when the search yielded no match.</param>
         /// <returns>A value indicating whether the search was successful.</returns>
         /// <remarks>
-        /// This can be useful when you want to reuse a previously stored reference instead of 
+        /// This can be useful when you want to reuse a previously stored reference instead of
         /// a newly constructed one (so that more sharing of references can occur) or to look up
         /// a value that has more complete data than the value you currently have, although their
         /// comparer functions indicate they are equal.
@@ -2510,7 +2510,7 @@ namespace System.Collections.Generic
     /// A class that generates an IEqualityComparer for this SortedSet. Requires that the definition of
     /// equality defined by the IComparer for this SortedSet be consistent with the default IEqualityComparer
     /// for the type T. If not, such an IEqualityComparer should be provided through the constructor.
-    /// </summary>    
+    /// </summary>
     internal class SortedSetEqualityComparer<T> : IEqualityComparer<SortedSet<T>>
     {
         private IComparer<T> comparer;
@@ -2525,7 +2525,7 @@ namespace System.Collections.Generic
         /// <summary>
         /// Create a new SetEqualityComparer, given a comparer for member order and another for member equality (these
         /// must be consistent in their definition of equality)
-        /// </summary>        
+        /// </summary>
         public SortedSetEqualityComparer(IComparer<T> comparer, IEqualityComparer<T> memberEqualityComparer)
         {
             if (comparer == null)
@@ -2559,7 +2559,7 @@ namespace System.Collections.Generic
             return hashCode;
         }
 
-        // Equals method for the comparer itself. 
+        // Equals method for the comparer itself.
         public override bool Equals(Object obj)
         {
             SortedSetEqualityComparer<T> comparer = obj as SortedSetEqualityComparer<T>;

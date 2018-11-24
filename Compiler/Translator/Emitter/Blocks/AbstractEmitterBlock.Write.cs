@@ -56,7 +56,7 @@ namespace Bridge.Translator
             if (this.Emitter.AssemblyInfo.SourceMap.Enabled)
             {
                 var line = region.BeginLine;
-                var column = region.BeginColumn;                
+                var column = region.BeginColumn;
                 var idx = this.Emitter.SourceFileNameIndex;
 
                 if (this.Emitter.TypeInfo.TypeDeclaration.HasModifier(ICSharpCode.NRefactory.CSharp.Modifiers.Partial))
@@ -71,7 +71,7 @@ namespace Bridge.Translator
                         {
                             idx = this.Emitter.SourceFileNameIndex;
                         }
-                    }                    
+                    }
                 }
                 var point = string.Format("/*##|{0},{1},{2}|##*/", idx, line, column);
 

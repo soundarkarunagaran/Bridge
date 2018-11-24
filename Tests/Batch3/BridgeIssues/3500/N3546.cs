@@ -21,7 +21,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             string a = "foo";
 
-            var b = Script.Call<string>(@"    
+            var b = Script.Call<string>(@"
             (
                 function(p){ return p + 'bar';}
             )", a);

@@ -154,7 +154,7 @@ namespace Bridge.Translator
                     }
                     else{
                         list.Add(fe.Statement);
-                    }                   
+                    }
 
                     root = root.ReplaceNode(annotatedNode, fe.WithStatement(SyntaxFactory.Block(list)).NormalizeWhitespace());
                 }
@@ -201,7 +201,7 @@ namespace Bridge.Translator
                 var tempIndex = 0;
                 root = root.ReplaceNodes(loops, (n1, n2) => {
                     var variable = n2.Variable;
-                    
+
                     string instance = "_d" + ++tempIndex;
                     if (n1.Parent != null)
                     {
@@ -281,7 +281,7 @@ namespace Bridge.Translator
                     var assignment = n2;
                     var deconstructionInfo = infos[n1];
 
-                    
+
                     var tuple = assignment.Left;
                     var obj = assignment.Right;
 

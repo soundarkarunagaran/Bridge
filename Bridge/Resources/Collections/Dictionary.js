@@ -131,7 +131,7 @@
 
                         for (var j = 0; j < entry.length; j++) {
                             keys.push(entry[j].key);
-                        }                       
+                        }
                     }
                 }
 
@@ -152,7 +152,7 @@
 
                         for (var j = 0; j < entry.length; j++) {
                             values.push(entry[j].value);
-                        }                         
+                        }
                     }
                 }
 

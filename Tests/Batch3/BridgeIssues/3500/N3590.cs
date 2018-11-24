@@ -3,7 +3,7 @@ using Bridge.Test.NUnit;
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [TestFixture(TestNameFormat = "#3590 - {0}")]
     public class Bridge3590

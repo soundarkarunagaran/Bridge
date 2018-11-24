@@ -159,7 +159,7 @@ namespace Bridge.Translator
                 if (expression.Parent is ConstructorInitializer ci && expectedType.Equals(rr.Type))
                 {
                     var prr = block.Emitter.Resolver.ResolveNode(expression.Parent, block.Emitter);
-                    
+
                     if (prr is InvocationResolveResult irr)
                     {
                         var args = irr.GetArgumentsForCall();
@@ -173,7 +173,7 @@ namespace Bridge.Translator
                                 {
                                     expectedType = args[i].Type;
                                 }
-                                
+
                                 break;
                             }
                         }
@@ -505,7 +505,7 @@ namespace Bridge.Translator
                         {
                             block.AfterOutput2 += ")";
                         }
-                        
+
                     }
                 }
                 else if (conversion.IsUnboxingConversion && !Helpers.IsImmutableStruct(block.Emitter, NullableType.GetUnderlyingType(rr.Type)))

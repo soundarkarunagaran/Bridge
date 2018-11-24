@@ -16,8 +16,8 @@ namespace Bridge.ClientTest.CSharp7
         [Test]
         public static void IsPatternTests()
         {
-            object o = "16"; 
-            if (o is int i || (o is string s && int.TryParse(s, out i))) 
+            object o = "16";
+            if (o is int i || (o is string s && int.TryParse(s, out i)))
             {
                 object o1 = "17";
                 if (o1 is int i1 || (o1 is string s1 && int.TryParse(s1, out i1)))

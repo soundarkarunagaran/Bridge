@@ -127,7 +127,7 @@
                         return enumMethods.toName(name);
                     }
                 }
-                
+
                 return value.toString();
             } else {
                 var parts = [],

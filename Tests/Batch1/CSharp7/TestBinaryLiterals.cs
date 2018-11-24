@@ -16,8 +16,8 @@ namespace Bridge.ClientTest.CSharp7
             int c = 0B110010;
             int f = 0b110010 * 2;
 
-            int binaryData = 0B0010_0111_0001_0000; // binary value of 10000   
-            int hexaDecimalData = 0X2B_67; //HexaDecimal Value of 11,111   
+            int binaryData = 0B0010_0111_0001_0000; // binary value of 10000
+            int hexaDecimalData = 0X2B_67; //HexaDecimal Value of 11,111
             int decimalData = 104_567_789;
             int myCustomData = 1___________2__________3___4____5_____6;
             double realdata = 1_000.111_1e1_00;

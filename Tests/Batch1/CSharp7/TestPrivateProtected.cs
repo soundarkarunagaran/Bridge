@@ -4,7 +4,7 @@ using System.Reflection;
 namespace Bridge.ClientTest.CSharp7
 {
     /// <summary>
-    /// Tests related to the C# 7.2 feature 'private protected' member 
+    /// Tests related to the C# 7.2 feature 'private protected' member
     /// accessiblity levels.
     /// </summary>
     /// <remarks>

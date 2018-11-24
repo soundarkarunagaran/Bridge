@@ -139,7 +139,7 @@ namespace Bridge.Translator
                             pos += 7;
 
                             this.Emitter.Output.Insert(pos, scope + ", " + (needConcat ? "[" : ""));
-                        }                        
+                        }
                     }
 
                     isApply = needConcat;
@@ -183,7 +183,7 @@ namespace Bridge.Translator
                     if (byReferenceResolveResult != null && !(byReferenceResolveResult.ElementResult is LocalResolveResult))
                     {
                         if (byReferenceResolveResult.ElementResult is MemberResolveResult mr && mr.Member.FullName == "Bridge.Ref.Value" && directExpr.Expression is MemberReferenceExpression mre)
-                        {                            
+                        {
                             mre.Target.AcceptVisitor(this.Emitter);
                         }
                         else
@@ -201,7 +201,7 @@ namespace Bridge.Translator
                             }
 
                             this.Write(")");
-                        }                       
+                        }
 
                         continue;
                     }

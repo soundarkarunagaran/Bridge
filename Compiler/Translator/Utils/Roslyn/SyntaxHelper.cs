@@ -63,7 +63,7 @@ namespace Bridge.Translator
             {
                 return false;
             }
-                
+
             var returnType = type.GetDelegateInvokeMethod().GetReturnType();
             return returnType != null && returnType.SpecialType != SpecialType.System_Void;
         }
