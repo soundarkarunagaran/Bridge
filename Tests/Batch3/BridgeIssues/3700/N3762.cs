@@ -1,17 +1,15 @@
-using Bridge;
+using Bridge.Test.NUnit;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bridge.Test.NUnit;
 
-//TODO: Issue3762 is fixed but Bridge.Test plugin generates wrong code for such test case. It is different issue and should be resolved separatelly
-/*namespace SomeName3762
+namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
-    public class A
+    public class Bridge3762_A
     {
         public string P { get; set; }
 
-        public A()
+        public Bridge3762_A()
         {
             P = ""; //dotnetfiddle doesn't support property initializer
         }
@@ -22,7 +20,7 @@ using Bridge.Test.NUnit;
         }
     }
 
-    public class B
+    public class Bridge3762_B
     {
         public static string Fail<T>(T v, Func<T, string> transform)
         {
@@ -39,42 +37,71 @@ using Bridge.Test.NUnit;
             return v.ToString();
         }
 
-        public static A Helper(A aaa)
+        public static Bridge3762_A Helper(Bridge3762_A aaa)
         {
             return aaa;
         }
     }
 
     [TestFixture(TestNameFormat = "#3762 - {0}")]
-    public class SomeName3762
+    public class Bridge3762
     {
         [Test]
         public static void TestModelResolving()
         {
-            Assert.AreEqual("123456", B.Fail(new A { P = "123" }, x => x.P + "456")); //this fails in 17.4.0
-            Assert.AreEqual("678", B.Fail2((A x) => x + "678")); //this fails in 17.4.0
+            Bridge.DoTest();
+        }
 
-            Assert.AreEqual("123456", B.Fail<A>(new A { P = "123" }, x => x.P + "456")); //workaround for 17.4.0
-            Assert.AreEqual("678", B.Fail2<A>((A x) => x + "678")); //workaround for 17.4.0
+        public class Bridge
+        {
+            public static void DoTest()
+            {
+                // used to fail in 17.4.0.
+                Assert.AreEqual(
+                    "123456",
+                    Bridge3762_B.Fail(new Bridge3762_A { P = "123" }, x => x.P + "456"),
+                    "Works: B.Fail(new A {P = \"123\"}, x => x.P+\"456\")");
+                Assert.AreEqual(
+                    "678",
+                    Bridge3762_B.Fail2((Bridge3762_A x) => x + "678"),
+                    "Works: B.Fail2((A x) => x+\"678\")");
 
-            Assert.AreEqual("13", B.Fine(new A { P = "13" }));
+                // workaround for 17.4.0.
+                Assert.AreEqual(
+                    "123456",
+                    Bridge3762_B.Fail<Bridge3762_A>(new Bridge3762_A { P = "123" }, x => x.P + "456"),
+                    "Workaround works: B.Fail<A>(new A {P = \"123\"}, x => x.P+\"456\")");
+                Assert.AreEqual(
+                    "678",
+                    Bridge3762_B.Fail2<Bridge3762_A>((Bridge3762_A x) => x + "678"),
+                    "Workaround works: B.Fail2<A>((A x) => x+\"678\")");
 
-            var lst = new List<A> { new A { P = "22" } };
-            var lstFail = lst.Select(z => {
-                return B.Helper(z);
-            }).ToList(); //this fails in 17.4.0
+                Assert.AreEqual(
+                    "13",
+                    Bridge3762_B.Fine(new Bridge3762_A { P = "13" }),
+                    "Works: B.Fine(new A {P = \"13\"})");
 
-            Assert.AreEqual(1, lstFail.Count);
-            Assert.AreEqual("22", lstFail[0].P);
+                // Again, used to fail in 17.4.0.
+                var lst = new List<Bridge3762_A> { new Bridge3762_A { P = "22" } };
+                var lstFail = lst.Select(z => {
+                    return Bridge3762_B.Helper(z);
+                }).ToList();
 
-            var lstWorkaround = lst.Select<A, A>(z => {
-                return B.Helper(z);
-            }).ToList(); //workaround for 17.4.0
+                Assert.AreEqual(1, lstFail.Count,
+                    "Non-empty list: (new List<A> {new A {P = \"22\"} }).Select(z => {return B.Helper(z);}).ToList()");
+                Assert.AreEqual("22", lstFail[0].P,
+                    "Produces expected value: (new List<A> {new A {P = \"22\"} }).Select(z => {return B.Helper(z);}).ToList()");
 
-            Assert.AreEqual(1, lstWorkaround.Count);
-            Assert.AreEqual("22", lstFail[0].P);
-            Console.WriteLine("done");
+                // And workaround with the same functionality
+                var lstWorkaround = lst.Select<Bridge3762_A, Bridge3762_A>(z => {
+                    return Bridge3762_B.Helper(z);
+                }).ToList();
+
+                Assert.AreEqual(1, lstWorkaround.Count,
+                    "Workaround non-empty list: lst.Select<A,A>(z => {return B.Helper(z);}).ToList()");
+                Assert.AreEqual("22", lstFail[0].P,
+                    "Workaround produces expected value: lst.Select<A,A>(z => {return B.Helper(z);}).ToList()");
+            }
         }
     }
 }
-*/
