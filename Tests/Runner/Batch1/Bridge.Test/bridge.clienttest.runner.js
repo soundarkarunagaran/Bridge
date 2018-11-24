@@ -14778,147 +14778,147 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 LinkedList_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable()", $t.Line = "2552", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable()", $t.Line = "2797", $t));
                     t.Fixture.LinkedList_Generic_Constructor_IEnumerable();
                 },
                 LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException()", $t.Line = "2573", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException()", $t.Line = "2818", $t));
                     t.Fixture.LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException();
                 },
                 AddAfter_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode()", $t.Line = "2581", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode()", $t.Line = "2826", $t));
                     t.Fixture.AddAfter_LLNode();
                 },
                 AddAfter_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_Negative()", $t.Line = "2747", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_Negative()", $t.Line = "3016", $t));
                     t.Fixture.AddAfter_LLNode_Negative();
                 },
                 AddAfter_LLNode_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode()", $t.Line = "2782", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode()", $t.Line = "3051", $t));
                     t.Fixture.AddAfter_LLNode_LLNode();
                 },
                 AddAfter_LLNode_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode_Negative()", $t.Line = "2958", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode_Negative()", $t.Line = "3251", $t));
                     t.Fixture.AddAfter_LLNode_LLNode_Negative();
                 },
                 AddBefore_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode()", $t.Line = "3025", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode()", $t.Line = "3318", $t));
                     t.Fixture.AddBefore_LLNode();
                 },
                 AddBefore_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_Negative()", $t.Line = "3193", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_Negative()", $t.Line = "3510", $t));
                     t.Fixture.AddBefore_LLNode_Negative();
                 },
                 AddBefore_LLNode_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode()", $t.Line = "3226", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode()", $t.Line = "3543", $t));
                     t.Fixture.AddBefore_LLNode_LLNode();
                 },
                 AddBefore_LLNode_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode_Negative()", $t.Line = "3392", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode_Negative()", $t.Line = "3733", $t));
                     t.Fixture.AddBefore_LLNode_LLNode_Negative();
                 },
                 AddFirst_T_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_T_Tests()", $t.Line = "3455", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_T_Tests()", $t.Line = "3796", $t));
                     t.Fixture.AddFirst_T_Tests();
                 },
                 AddFirst_LinkedListNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode()", $t.Line = "3555", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode()", $t.Line = "3912", $t));
                     t.Fixture.AddFirst_LinkedListNode();
                 },
                 AddFirst_LinkedListNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode_Negative()", $t.Line = "3642", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode_Negative()", $t.Line = "4011", $t));
                     t.Fixture.AddFirst_LinkedListNode_Negative();
                 },
                 AddLast_T_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_T_Tests()", $t.Line = "3682", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_T_Tests()", $t.Line = "4051", $t));
                     t.Fixture.AddLast_T_Tests();
                 },
                 AddLast_LinkedListNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode()", $t.Line = "3769", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode()", $t.Line = "4148", $t));
                     t.Fixture.AddLast_LinkedListNode();
                 },
                 AddLast_LinkedListNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode_Negative()", $t.Line = "3854", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode_Negative()", $t.Line = "4243", $t));
                     t.Fixture.AddLast_LinkedListNode_Negative();
                 },
                 CtorTest: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CtorTest()", $t.Line = "3894", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CtorTest()", $t.Line = "4283", $t));
                     Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int.CtorTest();
                 },
                 Ctor_IEnumerableTest: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest()", $t.Line = "3903", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest()", $t.Line = "4292", $t));
                     Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int.Ctor_IEnumerableTest();
                 },
                 Ctor_IEnumerableTest_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest_Negative()", $t.Line = "3949", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest_Negative()", $t.Line = "4338", $t));
                     Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int.Ctor_IEnumerableTest_Negative();
                 },
                 Find_T: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Find_T()", $t.Line = "3962", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Find_T()", $t.Line = "4353", $t));
                     t.Fixture.Find_T();
                 },
                 FindLast_T: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FindLast_T()", $t.Line = "4079", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FindLast_T()", $t.Line = "4484", $t));
                     t.Fixture.FindLast_T();
                 },
                 Verify: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Verify()", $t.Line = "4194", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Verify()", $t.Line = "4611", $t));
                     t.Fixture.Verify();
                 },
                 RemoveFirst_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests()", $t.Line = "4241", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests()", $t.Line = "4658", $t));
                     t.Fixture.RemoveFirst_Tests();
                 },
                 RemoveFirst_Tests_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests_Negative()", $t.Line = "4340", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests_Negative()", $t.Line = "4765", $t));
                     t.Fixture.RemoveFirst_Tests_Negative();
                 },
                 RemoveLast_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests()", $t.Line = "4349", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests()", $t.Line = "4774", $t));
                     t.Fixture.RemoveLast_Tests();
                 },
                 RemoveLast_Tests_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests_Negative()", $t.Line = "4445", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests_Negative()", $t.Line = "4878", $t));
                     t.Fixture.RemoveLast_Tests_Negative();
                 },
                 Remove_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode()", $t.Line = "4453", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode()", $t.Line = "4886", $t));
                     t.Fixture.Remove_LLNode();
                 },
                 Remove_Duplicates_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_Duplicates_LLNode()", $t.Line = "4630", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_Duplicates_LLNode()", $t.Line = "5071", $t));
                     t.Fixture.Remove_Duplicates_LLNode();
                 },
                 Remove_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode_Negative()", $t.Line = "4687", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode_Negative()", $t.Line = "5132", $t));
                     t.Fixture.Remove_LLNode_Negative();
                 }
             }
@@ -14944,147 +14944,147 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 LinkedList_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable()", $t.Line = "360", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable()", $t.Line = "372", $t));
                     t.Fixture.LinkedList_Generic_Constructor_IEnumerable();
                 },
                 LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException()", $t.Line = "381", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException()", $t.Line = "393", $t));
                     t.Fixture.LinkedList_Generic_Constructor_IEnumerable_Null_ThrowsArgumentNullException();
                 },
                 AddAfter_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode()", $t.Line = "389", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode()", $t.Line = "401", $t));
                     t.Fixture.AddAfter_LLNode();
                 },
                 AddAfter_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_Negative()", $t.Line = "555", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_Negative()", $t.Line = "598", $t));
                     t.Fixture.AddAfter_LLNode_Negative();
                 },
                 AddAfter_LLNode_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode()", $t.Line = "590", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode()", $t.Line = "633", $t));
                     t.Fixture.AddAfter_LLNode_LLNode();
                 },
                 AddAfter_LLNode_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode_Negative()", $t.Line = "766", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddAfter_LLNode_LLNode_Negative()", $t.Line = "840", $t));
                     t.Fixture.AddAfter_LLNode_LLNode_Negative();
                 },
                 AddBefore_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode()", $t.Line = "833", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode()", $t.Line = "907", $t));
                     t.Fixture.AddBefore_LLNode();
                 },
                 AddBefore_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_Negative()", $t.Line = "1001", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_Negative()", $t.Line = "1107", $t));
                     t.Fixture.AddBefore_LLNode_Negative();
                 },
                 AddBefore_LLNode_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode()", $t.Line = "1034", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode()", $t.Line = "1140", $t));
                     t.Fixture.AddBefore_LLNode_LLNode();
                 },
                 AddBefore_LLNode_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode_Negative()", $t.Line = "1200", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddBefore_LLNode_LLNode_Negative()", $t.Line = "1337", $t));
                     t.Fixture.AddBefore_LLNode_LLNode_Negative();
                 },
                 AddFirst_T_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_T_Tests()", $t.Line = "1263", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_T_Tests()", $t.Line = "1400", $t));
                     t.Fixture.AddFirst_T_Tests();
                 },
                 AddFirst_LinkedListNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode()", $t.Line = "1363", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode()", $t.Line = "1520", $t));
                     t.Fixture.AddFirst_LinkedListNode();
                 },
                 AddFirst_LinkedListNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode_Negative()", $t.Line = "1450", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddFirst_LinkedListNode_Negative()", $t.Line = "1619", $t));
                     t.Fixture.AddFirst_LinkedListNode_Negative();
                 },
                 AddLast_T_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_T_Tests()", $t.Line = "1490", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_T_Tests()", $t.Line = "1659", $t));
                     t.Fixture.AddLast_T_Tests();
                 },
                 AddLast_LinkedListNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode()", $t.Line = "1577", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode()", $t.Line = "1756", $t));
                     t.Fixture.AddLast_LinkedListNode();
                 },
                 AddLast_LinkedListNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode_Negative()", $t.Line = "1662", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "AddLast_LinkedListNode_Negative()", $t.Line = "1851", $t));
                     t.Fixture.AddLast_LinkedListNode_Negative();
                 },
                 CtorTest: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CtorTest()", $t.Line = "1702", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CtorTest()", $t.Line = "1891", $t));
                     Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string.CtorTest();
                 },
                 Ctor_IEnumerableTest: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest()", $t.Line = "1711", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest()", $t.Line = "1900", $t));
                     Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string.Ctor_IEnumerableTest();
                 },
                 Ctor_IEnumerableTest_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest_Negative()", $t.Line = "1757", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Ctor_IEnumerableTest_Negative()", $t.Line = "1946", $t));
                     Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string.Ctor_IEnumerableTest_Negative();
                 },
                 Find_T: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Find_T()", $t.Line = "1770", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Find_T()", $t.Line = "1961", $t));
                     t.Fixture.Find_T();
                 },
                 FindLast_T: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FindLast_T()", $t.Line = "1887", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FindLast_T()", $t.Line = "2092", $t));
                     t.Fixture.FindLast_T();
                 },
                 Verify: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Verify()", $t.Line = "2002", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Verify()", $t.Line = "2219", $t));
                     t.Fixture.Verify();
                 },
                 RemoveFirst_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests()", $t.Line = "2049", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests()", $t.Line = "2266", $t));
                     t.Fixture.RemoveFirst_Tests();
                 },
                 RemoveFirst_Tests_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests_Negative()", $t.Line = "2148", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveFirst_Tests_Negative()", $t.Line = "2373", $t));
                     t.Fixture.RemoveFirst_Tests_Negative();
                 },
                 RemoveLast_Tests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests()", $t.Line = "2157", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests()", $t.Line = "2382", $t));
                     t.Fixture.RemoveLast_Tests();
                 },
                 RemoveLast_Tests_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests_Negative()", $t.Line = "2253", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RemoveLast_Tests_Negative()", $t.Line = "2486", $t));
                     t.Fixture.RemoveLast_Tests_Negative();
                 },
                 Remove_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode()", $t.Line = "2261", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode()", $t.Line = "2494", $t));
                     t.Fixture.Remove_LLNode();
                 },
                 Remove_Duplicates_LLNode: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_Duplicates_LLNode()", $t.Line = "2438", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_Duplicates_LLNode()", $t.Line = "2679", $t));
                     t.Fixture.Remove_Duplicates_LLNode();
                 },
                 Remove_LLNode_Negative: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode_Negative()", $t.Line = "2495", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.LinkedList_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.LinkedList_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "Remove_LLNode_Negative()", $t.Line = "2740", $t));
                     t.Fixture.Remove_LLNode_Negative();
                 }
             }
@@ -21132,152 +21132,152 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedList_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_IComparer()", $t.Line = "670", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_IComparer()", $t.Line = "696", $t));
                     t.Fixture.SortedList_Generic_Constructor_IComparer();
                 },
                 SortedList_Generic_Constructor_IDictionary: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_IDictionary()", $t.Line = "691", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_IDictionary()", $t.Line = "717", $t));
                     t.Fixture.SortedList_Generic_Constructor_IDictionary();
                 },
                 SortedList_Generic_Constructor_NullIDictionary_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_NullIDictionary_ThrowsArgumentNullException()", $t.Line = "707", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_NullIDictionary_ThrowsArgumentNullException()", $t.Line = "733", $t));
                     t.Fixture.SortedList_Generic_Constructor_NullIDictionary_ThrowsArgumentNullException();
                 },
                 SortedList_Generic_Constructor_IDictionary_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_IDictionary_IComparer()", $t.Line = "725", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_IDictionary_IComparer()", $t.Line = "751", $t));
                     t.Fixture.SortedList_Generic_Constructor_IDictionary_IComparer();
                 },
                 SortedList_Generic_Constructor_int: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_int()", $t.Line = "748", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_int()", $t.Line = "774", $t));
                     t.Fixture.SortedList_Generic_Constructor_int();
                 },
                 SortedList_Generic_Constructor_NegativeCapacity_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_NegativeCapacity_ThrowsArgumentOutOfRangeException()", $t.Line = "765", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_NegativeCapacity_ThrowsArgumentOutOfRangeException()", $t.Line = "791", $t));
                     t.Fixture.SortedList_Generic_Constructor_NegativeCapacity_ThrowsArgumentOutOfRangeException();
                 },
                 SortedList_Generic_Constructor_int_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_int_IComparer()", $t.Line = "785", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Constructor_int_IComparer()", $t.Line = "811", $t));
                     t.Fixture.SortedList_Generic_Constructor_int_IComparer();
                 },
                 SortedList_Generic_Capacity_setRoundTrips: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_setRoundTrips()", $t.Line = "807", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_setRoundTrips()", $t.Line = "833", $t));
                     t.Fixture.SortedList_Generic_Capacity_setRoundTrips();
                 },
                 SortedList_Generic_Capacity_NegativeValue_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_NegativeValue_ThrowsArgumentOutOfRangeException()", $t.Line = "827", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_NegativeValue_ThrowsArgumentOutOfRangeException()", $t.Line = "853", $t));
                     t.Fixture.SortedList_Generic_Capacity_NegativeValue_ThrowsArgumentOutOfRangeException();
                 },
                 SortedList_Generic_Capacity_LessThanCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_LessThanCount_ThrowsArgumentOutOfRangeException()", $t.Line = "845", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_LessThanCount_ThrowsArgumentOutOfRangeException()", $t.Line = "871", $t));
                     t.Fixture.SortedList_Generic_Capacity_LessThanCount_ThrowsArgumentOutOfRangeException();
                 },
                 SortedList_Generic_Capacity_GrowsDuringAdds: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_GrowsDuringAdds()", $t.Line = "864", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_GrowsDuringAdds()", $t.Line = "890", $t));
                     t.Fixture.SortedList_Generic_Capacity_GrowsDuringAdds();
                 },
                 SortedList_Generic_Capacity_ClearDoesntTrim: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearDoesntTrim()", $t.Line = "892", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearDoesntTrim()", $t.Line = "924", $t));
                     t.Fixture.SortedList_Generic_Capacity_ClearDoesntTrim();
                 },
                 SortedList_Generic_Capacity_ClearTrimsToInitialCapacity: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearTrimsToInitialCapacity()", $t.Line = "921", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearTrimsToInitialCapacity()", $t.Line = "959", $t));
                     t.Fixture.SortedList_Generic_Capacity_ClearTrimsToInitialCapacity();
                 },
                 SortedList_Generic_ContainsValue_NotPresent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_NotPresent()", $t.Line = "941", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_NotPresent()", $t.Line = "979", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_NotPresent();
                 },
                 SortedList_Generic_ContainsValue_Present: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_Present()", $t.Line = "959", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_Present()", $t.Line = "999", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_Present();
                 },
                 SortedList_Generic_ContainsValue_DefaultValueNotPresent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValueNotPresent()", $t.Line = "979", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValueNotPresent()", $t.Line = "1021", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_DefaultValueNotPresent();
                 },
                 SortedList_Generic_ContainsValue_DefaultValuePresent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValuePresent()", $t.Line = "993", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValuePresent()", $t.Line = "1035", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_DefaultValuePresent();
                 },
                 SortedList_Generic_IndexOf_DefaultKeyNotContainedInSortedList: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOf_DefaultKeyNotContainedInSortedList()", $t.Line = "1016", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOf_DefaultKeyNotContainedInSortedList()", $t.Line = "1060", $t));
                     t.Fixture.SortedList_Generic_IndexOf_DefaultKeyNotContainedInSortedList();
                 },
                 SortedList_Generic_IndexOfKey_EachKey: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfKey_EachKey()", $t.Line = "1035", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfKey_EachKey()", $t.Line = "1079", $t));
                     t.Fixture.SortedList_Generic_IndexOfKey_EachKey();
                 },
                 SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList()", $t.Line = "1059", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList()", $t.Line = "1103", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList();
                 },
                 SortedList_Generic_IndexOfValue_DefaultValueContainedInList: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueContainedInList()", $t.Line = "1079", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueContainedInList()", $t.Line = "1123", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_DefaultValueContainedInList();
                 },
                 SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes()", $t.Line = "1103", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes()", $t.Line = "1149", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes();
                 },
                 SortedList_Generic_IndexOfValue_EachValue: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_EachValue()", $t.Line = "1136", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_EachValue()", $t.Line = "1188", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_EachValue();
                 },
                 SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection()", $t.Line = "1165", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection()", $t.Line = "1217", $t));
                     t.Fixture.SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection();
                 },
                 SortedList_Generic_RemoveAt_EveryValue: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_EveryValue()", $t.Line = "1187", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_EveryValue()", $t.Line = "1239", $t));
                     t.Fixture.SortedList_Generic_RemoveAt_EveryValue();
                 },
                 SortedList_Generic_RemoveAt_OutOfRangeValues: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_OutOfRangeValues()", $t.Line = "1205", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_OutOfRangeValues()", $t.Line = "1257", $t));
                     t.Fixture.SortedList_Generic_RemoveAt_OutOfRangeValues();
                 },
                 SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack()", $t.Line = "1226", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack()", $t.Line = "1278", $t));
                     t.Fixture.SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack();
                 },
                 SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack()", $t.Line = "1252", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack()", $t.Line = "1304", $t));
                     t.Fixture.SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack();
                 },
                 IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys()", $t.Line = "1280", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys()", $t.Line = "1332", $t));
                     t.Fixture.IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys();
                 },
                 IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues()", $t.Line = "1298", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_int_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_int_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues()", $t.Line = "1350", $t));
                     t.Fixture.IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues();
                 }
             }
@@ -21358,92 +21358,92 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 },
                 SortedList_Generic_Capacity_ClearDoesntTrim: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearDoesntTrim()", $t.Line = "240", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearDoesntTrim()", $t.Line = "246", $t));
                     t.Fixture.SortedList_Generic_Capacity_ClearDoesntTrim();
                 },
                 SortedList_Generic_Capacity_ClearTrimsToInitialCapacity: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearTrimsToInitialCapacity()", $t.Line = "269", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_Capacity_ClearTrimsToInitialCapacity()", $t.Line = "281", $t));
                     t.Fixture.SortedList_Generic_Capacity_ClearTrimsToInitialCapacity();
                 },
                 SortedList_Generic_ContainsValue_NotPresent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_NotPresent()", $t.Line = "289", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_NotPresent()", $t.Line = "301", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_NotPresent();
                 },
                 SortedList_Generic_ContainsValue_Present: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_Present()", $t.Line = "307", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_Present()", $t.Line = "321", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_Present();
                 },
                 SortedList_Generic_ContainsValue_DefaultValueNotPresent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValueNotPresent()", $t.Line = "327", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValueNotPresent()", $t.Line = "343", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_DefaultValueNotPresent();
                 },
                 SortedList_Generic_ContainsValue_DefaultValuePresent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValuePresent()", $t.Line = "341", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_ContainsValue_DefaultValuePresent()", $t.Line = "357", $t));
                     t.Fixture.SortedList_Generic_ContainsValue_DefaultValuePresent();
                 },
                 SortedList_Generic_IndexOfKey_EachKey: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfKey_EachKey()", $t.Line = "364", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfKey_EachKey()", $t.Line = "382", $t));
                     t.Fixture.SortedList_Generic_IndexOfKey_EachKey();
                 },
                 SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList()", $t.Line = "388", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList()", $t.Line = "406", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_DefaultValueNotContainedInList();
                 },
                 SortedList_Generic_IndexOfValue_DefaultValueContainedInList: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueContainedInList()", $t.Line = "408", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_DefaultValueContainedInList()", $t.Line = "426", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_DefaultValueContainedInList();
                 },
                 SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes()", $t.Line = "432", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes()", $t.Line = "452", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_ValueInCollectionMultipleTimes();
                 },
                 SortedList_Generic_IndexOfValue_EachValue: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_EachValue()", $t.Line = "465", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_IndexOfValue_EachValue()", $t.Line = "491", $t));
                     t.Fixture.SortedList_Generic_IndexOfValue_EachValue();
                 },
                 SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection()", $t.Line = "494", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection()", $t.Line = "520", $t));
                     t.Fixture.SortedList_Generic_RemoveAt_NonDefaultValueContainedInCollection();
                 },
                 SortedList_Generic_RemoveAt_EveryValue: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_EveryValue()", $t.Line = "516", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_EveryValue()", $t.Line = "542", $t));
                     t.Fixture.SortedList_Generic_RemoveAt_EveryValue();
                 },
                 SortedList_Generic_RemoveAt_OutOfRangeValues: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_OutOfRangeValues()", $t.Line = "534", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_RemoveAt_OutOfRangeValues()", $t.Line = "560", $t));
                     t.Fixture.SortedList_Generic_RemoveAt_OutOfRangeValues();
                 },
                 SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack()", $t.Line = "555", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack()", $t.Line = "581", $t));
                     t.Fixture.SortedList_Generic_TrimExcess_AfterClearingAndAddingSomeElementsBack();
                 },
                 SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack()", $t.Line = "581", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack()", $t.Line = "607", $t));
                     t.Fixture.SortedList_Generic_TrimExcess_AfterClearingAndAddingAllElementsBack();
                 },
                 IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys()", $t.Line = "609", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys()", $t.Line = "635", $t));
                     t.Fixture.IReadOnlyDictionary_Generic_Keys_ContainsAllCorrectKeys();
                 },
                 IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues()", $t.Line = "627", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_Generic_Tests_string_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_Generic_Tests_string_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues()", $t.Line = "653", $t));
                     t.Fixture.IReadOnlyDictionary_Generic_Values_ContainsAllCorrectValues();
                 }
             }
@@ -21469,37 +21469,37 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 IDictionary_NonGeneric_ItemSet_NullValueWhenDefaultValueIsNonNull: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_ItemSet_NullValueWhenDefaultValueIsNonNull()", $t.Line = "56", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_ItemSet_NullValueWhenDefaultValueIsNonNull()", $t.Line = "58", $t));
                     t.Fixture.IDictionary_NonGeneric_ItemSet_NullValueWhenDefaultValueIsNonNull();
                 },
                 IDictionary_NonGeneric_ItemSet_KeyOfWrongType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_ItemSet_KeyOfWrongType()", $t.Line = "70", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_ItemSet_KeyOfWrongType()", $t.Line = "72", $t));
                     t.Fixture.IDictionary_NonGeneric_ItemSet_KeyOfWrongType();
                 },
                 IDictionary_NonGeneric_ItemSet_ValueOfWrongType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_ItemSet_ValueOfWrongType()", $t.Line = "85", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_ItemSet_ValueOfWrongType()", $t.Line = "87", $t));
                     t.Fixture.IDictionary_NonGeneric_ItemSet_ValueOfWrongType();
                 },
                 IDictionary_NonGeneric_Add_KeyOfWrongType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Add_KeyOfWrongType()", $t.Line = "101", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Add_KeyOfWrongType()", $t.Line = "103", $t));
                     t.Fixture.IDictionary_NonGeneric_Add_KeyOfWrongType();
                 },
                 IDictionary_NonGeneric_Add_ValueOfWrongType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Add_ValueOfWrongType()", $t.Line = "117", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Add_ValueOfWrongType()", $t.Line = "119", $t));
                     t.Fixture.IDictionary_NonGeneric_Add_ValueOfWrongType();
                 },
                 IDictionary_NonGeneric_Add_NullValueWhenDefaultTValueIsNonNull: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Add_NullValueWhenDefaultTValueIsNonNull()", $t.Line = "133", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Add_NullValueWhenDefaultTValueIsNonNull()", $t.Line = "135", $t));
                     t.Fixture.IDictionary_NonGeneric_Add_NullValueWhenDefaultTValueIsNonNull();
                 },
                 IDictionary_NonGeneric_Contains_KeyOfWrongType: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Contains_KeyOfWrongType()", $t.Line = "149", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedList_IDictionary_NonGeneric_Tests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedList_IDictionary_NonGeneric_Tests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IDictionary_NonGeneric_Contains_KeyOfWrongType()", $t.Line = "151", $t));
                     t.Fixture.IDictionary_NonGeneric_Contains_KeyOfWrongType();
                 }
             }
@@ -21525,117 +21525,117 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "1509", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "1545", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "1516", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "1552", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "1524", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "1560", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "1543", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "1579", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "1550", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "1586", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "1569", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "1605", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "1588", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "1624", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "1611", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "1647", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "1640", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "1676", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "1663", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "1699", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "1693", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "1733", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "1716", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "1758", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "1743", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "1785", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "1782", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "1824", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "1797", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "1839", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "1815", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "1857", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "1826", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "1868", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "1846", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "1890", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "1867", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "1913", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "1888", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "1936", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "1908", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "1956", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "1928", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "1976", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "1950", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_EquatableBackwardsOrder).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_EquatableBackwardsOrder, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "1998", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }
@@ -21661,132 +21661,132 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "491", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "503", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "498", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "510", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "506", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "518", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "525", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "537", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "532", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "544", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "551", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "563", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "570", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "582", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "593", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "605", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "622", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "634", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "645", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "657", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "675", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "691", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "698", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "716", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "725", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "743", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "764", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "782", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "779", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "797", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "797", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "815", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "808", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "826", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "828", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "848", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "849", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "871", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "870", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "894", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "890", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "914", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "910", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "934", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "932", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "956", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 },
                 SortedSet_Generic_GetViewBetween_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MinMax()", $t.Line = "963", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MinMax()", $t.Line = "987", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MinMax();
                 },
                 SortedSet_Generic_IntersectWith_SupersetEnumerableWithDups: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_IntersectWith_SupersetEnumerableWithDups()", $t.Line = "988", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_IntersectWith_SupersetEnumerableWithDups()", $t.Line = "1012", $t));
                     t.Fixture.SortedSet_Generic_IntersectWith_SupersetEnumerableWithDups();
                 },
                 SortedSet_Generic_GetViewBetween_MinMax_Exhaustive: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MinMax_Exhaustive()", $t.Line = "997", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MinMax_Exhaustive()", $t.Line = "1021", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MinMax_Exhaustive();
                 }
             }
@@ -21812,117 +21812,117 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "3451", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "3535", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "3458", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "3542", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "3466", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "3550", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "3485", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "3569", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "3492", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "3576", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "3511", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "3595", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "3530", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "3614", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "3553", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "3637", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "3582", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "3666", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "3605", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "3689", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "3635", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "3723", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "3658", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "3748", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "3685", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "3775", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "3724", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "3814", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "3739", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "3829", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "3757", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "3847", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "3768", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "3858", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "3788", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "3880", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "3809", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "3903", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "3830", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "3926", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "3850", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "3946", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "3870", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "3966", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "3892", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_AbsOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "3988", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }
@@ -21948,117 +21948,117 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "2475", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "2535", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "2482", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "2542", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "2490", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "2550", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "2509", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "2569", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "2516", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "2576", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "2535", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "2595", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "2554", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "2614", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "2577", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "2637", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "2606", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "2666", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "2629", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "2689", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "2659", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "2723", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "2682", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "2748", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "2709", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "2775", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "2748", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "2814", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "2763", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "2829", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "2781", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "2847", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "2792", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "2858", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "2812", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "2880", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "2833", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "2903", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "2854", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "2926", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "2874", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "2946", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "2894", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "2966", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "2916", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_HashCodeAlwaysReturnsZero, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "2988", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }
@@ -22084,117 +22084,117 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "2963", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "3035", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "2970", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "3042", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "2978", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "3050", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "2997", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "3069", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "3004", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "3076", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "3023", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "3095", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "3042", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "3114", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "3065", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "3137", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "3094", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "3166", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "3117", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "3189", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "3147", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "3223", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "3170", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "3248", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "3197", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "3275", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "3236", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "3314", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "3251", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "3329", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "3269", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "3347", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "3280", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "3358", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "3300", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "3380", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "3321", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "3403", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "3342", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "3426", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "3362", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "3446", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "3382", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "3466", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "3404", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_ModOfInt, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "3488", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }
@@ -22220,117 +22220,117 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "1987", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "2035", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "1994", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "2042", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "2002", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "2050", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "2021", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "2069", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "2028", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "2076", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "2047", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "2095", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "2066", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "2114", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "2089", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "2137", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "2118", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "2166", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "2141", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "2189", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "2171", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "2223", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "2194", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "2248", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "2221", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "2275", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "2260", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "2314", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "2275", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "2329", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "2293", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "2347", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "2304", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "2358", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "2324", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "2380", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "2345", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "2403", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "2366", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "2426", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "2386", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "2446", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "2406", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "2466", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "2428", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_Comparer_SameAsDefaultComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "2488", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }
@@ -22356,117 +22356,117 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             methods: {
                 SortedSet_Generic_Constructor: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "1039", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor()", $t.Line = "1063", $t));
                     t.Fixture.SortedSet_Generic_Constructor();
                 },
                 SortedSet_Generic_Constructor_IComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "1046", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IComparer()", $t.Line = "1070", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IComparer();
                 },
                 SortedSet_Generic_Constructor_IEnumerable: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "1054", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable()", $t.Line = "1078", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_Null: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "1073", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_Null()", $t.Line = "1097", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_Null();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "1080", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp()", $t.Line = "1104", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netcoreapp();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "1099", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx()", $t.Line = "1123", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_Netfx();
                 },
                 SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "1118", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp()", $t.Line = "1142", $t));
                     t.Fixture.SortedSet_Generic_Constructor_IEnumerable_IComparer_NullComparer_Netcoreapp();
                 },
                 SortedSet_Generic_MaxAndMin: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "1141", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_MaxAndMin()", $t.Line = "1165", $t));
                     t.Fixture.SortedSet_Generic_MaxAndMin();
                 },
                 SortedSet_Generic_GetViewBetween_EntireSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "1170", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_EntireSet()", $t.Line = "1194", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_EntireSet();
                 },
                 SortedSet_Generic_GetViewBetween_MiddleOfSet: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "1193", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_MiddleOfSet()", $t.Line = "1217", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_MiddleOfSet();
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "1223", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "1251", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "1246", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "1276", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "1273", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "1303", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "1312", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "1342", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "1327", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "1357", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "1345", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "1375", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "1356", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "1386", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "1376", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "1408", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "1397", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "1431", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "1418", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "1454", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "1438", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "1474", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "1458", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "1494", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "1480", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_int_With_NullComparer).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_int_With_NullComparer, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "1516", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }
@@ -22542,67 +22542,67 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 },
                 SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "199", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException()", $t.Line = "203", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_LowerValueGreaterThanUpperValue_ThrowsArgumentException();
                 },
                 SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "222", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException()", $t.Line = "228", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_SubsequentOutOfRangeCall_ThrowsArgumentOutOfRangeException();
                 },
                 SortedSet_Generic_GetViewBetween_Empty_MinMax: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "249", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_GetViewBetween_Empty_MinMax()", $t.Line = "255", $t));
                     t.Fixture.SortedSet_Generic_GetViewBetween_Empty_MinMax();
                 },
                 SortedSet_Generic_RemoveWhere_AllElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "288", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_AllElements()", $t.Line = "294", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_AllElements();
                 },
                 SortedSet_Generic_RemoveWhere_NoElements: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "303", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NoElements()", $t.Line = "309", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NoElements();
                 },
                 SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "321", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException()", $t.Line = "327", $t));
                     t.Fixture.SortedSet_Generic_RemoveWhere_NullPredicate_ThrowsArgumentNullException();
                 },
                 SortedSet_Generic_SetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "332", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_SetIsProperlySortedAccordingToComparer()", $t.Line = "338", $t));
                     t.Fixture.SortedSet_Generic_SetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "352", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer()", $t.Line = "360", $t));
                     t.Fixture.SortedSet_Generic_ReverseSetIsProperlySortedAccordingToComparer();
                 },
                 SortedSet_Generic_TestSubSetEnumerator: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "373", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_TestSubSetEnumerator()", $t.Line = "383", $t));
                     t.Fixture.SortedSet_Generic_TestSubSetEnumerator();
                 },
                 SortedSet_Generic_CopyTo_WithoutIndex: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "394", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithoutIndex()", $t.Line = "406", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithoutIndex();
                 },
                 SortedSet_Generic_CopyTo_WithValidFullCount: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "414", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_WithValidFullCount()", $t.Line = "426", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_WithValidFullCount();
                 },
                 SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "434", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException()", $t.Line = "446", $t));
                     t.Fixture.SortedSet_Generic_CopyTo_NegativeCount_ThrowsArgumentOutOfRangeException();
                 },
                 SetComparer_SetEqualsTests: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "456", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Collections.Generic.SortedSet_Generic_Tests_string).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.SortedSet_Generic_Tests_string, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetComparer_SetEqualsTests()", $t.Line = "468", $t));
                     t.Fixture.SetComparer_SetEqualsTests();
                 }
             }

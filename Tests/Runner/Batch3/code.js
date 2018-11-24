@@ -290,7 +290,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                 },
                 TestSleepInt: function () {
                     var delay = 100;
-                    var maxDelay = 200;
+                    var maxDelay = 500; // Reported 316ms in the saucelabs test @ windows 8.1.
 
                     var stopwatch = new System.Diagnostics.Stopwatch();
                     stopwatch.start();
@@ -30055,8 +30055,18 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467", {
         statics: {
             methods: {
+                /**
+                 * Just check if a new instance of the class is not null. Actually
+                 what counts here is just if the code will result in runnable js.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467
+                 * @return  {void}
+                 */
                 TestGenericUsingStatic: function () {
-                    Bridge.Test.NUnit.Assert.NotNull(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1());
+                    Bridge.Test.NUnit.Assert.NotNull(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1(), "Instantiating nested, sealed classes works.");
                 }
             }
         }
@@ -34631,31 +34641,66 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * This consists of checking whether InvariantCultureIgnoreCase IndexOf()
+     works on strings.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3679
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3679", {
         statics: {
             methods: {
+                /**
+                 * Simply part from a simple 'hello world' example to see whether
+                 we can use the method from String class:
+                 String.IndexOf(StringComparison.InvariantCultureIgnoreCase)
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3679
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3679
+                 * @return  {void}
+                 */
                 TestStringIndexOf: function () {
                     var msg = "Hello, World!";
 
                     var i = System.String.indexOf(msg, "world", 3, null, 3);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(7, i);
+                    Bridge.Test.NUnit.Assert.AreEqual(7, i, "IndexOf, InvariantCulture, IgnoringCase: works.");
                 }
             }
         }
     });
 
+    /**
+     * This tests whether CreateInstance throws the expected method, yet does
+     not lose its functionality to normal cases.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680", {
         statics: {
             methods: {
+                /**
+                 * Explores the potential issues for class, interface, and also checks
+                 some situations where it should work.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680
+                 * @return  {void}
+                 */
                 TestActivator: function () {
-                    Bridge.Test.NUnit.Assert.Throws$2(System.MissingMethodException, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.f1);
-                    Bridge.Test.NUnit.Assert.Throws$2(System.MissingMethodException, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.f2);
+                    Bridge.Test.NUnit.Assert.Throws$2(System.MissingMethodException, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.f1, "Expected exception thrown for class.");
+                    Bridge.Test.NUnit.Assert.Throws$2(System.MissingMethodException, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.f2, "Expected exception thrown for interface.");
 
                     var test = Bridge.createInstance(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.Test, true);
 
-                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(test));
-                    Bridge.Test.NUnit.Assert.True(Bridge.is(test, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.Test));
+                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(test), "CreateIntance() results in a non-null result.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(test, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3680.Test), "CreateInstance() results in an instance of the expected class.");
                 }
             }
         }
@@ -34894,9 +34939,25 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Tests whether a scenario on multiple inheritance and generics works.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729", {
         statics: {
             methods: {
+                /**
+                 * Instantiate the classes, and also cast them into their interfaces
+                 and check whether the 'AutoProperty.Plain' property works.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729
+                 * @return  {void}
+                 */
                 TestAliases: function () {
                     var c2 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3729.Class2();
                     var c1 = c2;
@@ -34906,10 +34967,10 @@ Bridge.$N1391Result =                     r;
 
                     c1.Name = "test";
 
-                    Bridge.Test.NUnit.Assert.AreEqual("test", c2.Name);
-                    Bridge.Test.NUnit.Assert.AreEqual("test", i1.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name);
-                    Bridge.Test.NUnit.Assert.AreEqual("test", i2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name);
-                    Bridge.Test.NUnit.Assert.AreEqual("test", i3.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name);
+                    Bridge.Test.NUnit.Assert.AreEqual("test", c2.Name, "Generic class, multiple-inheritance works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test", i1.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name, "Base-level interface works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test", i2.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name, "Inherit-driven interface 1 works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test", i3.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name, "Inherit-driven interface 2 works.");
                 }
             }
         }
@@ -35007,14 +35068,30 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Ensures no invalid token "?" is generated out of code in this scenario.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742", {
         statics: {
             methods: {
+                /**
+                 * Just checks whether the result is not null. If the issue is
+                 present, the code won't run at all.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742
+                 * @return  {void}
+                 */
                 TestGenericUsingStatic: function () {
                     var objects = System.Array.init(3, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.MyClass$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom.HTMLSpanElement1));
 
                     var result = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742.ClassName.Fetch(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3742Static.dom.HTMLSpanElement1, objects);
-                    Bridge.Test.NUnit.Assert.NotNull(result);
+                    Bridge.Test.NUnit.Assert.NotNull(result, "Valid code is generated in this scenario.");
                 }
             }
         }
@@ -35052,6 +35129,12 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    /**
+     * Ensures /for loop/ variables within async methods are handled right.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3743
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3743", {
         statics: {
             methods: {
@@ -35102,6 +35185,16 @@ Bridge.$N1391Result =                     r;
                     $asyncBody();
                     return $tcs.task;
                 },
+                /**
+                 * Just call the async function and check whether it returns from the
+                 call, meaning the generated code didn't break on translation.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3743
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3743
+                 * @return  {void}
+                 */
                 TestForLoopAsync: function () {
                     var $step = 0,
                         $task1, 
@@ -35124,7 +35217,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $taskResult1 = $task1.getAwaitedResult();
                                         r = $taskResult1;
-                                        Bridge.Test.NUnit.Assert.AreEqual(1, r);
+                                        Bridge.Test.NUnit.Assert.AreEqual(1, r, "Async with 'for' with variables initialization works.");
 
                                         done();
                                         return;
@@ -35142,13 +35235,30 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * Ensures array versions of class instances returns the correct
+     assembly's FullName value.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746", {
         statics: {
             methods: {
+                /**
+                 * Checks type of Object, local class and an array of that local
+                 class, for the expected assembly name.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746
+                 * @return  {void}
+                 */
                 TestAssemblyName: function () {
-                    Bridge.Test.NUnit.Assert.AreEqual("mscorlib", Bridge.Reflection.getTypeAssembly(System.Object).name);
-                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3", Bridge.Reflection.getTypeAssembly(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass).name);
-                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3", Bridge.Reflection.getTypeAssembly(System.Array.type(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass)).name);
+                    Bridge.Test.NUnit.Assert.AreEqual("mscorlib", Bridge.Reflection.getTypeAssembly(System.Object).name, "Object reads 'mscorlib'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3", Bridge.Reflection.getTypeAssembly(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass).name, "Local class reads after the current assembly name.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Bridge.ClientTest.Batch3", Bridge.Reflection.getTypeAssembly(System.Array.type(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3746.MyClass)).name, "Array of the local class above reas as the current assembly name.");
                 }
             }
         }
@@ -35158,15 +35268,39 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    /**
+     * This extends the tests for issue 3728, ensuring the same scenario works
+     with other linq extensions as well.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754", {
         statics: {
             methods: {
+                /**
+                 * Tests with an assortment of linq queries to ensure this scenario
+                 works for the extensions, in general.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754
+                 * @return  {void}
+                 */
                 TestGnericParameterValueTuple: function () {
+                    var $t;
                     var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test();
 
-                    Bridge.Test.NUnit.Assert.AreEqual("a1", System.Linq.Enumerable.from(test).first().Item1);
-                    Bridge.Test.NUnit.Assert.NotNull(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1));
-                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1).first()));
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", System.Linq.Enumerable.from(test).first().Item1, "Linq.First() wokrs.");
+                    Bridge.Test.NUnit.Assert.NotNull(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1), "Linq.Select() works.");
+                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1).first()), "Linq.Select().First() works.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f2), "Linq.Any(key) works.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f3), "Linq.Any(value) works.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).all($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f4), "Linq.All() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).skip(1).first().Item1, "Linq.Skip() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = System.Linq.Enumerable.from(test).ToArray())[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f5).first().Item1, "Linq.Where() works.");
                 }
             }
         }
@@ -35177,6 +35311,18 @@ Bridge.$N1391Result =                     r;
     Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754, {
         f1: function (item) {
             return item.Item2;
+        },
+        f2: function (item) {
+            return Bridge.referenceEquals(item.Item1, "a2");
+        },
+        f3: function (item) {
+            return Bridge.referenceEquals(item.Item2, "b1");
+        },
+        f4: function (item) {
+            return item.Item1.length === 2;
+        },
+        f5: function (item) {
+            return !Bridge.referenceEquals(item.Item1, "a1");
         }
     });
 
@@ -35322,7 +35468,7 @@ Bridge.$N1391Result =                     r;
                         Bridge.Test.NUnit.Assert.Fail("[8] call failed");
                     }
 
-                    Bridge.Test.NUnit.Assert.AreEqual(0, bug);
+                    Bridge.Test.NUnit.Assert.AreEqual(0, bug, "All boxed methods could be called and returned the expected value.");
                 }
             }
         }
@@ -35340,6 +35486,104 @@ Bridge.$N1391Result =                     r;
                 },
                 Obj: function (self, arg) {
                     return System.String.format(self, [arg]);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762", {
+        statics: {
+            methods: {
+                TestModelResolving: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.DoTest();
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge", {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                DoTest: function () {
+                    var $t;
+                    // used to fail in 17.4.0.
+                    Bridge.Test.NUnit.Assert.AreEqual("123456", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B.Fail(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A, ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A(), $t.P = "123", $t), $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f1), "Works: B.Fail(new A {P = \"123\"}, x => x.P+\"456\")");
+                    Bridge.Test.NUnit.Assert.AreEqual("678", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B.Fail2(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f2), "Works: B.Fail2((A x) => x+\"678\")");
+
+                    // workaround for 17.4.0.
+                    Bridge.Test.NUnit.Assert.AreEqual("123456", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B.Fail(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A, ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A(), $t.P = "123", $t), $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f1), "Workaround works: B.Fail<A>(new A {P = \"123\"}, x => x.P+\"456\")");
+                    Bridge.Test.NUnit.Assert.AreEqual("678", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B.Fail2(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f2), "Workaround works: B.Fail2<A>((A x) => x+\"678\")");
+
+                    Bridge.Test.NUnit.Assert.AreEqual("13", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B.Fine(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A, ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A(), $t.P = "13", $t)), "Works: B.Fine(new A {P = \"13\"})");
+
+                    // Again, used to fail in 17.4.0.
+                    var lst = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f3(new (System.Collections.Generic.List$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A)).ctor());
+                    var lstFail = System.Linq.Enumerable.from(lst).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f4).toList(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, lstFail.Count, "Non-empty list: (new List<A> {new A {P = \"22\"} }).Select(z => {return B.Helper(z);}).ToList()");
+                    Bridge.Test.NUnit.Assert.AreEqual("22", lstFail.getItem(0).P, "Produces expected value: (new List<A> {new A {P = \"22\"} }).Select(z => {return B.Helper(z);}).ToList()");
+
+                    // And workaround with the same functionality
+                    var lstWorkaround = System.Linq.Enumerable.from(lst).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f4).toList(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, lstWorkaround.Count, "Workaround non-empty list: lst.Select<A,A>(z => {return B.Helper(z);}).ToList()");
+                    Bridge.Test.NUnit.Assert.AreEqual("22", lstFail.getItem(0).P, "Workaround produces expected value: lst.Select<A,A>(z => {return B.Helper(z);}).ToList()");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge, {
+        f1: function (x) {
+            return (x.P || "") + "456";
+        },
+        f2: function (x) {
+            return System.String.concat(x, "678");
+        },
+        f3: function (_o1) {
+            var $t1;
+            _o1.add(($t1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A(), $t1.P = "22", $t1));
+            return _o1;
+        },
+        f4: function (z) {
+            return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B.Helper(z);
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A", {
+        props: {
+            P: null
+        },
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                this.P = ""; //dotnetfiddle doesn't support property initializer
+            }
+        },
+        methods: {
+            toString: function () {
+                return this.P;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_B", {
+        statics: {
+            methods: {
+                Fail: function (T, v, transform) {
+                    return transform(v);
+                },
+                Fail2: function (T, transform) {
+                    return transform(Bridge.getDefaultValue(T));
+                },
+                Fine: function (T, v) {
+                    return Bridge.toString(v);
+                },
+                Helper: function (aaa) {
+                    return aaa;
                 }
             }
         }
@@ -46483,6 +46727,15 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class"
     });
 
+    /**
+     * This tests whether a sealed nested class set up works on Bridge.
+     The way the tests are written allows it to break the code no matter
+     how minification is set in bridge.json -- as long as the issue is still
+     present.
+     *
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_ITest$1
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_ITest$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3467_Test1.NestedClass)]
     });
