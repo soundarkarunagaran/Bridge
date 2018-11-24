@@ -110,7 +110,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 Assert.Fail("[8] call failed");
             }
 
-            Assert.AreEqual(0, bug);
+            Assert.AreEqual(0, bug, "All boxed methods could be called and returned the expected value.");
         }
     }
 }
