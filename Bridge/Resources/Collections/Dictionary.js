@@ -103,9 +103,7 @@
                 var entry = this.findEntry(pair.key);
 
                 if (entry && this.comparer.equals2(entry.value, pair.value)) {
-                    this.remove(pair.key);
-
-                    return true;
+                    return this.remove(pair.key);
                 }
 
                 return false;
