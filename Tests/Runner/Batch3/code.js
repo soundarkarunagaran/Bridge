@@ -35408,15 +35408,21 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3757", {
         statics: {
             methods: {
-                TestDate: function () {
+                TestDateTimeDateComponent: function () {
                     var a = System.DateTime.getDate(System.DateTime.create(2001, 2, 3, 4, 5, 6));
                     var b = System.DateTime.create(2001, 2, 3, 4, 5, 7);
                     var c = System.DateTime.getDate(System.DateTime.create(2001, 2, 3, 4, 5, 8));
 
-                    Bridge.Test.NUnit.Assert.True(!Bridge.equalsT(b, a)); //gist of issue: throws exception due to wrong DateTime.js $clearTime
+                    //gist of issue: throws exception due to wrong DateTime.js $clearTime
+                    Bridge.Test.NUnit.Assert.True(!Bridge.equalsT(b, a), "DateTime(2001, 2, 3, 4, 5, 7).Equals(DateTime(2001, 2, 3, 4, 5, 6).Date) returns false.");
+                    Bridge.Test.NUnit.Assert.AreNotEqual(b, a, "DateTime(2001, 2, 3, 4, 5, 7) and DateTime(2001, 2, 3, 4, 5, 6).Date are different.");
+
                     //next two are safety guards that fix doesn't introduce new bugs
-                    Bridge.Test.NUnit.Assert.True(!Bridge.equalsT(a, b));
-                    Bridge.Test.NUnit.Assert.True(Bridge.equalsT(a, c));
+                    Bridge.Test.NUnit.Assert.True(!Bridge.equalsT(a, b), "DateTime(2001, 2, 3, 4, 5, 6).Date.Equals(DateTime(2001, 2, 3, 4, 5, 7)) returns false.");
+                    Bridge.Test.NUnit.Assert.AreNotEqual(a, b, "DateTime(2001, 2, 3, 4, 5, 6).Date and DateTime(2001, 2, 3, 4, 5, 7) are different.");
+
+                    Bridge.Test.NUnit.Assert.True(Bridge.equalsT(a, c), "DateTime(2001, 2, 3, 4, 5, 6).Date.Equals(DateTime(2001, 2, 3, 4, 5, 8).Date) return true.");
+                    Bridge.Test.NUnit.Assert.AreEqual(a, c, "DateTime(2001, 2, 3, 4, 5, 6).Date DateTime(2001, 2, 3, 4, 5, 8).Date are equal.");
                 }
             }
         }

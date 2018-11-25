@@ -96,7 +96,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3743 - TestForLoopAsync", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3743.TestForLoopAsync);
             QUnit.test("#3746 - TestAssemblyName", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3746.TestAssemblyName);
             QUnit.test("#3754 - TestGnericParameterValueTuple", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3754.TestGnericParameterValueTuple);
-            QUnit.test("#3757 - TestDate", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3757.TestDate);
+            QUnit.test("#3757 - TestDateTimeDateComponent", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3757.TestDateTimeDateComponent);
             QUnit.test("#3759 - TestBoxing", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3759.TestBoxing);
             QUnit.test("#3762 - TestModelResolving", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3762.TestModelResolving);
             QUnit.module("Issues3");
@@ -18092,10 +18092,10 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
         $kind: "nested class",
         statics: {
             methods: {
-                TestDate: function (assert) {
+                TestDateTimeDateComponent: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3757).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3757, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDate()", $t.Line = "8", $t));
-                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3757.TestDate();
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3757).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3757, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDateTimeDateComponent()", $t.Line = "8", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3757.TestDateTimeDateComponent();
                 }
             }
         },
