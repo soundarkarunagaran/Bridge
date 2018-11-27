@@ -177,7 +177,7 @@ About to publish the following packages:"
 Enter NuGet API Key: "
  read -s apikey
 
- if [ "${#apikey}" -ne 36 -o "${apikey}" != "${apikey//[^a-f0-9-]/}" ]; then
+ if [ "${#apikey}" -lt 36 -o "${apikey}" != "${apikey//[^a-z0-9]/}" ]; then
   trigger_error "Invalid API key."
  else
   echo "API key read."
