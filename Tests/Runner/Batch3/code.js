@@ -35612,6 +35612,48 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785", {
+        statics: {
+            methods: {
+                TestNullableExtension: function () {
+                    var y = 0;
+                    var y1 = null;
+                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Ext.Boo(System.Nullable$1(System.Int32), y));
+                    Bridge.Test.NUnit.Assert.Null(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Ext.Boo(System.Nullable$1(System.Int32), y1));
+
+                    var a = new (System.Collections.Generic.List$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Model)).ctor();
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(a).orderByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.f1).count(), "Linq Order() works in empty list.");
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785, {
+        f1: function (i) {
+            return i.CreatedDate;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Ext", {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                Boo: function (T, x) {
+                    return x;
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Model", {
+        $kind: "nested class",
+        props: {
+            CreatedDate: null
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {

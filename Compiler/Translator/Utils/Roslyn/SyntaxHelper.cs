@@ -324,6 +324,11 @@ namespace Bridge.Translator
                 return SyntaxFactory.GenericName(SyntaxFactory.Identifier("System.ValueTuple"), SyntaxFactory.TypeArgumentList(SyntaxFactory.SeparatedList<TypeSyntax>(types)));
             }
 
+            if (type.OriginalDefinition != null && type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T)
+            {
+                return SyntaxFactory.IdentifierName(type.ToDisplayString(new SymbolDisplayFormat(genericsOptions: SymbolDisplayGenericsOptions.None)));
+            }
+
             if (type is INamedTypeSymbol namedType && namedType.IsGenericType)
             {
                 var elements = namedType.TypeArguments;
@@ -365,6 +370,17 @@ namespace Bridge.Translator
                 foreach (var el in elements)
                 {
                     types.Add(SyntaxHelper.GenerateTypeSyntax(el, model, pos, rewriter));
+                }
+
+                if (type.OriginalDefinition != null && type.OriginalDefinition.SpecialType == SpecialType.System_Nullable_T)
+                {
+                    return SyntaxFactory.IdentifierName(type.ToMinimalDisplayString(
+                            model,
+                            pos,
+                            new SymbolDisplayFormat(
+                                genericsOptions: SymbolDisplayGenericsOptions.None
+                            )
+                        ));
                 }
 
                 return SyntaxFactory.GenericName(
