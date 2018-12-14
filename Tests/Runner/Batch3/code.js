@@ -35612,6 +35612,54 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3775", {
+        statics: {
+            methods: {
+                TestComparerScope: function () {
+                    var comparer = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3775.ReverseComparer$1(System.Int32))(new (System.Collections.Generic.Comparer$1(System.Int32))(System.Collections.Generic.Comparer$1.$default.fn));
+                    var list = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3775.f1(new (System.Collections.Generic.List$1(System.Int32)).ctor());
+                    try {
+                        Bridge.Test.NUnit.Assert.AreEqual(1, list.BinarySearch$1(1, comparer), "1 found in list at index 1.");
+                    } catch ($e1) {
+                        $e1 = System.Exception.create($e1);
+                        Bridge.Test.NUnit.Assert.Fail("Exception thrown in BinarySearch");
+                    }
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3775", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3775, {
+        f1: function (_o1) {
+            _o1.add(0);
+            _o1.add(1);
+            _o1.add(2);
+            return _o1;
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3775.ReverseComparer$1", function (T) { return {
+        inherits: [System.Collections.Generic.IComparer$1(T)],
+        $kind: "nested class",
+        fields: {
+            _comparer: null
+        },
+        alias: ["compare", ["System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare"]],
+        ctors: {
+            ctor: function (comparer) {
+                this.$initialize();
+                this._comparer = comparer;
+            }
+        },
+        methods: {
+            compare: function (x, y) {
+                return this._comparer[Bridge.geti(this._comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](y, x);
+            }
+        }
+    }; });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {

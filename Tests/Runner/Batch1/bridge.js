@@ -17967,14 +17967,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         var m;
 
         if (T && (m = obj["System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare"])) {
-            return m;
+            return m.bind(obj);
         }
 
         if (m = obj["System$Collections$Generic$IComparer$1$compare"]) {
-            return m;
+            return m.bind(obj);
         }
 
-        return obj.compare;
+        return obj.compare.bind(obj);
     };
 
     // @source Dictionary.js
