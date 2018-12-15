@@ -488,7 +488,7 @@
             var ctors = Bridge.Reflection.getMembers(type, 1, 54);
 
             if (ctors.length > 0) {
-                var pctors = ctors.filter(function (c) { return !c.isSynthetic; });
+                var pctors = ctors.filter(function (c) { return !c.isSynthetic && !c.sm; });
 
                 for (var idx = 0; idx < pctors.length; idx++) {
                     var c = pctors[idx],
