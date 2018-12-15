@@ -35656,6 +35656,41 @@ Bridge.$N1391Result =                     r;
         }
     }; });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789", {
+        statics: {
+            methods: {
+                TestLINQ: function () {
+                    var col = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1(System.Int32))().f1(System.Array.init([""], System.String));
+
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(col).count());
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(System.Linq.Enumerable.from(col).first()));
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(col).first().m1);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1", function (T2) { return {
+        $kind: "nested class",
+        methods: {
+            f1: function (coll1) {
+                var coll2 = System.Linq.Enumerable.from(coll1).select(function (item_) {
+                        var $t;
+                        return ($t = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1.c2(T2))(), $t.m1 = 1, $t);
+                    });
+
+                return coll2;
+            }
+        }
+    }; });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1.c2", function (T2) { return {
+        $kind: "nested class",
+        props: {
+            m1: 0
+        }
+    }; });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
