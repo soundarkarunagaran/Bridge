@@ -35612,6 +35612,50 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788", {
+        statics: {
+            methods: {
+                DoInt5: function (val) {
+                    Bridge.Test.NUnit.Assert.AreEqual(0, val.Item1);
+                    Bridge.Test.NUnit.Assert.AreEqual(0, val.Item2);
+                },
+                DoInt: function (x) {
+                    Bridge.Test.NUnit.Assert.AreEqual(0, x);
+                },
+                DoInt2: function (T, x) {
+                    Bridge.Test.NUnit.Assert.AreEqual(0, x);
+                },
+                TestGenericTypeResolver: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.Test$1(System.Int32).DoFunc2(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.DoInt);
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.Test$1(System.Int32).DoFunc(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.DoInt);
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.Test$1(System.ValueTuple$2(System.Int32,System.Int32)).DoFunc(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.DoInt5);
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.Test$1(System.Int32).DoFunc3(function (x) { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.DoInt2(System.Int32, x); });
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.Test$1(System.ValueTuple$2(System.Int32,System.Int32)).DoFunc4(function (x) { return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.DoInt2(System.ValueTuple$2(System.Int32,System.Int32), x); });
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.Test$1", function (T) { return {
+        $kind: "nested class",
+        statics: {
+            methods: {
+                DoFunc: function (doIt) {
+                    doIt(Bridge.getDefaultValue(T));
+                },
+                DoFunc2: function (doIt) {
+                    doIt(Bridge.getDefaultValue(T));
+                },
+                DoFunc3: function (doIt) {
+                    doIt(Bridge.getDefaultValue(T));
+                },
+                DoFunc4: function (doIt) {
+                    doIt(0);
+                }
+            }
+        }
+    }; });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {

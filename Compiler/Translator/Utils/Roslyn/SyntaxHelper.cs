@@ -367,20 +367,39 @@ namespace Bridge.Translator
                     types.Add(SyntaxHelper.GenerateTypeSyntax(el, model, pos, rewriter));
                 }
 
-                return SyntaxFactory.GenericName(
-                    SyntaxFactory.Identifier(
-                        type.ToMinimalDisplayString(
-                            model,
-                            pos,
-                            new SymbolDisplayFormat(
-                                genericsOptions: SymbolDisplayGenericsOptions.None
-                            )
+                if (types.Count > 0)
+                {
+                    string gtypeName;
+                    if (type.ContainingType != null)
+                    {
+                        var parent = SyntaxHelper.GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
+                        var name = type.Name; //type.ToMinimalDisplayString(model, pos, new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly));
+                        gtypeName = SyntaxFactory.QualifiedName((NameSyntax)parent, SyntaxFactory.IdentifierName(name)).ToString();
+                    } else
+                    {
+                        gtypeName = type.ToMinimalDisplayString(
+                                model,
+                                pos,
+                                new SymbolDisplayFormat(
+                                    genericsOptions: SymbolDisplayGenericsOptions.None
+                                )
+                            );
+                    }
+
+                    return SyntaxFactory.GenericName(
+                        SyntaxFactory.Identifier(gtypeName),
+                        SyntaxFactory.TypeArgumentList(
+                            SyntaxFactory.SeparatedList<TypeSyntax>(types)
                         )
-                    ),
-                    SyntaxFactory.TypeArgumentList(
-                        SyntaxFactory.SeparatedList<TypeSyntax>(types)
-                    )
-                );
+                    );
+                }                
+            }
+
+            if (type.ContainingType != null && type.Kind != SymbolKind.TypeParameter)
+            {
+                var parent = SyntaxHelper.GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
+                var name = type.Name; //type.ToMinimalDisplayString(model, pos, new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly));
+                return SyntaxFactory.QualifiedName((NameSyntax)parent, SyntaxFactory.IdentifierName(name));
             }
 
             return SyntaxFactory.ParseTypeName(type.ToMinimalDisplayString(model, pos));
@@ -581,6 +600,11 @@ namespace Bridge.Translator
                 result += "]";
 
                 return result;
+            }
+
+            if (symbol is INamedTypeSymbol typeSymbol && typeSymbol.IsTupleType)
+            {
+                symbol = typeSymbol.TupleUnderlyingType;
             }
 
             var localName = symbol.Name;
