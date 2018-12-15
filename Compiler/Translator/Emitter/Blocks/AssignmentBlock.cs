@@ -160,9 +160,26 @@ namespace Bridge.Translator
             bool isLongExpected = Helpers.Is64Type(expectedType, this.Emitter.Resolver);
             bool isUserOperator = this.IsUserOperator(orr);
 
-            bool isUint = rr.Type.IsKnownType(KnownTypeCode.UInt16) ||
-                          rr.Type.IsKnownType(KnownTypeCode.UInt32) ||
-                          rr.Type.IsKnownType(KnownTypeCode.UInt64);
+            var rrType = rr.Type;
+
+            if (rrType.Kind == TypeKind.Enum)
+            {
+                rrType = rrType.GetDefinition().EnumUnderlyingType;
+            }
+
+            bool isUint = rrType.IsKnownType(KnownTypeCode.UInt16) ||
+                          rrType.IsKnownType(KnownTypeCode.UInt32) ||
+                          rrType.IsKnownType(KnownTypeCode.UInt64);
+
+            if (!isLong && rr.Type.Kind == TypeKind.Enum && Helpers.Is64Type(rr.Type.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
+            {
+                isLong = true;                
+            }
+
+            if (!isLongExpected && expectedType.Kind == TypeKind.Enum && Helpers.Is64Type(expectedType.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
+            {
+                isLongExpected = true;
+            }
 
             var charToString = -1;
 

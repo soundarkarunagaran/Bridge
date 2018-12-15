@@ -35612,6 +35612,46 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3791", {
+        statics: {
+            methods: {
+                TestEnumBitwise: function () {
+                    var mask1 = System.Int64(0);
+                    var mask2 = System.Int64(0);
+
+                    mask1 = mask1.or(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3791.Mask.L02); // I am OK!
+                    mask2 = mask2.or(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3791.Mask.L02); // But I am not!
+
+                    var test1 = mask1.ne(0);
+                    var test2 = mask2.ne(0);
+
+                    Bridge.Test.NUnit.Assert.True(test1);
+                    Bridge.Test.NUnit.Assert.True(test2);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3791.Mask", {
+        $kind: "nested enum",
+        statics: {
+            fields: {
+                L00: System.Int64(1),
+                L01: System.Int64(2),
+                L02: System.Int64(4),
+                L03: System.Int64(8),
+                L04: System.Int64(16),
+                L05: System.Int64(32),
+                L06: System.Int64(64),
+                L07: System.Int64(128),
+                L08: System.Int64(256),
+                L63: System.Int64([0,-2147483648])
+            }
+        },
+        $flags: true,
+        $utype: System.Int64
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
