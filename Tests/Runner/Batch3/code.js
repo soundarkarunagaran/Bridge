@@ -35654,6 +35654,31 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3790", {
+        statics: {
+            methods: {
+                TestArgumentDelegate: function () {
+                    var mc = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3790.MyClass();
+
+                    Bridge.Test.NUnit.Assert.NotNull(mc);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3790.MyClass", {
+        $kind: "nested class",
+        ctors: {
+            ctor: function () {
+                this.$initialize();
+                this.Test(null);
+            }
+        },
+        methods: {
+            Test: function (callback) { }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
