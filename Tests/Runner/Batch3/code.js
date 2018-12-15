@@ -35612,6 +35612,32 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3786", {
+        statics: {
+            methods: {
+                Test: function (tuple) {
+                    tuple.v = new (System.ValueTuple$2(System.Int32,System.Int32)).$ctor1(1, 2);
+                },
+                Case1: function () {
+                    var tuple = { v : new (System.ValueTuple$2(System.Int32,System.Int32))() };
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3786.Test(tuple);
+                    Bridge.Test.NUnit.Assert.AreEqual(1, tuple.v.Item1, "Tuple's Item1 value is valid.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, tuple.v.Item2, "Tuple's Item2 value is valid.");
+                },
+                Case2: function () {
+                    var tuple = { v : new (System.ValueTuple$2(System.Int32,System.Int32))() };
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3786.Test(tuple);
+                    Bridge.Test.NUnit.Assert.AreEqual(1, tuple.v.Item1, "Tuple's Item1 value is valid.");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, tuple.v.Item2, "Tuple's Item2 value is valid.");
+                },
+                TestInlineTupleOut: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3786.Case1();
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3786.Case2();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
