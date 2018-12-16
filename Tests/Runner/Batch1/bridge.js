@@ -4260,7 +4260,8 @@
                 }
             }
 
-            var f = function (m) {
+            var idx = 0,
+                f = function (m) {
                 if ((memberTypes & m.t) && (((bindingAttr & 4) && !m.is) || ((bindingAttr & 8) && m.is)) && (!name || ((bindingAttr & 1) === 1 ? (m.n.toUpperCase() === name.toUpperCase()) : (m.n === name)))) {
                     if ((bindingAttr & 16) === 16 && m.a === 2 ||
                         (bindingAttr & 32) === 32 && m.a !== 2) {
@@ -4276,7 +4277,13 @@
                             }
                         }
 
-                        result.push(m);
+                        if (m.ov || m.v) {
+                            result = result.filter(function (a) {
+                                return !(a.n == m.n && a.t == m.t);
+                            });
+                        }
+
+                        result.splice(idx++, 0, m);
                     }
                 }
             };
@@ -20732,6 +20739,42 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }
 
                 var r = o.at || [];
+
+                if (o.ov === true) {
+                    var baseType = Bridge.Reflection.getBaseType(o.td),
+                        baseAttrs = [],
+                        baseMember = null;
+
+                    while (baseType != null && baseMember == null) {
+                        baseMember = Bridge.Reflection.getMembers(baseType, 31, 28, o.n);
+
+                        if (baseMember.length == 0) {
+                            var newBaseType = Bridge.Reflection.getBaseType(baseType);
+
+                            if (newBaseType != baseType) {
+                                baseType = newBaseType;
+                            }
+
+                            baseMember = null;
+                        } else {
+                            baseMember = baseMember[0];
+                        }
+                    }
+
+                    if (baseMember != null) {
+                        baseAttrs = System.Attribute.getCustomAttributes(baseMember, t);
+                    }
+
+                    for (var i = 0; i < baseAttrs.length; i++) {
+                        var baseAttr = baseAttrs[i],
+                            attrType = Bridge.getType(baseAttr),
+                            meta = Bridge.getMetadata(attrType);
+
+                        if (meta && meta.am || !r.some(function (a) { return Bridge.is(a, t); })) {
+                            r.push(baseAttr);
+                        }
+                    }
+                }
 
                 if (!t) {
                     return r;
