@@ -35612,6 +35612,19 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3796", {
+        statics: {
+            methods: {
+                TestInt64Cast: function () {
+                    var double1 = System.Int64.toNumber(System.Int64(0));
+                    var result = double1 / double1;
+                    Bridge.Test.NUnit.Assert.True(Bridge.Int.clip64((result)).equals(System.Int64.MinValue));
+                    Bridge.Test.NUnit.Assert.True(isNaN(result));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
