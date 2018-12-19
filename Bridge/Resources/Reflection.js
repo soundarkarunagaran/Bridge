@@ -779,7 +779,8 @@
                 }
             }
 
-            var f = function (m) {
+            var idx = 0,
+                f = function (m) {
                 if ((memberTypes & m.t) && (((bindingAttr & 4) && !m.is) || ((bindingAttr & 8) && m.is)) && (!name || ((bindingAttr & 1) === 1 ? (m.n.toUpperCase() === name.toUpperCase()) : (m.n === name)))) {
                     if ((bindingAttr & 16) === 16 && m.a === 2 ||
                         (bindingAttr & 32) === 32 && m.a !== 2) {
@@ -795,7 +796,13 @@
                             }
                         }
 
-                        result.push(m);
+                        if (m.ov || m.v) {
+                            result = result.filter(function (a) {
+                                return !(a.n == m.n && a.t == m.t);
+                            });
+                        }
+
+                        result.splice(idx++, 0, m);
                     }
                 }
             };

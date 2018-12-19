@@ -11,6 +11,42 @@
 
                 var r = o.at || [];
 
+                if (o.ov === true) {
+                    var baseType = Bridge.Reflection.getBaseType(o.td),
+                        baseAttrs = [],
+                        baseMember = null;
+
+                    while (baseType != null && baseMember == null) {
+                        baseMember = Bridge.Reflection.getMembers(baseType, 31, 28, o.n);
+
+                        if (baseMember.length == 0) {
+                            var newBaseType = Bridge.Reflection.getBaseType(baseType);
+
+                            if (newBaseType != baseType) {
+                                baseType = newBaseType;
+                            }
+
+                            baseMember = null;
+                        } else {
+                            baseMember = baseMember[0];
+                        }
+                    }
+
+                    if (baseMember != null) {
+                        baseAttrs = System.Attribute.getCustomAttributes(baseMember, t);
+                    }
+
+                    for (var i = 0; i < baseAttrs.length; i++) {
+                        var baseAttr = baseAttrs[i],
+                            attrType = Bridge.getType(baseAttr),
+                            meta = Bridge.getMetadata(attrType);
+
+                        if (meta && meta.am || !r.some(function (a) { return Bridge.is(a, t); })) {
+                            r.push(baseAttr);
+                        }
+                    }
+                }
+
                 if (!t) {
                     return r;
                 }

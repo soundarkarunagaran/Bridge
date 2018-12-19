@@ -57,8 +57,8 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             var ol2 = new OL2 { ShouldSeeThis2 = 2 };
             props = ol2.GetType().GetProperties().Select(x => x.Name).ToArray();
             Assert.AreEqual(2, props.Length);
-            Assert.AreEqual("ShouldSeeThis1", props[0]);
-            Assert.AreEqual("ShouldSeeThis2", props[1]);
+            Assert.AreEqual("ShouldSeeThis2", props[0]);
+            Assert.AreEqual("ShouldSeeThis1", props[1]);
 
             Assert.AreEqual(2, ol2.GetType().GetProperty("ShouldSeeThis2").GetValue(ol2));
         }
