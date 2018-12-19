@@ -3,6 +3,7 @@ using ICSharpCode.NRefactory.CSharp;
 using ICSharpCode.NRefactory.TypeSystem;
 using Mono.Cecil;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
@@ -227,6 +228,7 @@ namespace Bridge.Translator
             }
         }
 
+        private static ConcurrentDictionary<string, IAssemblyReference> referencesDict = new ConcurrentDictionary<string, IAssemblyReference>();
         internal static List<IAssemblyReference> ToAssemblyReferences(IEnumerable<AssemblyDefinition> references, ILogger logger)
         {
             logger.Info("Assembly definition to references...");
@@ -245,7 +247,7 @@ namespace Bridge.Translator
                 var loader = new CecilLoader();
                 loader.IncludeInternalMembers = true;
 
-                list.Add(loader.LoadAssembly(reference));
+                list.Add(referencesDict.GetOrAdd(reference.MainModule.FullyQualifiedName, a => loader.LoadAssembly(reference)));
 
                 logger.Trace("\tLoading AssemblyDefinition done");
             }
