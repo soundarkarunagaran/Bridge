@@ -48,6 +48,18 @@ namespace Bridge.Translator
                     return false;
                 });
 
+            var updatedMembers = new Dictionary<MemberAccessExpressionSyntax, string>();
+            foreach (var memberAccess in root.DescendantNodes().OfType<MemberAccessExpressionSyntax>())
+            {
+                var symbol = model.GetSymbolInfo(memberAccess).Symbol;
+                if (symbol != null && symbol is IFieldSymbol && symbol.ContainingType.IsTupleType)
+                {
+                    var field = symbol as IFieldSymbol;
+                    var tupleField = field.CorrespondingTupleField;
+                    updatedMembers[memberAccess] = tupleField.Name;
+                }
+            }
+
             var updatedStatements = new Dictionary<StatementSyntax, List<LocalDeclarationStatementSyntax>>();
             var updatedDiscards = new Dictionary<DiscardDesignationSyntax, string>();
             var updatedDiscardVars = new Dictionary<ArgumentSyntax, string>();
@@ -207,11 +219,13 @@ namespace Bridge.Translator
             var annotatedDiscards = new Dictionary<SyntaxAnnotation, string>();
             var annotatedDiscardVars = new Dictionary<SyntaxAnnotation, string>();
             var annotatedAssigments = new List<SyntaxAnnotation>();
+            var annotatedMembers = new Dictionary<SyntaxAnnotation, string>();
 
             var keys = updatedStatements.Keys.Cast<SyntaxNode>()
                             .Concat(updatedDiscards.Keys.Cast<SyntaxNode>())
                             .Concat(updatedDiscardVars.Keys.Cast<SyntaxNode>())
-                            .Concat(discardAssigments);
+                            .Concat(discardAssigments)
+                            .Concat(updatedMembers.Keys.Cast<SyntaxNode>());
 
             root = root.ReplaceNodes(keys, (n1, n2) =>
             {
@@ -228,6 +242,10 @@ namespace Bridge.Translator
                 else if (n1 is ArgumentSyntax)
                 {
                     annotatedDiscardVars[annotation] = updatedDiscardVars[(ArgumentSyntax)n1];
+                }
+                else if (n1 is MemberAccessExpressionSyntax)
+                {
+                    annotatedMembers[annotation] = updatedMembers[(MemberAccessExpressionSyntax)n1];
                 }
                 else
                 {
@@ -301,6 +319,14 @@ namespace Bridge.Translator
                 root = root.ReplaceNodes(discardPatterns, (n1, n2) => {
                     return SyntaxFactory.LiteralExpression(SyntaxKind.TrueLiteralExpression, SyntaxFactory.Token(SyntaxKind.TrueKeyword));
                 });
+            }
+
+            foreach (var annotation in annotatedMembers.Keys)
+            {
+                var annotatedNode = root.GetAnnotatedNodes(annotation).First();
+                var name = annotatedMembers[annotation];
+
+                root = root.ReplaceNode(annotatedNode, ((MemberAccessExpressionSyntax)annotatedNode).WithName(SyntaxFactory.IdentifierName(name)).NormalizeWhitespace());
             }
 
             return root;
