@@ -803,7 +803,7 @@
                     }
                 }
 
-                if (Bridge.Int.isInfinite(x)) {
+                if (Bridge.Int.isInfinite(x) || isNaN(x)) {
                     if (System.Int64.is64BitType(type)) {
                         return type.MinValue;
                     }
@@ -815,43 +815,43 @@
             },
 
             sxb: function (x) {
-                return Bridge.isNumber(x) ? (x | (x & 0x80 ? 0xffffff00 : 0)) : (Bridge.Int.isInfinite(x) ? System.SByte.min : null);
+                return Bridge.isNumber(x) ? (x | (x & 0x80 ? 0xffffff00 : 0)) : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.SByte.min : null);
             },
 
             sxs: function (x) {
-                return Bridge.isNumber(x) ? (x | (x & 0x8000 ? 0xffff0000 : 0)) : (Bridge.Int.isInfinite(x) ? System.Int16.min : null);
+                return Bridge.isNumber(x) ? (x | (x & 0x8000 ? 0xffff0000 : 0)) : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.Int16.min : null);
             },
 
             clip8: function (x) {
-                return Bridge.isNumber(x) ? Bridge.Int.sxb(x & 0xff) : (Bridge.Int.isInfinite(x) ? System.SByte.min : null);
+                return Bridge.isNumber(x) ? Bridge.Int.sxb(x & 0xff) : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.SByte.min : null);
             },
 
             clipu8: function (x) {
-                return Bridge.isNumber(x) ? x & 0xff : (Bridge.Int.isInfinite(x) ? System.Byte.min : null);
+                return Bridge.isNumber(x) ? x & 0xff : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.Byte.min : null);
             },
 
             clip16: function (x) {
-                return Bridge.isNumber(x) ? Bridge.Int.sxs(x & 0xffff) : (Bridge.Int.isInfinite(x) ? System.Int16.min : null);
+                return Bridge.isNumber(x) ? Bridge.Int.sxs(x & 0xffff) : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.Int16.min : null);
             },
 
             clipu16: function (x) {
-                return Bridge.isNumber(x) ? x & 0xffff : (Bridge.Int.isInfinite(x) ? System.UInt16.min : null);
+                return Bridge.isNumber(x) ? x & 0xffff : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.UInt16.min : null);
             },
 
             clip32: function (x) {
-                return Bridge.isNumber(x) ? x | 0 : (Bridge.Int.isInfinite(x) ? System.Int32.min : null);
+                return Bridge.isNumber(x) ? x | 0 : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.Int32.min : null);
             },
 
             clipu32: function (x) {
-                return Bridge.isNumber(x) ? x >>> 0 : (Bridge.Int.isInfinite(x) ? System.UInt32.min : null);
+                return Bridge.isNumber(x) ? x >>> 0 : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.UInt32.min : null);
             },
 
             clip64: function (x) {
-                return Bridge.isNumber(x) ? System.Int64(Bridge.Int.trunc(x)) : (Bridge.Int.isInfinite(x) ? System.Int64.MinValue : null);
+                return Bridge.isNumber(x) ? System.Int64(Bridge.Int.trunc(x)) : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.Int64.MinValue : null);
             },
 
             clipu64: function (x) {
-                return Bridge.isNumber(x) ? System.UInt64(Bridge.Int.trunc(x)) : (Bridge.Int.isInfinite(x) ? System.UInt64.MinValue : null);
+                return Bridge.isNumber(x) ? System.UInt64(Bridge.Int.trunc(x)) : ((Bridge.Int.isInfinite(x) || isNaN(x)) ? System.UInt64.MinValue : null);
             },
 
             sign: function (x) {
