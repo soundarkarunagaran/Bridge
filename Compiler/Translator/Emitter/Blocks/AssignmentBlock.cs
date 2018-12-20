@@ -173,7 +173,7 @@ namespace Bridge.Translator
 
             if (!isLong && rr.Type.Kind == TypeKind.Enum && Helpers.Is64Type(rr.Type.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))
             {
-                isLong = true;                
+                isLong = true;
             }
 
             if (!isLongExpected && expectedType.Kind == TypeKind.Enum && Helpers.Is64Type(expectedType.GetDefinition().EnumUnderlyingType, this.Emitter.Resolver))

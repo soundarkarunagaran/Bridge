@@ -409,7 +409,7 @@ namespace Bridge.Translator
                             SyntaxFactory.SeparatedList<TypeSyntax>(types)
                         )
                     );
-                }                
+                }
             }
 
             if (type.ContainingType != null && type.Kind != SymbolKind.TypeParameter)
