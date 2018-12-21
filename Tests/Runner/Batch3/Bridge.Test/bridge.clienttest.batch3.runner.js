@@ -18260,7 +18260,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestGenericTypeResolver: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3788, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGenericTypeResolver()", $t.Line = "54", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3788, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestGenericTypeResolver()", $t.Line = "53", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3788.TestGenericTypeResolver();
                 }
             }
@@ -18364,7 +18364,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestCreateInstance: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3794).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3794, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestCreateInstance()", $t.Line = "25", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3794).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3794, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestCreateInstance()", $t.Line = "18", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3794.TestCreateInstance();
                 }
             }
@@ -18390,7 +18390,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             methods: {
                 TestReflection: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3795, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestReflection()", $t.Line = "50", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3795, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestReflection()", $t.Line = "75", $t));
                     Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795.TestReflection();
                 }
             }
