@@ -26,8 +26,8 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             int? y = 0;
             Nullable<int> y1 = null;
-            Assert.AreEqual(0, Ext.Boo(y));
-            Assert.Null(Ext.Boo(y1));
+            Assert.AreEqual(0, Ext.Boo(y), "Ext.Boo(y), where y == 0, results in 0.");
+            Assert.Null(Ext.Boo(y1), "Ext.Boo(y1), where y1 == null, results in null.");
 
             var a = new List<Model>();
             Assert.AreEqual(0, a.OrderByDescending(i => i.CreatedDate).Count(), "Linq Order() works in empty list.");

@@ -36,8 +36,18 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             bool test1 = mask1 != 0;
             bool test2 = mask2 != 0;
 
-            Assert.True(test1);
-            Assert.True(test2);
+            Assert.True(test1, "x = x | y syntax works.");
+            Assert.True(test2, "x |= y syntax works.");
+
+            mask1 = mask1 & Mask.L02; // I am OK!
+            mask2 &= Mask.L02; // But I am not!
+
+            test1 = mask1 != 0;
+            test2 = mask2 != 0;
+
+            Assert.True(test1, "x = x & y syntax works.");
+            Assert.True(test2, "x &= y syntax works.");
+
         }
     }
 }

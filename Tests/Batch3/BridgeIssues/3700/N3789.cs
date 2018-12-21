@@ -31,9 +31,9 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             var col = new c1<int>().f1(new string[1] { "" });
 
-            Assert.AreEqual(1, col.Count());
-            Assert.True(col.First() is c1<int>.c2);
-            Assert.AreEqual(1, col.First().m1);
+            Assert.AreEqual(1, col.Count(), "Instantiating c1 works.");
+            Assert.True(col.First() is c1<int>.c2, "Elements of c1 are of c2's specified type.");
+            Assert.AreEqual(1, col.First().m1, "Value of c1 instance's element from subclass is correct.");
         }
     }
 }

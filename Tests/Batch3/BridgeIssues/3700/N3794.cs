@@ -11,22 +11,15 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         [Reflectable]
         public class Test
         {
-            static Test()
-            {
-
-            }
-
-            public Test()
-            {
-
-            }
+            static Test() { }
+            public Test() { }
         }
 
         [Test]
         public static void TestCreateInstance()
         {
             Test test = Activator.CreateInstance<Test>();
-            Assert.NotNull(test);
+            Assert.NotNull(test, "Creating instance of class containing static constructor works.");
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             MyClass mc = new MyClass();
 
-            Assert.NotNull(mc);
+            Assert.NotNull(mc, "Instantiation of class involving nullable generics specification works.");
         }
     }
 }

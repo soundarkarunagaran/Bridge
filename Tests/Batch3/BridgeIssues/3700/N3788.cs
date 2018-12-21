@@ -10,23 +10,22 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
     {
         private static void DoInt5((int, int) val)
         {
-            Assert.AreEqual(0, val.Item1);
-            Assert.AreEqual(0, val.Item2);
+            Assert.AreEqual(0, val.Item1, "Int tuple's Item1 value in DoInt5() is correct.");
+            Assert.AreEqual(0, val.Item2, "Int tuple's Item2 value in DoInt5() is correct.");
         }
 
         public static void DoInt(int x)
         {
-            Assert.AreEqual(0, x);
+            Assert.AreEqual(0, x, "Int value ind DoInt() is correct.");
         }
 
         public static void DoInt2<T>(int x)
         {
-            Assert.AreEqual(0, x);
+            Assert.AreEqual(0, x, "Int value in DoInt2<T>() is correct.");
         }
 
         public static class Test<T>
         {
-
             public delegate void DoDel(T val);
             public delegate void DoDel1<T2>(T val);
 
