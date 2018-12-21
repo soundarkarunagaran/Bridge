@@ -5,6 +5,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
@@ -138,6 +139,7 @@ namespace Bridge.Translator
             return new CSharpParseOptions(LanguageVersion.CSharp7, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
         }
 
+        private static ConcurrentDictionary<string, MetadataReference> referencesDict = new ConcurrentDictionary<string, MetadataReference>();
         private CSharpCompilation CreateCompilation()
         {
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
@@ -149,7 +151,7 @@ namespace Bridge.Translator
             var i = 0;
             foreach (var r in this.translator.References)
             {
-                references[i++] = MetadataReference.CreateFromFile(r.MainModule.FullyQualifiedName, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global")));
+                references[i++] = referencesDict.GetOrAdd(r.MainModule.FullyQualifiedName, a => MetadataReference.CreateFromFile(a, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
             }
 
             return CSharpCompilation.Create(GetAssemblyName(), syntaxTrees, references, compilationOptions);
