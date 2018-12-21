@@ -389,7 +389,7 @@ namespace Bridge.Translator
                     if (type.ContainingType != null)
                     {
                         var parent = SyntaxHelper.GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
-                        var name = type.Name; //type.ToMinimalDisplayString(model, pos, new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly));
+                        var name = type.Name;
                         gtypeName = SyntaxFactory.QualifiedName((NameSyntax)parent, SyntaxFactory.IdentifierName(name)).ToString();
                     }
                     else
@@ -415,7 +415,7 @@ namespace Bridge.Translator
             if (type.ContainingType != null && type.Kind != SymbolKind.TypeParameter)
             {
                 var parent = SyntaxHelper.GenerateTypeSyntax(type.ContainingType, model, pos, rewriter);
-                var name = type.Name; //type.ToMinimalDisplayString(model, pos, new SymbolDisplayFormat(typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly));
+                var name = type.Name;
                 return SyntaxFactory.QualifiedName((NameSyntax)parent, SyntaxFactory.IdentifierName(name));
             }
 
