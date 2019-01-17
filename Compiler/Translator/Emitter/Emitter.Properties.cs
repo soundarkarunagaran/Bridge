@@ -228,7 +228,7 @@ namespace Bridge.Translator
             }
         }
 
-        private static ConcurrentDictionary<string, IAssemblyReference> referencesDict = new ConcurrentDictionary<string, IAssemblyReference>();
+        private static ConcurrentDictionary<ReferenceInfo, IAssemblyReference> referencesDict = new ConcurrentDictionary<ReferenceInfo, IAssemblyReference>();
         internal static List<IAssemblyReference> ToAssemblyReferences(IEnumerable<AssemblyDefinition> references, ILogger logger)
         {
             logger.Info("Assembly definition to references...");
@@ -247,7 +247,7 @@ namespace Bridge.Translator
                 var loader = new CecilLoader();
                 loader.IncludeInternalMembers = true;
 
-                list.Add(referencesDict.GetOrAdd(reference.MainModule.FullyQualifiedName, a => loader.LoadAssembly(reference)));
+                list.Add(referencesDict.GetOrAdd(new ReferenceInfo(reference.MainModule.FullyQualifiedName), a => loader.LoadAssembly(reference)));
 
                 logger.Trace("\tLoading AssemblyDefinition done");
             }

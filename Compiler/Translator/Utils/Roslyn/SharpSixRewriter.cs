@@ -139,7 +139,7 @@ namespace Bridge.Translator
             return new CSharpParseOptions(LanguageVersion.CSharp7, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
         }
 
-        private static ConcurrentDictionary<string, MetadataReference> referencesDict = new ConcurrentDictionary<string, MetadataReference>();
+        private static ConcurrentDictionary<ReferenceInfo, MetadataReference> referencesDict = new ConcurrentDictionary<ReferenceInfo, MetadataReference>();
         private CSharpCompilation CreateCompilation()
         {
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
@@ -151,7 +151,7 @@ namespace Bridge.Translator
             var i = 0;
             foreach (var r in this.translator.References)
             {
-                references[i++] = referencesDict.GetOrAdd(r.MainModule.FullyQualifiedName, a => MetadataReference.CreateFromFile(a, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
+                references[i++] = referencesDict.GetOrAdd(new ReferenceInfo(r.MainModule.FullyQualifiedName), a => MetadataReference.CreateFromFile(a.FilePath, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
             }
 
             return CSharpCompilation.Create(GetAssemblyName(), syntaxTrees, references, compilationOptions);
