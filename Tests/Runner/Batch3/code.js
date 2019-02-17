@@ -35677,6 +35677,23 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3823", {
+        statics: {
+            methods: {
+                TestIsPattern: function () {
+                    var s = "";
+                    var o = s;
+                    var d;
+                    if (System.Nullable.liftne("ne", ((d = Bridge.is(o, System.Decimal) ? System.Nullable.getValue(Bridge.cast(Bridge.unbox(o, System.Decimal), System.Decimal)) : null)), System.Decimal.lift(null))) {
+                        Bridge.Test.NUnit.Assert.Fail();
+                    } else {
+                        Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(o));
+                    }
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge383", {
         statics: {
             methods: {

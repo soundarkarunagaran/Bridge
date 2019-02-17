@@ -790,6 +790,7 @@
     <Compile Include="BridgeIssues\3700\N3762.cs" />
     <Compile Include="BridgeIssues\3700\N3757.cs" />
     <Compile Include="BridgeIssues\3700\N3733.cs" />
+    <Compile Include="BridgeIssues\3800\N3823.cs" />
     <Compile Include="BridgeIssues\TestBridgeIssues.cs" />
     <Compile Include="Utilities\BrowserHelper.cs" />
   </ItemGroup>

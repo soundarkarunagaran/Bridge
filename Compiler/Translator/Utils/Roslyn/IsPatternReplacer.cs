@@ -11,6 +11,8 @@ namespace Bridge.Translator
 {
     public class IsPatternReplacer : ICSharpReplacer
     {
+        Dictionary<string, bool> typesInfo = new Dictionary<string, bool>();
+
         public SyntaxNode Replace(SyntaxNode root, SemanticModel model, SharpSixRewriter rewriter)
         {
             root = InsertVariables(root, model);
@@ -52,6 +54,13 @@ namespace Bridge.Translator
 
                             if (designation != null)
                             {
+                                if (!typesInfo.Keys.Contains(declarationPattern.Type.ToString()))
+                                {
+                                    var ti = model.GetTypeInfo(declarationPattern.Type);
+                                    var isValueType = ti.Type != null ? ti.Type.IsValueType : false;
+                                    typesInfo[declarationPattern.Type.ToString()] = isValueType;
+                                }                                
+
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
 
                                 var varDecl = SyntaxFactory.VariableDeclaration(declarationPattern.Type).WithVariables(SyntaxFactory.SingletonSeparatedList<VariableDeclaratorSyntax>(
@@ -162,11 +171,43 @@ namespace Bridge.Translator
 
                             if (designation != null)
                             {
-                                var newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
-                                    SyntaxKind.SimpleAssignmentExpression,
-                                    SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
-                                    SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, pattern.Expression, declarationPattern.Type)
-                                )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                var key = declarationPattern.Type.ToString();
+                                BinaryExpressionSyntax newExpr;
+                                if (this.typesInfo.Keys.Contains(key) && this.typesInfo[key])
+                                {
+                                    newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
+                                        SyntaxKind.SimpleAssignmentExpression,
+                                        SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
+                                        SyntaxFactory.ConditionalExpression(SyntaxFactory.BinaryExpression(SyntaxKind.IsExpression, pattern.Expression, declarationPattern.Type),
+                                            SyntaxFactory.CastExpression(declarationPattern.Type, pattern.Expression),
+                                            SyntaxFactory.InvocationExpression(
+                                                SyntaxFactory.MemberAccessExpression(
+                                                    SyntaxKind.SimpleMemberAccessExpression,
+                                                    SyntaxFactory.IdentifierName("Bridge.Script"),
+                                                    SyntaxFactory.GenericName(
+                                                        SyntaxFactory.Identifier("Write"))
+                                                    .WithTypeArgumentList(
+                                                        SyntaxFactory.TypeArgumentList(
+                                                            SyntaxFactory.SingletonSeparatedList<TypeSyntax>(declarationPattern.Type)))))
+                                            .WithArgumentList(
+                                                SyntaxFactory.ArgumentList(
+                                                    SyntaxFactory.SingletonSeparatedList<ArgumentSyntax>(
+                                                        SyntaxFactory.Argument(
+                                                            SyntaxFactory.LiteralExpression(
+                                                                SyntaxKind.StringLiteralExpression,
+                                                                SyntaxFactory.Literal("null"))))))
+                                        )
+                                    )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
+                                }
+                                else
+                                {
+                                    newExpr = SyntaxFactory.BinaryExpression(SyntaxKind.NotEqualsExpression, SyntaxFactory.ParenthesizedExpression(SyntaxFactory.AssignmentExpression(
+                                        SyntaxKind.SimpleAssignmentExpression,
+                                        SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
+                                        SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, pattern.Expression, declarationPattern.Type)
+                                    )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));                                   
+                                }
+
                                 updatedPatterns[pattern] = newExpr.NormalizeWhitespace();
                             }
                         }
