@@ -11,9 +11,9 @@ namespace System.Collections
         [Bridge.AccessorsIndexer]
         object this[object key]
         {
-            [Bridge.Name("getItem")]
+            //[Bridge.Name("getItem")]
             get;
-            [Bridge.Name("setItem")]
+            //[Bridge.Name("setItem")]
             set;
         }
 

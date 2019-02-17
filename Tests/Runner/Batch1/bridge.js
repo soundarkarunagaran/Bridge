@@ -1,7 +1,7 @@
 /**
  * @version   : 17.6.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -14237,8 +14237,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             "setItem", "System$Collections$Generic$IReadOnlyDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$setItem",
             "getItem", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$getItem",
             "setItem", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$setItem",
-            "getItem", "System$Collections$IDictionary$getItem",
-            "setItem", "System$Collections$IDictionary$setItem",
+            "getItem$1", "System$Collections$IDictionary$getItem",
+            "setItem$1", "System$Collections$IDictionary$setItem",
             "tryGetValue", "System$Collections$Generic$IReadOnlyDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$tryGetValue",
             "tryGetValue", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$tryGetValue",
             "remove", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$remove"
@@ -14310,7 +14310,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }
                 this.Insert(~i, key, value);
             },
-            getItem: function (key) {
+            getItem$1: function (key) {
                 if (System.Collections.Generic.SortedList$2(TKey,TValue).IsCompatibleKey(key)) {
                     var i = this.IndexOfKey(Bridge.cast(Bridge.unbox(key, TKey), TKey));
                     if (i >= 0) {
@@ -14320,7 +14320,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                 return null;
             },
-            setItem: function (key, value) {
+            setItem$1: function (key, value) {
                 if (!System.Collections.Generic.SortedList$2(TKey,TValue).IsCompatibleKey(key)) {
                     System.ThrowHelper.ThrowArgumentNullException(System.ExceptionArgument.key);
                 }

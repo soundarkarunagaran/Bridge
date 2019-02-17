@@ -36090,6 +36090,19 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3828", {
+        statics: {
+            methods: {
+                TestSortedList: function () {
+                    var list = new (System.Collections.Generic.SortedList$2(System.Int32,System.String)).ctor();
+                    list.setItem(1, "value1");
+
+                    Bridge.Test.NUnit.Assert.AreEqual(list.getItem(1), "value1");
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge383", {
         statics: {
             methods: {
