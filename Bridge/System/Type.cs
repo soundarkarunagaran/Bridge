@@ -417,5 +417,11 @@ namespace System
             [Bridge.Template("Bridge.Reflection.isValueType({this})")]
             get;
         }
+
+        public extern bool IsPrimitive
+        {
+            [Bridge.Template("Bridge.Reflection.isPrimitive({this})")]
+            get;
+        }
     }
 }

@@ -18808,6 +18808,31 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2522", {
+        statics: {
+            methods: {
+                TestIsPrimitive: function () {
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Byte));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.SByte));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Int16));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.UInt16));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Int32));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.UInt32));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Int64));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.UInt64));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Boolean));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Char));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Double));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isPrimitive(System.Single));
+
+                    Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isPrimitive(System.Decimal));
+                    Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isPrimitive(System.DateTime));
+                    Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isPrimitive(System.String));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2523", {
         statics: {
             methods: {

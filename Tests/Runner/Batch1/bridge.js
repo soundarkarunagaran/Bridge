@@ -1,7 +1,7 @@
 /**
  * @version   : 17.6.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -4103,6 +4103,27 @@
             }
 
             return typeName ? Bridge.Reflection._getType(typeName, asm) : null;
+        },
+
+        isPrimitive: function (type) {
+            if (type === System.Int64 ||
+                type === System.UInt64 ||
+                type === System.Double ||
+                type === System.Single ||
+                type === System.Byte ||
+                type === System.SByte ||
+                type === System.Int16 ||
+                type === System.UInt16 ||
+                type === System.Int32 ||
+                type === System.UInt32 ||
+                type === System.Boolean ||
+                type === Boolean ||
+                type === System.Char ||
+                type === Number) {
+                return true;
+            }
+
+            return false;
         },
 
         canAcceptNull: function (type) {
