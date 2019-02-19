@@ -79,8 +79,10 @@
         "Resources/Array.js",
         "Resources/ArraySegment.js",
 
-        "Resources/.generated/System/Collections/Generic/KeyValuePair.js",
+
         "Resources/Collections/Interfaces.js",
+        "Resources/String.js",
+        "Resources/.generated/System/Collections/Generic/KeyValuePair.js",
         "Resources/.generated/System/Collections/IEnumerator.js",
         "Resources/.generated/System/Collections/IComparer.js",
         "Resources/.generated/System/Collections/IDictionaryEnumerator.js",
@@ -112,6 +114,23 @@
         "Resources/.generated/System/Collections/generic/LinkedListNode.js",
         "Resources/.generated/System/Collections/generic/LinkedList/Enumerator.js",
         "Resources/.generated/System/Collections/generic/TreeRotation.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary/Entry.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary/Enumerator.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary/KeyCollection.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary/KeyCollection/Enumerator.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary/ValueCollection.js",
+        "Resources/.generated/System/Collections/Generic/Dictionary/ValueCollection/Enumerator.js",
+
+        "Resources/.generated/System/Collections/ObjectModel/ReadOnlyDictionary.js",
+        "Resources/.generated/System/Collections/ObjectModel/ReadOnlyDictionary/DictionaryEnumerator.js",
+        "Resources/.generated/System/Collections/ObjectModel/ReadOnlyDictionary/KeyCollection.js",
+        "Resources/.generated/System/Collections/ObjectModel/ReadOnlyDictionary/ValueCollection.js",
+        "Resources/.generated/System/Collections/ObjectModel/ReadOnlyDictionaryHelpers.js",
+
+        "Resources/.generated/System/Collections/Generic/CollectionExtensions.js",
+        "Resources/.generated/System/StringComparer.js",
+        "Resources/.generated/System/OrdinalComparer.js",
 
         "Resources/Collections/CustomEnumerator.js",
         "Resources/Collections/ArrayEnumerator.js",
@@ -125,7 +144,6 @@
 
         "Resources/.generated/System/CharEnumerator.js",
 
-        "Resources/String.js",
         "Resources/Task.js",
         "Resources/Validation.js",
         "Resources/Attribute.js",

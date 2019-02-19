@@ -71,7 +71,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             test5.Add(new KeyValuePair<int, int>(1, 1), 1);
 
             // the key here should match the key added above
-            Assert.AreEqual(1, test5.Get(new KeyValuePair<int, int>(1, 1)), "Fetching via the Get() method works.");
+            Assert.AreEqual(1, test5[new KeyValuePair<int, int>(1, 1)], "Fetching via the Get() method works.");
         }
     }
 }

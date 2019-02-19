@@ -168,8 +168,8 @@
             "setItem", "System$Collections$Generic$IReadOnlyDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$setItem",
             "getItem", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$getItem",
             "setItem", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$setItem",
-            "getItem", "System$Collections$IDictionary$getItem",
-            "setItem", "System$Collections$IDictionary$setItem",
+            "getItem$1", "System$Collections$IDictionary$getItem",
+            "setItem$1", "System$Collections$IDictionary$setItem",
             "tryGetValue", "System$Collections$Generic$IReadOnlyDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$tryGetValue",
             "tryGetValue", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$tryGetValue",
             "remove", "System$Collections$Generic$IDictionary$2$" + Bridge.getTypeAlias(TKey) + "$" + Bridge.getTypeAlias(TValue) + "$remove"
@@ -241,7 +241,7 @@
                 }
                 this.Insert(~i, key, value);
             },
-            getItem: function (key) {
+            getItem$1: function (key) {
                 if (System.Collections.Generic.SortedList$2(TKey,TValue).IsCompatibleKey(key)) {
                     var i = this.IndexOfKey(Bridge.cast(Bridge.unbox(key, TKey), TKey));
                     if (i >= 0) {
@@ -251,7 +251,7 @@
 
                 return null;
             },
-            setItem: function (key, value) {
+            setItem$1: function (key, value) {
                 if (!System.Collections.Generic.SortedList$2(TKey,TValue).IsCompatibleKey(key)) {
                     System.ThrowHelper.ThrowArgumentNullException(System.ExceptionArgument.key);
                 }

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace Bridge.ClientTest.Collections.Generic
 {
@@ -82,7 +83,7 @@ namespace Bridge.ClientTest.Collections.Generic
             var d = new Dictionary<int, string>();
             Assert.AreEqual(0, d.Count);
             Assert.AreEqual(0, d.Count, "Count is 0");
-            Assert.AreEqual("Bridge.CustomEnumerator", d.GetEnumerator().GetType().FullName, "Enumerator");
+            Assert.AreEqual("System.Collections.Generic.Dictionary`2+Enumerator[[System.Int32, mscorlib],[System.String, mscorlib]]", d.GetEnumerator().GetType().FullName, "Enumerator");
             Assert.AreEqual("System.Collections.Generic.EqualityComparer`1[[System.Int32, mscorlib]]", d.Comparer.GetType().FullName, "Comparer");
 
             // #1549
@@ -94,7 +95,7 @@ namespace Bridge.ClientTest.Collections.Generic
         {
             var d = new Dictionary<int, string>(10);
             Assert.AreEqual(0, d.Count);
-            Assert.AreEqual("Bridge.CustomEnumerator", d.GetEnumerator().GetType().FullName, "Enumerator");
+            Assert.AreEqual("System.Collections.Generic.Dictionary`2+Enumerator[[System.Int32, mscorlib],[System.String, mscorlib]]", d.GetEnumerator().GetType().FullName, "Enumerator");
             Assert.AreEqual("System.Collections.Generic.EqualityComparer`1[[System.Int32, mscorlib]]", d.Comparer.GetType().FullName, "Comparer");
 
             // #1549
@@ -569,13 +570,13 @@ namespace Bridge.ClientTest.Collections.Generic
             Assert.AreEqual(null, el.Value, "Enumerable initial value");
             Assert.True(en.MoveNext(), "Enumerable MoveNext true");
             el = en.Current;
-            Assert.AreEqual(2, el.Key, "Enumerable first key");
-            Assert.AreEqual("b", el.Value, "Enumerable first value");
+            Assert.AreEqual(1, el.Key, "Enumerable first key");
+            Assert.AreEqual("a", el.Value, "Enumerable first value");
             Assert.True(en.MoveNext(), "Enumerable MoveNext true");
             el = en.Current;
-            Assert.AreEqual(1, el.Key, "Enumerable second key");
-            Assert.AreEqual("a", el.Value, "Enumerable second value");
-            Assert.False(en.MoveNext(), "Enumerable MoveNext false");
+            Assert.AreEqual(2, el.Key, "Enumerable second key");
+            Assert.AreEqual("b", el.Value, "Enumerable second value");
+            Assert.False(en.MoveNext(), "Enumerable MoveNext false");            
 
 
             // ICollection<T>
@@ -596,11 +597,11 @@ namespace Bridge.ClientTest.Collections.Generic
             var cta = new KeyValuePair<int, string>[3];
             d.CopyTo(cta, 0);
 
-            Assert.AreEqual(2, cta[0].Key, "ICollection<KeyValuePair> CopyTo Getter[0] Key");
-            Assert.AreEqual("b", cta[0].Value, "ICollection<KeyValuePair> CopyTo Getter[0] Value");
+            Assert.AreEqual(2, cta[1].Key, "ICollection<KeyValuePair> CopyTo Getter[1] Key");
+            Assert.AreEqual("b", cta[1].Value, "ICollection<KeyValuePair> CopyTo Getter[1] Value");
 
-            Assert.AreEqual(1, cta[1].Key, "ICollection<KeyValuePair> CopyTo Getter[1] Key");
-            Assert.AreEqual("a", cta[1].Value, "ICollection<KeyValuePair> CopyTo Getter[1] Value");
+            Assert.AreEqual(1, cta[0].Key, "ICollection<KeyValuePair> CopyTo Getter[0] Key");
+            Assert.AreEqual("a", cta[0].Value, "ICollection<KeyValuePair> CopyTo Getter[0] Value");
 
             Assert.AreEqual(0, cta[2].Key, "ICollection<KeyValuePair> CopyTo Getter[2] Key");
             Assert.AreEqual(null, cta[2].Value, "ICollection<KeyValuePair> CopyTo Getter[2] Value");
