@@ -36025,6 +36025,16 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3809", {
+        statics: {
+            methods: {
+                TestIsAssignableFrom: function () {
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isAssignableFrom(HTMLElement, HTMLDivElement));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge381", {
         statics: {
             methods: {
