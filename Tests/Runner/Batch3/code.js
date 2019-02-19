@@ -34926,6 +34926,32 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720", {
+        statics: {
+            methods: {
+                TestEnumToObject: function () {
+                    var v = System.UInt64(3);
+
+                    var test = System.Nullable.getValue(Bridge.cast(Bridge.unbox(System.Enum.toObject(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test, v), Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test), System.Int32));
+
+                    Bridge.Test.NUnit.Assert.True(System.Enum.hasFlag(test, Bridge.box(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test.A, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test))));
+                    Bridge.Test.NUnit.Assert.True(System.Enum.hasFlag(test, Bridge.box(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test.B, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test))));
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3720.Test", {
+        $kind: "nested enum",
+        statics: {
+            fields: {
+                A: 1,
+                B: 2
+            }
+        },
+        $flags: true
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3728", {
         statics: {
             methods: {

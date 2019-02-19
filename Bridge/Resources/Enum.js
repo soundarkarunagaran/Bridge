@@ -27,6 +27,16 @@
             return name;
         },
 
+        toObject: function (enumType, value) {
+            value = Bridge.unbox(value, true);
+
+            if (value == null) {
+                return null;
+            }
+
+            return enumMethods.parse(enumType, value.toString(), false, true);
+        },
+
         parse: function (enumType, s, ignoreCase, silent) {
             System.Enum.checkEnumType(enumType);
 

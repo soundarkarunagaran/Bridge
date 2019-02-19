@@ -45,6 +45,9 @@ namespace System
 
         [Bridge.Template("System.Enum.format({this:type}, {this}, {format})")]
         public extern string ToString(string format, IFormatProvider formatProvider);
+
+        [Bridge.Template("System.Enum.toObject({enumType}, {value})")]
+        public static extern object ToObject(Type enumType, object value);
     }
 #pragma warning restore CS0659 // Type overrides Object.Equals(object o) but does not override Object.GetHashCode()
 }

@@ -1,7 +1,7 @@
 /**
  * @version   : 17.6.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -4700,6 +4700,16 @@ Bridge.define("System.ValueType", {
 
         toName: function (name) {
             return name;
+        },
+
+        toObject: function (enumType, value) {
+            value = Bridge.unbox(value, true);
+
+            if (value == null) {
+                return null;
+            }
+
+            return enumMethods.parse(enumType, value.toString(), false, true);
         },
 
         parse: function (enumType, s, ignoreCase, silent) {
