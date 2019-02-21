@@ -36090,6 +36090,109 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820", {
+        statics: {
+            fields: {
+                a: null
+            },
+            ctors: {
+                init: function () {
+                    this.a = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.c1();
+                }
+            },
+            methods: {
+                Set: function (m) {
+                    m.v = 11;
+                },
+                Set1: function (m) {
+                    m = 11;
+                },
+                TestRefReturn: function () {
+                    var $t, $t1;
+                    var refa = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.f3;
+                    ($t = refa().Value.a)[System.Array.index(0, $t)] = "c";
+
+                    Bridge.Test.NUnit.Assert.AreEqual("c", ($t1 = refa().Value.a)[System.Array.index(0, $t1)]);
+
+                    var score = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Score();
+                    score.Get().Value = 10;
+                    Bridge.Test.NUnit.Assert.AreEqual(10, score.Get().Value);
+
+                    var s = { v : score.Get().Value };
+
+                    var i = { v : 1 };
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Set(i);
+                    Bridge.Test.NUnit.Assert.AreEqual(11, i.v);
+
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Set(s);
+                    Bridge.Test.NUnit.Assert.AreEqual(11, s.v);
+                    Bridge.Test.NUnit.Assert.AreEqual(10, score.Get().Value);
+
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Set(score.Get());
+                    Bridge.Test.NUnit.Assert.AreEqual(11, score.Get().Value);
+
+                    score.Get().Value = 10;
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Set1(score.Get().Value);
+                    Bridge.Test.NUnit.Assert.AreEqual(10, score.Get().Value);
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820, {
+        f1: function () {
+            return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.a;
+        },
+        f2: function (_v_) {
+            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.a = _v_;
+        },
+        f3: function () {
+            return new (Bridge.Ref$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.c1))($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.f1, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.f2);
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.c1", {
+        $kind: "nested class",
+        fields: {
+            a: null
+        },
+        ctors: {
+            init: function () {
+                this.a = System.Array.init(["a", "b"], System.String);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Score", {
+        $kind: "nested class",
+        fields: {
+            value: 0
+        },
+        ctors: {
+            init: function () {
+                this.value = 5;
+            }
+        },
+        methods: {
+            Get: function () {
+                return new (Bridge.Ref$1(System.Int32))(Bridge.fn.bind(this, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Score.f1), Bridge.fn.bind(this, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Score.f2));
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Score", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820.Score, {
+        f1: function () {
+            return this.value;
+        },
+        f2: function (_v_) {
+            this.value = _v_;
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge383", {
         statics: {
             methods: {
