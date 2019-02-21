@@ -886,30 +886,34 @@ namespace Bridge.Translator
         {
             if (type.HasCustomAttributes)
             {
-                var attr = this.GetAttribute(type.CustomAttributes, Translator.Bridge_ASSEMBLY + ".ModuleDependencyAttribute");
+                var attrName = Translator.Bridge_ASSEMBLY + ".ModuleDependencyAttribute";
+                var attrs = type.CustomAttributes.Where(attr => attr.AttributeType.FullName == attrName).ToList();
 
-                if (attr != null)
+                if (attrs.Count > 0)
                 {
-                    var typeInfo = this.EnsureTypeInfo(type, translator);
-
-                    if (attr.ConstructorArguments.Count > 0)
+                    foreach (var attr in attrs)
                     {
-                        ModuleDependency dependency = new ModuleDependency();
-                        var obj = this.GetAttributeArgumentValue(attr, 0);
-                        dependency.DependencyName = obj is string ? obj.ToString() : "";
+                        var typeInfo = this.EnsureTypeInfo(type, translator);
 
-                        if (attr.ConstructorArguments.Count > 1)
+                        if (attr.ConstructorArguments.Count > 0)
                         {
-                            obj = this.GetAttributeArgumentValue(attr, 1);
-                            dependency.VariableName = obj is string ? obj.ToString() : "";
-                        }
-                        else
-                        {
-                            dependency.VariableName = Module.EscapeName(dependency.DependencyName);
-                        }
+                            ModuleDependency dependency = new ModuleDependency();
+                            var obj = this.GetAttributeArgumentValue(attr, 0);
+                            dependency.DependencyName = obj is string ? obj.ToString() : "";
 
-                        typeInfo.Dependencies.Add(dependency);
-                    }
+                            if (attr.ConstructorArguments.Count > 1)
+                            {
+                                obj = this.GetAttributeArgumentValue(attr, 1);
+                                dependency.VariableName = obj is string ? obj.ToString() : "";
+                            }
+                            else
+                            {
+                                dependency.VariableName = Module.EscapeName(dependency.DependencyName);
+                            }
+
+                            typeInfo.Dependencies.Add(dependency);
+                        }
+                    }                    
                 }
             }
         }
