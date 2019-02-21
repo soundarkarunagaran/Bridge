@@ -36090,6 +36090,42 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3811", {
+        statics: {
+            methods: {
+                TestLongMinValue: function () {
+                    var min = System.Int64([0,-2147483648]);
+                    var max = System.Int64([-1,2147483647]);
+                    Bridge.Test.NUnit.Assert.AreEqual(min, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3811.Settings.DefaultMinValue1);
+                    Bridge.Test.NUnit.Assert.AreEqual(min, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3811.Settings.DefaultMinValue2);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(max, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3811.Settings.DefaultMaxValue1);
+                    Bridge.Test.NUnit.Assert.AreEqual(max, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3811.Settings.DefaultMaxValue2);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3811.Settings", {
+        $kind: "nested class",
+        statics: {
+            fields: {
+                DefaultMinValue1: System.Int64(0),
+                DefaultMinValue2: System.Int64(0),
+                DefaultMaxValue1: System.Int64(0),
+                DefaultMaxValue2: System.Int64(0)
+            },
+            ctors: {
+                init: function () {
+                    this.DefaultMinValue1 = System.Int64.MinValue;
+                    this.DefaultMinValue2 = System.Int64.MinValue;
+                    this.DefaultMaxValue1 = System.Int64([-1,2147483647]);
+                    this.DefaultMaxValue2 = System.Int64([-1,2147483647]);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge383", {
         statics: {
             methods: {
