@@ -1,7 +1,7 @@
 /**
  * @version   : 17.6.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -12266,7 +12266,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return unboxed;
         },
 
-        resize: function (arr, newSize, val) {
+        resize: function (arr, newSize, val, T) {
             if (newSize < 0) {
                 throw new System.ArgumentOutOfRangeException.$ctor3("newSize", newSize, "newSize cannot be less than 0.");
             }
@@ -12276,7 +12276,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 ref = arr.v;
 
             if (!ref) {
-                ref = new Array(newSize);
+                ref = System.Array.init(new Array(newSize), T);
             } else {
                 oldSize = ref.length;
                 ref.length = newSize;
@@ -12285,6 +12285,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             for (var i = oldSize; i < newSize; i++) {
                 ref[i] = isFn ? val() : val;
             }
+
+            ref.$s = [ref.length];
 
             arr.v = ref;
         },
@@ -33565,7 +33567,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 ToArray: function (T, source) {
                     var count = { };
                     var results = { v : Bridge.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
-                    System.Array.resize(results, count.v, Bridge.getDefaultValue(T));
+                    System.Array.resize(results, count.v, Bridge.getDefaultValue(T), T);
                     return results.v;
                 },
                 ToArray$1: function (T, source, length) {
@@ -33588,7 +33590,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                         newLength = MaxArrayLength <= count ? ((count + 1) | 0) : MaxArrayLength;
                                     }
 
-                                    System.Array.resize(arr, newLength, Bridge.getDefaultValue(T));
+                                    System.Array.resize(arr, newLength, Bridge.getDefaultValue(T), T);
                                 }
 
                                 arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
@@ -35292,7 +35294,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, this._size, Bridge.getDefaultValue(T));
+                    System.Array.resize(localArray, this._size, Bridge.getDefaultValue(T), T);
                     this._array = localArray.v;
                     this._version = (this._version + 1) | 0;
                 }
@@ -35315,7 +35317,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             Push: function (item) {
                 if (this._size === this._array.length) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T));
+                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T), T);
                     this._array = localArray.v;
                 }
                 this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;

@@ -639,7 +639,7 @@
             return unboxed;
         },
 
-        resize: function (arr, newSize, val) {
+        resize: function (arr, newSize, val, T) {
             if (newSize < 0) {
                 throw new System.ArgumentOutOfRangeException.$ctor3("newSize", newSize, "newSize cannot be less than 0.");
             }
@@ -649,7 +649,7 @@
                 ref = arr.v;
 
             if (!ref) {
-                ref = new Array(newSize);
+                ref = System.Array.init(new Array(newSize), T);
             } else {
                 oldSize = ref.length;
                 ref.length = newSize;
@@ -658,6 +658,8 @@
             for (var i = oldSize; i < newSize; i++) {
                 ref[i] = isFn ? val() : val;
             }
+
+            ref.$s = [ref.length];
 
             arr.v = ref;
         },

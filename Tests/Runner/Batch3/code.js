@@ -36100,6 +36100,51 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3830", {
+        statics: {
+            methods: {
+                TestArrayResize: function () {
+                    var myArr = { v : System.Array.init([
+                        "The", 
+                        "quick", 
+                        "brown", 
+                        "fox", 
+                        "jumps", 
+                        "over", 
+                        "the", 
+                        "lazy", 
+                        "dog"
+                    ], System.String) };
+                    Bridge.Test.NUnit.Assert.AreEqual(8, (System.Array.getLength(myArr.v, 0) - 1));
+
+                    System.Array.resize(myArr, ((myArr.v.length + 5) | 0), null, System.String);
+                    Bridge.Test.NUnit.Assert.AreEqual(13, (System.Array.getLength(myArr.v, 0) - 1));
+                    Bridge.Test.NUnit.Assert.AreEqual("The", myArr.v[System.Array.index(0, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("quick", myArr.v[System.Array.index(1, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("brown", myArr.v[System.Array.index(2, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("fox", myArr.v[System.Array.index(3, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("jumps", myArr.v[System.Array.index(4, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("over", myArr.v[System.Array.index(5, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("the", myArr.v[System.Array.index(6, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("lazy", myArr.v[System.Array.index(7, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("dog", myArr.v[System.Array.index(8, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, myArr.v[System.Array.index(9, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, myArr.v[System.Array.index(10, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, myArr.v[System.Array.index(11, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, myArr.v[System.Array.index(12, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(null, myArr.v[System.Array.index(13, myArr.v)]);
+
+                    System.Array.resize(myArr, 4, null, System.String);
+                    Bridge.Test.NUnit.Assert.AreEqual(3, (System.Array.getLength(myArr.v, 0) - 1));
+                    Bridge.Test.NUnit.Assert.AreEqual("The", myArr.v[System.Array.index(0, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("quick", myArr.v[System.Array.index(1, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("brown", myArr.v[System.Array.index(2, myArr.v)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("fox", myArr.v[System.Array.index(3, myArr.v)]);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
