@@ -416,7 +416,7 @@ namespace Bridge.Translator
             var writer = this.SaveWriter();
             this.AddAsyncStep();
 
-            if (this.Body.Parent is LambdaExpression && this.Body is Expression && this.IsTaskReturn)
+            if (this.Body.Parent is LambdaExpression && this.Body is Expression && this.IsTaskReturn && this.ReturnType.FullName == "System.Threading.Tasks.Task" && this.ReturnType.TypeParameterCount > 0)
             {
                 new ReturnBlock(this.Emitter, (Expression)this.Body).Emit();
             }
