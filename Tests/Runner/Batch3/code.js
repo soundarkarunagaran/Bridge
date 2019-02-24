@@ -7815,26 +7815,26 @@ Bridge.$N1391Result =                     r;
             TestEqualTuples: function () {
                 var a1 = { Item1: 1 };
                 var b1 = { Item1: 1 };
-                Bridge.Test.NUnit.Assert.True(Bridge.objectEquals(a1, b1), "1 equals");
+                Bridge.Test.NUnit.Assert.True(Bridge.objectEquals(a1, b1, true), "1 equals");
                 Bridge.Test.NUnit.Assert.True(Bridge.getHashCode(a1, false, true) === Bridge.getHashCode(b1, false, true), "1 ==");
                 Bridge.Test.NUnit.Assert.False(Bridge.getHashCode(a1, false, true) !== Bridge.getHashCode(b1, false, true), "1 !=");
 
                 var a2 = { Item1: 1, Item2: 2 };
                 var b2 = { Item1: 1, Item2: 2 };
-                Bridge.Test.NUnit.Assert.True(Bridge.objectEquals(a2, b2), "2 equals");
+                Bridge.Test.NUnit.Assert.True(Bridge.objectEquals(a2, b2, true), "2 equals");
                 Bridge.Test.NUnit.Assert.True(Bridge.getHashCode(a2, false, true) === Bridge.getHashCode(b2, false, true), "2 ==");
                 Bridge.Test.NUnit.Assert.False(Bridge.getHashCode(a2, false, true) !== Bridge.getHashCode(b2, false, true), "2 !=");
             },
             TestInequalTuples: function () {
                 var a1 = { Item1: 3 };
                 var b1 = { Item1: 4 };
-                Bridge.Test.NUnit.Assert.False(Bridge.objectEquals(a1, b1), "1 equals");
+                Bridge.Test.NUnit.Assert.False(Bridge.objectEquals(a1, b1, true), "1 equals");
                 Bridge.Test.NUnit.Assert.False(Bridge.getHashCode(a1, false, true) === Bridge.getHashCode(b1, false, true), "1 ==");
                 Bridge.Test.NUnit.Assert.True(Bridge.getHashCode(a1, false, true) !== Bridge.getHashCode(b1, false, true), "1 !=");
 
                 var a2 = { Item1: 1, Item2: 7 };
                 var b2 = { Item1: 1, Item2: 8 };
-                Bridge.Test.NUnit.Assert.False(Bridge.objectEquals(a2, b2), "2 equals");
+                Bridge.Test.NUnit.Assert.False(Bridge.objectEquals(a2, b2, true), "2 equals");
                 Bridge.Test.NUnit.Assert.False(Bridge.getHashCode(a2, false, true) === Bridge.getHashCode(b2, false, true), "2 ==");
                 Bridge.Test.NUnit.Assert.True(Bridge.getHashCode(a2, false, true) !== Bridge.getHashCode(b2, false, true), "2 !=");
             }
@@ -9811,7 +9811,7 @@ Bridge.$N1391Result =                     r;
                 var key1 = { Item1: 1, Item2: 2 };
                 var key2 = { Item1: 1, Item2: 2 };
 
-                Bridge.Test.NUnit.Assert.True(Bridge.objectEquals(key1, key2), "Equals works");
+                Bridge.Test.NUnit.Assert.True(Bridge.objectEquals(key1, key2, true), "Equals works");
 
                 var dic = new (System.Collections.Generic.Dictionary$2(System.Tuple$2(System.Int32,System.Int32),System.Int32))();
                 dic.add(key1, 1);
@@ -36095,6 +36095,28 @@ Bridge.$N1391Result =                     r;
             methods: {
                 DoSomething: function (person) {
                     return person.Name;
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3833", {
+        statics: {
+            methods: {
+                TestTupleEquals: function () {
+                    Bridge.Test.NUnit.Assert.False(Bridge.equals(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3833.A(), new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3833.A()));
+                    Bridge.Test.NUnit.Assert.False(Bridge.objectEquals({ Item1: new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3833.A() }, { Item1: new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3833.A() }, true));
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3833.A", {
+        $kind: "nested class",
+        props: {
+            Prop: {
+                get: function () {
+                    throw new System.NotImplementedException.ctor();
                 }
             }
         }

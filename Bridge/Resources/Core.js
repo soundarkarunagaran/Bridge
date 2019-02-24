@@ -1376,7 +1376,7 @@
                 }
 
                 if (!eq && a && b && a.hasOwnProperty("Item1") && Bridge.isPlainObject(a) && b.hasOwnProperty("Item1") && Bridge.isPlainObject(b)) {
-                    return Bridge.objectEquals(a, b);
+                    return Bridge.objectEquals(a, b, true);
                 }
 
                 return eq;
@@ -1388,11 +1388,11 @@
             return result;
         },
 
-        objectEquals: function (a, b) {
+        objectEquals: function (a, b, oneLevel) {
             Bridge.$$leftChain = [];
             Bridge.$$rightChain = [];
 
-            var result = Bridge.deepEquals(a, b);
+            var result = Bridge.deepEquals(a, b, oneLevel);
 
             delete Bridge.$$leftChain;
             delete Bridge.$$rightChain;
@@ -1400,7 +1400,7 @@
             return result;
         },
 
-        deepEquals: function (a, b) {
+        deepEquals: function (a, b, oneLevel) {
             if (typeof a === "object" && typeof b === "object") {
                 if (a === b) {
                     return true;
@@ -1429,7 +1429,7 @@
 
                     if (a[p] === b[p]) {
                         continue;
-                    } else if (typeof (a[p]) === "object") {
+                    } else if (typeof (a[p]) === "object" && !oneLevel) {
                         Bridge.$$leftChain.push(a);
                         Bridge.$$rightChain.push(b);
 
