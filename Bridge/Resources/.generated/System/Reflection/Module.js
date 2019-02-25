@@ -194,7 +194,7 @@
                     return c;
                 }
 
-                var ret = System.Array.init(cnt, null, Function);
+                var ret = System.Array.init(cnt, null, System.Type);
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {

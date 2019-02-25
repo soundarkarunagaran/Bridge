@@ -1,7 +1,7 @@
 /**
  * @version   : 17.6.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -3709,7 +3709,11 @@
 
             var results = (/function (.{1,})\(/).exec(str);
 
-            return (results && results.length > 1) ? results[1] : "System.Object";
+            if ((results && results.length > 1)) {
+                return results[1];
+            }
+
+            return "System.Object";
         },
 
         _makeQName: function (name, asm) {
@@ -3949,7 +3953,7 @@
         },
 
         isAbstract: function (type) {
-            if (type === Function) {
+            if (type === Function || type === System.Type) {
                 return true;
             }
             return ((Bridge.Reflection.getMetaValue(type, "att", 0) & 128) != 0);
@@ -6620,6 +6624,16 @@ Bridge.define("System.ValueType", {
         $flags: true
     });
 
+    // @source Type.js
+
+Bridge.define("System.Type", {
+
+    statics: {       
+        $is: function (instance) {
+            return instance && instance.constructor === Function;
+        }
+    }
+});
     // @source Math.js
 
     Bridge.Math = {
@@ -45434,7 +45448,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return c;
                 }
 
-                var ret = System.Array.init(cnt, null, Function);
+                var ret = System.Array.init(cnt, null, System.Type);
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {
