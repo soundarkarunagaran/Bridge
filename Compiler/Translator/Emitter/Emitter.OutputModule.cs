@@ -107,6 +107,9 @@ namespace Bridge.Translator
             }
 
             this.WriteIndent(moduleOutput, this.InitialLevel);
+            this.WriteNewLine(moduleOutput, Emitter.INDENT + "Bridge.init();");
+
+            this.WriteIndent(moduleOutput, this.InitialLevel);
             this.WriteNewLine(moduleOutput, Emitter.INDENT + "return " + module.Name + ";");
             this.WriteIndent(moduleOutput, this.InitialLevel);
             this.WriteNewLine(moduleOutput, "});");
@@ -261,6 +264,9 @@ namespace Bridge.Translator
             {
                 this.WriteNewLine(moduleOutput);
             }
+
+            this.WriteIndent(moduleOutput, 2);
+            this.WriteNewLine(moduleOutput, "Bridge.init();");
 
             this.WriteIndent(moduleOutput, 2);
             this.WriteNewLine(moduleOutput, "return " + module.Name + ";");
