@@ -329,6 +329,7 @@
             public const string ENUMERATOR = "$enumerator";
             public const string EXPORTS = "$exports";
             public const string SCOPE = "$scope";
+            public const string MODULE = "$module";
             public const string ITERATOR = "$i";
 
             public const string ASYNC_TASK = "$task";

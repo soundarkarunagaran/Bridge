@@ -1,7 +1,7 @@
 /**
  * @version   : 17.6.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -810,6 +810,10 @@
             var name = obj.$$name || Bridge.getTypeName(obj);
 
             alias = name.replace(/[\.\(\)\,\+]/g, "$");
+
+            if (type.$module) {
+                alias = type.$module + "$" + alias;
+            }
 
             if (type.$$name) {
                 type.$$alias = alias;
@@ -2679,6 +2683,10 @@
 
             Class.$kind = prop.$kind;
 
+            if (prop.$module) {
+                Class.$module = prop.$module;
+            }            
+
             if (prop.$metadata) {
                 Class.$metadata = prop.$metadata;
             }
@@ -3268,6 +3276,10 @@
                 fn.prototype = prototype;
                 fn.prototype.constructor = fn;
                 fn.$kind = cfg.$kind || "class";
+
+                if (cfg.$module) {
+                    fn.$module = cfg.$module;
+                }
             };
 
             Bridge.Class.$queue.push(fn);

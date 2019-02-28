@@ -227,6 +227,7 @@ namespace Bridge.Translator
             if (this.TypeInfo.Module != null)
             {
                 this.WriteScope();
+                this.WriteModule();
             }
 
             this.WriteVariance();
@@ -318,6 +319,15 @@ namespace Bridge.Translator
             this.Write(JS.Vars.SCOPE);
             this.WriteColon();
             this.Write(this.TypeInfo.Module.Name);
+            this.Emitter.Comma = true;
+        }
+
+        protected virtual void WriteModule()
+        {
+            this.EnsureComma();
+            this.Write(JS.Vars.MODULE);
+            this.WriteColon();
+            this.WriteScript(this.TypeInfo.Module.Name);
             this.Emitter.Comma = true;
         }
 

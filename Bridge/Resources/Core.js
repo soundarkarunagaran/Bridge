@@ -793,6 +793,10 @@
 
             alias = name.replace(/[\.\(\)\,\+]/g, "$");
 
+            if (type.$module) {
+                alias = type.$module + "$" + alias;
+            }
+
             if (type.$$name) {
                 type.$$alias = alias;
             } else {
