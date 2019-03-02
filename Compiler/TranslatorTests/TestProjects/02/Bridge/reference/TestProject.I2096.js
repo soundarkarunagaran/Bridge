@@ -1,7 +1,7 @@
 /**
- * @version   : 17.6.0 - Bridge.NET
+ * @version   : 17.7.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -41837,9 +41837,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 })(this);
 
 /**
- * @version   : 17.6.0 - Bridge.NET
+ * @version   : 17.7.0 - Bridge.NET
  * @author    : Object.NET, Inc. http://bridge.net/
- * @copyright : Copyright 2008-2018 Object.NET, Inc. http://object.net/
+ * @copyright : Copyright 2008-2019 Object.NET, Inc. http://object.net/
  * @license   : See license.txt and https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md
  */
 
@@ -42178,7 +42178,7 @@ Bridge.merge(new System.Globalization.CultureInfo("en-US", true), {
 
 /**
  * Bridge Test library.
- * @compiler Bridge.NET 17.6.0
+ * @compiler Bridge.NET 17.7.0
  */
 Bridge.assembly("TestProject.I2096", function ($asm, globals) {
     "use strict";
