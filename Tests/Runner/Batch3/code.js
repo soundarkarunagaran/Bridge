@@ -36100,6 +36100,16 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3865", {
+        statics: {
+            methods: {
+                TestArrayAssembly: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.Reflection.getTypeAssembly(System.String).name, Bridge.Reflection.getTypeAssembly(System.Array.type(System.Array.type(System.String))).name);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
