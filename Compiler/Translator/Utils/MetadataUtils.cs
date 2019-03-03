@@ -32,10 +32,18 @@ namespace Bridge.Translator
 
             if (type.Kind == TypeKind.Class || type.Kind == TypeKind.Struct || type.Kind == TypeKind.Interface || type.Kind == TypeKind.Enum)
             {
-                var members = type.Members.Where(m => MetadataUtils.IsReflectable(m, emitter, ifHasAttribute, tree))
-                                          .OrderBy(m => m, MemberOrderer.Instance)
-                                          .Select(m => MetadataUtils.ConstructMemberInfo(m, emitter, false, false, tree))
-                                          .ToList();
+                var reflectable = type.Members.Where(m => MetadataUtils.IsReflectable(m, emitter, ifHasAttribute, tree))
+                                          .OrderBy(m => m, MemberOrderer.Instance);
+
+                var members = reflectable.Select(m => MetadataUtils.ConstructMemberInfo(m, emitter, false, false, tree)).ToList();
+
+                var backingFields = reflectable.Where(m => m is IProperty p && Helpers.IsAutoProperty(p)).Select(m => MetadataUtils.ConstructBackingField(m, emitter)).ToList();
+
+                if (backingFields.Count > 0)
+                {
+                    members.AddRange(backingFields);
+                }
+
                 if (members.Count > 0)
                 {
                     properties.Add("m", new JArray(members));
@@ -81,6 +89,27 @@ namespace Bridge.Translator
             }
 
             return properties.Count > 0 ? properties : null;
+        }
+
+        private static JObject ConstructBackingField(IMember m, IEmitter emitter)
+        {
+            var result = new JObject();
+            result.Add("a", (int)Accessibility.Private);
+            result.Add("backing", true);
+            result.Add("n", $"<{m.Name}>k__BackingField");
+
+            if (m.IsStatic)
+            {
+                result.Add("is", true);
+            }
+
+            result.Add("t", (int)MemberTypes.Field);
+            result.Add("rt", new JRaw(MetadataUtils.GetTypeName(m.ReturnType, emitter, false)));
+            result.Add("sn", OverloadsCollection.Create(emitter, m).GetOverloadName());
+
+            MetadataUtils.AddBox(m, emitter, result);
+
+            return result;
         }
 
         public static JObject ConstructITypeMetadata(IType type, IEmitter emitter)
