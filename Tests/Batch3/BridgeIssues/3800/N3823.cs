@@ -16,11 +16,11 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             if (o is decimal d)
             {
-                Assert.Fail();
+                Assert.Fail("Non-decimal type resolves as decimal at run-time.");
             }
             else
             {
-                Assert.NotNull(o);
+                Assert.NotNull(o, "Non-decimal type does not resolve as decimal at run-time.");
             }
         }
     }
