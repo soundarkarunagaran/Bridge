@@ -17,12 +17,14 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("N3208_0_originalReport.Program", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Main","is":true,"t":8,"sn":"Main","rt":System.Void}]}; },
             $scope: N3208_originalReport_module,
+            $module: "N3208_originalReport_module",
             main: function Main () {
                 var msg = "Hello, World!";
 
                 System.Console.WriteLine(msg);
             }
         });
+        Bridge.init();
         return N3208_originalReport_module;
     });
 

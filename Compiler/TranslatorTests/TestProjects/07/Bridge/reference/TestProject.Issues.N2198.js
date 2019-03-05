@@ -12,6 +12,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("TestProject.Issues.N2198.N2198", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Main","is":true,"t":8,"sn":"Main","rt":System.Void}]}; },
             $scope: Module1,
+            $module: "Module1",
             /**
              * @static
              * @public
@@ -25,6 +26,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         });
 
         Bridge.init(function () { Module1.TestProject.Issues.N2198.N2198.Main(); });
+        Bridge.init();
         return Module1;
     });
 

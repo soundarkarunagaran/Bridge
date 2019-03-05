@@ -4,6 +4,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     define("MyModule", function () {
         var MyModule = { };
 
+        Bridge.init();
         return MyModule;
     });
 

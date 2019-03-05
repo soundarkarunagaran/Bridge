@@ -12,6 +12,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("TestProject.Issues.N2217.N2217_AMD", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_AMD,
+            $module: "Module2217_AMD",
             methods: {
                 /**
                  * @instance
@@ -25,6 +26,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                 }
             }
         });
+        Bridge.init();
         return Module2217_AMD;
     });
 
@@ -36,8 +38,10 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          */
         Bridge.define("TestProject.Issues.N2217.N2217_Auto", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
-            $scope: Module2217_Auto
+            $scope: Module2217_Auto,
+            $module: "Module2217_Auto"
         });
+        Bridge.init();
         return Module2217_Auto;
     });
 
@@ -50,6 +54,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("TestProject.Issues.N2217.N2217_CommonJS", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_CommonJS,
+            $module: "Module2217_CommonJS",
             methods: {
                 /**
                  * @instance
@@ -75,6 +80,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("TestProject.Issues.N2217.N2217_ES6", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_ES6,
+            $module: "Module2217_ES6",
             methods: {
                 /**
                  * @instance
@@ -100,6 +106,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("TestProject.Issues.N2217.N2217_Loader", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Load","t":8,"sn":"Load","rt":System.Void},{"a":2,"n":"LoadManualModule","t":8,"sn":"LoadManualModule","rt":System.Void}]}; },
             $scope: MyModule,
+            $module: "MyModule",
             methods: {
                 /**
                  * @instance
@@ -175,6 +182,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                 }
             }
         });
+        Bridge.init();
         return MyModule;
     });
 
@@ -186,8 +194,10 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          */
         Bridge.define("TestProject.Issues.N2217.N2217_Manual", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"}]}; },
-            $scope: Module2217_Manual
+            $scope: Module2217_Manual,
+            $module: "Module2217_Manual"
         });
+        Bridge.init();
         return Module2217_Manual;
     });
 
@@ -208,6 +218,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         Bridge.define("TestProject.Issues.N2217.N2217_UMD", {
             $metadata : function () { return {"att":1048577,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"GetNumber","t":8,"sn":"GetNumber","rt":System.Int32,"box":function ($v) { return Bridge.box($v, System.Int32);}}]}; },
             $scope: Module2217_UMD,
+            $module: "Module2217_UMD",
             methods: {
                 /**
                  * @instance
@@ -221,6 +232,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                 }
             }
         });
+        Bridge.init();
         return Module2217_UMD;
     }));
 
