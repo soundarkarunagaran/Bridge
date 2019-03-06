@@ -1,9 +1,12 @@
 using Bridge.Test.NUnit;
-using System;
-using System.Collections.Generic;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// Ensures long.MinValue and long.MaxValue matches native .NET values and
+    /// whether the value matches and is preserved when specified as a
+    /// constant build-time value.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3811 - {0}")]
     public class Bridge3811
     {
@@ -15,16 +18,19 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             public const long DefaultMaxValue2 = 9223372036854775807L;
         }
 
+        /// <summary>
+        /// Checks whether the 
+        /// </summary>
         [Test]
         public static void TestLongMinValue()
         {
             var min = -9223372036854775808L;
             var max = 9223372036854775807L;
-            Assert.AreEqual(min, Settings.DefaultMinValue1);
-            Assert.AreEqual(min, Settings.DefaultMinValue2);
+            Assert.AreEqual(min, Settings.DefaultMinValue1, "'min' matches long.MinValue when defined as a const variable.");
+            Assert.AreEqual(min, Settings.DefaultMinValue2, "'min' matches constant value defined as a const variable.");
 
-            Assert.AreEqual(max, Settings.DefaultMaxValue1);
-            Assert.AreEqual(max, Settings.DefaultMaxValue2);
+            Assert.AreEqual(max, Settings.DefaultMaxValue1, "'max' matches long.MaxValue when defined as a const variable.");
+            Assert.AreEqual(max, Settings.DefaultMaxValue2, "'max' matches constant value defined as a const variable.");
         }
     }
 }
