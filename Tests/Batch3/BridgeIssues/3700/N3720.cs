@@ -1,7 +1,5 @@
 using Bridge.Test.NUnit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
@@ -15,6 +13,9 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             B = 1 << 1
         }
 
+        /// <summary>
+        /// Checks whether enum's ToObject() produces consistent results.
+        /// </summary>
         [Test]
         public static void TestEnumToObject()
         {
@@ -22,8 +23,8 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             Test test = (Test)Enum.ToObject(typeof(Test), v);
 
-            Assert.True(test.HasFlag(Test.A));
-            Assert.True(test.HasFlag(Test.B));
+            Assert.True(test.HasFlag(Test.A), "enum's ToObject works and retains enum data.");
+            Assert.True(test.HasFlag(Test.B), "enum's ToObject works and retains all enum data.");
         }
     }
 }
