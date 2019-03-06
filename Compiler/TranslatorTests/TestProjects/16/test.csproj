@@ -94,6 +94,7 @@
     <Compile Include="BridgeIssues\3000-3999\N3587.cs" />
     <Compile Include="BridgeIssues\3000-3999\N3592.cs" />
     <Compile Include="BridgeIssues\3000-3999\N3745.cs" />
+    <Compile Include="BridgeIssues\3000-3999\N3815.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,4 +8,17 @@ Bridge.assembly("TestProject", function ($asm, globals) {
             DoSomething1: function () { }
         }
     });
+
+    define("Module1", ["Module2", "Module3", "Module4"], function (Module2, Module3, Module4) {
+        var Module1 = { };
+        Bridge.define("Module1", {
+            $kind: "nested class",
+            $metadata : function () { return {"td":Test.BridgeIssues.N3815.N3815,"att":1048962,"a":2,"s":true,"m":[{"a":2,"n":"Test1","is":true,"t":8,"sn":"Test1","rt":System.Void}]}; },
+            $scope: Module1,
+            $module: "Module1"
+        });
+        Bridge.init();
+        return Module1;
+    });
+
 });
