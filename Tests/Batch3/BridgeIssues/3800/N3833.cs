@@ -15,8 +15,10 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         [Test]
         public static void TestTupleEquals()
         {
-            Assert.False(new A().Equals(new A()));
-            Assert.False(new Tuple<A>(new A()).Equals(new Tuple<A>(new A())));
+            Assert.False(new A().Equals(new A()), "Class.Equals works between two different instances of a class.");
+            Assert.False(
+                new Tuple<A>(new A()).Equals(new Tuple<A>(new A())),
+                "Tuple<class> works between two different instances of Tuple<class>.");
         }
     }
 }
