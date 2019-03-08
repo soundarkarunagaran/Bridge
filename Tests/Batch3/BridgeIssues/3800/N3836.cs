@@ -1,7 +1,4 @@
 using Bridge.Test.NUnit;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
@@ -33,11 +30,12 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             var done = Assert.Async();
             ready = false;
             await TestAsync(Test);
-            Assert.True(ready);
+            Assert.True(ready, "Async delegate method works.");
 
+            // Only this part was breaking in Bridge 17.6.0.
             ready = false;
             await TestAsync(async () => await Test());
-            Assert.True(ready);
+            Assert.True(ready, "Async inline delegate method works.");
 
             done();
         }
