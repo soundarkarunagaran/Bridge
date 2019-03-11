@@ -1,9 +1,9 @@
 /**
  * Bridge Test library - general C# language tests for Portarelle
- * @version 17.6.0
+ * @version 17.7.0
  * @author Object.NET, Inc.
- * @copyright Copyright 2008-2018 Object.NET, Inc.
- * @compiler Bridge.NET 17.6.0
+ * @copyright Copyright 2008-2019 Object.NET, Inc.
+ * @compiler Bridge.NET 17.7.0
  */
 Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
     "use strict";
@@ -371,7 +371,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
                 // #1603
                 Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isAssignableFrom(System.IFormattable, System.Char));
                 var interfaces = Bridge.Reflection.getInterfaces(System.Char);
-                Bridge.Test.NUnit.Assert.False(System.Array.contains(interfaces, System.IFormattable, Function));
+                Bridge.Test.NUnit.Assert.False(System.Array.contains(interfaces, System.IFormattable, System.Type));
             }
         }
     });

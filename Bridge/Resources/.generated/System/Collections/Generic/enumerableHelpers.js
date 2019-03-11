@@ -4,7 +4,7 @@
                 ToArray: function (T, source) {
                     var count = { };
                     var results = { v : Bridge.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
-                    System.Array.resize(results, count.v, Bridge.getDefaultValue(T));
+                    System.Array.resize(results, count.v, Bridge.getDefaultValue(T), T);
                     return results.v;
                 },
                 ToArray$1: function (T, source, length) {
@@ -27,7 +27,7 @@
                                         newLength = MaxArrayLength <= count ? ((count + 1) | 0) : MaxArrayLength;
                                     }
 
-                                    System.Array.resize(arr, newLength, Bridge.getDefaultValue(T));
+                                    System.Array.resize(arr, newLength, Bridge.getDefaultValue(T), T);
                                 }
 
                                 arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
