@@ -800,6 +800,7 @@
     <Compile Include="BridgeIssues\3700\N3789.cs" />
     <Compile Include="BridgeIssues\3700\N3788.cs" />
     <Compile Include="BridgeIssues\3700\N3790.cs" />
+    <Compile Include="BridgeIssues\3800\N3823.cs" />
     <Compile Include="BridgeIssues\TestBridgeIssues.cs" />
     <Compile Include="Utilities\BrowserHelper.cs" />
   </ItemGroup>
