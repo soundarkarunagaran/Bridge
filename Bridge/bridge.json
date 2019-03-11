@@ -62,6 +62,7 @@
         "Resources/.generated/System/Environment.js",
         "Resources/.generated/System/StringSplitOptions.js",
 
+        "Resources/Type.js",
         "Resources/Math.js",
         "Resources/Bool.js",
         "Resources/Integer.js",

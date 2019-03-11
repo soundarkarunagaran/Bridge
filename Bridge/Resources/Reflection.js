@@ -228,7 +228,11 @@
 
             var results = (/function (.{1,})\(/).exec(str);
 
-            return (results && results.length > 1) ? results[1] : "System.Object";
+            if ((results && results.length > 1)) {
+                return results[1];
+            }
+
+            return "System.Object";
         },
 
         _makeQName: function (name, asm) {
@@ -470,7 +474,7 @@
         },
 
         isAbstract: function (type) {
-            if (type === Function) {
+            if (type === Function || type === System.Type) {
                 return true;
             }
             return ((Bridge.Reflection.getMetaValue(type, "att", 0) & 128) != 0);

@@ -12,7 +12,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             var value = typeof(void);
             Assert.AreEqual("System.Void", value.FullName);
-            Assert.AreEqual("Function", value.GetType().FullName);
+            Assert.AreEqual("System.Type", value.GetType().FullName);
         }
     }
 }
