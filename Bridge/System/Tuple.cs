@@ -13,7 +13,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -39,7 +39,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -71,7 +71,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -109,7 +109,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -153,7 +153,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -203,7 +203,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -259,7 +259,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
@@ -321,7 +321,7 @@ namespace System
             get;
         }
 
-        [Bridge.Template("Bridge.objectEquals({this}, {o})")]
+        [Bridge.Template("Bridge.objectEquals({this}, {o}, true)")]
         public override extern bool Equals(object o);
 
         [Bridge.Template("Bridge.getHashCode({this}, false, true)")]
