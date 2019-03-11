@@ -418,7 +418,7 @@ namespace Bridge.Translator
             var lastOutput = this.Emitter.Output;
             var output = this.Emitter.AssemblyInfo.Reflection.Output;
 
-            if (this.Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File)
+            if (this.Emitter.AssemblyInfo.Reflection.Target == MetadataTarget.File && this.Emitter.AssemblyInfo.Module == null)
             {
                 if (string.IsNullOrEmpty(output))
                 {
