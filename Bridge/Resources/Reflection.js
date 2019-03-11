@@ -446,6 +446,8 @@
                         return true;
                     }
                 }
+            } else {
+                return baseType.isPrototypeOf(type);
             }
 
             return false;

@@ -804,6 +804,7 @@
     <Compile Include="BridgeIssues\3700\N3790.cs" />
     <Compile Include="BridgeIssues\3800\N3823.cs" />
     <Compile Include="BridgeIssues\3800\N3828.cs" />
+    <Compile Include="BridgeIssues\3800\N3809.cs" />
     <Compile Include="BridgeIssues\TestBridgeIssues.cs" />
     <Compile Include="Utilities\BrowserHelper.cs" />
   </ItemGroup>
