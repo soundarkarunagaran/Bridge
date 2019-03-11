@@ -432,6 +432,10 @@
 
             Class.$kind = prop.$kind;
 
+            if (prop.$module) {
+                Class.$module = prop.$module;
+            }            
+
             if (prop.$metadata) {
                 Class.$metadata = prop.$metadata;
             }
@@ -1021,6 +1025,10 @@
                 fn.prototype = prototype;
                 fn.prototype.constructor = fn;
                 fn.$kind = cfg.$kind || "class";
+
+                if (cfg.$module) {
+                    fn.$module = cfg.$module;
+                }
             };
 
             Bridge.Class.$queue.push(fn);
