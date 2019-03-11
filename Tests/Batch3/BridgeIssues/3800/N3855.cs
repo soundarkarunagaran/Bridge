@@ -1,7 +1,5 @@
 using Bridge.Test.NUnit;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
@@ -11,17 +9,17 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         [Test]
         public static void TestTypeName()
         {
-            Assert.AreEqual("System.Type", typeof(Type).FullName);
-            Assert.AreEqual("Type", typeof(Type).Name);
+            Assert.AreEqual("System.Type", typeof(Type).FullName, "typeof(Type).FullName is 'System.Type'.");
+            Assert.AreEqual("Type", typeof(Type).Name, "typeof(Type).Name is 'Type'");
 
-            Assert.AreEqual("System.Boolean", typeof(Boolean).FullName);
-            Assert.AreEqual("Boolean", typeof(Boolean).Name);
+            Assert.AreEqual("System.Boolean", typeof(Boolean).FullName, "typeof(Boolean).FullName is 'System.Boolean'");
+            Assert.AreEqual("Boolean", typeof(Boolean).Name, "typeof(Boolean).Name is 'Boolean'");
 
-            Assert.AreEqual("System.String", typeof(String).FullName);
-            Assert.AreEqual("String", typeof(String).Name);
+            Assert.AreEqual("System.String", typeof(String).FullName, "typeof(String).FullName is 'System.String'");
+            Assert.AreEqual("String", typeof(String).Name, "typeof(String).Name is 'String'");
 
-            Assert.AreEqual("System.DateTime", typeof(DateTime).FullName);
-            Assert.AreEqual("DateTime", typeof(DateTime).Name);
+            Assert.AreEqual("System.DateTime", typeof(DateTime).FullName, "typeof(DateTime).FullName is 'System.DateTime'");
+            Assert.AreEqual("DateTime", typeof(DateTime).Name, "typeof(DateTime).Name is 'DateTime'");
         }
     }
 }
