@@ -434,7 +434,7 @@
 
             if (prop.$module) {
                 Class.$module = prop.$module;
-            }            
+            }
 
             if (prop.$metadata) {
                 Class.$metadata = prop.$metadata;

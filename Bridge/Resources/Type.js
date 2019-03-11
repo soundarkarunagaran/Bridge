@@ -1,6 +1,6 @@
 ﻿Bridge.define("System.Type", {
 
-    statics: {       
+    statics: {
         $is: function (instance) {
             return instance && instance.constructor === Function;
         }
