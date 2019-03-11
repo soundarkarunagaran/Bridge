@@ -362,6 +362,12 @@ namespace Bridge.Translator
                 if (node.Token.ValueText != node.Token.Text && binaryLiteral.Match(text).Success)
                 {
                     dynamic value = node.Token.Value;
+
+                    if (node.Token.Value is long lv && lv == long.MinValue)
+                    {
+                        return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("long"), SyntaxFactory.IdentifierName("MinValue"));
+                    }
+
                     node = node.WithToken(SyntaxFactory.Literal(value));
                 }
             }
@@ -935,6 +941,11 @@ namespace Bridge.Translator
                             if (ti.Type != null && ti.Type.TypeKind == TypeKind.Enum || ti.ConvertedType != null && ti.ConvertedType.TypeKind == TypeKind.Enum)
                             {
                                 return newNode;
+                            }
+
+                            if (value.Value is long lv && lv == long.MinValue)
+                            {
+                                return evc.WithValue(SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, SyntaxFactory.IdentifierName("long"), SyntaxFactory.IdentifierName("MinValue")));
                             }
 
                             literal = SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal((dynamic)value.Value));
