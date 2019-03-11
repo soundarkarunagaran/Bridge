@@ -232,7 +232,7 @@ namespace System
         [Bridge.Template("System.Array.copy({this}, 0, {array}, {index}.toNumber(), {this}.length)")]
         public extern void CopyTo(Array array, long index);
 
-        [Bridge.Template("System.Array.resize({array}, {newSize}, {T:defaultFn})")]
+        [Bridge.Template("System.Array.resize({array}, {newSize}, {T:defaultFn}, {T})")]
         public static extern void Resize<T>(ref T[] array, int newSize);
 
         [Bridge.Template("System.Array.reverse({array})")]
