@@ -35,9 +35,7 @@ namespace System.Collections.Generic
         [Bridge.AccessorsIndexer]
         TValue this[TKey key]
         {
-            [Bridge.Name("getItem")]
             get;
-            [Bridge.Name("setItem")]
             set;
         }
 

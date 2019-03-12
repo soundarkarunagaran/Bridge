@@ -243,6 +243,7 @@
     <Compile Include="shared\System\Collections\Generic\Queue.cs" />
     <Compile Include="shared\System\Collections\Generic\Stack.cs" />
     <Compile Include="System\Collections\Generic\LinkedList.cs" />
+    <Compile Include="System\Collections\Generic\ReadOnlyDictionary.cs" />
     <Compile Include="System\Collections\Generic\SortedSet.cs" />
     <Compile Include="System\Collections\Generic\SortedList.cs" />
     <Compile Include="System\Collections\HashHelpers.cs" />
@@ -468,6 +469,7 @@
     <Compile Include="System\Runtime\Serialization\OnSerializedAttribute.cs" />
     <Compile Include="System\Runtime\Serialization\OnDeserializingAttribute.cs" />
     <Compile Include="System\Runtime\Serialization\OnSerializingAttribute.cs" />
+    <Compile Include="System\StringComparer.cs" />
     <Compile Include="System\Text\ASCIIEncoding.cs" />
     <Compile Include="System\Text\Encoding.cs" />
     <Compile Include="System\Text\UTF32Encoding.cs" />

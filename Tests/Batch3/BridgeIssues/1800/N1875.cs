@@ -24,14 +24,6 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             x.TryGetValue(a.Id, out y);
             Assert.AreEqual(2, y);
             Assert.True(x.ContainsKey(a.Id));
-
-            x.Clear();
-            x.Set(a.Id, 2);
-            x.TryGetValue(a.Id, out y);
-            Assert.AreEqual(2, y);
-            Assert.True(x.ContainsKey(a.Id));
-            Assert.AreEqual(2, x.Get(a.Id));
-            Assert.AreEqual(2, x[a.Id]);
         }
     }
 }

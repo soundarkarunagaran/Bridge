@@ -1445,19 +1445,34 @@
         var source = this;
 
         return new Enumerable(function () {
-            var enumerator;
-            var keys;
+            var enumerator,
+                keys,
+                hasNull = false;
 
             return new IEnumerator(
                 function () {
                     enumerator = source.GetEnumerator();
-                    keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))(null, comparer);
-                    Enumerable.from(second).forEach(function (key) { if (!keys.containsKey(key)) { keys.add(key); } });
+                    keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
+                    
+                    Enumerable.from(second).forEach(function (key) {
+                        if (key == null) {
+                            hasNull = true;
+                        }
+                        else if (!keys.containsKey(key)) {
+                            keys.add(key);
+                        }
+                    });
                 },
                 function () {
                     while (enumerator.moveNext()) {
                         var current = enumerator.Current;
-                        if (!keys.containsKey(current)) {
+                        if (current == null) {
+                            if (!hasNull) {
+                                hasNull = true;
+                                return this.yieldReturn(current);
+                            }
+                        }
+                        else if (!keys.containsKey(current)) {
                             keys.add(current);
                             return this.yieldReturn(current);
                         }
@@ -1477,19 +1492,33 @@
             var enumerator;
             var keys;
             var outs;
+            var hasNull = false;
+            var hasOutsNull = false;
 
             return new IEnumerator(
                 function () {
                     enumerator = source.GetEnumerator();
 
-                    keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))(null, comparer);
-                    Enumerable.from(second).forEach(function (key) { if (!keys.containsKey(key)) { keys.add(key); } });
-                    outs = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))(null, comparer);
+                    keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
+                    Enumerable.from(second).forEach(function (key) {
+                        if (key == null) {
+                            hasNull = true;
+                        }
+                        else if (!keys.containsKey(key)) {
+                            keys.add(key);
+                        }
+                    });
+                    outs = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
                 },
                 function () {
                     while (enumerator.moveNext()) {
                         var current = enumerator.Current;
-                        if (!outs.containsKey(current) && keys.containsKey(current)) {
+                        if (current == null) {
+                            if (!hasOutsNull && hasNull) {
+                                hasOutsNull = true;
+                                return this.yieldReturn(current);
+                            }
+                        } else if (!outs.containsKey(current) && keys.containsKey(current)) {
                             outs.add(current);
                             return this.yieldReturn(current);
                         }
@@ -1535,18 +1564,25 @@
             var firstEnumerator;
             var secondEnumerator;
             var keys;
+            var hasNull = false;
 
             return new IEnumerator(
                 function () {
                     firstEnumerator = source.GetEnumerator();
-                    keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))(null, comparer);
+                    keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
                 },
                 function () {
                     var current;
                     if (secondEnumerator === undefined) {
                         while (firstEnumerator.moveNext()) {
                             current = firstEnumerator.Current;
-                            if (!keys.containsKey(current)) {
+                            if (current == null) {
+                                if (!hasNull) {
+                                    hasNull = true;
+                                    return this.yieldReturn(current);
+                                }
+                            }
+                            else if (!keys.containsKey(current)) {
                                 keys.add(current);
                                 return this.yieldReturn(current);
                             }
@@ -1555,7 +1591,13 @@
                     }
                     while (secondEnumerator.moveNext()) {
                         current = secondEnumerator.Current;
-                        if (!keys.containsKey(current)) {
+                        if (current == null) {
+                            if (!hasNull) {
+                                hasNull = true;
+                                return this.yieldReturn(current);
+                            }
+                        }
+                        else if (!keys.containsKey(current)) {
                             keys.add(current);
                             return this.yieldReturn(current);
                         }
@@ -2282,14 +2324,23 @@
         keySelector = Utils.createLambda(keySelector);
         elementSelector = Utils.createLambda(elementSelector);
 
-        var dict = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object))(null, comparer);
+        var dict = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
         var order = [];
+        var nullKey;
         this.forEach(function (x) {
             var key = keySelector(x);
             var element = elementSelector(x);
 
             var array = { v: null };
-            if (dict.tryGetValue(key, array)) {
+
+            if (key == null) {
+                if (!nullKey) {
+                    nullKey = [];
+                    order.push(key);
+                }
+                nullKey.push(element);
+            }
+            else if (dict.tryGetValue(key, array)) {
                 array.v.push(element);
             }
             else {
@@ -2297,7 +2348,7 @@
                 dict.add(key, [element]);
             }
         });
-        return new Lookup(dict, order);
+        return new Lookup(dict, order, nullKey);
     };
 
     Enumerable.prototype.toObject = function (keySelector, elementSelector) {
@@ -2317,7 +2368,7 @@
         keySelector = Utils.createLambda(keySelector);
         elementSelector = Utils.createLambda(elementSelector);
 
-        var dict = new (System.Collections.Generic.Dictionary$2(keyType, valueType))(null, comparer);
+        var dict = new (System.Collections.Generic.Dictionary$2(keyType, valueType)).$ctor3(comparer);
         this.forEach(function (x) {
             dict.add(keySelector(x), elementSelector(x));
         });
@@ -2937,21 +2988,31 @@
     // Collections
 
     // dictionary = Dictionary<TKey, TValue[]>
-    var Lookup = function (dictionary, order) {
+    var Lookup = function (dictionary, order, nullKey) {
         this.count = function () {
-            return dictionary.getCount();
+            return dictionary.Count;
         };
         this.get = function (key) {
+            if (key == null) {
+                return Enumerable.from(nullKey ? nullKey : []);
+            }
+
             var value = { v: null };
             var success = dictionary.tryGetValue(key, value);
             return Enumerable.from(success ? value.v : []);
         };
         this.contains = function (key) {
+            if (key == null) {
+                return !!nullKey;
+            }
             return dictionary.containsKey(key);
         };
         this.toEnumerable = function () {
             return Enumerable.from(order).select(function (key) {
-                return new Grouping(key, dictionary.get(key));
+                if (key == null) {
+                    return new Grouping(key, nullKey);
+                }
+                return new Grouping(key, dictionary.getItem(key));
             });
         };
         this.GetEnumerator = function () {
