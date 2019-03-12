@@ -58,7 +58,7 @@ module.exports = function(grunt) {
                     browsers: browsers,
                     build: process.env.TRAVIS_JOB_ID,
                     testname: "Bridge.NET client tests",
-                    throttled: 1,
+                    throttled: 4,
                     sauceConfig: {
                         // https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options
                         'video-upload-on-pass': false
