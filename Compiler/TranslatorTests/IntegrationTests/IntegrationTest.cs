@@ -178,6 +178,12 @@ namespace Bridge.Translator.Tests
                     specialFiles.Add(item.Key, item.Value);
                 }
 
+                if (folder == "08")
+                {
+                    specialFiles.Add("allCombined.js", CompareMode.Presence);
+                    specialFiles.Add("allCombined.min.js", CompareMode.Presence);
+                }
+
                 if (folder == "11")
                 {
                     specialFiles.Add("TestProject.meta.js", CompareMode.Presence);
