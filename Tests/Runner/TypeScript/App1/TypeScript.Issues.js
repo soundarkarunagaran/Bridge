@@ -58,8 +58,8 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
         },
         ctors: {
             init: function () {
-                this._forward = new (System.Collections.Generic.Dictionary$2(T1,T2))();
-                this._reverse = new (System.Collections.Generic.Dictionary$2(T2,T1))();
+                this._forward = new (System.Collections.Generic.Dictionary$2(T1,T2)).ctor();
+                this._reverse = new (System.Collections.Generic.Dictionary$2(T2,T1)).ctor();
             },
             ctor: function () {
                 this.$initialize();
@@ -105,10 +105,10 @@ Bridge.assembly("TypeScriptTest", function ($asm, globals) {
         },
         methods: {
             getItem: function (index) {
-                return this._dictionary.get(index);
+                return this._dictionary.getItem(index);
             },
             setItem: function (index, value) {
-                this._dictionary.set(index, value);
+                this._dictionary.setItem(index, value);
             },
             ContainsKey: function (index) {
                 return this._dictionary.containsKey(index);
