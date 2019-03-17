@@ -46,9 +46,18 @@ namespace Bridge.Translator
                 MemberResolveResult member = resolveResult as MemberResolveResult;
                 bool nativeImplementation = true;
                 var externalInterface = member != null && this.Emitter.Validator.IsExternalInterface(member.Member.DeclaringTypeDefinition, out nativeImplementation);
-                bool isField = externalInterface && memberTargetrr != null && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
+                bool isField = memberTargetrr != null && memberTargetrr.Member is IField && (memberTargetrr.TargetResult is ThisResolveResult || memberTargetrr.TargetResult is LocalResolveResult);
+                bool variance = false;
 
-                if (externalInterface && !nativeImplementation && !(targetrr is ThisResolveResult || targetrr is TypeResolveResult || targetrr is LocalResolveResult || isField))
+                if (member != null)
+                {
+                    var itypeDef = member.Member.DeclaringTypeDefinition;
+                    variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
+                        itypeDef.TypeParameters != null &&
+                        itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
+                }                
+
+                if ((externalInterface && !nativeImplementation || variance) && !(targetrr is ThisResolveResult || targetrr is TypeResolveResult || targetrr is LocalResolveResult || isField))
                 {
                     if (openParentheses)
                     {

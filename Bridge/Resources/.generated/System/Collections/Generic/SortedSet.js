@@ -857,6 +857,7 @@
                 return newArray;
             },
             unionWith: function (other) {
+                var $t;
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
@@ -886,7 +887,7 @@
                     var theirs = s.GetEnumerator();
                     var mineEnded = !mine.moveNext(), theirsEnded = !theirs.moveNext();
                     while (!mineEnded && !theirsEnded) {
-                        var comp = this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
+                        var comp = ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
                             merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = mine.Current;
                             mineEnded = !mine.moveNext();
@@ -919,6 +920,7 @@
                 }
             },
             intersectWith: function (other) {
+                var $t, $t1;
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
@@ -946,8 +948,8 @@
                     var max = this.Max;
                     var min = this.Min;
 
-                    while (!mineEnded && !theirsEnded && this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](theirs.Current, max) <= 0) {
-                        var comp = this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
+                    while (!mineEnded && !theirsEnded && ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](theirs.Current, max) <= 0) {
+                        var comp = ($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
@@ -1259,6 +1261,7 @@
                 return (result.uniqueCount < this.Count && result.unfoundCount === 0);
             },
             setEquals: function (other) {
+                var $t;
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
@@ -1275,7 +1278,7 @@
                     var mineEnded = !mine.System$Collections$IEnumerator$moveNext();
                     var theirsEnded = !theirs.System$Collections$IEnumerator$moveNext();
                     while (!mineEnded && !theirsEnded) {
-                        if (this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine[Bridge.geti(mine, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")], theirs[Bridge.geti(theirs, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]) !== 0) {
+                        if (($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine[Bridge.geti(mine, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")], theirs[Bridge.geti(theirs, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]) !== 0) {
                             return false;
                         }
                         mineEnded = !mine.System$Collections$IEnumerator$moveNext();
@@ -1461,7 +1464,8 @@
                 }));
             },
             GetViewBetween: function (lowerValue, upperValue) {
-                if (this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](lowerValue, upperValue) > 0) {
+                var $t;
+                if (($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](lowerValue, upperValue) > 0) {
                     throw new System.ArgumentException.$ctor1("lowerBound is greater than upperBound");
                 }
                 return new (System.Collections.Generic.SortedSet$1.TreeSubSet(T)).$ctor1(this, lowerValue, upperValue, true, true);

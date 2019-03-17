@@ -36738,6 +36738,44 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876", {
+        statics: {
+            methods: {
+                TestVarianceMembers: function () {
+                    var $t;
+                    var fac = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac();
+                    var a = ($t = fac.Create())[Bridge.geti($t, "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$System$String$SomeProperty", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$SomeProperty")];
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac.CreateCalledCount);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac", {
+        $kind: "nested class",
+        statics: {
+            fields: {
+                CreateCalledCount: 0
+            },
+            ctors: {
+                init: function () {
+                    this.CreateCalledCount = 0;
+                }
+            }
+        },
+        methods: {
+            Create: function () {
+                Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac.CreateCalledCount = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac.CreateCalledCount + 1) | 0;
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Impl();
+            }
+        }
+    });
+
+    Bridge.definei("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.IAbstr$1", function (T) { return {
+        $kind: "nested interface",
+        $variance: [1]
+    }; });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
@@ -47270,6 +47308,15 @@ Bridge.$N1391Result =                     r;
         props: {
             ReadOnly: false
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Impl", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.IAbstr$1(System.String)],
+        $kind: "nested class",
+        props: {
+            SomeProperty: 0
+        },
+        alias: ["SomeProperty", ["Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$System$String$SomeProperty", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$SomeProperty"]]
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {

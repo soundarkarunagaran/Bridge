@@ -16668,6 +16668,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return newArray;
             },
             unionWith: function (other) {
+                var $t;
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
@@ -16697,7 +16698,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var theirs = s.GetEnumerator();
                     var mineEnded = !mine.moveNext(), theirsEnded = !theirs.moveNext();
                     while (!mineEnded && !theirsEnded) {
-                        var comp = this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
+                        var comp = ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
                             merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = mine.Current;
                             mineEnded = !mine.moveNext();
@@ -16730,6 +16731,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }
             },
             intersectWith: function (other) {
+                var $t, $t1;
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
@@ -16757,8 +16759,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var max = this.Max;
                     var min = this.Min;
 
-                    while (!mineEnded && !theirsEnded && this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](theirs.Current, max) <= 0) {
-                        var comp = this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
+                    while (!mineEnded && !theirsEnded && ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](theirs.Current, max) <= 0) {
+                        var comp = ($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
@@ -17070,6 +17072,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return (result.uniqueCount < this.Count && result.unfoundCount === 0);
             },
             setEquals: function (other) {
+                var $t;
                 if (other == null) {
                     throw new System.ArgumentNullException.$ctor1("other");
                 }
@@ -17086,7 +17089,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var mineEnded = !mine.System$Collections$IEnumerator$moveNext();
                     var theirsEnded = !theirs.System$Collections$IEnumerator$moveNext();
                     while (!mineEnded && !theirsEnded) {
-                        if (this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine[Bridge.geti(mine, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")], theirs[Bridge.geti(theirs, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]) !== 0) {
+                        if (($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine[Bridge.geti(mine, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")], theirs[Bridge.geti(theirs, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]) !== 0) {
                             return false;
                         }
                         mineEnded = !mine.System$Collections$IEnumerator$moveNext();
@@ -17272,7 +17275,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }));
             },
             GetViewBetween: function (lowerValue, upperValue) {
-                if (this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](lowerValue, upperValue) > 0) {
+                var $t;
+                if (($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](lowerValue, upperValue) > 0) {
                     throw new System.ArgumentException.$ctor1("lowerBound is greater than upperBound");
                 }
                 return new (System.Collections.Generic.SortedSet$1.TreeSubSet(T)).$ctor1(this, lowerValue, upperValue, true, true);
@@ -17673,18 +17677,20 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 this.version = this.underlying.version;
             },
             IsWithinRange: function (item) {
+                var $t, $t1;
 
-                var comp = (this.lBoundActive ? this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, item) : -1);
+                var comp = (this.lBoundActive ? ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, item) : -1);
                 if (comp > 0) {
                     return false;
                 }
-                comp = (this.uBoundActive ? this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, item) : 1);
+                comp = (this.uBoundActive ? ($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, item) : 1);
                 if (comp < 0) {
                     return false;
                 }
                 return true;
             },
             InOrderTreeWalk$1: function (action, reverse) {
+                var $t, $t1;
                 this.VersionCheck();
 
                 if (this.root == null) {
@@ -17697,7 +17703,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (this.IsWithinRange(current.Item)) {
                         stack.Push(current);
                         current = (reverse ? current.Right : current.Left);
-                    } else if (this.lBoundActive && this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) > 0) {
+                    } else if (this.lBoundActive && ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) > 0) {
                         current = current.Right;
                     } else {
                         current = current.Left;
@@ -17715,7 +17721,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         if (this.IsWithinRange(node.Item)) {
                             stack.Push(node);
                             node = (reverse ? node.Right : node.Left);
-                        } else if (this.lBoundActive && this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, node.Item) > 0) {
+                        } else if (this.lBoundActive && ($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, node.Item) > 0) {
                             node = node.Right;
                         } else {
                             node = node.Left;
@@ -17725,6 +17731,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return true;
             },
             BreadthFirstTreeWalk: function (action) {
+                var $t, $t1;
                 this.VersionCheck();
 
                 if (this.root == null) {
@@ -17741,10 +17748,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (this.IsWithinRange(current.Item) && !action(current)) {
                         return false;
                     }
-                    if (current.Left != null && (!this.lBoundActive || this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) < 0)) {
+                    if (current.Left != null && (!this.lBoundActive || ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, current.Item) < 0)) {
                         processQueue.add(current.Left);
                     }
-                    if (current.Right != null && (!this.uBoundActive || this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, current.Item) > 0)) {
+                    if (current.Right != null && (!this.uBoundActive || ($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, current.Item) > 0)) {
                         processQueue.add(current.Right);
                     }
 
@@ -17760,14 +17767,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return System.Collections.Generic.SortedSet$1(T).prototype.FindNode.call(this, item);
             },
             InternalIndexOf: function (item) {
-                var $t;
+                var $t, $t1;
                 var count = -1;
                 $t = Bridge.getEnumerator(this);
                 try {
                     while ($t.moveNext()) {
                         var i = $t.Current;
                         count = (count + 1) | 0;
-                        if (this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](item, i) === 0) {
+                        if (($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](item, i) === 0) {
                             return count;
                         }
                     }
@@ -17790,11 +17797,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }
             },
             GetViewBetween: function (lowerValue, upperValue) {
+                var $t, $t1;
 
-                if (this.lBoundActive && this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, lowerValue) > 0) {
+                if (this.lBoundActive && ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.min, lowerValue) > 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("lowerValue");
                 }
-                if (this.uBoundActive && this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, upperValue) < 0) {
+                if (this.uBoundActive && ($t1 = this.Comparer)[Bridge.geti($t1, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](this.max, upperValue) < 0) {
                     throw new System.ArgumentOutOfRangeException.$ctor1("upperValue");
                 }
                 var ret = Bridge.cast(this.underlying.GetViewBetween(lowerValue, upperValue), System.Collections.Generic.SortedSet$1.TreeSubSet(T));
