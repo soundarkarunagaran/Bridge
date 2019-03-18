@@ -3963,7 +3963,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                 TestArrayToEnumerable: function () {
                     var $t;
                     var arr = System.Array.init([1, 2, 3], System.Int32);
-                    var x = System.Array.toEnumerable(System.Linq.Enumerable.from(arr).ToArray());
+                    var x = System.Array.toEnumerable(System.Linq.Enumerable.from(arr).ToArray(System.Int32));
                     var index = 0;
                     $t = Bridge.getEnumerator(x);
                     try {
@@ -15199,7 +15199,7 @@ Bridge.$N1391Result =                     r;
             methods: {
                 TestBaseTypeForGenericDefinition: function () {
                     var derivedType = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2160.Derived$1;
-                    var args = System.Linq.Enumerable.from(Bridge.Reflection.getGenericArguments(derivedType)).ToArray();
+                    var args = System.Linq.Enumerable.from(Bridge.Reflection.getGenericArguments(derivedType)).ToArray(System.Type);
                     Bridge.Test.NUnit.Assert.AreEqual(1, args.length);
                     Bridge.Test.NUnit.Assert.AreEqual("V", Bridge.Reflection.getTypeName(args[System.Array.index(0, args)]));
                     Bridge.Test.NUnit.Assert.True((args[System.Array.index(0, args)].$isTypeParameter || false));
@@ -34491,7 +34491,7 @@ Bridge.$N1391Result =                     r;
                     var b = System.Array.init(["4", "5", "6"], System.String);
                     var fn = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678.f1;
                     var result = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions.Zipper(System.String, System.String, System.String, a, b, fn);
-                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", System.Linq.Enumerable.from(result).ToArray().join("."), "Nested usings in a yield resumable method produces valid javascript code.");
+                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", System.Linq.Enumerable.from(result).ToArray(System.String).join("."), "Nested usings in a yield resumable method produces valid javascript code.");
                 }
             }
         }
@@ -35367,7 +35367,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f3), "Linq.Any(value) works.");
                     Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).all($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f4), "Linq.All() works.");
                     Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).skip(1).first().Item1, "Linq.Skip() works.");
-                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = System.Linq.Enumerable.from(test).ToArray())[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = System.Linq.Enumerable.from(test).ToArray(System.ValueTuple$2(System.String,System.String)))[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
                     Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f5).first().Item1, "Linq.Where() works.");
                 }
             }
@@ -36735,6 +36735,18 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         props: {
             Prop: 0
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3875", {
+        statics: {
+            methods: {
+                TestToArray: function () {
+                    var bytes = System.Array.init([1, 2, 3, 4], System.Byte);
+                    Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(bytes).ToArray(System.Byte))));
+                    Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(bytes)));
+                }
+            }
         }
     });
 
