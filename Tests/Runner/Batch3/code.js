@@ -36738,6 +36738,54 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3871", {
+        statics: {
+            methods: {
+                something: function () {
+                    return System.Threading.Tasks.Task.fromResult(true, System.Boolean);
+                },
+                TestAsyncLocalFunction: function () {
+                    var fct = null;
+                    var done = Bridge.Test.NUnit.Assert.Async();
+
+                    fct = function () {
+                        var $step = 0,
+                            $task1, 
+                            $taskResult1, 
+                            $jumpFromFinally, 
+                            r, 
+                            $asyncBody = Bridge.fn.bind(this, function () {
+                                for (;;) {
+                                    $step = System.Array.min([0,1], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3871.something();
+                                            $step = 1;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 1: {
+                                            $taskResult1 = $task1.getAwaitedResult();
+                                            r = $taskResult1;
+                                            Bridge.Test.NUnit.Assert.True(r);
+                                            done();
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            }, arguments);
+
+                        $asyncBody();
+                    };
+                    fct();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
