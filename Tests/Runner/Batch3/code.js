@@ -36347,6 +36347,76 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821", {
+        statics: {
+            methods: {
+                TestWebSocketError: function () {
+                    var $step = 0,
+                        $task1, 
+                        $jumpFromFinally, 
+                        $returnValue, 
+                        done, 
+                        sc, 
+                        ex, 
+                        $async_e, 
+                        $async_e1, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    $step = System.Array.min([0,1,2,3,4], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            done = Bridge.Test.NUnit.Assert.Async();
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            sc = new System.Net.WebSockets.ClientWebSocket();
+                                            $task1 = sc.connectAsync(new System.Uri("wss://NotExistServer/NotExist"), System.Threading.CancellationToken.none);
+                                            $step = 2;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 2: {
+                                            $task1.getAwaitedResult();
+                                            Bridge.Test.NUnit.Assert.Fail();
+                                            done();
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 3: {
+                                            Bridge.Test.NUnit.Assert.NotNull(ex);
+                                            done();
+                                            $async_e = null;
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 4: {
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                if ( $step >= 1 && $step <= 2 ) {
+                                    ex = $async_e;
+                                    $step = 3;
+                                    $asyncBody();
+                                    return;
+                                }
+                                throw $async_e;
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3823", {
         statics: {
             methods: {

@@ -113,6 +113,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3809 - TestIsAssignableFrom", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3809.TestIsAssignableFrom);
             QUnit.test("#3811 - TestLongMinValue", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3811.TestLongMinValue);
             QUnit.test("#3820 - TestRefReturn", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3820.TestRefReturn);
+            QUnit.test("#3821 - TestWebSocketError", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3821.TestWebSocketError);
             QUnit.test("#3823 - TestIsPattern", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3823.TestIsPattern);
             QUnit.test("#3827, #3828 - TestSortedList", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3828.TestSortedList);
             QUnit.test("#3830 - TestArrayResize", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3830.TestArrayResize);
@@ -18599,6 +18600,32 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3820", $t.File = "Batch3\\BridgeIssues\\3800\\N3820.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3821", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestWebSocketError: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3821, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestWebSocketError()", $t.Line = "11", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821.TestWebSocketError();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821", $t.File = "Batch3\\BridgeIssues\\3800\\N3821.cs", $t);
                 }
                 return this.context;
             }

@@ -24201,6 +24201,47 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return this.socket ? this.socket.protocol : null;
         },
 
+        onCloseHandler: function(event) {
+            var reason,
+                success = false;
+            
+            // See http://tools.ietf.org/html/rfc6455#section-7.4.1
+            if (event.code == 1000) {
+                reason = "Status code: " + event.code + ". Normal closure, meaning that the purpose for which the connection was established has been fulfilled.";
+                success = true;
+            } else if (event.code == 1001)
+                reason = "Status code: " + event.code + ". An endpoint is \"going away\", such as a server going down or a browser having navigated away from a page.";
+            else if (event.code == 1002)
+                reason = "Status code: " + event.code + ". An endpoint is terminating the connection due to a protocol error";
+            else if (event.code == 1003)
+                reason = "Status code: " + event.code + ". An endpoint is terminating the connection because it has received a type of data it cannot accept (e.g., an endpoint that understands only text data MAY send this if it receives a binary message).";
+            else if (event.code == 1004)
+                reason = "Status code: " + event.code + ". Reserved. The specific meaning might be defined in the future.";
+            else if (event.code == 1005)
+                reason = "Status code: " + event.code + ". No status code was actually present.";
+            else if (event.code == 1006)
+                reason = "Status code: " + event.code + ". The connection was closed abnormally, e.g., without sending or receiving a Close control frame";
+            else if (event.code == 1007)
+                reason = "Status code: " + event.code + ". An endpoint is terminating the connection because it has received data within a message that was not consistent with the type of the message (e.g., non-UTF-8 [http://tools.ietf.org/html/rfc3629] data within a text message).";
+            else if (event.code == 1008)
+                reason = "Status code: " + event.code + ". An endpoint is terminating the connection because it has received a message that \"violates its policy\". This reason is given either if there is no other sutible reason, or if there is a need to hide specific details about the policy.";
+            else if (event.code == 1009)
+                reason = "Status code: " + event.code + ". An endpoint is terminating the connection because it has received a message that is too big for it to process.";
+            else if (event.code == 1010) // Note that this status code is not used by the server, because it can fail the WebSocket handshake instead.
+                reason = "Status code: " + event.code + ". An endpoint (client) is terminating the connection because it has expected the server to negotiate one or more extension, but the server didn't return them in the response message of the WebSocket handshake. <br /> Specifically, the extensions that are needed are: " + event.reason;
+            else if (event.code == 1011)
+                reason = "Status code: " + event.code + ". A server is terminating the connection because it encountered an unexpected condition that prevented it from fulfilling the request.";
+            else if (event.code == 1015)
+                reason = "Status code: " + event.code + ". The connection was closed due to a failure to perform a TLS handshake (e.g., the server certificate can't be verified).";
+            else
+                reason = "Unknown reason";
+
+            return {
+                code: event.code,
+                reason: reason
+            };
+        },
+
         connectAsync: function (uri, cancellationToken) {
             if (this.state !== "none") {
                 throw new System.InvalidOperationException.$ctor1("Socket is not in initial state");
@@ -24214,6 +24255,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
             try {
                 this.socket = new WebSocket(uri.getAbsoluteUri(), this.options.requestedSubProtocols);
+
+                this.socket.onerror = function (e) {
+                    setTimeout(function () {
+                        if (self.closeInfo && !self.closeInfo.success) {
+                            e.message = self.closeInfo.reason;
+                        }
+                        tcs.setException(System.Exception.create(e));
+                    }, 10);                    
+                };
+
                 this.socket.binaryType = "arraybuffer";
                 this.socket.onopen = function () {
                     self.state = "open";
@@ -24258,6 +24309,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     self.state = "closed";
                     self.closeStatus = e.code;
                     self.closeStatusDescription = e.reason;
+                    self.closeInfo = self.onCloseHandler(e);
                 }
             } catch (e) {
                 tcs.setException(System.Exception.create(e));
