@@ -1,3 +1,4 @@
+using Bridge;
 using System.Collections.Generic;
 
 namespace System.Threading.Tasks
@@ -49,6 +50,9 @@ namespace System.Threading.Tasks
         public extern void Dispose();
 
         public extern void Complete(object result = null);
+
+        [WrapRest]
+        public extern void Wait();
 
         public static extern Task Delay(int millisecondDelay);
 

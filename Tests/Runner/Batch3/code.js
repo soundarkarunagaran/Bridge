@@ -17600,6 +17600,114 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2406", {
+        statics: {
+            methods: {
+                TestTaskWait: function () {
+                    var done = Bridge.Test.NUnit.Assert.Async();
+
+                    var buffer = "";
+                    var result = System.Threading.Tasks.Task.run(function () {
+                        buffer = (buffer || "") + "1";
+                    });
+
+                    result.continueWith(function (test) {
+                        buffer = (buffer || "") + "2";
+                    }).wait(Bridge.fn.bind(this, function () {
+
+                        buffer = (buffer || "") + "3";
+
+                        Bridge.Test.NUnit.Assert.AreEqual("123", buffer);
+                        done();
+                    }));
+                },
+                TestTaskWait2: function () {
+                    var $step = 0,
+                        $task1, 
+                        $task2, 
+                        $task3, 
+                        $jumpFromFinally, 
+                        done, 
+                        buffer, 
+                        result, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0,1,2,3], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        done = Bridge.Test.NUnit.Assert.Async();
+                                        buffer = "";
+
+                                        result = System.Threading.Tasks.Task.run(function () {
+                                            buffer = (buffer || "") + "1";
+                                        });
+
+                                        result.continueWith(function (test) {
+                                            buffer = (buffer || "") + "2";
+                                        }).wait(Bridge.fn.bind(this, function () {
+
+                                            buffer = (buffer || "") + "3";
+
+                                            buffer = (buffer || "") + "4";
+                                            $task1 = System.Threading.Tasks.Task.delay(100);
+                                            $step = 1;
+                                            $task1.continueWith($asyncBody, true);
+                                        }));
+                                        return;
+                                    }
+                                    case 1: {
+                                        $task1.getAwaitedResult();
+                                        buffer = (buffer || "") + "5";
+
+                                        result = System.Threading.Tasks.Task.run(function () {
+                                            buffer = (buffer || "") + "6";
+                                        });
+
+                                        buffer = (buffer || "") + "7";
+                                        $task2 = System.Threading.Tasks.Task.delay(100);
+                                        $step = 2;
+                                        $task2.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 2: {
+                                        $task2.getAwaitedResult();
+                                        buffer = (buffer || "") + "8";
+
+                                        result.continueWith(function (test) {
+                                            buffer = (buffer || "") + "9";
+                                        }).wait(Bridge.fn.bind(this, function () {
+
+                                            buffer = (buffer || "") + "10";
+                                            $task3 = System.Threading.Tasks.Task.delay(100);
+                                            $step = 3;
+                                            $task3.continueWith($asyncBody, true);
+                                        }));
+                                        return;
+                                    }
+                                    case 3: {
+                                        $task3.getAwaitedResult();
+                                        buffer = (buffer || "") + "11";
+
+                                        buffer = (buffer || "") + "12";
+
+                                        Bridge.Test.NUnit.Assert.AreEqual("123457689101112", buffer);
+
+                                        done();
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
+                                }
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge240A", {
         props: {
             Data: 0

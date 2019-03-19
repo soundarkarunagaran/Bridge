@@ -236,6 +236,37 @@
             }
         },
 
+        wait: function (callback) {
+            if (this.isCompleted()) {
+                System.Threading.Tasks.Task.queue.push(callback);
+                System.Threading.Tasks.Task.runQueue();
+                return;
+            } 
+
+            var $step = 0,
+                $task1,
+                $asyncBody = Bridge.fn.bind(this, function () {
+                    for (; ;) {
+                        $step = System.Array.min([0, 1], $step);
+                        switch ($step) {
+                            case 0: {
+                                $task1 = this;
+                                $step = 1;
+                                $task1.continueWith($asyncBody, true);
+                                return;
+                            }
+                            case 1: {
+                                $task1.getAwaitedResult();
+                                callback();
+                                return;
+                            }
+                        }
+                    }
+                }, arguments);
+
+            $asyncBody();
+        },
+
         continueWith: function (continuationAction, raise) {
             var tcs = new System.Threading.Tasks.TaskCompletionSource(),
                 me = this,

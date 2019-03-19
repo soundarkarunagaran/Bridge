@@ -187,6 +187,8 @@ namespace Bridge.Translator
             }
         }
 
+        public int OldWrapRestCounter { get; private set; }
+
         public void DoEmitBlock()
         {
             if (this.BlockStatement.Parent is MethodDeclaration)
@@ -275,6 +277,18 @@ namespace Bridge.Translator
             if (this.IsMethodBlock)
             {
                 this.Emitter.ReturnType = this.OldReturnType;
+
+                if (this.Emitter.WrapRestCounter > 0)
+                {
+                    for (int i = 0; i < this.Emitter.WrapRestCounter; i++)
+                    {
+                        this.EndBlock();
+                        this.Write("));");
+                        this.WriteNewLine();
+                    }                    
+                }
+
+                this.Emitter.WrapRestCounter = this.OldWrapRestCounter;
             }
 
             if (!this.NoBraces && (!this.Emitter.IsAsync || (!this.AsyncNoBraces && this.BlockStatement.Parent != this.Emitter.AsyncBlock.Node)))
@@ -326,6 +340,12 @@ namespace Bridge.Translator
             }
 
             this.BeginPosition = this.Emitter.Output.Length;
+
+            if (this.IsMethodBlock)
+            {
+                this.OldWrapRestCounter = this.Emitter.WrapRestCounter;
+                this.Emitter.WrapRestCounter = 0;
+            }
         }
     }
 }
