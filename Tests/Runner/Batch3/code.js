@@ -3963,7 +3963,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                 TestArrayToEnumerable: function () {
                     var $t;
                     var arr = System.Array.init([1, 2, 3], System.Int32);
-                    var x = System.Array.toEnumerable(System.Linq.Enumerable.from(arr).ToArray());
+                    var x = System.Array.toEnumerable(System.Linq.Enumerable.from(arr).ToArray(System.Int32));
                     var index = 0;
                     $t = Bridge.getEnumerator(x);
                     try {
@@ -15199,7 +15199,7 @@ Bridge.$N1391Result =                     r;
             methods: {
                 TestBaseTypeForGenericDefinition: function () {
                     var derivedType = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2160.Derived$1;
-                    var args = System.Linq.Enumerable.from(Bridge.Reflection.getGenericArguments(derivedType)).ToArray();
+                    var args = System.Linq.Enumerable.from(Bridge.Reflection.getGenericArguments(derivedType)).ToArray(System.Type);
                     Bridge.Test.NUnit.Assert.AreEqual(1, args.length);
                     Bridge.Test.NUnit.Assert.AreEqual("V", Bridge.Reflection.getTypeName(args[System.Array.index(0, args)]));
                     Bridge.Test.NUnit.Assert.True((args[System.Array.index(0, args)].$isTypeParameter || false));
@@ -34491,7 +34491,7 @@ Bridge.$N1391Result =                     r;
                     var b = System.Array.init(["4", "5", "6"], System.String);
                     var fn = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678.f1;
                     var result = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions.Zipper(System.String, System.String, System.String, a, b, fn);
-                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", System.Linq.Enumerable.from(result).ToArray().join("."), "Nested usings in a yield resumable method produces valid javascript code.");
+                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", System.Linq.Enumerable.from(result).ToArray(System.String).join("."), "Nested usings in a yield resumable method produces valid javascript code.");
                 }
             }
         }
@@ -35367,7 +35367,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f3), "Linq.Any(value) works.");
                     Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).all($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f4), "Linq.All() works.");
                     Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).skip(1).first().Item1, "Linq.Skip() works.");
-                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = System.Linq.Enumerable.from(test).ToArray())[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = System.Linq.Enumerable.from(test).ToArray(System.ValueTuple$2(System.String,System.String)))[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
                     Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f5).first().Item1, "Linq.Where() works.");
                 }
             }
@@ -36347,6 +36347,83 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The tests here consists in ensuring thrown exceptions by
+     ClientWebSocket's ConnectAsync() when something goes wrong.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3821", {
+        statics: {
+            methods: {
+                TestWebSocketError: function () {
+                    var $step = 0,
+                        $task1, 
+                        $jumpFromFinally, 
+                        $returnValue, 
+                        done, 
+                        sc, 
+                        ex, 
+                        $async_e, 
+                        $async_e1, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    $step = System.Array.min([0,1,2,3,4], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            done = Bridge.Test.NUnit.Assert.Async();
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            sc = new System.Net.WebSockets.ClientWebSocket();
+                                            $task1 = sc.connectAsync(new System.Uri("wss://NotExistServer/NotExist"), System.Threading.CancellationToken.none);
+                                            $step = 2;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 2: {
+                                            $task1.getAwaitedResult();
+                                            Bridge.Test.NUnit.Assert.Fail("ConnectAsync() to an invalid address didn't throw an exception.");
+                                            done();
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 3: {
+                                            Bridge.Test.NUnit.Assert.NotNull(ex, "ConnectAsync() thrown an exception when trying to connect to an invalid address.");
+                                            done();
+                                            $async_e = null;
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 4: {
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                if ( $step >= 1 && $step <= 2 ) {
+                                    ex = $async_e;
+                                    $step = 3;
+                                    $asyncBody();
+                                    return;
+                                }
+                                throw $async_e;
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3823", {
         statics: {
             methods: {
@@ -36738,14 +36815,105 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    /**
+     * The test here consists in ensuring local async functions are run
+     obeying assynchronous execution and order.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3871
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3871", {
+        statics: {
+            methods: {
+                something: function () {
+                    return System.Threading.Tasks.Task.fromResult(true, System.Boolean);
+                },
+                TestAsyncLocalFunction: function () {
+                    var fct = null;
+                    var done = Bridge.Test.NUnit.Assert.Async();
+
+                    fct = function () {
+                        var $step = 0,
+                            $task1, 
+                            $taskResult1, 
+                            $jumpFromFinally, 
+                            r, 
+                            $asyncBody = Bridge.fn.bind(this, function () {
+                                for (;;) {
+                                    $step = System.Array.min([0,1], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3871.something();
+                                            $step = 1;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 1: {
+                                            $taskResult1 = $task1.getAwaitedResult();
+                                            r = $taskResult1;
+                                            Bridge.Test.NUnit.Assert.True(r, "Local async function is awaited before next instruction is run.");
+                                            done();
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            }, arguments);
+
+                        $asyncBody();
+                    };
+                    fct();
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3875", {
+        statics: {
+            methods: {
+                TestToArray: function () {
+                    var bytes = System.Array.init([1, 2, 3, 4], System.Byte);
+                    Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(bytes).ToArray(System.Byte))), "Byte array type from linq's ToArray() is 'Byte[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(bytes)), "Byte array's type is 'Byte[]'.");
+
+                    var ints = System.Array.init([1, 2, 3, 4], System.Int32);
+                    Bridge.Test.NUnit.Assert.AreEqual("Int32[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(ints).ToArray(System.Int32))), "Int array type from linq's ToArray() is 'Int32[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Int32[]", Bridge.Reflection.getTypeName(Bridge.getType(ints)), "Int array's type is 'Int32[]'.");
+
+                    var strings = System.Array.init(["1", "2", "3", "4"], System.String);
+                    Bridge.Test.NUnit.Assert.AreEqual("String[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(strings).ToArray(System.String))), "String array type from linq's ToArray() is 'String[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("String[]", Bridge.Reflection.getTypeName(Bridge.getType(strings)), "String array's type is 'String[]'.");
+
+                    var floats = System.Array.init([1, 2, 3, 4], System.Single);
+                    Bridge.Test.NUnit.Assert.AreEqual("Single[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(floats).ToArray(System.Single))), "Float array type from linq's ToArray() is 'Single[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Single[]", Bridge.Reflection.getTypeName(Bridge.getType(floats)), "Single array's type is 'Single[]'.");
+
+                    var doubles = System.Array.init([1.8, 2.2, 3.6, 4.1], System.Double);
+                    Bridge.Test.NUnit.Assert.AreEqual("Double[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(doubles).ToArray(System.Double))), "Double array type from linq's ToArray() is 'Double[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Double[]", Bridge.Reflection.getTypeName(Bridge.getType(doubles)), "Double array's type is 'Double[]'.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The test here consists of ensuring the call count for the Create()
+     method from the Fac class is one and only one if the return type
+     is generic type 'out'.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876
+     */
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876", {
         statics: {
             methods: {
-                TestVarianceMembers: function () {
+                TestOutGenerics: function () {
                     var $t;
                     var fac = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac();
                     var a = ($t = fac.Create())[Bridge.geti($t, "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$System$String$SomeProperty", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$SomeProperty")];
-                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac.CreateCalledCount);
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3876.Fac.CreateCalledCount, "Call count for initialization is 1.");
                 }
             }
         }
