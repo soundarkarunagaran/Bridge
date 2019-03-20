@@ -1,8 +1,12 @@
 using Bridge.Test.NUnit;
-using System.Reflection;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The test here consists of ensuring the call count for the Create()
+    /// method from the Fac class is one and only one if the return type
+    /// is generic type 'out'.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3876 - {0}")]
     public class Bridge3876
     {
@@ -28,11 +32,11 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         }
 
         [Test]
-        public static void TestVarianceMembers()
+        public static void TestOutGenerics()
         {
             var fac = new Fac();
             int a = fac.Create().SomeProperty;
-            Assert.AreEqual(1, Fac.CreateCalledCount);
+            Assert.AreEqual(1, Fac.CreateCalledCount, "Call count for initialization is 1.");
         }
     }
 }
