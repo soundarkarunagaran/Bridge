@@ -1,9 +1,12 @@
 using Bridge.Test.NUnit;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The test here consists in ensuring local async functions are run
+    /// obeying assynchronous execution and order.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3871 - {0}")]
     public class Bridge3871
     {
@@ -19,7 +22,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             async void fct()
             {
                 var r = await something();
-                Assert.True(r);
+                Assert.True(r, "Local async function is awaited before next instruction is run.");
                 done();
             }
             fct();
