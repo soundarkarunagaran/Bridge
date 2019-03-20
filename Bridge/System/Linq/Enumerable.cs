@@ -4612,7 +4612,7 @@ namespace System.Linq
         /// <exception cref="System.ArgumentNullException">
         /// source is null.
         /// </exception>
-        [Bridge.Template("System.Linq.Enumerable.from({source}).ToArray()")]
+        [Bridge.Template("System.Linq.Enumerable.from({source}).ToArray({TSource})")]
         public static extern TSource[] ToArray<TSource>(this IEnumerable<TSource> source);
 
         /// <summary>
