@@ -5,6 +5,13 @@ using Bridge.Test.NUnit;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// This test consists in running async tasks and calling the task's Wait()
+    /// method to wait for the tast execution to finish. At each step, a string
+    /// buffer is padded with a number indicating the expected order, which is
+    /// then checked at the end of the execution, to ensure every call ran in
+    /// the expected order.
+    /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#2406 - {0}")]
     public class Bridge2406
@@ -28,12 +35,12 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             buffer += "3";
 
-            Assert.AreEqual("123", buffer);
+            Assert.AreEqual("123", buffer, "The response buffer was filled in the correct order.");
             done();
         }
 
         [Test]
-        public async static void TestTaskWait2()
+        public async static void TestTaskWaitWithDelay()
         {
             var done = Assert.Async();
             string buffer = "";
@@ -76,13 +83,13 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
             buffer += "12";
 
-            Assert.AreEqual("123457689101112", buffer);
+            Assert.AreEqual("123457689101112", buffer, "The result buffer was filled up in the correct order.");
 
             done();
         }
 
         [Test]
-        public static void TestTaskWait3()
+        public static void TestTaskWaitDelayInlineFn()
         {
             var done = Assert.Async();
             string buffer = "";
@@ -92,7 +99,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 buffer += "1";
                 await Task.Delay(1000);
                 buffer += "2";
-                Assert.AreEqual("132", buffer);
+                Assert.AreEqual("132", buffer, "The result buffer was filled up in the correct order.");
                 done();
             });
 
@@ -103,11 +110,11 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 buffer += "3";
             }
 
-            Assert.AreEqual("13", buffer);            
+            Assert.AreEqual("13", buffer, "The result buffer had the correct state during execution (before slower task finishes).");
         }
 
         [Test]
-        public static async void TestTaskWait4()
+        public static async void TestTaskDelayAndWait()
         {
             var done = Assert.Async();
             string buffer = "";
@@ -130,7 +137,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 buffer += "3";
                 await Task.Delay(100);
                 buffer += "5";
-                Assert.AreEqual("12345", buffer);
+                Assert.AreEqual("12345", buffer, "The result buffer was filled up in the correct order.");
             }
             ts.Dispose();
 
