@@ -215,11 +215,18 @@ namespace Bridge.Translator
                         )
                     )).NormalizeWhitespace().WithTrailingTrivia(SyntaxFactory.Whitespace(Emitter.NEW_LINE));
 
+                    var lambda = SyntaxFactory.ParenthesizedLambdaExpression(fn.Body ?? (CSharpSyntaxNode)fn.ExpressionBody.Expression).WithParameterList(
+                            SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(prms))
+                        );
+
+                    if (fn.Modifiers.Any(SyntaxKind.AsyncKeyword))
+                    {
+                        lambda = lambda.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+                    }
+
                     var assignment = SyntaxFactory.ExpressionStatement(SyntaxFactory.AssignmentExpression(SyntaxKind.SimpleAssignmentExpression,
                         SyntaxFactory.IdentifierName(fn.Identifier.ValueText),
-                        SyntaxFactory.ParenthesizedLambdaExpression(fn.Body ?? (CSharpSyntaxNode)fn.ExpressionBody.Expression).WithParameterList(
-                            SyntaxFactory.ParameterList(SyntaxFactory.SeparatedList(prms))
-                        )
+                        lambda
                     )).NormalizeWhitespace().WithTrailingTrivia(SyntaxFactory.Whitespace(Emitter.NEW_LINE));
 
                     List<StatementSyntax> statements = null;
