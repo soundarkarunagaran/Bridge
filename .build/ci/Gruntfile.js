@@ -60,7 +60,7 @@ module.exports = function(grunt) {
                     testname: "Bridge.NET client tests",
                     throttled: 4,
                     pollInterval: 10000,
-                    statusCheckAttempts 100,
+                    statusCheckAttempts: 100,
                     max-duration: 1000,
                     maxRetries: 2,
                     sauceConfig: {
