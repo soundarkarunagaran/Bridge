@@ -61,7 +61,7 @@ module.exports = function(grunt) {
                     throttled: 4,
                     pollInterval: 10000,
                     statusCheckAttempts: 100,
-                    max-duration: 1000,
+                    maxDuration: 1000,
                     maxRetries: 2,
                     sauceConfig: {
                         // https://wiki.saucelabs.com/display/DOCS/Test+Configuration+Options
