@@ -4,7 +4,7 @@ namespace Bridge
 {
     [NonScriptable]
     [AttributeUsage( AttributeTargets.Delegate | AttributeTargets.Method, AllowMultiple = false)]
-    public sealed class WrapRestAttribute : Attribute
+    public sealed class ToAwaitAttribute : Attribute
     {
     }
 }

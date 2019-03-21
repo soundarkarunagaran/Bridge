@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Bridge.Test.NUnit;
 
@@ -76,6 +77,62 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             buffer += "12";
 
             Assert.AreEqual("123457689101112", buffer);
+
+            done();
+        }
+
+        [Test]
+        public static void TestTaskWait3()
+        {
+            var done = Assert.Async();
+            string buffer = "";
+
+            Task t = Task.Run(async () =>
+            {
+                buffer += "1";
+                await Task.Delay(1000);
+                buffer += "2";
+                Assert.AreEqual("132", buffer);
+                done();
+            });
+
+            TimeSpan ts = TimeSpan.FromMilliseconds(150);
+
+            if (!t.Wait(ts))
+            {
+                buffer += "3";
+            }
+
+            Assert.AreEqual("13", buffer);            
+        }
+
+        [Test]
+        public static async void TestTaskWait4()
+        {
+            var done = Assert.Async();
+            string buffer = "";
+
+            CancellationTokenSource ts = new CancellationTokenSource();
+
+            Task t = Task.Run(() => {
+                buffer += "2";
+                ts.Cancel();
+                Task.Delay(50).Wait();
+                buffer += "4";
+            });
+            try
+            {
+                buffer += "1";
+                t.Wait(ts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                buffer += "3";
+                await Task.Delay(100);
+                buffer += "5";
+                Assert.AreEqual("12345", buffer);
+            }
+            ts.Dispose();
 
             done();
         }

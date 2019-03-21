@@ -51,10 +51,43 @@ namespace System.Threading.Tasks
 
         public extern void Complete(object result = null);
 
-        [WrapRest]
+        [ToAwait]
         public extern void Wait();
 
+        [Name("wait")]
+        public extern Task WaitTask();
+
+        [ToAwait]
+        public extern void Wait(CancellationToken cancellationToken);
+
+        [Name("wait")]
+        public extern Task WaitTask(CancellationToken cancellationToken);
+
+        [ToAwait]
+        public extern bool Wait(int millisecondsTimeout);
+
+        [Name("waitt")]
+        public extern Task<bool> WaitTask(int millisecondsTimeout);
+
+        [ToAwait]
+        public extern bool Wait(int millisecondsTimeout, CancellationToken cancellationToken);
+
+        [Name("waitt")]
+        public extern Task<bool> WaitTask(int millisecondsTimeout, CancellationToken cancellationToken);
+
+        [ToAwait]
+        public extern bool Wait(TimeSpan timeout);
+
+        [Name("waitt")]
+        public extern Task<bool> WaitTask(TimeSpan timeout);
+
         public static extern Task Delay(int millisecondDelay);
+
+        public static extern Task Delay(int millisecondsDelay, CancellationToken cancellationToken);
+
+        public static extern Task Delay(TimeSpan delay);
+
+        public static extern Task Delay(TimeSpan delay, CancellationToken cancellationToken);
 
         [Bridge.Template("System.Threading.Tasks.Task.fromResult({result}, {TResult})")]
         public static extern Task<TResult> FromResult<TResult>(TResult result);

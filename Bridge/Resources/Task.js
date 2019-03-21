@@ -35,11 +35,41 @@
             },
 
             delay: function (delay, state) {
-                var tcs = new System.Threading.Tasks.TaskCompletionSource();
+                var tcs = new System.Threading.Tasks.TaskCompletionSource(),
+                    token,
+                    cancelCallback = false;
 
-                setTimeout(function () {
-                    tcs.setResult(state);
-                }, delay);
+                if (Bridge.is(state, System.Threading.CancellationToken)) {
+                    token = state;
+                    state = undefined;
+                }
+
+                if (token) {
+                    token.cancelWasRequested = function () {
+                        if (!cancelCallback) {
+                            cancelCallback = true;
+                            clearTimeout(clear);
+                            
+                            tcs.setCanceled();
+                        }
+                    };
+                }
+
+                var ms = delay; 
+                if (Bridge.is(delay, System.TimeSpan)) {
+                    ms = delay.getTotalMilliseconds();
+                }
+
+                var clear = setTimeout(function () {
+                    if (!cancelCallback) {
+                        cancelCallback = true;
+                        tcs.setResult(state);
+                    }                    
+                }, ms);
+
+                if (token && token.getIsCancellationRequested()) {
+                    Bridge.setImmediate(token.cancelWasRequested);
+                }
 
                 return tcs.task;
             },
@@ -58,7 +88,21 @@
 
                 System.Threading.Tasks.Task.schedule(function () {
                     try {
-                        tcs.setResult(fn());
+                        var result = fn();
+
+                        if (Bridge.is(result, System.Threading.Tasks.Task)) {
+                            result.continueWith(function () {
+                                if (result.isCanceled()) {
+                                    tcs.setCanceled();
+                                } else if (result.isFaulted()) {
+                                    tcs.setException(result.exception);
+                                } else {
+                                    tcs.setResult(result.getAwaitedResult());
+                                }                                
+                            });
+                        } else {
+                            tcs.setResult(result);
+                        }                        
                     } catch (e) {
                         tcs.setException(System.Exception.create(e));
                     }
@@ -236,35 +280,69 @@
             }
         },
 
-        wait: function (callback) {
-            if (this.isCompleted()) {
-                System.Threading.Tasks.Task.queue.push(callback);
-                System.Threading.Tasks.Task.runQueue();
-                return;
-            } 
+        waitt: function (timeout, token) {
+            var ms = timeout,
+                tcs = new System.Threading.Tasks.TaskCompletionSource(),
+                cancelCallback = false;
 
-            var $step = 0,
-                $task1,
-                $asyncBody = Bridge.fn.bind(this, function () {
-                    for (; ;) {
-                        $step = System.Array.min([0, 1], $step);
-                        switch ($step) {
-                            case 0: {
-                                $task1 = this;
-                                $step = 1;
-                                $task1.continueWith($asyncBody, true);
-                                return;
-                            }
-                            case 1: {
-                                $task1.getAwaitedResult();
-                                callback();
-                                return;
-                            }
-                        }
+            if (token) {
+                token.cancelWasRequested = function () {
+                    if (!cancelCallback) {
+                        cancelCallback = true;
+                        clearTimeout(clear);
+                        tcs.setException(new System.OperationCanceledException.$ctor1(token));
                     }
-                }, arguments);
+                };
+            }
 
-            $asyncBody();
+            if (Bridge.is(timeout, System.TimeSpan)) {
+                ms = timeout.getTotalMilliseconds();
+            }
+
+            var clear = setTimeout(function () {
+                cancelCallback = true;
+                tcs.setResult(false);
+            }, ms);
+
+            this.continueWith(function () {
+                clearTimeout(clear);
+                if (!cancelCallback) {
+                    cancelCallback = true;
+                    tcs.setResult(true);
+                }
+            })
+
+            return tcs.task;
+        },
+
+        wait: function (token) {
+            var me = this,
+                tcs = new System.Threading.Tasks.TaskCompletionSource(),
+                complete = false;
+
+            if (token) {
+                token.cancelWasRequested = function () {
+                    if (!complete) {
+                        complete = true;
+                        tcs.setException(new System.OperationCanceledException.$ctor1(token));
+                    }
+                };
+            }
+
+            this.continueWith(function () {
+                if (!complete) {
+                    complete = true;
+                    if (me.isFaulted()) {
+                        tcs.setException(me.exception);
+                    } else if (me.isCanceled()) {
+                        tcs.setCanceled();
+                    } else {
+                        tcs.setResult();
+                    }  
+                }
+            })
+
+            return tcs.task;         
         },
 
         continueWith: function (continuationAction, raise) {
@@ -348,7 +426,7 @@
             return true;
         },
 
-        cancel: function () {
+        cancel: function (error) {
             if (this.isCompleted()) {
                 return false;
             }
@@ -377,6 +455,10 @@
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
                     var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
+
+                    if (this.exception && this.exception.innerExceptions) {
+                        throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
+                    }
 
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
@@ -495,6 +577,7 @@
                 h = this.handlers;
 
             this.clean();
+            this.token.cancelWasRequested();
 
             for (var i = 0; i < h.length; i++) {
                 try {
@@ -599,6 +682,10 @@
             }
 
             this.source = source;
+        },
+
+        cancelWasRequested: function () {
+
         },
 
         getCanBeCanceled: function () {
