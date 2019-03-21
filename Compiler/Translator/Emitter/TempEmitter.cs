@@ -1007,6 +1007,8 @@ namespace Bridge.Translator
             }
         }
 
+        public int WrapRestCounter { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public int CompareTypeInfosByName(ITypeInfo x, ITypeInfo y)
         {
             throw new NotImplementedException();

@@ -263,7 +263,18 @@ namespace Bridge.Translator
 
         public override SyntaxNode VisitLocalFunctionStatement(LocalFunctionStatementSyntax node)
         {
+            var oldMarkAsAsync = this.markAsAsync;
+            this.markAsAsync = false;
+
             this.hasLocalFunctions = true;
+
+            if (this.markAsAsync && node.Modifiers.IndexOf(SyntaxKind.AsyncKeyword) == -1)
+            {
+                node = node.AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")).WithLeadingTrivia(SyntaxFactory.Whitespace(" ")));
+            }
+
+            this.markAsAsync = oldMarkAsAsync;
+
             return base.VisitLocalFunctionStatement(node);
         }
 
@@ -348,6 +359,7 @@ namespace Bridge.Translator
         }
 
         private static Regex binaryLiteral = new Regex(@"[_Bb]", RegexOptions.Compiled);
+        private bool markAsAsync;
 
         public override SyntaxNode VisitLiteralExpression(LiteralExpressionSyntax node)
         {
@@ -650,6 +662,12 @@ namespace Bridge.Translator
         {
             var method = this.semanticModel.GetSymbolInfo(node).Symbol as IMethodSymbol;
             var isRef = false;
+            var toAwait = false;
+
+            if (method != null && method.GetAttributes().Any(a => a.AttributeClass.FullyQualifiedName() == "Bridge.ToAwaitAttribute"))
+            {
+                toAwait = true;
+            }
 
             if (method != null && method.ReturnsByRef && (node.Parent is AssignmentExpressionSyntax aes && aes.Left == node || 
                 node.Parent is MemberAccessExpressionSyntax ||
@@ -714,6 +732,18 @@ namespace Bridge.Translator
             if (isRef)
             {
                 return SyntaxFactory.MemberAccessExpression(SyntaxKind.SimpleMemberAccessExpression, node, SyntaxFactory.IdentifierName("Value")).NormalizeWhitespace().WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
+            }
+
+            if (toAwait)
+            {
+                this.markAsAsync = true;
+
+                if (node.Expression is MemberAccessExpressionSyntax ma)
+                {
+                    node = node.WithExpression(ma.WithName(SyntaxFactory.IdentifierName("WaitTask")));
+                }
+
+                return SyntaxFactory.AwaitExpression(node).NormalizeWhitespace().WithLeadingTrivia(node.GetLeadingTrivia()).WithTrailingTrivia(node.GetTrailingTrivia());
             }
 
             return node;
@@ -1398,6 +1428,9 @@ namespace Bridge.Translator
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
         {
+            var oldMarkAsAsync = this.markAsAsync;
+            this.markAsAsync = false;
+
             var oldIndex = this.IndexInstance;
             this.IndexInstance = 0;
 
@@ -1410,12 +1443,18 @@ namespace Bridge.Translator
                 node = node.WithAttributeLists(node.AttributeLists.Add(SyntaxFactory.AttributeList(SyntaxFactory.SingletonSeparatedList(SyntaxFactory.Attribute(SyntaxFactory.IdentifierName("Bridge.PrivateProtectedAttribute"))))));
             }
 
+            if (this.markAsAsync && node.Modifiers.IndexOf(SyntaxKind.AsyncKeyword) == -1)
+            {
+                node = node.AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword).WithTrailingTrivia(SyntaxFactory.Whitespace(" ")).WithLeadingTrivia(SyntaxFactory.Whitespace(" ")));
+            }
+
+            this.markAsAsync = oldMarkAsAsync;
             if (node.ExpressionBody != null)
             {
                 return SyntaxHelper.ToStatementBody(node);
             }
 
-            this.IndexInstance = oldIndex;
+            this.IndexInstance = oldIndex;            
 
             return node;
         }
@@ -1465,6 +1504,8 @@ namespace Bridge.Translator
 
         public override SyntaxNode VisitParenthesizedLambdaExpression(ParenthesizedLambdaExpressionSyntax node)
         {
+            var oldMarkAsAsync = this.markAsAsync;
+            this.markAsAsync = false;
             var ti = this.semanticModel.GetTypeInfo(node);
             var oldValue = this.IsExpressionOfT;
 
@@ -1478,11 +1519,22 @@ namespace Bridge.Translator
 
             this.IsExpressionOfT = oldValue;
 
+            if (this.markAsAsync && newNode is ParenthesizedLambdaExpressionSyntax ple)
+            {
+                ple = ple.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+                newNode = ple;
+            }
+
+            this.markAsAsync = oldMarkAsAsync;
+
             return newNode;
         }
 
         public override SyntaxNode VisitSimpleLambdaExpression(SimpleLambdaExpressionSyntax node)
         {
+            var oldMarkAsAsync = this.markAsAsync;
+            this.markAsAsync = false;
+
             var ti = this.semanticModel.GetTypeInfo(node);
             var oldValue = this.IsExpressionOfT;
 
@@ -1495,6 +1547,14 @@ namespace Bridge.Translator
             var newNode = base.VisitSimpleLambdaExpression(node);
 
             this.IsExpressionOfT = oldValue;
+
+            if (this.markAsAsync && newNode is SimpleLambdaExpressionSyntax sle)
+            {
+                sle = sle.WithAsyncKeyword(SyntaxFactory.Token(SyntaxKind.AsyncKeyword));
+                newNode = sle;
+            }
+
+            this.markAsAsync = oldMarkAsAsync;
 
             return newNode;
         }

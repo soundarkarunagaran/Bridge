@@ -579,5 +579,10 @@ namespace Bridge.Translator
         {
             get; set;
         }
+
+        public int WrapRestCounter
+        {
+            get; set;
+        }
     }
 }

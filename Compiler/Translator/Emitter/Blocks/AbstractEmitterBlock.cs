@@ -228,6 +228,15 @@ namespace Bridge.Translator
             }
 
             this.WriteNewLine();
+
+            if (this.Emitter.WrapRestCounter > 0)
+            {
+                this.EndBlock();
+                this.Write("));");
+                this.WriteNewLine();
+                this.Emitter.WrapRestCounter--;
+            }
+
             this.Write("return;");
 
             var asyncStep = this.Emitter.AsyncBlock.AddAsyncStep(index);

@@ -636,6 +636,8 @@ namespace Bridge.Translator
                         isIgnoreGeneric = Helpers.IsIgnoreGeneric(invocationResult.Member, this.Emitter);
                     }
 
+                    bool isWrapRest = false;
+
                     if (needExpand && isIgnore)
                     {
                         StringBuilder savedBuilder = this.Emitter.Output;
@@ -674,7 +676,12 @@ namespace Bridge.Translator
                         }
                     }
                     else
-                    {
+                    {                        
+                        if (method != null && method.Attributes.Any(a => a.AttributeType.FullName == "Bridge.WrapRestAttribute"))
+                        {
+                            isWrapRest = true;
+                        }
+
                         this.Emitter.Comma = false;
                         if (!isIgnore && !isIgnoreGeneric && argsInfo.HasTypeArguments)
                         {
@@ -688,8 +695,20 @@ namespace Bridge.Translator
 
                         new ExpressionListBlock(this.Emitter, argsExpressions, paramsArg, invocationExpression, openPos).Emit();
                     }
-                    this.Emitter.Comma = false;
-                    this.WriteCloseParentheses();
+                    
+
+                    if (isWrapRest)
+                    {
+                        this.EnsureComma(false);
+                        this.Write("Bridge.fn.bind(this, function () ");
+                        this.BeginBlock();
+                        this.Emitter.WrapRestCounter++;
+                        this.Emitter.SkipSemiColon = true;
+                    } else
+                    {
+                        this.Emitter.Comma = false;
+                        this.WriteCloseParentheses();
+                    }                    
                 }
             }
 
