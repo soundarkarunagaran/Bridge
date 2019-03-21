@@ -17600,6 +17600,364 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405");
+
+    /**
+     * This test consists in running async tasks and calling the task's Wait()
+     method to wait for the tast execution to finish. At each step, a string
+     buffer is padded with a number indicating the expected order, which is
+     then checked at the end of the execution, to ensure every call ran in
+     the expected order.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge2406
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2406", {
+        statics: {
+            methods: {
+                TestTaskWait: function () {
+                    var $step = 0,
+                        $task1, 
+                        $jumpFromFinally, 
+                        done, 
+                        buffer, 
+                        result, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0,1], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        done = Bridge.Test.NUnit.Assert.Async();
+
+                                        buffer = "";
+                                        result = System.Threading.Tasks.Task.run(function () {
+                                            buffer = (buffer || "") + "1";
+                                        });
+
+                                        $task1 = result.continueWith(function (test) {
+                                            buffer = (buffer || "") + "2";
+                                        }).wait();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $task1.getAwaitedResult();
+                                        buffer = (buffer || "") + "3";
+
+                                        Bridge.Test.NUnit.Assert.AreEqual("123", buffer, "The response buffer was filled in the correct order.");
+                                        done();
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
+                                }
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                },
+                TestTaskWaitWithDelay: function () {
+                    var $step = 0,
+                        $task1, 
+                        $task2, 
+                        $task3, 
+                        $task4, 
+                        $task5, 
+                        $jumpFromFinally, 
+                        done, 
+                        buffer, 
+                        result, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0,1,2,3,4,5], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        done = Bridge.Test.NUnit.Assert.Async();
+                                        buffer = "";
+
+                                        result = System.Threading.Tasks.Task.run(function () {
+                                            buffer = (buffer || "") + "1";
+                                        });
+
+                                        $task1 = result.continueWith(function (test) {
+                                            buffer = (buffer || "") + "2";
+                                        }).wait();
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $task1.getAwaitedResult();
+                                        buffer = (buffer || "") + "3";
+
+                                        buffer = (buffer || "") + "4";
+                                        $task2 = System.Threading.Tasks.Task.delay(100);
+                                        $step = 2;
+                                        $task2.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 2: {
+                                        $task2.getAwaitedResult();
+                                        buffer = (buffer || "") + "5";
+
+                                        result = System.Threading.Tasks.Task.run(function () {
+                                            buffer = (buffer || "") + "6";
+                                        });
+
+                                        buffer = (buffer || "") + "7";
+                                        $task3 = System.Threading.Tasks.Task.delay(100);
+                                        $step = 3;
+                                        $task3.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 3: {
+                                        $task3.getAwaitedResult();
+                                        buffer = (buffer || "") + "8";
+
+                                        $task4 = result.continueWith(function (test) {
+                                            buffer = (buffer || "") + "9";
+                                        }).wait();
+                                        $step = 4;
+                                        $task4.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 4: {
+                                        $task4.getAwaitedResult();
+                                        buffer = (buffer || "") + "10";
+                                        $task5 = System.Threading.Tasks.Task.delay(100);
+                                        $step = 5;
+                                        $task5.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 5: {
+                                        $task5.getAwaitedResult();
+                                        buffer = (buffer || "") + "11";
+
+                                        buffer = (buffer || "") + "12";
+
+                                        Bridge.Test.NUnit.Assert.AreEqual("123457689101112", buffer, "The result buffer was filled up in the correct order.");
+
+                                        done();
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
+                                }
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                },
+                TestTaskWaitDelayInlineFn: function () {
+                    var $step = 0,
+                        $task1, 
+                        $taskResult1, 
+                        $jumpFromFinally, 
+                        done, 
+                        buffer, 
+                        t, 
+                        ts, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            for (;;) {
+                                $step = System.Array.min([0,1,2,3], $step);
+                                switch ($step) {
+                                    case 0: {
+                                        done = Bridge.Test.NUnit.Assert.Async();
+                                        buffer = "";
+
+                                        t = System.Threading.Tasks.Task.run(function () {
+                                            var $step = 0,
+                                                $task1, 
+                                                $jumpFromFinally, 
+                                                $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                                                $returnValue, 
+                                                $async_e, 
+                                                $asyncBody = Bridge.fn.bind(this, function () {
+                                                    try {
+                                                        for (;;) {
+                                                            $step = System.Array.min([0,1], $step);
+                                                            switch ($step) {
+                                                                case 0: {
+                                                                    buffer = (buffer || "") + "1";
+                                                                    $task1 = System.Threading.Tasks.Task.delay(1000);
+                                                                    $step = 1;
+                                                                    $task1.continueWith($asyncBody);
+                                                                    return;
+                                                                }
+                                                                case 1: {
+                                                                    $task1.getAwaitedResult();
+                                                                    buffer = (buffer || "") + "2";
+                                                                    Bridge.Test.NUnit.Assert.AreEqual("132", buffer, "The result buffer was filled up in the correct order.");
+                                                                    done();
+                                                                    $tcs.setResult(null);
+                                                                    return;
+                                                                }
+                                                                default: {
+                                                                    $tcs.setResult(null);
+                                                                    return;
+                                                                }
+                                                            }
+                                                        }
+                                                    } catch($async_e1) {
+                                                        $async_e = System.Exception.create($async_e1);
+                                                        $tcs.setException($async_e);
+                                                    }
+                                                }, arguments);
+
+                                            $asyncBody();
+                                            return $tcs.task;
+                                        });
+
+                                        ts = System.TimeSpan.fromMilliseconds(150);
+
+                                        $task1 = t.waitt(ts);
+                                        $step = 1;
+                                        $task1.continueWith($asyncBody, true);
+                                        return;
+                                    }
+                                    case 1: {
+                                        $taskResult1 = $task1.getAwaitedResult();
+                                        if (!$taskResult1) {
+                                            $step = 2;
+                                            continue;
+                                        } 
+                                        $step = 3;
+                                        continue;
+                                    }
+                                    case 2: {
+                                        buffer = (buffer || "") + "3";
+                                        $step = 3;
+                                        continue;
+                                    }
+                                    case 3: {
+                                        Bridge.Test.NUnit.Assert.AreEqual("13", buffer, "The result buffer had the correct state during execution (before slower task finishes).");
+                                        return;
+                                    }
+                                    default: {
+                                        return;
+                                    }
+                                }
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                },
+                TestTaskDelayAndWait: function () {
+                    var $step = 0,
+                        $task1, 
+                        $task2, 
+                        $jumpFromFinally, 
+                        $returnValue, 
+                        done, 
+                        buffer, 
+                        ts, 
+                        t, 
+                        $async_e, 
+                        $async_e1, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    $step = System.Array.min([0,1,2,3,4,5], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            done = Bridge.Test.NUnit.Assert.Async();
+                                            buffer = "";
+
+                                            ts = new System.Threading.CancellationTokenSource();
+
+                                            t = System.Threading.Tasks.Task.run(function () {
+                                                var $step = 0,
+                                                    $task1, 
+                                                    $jumpFromFinally, 
+                                                    $asyncBody = Bridge.fn.bind(this, function () {
+                                                        for (;;) {
+                                                            $step = System.Array.min([0,1], $step);
+                                                            switch ($step) {
+                                                                case 0: {
+                                                                    buffer = (buffer || "") + "2";
+                                                                    ts.cancel();
+                                                                    $task1 = System.Threading.Tasks.Task.delay(50).wait();
+                                                                    $step = 1;
+                                                                    $task1.continueWith($asyncBody, true);
+                                                                    return;
+                                                                }
+                                                                case 1: {
+                                                                    $task1.getAwaitedResult();
+                                                                    buffer = (buffer || "") + "4";
+                                                                    return;
+                                                                }
+                                                                default: {
+                                                                    return;
+                                                                }
+                                                            }
+                                                        }
+                                                    }, arguments);
+
+                                                $asyncBody();
+                                            });
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            buffer = (buffer || "") + "1";
+                                            $task1 = t.wait(ts.token);
+                                            $step = 2;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 2: {
+                                            $task1.getAwaitedResult();
+                                            $step = 5;
+                                            continue;
+                                        }
+                                        case 3: {
+                                            buffer = (buffer || "") + "3";
+                                            $task2 = System.Threading.Tasks.Task.delay(100);
+                                            $step = 4;
+                                            $task2.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 4: {
+                                            $task2.getAwaitedResult();
+                                            buffer = (buffer || "") + "5";
+                                            Bridge.Test.NUnit.Assert.AreEqual("12345", buffer, "The result buffer was filled up in the correct order.");
+                                            $async_e = null;
+                                            $step = 5;
+                                            continue;
+                                        }
+                                        case 5: {
+                                            ts.dispose();
+
+                                            done();
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                if ( $step >= 1 && $step <= 2 ) {
+                                    if (Bridge.is($async_e, System.OperationCanceledException)) {
+                                        $step = 3;
+                                        $asyncBody();
+                                        return;
+                                    }
+                                }
+                                throw $async_e;
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge240A", {
         props: {
             Data: 0
