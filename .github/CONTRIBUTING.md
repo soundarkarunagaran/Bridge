@@ -4,7 +4,7 @@ So, you’ve developed something interesting or fixed a defect and want to have 
 
 ## About Rights
 
-The [Bridge](https://github.com/bridgedotnet/Bridge) project is [licensed](https://github.com/bridgedotnet/Bridge/blob/master/LICENSE) as [Apache v2.0 License](http://www.apache.org/licenses/LICENSE-2.0). If you provide any code to us and your code is added to the project, the code you provide will automatically inherit the same Apache License, Version 2.0.
+The [Bridge](https://github.com/bridgedotnet/Bridge) project is [licensed](https://github.com/bridgedotnet/Bridge/blob/master/LICENSE.md) as [Apache v2.0 License](http://www.apache.org/licenses/LICENSE-2.0). If you provide any code to us and your code is added to the project, the code you provide will automatically inherit the same Apache License, Version 2.0.
 
 Your contribution will be subject to license Clause #5.
 
