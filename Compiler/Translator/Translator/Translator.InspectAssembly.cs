@@ -85,6 +85,28 @@ namespace Bridge.Translator
             }
         }
 
+        protected virtual void LoadReferenceAssemblies(List<AssemblyDefinition> references)
+        {
+            var locations = this.GetProjectReferenceAssemblies().Distinct();
+
+            foreach (var path in locations)
+            {
+                var reference = AssemblyDefinition.ReadAssembly(
+                    path,
+                    new ReaderParameters()
+                    {
+                        ReadingMode = ReadingMode.Deferred,
+                        AssemblyResolver = new CecilAssemblyResolver(this.Log, this.AssemblyLocation)
+                    }
+                );
+
+                if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
+                {
+                    references.Add(reference);
+                }
+            }
+        }
+
         protected virtual AssemblyDefinition LoadAssembly(string location, List<AssemblyDefinition> references)
         {
             this.Log.Trace("Assembly definition loading " + (location ?? "") + " ...");
@@ -248,6 +270,7 @@ namespace Bridge.Translator
 
             var references = new List<AssemblyDefinition>();
             var assembly = this.LoadAssembly(this.AssemblyLocation, references);
+            this.LoadReferenceAssemblies(references);
             this.TypeDefinitions = new Dictionary<string, TypeDefinition>();
             this.BridgeTypes = new BridgeTypes();
             this.AssemblyDefinition = assembly;
