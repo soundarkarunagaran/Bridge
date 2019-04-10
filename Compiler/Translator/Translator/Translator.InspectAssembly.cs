@@ -100,7 +100,7 @@ namespace Bridge.Translator
                     }
                 );
 
-                if (reference != null && !references.Any(a => a.Name.FullName == reference.Name.FullName))
+                if (reference != null && !references.Any(a => a.Name.Name == reference.Name.Name))
                 {
                     references.Add(reference);
                 }
