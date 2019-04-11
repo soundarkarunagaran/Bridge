@@ -173,6 +173,13 @@ namespace Bridge.Translator
 
             if (rr.InitializerElements != null && rr.InitializerElements.Count > 0)
             {
+                string typedArrayName = null;
+                bool isTyped = this.Emitter.AssemblyInfo.UseTypedArrays && (typedArrayName = Helpers.GetTypedArrayName(at.ElementType)) != null;
+                if (isTyped)
+                {
+                    this.Write("new ", typedArrayName, "(");
+                }
+
                 this.WriteOpenBracket();
 
                 if (this.ArrayCreateResolveResult != null)
@@ -197,6 +204,11 @@ namespace Bridge.Translator
                 }
 
                 this.WriteCloseBracket();
+
+                if (isTyped)
+                {
+                    this.Write(")");
+                }
             }
             else if (at.Dimensions > 1)
             {

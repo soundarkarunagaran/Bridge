@@ -337,6 +337,12 @@ namespace Bridge.Contract
 
                 if (arrayType != null && arrayType.ElementType != null)
                 {
+                    string typedArrayName;
+                    if (emitter.AssemblyInfo.UseTypedArrays && (typedArrayName = Helpers.GetTypedArrayName(arrayType.ElementType)) != null)
+                    {
+                        return typedArrayName;
+                    }
+
                     var elementAlias = BridgeTypes.ToJsName(arrayType.ElementType, emitter, asDefinition, excludens, isAlias, skipMethodTypeParam, excludeTypeOnly: excludeTypeOnly);
 
                     if (isAlias)
