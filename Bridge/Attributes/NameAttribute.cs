@@ -11,7 +11,7 @@ namespace Bridge
     /// a hidden class to fill several public classes' methods).
     /// </remarks>
     [NonScriptable]
-    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Interface | AttributeTargets.Field | AttributeTargets.Delegate | AttributeTargets.Property | AttributeTargets.Parameter)]
+    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Method | AttributeTargets.Interface | AttributeTargets.Field | AttributeTargets.Delegate | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Constructor)]
     public sealed class NameAttribute : Attribute
     {
         public NameAttribute(string value)
