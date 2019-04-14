@@ -36738,6 +36738,17 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3898", {
+        statics: {
+            methods: {
+                TestNegativeZero: function () {
+                    var negativezero = -0.0;
+                    Bridge.Test.NUnit.Assert.True((1 / negativezero === Number.NEGATIVE_INFINITY));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
