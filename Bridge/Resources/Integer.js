@@ -855,6 +855,14 @@
             },
 
             sign: function (x) {
+                if (x === Number.POSITIVE_INFINITY) {
+                    return 1;
+                }
+
+                if (x === Number.NEGATIVE_INFINITY) {
+                    return -1;
+                }
+
                 return Bridge.isNumber(x) ? (x === 0 ? 0 : (x < 0 ? -1 : 1)) : null;
             },
 

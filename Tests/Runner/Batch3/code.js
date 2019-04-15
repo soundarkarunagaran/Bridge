@@ -36738,6 +36738,17 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3900", {
+        statics: {
+            methods: {
+                TestInfinitySign: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Int.sign(Number.POSITIVE_INFINITY));
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Int.sign(Number.NEGATIVE_INFINITY));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
