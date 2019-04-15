@@ -85,5 +85,33 @@
 
                 return (y - 1) / (y + 1);
             }
+        },
+
+        IEEERemainder: function (x, y) { 
+            var regularMod = x % y;
+            if (isNaN(regularMod)) {
+                return Number.NaN;
+            }
+            if (regularMod === 0) {
+                if (x < 0) {
+                    return -0;
+                }
+            }
+            var alternativeResult;
+            alternativeResult = regularMod - (Math.abs(y) * Bridge.Int.sign(x));
+            if (Math.abs(alternativeResult) === Math.abs(regularMod)) {
+                var divisionResult = x / y;
+                var roundedResult = Bridge.Math.round(divisionResult, 0, 6);
+                if (Math.abs(roundedResult) > Math.abs(divisionResult)) {
+                    return alternativeResult;
+                } else {
+                    return regularMod;
+                }
+            }
+            if (Math.abs(alternativeResult) < Math.abs(regularMod)) {
+                return alternativeResult;
+            } else {
+                return regularMod;
+            }
         }
     };

@@ -36738,6 +36738,30 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3899", {
+        statics: {
+            methods: {
+                TestIEEERemainder: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(3, 2), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge.Math.round(Bridge.Math.IEEERemainder(4, 2), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Math.round(Bridge.Math.IEEERemainder(10, 3), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(11, 3), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(27, 4), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(-2, Bridge.Math.round(Bridge.Math.IEEERemainder(28, 5), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(1.8, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, 4), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, 4.1), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(0.1, Bridge.Math.round(Bridge.Math.IEEERemainder(-16.3, 4.1), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, -4.1), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(-1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(-17.8, -4.1), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Math.round(Bridge.Math.IEEERemainder(-3, 2), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Math.round(Bridge.Math.IEEERemainder(5, 2), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Math.round(Bridge.Math.IEEERemainder(2, Number.NEGATIVE_INFINITY), 1, 6));
+                    Bridge.Test.NUnit.Assert.AreEqual(-4.3, Bridge.Math.round(Bridge.Math.IEEERemainder(-4.3, Number.NEGATIVE_INFINITY), 1, 6));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
