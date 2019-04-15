@@ -36738,6 +36738,30 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3901", {
+        statics: {
+            methods: {
+                TestToHexString: function () {
+                    var b = -1;
+                    Bridge.Test.NUnit.Assert.AreEqual("FF", System.SByte.format(b, "X"));
+
+                    var i16 = -1;
+                    Bridge.Test.NUnit.Assert.AreEqual("FFFF", System.Int16.format(i16, "X"));
+
+                    var i32 = -1;
+                    Bridge.Test.NUnit.Assert.AreEqual("FFFFFFFF", System.Int32.format(i32, "X"));
+
+                    var i64 = System.Int64(-1);
+                    Bridge.Test.NUnit.Assert.AreEqual("FFFFFFFFFFFFFFFF", i64.toString("X"));
+
+                    var i = -423433;
+                    Bridge.Test.NUnit.Assert.AreEqual("fff989f7", System.Int32.format(i, "x"));
+                    Bridge.Test.NUnit.Assert.AreEqual("FFF989F7", System.Int32.format(i, "X"));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,

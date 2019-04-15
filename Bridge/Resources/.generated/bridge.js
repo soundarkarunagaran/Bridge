@@ -6875,57 +6875,7 @@ Bridge.define("System.Type", {
 
     // @source Integer.js
 
-    (function () {
-        var createIntType = function (name, min, max, precision) {
-            var type = Bridge.define(name, {
-                inherits: [System.IComparable, System.IFormattable],
-
-                statics: {
-                    $number: true,
-                    min: min,
-                    max: max,
-                    precision: precision,
-
-                    $is: function (instance) {
-                        return typeof (instance) === "number" && Math.floor(instance, 0) === instance && instance >= min && instance <= max;
-                    },
-                    getDefaultValue: function () {
-                        return 0;
-                    },
-                    parse: function (s, radix) {
-                        return Bridge.Int.parseInt(s, min, max, radix);
-                    },
-                    tryParse: function (s, result, radix) {
-                        return Bridge.Int.tryParseInt(s, result, min, max, radix);
-                    },
-                    format: function (number, format, provider) {
-                        return Bridge.Int.format(number, format, provider, type);
-                    },
-                    equals: function (v1, v2) {
-                        if (Bridge.is(v1, type) && Bridge.is(v2, type)) {
-                            return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
-                        }
-
-                        return false;
-                    },
-                    equalsT: function (v1, v2) {
-                        return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
-                    }
-                }
-            });
-
-            type.$kind = "";
-            Bridge.Class.addExtend(type, [System.IComparable$1(type), System.IEquatable$1(type)]);
-        };
-
-        createIntType("System.Byte", 0, 255, 3);
-        createIntType("System.SByte", -128, 127, 3);
-        createIntType("System.Int16", -32768, 32767, 5);
-        createIntType("System.UInt16", 0, 65535, 5);
-        createIntType("System.Int32", -2147483648, 2147483647, 10);
-        createIntType("System.UInt32", 0, 4294967295, 10);
-    })();
-
+    
     Bridge.define("Bridge.Int", {
         inherits: [System.IComparable, System.IFormattable],
         statics: {
@@ -6942,7 +6892,7 @@ Bridge.define("System.Type", {
                 return 0;
             },
 
-            format: function (number, format, provider, T) {
+            format: function (number, format, provider, T, toUnsign) {
                 var nf = (provider || System.Globalization.CultureInfo.getCurrentCulture()).getFormat(System.Globalization.NumberFormatInfo),
                     decimalSeparator = nf.numberDecimalSeparator,
                     groupSeparator = nf.numberGroupSeparator,
@@ -7061,7 +7011,17 @@ Bridge.define("System.Type", {
 
                             return this.defaultFormat(number * 100, 1, precision, precision, nf, false, "percent");
                         case "X":
-                            var result = isDecimal ? number.round().value.toHex().substr(2) : (isLong ? number.toString(16) : Math.round(number).toString(16));
+                            var result;
+
+                            if (isDecimal) {
+                                result = number.round().value.toHex().substr(2);
+                            } else if (isLong) {
+                                var uvalue = toUnsign ? toUnsign(number) : number;
+                                result = uvalue.toString(16);
+                            } else {
+                                var uvalue = toUnsign ? toUnsign(Math.round(number)) : Math.round(number) >>> 0;
+                                result = uvalue.toString(16);
+                            }
 
                             if (match[1] === "X") {
                                 result = result.toUpperCase();
@@ -7773,6 +7733,58 @@ Bridge.define("System.Type", {
     Bridge.Int.$kind = "";
     Bridge.Class.addExtend(Bridge.Int, [System.IComparable$1(Bridge.Int), System.IEquatable$1(Bridge.Int)]);
 
+    (function () {
+        var createIntType = function (name, min, max, precision, toUnsign) {
+            var type = Bridge.define(name, {
+                inherits: [System.IComparable, System.IFormattable],
+
+                statics: {
+                    $number: true,
+                    toUnsign: toUnsign,
+                    min: min,
+                    max: max,
+                    precision: precision,
+
+                    $is: function (instance) {
+                        return typeof (instance) === "number" && Math.floor(instance, 0) === instance && instance >= min && instance <= max;
+                    },
+                    getDefaultValue: function () {
+                        return 0;
+                    },
+                    parse: function (s, radix) {
+                        return Bridge.Int.parseInt(s, min, max, radix);
+                    },
+                    tryParse: function (s, result, radix) {
+                        return Bridge.Int.tryParseInt(s, result, min, max, radix);
+                    },
+                    format: function (number, format, provider) {
+                        return Bridge.Int.format(number, format, provider, type, toUnsign);
+                    },
+                    equals: function (v1, v2) {
+                        if (Bridge.is(v1, type) && Bridge.is(v2, type)) {
+                            return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
+                        }
+
+                        return false;
+                    },
+                    equalsT: function (v1, v2) {
+                        return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
+                    }
+                }
+            });
+
+            type.$kind = "";
+            Bridge.Class.addExtend(type, [System.IComparable$1(type), System.IEquatable$1(type)]);
+        };
+
+        createIntType("System.Byte", 0, 255, 3);
+        createIntType("System.SByte", -128, 127, 3, Bridge.Int.clipu8);
+        createIntType("System.Int16", -32768, 32767, 5, Bridge.Int.clipu16);
+        createIntType("System.UInt16", 0, 65535, 5);
+        createIntType("System.Int32", -2147483648, 2147483647, 10, Bridge.Int.clipu32);
+        createIntType("System.UInt32", 0, 4294967295, 10);
+    })();
+
     // @source Double.js
 
     Bridge.define("System.Double", {
@@ -8076,11 +8088,11 @@ Bridge.define("System.Type", {
             return this.value.toString(format);
         }
 
-        return Bridge.Int.format(this, format, provider);
+        return Bridge.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.format = function (format, provider) {
-        return Bridge.Int.format(this, format, provider);
+        return Bridge.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.isNegative = function () {
