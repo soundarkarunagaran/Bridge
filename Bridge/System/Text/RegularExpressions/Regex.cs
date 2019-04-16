@@ -1,4 +1,6 @@
-﻿namespace System.Text.RegularExpressions
+﻿using Bridge;
+
+namespace System.Text.RegularExpressions
 {
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public sealed class Regex
@@ -266,5 +268,64 @@
         public static extern string[] Split(string input, string pattern, RegexOptions options, TimeSpan matchTimeout);
 
         #endregion Static members
+    }
+
+    [External]
+    [Name("RegExp")]
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method | ConventionMember.Property, Notation = Bridge.Notation.CamelCase)]
+    internal class RegExp
+    {
+        public extern RegExp(string pattern);
+
+        public extern RegExp(string pattern, string flags);
+
+
+        public extern int LastIndex
+        {
+            get;
+            set;
+        }
+
+        public extern bool Global
+        {
+            get;
+        }
+
+        public extern bool IgnoreCase
+        {
+            get;
+        }
+
+        public extern bool Multiline
+        {
+            get;
+        }
+
+        public extern string Source
+        {
+            get;
+        }
+
+        public extern RegexMatch Exec(string s);
+
+        public extern bool Test(string s);
+    }
+
+    [External]
+    [Name("RegexMatch")]
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method | ConventionMember.Property, Notation = Bridge.Notation.CamelCase)]
+    internal class RegexMatch
+    {
+        public int Index { get; set; }
+
+        public int Length { get; set; }
+
+        public string Input { get; set; }
+
+        public string this[int index] { get { return null; } set { } }
+
+        public static extern implicit operator string[] (RegexMatch rm);
+
+        public static extern explicit operator RegexMatch(string[] a);
     }
 }
