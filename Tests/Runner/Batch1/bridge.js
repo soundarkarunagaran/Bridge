@@ -8447,34 +8447,42 @@ Bridge.define("System.Type", {
     };
 
     System.Int64.clip8 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? Bridge.Int.sxb(x.value.low & 0xff) : (Bridge.Int.isInfinite(x) ? System.SByte.min : null);
     };
 
     System.Int64.clipu8 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low & 0xff : (Bridge.Int.isInfinite(x) ? System.Byte.min : null);
     };
 
     System.Int64.clip16 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? Bridge.Int.sxs(x.value.low & 0xffff) : (Bridge.Int.isInfinite(x) ? System.Int16.min : null);
     };
 
     System.Int64.clipu16 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low & 0xffff : (Bridge.Int.isInfinite(x) ? System.UInt16.min : null);
     };
 
     System.Int64.clip32 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low | 0 : (Bridge.Int.isInfinite(x) ? System.Int32.min : null);
     };
 
     System.Int64.clipu32 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low >>> 0 : (Bridge.Int.isInfinite(x) ? System.UInt32.min : null);
     };
 
     System.Int64.clip64 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.UInt64(x);
         return x ? new System.Int64(x.value.toSigned()) : (Bridge.Int.isInfinite(x) ? System.Int64.MinValue : null);
     };
 
     System.Int64.clipu64 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? new System.UInt64(x.value.toUnsigned()) : (Bridge.Int.isInfinite(x) ? System.UInt64.MinValue : null);
     };
 
