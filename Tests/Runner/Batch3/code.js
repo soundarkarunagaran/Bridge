@@ -36738,6 +36738,78 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886", {
+        statics: {
+            methods: {
+                TestTemplateObjectInitializer: function () {
+                    var $t;
+                    var test = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestNoTpl(), $t.One = System.TimeSpan.fromDays(1), $t.Two = System.TimeSpan.fromDays(2), $t.Three = System.TimeSpan.fromDays(3), $t);
+
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(1), test.One));
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(2), test.Two));
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(3), test.Three));
+
+                    var test1 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.Test(), $t.One = Bridge.toString(System.TimeSpan.fromDays(1)), $t.Two = Bridge.toString(System.TimeSpan.fromDays(2)), $t.Three = Bridge.toString(System.TimeSpan.fromDays(3)), $t);
+
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(1), System.TimeSpan.parse(test1.One)));
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(2), System.TimeSpan.parse(test1.Two)));
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(3), System.TimeSpan.parse(test1.Three)));
+
+                    var test2 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.Test();
+                    test2.One = Bridge.toString(System.TimeSpan.fromDays(1));
+                    test2.Two = Bridge.toString(System.TimeSpan.fromDays(2));
+                    test2.Three = Bridge.toString(System.TimeSpan.fromDays(3));
+
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(1), System.TimeSpan.parse(test2.One)));
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(2), System.TimeSpan.parse(test2.Two)));
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(3), System.TimeSpan.parse(test2.Three)));
+
+                    var test3 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestSimpler(), $t.One = Bridge.toString(System.TimeSpan.fromDays(1)), $t.Two = Bridge.toString(System.TimeSpan.fromDays(2)), $t.Three = Bridge.toString(System.TimeSpan.fromDays(3)), $t);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("1.00:00:00", test3.One);
+                    Bridge.Test.NUnit.Assert.AreEqual("2.00:00:00", test3.Two);
+                    Bridge.Test.NUnit.Assert.AreEqual("3.00:00:00", test3.Three);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.Test", {
+        $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestNoTpl", {
+        $kind: "nested class",
+        fields: {
+            One: null,
+            Two: null,
+            Three: null
+        },
+        ctors: {
+            init: function () {
+                this.One = new System.TimeSpan();
+                this.Two = new System.TimeSpan();
+                this.Three = new System.TimeSpan();
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestSimpler", {
+        $kind: "nested class",
+        props: {
+            One: null,
+            Two: null,
+            Three: null
+        },
+        ctors: {
+            init: function () {
+                this.One = new System.TimeSpan();
+                this.Two = new System.TimeSpan();
+                this.Three = new System.TimeSpan();
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,

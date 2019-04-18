@@ -252,6 +252,7 @@ namespace Bridge.Translator
 
             if (inlineCode != null)
             {
+                this.WriteComma();
                 this.Write(inlineCode);
             }
             else if (item is NamedExpression)
