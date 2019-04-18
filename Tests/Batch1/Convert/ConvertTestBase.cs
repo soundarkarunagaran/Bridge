@@ -167,7 +167,7 @@ namespace Bridge.ClientTest.ConvertTests
 
                     var expected = expectedValues[i];
 
-                    Assert.AreEqual(expected, result);
+                    Assert.True(expected.Equals(result));
                 }
                 catch (Exception ex)
                 {
