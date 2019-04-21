@@ -12054,7 +12054,7 @@ Bridge.$N1391Result =                     r;
                 Bridge.Test.NUnit.Assert.AreEqual(385941503, v2.v);
 
                 var v3 = { };
-                var b3 = System.UInt32.tryParse("0x1700fffА", v3, radix);
+                var b3 = System.UInt32.tryParse("0x1700fff\u0410", v3, radix);
                 Bridge.Test.NUnit.Assert.False(b3, "b3: " + v3.v);
 
                 var v4 = { };
@@ -36735,6 +36735,19 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         props: {
             Prop: 0
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3902", {
+        statics: {
+            methods: {
+                TestUnicodeEscapes: function () {
+                    var s = "\ud8a1\ud8a2\ue681";
+                    Bridge.Test.NUnit.Assert.AreEqual(55457, s.charCodeAt(0));
+                    Bridge.Test.NUnit.Assert.AreEqual(55458, s.charCodeAt(1));
+                    Bridge.Test.NUnit.Assert.AreEqual(59009, s.charCodeAt(2));
+                }
+            }
         }
     });
 

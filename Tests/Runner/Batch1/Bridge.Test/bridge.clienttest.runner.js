@@ -3781,7 +3781,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Environment - GetLogicalDrivesEmpty", Bridge.Test.Runtime.BridgeClientTestRunner.EnvironmentTests.GetLogicalDrivesEmpty);
             QUnit.test("Environment - SetEnvironmentVariableTwoParametersWorks", Bridge.Test.Runtime.BridgeClientTestRunner.EnvironmentTests.SetEnvironmentVariableTwoParametersWorks);
             QUnit.test("Environment - SetEnvironmentVariableThreeParametersWorks", Bridge.Test.Runtime.BridgeClientTestRunner.EnvironmentTests.SetEnvironmentVariableThreeParametersWorks);
-            QUnit.module("СultureInfo");
+            QUnit.module("\u0421ultureInfo");
             QUnit.test("TypePropertiesAreCorrect", Bridge.Test.Runtime.BridgeClientTestRunner.CultureInfoTests.TypePropertiesAreCorrect);
             QUnit.test("ConstructorWorks_N2583", Bridge.Test.Runtime.BridgeClientTestRunner.CultureInfoTests.ConstructorWorks_N2583);
             QUnit.test("GetCultureInfoWorks_N2583", Bridge.Test.Runtime.BridgeClientTestRunner.CultureInfoTests.GetCultureInfoWorks_N2583);

@@ -1,5 +1,6 @@
 ﻿using Bridge.Contract;
 using ICSharpCode.NRefactory.CSharp;
+using ICSharpCode.NRefactory.Semantics;
 
 namespace Bridge.Translator
 {
@@ -37,7 +38,9 @@ namespace Bridge.Translator
             }
             else
             {
-                this.WriteScript(Bridge.Translator.Emitter.ConvertConstant(this.PrimitiveExpression.Value, this.PrimitiveExpression, this.Emitter));
+                object value = this.PrimitiveExpression.Value;
+
+                this.WriteScript(Bridge.Translator.Emitter.ConvertConstant(value, this.PrimitiveExpression, this.Emitter));
             }
         }
     }
