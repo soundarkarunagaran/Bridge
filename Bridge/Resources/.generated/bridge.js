@@ -5160,7 +5160,15 @@ Bridge.define("System.ValueType", {
         },
 
         xor: function (a, b) {
-            return Bridge.hasValue$1(a, b) ? a ^ b : null;
+            if (Bridge.hasValue$1(a, b)) {
+                if (Bridge.isBoolean(a) && Bridge.isBoolean(b)) {
+                    return a != b;
+                }
+
+                return a ^ b;
+            }
+
+            return null;
         },
 
         gt: function (a, b) {

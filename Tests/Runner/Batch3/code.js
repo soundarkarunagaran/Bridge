@@ -36738,6 +36738,23 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3903", {
+        statics: {
+            methods: {
+                TestBooleanXor: function () {
+                    var t = true;
+                    var f = false;
+                    var a = t != f;
+                    var b = t;
+                    b = b != t;
+
+                    Bridge.Test.NUnit.Assert.True(a === true);
+                    Bridge.Test.NUnit.Assert.True(b === false);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
