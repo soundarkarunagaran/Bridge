@@ -436,6 +436,14 @@
 
             if (Bridge.Reflection.isInterface(baseType) && System.Array.contains(Bridge.Reflection.getInterfaces(type), baseType)) {
                 return true;
+            }           
+
+            if (baseType.$elementType && baseType.$isArray && type.$elementType && type.$isArray) {                
+                if (Bridge.Reflection.isValueType(baseType.$elementType) !== Bridge.Reflection.isValueType(type.$elementType)) {
+                    return false;
+                }
+
+                return baseType.$rank === type.$rank && Bridge.Reflection.isAssignableFrom(baseType.$elementType, type.$elementType);
             }
 
             var inheritors = type.$$inherits,

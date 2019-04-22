@@ -122,6 +122,8 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3855 - TestTypeName", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3855.TestTypeName);
             QUnit.test("#3865 - TestArrayAssembly", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3865.TestArrayAssembly);
             QUnit.test("#3867 - TestBackingField", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3867.TestBackingField);
+            QUnit.test("#3904 - TestArrayCovariance", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3904.TestArrayCovariance);
+            QUnit.test("#3904 - TestArrayCovariance2", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3904.TestArrayCovariance2);
             QUnit.module("Issues3");
             QUnit.test("#69 - ThisKeywordInStructConstructorWorks", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge069.ThisKeywordInStructConstructorWorks);
             QUnit.test("#1000 - TestStaticViaChild", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge1000.TestStaticViaChild);
@@ -18812,6 +18814,37 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3867", $t.File = "Batch3\\BridgeIssues\\3800\\N3867.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3904", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestArrayCovariance: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3904, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestArrayCovariance()", $t.Line = "9", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.TestArrayCovariance();
+                },
+                TestArrayCovariance2: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3904, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestArrayCovariance2()", $t.Line = "40", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.TestArrayCovariance2();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904", $t.File = "Batch3\\BridgeIssues\\3900\\N3904.cs", $t);
                 }
                 return this.context;
             }

@@ -36738,6 +36738,66 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904", {
+        statics: {
+            methods: {
+                TestArrayCovariance: function () {
+                    var ao1 = System.Array.init(1, 0, System.Int32);
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(ao1, System.Array.type(System.Object)));
+
+                    var ao = System.Array.init([System.Array.init(1, 0, System.Int32)], System.Array.type(System.Int32));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(ao, System.Array.type(System.Object)));
+
+                    var a = System.Array.init([System.Array.init([System.Array.init(1, 0, System.Int32)], System.Array.type(System.Int32))], System.Array.type(System.Array.type(System.Int32)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, System.Array.type(System.Object)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, System.Array.type(System.Array.type(System.Object))));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(a, System.Array.type(System.Array.type(System.Array.type(System.Object)))));
+
+                    var b = System.Array.init([System.Array.init(["hi"], System.String)], System.Array.type(System.String));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Array.type(System.String))));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Object)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Array.type(System.Object))));
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(b, System.Array.type(System.Array.type(System.Array.type(System.Object)))));
+                },
+                TestArrayCovariance2: function () {
+                    var i2 = System.Array.init(1, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c2);
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(i2, System.Array.type(System.Object)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(i2, System.Array.type(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c1)));
+
+                    var ao = System.Array.init(1, function (){
+                        return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1();
+                    }, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1);
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(ao, System.Array.type(System.Object)));
+
+                    ao = System.Array.init(1, null, System.String);
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(ao, System.Array.type(System.Object)));
+
+                    ao = System.Array.init(1, 0, System.Int32);
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(ao, System.Array.type(System.Object)));
+
+                    Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isAssignableFrom(System.Array.type(System.Object), System.Array.type(System.Int32)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isAssignableFrom(System.Array.type(System.Object), System.Array.type(System.Array.type(System.Int32))));
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c1", {
+        $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1", {
+        $kind: "nested struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1(); }
+            }
+        },
+        methods: {
+            $clone: function (to) { return this; }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,
@@ -47270,6 +47330,11 @@ Bridge.$N1391Result =                     r;
         props: {
             ReadOnly: false
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c1],
+        $kind: "nested class"
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
