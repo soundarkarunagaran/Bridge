@@ -71,6 +71,12 @@ namespace Bridge.Translator
                 {
                     return false;
                 }
+
+                if(rr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Unknown || rr.Type.Kind == ICSharpCode.NRefactory.TypeSystem.TypeKind.Delegate)
+                {
+                    return false;
+                }
+
                 return true;
             }
             return false;

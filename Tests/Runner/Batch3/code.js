@@ -10732,7 +10732,7 @@ Bridge.$N1391Result =                     r;
             },
             TestAddStaticMethod: function () {
                 var callbacks = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813();
-                callbacks.Add([Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813.instance_callback]);
+                callbacks.Add([(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813.instance_callback)]);
                 Bridge.Test.NUnit.Assert.AreEqual(1, callbacks.list.Count);
                 Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(callbacks.list.getItem(0), Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813.instance_callback));
             }
@@ -24086,12 +24086,12 @@ Bridge.$N1391Result =                     r;
             },
             methods: {
                 TestCreateDelegate: function () {
-                    Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run"), null)(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.ctor(), "Hello", "World");
+                    (Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run"), null))(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.ctor(), "Hello", "World");
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.a, "Hello"));
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.b, "World"));
 
                     var c = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.$ctor1(5);
-                    Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run1"), null)(c, "Hello1", "World1", 9);
+                    (Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run1"), null))(c, "Hello1", "World1", 9);
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.a, "Hello1"));
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.b, "World1"));
                     Bridge.Test.NUnit.Assert.True(c.x === 9);
@@ -36735,6 +36735,24 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         props: {
             Prop: 0
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3905", {
+        statics: {
+            methods: {
+                TestArrayIncrement: function () {
+                    var a = System.Array.init([3, 8], System.Int32);
+                    var i = 0;
+                    (function (_bridgeTmp_3) {
+                        var $t;
+                        return ($t = (a[System.Array.index(_bridgeTmp_3, a)] + 1) | 0, a[System.Array.index(_bridgeTmp_3, a)] = $t, $t);
+                    })(Bridge.identity(i, (i = (i + 1) | 0)));
+                    Bridge.Test.NUnit.Assert.AreEqual(1, i);
+                    Bridge.Test.NUnit.Assert.AreEqual(4, a[System.Array.index(0, a)]);
+                    Bridge.Test.NUnit.Assert.AreEqual(8, a[System.Array.index(1, a)]);
+                }
+            }
         }
     });
 

@@ -15,6 +15,7 @@ using Statement = ICSharpCode.NRefactory.CSharp.Statement;
 using ICSharpCode.NRefactory.PatternMatching;
 using Mono.Cecil;
 using System.Text;
+using ICSharpCode.NRefactory.TypeSystem.Implementation;
 
 namespace Bridge.Translator
 {
@@ -449,7 +450,7 @@ namespace Bridge.Translator
                 wrapper = new BlockStatement();
                 wrapper.Statements.Add(new VariableDeclarationStatement(varStat != null ? varStat.Type.Clone() : AstType.Null, name, expression.Clone() as Expression));
             }
-
+            
             var tryCatchStatement = new TryCatchStatement();
             if (wrapper != null)
             {
@@ -558,6 +559,7 @@ namespace Bridge.Translator
                 unaryOperatorExpression.Operator == UnaryOperatorType.PostDecrement))
             {
                 var rr = this.Resolver.ResolveNode(unaryOperatorExpression, null);
+                var expression_rr = this.Resolver.ResolveNode(unaryOperatorExpression.Expression, null);
 
                 if (rr is ErrorResolveResult)
                 {
@@ -615,6 +617,38 @@ namespace Bridge.Translator
                     if (orr.UserDefinedOperatorMethod != null)
                     {
                         ae = new AssignmentExpression(clonUnaryOperatorExpression.Expression.Clone(), clonUnaryOperatorExpression);
+                    }
+                    else if (clonUnaryOperatorExpression.Expression is IndexerExpression ie && expression_rr is ArrayAccessResolveResult array_rr)
+                    {
+                        var args = ie.Arguments;
+                        string[] names = new string[args.Count];
+                        for (int i = 0; i < args.Count; i++)
+                        {
+                            names[i] = this.GetTempVarName();
+                        }
+
+                        var lambda = new LambdaExpression();
+                        lambda.Parameters.AddRange(names.Select(name => new ParameterDeclaration(name)));
+                        var indexer = new IndexerExpression(ie.Target.Clone(), names.Select(name => new IdentifierExpression(name)));
+                        ae = new AssignmentExpression(indexer.Clone(),
+                                 new BinaryOperatorExpression(indexer.Clone(), isIncr ? BinaryOperatorType.Add : BinaryOperatorType.Subtract, new PrimitiveExpression(1)));
+
+                        if (isPost && !isStatement)
+                        {
+                            lambda.Body = new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "Identity"), indexer.Clone(), ae);
+                        }
+                        else
+                        {
+                            lambda.Body = ae;
+                        }                        
+                        
+                        var types = array_rr.Indexes.Select(idx => new SimpleType(idx.Type.ToString())).ToList();
+                        types.Add(new SimpleType(((TypeWithElementType)array_rr.Array.Type).ElementType.ToString()));
+                        var funcType = new SimpleType("System.Func", types);
+                        var cast = new CastExpression(funcType, new ParenthesizedExpression(lambda));
+                        var invocation = new InvocationExpression(new ParenthesizedExpression(cast), ie.Arguments.Select(a => a.Clone()));
+
+                        return invocation;
                     }
                     else
                     {
