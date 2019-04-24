@@ -59,7 +59,7 @@
                             try {
                                 while ($t.moveNext()) {
                                     var item = $t.Current;
-                                    objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = item;
+                                    objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = item;
                                 }
                             } finally {
                                 if (Bridge.is($t, System.IDisposable)) {

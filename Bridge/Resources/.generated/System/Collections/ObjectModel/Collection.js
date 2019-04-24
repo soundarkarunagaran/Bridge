@@ -202,7 +202,7 @@
                     var count = System.Array.getCount(this.items, T);
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
-                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.items, i, T);
+                            objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = System.Array.getItem(this.items, i, T);
                         }
                     } catch ($e1) {
                         $e1 = System.Exception.create($e1);

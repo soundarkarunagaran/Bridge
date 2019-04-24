@@ -224,7 +224,7 @@
                         try {
                             while ($t.moveNext()) {
                                 var item = $t.Current;
-                                dictEntryArray[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
+                                dictEntryArray[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
                             }
                         } finally {
                             if (Bridge.is($t, System.IDisposable)) {
@@ -242,7 +242,7 @@
                             try {
                                 while ($t1.moveNext()) {
                                     var item1 = $t1.Current;
-                                    objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
+                                    objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
                                 }
                             } finally {
                                 if (Bridge.is($t1, System.IDisposable)) {

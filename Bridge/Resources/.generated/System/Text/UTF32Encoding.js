@@ -82,7 +82,7 @@
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
+                        outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -143,10 +143,10 @@
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var b = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var c = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var d = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
+                    var a = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var c = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var d = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     if (this.bigEndian) {
                         var tmp = b;

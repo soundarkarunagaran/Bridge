@@ -16502,7 +16502,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (index >= count) {
                         return false;
                     } else {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = node.Item;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = node.Item;
                         return true;
                     }
                 });
@@ -16539,7 +16539,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                     try {
                         this.InOrderTreeWalk(function (node) {
-                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = node.Item;
+                            objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = node.Item;
                             return true;
                         });
                     } catch ($e1) {
@@ -16699,14 +16699,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     while (!mineEnded && !theirsEnded) {
                         var comp = this.Comparer[Bridge.geti(this.Comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = mine.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = mine.Current;
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             mineEnded = !mine.moveNext();
                             theirsEnded = !theirs.moveNext();
                         } else {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             theirsEnded = !theirs.moveNext();
                         }
                     }
@@ -16714,7 +16714,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (!mineEnded || !theirsEnded) {
                         var remaining = (mineEnded ? theirs : mine);
                         do {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = remaining.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = remaining.Current;
                         } while (remaining.moveNext());
                     }
 
@@ -16762,7 +16762,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         if (comp < 0) {
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             mineEnded = !mine.moveNext();
                             theirsEnded = !theirs.moveNext();
                         } else {
@@ -18029,7 +18029,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var node = this.head;
                 if (node != null) {
                     do {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = node.item;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = node.item;
                         node = node.next;
                     } while (!Bridge.referenceEquals(node, this.head));
                 }
@@ -18073,7 +18073,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     try {
                         if (node != null) {
                             do {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = node.item;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = node.item;
                                 node = node.next;
                             } while (!Bridge.referenceEquals(node, this.head));
                         }
@@ -18817,7 +18817,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var entries = this.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
                     }
                 }
             },
@@ -18853,7 +18853,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var entries = this.entries;
                     for (var i = 0; i < this.count; i = (i + 1) | 0) {
                         if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                            dictEntryArray[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
+                            dictEntryArray[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
                         }
                     }
                 } else {
@@ -18867,7 +18867,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         var entries1 = this.entries;
                         for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
                             if (entries1[System.Array.index(i1, entries1)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries1[System.Array.index(i1, entries1)].key, entries1[System.Array.index(i1, entries1)].value);
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries1[System.Array.index(i1, entries1)].key, entries1[System.Array.index(i1, entries1)].value);
                             }
                         }
                     } catch ($e1) {
@@ -19324,7 +19324,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var entries = this.dictionary.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = entries[System.Array.index(i, entries)].key;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].key;
                     }
                 }
             },
@@ -19363,7 +19363,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
                             if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = entries[System.Array.index(i, entries)].key;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].key;
                             }
                         }
                     } catch ($e1) {
@@ -19569,7 +19569,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var entries = this.dictionary.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = entries[System.Array.index(i, entries)].value;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].value;
                     }
                 }
             },
@@ -19608,7 +19608,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
                             if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = entries[System.Array.index(i, entries)].value;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].value;
                             }
                         }
                     } catch ($e1) {
@@ -19962,7 +19962,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         try {
                             while ($t.moveNext()) {
                                 var item = $t.Current;
-                                dictEntryArray[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
+                                dictEntryArray[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
                             }
                         } finally {
                             if (Bridge.is($t, System.IDisposable)) {
@@ -19980,7 +19980,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             try {
                                 while ($t1.moveNext()) {
                                     var item1 = $t1.Current;
-                                    objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
+                                    objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
                                 }
                             } finally {
                                 if (Bridge.is($t1, System.IDisposable)) {
@@ -20321,7 +20321,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             try {
                                 while ($t.moveNext()) {
                                     var item = $t.Current;
-                                    objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = item;
+                                    objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = item;
                                 }
                             } finally {
                                 if (Bridge.is($t, System.IDisposable)) {
@@ -21044,7 +21044,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._size === this._items.length) {
                     this.EnsureCapacity(((this._size + 1) | 0));
                 }
-                this._items[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._items)] = item;
+                this._items[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._items)] = item;
                 this._version = (this._version + 1) | 0;
             },
             System$Collections$IList$add: function (item) {
@@ -21400,7 +21400,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var en = Bridge.getEnumerator(collection, T);
                     try {
                         while (en.System$Collections$IEnumerator$moveNext()) {
-                            this.insert(Bridge.identity(index, (index = (index + 1) | 0)), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                            this.insert(Bridge.identity(index, ((index = (index + 1) | 0))), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                         }
                     }
                     finally {
@@ -21482,7 +21482,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
 
                     if (current < this._size) {
-                        this._items[System.Array.index(Bridge.identity(freeIndex, (freeIndex = (freeIndex + 1) | 0)), this._items)] = this._items[System.Array.index(Bridge.identity(current, (current = (current + 1) | 0)), this._items)];
+                        this._items[System.Array.index(Bridge.identity(freeIndex, ((freeIndex = (freeIndex + 1) | 0))), this._items)] = this._items[System.Array.index(Bridge.identity(current, ((current = (current + 1) | 0))), this._items)];
                     }
                 }
 
@@ -34778,7 +34778,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var index = startIndex;
 
                     for (i = 0; i < chArrayLength; i = (i + 3) | 0) {
-                        var b = value[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), value)];
+                        var b = value[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), value)];
                         chArray[System.Array.index(i, chArray)] = System.BitConverter.getHexValue(((Bridge.Int.div(b, 16)) | 0));
                         chArray[System.Array.index(((i + 1) | 0), chArray)] = System.BitConverter.getHexValue(b % 16);
                         chArray[System.Array.index(((i + 2) | 0), chArray)] = 45;
@@ -35027,7 +35027,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var i = 0;
                 var j = 0;
                 while (((bytes.length - j) | 0) >= 4) {
-                    this.m_array[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), this.m_array)] = (bytes[System.Array.index(j, bytes)] & 255) | ((bytes[System.Array.index(((j + 1) | 0), bytes)] & 255) << 8) | ((bytes[System.Array.index(((j + 2) | 0), bytes)] & 255) << 16) | ((bytes[System.Array.index(((j + 3) | 0), bytes)] & 255) << 24);
+                    this.m_array[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), this.m_array)] = (bytes[System.Array.index(j, bytes)] & 255) | ((bytes[System.Array.index(((j + 1) | 0), bytes)] & 255) << 8) | ((bytes[System.Array.index(((j + 2) | 0), bytes)] & 255) << 16) | ((bytes[System.Array.index(((j + 3) | 0), bytes)] & 255) << 24);
                     j = (j + 4) | 0;
                 }
 
@@ -35444,7 +35444,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     System.Array.resize(arr, newLength, Bridge.getDefaultValue(T), T);
                                 }
 
-                                arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
+                                arr.v[System.Array.index(Bridge.identity(count, ((count = (count + 1) | 0))), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             }
 
                             length.v = count;
@@ -36758,7 +36758,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
+                while (Bridge.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(index, this._array)] == null) {
                             return true;
@@ -37068,7 +37068,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
+                while (Bridge.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(count, this._array)] == null) {
                             return true;
@@ -37096,7 +37096,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var srcIndex = 0;
                     var dstIndex = (arrayIndex + this._size) | 0;
                     for (var i = 0; i < this._size; i = (i + 1) | 0) {
-                        array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0)), this._array)];
+                        array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, ((srcIndex = (srcIndex + 1) | 0))), this._array)];
                     }
                 } else {
                     System.Array.copy(this._array, 0, array, arrayIndex, this._size);
@@ -37171,7 +37171,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T), T);
                     this._array = localArray.v;
                 }
-                this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;
+                this._array[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._array)] = item;
                 this._version = (this._version + 1) | 0;
             },
             ToArray: function () {
@@ -37648,7 +37648,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var count = System.Array.getCount(this.items, T);
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
-                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.items, i, T);
+                            objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = System.Array.getItem(this.items, i, T);
                         }
                     } catch ($e1) {
                         $e1 = System.Exception.create($e1);
@@ -37903,7 +37903,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                     var count = System.Array.getCount(this.list, T);
                     for (var i = 0; i < count; i = (i + 1) | 0) {
-                        objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.list, i, T);
+                        objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = System.Array.getItem(this.list, i, T);
                     }
                 }
             },
@@ -44019,7 +44019,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return -1;
                 }
 
-                var b = this._buffer[System.Array.index(Bridge.identity(this._readPos, (this._readPos = (this._readPos + 1) | 0)), this._buffer)];
+                var b = this._buffer[System.Array.index(Bridge.identity(this._readPos, ((this._readPos = (this._readPos + 1) | 0))), this._buffer)];
                 return b;
             },
             WriteToBuffer: function (array, offset, count) {
@@ -44132,7 +44132,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     this.FlushWrite();
                 }
 
-                this._buffer[System.Array.index(Bridge.identity(this._writePos, (this._writePos = (this._writePos + 1) | 0)), this._buffer)] = value;
+                this._buffer[System.Array.index(Bridge.identity(this._writePos, ((this._writePos = (this._writePos + 1) | 0))), this._buffer)] = value;
 
             },
             Seek: function (offset, origin) {
@@ -45051,7 +45051,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return -1;
                 }
 
-                return this._buffer[System.Array.index(Bridge.identity(this._position, (this._position = (this._position + 1) | 0)), this._buffer)];
+                return this._buffer[System.Array.index(Bridge.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)];
             },
             Seek: function (offset, loc) {
                 if (!this._isOpen) {
@@ -45189,7 +45189,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
                     this._length = newLength;
                 }
-                this._buffer[System.Array.index(Bridge.identity(this._position, (this._position = (this._position + 1) | 0)), this._buffer)] = value;
+                this._buffer[System.Array.index(Bridge.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)] = value;
 
             },
             WriteTo: function (stream) {
@@ -45524,7 +45524,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (ch === -1) {
                         break;
                     }
-                    buffer[System.Array.index(((index + Bridge.identity(n, (n = (n + 1) | 0))) | 0), buffer)] = ch & 65535;
+                    buffer[System.Array.index(((index + Bridge.identity(n, ((n = (n + 1) | 0)))) | 0), buffer)] = ch & 65535;
                 } while (n < count);
                 return n;
             },
@@ -46701,7 +46701,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._pos === this._length) {
                     return -1;
                 }
-                return this._s.charCodeAt(Bridge.identity(this._pos, (this._pos = (this._pos + 1) | 0)));
+                return this._s.charCodeAt(Bridge.identity(this._pos, ((this._pos = (this._pos + 1) | 0))));
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {
@@ -47291,7 +47291,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {
-                        ret[System.Array.index(Bridge.identity(cnt, (cnt = (cnt + 1) | 0)), ret)] = c[System.Array.index(i1, c)];
+                        ret[System.Array.index(Bridge.identity(cnt, ((cnt = (cnt + 1) | 0))), ret)] = c[System.Array.index(i1, c)];
                     }
                 }
                 return ret;
@@ -48468,7 +48468,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
+                        outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -48581,8 +48581,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var b = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
+                    var a = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     var point = ((a << 8) | b) & 65535;
                     if (!this.bigEndian) {
@@ -48754,7 +48754,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
+                        outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -48815,10 +48815,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var b = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var c = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var d = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
+                    var a = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var c = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var d = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     if (this.bigEndian) {
                         var tmp = b;
@@ -48963,7 +48963,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var b = _base64ToArrayBuffer(s);
                     var r = System.Array.init(0, 0, System.Char);
                     for (var i = 0; i < b.length; ) {
-                        r.push(((b[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), b)] << 8 | b[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), b)]) & 65535));
+                        r.push(((b[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), b)] << 8 | b[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), b)]) & 65535));
                     }
                     return System.String.fromCharArray(r);
                 };
@@ -49007,8 +49007,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             var bi = 0;
             for (var i = 0; i < str.length; i = (i + 1) | 0) {
                 var c = str.charCodeAt(i);
-                b[System.Array.index(Bridge.identity(bi, (bi = (bi + 1) | 0)), b)] = (c >> 8);
-                b[System.Array.index(Bridge.identity(bi, (bi = (bi + 1) | 0)), b)] = (c & 255);
+                b[System.Array.index(Bridge.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c >> 8);
+                b[System.Array.index(Bridge.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c & 255);
             }
             var base64Str = System.Convert.toBase64String(b, null, null, null);
             return base64Str.replace(/=+$/, "");
@@ -49085,7 +49085,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                 throw new System.ArgumentException.$ctor1("bytes");
                             }
 
-                            outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = code;
+                            outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = code;
                         } else {
                             outputBytes.push(code);
                         }

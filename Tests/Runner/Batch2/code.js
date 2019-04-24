@@ -559,7 +559,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(max + 1, System.Int32);
                     }, "Through identifier +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(max2, (max2 = Bridge.Int.check(max2 + 1, System.Int32)));
+                        var r = Bridge.identity(max2, ((max2 = Bridge.Int.check(max2 + 1, System.Int32))));
                     }, "Through identifier post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((max3 = Bridge.Int.check(max3 + 1, System.Int32)));
@@ -572,7 +572,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(max + 1, System.Int32), System.Int32));
                     }, "Through parameter +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = Bridge.Int.check(max3 + 1, System.Int32))), System.Int32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = Bridge.Int.check(max3 + 1, System.Int32)))), System.Int32));
                     }, "Through parameter post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = Bridge.Int.check(max4 + 1, System.Int32))), System.Int32));
@@ -592,7 +592,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(min - 1, System.Int32);
                     }, "Through identifier -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(min1, (min1 = Bridge.Int.check(min1 - 1, System.Int32)));
+                        var r = Bridge.identity(min1, ((min1 = Bridge.Int.check(min1 - 1, System.Int32))));
                     }, "Through identifier post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((min2 = Bridge.Int.check(min2 - 1, System.Int32)));
@@ -605,7 +605,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(min - 1, System.Int32), System.Int32));
                     }, "Through parameter -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = Bridge.Int.check(min3 - 1, System.Int32))), System.Int32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = Bridge.Int.check(min3 - 1, System.Int32)))), System.Int32));
                     }, "Through parameter post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = Bridge.Int.check(min4 - 1, System.Int32))), System.Int32));
@@ -626,7 +626,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(max + 1, System.UInt32);
                     }, "Through identifier +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(max1, (max1 = Bridge.Int.check(max1 + 1, System.UInt32)));
+                        var r = Bridge.identity(max1, ((max1 = Bridge.Int.check(max1 + 1, System.UInt32))));
                     }, "Through identifier post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((max2 = Bridge.Int.check(max2 + 1, System.UInt32)));
@@ -639,7 +639,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(max + 1, System.UInt32), System.UInt32));
                     }, "Through parameter +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = Bridge.Int.check(max3 + 1, System.UInt32))), System.UInt32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = Bridge.Int.check(max3 + 1, System.UInt32)))), System.UInt32));
                     }, "Through parameter post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = Bridge.Int.check(max4 + 1, System.UInt32))), System.UInt32));
@@ -659,7 +659,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(min - 1, System.UInt32);
                     }, "Through identifier -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(min1, (min1 = Bridge.Int.check(min1 - 1, System.UInt32)));
+                        var r = Bridge.identity(min1, ((min1 = Bridge.Int.check(min1 - 1, System.UInt32))));
                     }, "Through identifier post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((min2 = Bridge.Int.check(min2 - 1, System.UInt32)));
@@ -669,7 +669,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(min - 1, System.UInt32), System.UInt32));
                     }, "Through parameter -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = Bridge.Int.check(min3 - 1, System.UInt32))), System.UInt32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = Bridge.Int.check(min3 - 1, System.UInt32)))), System.UInt32));
                     }, "Through parameter post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = Bridge.Int.check(min4 - 1, System.UInt32))), System.UInt32));
@@ -831,7 +831,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(max + 1, System.Int32);
                     }, "Through identifier +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(max2, (max2 = Bridge.Int.check(max2 + 1, System.Int32)));
+                        var r = Bridge.identity(max2, ((max2 = Bridge.Int.check(max2 + 1, System.Int32))));
                     }, "Through identifier post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((max3 = Bridge.Int.check(max3 + 1, System.Int32)));
@@ -844,7 +844,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(max + 1, System.Int32), System.Int32));
                     }, "Through parameter +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = Bridge.Int.check(max3 + 1, System.Int32))), System.Int32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = Bridge.Int.check(max3 + 1, System.Int32)))), System.Int32));
                     }, "Through parameter post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = Bridge.Int.check(max4 + 1, System.Int32))), System.Int32));
@@ -864,7 +864,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(min - 1, System.Int32);
                     }, "Through identifier -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(min1, (min1 = Bridge.Int.check(min1 - 1, System.Int32)));
+                        var r = Bridge.identity(min1, ((min1 = Bridge.Int.check(min1 - 1, System.Int32))));
                     }, "Through identifier post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((min2 = Bridge.Int.check(min2 - 1, System.Int32)));
@@ -877,7 +877,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(min - 1, System.Int32), System.Int32));
                     }, "Through parameter -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = Bridge.Int.check(min3 - 1, System.Int32))), System.Int32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = Bridge.Int.check(min3 - 1, System.Int32)))), System.Int32));
                     }, "Through parameter post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = Bridge.Int.check(min4 - 1, System.Int32))), System.Int32));
@@ -898,7 +898,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(max + 1, System.UInt32);
                     }, "Through identifier +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(max1, (max1 = Bridge.Int.check(max1 + 1, System.UInt32)));
+                        var r = Bridge.identity(max1, ((max1 = Bridge.Int.check(max1 + 1, System.UInt32))));
                     }, "Through identifier post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((max2 = Bridge.Int.check(max2 + 1, System.UInt32)));
@@ -911,7 +911,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(max + 1, System.UInt32), System.UInt32));
                     }, "Through parameter +");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = Bridge.Int.check(max3 + 1, System.UInt32))), System.UInt32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = Bridge.Int.check(max3 + 1, System.UInt32)))), System.UInt32));
                     }, "Through parameter post++");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = Bridge.Int.check(max4 + 1, System.UInt32))), System.UInt32));
@@ -931,7 +931,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         var r = Bridge.Int.check(min - 1, System.UInt32);
                     }, "Through identifier -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        var r = Bridge.identity(min1, (min1 = Bridge.Int.check(min1 - 1, System.UInt32)));
+                        var r = Bridge.identity(min1, ((min1 = Bridge.Int.check(min1 - 1, System.UInt32))));
                     }, "Through identifier post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         var r = ((min2 = Bridge.Int.check(min2 - 1, System.UInt32)));
@@ -941,7 +941,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.check(min - 1, System.UInt32), System.UInt32));
                     }, "Through parameter -");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
-                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = Bridge.Int.check(min3 - 1, System.UInt32))), System.UInt32));
+                        Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = Bridge.Int.check(min3 - 1, System.UInt32)))), System.UInt32));
                     }, "Through parameter post--");
                     Bridge.Test.NUnit.Assert.Throws$2(System.OverflowException, function () {
                         Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = Bridge.Int.check(min4 - 1, System.UInt32))), System.UInt32));
@@ -1100,7 +1100,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var max4 = max;
 
                     var rMax1 = (max + 1) | 0;
-                    var rMax2 = Bridge.identity(max1, (max1 = (max1 + 1) | 0));
+                    var rMax2 = Bridge.identity(max1, ((max1 = (max1 + 1) | 0)));
                     var rMax3 = ((max2 = (max2 + 1) | 0));
                     var rMax4 = Bridge.Int.mul(2, max);
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.box(rMax1, System.Int32), "Through identifier +");
@@ -1109,7 +1109,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2", Bridge.box(rMax4, System.Int32), "Through identifier *");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max + 1) | 0), System.Int32)), "Through parameter +");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = (max3 + 1) | 0)), System.Int32)), "Through parameter post++");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = (max3 + 1) | 0))), System.Int32)), "Through parameter post++");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = (max4 + 1) | 0)), System.Int32)), "Through parameter ++pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.mul(2, max), System.Int32)), "Through parameter *");
 
@@ -1121,7 +1121,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var min4 = min;
 
                     var rMin1 = (min - 1) | 0;
-                    var rMin2 = Bridge.identity(min1, (min1 = (min1 - 1) | 0));
+                    var rMin2 = Bridge.identity(min1, ((min1 = (min1 - 1) | 0)));
                     var rMin3 = ((min2 = (min2 - 1) | 0));
                     var rMin4 = (-min) | 0;
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.box(rMin1, System.Int32), "Through identifier -");
@@ -1130,7 +1130,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.box(rMin4, System.Int32), "Through identifier unary -");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min - 1) | 0), System.Int32)), "Through parameter -");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = (min3 - 1) | 0)), System.Int32)), "Through parameter post--");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = (min3 - 1) | 0))), System.Int32)), "Through parameter post--");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = (min4 - 1) | 0)), System.Int32)), "Through parameter --pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((-min) | 0), System.Int32)), "Through parameter unary -");
                 },
@@ -1143,7 +1143,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var max4 = max;
 
                     var rMax1 = (max + 1) >>> 0;
-                    var rMax2 = Bridge.identity(max1, (max1 = (max1 + 1) >>> 0));
+                    var rMax2 = Bridge.identity(max1, ((max1 = (max1 + 1) >>> 0)));
                     var rMax3 = ((max2 = (max2 + 1) >>> 0));
                     var rMax4 = Bridge.Int.umul(2, max);
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.box(rMax1, System.UInt32), "Through identifier +");
@@ -1152,7 +1152,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967294", Bridge.box(rMax4, System.UInt32), "Through identifier *");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max + 1) >>> 0), System.UInt32)), "Through parameter +");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = (max3 + 1) >>> 0)), System.UInt32)), "Through parameter post++");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = (max3 + 1) >>> 0))), System.UInt32)), "Through parameter post++");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = (max4 + 1) >>> 0)), System.UInt32)), "Through parameter ++pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967294", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.umul(2, max), System.UInt32)), "Through parameter *");
 
@@ -1164,7 +1164,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var min4 = min;
 
                     var rMin1 = (min - 1) >>> 0;
-                    var rMin2 = Bridge.identity(min1, (min1 = (min1 - 1) >>> 0));
+                    var rMin2 = Bridge.identity(min1, ((min1 = (min1 - 1) >>> 0)));
                     var rMin3 = ((min2 = (min2 - 1) >>> 0));
                     var rMin4 = System.Int64(min).neg();
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.box(rMin1, System.UInt32), "Through identifier -");
@@ -1173,7 +1173,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", rMin4, "Through identifier unary -");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min - 1) >>> 0), System.UInt32)), "Through parameter -");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = (min3 - 1) >>> 0)), System.UInt32)), "Through parameter post--");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = (min3 - 1) >>> 0))), System.UInt32)), "Through parameter post--");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = (min4 - 1) >>> 0)), System.UInt32)), "Through parameter --pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(System.Int64(min).neg()), "Through parameter unary -");
                 },
@@ -1279,7 +1279,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var max4 = max;
 
                     var rMax1 = (max + 1) | 0;
-                    var rMax2 = Bridge.identity(max1, (max1 = (max1 + 1) | 0));
+                    var rMax2 = Bridge.identity(max1, ((max1 = (max1 + 1) | 0)));
                     var rMax3 = ((max2 = (max2 + 1) | 0));
                     var rMax4 = Bridge.Int.mul(2, max);
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.box(rMax1, System.Int32), "Through identifier +");
@@ -1288,7 +1288,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2", Bridge.box(rMax4, System.Int32), "Through identifier *");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max + 1) | 0), System.Int32)), "Through parameter +");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = (max3 + 1) | 0)), System.Int32)), "Through parameter post++");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = (max3 + 1) | 0))), System.Int32)), "Through parameter post++");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = (max4 + 1) | 0)), System.Int32)), "Through parameter ++pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.mul(2, max), System.Int32)), "Through parameter *");
 
@@ -1300,7 +1300,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var min4 = min;
 
                     var rMin1 = (min - 1) | 0;
-                    var rMin2 = Bridge.identity(min1, (min1 = (min1 - 1) | 0));
+                    var rMin2 = Bridge.identity(min1, ((min1 = (min1 - 1) | 0)));
                     var rMin3 = ((min2 = (min2 - 1) | 0));
                     var rMin4 = (-min) | 0;
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.box(rMin1, System.Int32), "Through identifier -");
@@ -1309,7 +1309,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.box(rMin4, System.Int32), "Through identifier unary -");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min - 1) | 0), System.Int32)), "Through parameter -");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = (min3 - 1) | 0)), System.Int32)), "Through parameter post--");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = (min3 - 1) | 0))), System.Int32)), "Through parameter post--");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = (min4 - 1) | 0)), System.Int32)), "Through parameter --pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((-min) | 0), System.Int32)), "Through parameter unary -");
                 },
@@ -1322,7 +1322,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var max4 = max;
 
                     var rMax1 = (max + 1) >>> 0;
-                    var rMax2 = Bridge.identity(max1, (max1 = (max1 + 1) >>> 0));
+                    var rMax2 = Bridge.identity(max1, ((max1 = (max1 + 1) >>> 0)));
                     var rMax3 = ((max2 = (max2 + 1) >>> 0));
                     var rMax4 = Bridge.Int.umul(2, max);
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.box(rMax1, System.UInt32), "Through identifier +");
@@ -1331,7 +1331,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967294", Bridge.box(rMax4, System.UInt32), "Through identifier *");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max + 1) >>> 0), System.UInt32)), "Through parameter +");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = (max3 + 1) >>> 0)), System.UInt32)), "Through parameter post++");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = (max3 + 1) >>> 0))), System.UInt32)), "Through parameter post++");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = (max4 + 1) >>> 0)), System.UInt32)), "Through parameter ++pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967294", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.Int.umul(2, max), System.UInt32)), "Through parameter *");
 
@@ -1343,7 +1343,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var min4 = min;
 
                     var rMin1 = (min - 1) >>> 0;
-                    var rMin2 = Bridge.identity(min1, (min1 = (min1 - 1) >>> 0));
+                    var rMin2 = Bridge.identity(min1, ((min1 = (min1 - 1) >>> 0)));
                     var rMin3 = ((min2 = (min2 - 1) >>> 0));
                     var rMin4 = System.Int64(min).neg();
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.box(rMin1, System.UInt32), "Through identifier -");
@@ -1352,7 +1352,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", rMin4, "Through identifier unary -");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min - 1) >>> 0), System.UInt32)), "Through parameter -");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = (min3 - 1) >>> 0)), System.UInt32)), "Through parameter post--");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = (min3 - 1) >>> 0))), System.UInt32)), "Through parameter post--");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = (min4 - 1) >>> 0)), System.UInt32)), "Through parameter --pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(System.Int64(min).neg()), "Through parameter unary -");
                 },
@@ -1458,7 +1458,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var max4 = max;
 
                     var rMax1 = max + 1;
-                    var rMax2 = Bridge.identity(max1, (max1 = max1 + 1));
+                    var rMax2 = Bridge.identity(max1, ((max1 = max1 + 1)));
                     var rMax3 = ((max2 = max2 + 1));
                     var rMax4 = 2 * max;
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483648", Bridge.box(rMax1, System.Int32), "Through identifier +");
@@ -1467,7 +1467,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967294", Bridge.box(rMax4, System.Int32), "Through identifier *");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(max + 1, System.Int32)), "Through parameter +");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = max3 + 1)), System.Int32)), "Through parameter post++");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483647", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = max3 + 1))), System.Int32)), "Through parameter post++");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = max4 + 1)), System.Int32)), "Through parameter ++pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967294", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(2 * max, System.Int32)), "Through parameter *");
 
@@ -1479,7 +1479,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var min4 = min;
 
                     var rMin1 = min - 1;
-                    var rMin2 = Bridge.identity(min1, (min1 = min1 - 1));
+                    var rMin2 = Bridge.identity(min1, ((min1 = min1 - 1)));
                     var rMin3 = ((min2 = min2 - 1));
                     var rMin4 = -min;
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483649", Bridge.box(rMin1, System.Int32), "Through identifier -");
@@ -1488,7 +1488,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483648", Bridge.box(rMin4, System.Int32), "Through identifier unary -");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483649", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(min - 1, System.Int32)), "Through parameter -");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = min3 - 1)), System.Int32)), "Through parameter post--");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = min3 - 1))), System.Int32)), "Through parameter post--");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-2147483649", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = min4 - 1)), System.Int32)), "Through parameter --pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("2147483648", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(-min, System.Int32)), "Through parameter unary -");
                 },
@@ -1501,7 +1501,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var max4 = max;
 
                     var rMax1 = max + 1;
-                    var rMax2 = Bridge.identity(max1, (max1 = max1 + 1));
+                    var rMax2 = Bridge.identity(max1, ((max1 = max1 + 1)));
                     var rMax3 = ((max2 = max2 + 1));
                     var rMax4 = 2 * max;
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967296", Bridge.box(rMax1, System.UInt32), "Through identifier +");
@@ -1510,7 +1510,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("8589934590", Bridge.box(rMax4, System.UInt32), "Through identifier *");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967296", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(max + 1, System.UInt32)), "Through parameter +");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, (max3 = max3 + 1)), System.UInt32)), "Through parameter post++");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967295", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(max3, ((max3 = max3 + 1))), System.UInt32)), "Through parameter post++");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("4294967296", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((max4 = max4 + 1)), System.UInt32)), "Through parameter ++pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("8589934590", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(2 * max, System.UInt32)), "Through parameter *");
 
@@ -1522,7 +1522,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     var min4 = min;
 
                     var rMin1 = min - 1;
-                    var rMin2 = Bridge.identity(min1, (min1 = min1 - 1));
+                    var rMin2 = Bridge.identity(min1, ((min1 = min1 - 1)));
                     var rMin3 = ((min2 = min2 - 1));
                     var rMin4 = System.Int64(min).neg();
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-1", Bridge.box(rMin1, System.UInt32), "Through identifier -");
@@ -1531,7 +1531,7 @@ Bridge.assembly("Bridge.ClientTest.Batch2", function ($asm, globals) {
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", rMin4, "Through identifier unary -");
 
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-1", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(min - 1, System.UInt32)), "Through parameter -");
-                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, (min3 = min3 - 1)), System.UInt32)), "Through parameter post--");
+                    Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(Bridge.identity(min3, ((min3 = min3 - 1))), System.UInt32)), "Through parameter post--");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("-1", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(Bridge.box(((min4 = min4 - 1)), System.UInt32)), "Through parameter --pre");
                     Bridge.ClientTestHelper.NumberHelper.AssertNumberByRepresentation("0", Bridge.ClientTest.Batch2.CheckedUncheckedTests.Bypass(System.Int64(min).neg()), "Through parameter unary -");
                 },

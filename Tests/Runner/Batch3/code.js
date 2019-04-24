@@ -998,7 +998,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(($t1 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t1, $t1)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1, ($t2 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t2, $t2))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1, (($t2 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t2, $t2)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1);
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((($t3 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t3, $t3))));
@@ -1027,7 +1027,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(($t1 = (app.getItem(0) + 1) | 0, app.setItem(0, $t1), $t1)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, app.getItem(0));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(app.getItem(0), ($t2 = (app.getItem(0) + 1) | 0, app.setItem(0, $t2), $t2))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(app.getItem(0), (($t2 = (app.getItem(0) + 1) | 0, app.setItem(0, $t2), $t2)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, app.getItem(0));
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((($t3 = (app.getItem(0) + 1) | 0, app.setItem(0, $t3), $t3))));
@@ -1055,7 +1055,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(($t1 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t1), $t1)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, dict.getItem(0));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(dict.getItem(0), ($t2 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t2), $t2))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(dict.getItem(0), (($t2 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t2), $t2)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, dict.getItem(0));
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((($t3 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t3), $t3))));
@@ -1082,7 +1082,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((i1 = (i1 + 1) | 0)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, i1);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(i1, (i1 = (i1 + 1) | 0))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(i1, ((i1 = (i1 + 1) | 0)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, i1);
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(((i1 = (i1 + 1) | 0))));
@@ -3969,7 +3969,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     try {
                         while ($t.moveNext()) {
                             var i = $t.Current;
-                            Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), arr)], Bridge.unbox(i));
+                            Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), arr)], Bridge.unbox(i));
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
@@ -7282,7 +7282,7 @@ Bridge.$N1391Result =                     r;
                 $int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int);
                 Bridge.Test.NUnit.Assert.AreEqual(4, $int.ToInt(), "4");
                 Bridge.Test.NUnit.Assert.AreEqual(5, ((($int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int)))).ToInt(), "++4");
-                Bridge.Test.NUnit.Assert.AreEqual(5, (Bridge.identity($int, ($int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int)))).ToInt(), "5++");
+                Bridge.Test.NUnit.Assert.AreEqual(5, (Bridge.identity($int, (($int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int))))).ToInt(), "5++");
                 Bridge.Test.NUnit.Assert.AreEqual(6, ($int).ToInt(), "6");
             }
         }
@@ -8332,7 +8332,7 @@ Bridge.$N1391Result =                     r;
                     var a = System.Array.init([1, 2, 3], System.Int32);
 
                     Bridge.Test.NUnit.Assert.Throws$2(System.IndexOutOfRangeException, function () {
-                        var v = a[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), a)];
+                        var v = a[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), a)];
                     });
 
                     Bridge.Test.NUnit.Assert.AreEqual(1, a[System.Array.index(((index = (index + 1) | 0)), a)]);
@@ -8356,7 +8356,7 @@ Bridge.$N1391Result =                     r;
                     ]], System.Int32, 2, 3);
 
                     Bridge.Test.NUnit.Assert.Throws$2(System.IndexOutOfRangeException, function () {
-                        var v = a.get([1, Bridge.identity(index, (index = (index + 1) | 0))]);
+                        var v = a.get([1, Bridge.identity(index, ((index = (index + 1) | 0)))]);
                     });
 
                     Bridge.Test.NUnit.Assert.AreEqual(11, a.get([1, ((index = (index + 1) | 0))]));
@@ -9042,7 +9042,7 @@ Bridge.$N1391Result =                     r;
                 try {
                     while ($t.moveNext()) {
                         var item = Bridge.cast($t.Current, System.Int32);
-                        Bridge.Test.NUnit.Assert.AreEqual(Bridge.identity(i, (i = (i + 1) | 0)), item);
+                        Bridge.Test.NUnit.Assert.AreEqual(Bridge.identity(i, ((i = (i + 1) | 0))), item);
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
@@ -9454,7 +9454,8 @@ Bridge.$N1391Result =                     r;
 
     Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735, {
         f1: function (source) {
-            Bridge.cast(source, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735.Container).Value = (Bridge.cast(source, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735.Container).Value + 1) | 0;
+            var $t;
+            ($t = Bridge.cast(source, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735.Container)).Value = ($t.Value + 1) | 0;
         }
     });
 
@@ -11105,7 +11106,7 @@ Bridge.$N1391Result =                     r;
                 try {
                     while ($t.moveNext()) {
                         var o = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1846.Obj.op_Implicit($t.Current);
-                        Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), arr)], o.s);
+                        Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), arr)], o.s);
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
@@ -19213,7 +19214,7 @@ Bridge.$N1391Result =                     r;
                                     }
                                     case 2: {
                                         action = function () {
-                                            Bridge.identity(counter, (counter = (counter + 1) | 0));
+                                            Bridge.identity(counter, ((counter = (counter + 1) | 0)));
                                         };
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2565.RunTest(function () {
                                             action();
@@ -20384,7 +20385,7 @@ Bridge.$N1391Result =                     r;
                         var k = { v : 1 };
                         var a = (function ($me, k) {
                             return function () {
-                                Bridge.identity(k.v, (k.v = (k.v + 1) | 0));
+                                Bridge.identity(k.v, ((k.v = (k.v + 1) | 0)));
                             };
                         })(this, k);
                         a();
@@ -24227,7 +24228,7 @@ Bridge.$N1391Result =                     r;
                 TestDelegateRemoving: function () {
                     var x = 5;
                     var a = function () {
-                        Bridge.identity(x, (x = (x - 1) | 0));
+                        Bridge.identity(x, ((x = (x - 1) | 0)));
                     };
                     var combo = (Bridge.fn.combine(a, a));
                     (Bridge.fn.remove(combo, a))();
@@ -28213,7 +28214,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t.moveNext()) {
                             var attr = $t.Current;
-                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.VerifyAttributeNode(Bridge.identity(index, (index = (index + 1) | 0)), attr);
+                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.VerifyAttributeNode(Bridge.identity(index, ((index = (index + 1) | 0))), attr);
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
@@ -30599,7 +30600,7 @@ Bridge.$N1391Result =                     r;
                                         // Expected: iStoreValue == iTestData
                                         Bridge.Test.NUnit.Assert.AreEqual(iStoreValue, this.iTestData, "Data did not get corrupt with the async-await calls (." + this.chkCount + "/3).");
 
-                                        if (Bridge.identity(this.chkCount, (this.chkCount = (this.chkCount + 1) | 0)) >= 3) {
+                                        if (Bridge.identity(this.chkCount, ((this.chkCount = (this.chkCount + 1) | 0))) >= 3) {
                                             this.done();
                                         }
 
@@ -36742,17 +36743,37 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestArrayIncrement: function () {
+                    var $t;
                     var a = System.Array.init([3, 8], System.Int32);
                     var i = 0;
-                    (function (_bridgeTmp_3) {
-                        var $t;
-                        return ($t = (a[System.Array.index(_bridgeTmp_3, a)] + 1) | 0, a[System.Array.index(_bridgeTmp_3, a)] = $t, $t);
-                    })(Bridge.identity(i, (i = (i + 1) | 0)));
+                    a[System.Array.index(($t = Bridge.identity(i, ((i = (i + 1) | 0)))), a)] = (a[System.Array.index($t, a)] + 1) | 0;
                     Bridge.Test.NUnit.Assert.AreEqual(1, i);
                     Bridge.Test.NUnit.Assert.AreEqual(4, a[System.Array.index(0, a)]);
                     Bridge.Test.NUnit.Assert.AreEqual(8, a[System.Array.index(1, a)]);
                 }
             }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906", {
+        statics: {
+            methods: {
+                TestAssigmentIncrement: function () {
+                    var $t;
+                    var q = new (System.Collections.Generic.Queue$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X)).ctor();
+                    q.Enqueue(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X());
+                    q.Enqueue(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X());
+                    ($t = q.Dequeue()).v = ($t.v + 7) | 0;
+                    Bridge.Test.NUnit.Assert.AreEqual(1, q.Count);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X", {
+        $kind: "nested class",
+        fields: {
+            v: 0
         }
     });
 
@@ -37297,7 +37318,7 @@ Bridge.$N1391Result =                     r;
                                             continue;
                                         }
                                         case 3: {
-                                            result = (result || "") + ((System.String.format("A({0})", [Bridge.box(Bridge.identity(i, (i = (i + 1) | 0)), System.Int32)])) || "");
+                                            result = (result || "") + ((System.String.format("A({0})", [Bridge.box(Bridge.identity(i, ((i = (i + 1) | 0))), System.Int32)])) || "");
                                         }
                                         case 4: {
                                             $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.NextPage();
@@ -37334,7 +37355,7 @@ Bridge.$N1391Result =                     r;
                                             continue;
                                         }
                                         case 9: {
-                                            result = (result || "") + ((System.String.format("B({0})", [Bridge.box(Bridge.identity(i, (i = (i + 1) | 0)), System.Int32)])) || "");
+                                            result = (result || "") + ((System.String.format("B({0})", [Bridge.box(Bridge.identity(i, ((i = (i + 1) | 0))), System.Int32)])) || "");
                                         }
                                         case 10: {
                                             np1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.NextPage1();
@@ -38233,7 +38254,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t.moveNext()) {
                             var itm = { v : $t.Current };
-                            handlers[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), handlers)] = (function ($me, itm) {
+                            handlers[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), handlers)] = (function ($me, itm) {
                                 return function () {
                                     result = (result || "") + (itm.v || "");
                                 };
@@ -38266,7 +38287,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t2.moveNext()) {
                             var itm1 = { v : $t2.Current };
-                            handlers[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), handlers)] = (function ($me, itm1) {
+                            handlers[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), handlers)] = (function ($me, itm1) {
                                 return function () {
                                     result = (result || "") + (itm1.v || "");
                                 };
@@ -38301,7 +38322,7 @@ Bridge.$N1391Result =                     r;
 
                     for (var j = 0; j < keys.length; j = (j + 1) | 0) {
                         var itm = { v : keys[System.Array.index(j, keys)] };
-                        handlers[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), handlers)] = (function ($me, itm) {
+                        handlers[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), handlers)] = (function ($me, itm) {
                             return function () {
                                 result = (result || "") + (itm.v || "");
                             };
@@ -42353,7 +42374,7 @@ Bridge.$N1391Result =                     r;
     Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge861, {
         f1: function (data) {
             var $t1;
-            Bridge.identity(data.MyId, ($t1 = (data.MyId + 1) | 0, data.MyId = $t1, $t1));
+            Bridge.identity(data.MyId, (($t1 = (data.MyId + 1) | 0, data.MyId = $t1, $t1)));
         },
         f2: function (data) {
             data.MyId = 0;
@@ -44834,7 +44855,7 @@ Bridge.$N1391Result =                     r;
                         30
                     ], System.Int32);
                     var i = 0;
-                    data[System.Array.index(($t = Bridge.identity(i, (i = (i + 1) | 0))), data)] = (data[System.Array.index($t, data)] + 1) | 0;
+                    data[System.Array.index(($t = Bridge.identity(i, ((i = (i + 1) | 0)))), data)] = (data[System.Array.index($t, data)] + 1) | 0;
 
                     Bridge.Test.NUnit.Assert.AreEqual(11, data[System.Array.index(0, data)]);
                     Bridge.Test.NUnit.Assert.AreEqual(20, data[System.Array.index(1, data)]);

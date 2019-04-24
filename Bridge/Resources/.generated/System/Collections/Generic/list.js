@@ -193,7 +193,7 @@
                 if (this._size === this._items.length) {
                     this.EnsureCapacity(((this._size + 1) | 0));
                 }
-                this._items[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._items)] = item;
+                this._items[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._items)] = item;
                 this._version = (this._version + 1) | 0;
             },
             System$Collections$IList$add: function (item) {
@@ -549,7 +549,7 @@
                     var en = Bridge.getEnumerator(collection, T);
                     try {
                         while (en.System$Collections$IEnumerator$moveNext()) {
-                            this.insert(Bridge.identity(index, (index = (index + 1) | 0)), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                            this.insert(Bridge.identity(index, ((index = (index + 1) | 0))), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                         }
                     }
                     finally {
@@ -631,7 +631,7 @@
                     }
 
                     if (current < this._size) {
-                        this._items[System.Array.index(Bridge.identity(freeIndex, (freeIndex = (freeIndex + 1) | 0)), this._items)] = this._items[System.Array.index(Bridge.identity(current, (current = (current + 1) | 0)), this._items)];
+                        this._items[System.Array.index(Bridge.identity(freeIndex, ((freeIndex = (freeIndex + 1) | 0))), this._items)] = this._items[System.Array.index(Bridge.identity(current, ((current = (current + 1) | 0))), this._items)];
                     }
                 }
 

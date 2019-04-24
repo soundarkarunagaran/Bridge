@@ -198,7 +198,7 @@
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {
-                        ret[System.Array.index(Bridge.identity(cnt, (cnt = (cnt + 1) | 0)), ret)] = c[System.Array.index(i1, c)];
+                        ret[System.Array.index(Bridge.identity(cnt, ((cnt = (cnt + 1) | 0))), ret)] = c[System.Array.index(i1, c)];
                     }
                 }
                 return ret;

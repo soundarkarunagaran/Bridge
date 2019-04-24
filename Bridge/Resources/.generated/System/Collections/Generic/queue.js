@@ -206,7 +206,7 @@
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
+                while (Bridge.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(index, this._array)] == null) {
                             return true;

@@ -85,6 +85,7 @@ Bridge.assembly("Bridge", function ($asm, globals) {
                     }
                 },
                 logBase: function (value, newLine, messageType) {
+                    var $t;
                     if (newLine === void 0) { newLine = true; }
                     if (messageType === void 0) { messageType = 0; }
                     var self = Bridge.Console.instance;
@@ -113,7 +114,7 @@ Bridge.assembly("Bridge", function ($asm, globals) {
                         self.currentMessageElement = m;
                     } else {
                         var m1 = Bridge.unbox(self.currentMessageElement);
-                        m1.lastChild.innerHTML = (m1.lastChild.innerHTML || "") + (v || "");
+                        ($t = m1.lastChild).innerHTML = ($t.innerHTML || "") + (v || "");
                     }
 
                     self.isNewLine = newLine;

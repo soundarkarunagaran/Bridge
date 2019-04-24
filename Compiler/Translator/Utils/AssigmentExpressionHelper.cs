@@ -6,14 +6,19 @@ namespace Bridge.Translator.Utils
     {
         public static bool CheckIsRightAssigmentExpression(AssignmentExpression expression)
         {
-            return (expression.Right is ParenthesizedExpression ||
-                    expression.Right is IdentifierExpression ||
-                    expression.Right is MemberReferenceExpression ||
-                    expression.Right is PrimitiveExpression ||
-                    expression.Right is IndexerExpression ||
-                    expression.Right is LambdaExpression ||
-                    expression.Right is AnonymousMethodExpression ||
-                    expression.Right is ObjectCreateExpression);
+            return CheckIsExpression(expression.Right);
+        }
+
+        public static bool CheckIsExpression(Expression expression)
+        {
+            return (expression is ParenthesizedExpression ||
+                    expression is IdentifierExpression ||
+                    expression is MemberReferenceExpression ||
+                    expression is PrimitiveExpression ||
+                    expression is IndexerExpression ||
+                    expression is LambdaExpression ||
+                    expression is AnonymousMethodExpression ||
+                    expression is ObjectCreateExpression);
         }
     }
 }

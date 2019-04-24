@@ -165,7 +165,7 @@
                     var index = startIndex;
 
                     for (i = 0; i < chArrayLength; i = (i + 3) | 0) {
-                        var b = value[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), value)];
+                        var b = value[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), value)];
                         chArray[System.Array.index(i, chArray)] = System.BitConverter.getHexValue(((Bridge.Int.div(b, 16)) | 0));
                         chArray[System.Array.index(((i + 1) | 0), chArray)] = System.BitConverter.getHexValue(b % 16);
                         chArray[System.Array.index(((i + 2) | 0), chArray)] = 45;

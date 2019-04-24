@@ -259,7 +259,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 },
                 AddClass: function (el, name) {
                     if (!Bridge.Test.Runtime.ContextHelper.HasClass(el, name)) {
-                        el.className = (el.className || "") + ((((el.className != null ? " " : "") || "") + (name || "")) || "");
+                        el.className = (el.className || "") + ((el.className != null ? " " : "") || "") + (name || "");
                     }
                 },
                 RemoveClass: function (el, name) {

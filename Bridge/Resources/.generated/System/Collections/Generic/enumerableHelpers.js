@@ -30,7 +30,7 @@
                                     System.Array.resize(arr, newLength, Bridge.getDefaultValue(T), T);
                                 }
 
-                                arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
+                                arr.v[System.Array.index(Bridge.identity(count, ((count = (count + 1) | 0))), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             }
 
                             length.v = count;

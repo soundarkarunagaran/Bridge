@@ -46,7 +46,7 @@
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
+                        outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -159,8 +159,8 @@
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var b = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
+                    var a = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     var point = ((a << 8) | b) & 65535;
                     if (!this.bigEndian) {
