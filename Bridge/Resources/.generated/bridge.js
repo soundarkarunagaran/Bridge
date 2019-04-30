@@ -11816,6 +11816,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             arr.length = length;
             var isFn = Bridge.isFunction(defvalue);
 
+            if (isFn) {
+                var v = defvalue();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    defvalue = v;
+                }
+            }
+
             for (var k = 0; k < length; k++) {
                 arr[k] = isFn ? defvalue() : defvalue;
             }
@@ -11866,6 +11875,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
             var arr = new Array(length),
                 isFn = addFn !== true && Bridge.isFunction(value);
+
+            if (isFn) {
+                var v = value();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    value = v;
+                }
+            }
 
             for (var i = 0; i < length; i++) {
                 arr[i] = isFn ? value() : value;
@@ -12089,6 +12107,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             var isFn = Bridge.isFunction(val);
+
+            if (isFn) {
+                var v = val();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    val = v;
+                }
+            }
 
             while (--count >= 0) {
                 dst[index + count] = isFn ? val() : val;
@@ -12336,6 +12363,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             var oldSize = 0,
                 isFn = Bridge.isFunction(val),
                 ref = arr.v;
+
+            if (isFn) {
+                var v = val();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    val = v;
+                }
+            }
 
             if (!ref) {
                 ref = System.Array.init(new Array(newSize), T);
@@ -15127,8 +15163,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             clear: function () {
                 this.version = (this.version + 1) | 0;
-                System.Array.fill(this.keys, Bridge.getDefaultValue(TKey), 0, this._size);
-                System.Array.fill(this.values, Bridge.getDefaultValue(TValue), 0, this._size);
+                System.Array.fill(this.keys, function (){
+                    return Bridge.getDefaultValue(TKey);
+                }, 0, this._size);
+                System.Array.fill(this.values, function (){
+                    return Bridge.getDefaultValue(TValue);
+                }, 0, this._size);
                 this._size = 0;
             },
             containsKey: function (key) {
@@ -18773,7 +18813,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (this.isSimpleKey) {
                         this.simpleBuckets = { };
                     }
-                    System.Array.fill(this.entries, System.Collections.Generic.Dictionary$2.Entry(TKey,TValue).getDefaultValue, 0, this.count);
+                    System.Array.fill(this.entries, function (){
+                        return Bridge.getDefaultValue(System.Collections.Generic.Dictionary$2.Entry(TKey,TValue));
+                    }, 0, this.count);
                     this.freeList = -1;
                     this.count = 0;
                     this.freeCount = 0;
@@ -21092,7 +21134,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             clear: function () {
                 if (this._size > 0) {
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), 0, this._size);
+                    System.Array.fill(this._items, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, 0, this._size);
                     this._size = 0;
                 }
                 this._version = (this._version + 1) | 0;
@@ -21486,7 +21530,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
                 }
 
-                System.Array.fill(this._items, Bridge.getDefaultValue(T), freeIndex, ((this._size - freeIndex) | 0));
+                System.Array.fill(this._items, function (){
+                    return Bridge.getDefaultValue(T);
+                }, freeIndex, ((this._size - freeIndex) | 0));
                 var result = (this._size - freeIndex) | 0;
                 this._size = freeIndex;
                 this._version = (this._version + 1) | 0;
@@ -21522,7 +21568,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (index < this._size) {
                         System.Array.copy(this._items, ((index + count) | 0), this._items, index, ((this._size - index) | 0));
                     }
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), this._size, count);
+                    System.Array.fill(this._items, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, this._size, count);
                     this._version = (this._version + 1) | 0;
                 }
             },
@@ -35418,7 +35466,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 ToArray: function (T, source) {
                     var count = { };
                     var results = { v : Bridge.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
-                    System.Array.resize(results, count.v, Bridge.getDefaultValue(T), T);
+                    System.Array.resize(results, count.v, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     return results.v;
                 },
                 ToArray$1: function (T, source, length) {
@@ -35441,7 +35491,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                         newLength = MaxArrayLength <= count ? ((count + 1) | 0) : MaxArrayLength;
                                     }
 
-                                    System.Array.resize(arr, newLength, Bridge.getDefaultValue(T), T);
+                                    System.Array.resize(arr, newLength, function (){
+                                        return Bridge.getDefaultValue(T);
+                                    }, T);
                                 }
 
                                 arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
@@ -36700,10 +36752,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             Clear: function () {
                 if (this._head < this._tail) {
-                    System.Array.fill(this._array, Bridge.getDefaultValue(T), this._head, this._size);
+                    System.Array.fill(this._array, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, this._head, this._size);
                 } else {
-                    System.Array.fill(this._array, Bridge.getDefaultValue(T), this._head, ((this._array.length - this._head) | 0));
-                    System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._tail);
+                    System.Array.fill(this._array, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, this._head, ((this._array.length - this._head) | 0));
+                    System.Array.fill(this._array, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, 0, this._tail);
                 }
 
                 this._head = 0;
@@ -37060,7 +37118,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         },
         methods: {
             Clear: function () {
-                System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size);
+                System.Array.fill(this._array, function (){
+                    return Bridge.getDefaultValue(T);
+                }, 0, this._size);
                 this._size = 0;
                 this._version = (this._version + 1) | 0;
             },
@@ -37145,7 +37205,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, this._size, Bridge.getDefaultValue(T), T);
+                    System.Array.resize(localArray, this._size, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     this._array = localArray.v;
                     this._version = (this._version + 1) | 0;
                 }
@@ -37168,7 +37230,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             Push: function (item) {
                 if (this._size === this._array.length) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T), T);
+                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), function (){
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     this._array = localArray.v;
                 }
                 this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;

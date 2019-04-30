@@ -368,8 +368,12 @@
             },
             clear: function () {
                 this.version = (this.version + 1) | 0;
-                System.Array.fill(this.keys, Bridge.getDefaultValue(TKey), 0, this._size);
-                System.Array.fill(this.values, Bridge.getDefaultValue(TValue), 0, this._size);
+                System.Array.fill(this.keys, function (){
+                    return Bridge.getDefaultValue(TKey);
+                }, 0, this._size);
+                System.Array.fill(this.values, function (){
+                    return Bridge.getDefaultValue(TValue);
+                }, 0, this._size);
                 this._size = 0;
             },
             containsKey: function (key) {

@@ -1304,7 +1304,18 @@ namespace Bridge.Translator
             {
                 if (modifier == "defaultFn")
                 {
-                    this.Write(BridgeTypes.ToJsName((AstType)def, this.Emitter) + "." + JS.Funcs.GETDEFAULTVALUE);
+                    this.WriteFunction();
+                    this.WriteOpenCloseParentheses();
+                    this.BeginBlock();
+                    this.WriteReturn(true);
+
+                    this.Write(JS.Funcs.BRIDGE_GETDEFAULTVALUE + "(");
+                    this.Write(BridgeTypes.ToJsName((AstType)def, this.Emitter));
+                    this.Write(")");
+
+                    this.WriteSemiColon();
+                    this.WriteNewLine();
+                    this.EndBlock();
                 }
                 else
                 {
@@ -1315,7 +1326,20 @@ namespace Bridge.Translator
             {
                 if (modifier == "defaultFn")
                 {
-                    this.Write(BridgeTypes.ToJsName((IType)def, this.Emitter) + "." + JS.Funcs.GETDEFAULTVALUE);
+                    this.WriteFunction();
+                    this.WriteOpenCloseParentheses();
+                    this.BeginBlock();
+                    this.WriteReturn(true);
+
+                    this.Write(JS.Funcs.BRIDGE_GETDEFAULTVALUE + "(");
+
+                    this.Write(BridgeTypes.ToJsName((IType)def, this.Emitter));
+
+                    this.Write(")");
+
+                    this.WriteSemiColon();
+                    this.WriteNewLine();
+                    this.EndBlock();
                 }
                 else
                 {
@@ -1324,7 +1348,15 @@ namespace Bridge.Translator
             }
             else if (def is RawValue)
             {
+                this.WriteFunction();
+                this.WriteOpenCloseParentheses();
+                this.BeginBlock();
+                this.WriteReturn(true);
                 this.Write(def.ToString());
+
+                this.WriteSemiColon();
+                this.WriteNewLine();
+                this.EndBlock();
             }
             else
             {
