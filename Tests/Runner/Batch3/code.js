@@ -36738,6 +36738,96 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934", {
+        statics: {
+            methods: {
+                TestConvert: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934.TestFloat();
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934.TestDouble();
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934.TestDecimal();
+                },
+                TestFloat: function () {
+                    var oldCulture = System.Globalization.CultureInfo.getCurrentCulture();
+
+                    try {
+                        var back;
+                        var input = 7.5;
+                        System.Globalization.CultureInfo.setCurrentCulture(System.Globalization.CultureInfo.invariantCulture);
+                        var str = System.Single.format(input);
+                        back = System.Convert.toSingle(str);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to float using InvariantCulture");
+
+                        var norwegian = System.Globalization.CultureInfo.getCultureInfo("nb-NO");
+                        str = System.Single.format(input, "G", norwegian);
+                        back = System.Convert.toSingle(str, norwegian);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to float using Norwegian");
+
+
+                        System.Globalization.CultureInfo.setCurrentCulture(norwegian);
+
+                        str = System.Single.format(input);
+                        back = System.Convert.toSingle(str);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to float using Norwegian as CurrentCulture");
+                    } finally {
+                        System.Globalization.CultureInfo.setCurrentCulture(oldCulture);
+                    }
+                },
+                TestDouble: function () {
+                    var oldCulture = System.Globalization.CultureInfo.getCurrentCulture();
+
+                    try {
+                        var back;
+                        var input = 7.5;
+                        System.Globalization.CultureInfo.setCurrentCulture(System.Globalization.CultureInfo.invariantCulture);
+                        var str = System.Double.format(input);
+                        back = System.Convert.toDouble(str);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to double using InvariantCulture");
+
+                        var norwegian = System.Globalization.CultureInfo.getCultureInfo("nb-NO");
+                        str = System.Double.format(input, "G", norwegian);
+                        back = System.Convert.toDouble(str, norwegian);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to double using Norwegian");
+
+
+                        System.Globalization.CultureInfo.setCurrentCulture(norwegian);
+
+                        str = System.Double.format(input);
+                        back = System.Convert.toDouble(str);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to double using Norwegian as CurrentCulture");
+                    } finally {
+                        System.Globalization.CultureInfo.setCurrentCulture(oldCulture);
+                    }
+                },
+                TestDecimal: function () {
+                    var oldCulture = System.Globalization.CultureInfo.getCurrentCulture();
+
+                    try {
+                        var back;
+                        var input = System.Decimal(7.5);
+                        System.Globalization.CultureInfo.setCurrentCulture(System.Globalization.CultureInfo.invariantCulture);
+                        var str = input.toString();
+                        back = System.Convert.toDecimal(str);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to decimal using InvariantCulture");
+
+                        var norwegian = System.Globalization.CultureInfo.getCultureInfo("nb-NO");
+                        str = Bridge.Int.format(input, "G", norwegian);
+                        back = System.Convert.toDecimal(str, norwegian);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to decimal using Norwegian");
+
+
+                        System.Globalization.CultureInfo.setCurrentCulture(norwegian);
+
+                        str = input.toString();
+                        back = System.Convert.toDecimal(str);
+                        Bridge.Test.NUnit.Assert.AreEqual(input, back, "Convert back to decimal using Norwegian as CurrentCulture");
+                    } finally {
+                        System.Globalization.CultureInfo.setCurrentCulture(oldCulture);
+                    }
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
             Id: null,

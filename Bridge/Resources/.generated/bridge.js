@@ -23584,20 +23584,23 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
 
                     if (isFloating) {
+                        var nfInfo = (formatProvider || System.Globalization.CultureInfo.getCurrentCulture()).getFormat(System.Globalization.NumberFormatInfo),
+                            point = nfInfo.numberDecimalSeparator;
+
                         if (typeCode === typeCodes.Decimal) {
-                            if (!/^[+-]?(\d+|\d+.|\d*\.\d+)$/.test(value)) {
+                            if (!new RegExp("^[+-]?(\\d+|\\d+.|\\d*\\" + point +"\\d+)$").test(value)) {
                                 if (!/^[+-]?[0-9]+$/.test(value)) {
                                     throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                                 }
                             }
 
-                            value = System.Decimal(value, formatProvider);
+                            value = new System.Decimal(value, formatProvider);
                         } else {
-                            if (!/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/.test(value)) {
+                            if (!new RegExp("^[-+]?[0-9]*\\" + point +"?[0-9]+([eE][-+]?[0-9]+)?$").test(value)) {
                                 throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                             }
 
-                            value = parseFloat(value);
+                            value = Bridge.Int.parseFloat(value, formatProvider);
                         }
                     } else {
                         if (!/^[+-]?[0-9]+$/.test(value)) {
