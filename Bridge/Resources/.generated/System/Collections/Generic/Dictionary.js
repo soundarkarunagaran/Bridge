@@ -365,7 +365,7 @@
                     if (this.isSimpleKey) {
                         this.simpleBuckets = { };
                     }
-                    System.Array.fill(this.entries, function (){
+                    System.Array.fill(this.entries, function () {
                         return Bridge.getDefaultValue(System.Collections.Generic.Dictionary$2.Entry(TKey,TValue));
                     }, 0, this.count);
                     this.freeList = -1;

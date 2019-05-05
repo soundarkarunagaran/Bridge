@@ -71,7 +71,7 @@
         },
         methods: {
             Clear: function () {
-                System.Array.fill(this._array, function (){
+                System.Array.fill(this._array, function () {
                     return Bridge.getDefaultValue(T);
                 }, 0, this._size);
                 this._size = 0;
@@ -158,7 +158,7 @@
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, this._size, function (){
+                    System.Array.resize(localArray, this._size, function () {
                         return Bridge.getDefaultValue(T);
                     }, T);
                     this._array = localArray.v;
@@ -183,7 +183,7 @@
             Push: function (item) {
                 if (this._size === this._array.length) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), function (){
+                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), function () {
                         return Bridge.getDefaultValue(T);
                     }, T);
                     this._array = localArray.v;

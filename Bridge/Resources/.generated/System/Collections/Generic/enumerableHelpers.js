@@ -4,7 +4,7 @@
                 ToArray: function (T, source) {
                     var count = { };
                     var results = { v : Bridge.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
-                    System.Array.resize(results, count.v, function (){
+                    System.Array.resize(results, count.v, function () {
                         return Bridge.getDefaultValue(T);
                     }, T);
                     return results.v;
@@ -29,7 +29,7 @@
                                         newLength = MaxArrayLength <= count ? ((count + 1) | 0) : MaxArrayLength;
                                     }
 
-                                    System.Array.resize(arr, newLength, function (){
+                                    System.Array.resize(arr, newLength, function () {
                                         return Bridge.getDefaultValue(T);
                                     }, T);
                                 }

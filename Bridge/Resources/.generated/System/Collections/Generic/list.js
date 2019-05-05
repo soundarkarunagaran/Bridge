@@ -241,7 +241,7 @@
             },
             clear: function () {
                 if (this._size > 0) {
-                    System.Array.fill(this._items, function (){
+                    System.Array.fill(this._items, function () {
                         return Bridge.getDefaultValue(T);
                     }, 0, this._size);
                     this._size = 0;
@@ -637,7 +637,7 @@
                     }
                 }
 
-                System.Array.fill(this._items, function (){
+                System.Array.fill(this._items, function () {
                     return Bridge.getDefaultValue(T);
                 }, freeIndex, ((this._size - freeIndex) | 0));
                 var result = (this._size - freeIndex) | 0;
@@ -675,7 +675,7 @@
                     if (index < this._size) {
                         System.Array.copy(this._items, ((index + count) | 0), this._items, index, ((this._size - index) | 0));
                     }
-                    System.Array.fill(this._items, function (){
+                    System.Array.fill(this._items, function () {
                         return Bridge.getDefaultValue(T);
                     }, this._size, count);
                     this._version = (this._version + 1) | 0;

@@ -148,14 +148,14 @@
             },
             Clear: function () {
                 if (this._head < this._tail) {
-                    System.Array.fill(this._array, function (){
+                    System.Array.fill(this._array, function () {
                         return Bridge.getDefaultValue(T);
                     }, this._head, this._size);
                 } else {
-                    System.Array.fill(this._array, function (){
+                    System.Array.fill(this._array, function () {
                         return Bridge.getDefaultValue(T);
                     }, this._head, ((this._array.length - this._head) | 0));
-                    System.Array.fill(this._array, function (){
+                    System.Array.fill(this._array, function () {
                         return Bridge.getDefaultValue(T);
                     }, 0, this._tail);
                 }

@@ -1305,7 +1305,7 @@ namespace Bridge.Translator
                 if (modifier == "defaultFn")
                 {
                     this.WriteFunction();
-                    this.WriteOpenCloseParentheses();
+                    this.WriteOpenCloseParentheses(true);
                     this.BeginBlock();
                     this.WriteReturn(true);
 
@@ -1327,7 +1327,7 @@ namespace Bridge.Translator
                 if (modifier == "defaultFn")
                 {
                     this.WriteFunction();
-                    this.WriteOpenCloseParentheses();
+                    this.WriteOpenCloseParentheses(true);
                     this.BeginBlock();
                     this.WriteReturn(true);
 
@@ -1349,7 +1349,7 @@ namespace Bridge.Translator
             else if (def is RawValue)
             {
                 this.WriteFunction();
-                this.WriteOpenCloseParentheses();
+                this.WriteOpenCloseParentheses(true);
                 this.BeginBlock();
                 this.WriteReturn(true);
                 this.Write(def.ToString());
