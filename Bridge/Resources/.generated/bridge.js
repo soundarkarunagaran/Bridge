@@ -14761,21 +14761,21 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.Collections.Generic.IDictionary$2(TKey,TValue),System.Collections.IDictionary,System.Collections.Generic.IReadOnlyDictionary$2(TKey,TValue)],
         statics: {
             fields: {
-                emptyKeys: null,
-                emptyValues: null,
                 _defaultCapacity: 0,
-                MaxArrayLength: 0
+                MaxArrayLength: 0,
+                emptyKeys: null,
+                emptyValues: null
             },
             ctors: {
                 init: function () {
+                    this._defaultCapacity = 4;
+                    this.MaxArrayLength = 2146435071;
                     this.emptyKeys = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TKey);
                     }, TKey);
                     this.emptyValues = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TValue);
                     }, TValue);
-                    this._defaultCapacity = 4;
-                    this.MaxArrayLength = 2146435071;
                 }
             },
             methods: {
@@ -37309,13 +37309,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         statics: {
             fields: {
                 HashPrime: 0,
+                MaxPrimeArrayLength: 0,
                 RandomSeed: 0,
-                primes: null,
-                MaxPrimeArrayLength: 0
+                primes: null
             },
             ctors: {
                 init: function () {
                     this.HashPrime = 101;
+                    this.MaxPrimeArrayLength = 2146435069;
                     this.RandomSeed = System.Guid.NewGuid().getHashCode();
                     this.primes = System.Array.init([
                         3, 
@@ -37391,7 +37392,6 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         5999471, 
                         7199369
                     ], System.Int32);
-                    this.MaxPrimeArrayLength = 2146435069;
                 }
             },
             methods: {
@@ -43243,13 +43243,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                LargeByteBufferSize: 0
+                LargeByteBufferSize: 0,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.BinaryWriter.ctor();
                     this.LargeByteBufferSize = 256;
+                    this.Null = new System.IO.BinaryWriter.ctor();
                 }
             }
         },
@@ -43460,13 +43460,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                _DefaultCopyBufferSize: 0
+                _DefaultCopyBufferSize: 0,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.Stream.NullStream();
                     this._DefaultCopyBufferSize = 81920;
+                    this.Null = new System.IO.Stream.NullStream();
                 }
             },
             methods: {
@@ -45578,9 +45578,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IO.TextReader],
         statics: {
             fields: {
-                Null: null,
                 DefaultFileStreamBufferSize: 0,
-                MinBufferSize: 0
+                MinBufferSize: 0,
+                Null: null
             },
             props: {
                 DefaultBufferSize: {
@@ -45591,9 +45591,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.StreamReader.NullStreamReader();
                     this.DefaultFileStreamBufferSize = 4096;
                     this.MinBufferSize = 128;
+                    this.Null = new System.IO.StreamReader.NullStreamReader();
                 }
             }
         },
@@ -46129,13 +46129,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                InitialNewLine: null
+                InitialNewLine: null,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.TextWriter.NullTextWriter();
                     this.InitialNewLine = "\r\n";
+                    this.Null = new System.IO.TextWriter.NullTextWriter();
                 }
             },
             methods: {
@@ -47095,15 +47095,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.Reflection.ICustomAttributeProvider,System.Runtime.Serialization.ISerializable],
         statics: {
             fields: {
+                DefaultLookup: 0,
                 FilterTypeName: null,
-                FilterTypeNameIgnoreCase: null,
-                DefaultLookup: 0
+                FilterTypeNameIgnoreCase: null
             },
             ctors: {
                 init: function () {
+                    this.DefaultLookup = 28;
                     this.FilterTypeName = System.Reflection.Module.FilterTypeNameImpl;
                     this.FilterTypeNameIgnoreCase = System.Reflection.Module.FilterTypeNameIgnoreCaseImpl;
-                    this.DefaultLookup = 28;
                 }
             },
             methods: {
@@ -49495,13 +49495,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: function () { return [System.ICloneable,System.IComparable$1(System.Version),System.IEquatable$1(System.Version)]; },
         statics: {
             fields: {
-                separatorsArray: 0,
-                ZERO_CHAR_VALUE: 0
+                ZERO_CHAR_VALUE: 0,
+                separatorsArray: 0
             },
             ctors: {
                 init: function () {
-                    this.separatorsArray = 46;
                     this.ZERO_CHAR_VALUE = 48;
+                    this.separatorsArray = 46;
                 }
             },
             methods: {

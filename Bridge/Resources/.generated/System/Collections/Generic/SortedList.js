@@ -2,21 +2,21 @@
         inherits: [System.Collections.Generic.IDictionary$2(TKey,TValue),System.Collections.IDictionary,System.Collections.Generic.IReadOnlyDictionary$2(TKey,TValue)],
         statics: {
             fields: {
-                emptyKeys: null,
-                emptyValues: null,
                 _defaultCapacity: 0,
-                MaxArrayLength: 0
+                MaxArrayLength: 0,
+                emptyKeys: null,
+                emptyValues: null
             },
             ctors: {
                 init: function () {
+                    this._defaultCapacity = 4;
+                    this.MaxArrayLength = 2146435071;
                     this.emptyKeys = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TKey);
                     }, TKey);
                     this.emptyValues = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TValue);
                     }, TValue);
-                    this._defaultCapacity = 4;
-                    this.MaxArrayLength = 2146435071;
                 }
             },
             methods: {

@@ -8091,13 +8091,13 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1527", {
         statics: {
             fields: {
-                hello: null,
-                SomeLiteral: null
+                SomeLiteral: null,
+                hello: null
             },
             ctors: {
                 init: function () {
-                    this.hello = "test";
                     this.SomeLiteral = "this.hello";
+                    this.hello = "test";
                 }
             },
             methods: {
@@ -36735,6 +36735,57 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         props: {
             Prop: 0
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943", {
+        statics: {
+            methods: {
+                TestStaticInitialization: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual("A", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2.p2.p1);
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c1", {
+        $kind: "nested class",
+        props: {
+            p1: null
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2", {
+        $kind: "nested class",
+        statics: {
+            fields: {
+                Z1: null,
+                _s: null
+            },
+            props: {
+                p2: {
+                    get: function () {
+                        return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2._s;
+                    }
+                }
+            },
+            ctors: {
+                init: function () {
+                    this.Z1 = "A";
+                    this._s = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2._init();
+                }
+            },
+            methods: {
+                _init: function () {
+                    var $t;
+                    var o1 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c1(), $t.p1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2.Z1, $t);
+
+                    return o1;
+                }
+            }
+        },
+        props: {
+            p3: null
         }
     });
 

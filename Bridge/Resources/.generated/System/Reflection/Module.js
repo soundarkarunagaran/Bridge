@@ -2,15 +2,15 @@
         inherits: [System.Reflection.ICustomAttributeProvider,System.Runtime.Serialization.ISerializable],
         statics: {
             fields: {
+                DefaultLookup: 0,
                 FilterTypeName: null,
-                FilterTypeNameIgnoreCase: null,
-                DefaultLookup: 0
+                FilterTypeNameIgnoreCase: null
             },
             ctors: {
                 init: function () {
+                    this.DefaultLookup = 28;
                     this.FilterTypeName = System.Reflection.Module.FilterTypeNameImpl;
                     this.FilterTypeNameIgnoreCase = System.Reflection.Module.FilterTypeNameIgnoreCaseImpl;
-                    this.DefaultLookup = 28;
                 }
             },
             methods: {
