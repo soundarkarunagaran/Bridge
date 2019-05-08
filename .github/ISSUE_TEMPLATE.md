@@ -1,8 +1,8 @@
-A description of the issue.
+A description of the issue is required here.
 
 ### Steps To Reproduce
 
-http://deck.net/ <-- Replace with a link to your Deck
+https://deck.net/ <-- Share a link to your sample
 
 ```csharp
 public class Program
