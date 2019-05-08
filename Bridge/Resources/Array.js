@@ -225,6 +225,11 @@
                 var et = Bridge.getType(obj).$elementType;
 
                 if (et) {
+
+                    if (Bridge.Reflection.isValueType(et) !== Bridge.Reflection.isValueType(type.$elementType)) {
+                        return false;
+                    }
+
                     return System.Array.getRank(obj) === type.$rank && Bridge.Reflection.isAssignableFrom(type.$elementType, et);
                 }
 
