@@ -270,7 +270,13 @@
                 return true;
             }
 
-            return !!System.Array._typedArrays[String.prototype.slice.call(Object.prototype.toString.call(obj), 8, -1)];
+            var isTypedArray = !!System.Array._typedArrays[String.prototype.slice.call(Object.prototype.toString.call(obj), 8, -1)];
+
+            if (isTypedArray && !!System.Array._typedArrays[type.name]) {
+                return obj instanceof type;
+            }
+
+            return isTypedArray;
         },
 
         clone: function (arr) {
