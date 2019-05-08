@@ -15,6 +15,7 @@ using Statement = ICSharpCode.NRefactory.CSharp.Statement;
 using ICSharpCode.NRefactory.PatternMatching;
 using Mono.Cecil;
 using System.Text;
+using ICSharpCode.NRefactory.TypeSystem.Implementation;
 
 namespace Bridge.Translator
 {
@@ -449,7 +450,7 @@ namespace Bridge.Translator
                 wrapper = new BlockStatement();
                 wrapper.Statements.Add(new VariableDeclarationStatement(varStat != null ? varStat.Type.Clone() : AstType.Null, name, expression.Clone() as Expression));
             }
-
+            
             var tryCatchStatement = new TryCatchStatement();
             if (wrapper != null)
             {
@@ -558,6 +559,7 @@ namespace Bridge.Translator
                 unaryOperatorExpression.Operator == UnaryOperatorType.PostDecrement))
             {
                 var rr = this.Resolver.ResolveNode(unaryOperatorExpression, null);
+                var expression_rr = this.Resolver.ResolveNode(unaryOperatorExpression.Expression, null);
 
                 if (rr is ErrorResolveResult)
                 {
@@ -610,21 +612,99 @@ namespace Bridge.Translator
 
                     var isStatement = unaryOperatorExpression.Parent is ExpressionStatement;
                     var isIncr = clonUnaryOperatorExpression.Operator == UnaryOperatorType.Increment || clonUnaryOperatorExpression.Operator == UnaryOperatorType.PostIncrement;
-                    AssignmentExpression ae;
+                    var needReturnOriginal = isPost && !isStatement;
+
+                    Expression expression = clonUnaryOperatorExpression.Expression.Clone();
+                    Expression expressionAfter = clonUnaryOperatorExpression.Expression.Clone();
+
+                    AssignmentExpression ae = null;
 
                     if (orr.UserDefinedOperatorMethod != null)
                     {
-                        ae = new AssignmentExpression(clonUnaryOperatorExpression.Expression.Clone(), clonUnaryOperatorExpression);
+                        ae = new AssignmentExpression(expressionAfter.Clone(), clonUnaryOperatorExpression);
+                    }
+                    else if (clonUnaryOperatorExpression.Expression is MemberReferenceExpression mre && expression_rr is MemberResolveResult member_rr)
+                    {
+                        if (needReturnOriginal)
+                        {
+                            bool isSimple = (member_rr != null &&
+                               (member_rr.TargetResult is ThisResolveResult ||
+                                member_rr.TargetResult is LocalResolveResult ||
+                                member_rr.TargetResult is TypeResolveResult ||
+                                member_rr.TargetResult is ConstantResolveResult));
+
+                            expression = isSimple ? mre.Clone() : new MemberReferenceExpression(new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "ToTemp"), new PrimitiveExpression("idx" + tempKey), mre.Target.Clone()), mre.MemberName);
+                            expressionAfter = new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "FromTemp"), new PrimitiveExpression("idx" + tempKey++), mre.Target.Clone());
+                        } else
+                        {
+                            expressionAfter = null;
+                        }
+
+                        ae = BuildMemberReferenceReplacement(isIncr ? BinaryOperatorType.Add : BinaryOperatorType.Subtract, mre, member_rr, expressionAfter);
+                    }
+                    else if (clonUnaryOperatorExpression.Expression is IndexerExpression ie && expression_rr is ArrayAccessResolveResult array_rr)
+                    {
+                        IndexerExpression cacheIndexer = null;
+                        if (needReturnOriginal)
+                        {
+                            var array_target_rr = array_rr.Array as MemberResolveResult;
+                            bool isSimpleTarget = (array_target_rr != null && array_target_rr.Member is IField &&
+                               (array_target_rr.TargetResult is ThisResolveResult ||
+                                array_target_rr.TargetResult is LocalResolveResult ||
+                                array_target_rr.TargetResult is TypeResolveResult ||
+                                array_target_rr.TargetResult is ConstantResolveResult)) ||
+                                (array_rr.Array is ThisResolveResult ||
+                                array_rr.Array is LocalResolveResult ||
+                                array_rr.Array is ConstantResolveResult);
+
+                            bool simpleIndex = true;
+
+                            foreach (var index in array_rr.Indexes)
+                            {
+                                var indexMemberTargetrr = index as MemberResolveResult;
+                                bool isIndexSimple = (indexMemberTargetrr != null && indexMemberTargetrr.Member is IField &&
+                                               (indexMemberTargetrr.TargetResult is ThisResolveResult ||
+                                                indexMemberTargetrr.TargetResult is LocalResolveResult)) || index is ThisResolveResult || index is LocalResolveResult || index is ConstantResolveResult;
+
+                                if (!isIndexSimple)
+                                {
+                                    simpleIndex = false;
+                                    break;
+                                }
+                            }
+                            var leftIndexerArgs = new List<Expression>();
+                            var rightIndexerArgs = new List<Expression>();
+
+                            foreach (var index in ie.Arguments)
+                            {
+                                var expr = simpleIndex ? index.Clone() : new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "ToTemp"), new PrimitiveExpression("idx" + tempKey), index.Clone());
+                                leftIndexerArgs.Add(expr);
+
+                                expr = simpleIndex ? index.Clone() : new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "FromTemp"), new PrimitiveExpression("idx" + tempKey++), index.Clone());
+                                rightIndexerArgs.Add(expr);
+                            }
+
+                            var leftExpr = new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "ToTemp"), new PrimitiveExpression("idx" + tempKey), ie.Target.Clone());
+                            var rightExpr = new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "FromTemp"), new PrimitiveExpression("idx" + tempKey++), ie.Target.Clone());
+
+                            var leftIndexer = new IndexerExpression(isSimpleTarget ? ie.Target.Clone() : leftExpr, leftIndexerArgs);
+                            var rightIndexer = new IndexerExpression(isSimpleTarget ? ie.Target.Clone() : rightExpr, rightIndexerArgs);
+
+                            expression = leftIndexer;
+                            cacheIndexer = rightIndexer;
+                        }
+
+                        ae = BuildIndexerReplacement(isStatement, isIncr ? BinaryOperatorType.Add : BinaryOperatorType.Subtract, ie, array_rr, cacheIndexer);
                     }
                     else
                     {
-                        ae = new AssignmentExpression(clonUnaryOperatorExpression.Expression.Clone(),
-                                 new BinaryOperatorExpression(clonUnaryOperatorExpression.Expression.Clone(), isIncr ? BinaryOperatorType.Add : BinaryOperatorType.Subtract, new PrimitiveExpression(1)));
+                        ae = new AssignmentExpression(expressionAfter.Clone(),
+                                 new BinaryOperatorExpression(expressionAfter.Clone(), isIncr ? BinaryOperatorType.Add : BinaryOperatorType.Subtract, new PrimitiveExpression(1)));
                     }
 
-                    if (isPost && !isStatement)
+                    if (needReturnOriginal)
                     {
-                        return new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "Identity"), clonUnaryOperatorExpression.Expression.Clone(), ae);
+                        return new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "Identity"), expression, new ParenthesizedExpression(ae));
                     }
                     else
                     {
@@ -639,6 +719,89 @@ namespace Bridge.Translator
             }
 
             return base.VisitUnaryOperatorExpression(unaryOperatorExpression);
+        }
+
+        private AssignmentExpression BuildMemberReferenceReplacement(BinaryOperatorType opType, MemberReferenceExpression memberExpr, MemberResolveResult member_rr, Expression target, Expression addExpr = null)
+        {
+            bool isSimple = (member_rr != null && 
+                           (member_rr.TargetResult is ThisResolveResult ||
+                            member_rr.TargetResult is LocalResolveResult ||
+                            member_rr.TargetResult is TypeResolveResult ||
+                            member_rr.TargetResult is ConstantResolveResult));
+
+            if (isSimple)
+            {
+                target = memberExpr.Target.Clone();
+            }
+
+            var leftExpr = target != null ? target.Clone() : new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "ToTemp"), new PrimitiveExpression("idx" + tempKey), memberExpr.Target.Clone());
+            var rightExpr = target != null ? target.Clone() : new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "FromTemp"), new PrimitiveExpression("idx" + tempKey++), memberExpr.Target.Clone());
+
+            var ae = new AssignmentExpression(new MemberReferenceExpression(leftExpr, memberExpr.MemberName),
+                                 new BinaryOperatorExpression(new MemberReferenceExpression(rightExpr, memberExpr.MemberName),
+                                 opType,
+                                 addExpr ?? new PrimitiveExpression(1)));
+
+            return ae;
+        }
+
+        private AssignmentExpression BuildIndexerReplacement(bool isStatement, BinaryOperatorType opType, IndexerExpression indexerExpr, ArrayAccessResolveResult array_rr, IndexerExpression cacheIndexer, Expression addExpr = null)
+        {
+            var array_target_rr = array_rr.Array as MemberResolveResult;
+
+            bool isSimpleTarget = (array_target_rr != null && array_target_rr.Member is IField &&
+                               (array_target_rr.TargetResult is ThisResolveResult ||
+                                array_target_rr.TargetResult is LocalResolveResult ||
+                                array_target_rr.TargetResult is TypeResolveResult ||
+                                array_target_rr.TargetResult is ConstantResolveResult)) ||
+                                (array_rr.Array is ThisResolveResult ||
+                                array_rr.Array is LocalResolveResult ||
+                                array_rr.Array is ConstantResolveResult);
+
+            bool simpleIndex = true;
+
+            foreach (var index in array_rr.Indexes)
+            {
+                var indexMemberTargetrr = index as MemberResolveResult;
+                bool isIndexSimple = (indexMemberTargetrr != null && indexMemberTargetrr.Member is IField &&
+                               (indexMemberTargetrr.TargetResult is ThisResolveResult ||
+                                indexMemberTargetrr.TargetResult is LocalResolveResult)) || index is ThisResolveResult || index is LocalResolveResult || index is ConstantResolveResult;
+
+                if (!isIndexSimple)
+                {
+                    simpleIndex = false;
+                    break;
+                }
+            }
+
+            var leftIndexerArgs = new List<Expression>();
+            var rightIndexerArgs = new List<Expression>();
+
+            foreach (var index in indexerExpr.Arguments)
+            {
+                var expr = simpleIndex ? index.Clone() : new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "ToTemp"), new PrimitiveExpression("idx" + tempKey), index.Clone());
+                leftIndexerArgs.Add(expr);
+
+                expr = simpleIndex ? index.Clone() : new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "FromTemp"), new PrimitiveExpression("idx" + tempKey++), index.Clone());
+                rightIndexerArgs.Add(expr);
+            }
+
+            var leftExpr = new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "ToTemp"), new PrimitiveExpression("idx" + tempKey), indexerExpr.Target.Clone());
+            var rightExpr = new InvocationExpression(new MemberReferenceExpression(new MemberReferenceExpression(new TypeReferenceExpression(new MemberType(new SimpleType("global"), CS.NS.BRIDGE) { IsDoubleColon = true }), "Script"), "FromTemp"), new PrimitiveExpression("idx" + tempKey++), indexerExpr.Target.Clone());
+
+            var leftIndexer = cacheIndexer != null ? cacheIndexer.Clone() : new IndexerExpression(isSimpleTarget ? indexerExpr.Target.Clone() : leftExpr, leftIndexerArgs);
+            var rightIndexer = cacheIndexer != null ? cacheIndexer.Clone() : new IndexerExpression(isSimpleTarget ? indexerExpr.Target.Clone() : rightExpr, rightIndexerArgs);
+
+            var wrapRightExpression = (addExpr == null || AssigmentExpressionHelper.CheckIsExpression(addExpr))
+                ? addExpr ?? new PrimitiveExpression(1)
+                : new ParenthesizedExpression(addExpr ?? new PrimitiveExpression(1));
+
+            var ae = new AssignmentExpression(leftIndexer, new BinaryOperatorExpression(
+                rightIndexer,
+                opType,
+                wrapRightExpression));
+
+            return ae;
         }
 
         private int tempKey = 1;
@@ -705,7 +868,7 @@ namespace Bridge.Translator
                 var indexerExpr = clonAssignmentExpression.Left as IndexerExpression;
                 List<Expression> leftIndexerArgs = null;
                 List<Expression> rightIndexerArgs = null;
-                var needReturnValue = false;
+                var left = clonAssignmentExpression.Left;
 
                 if (indexerExpr != null && !simpleIndex)
                 {
@@ -721,19 +884,7 @@ namespace Bridge.Translator
                         rightIndexerArgs.Add(expr);
                     }
 
-                    needReturnValue = !(assignmentExpression.Parent is ExpressionStatement);
-
-                    if (needReturnValue && assignmentExpression.Parent is LambdaExpression)
-                    {
-                        var lambdarr = this.Resolver.ResolveNode(assignmentExpression.Parent, null) as LambdaResolveResult;
-
-                        if (lambdarr != null && lambdarr.ReturnType.Kind == TypeKind.Void)
-                        {
-                            needReturnValue = false;
-                        }
-                    }
-
-                    clonAssignmentExpression.Left = new IndexerExpression(indexerExpr.Target.Clone(), needReturnValue ? rightIndexerArgs : leftIndexerArgs);
+                    clonAssignmentExpression.Left = new IndexerExpression(indexerExpr.Target.Clone(), leftIndexerArgs);
                 }
                 else
                 {
@@ -742,59 +893,25 @@ namespace Bridge.Translator
 
                 var op = clonAssignmentExpression.Operator;
                 clonAssignmentExpression.Operator = AssignmentOperatorType.Assign;
-                BinaryOperatorType opType;
-                switch (op)
-                {
-                    case AssignmentOperatorType.Add:
-                        opType = BinaryOperatorType.Add;
-                        break;
-
-                    case AssignmentOperatorType.Subtract:
-                        opType = BinaryOperatorType.Subtract;
-                        break;
-
-                    case AssignmentOperatorType.Multiply:
-                        opType = BinaryOperatorType.Multiply;
-                        break;
-
-                    case AssignmentOperatorType.Divide:
-                        opType = BinaryOperatorType.Divide;
-                        break;
-
-                    case AssignmentOperatorType.Modulus:
-                        opType = BinaryOperatorType.Modulus;
-                        break;
-
-                    case AssignmentOperatorType.ShiftLeft:
-                        opType = BinaryOperatorType.ShiftLeft;
-                        break;
-
-                    case AssignmentOperatorType.ShiftRight:
-                        opType = BinaryOperatorType.ShiftRight;
-                        break;
-
-                    case AssignmentOperatorType.BitwiseAnd:
-                        opType = BinaryOperatorType.BitwiseAnd;
-                        break;
-
-                    case AssignmentOperatorType.BitwiseOr:
-                        opType = BinaryOperatorType.BitwiseOr;
-                        break;
-
-                    case AssignmentOperatorType.ExclusiveOr:
-                        opType = BinaryOperatorType.ExclusiveOr;
-                        break;
-
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                BinaryOperatorType opType = ToBinaryOp(op);
 
                 var wrapRightExpression = AssigmentExpressionHelper.CheckIsRightAssigmentExpression(clonAssignmentExpression)
                     ? clonAssignmentExpression.Right.Clone()
                     : new ParenthesizedExpression(clonAssignmentExpression.Right.Clone());
 
+                var isStatement = assignmentExpression.Parent is ExpressionStatement;
+
+                if (left is MemberReferenceExpression mre && orr?.Operands[0] is MemberResolveResult member_rr)
+                {
+                    return BuildMemberReferenceReplacement(opType, mre, member_rr, null, clonAssignmentExpression.Right.Clone());
+                }
+                else if (left is IndexerExpression ie && orr?.Operands[0] is ArrayAccessResolveResult array_rr)
+                {
+                    return BuildIndexerReplacement(isStatement, opType, ie, array_rr, null, clonAssignmentExpression.Right.Clone());
+                }
+
                 clonAssignmentExpression.Right = new BinaryOperatorExpression(
-                    indexerExpr != null ? new IndexerExpression(indexerExpr.Target.Clone(), needReturnValue ? leftIndexerArgs : rightIndexerArgs) : clonAssignmentExpression.Left.Clone(),
+                    indexerExpr != null ? new IndexerExpression(indexerExpr.Target.Clone(), rightIndexerArgs) : clonAssignmentExpression.Left.Clone(),
                     opType,
                     wrapRightExpression);
 
@@ -802,6 +919,58 @@ namespace Bridge.Translator
             }
 
             return base.VisitAssignmentExpression(assignmentExpression);
+        }
+
+        private static BinaryOperatorType ToBinaryOp(AssignmentOperatorType op)
+        {           
+            BinaryOperatorType opType;
+            switch (op)
+            {
+                case AssignmentOperatorType.Add:
+                    opType = BinaryOperatorType.Add;
+                    break;
+
+                case AssignmentOperatorType.Subtract:
+                    opType = BinaryOperatorType.Subtract;
+                    break;
+
+                case AssignmentOperatorType.Multiply:
+                    opType = BinaryOperatorType.Multiply;
+                    break;
+
+                case AssignmentOperatorType.Divide:
+                    opType = BinaryOperatorType.Divide;
+                    break;
+
+                case AssignmentOperatorType.Modulus:
+                    opType = BinaryOperatorType.Modulus;
+                    break;
+
+                case AssignmentOperatorType.ShiftLeft:
+                    opType = BinaryOperatorType.ShiftLeft;
+                    break;
+
+                case AssignmentOperatorType.ShiftRight:
+                    opType = BinaryOperatorType.ShiftRight;
+                    break;
+
+                case AssignmentOperatorType.BitwiseAnd:
+                    opType = BinaryOperatorType.BitwiseAnd;
+                    break;
+
+                case AssignmentOperatorType.BitwiseOr:
+                    opType = BinaryOperatorType.BitwiseOr;
+                    break;
+
+                case AssignmentOperatorType.ExclusiveOr:
+                    opType = BinaryOperatorType.ExclusiveOr;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            return opType;
         }
     }
 }
