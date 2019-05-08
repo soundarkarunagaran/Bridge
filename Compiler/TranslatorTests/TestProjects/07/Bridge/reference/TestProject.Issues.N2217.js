@@ -207,7 +207,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         } else if (typeof module === 'object' && module.exports) {
             module.exports = factory();
         } else {
-            root.Module2217_UMD = factory();
+            root["Module2217_UMD"] = factory();
         }
     }(this, function () {
         var Module2217_UMD = { };
