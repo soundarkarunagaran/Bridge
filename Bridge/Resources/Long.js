@@ -175,11 +175,11 @@
             return this.value.toString(format);
         }
 
-        return Bridge.Int.format(this, format, provider);
+        return Bridge.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.format = function (format, provider) {
-        return Bridge.Int.format(this, format, provider);
+        return Bridge.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.isNegative = function () {
