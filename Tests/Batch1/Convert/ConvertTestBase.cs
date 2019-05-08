@@ -335,6 +335,10 @@ namespace Bridge.ClientTest.ConvertTests
 
             public object GetFormat(Type formatType)
             {
+                if (formatType == typeof(System.Globalization.NumberFormatInfo))
+                {
+                    return System.Globalization.CultureInfo.CurrentCulture.NumberFormat;
+                }
                 return System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat;
             }
 
