@@ -961,11 +961,24 @@
             method = function () {
                 var args = [],
                     params = mi.pi || [],
+                    v,
                     p;
+
+                if (!params.length && mi.p && mi.p.length) {
+                    params = mi.p.map(function (t) {
+                        return {pt: t};
+                    });
+                }
 
                 for (var i = 0; i < arguments.length; i++) {
                     p = params[i] || params[params.length - 1];
-                    args[i] = p && p.pt === System.Object ? arguments[i] : Bridge.unbox(arguments[i]);
+                    v = arguments[i];
+
+                    args[i] = p && p.pt === System.Object ? v : Bridge.unbox(arguments[i]);
+
+                    if (v == null && p && Bridge.Reflection.isValueType(p.pt)) {
+                        args[i] = Bridge.getDefaultValue(p.pt);
+                    }
                 }
 
                 var v = orig.apply(this, args);
@@ -1004,7 +1017,13 @@
             obj = fi.is ? fi.td : obj;
 
             if (arguments.length === 3) {
-                obj[fi.sn] = arguments[2];
+                var v = arguments[2];
+
+                if (v == null && Bridge.Reflection.isValueType(fi.rt)) {
+                    v = Bridge.getDefaultValue(fi.rt);
+                }
+
+                obj[fi.sn] = v;
             } else {
                 return fi.box ? fi.box(obj[fi.sn]) : obj[fi.sn];
             }
