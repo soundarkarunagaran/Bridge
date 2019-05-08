@@ -18,6 +18,81 @@ namespace Bridge.Translator
 {
     public partial class Translator
     {
+        public virtual string[] GetProjectReferenceAssemblies()
+        {
+            var baseDir = Path.GetDirectoryName(this.Location);
+
+            if (!this.FolderMode)
+            {
+                XDocument projDefinition = XDocument.Load(this.Location);
+                XNamespace rootNs = projDefinition.Root.Name.Namespace;
+                var helper = new ConfigHelper<AssemblyInfo>(this.Log);
+                var tokens = this.ProjectProperties.GetValues();
+
+                var referencesPathes = projDefinition
+                    .Element(rootNs + "Project")
+                    .Elements(rootNs + "ItemGroup")
+                    .Elements(rootNs + "Reference")
+                    .Where(el => (el.Attribute("Include")?.Value != "System") && (el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false"))
+                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                    .ToList();
+
+                var projectReferences = projDefinition
+                    .Element(rootNs + "Project")
+                    .Elements(rootNs + "ItemGroup")
+                    .Elements(rootNs + "ProjectReference")
+                    .Where(el => el.Attribute("Condition") == null || el.Attribute("Condition").Value.ToLowerInvariant() != "false")
+                    .Select(refElem => (refElem.Element(rootNs + "HintPath") == null ? (refElem.Attribute("Include") == null ? "" : refElem.Attribute("Include").Value) : refElem.Element(rootNs + "HintPath").Value))
+                    .Select(path => helper.ApplyPathTokens(tokens, Path.IsPathRooted(path) ? path : Path.GetFullPath((new Uri(Path.Combine(baseDir, path))).LocalPath)))
+                    .ToArray();
+
+                if (projectReferences.Length > 0)
+                {
+                    if (this.ProjectProperties.BuildProjects == null)
+                    {
+                        this.ProjectProperties.BuildProjects = new List<string>();
+                    }
+
+                    foreach (var projectRef in projectReferences)
+                    {
+                        var isBuilt = this.ProjectProperties.BuildProjects.Contains(projectRef);
+
+                        if (!isBuilt)
+                        {
+                            this.ProjectProperties.BuildProjects.Add(projectRef);
+                        }
+
+                        var processor = new TranslatorProcessor(new BridgeOptions
+                        {
+                            Rebuild = this.Rebuild,
+                            ProjectLocation = projectRef,
+                            BridgeLocation = this.BridgeLocation,
+                            ProjectProperties = new Contract.ProjectProperties
+                            {
+                                BuildProjects = this.ProjectProperties.BuildProjects,
+                                Configuration = this.ProjectProperties.Configuration,
+                                Platform = this.ProjectProperties.Platform
+                            }
+                        }, new Logger(null, false, LoggerLevel.Info, true, new ConsoleLoggerWriter(), new FileLoggerWriter()));
+
+                        processor.PreProcess();
+
+                        var projectAssembly = processor.Translator.AssemblyLocation;
+
+                        if (File.Exists(projectAssembly))
+                        {
+                            referencesPathes.Add(projectAssembly);
+                        }                        
+                    }
+                }
+
+                return referencesPathes.ToArray();
+            }
+
+            return new string[0];
+        }
+
         public virtual void BuildAssembly()
         {
             this.Log.Info("Building assembly...");
