@@ -580,7 +580,9 @@ namespace Bridge.Translator
                             break;
 
                         case AssignmentOperatorType.ExclusiveOr:
-                            this.Write("^");
+                            if (!isBool) { 
+                                this.Write("^");
+                            }
                             break;
 
                         case AssignmentOperatorType.Modulus:
@@ -683,11 +685,29 @@ namespace Bridge.Translator
                 this.WriteComma();
             }
 
-            if (!special && isBool && (assignmentExpression.Operator == AssignmentOperatorType.BitwiseAnd || assignmentExpression.Operator == AssignmentOperatorType.BitwiseOr))
+            if (!special && isBool && (assignmentExpression.Operator == AssignmentOperatorType.BitwiseAnd || assignmentExpression.Operator == AssignmentOperatorType.BitwiseOr || assignmentExpression.Operator == AssignmentOperatorType.ExclusiveOr))
             {
-                this.Write("!!(");
+                if (assignmentExpression.Operator != AssignmentOperatorType.ExclusiveOr)
+                {
+                    this.Write("!!(");
+                }
+                
                 assignmentExpression.Left.AcceptVisitor(this.Emitter);
-                this.Write(assignmentExpression.Operator == AssignmentOperatorType.BitwiseAnd ? " & " : " | ");
+
+                string op = null;
+                switch(assignmentExpression.Operator)
+                {
+                    case AssignmentOperatorType.BitwiseAnd:
+                        op = " & ";
+                        break;
+                    case AssignmentOperatorType.BitwiseOr:
+                        op = " | ";
+                        break;
+                    case AssignmentOperatorType.ExclusiveOr:
+                        op = " != ";
+                        break;
+                }
+                this.Write(op);
             }
 
             oldValue = this.Emitter.ReplaceAwaiterByVar;
