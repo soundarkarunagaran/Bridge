@@ -3,9 +3,17 @@ using System.Reflection;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The test here consists on ensuring the [Name] attribute can be used
+    /// also in class constructor methods.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3893 - {0}")]
     public class Bridge3893
     {
+        /// <summary>
+        /// External class with an external constructor (both will be defined
+        /// with comment-at scripts.
+        /// </summary>
         [External]
         [Reflectable]
         [Name("Bridge3893_TestClass")]
@@ -21,6 +29,10 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             public int prop;
         }
 
+        /// <summary>
+        /// Draft the external implementation of the class and make a reference
+        /// to it, ensuring the expected code is generated.
+        /// </summary>
         [Test]
         public static void TestCtorName()
         {
@@ -34,10 +46,10 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
              @*/
 
             var c1 = new TestClass();
-            Assert.AreEqual(1, c1.prop);
+            Assert.AreEqual(1, c1.prop, "Bridge-named external class' constructor works.");
 
             var c2 = new TestClass("");
-            Assert.AreEqual(2, c2.prop);
+            Assert.AreEqual(2, c2.prop, "User-named external class' constructor works.");
         }
     }
 }
