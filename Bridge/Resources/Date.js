@@ -264,7 +264,7 @@
             format: function (d, f, p) {
                 var me = this,
                     kind = d.kind || 0,
-                    isUtc = (kind === 1),
+                    isUtc = (kind === 1 || ["u", "r", "R"].indexOf(f) > -1),
                     df = (p || System.Globalization.CultureInfo.getCurrentCulture()).getFormat(System.Globalization.DateTimeFormatInfo),
                     year = isUtc ? d.getUTCFullYear() : d.getFullYear(),
                     month = isUtc ? d.getUTCMonth() : d.getMonth(),
