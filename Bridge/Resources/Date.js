@@ -1091,12 +1091,24 @@
             },
 
             addDays: function (d, v) {
-                var d1 = new Date(d.getTime());
+                var kind = (d.kind !== undefined) ? d.kind : 0,
+                    h = d.getUTCHours(),
+                    m = d.getUTCMinutes(),
+                    s = d.getUTCSeconds(),
+                    ms = d.getUTCMilliseconds(),
+                    dt = new Date(d.getTime());
 
-                d1.setDate(d1.getDate() + Math.floor(v));
-                d1.kind = (d.kind !== undefined) ? d.kind : 0;
+                dt.setUTCDate(d.getUTCDate() + v);
+                dt.setUTCHours(h);
+                dt.setUTCMinutes(m);
+                dt.setUTCSeconds(s);
+                dt.setUTCMilliseconds(ms);
 
-                return v % 1 !== 0 ? this.addMilliseconds(d1, Math.round((v % 1) * 864e5)) : d1;
+                dt.kind = kind;
+                dt = v % 1 !== 0 ? this.addMilliseconds(dt, Math.round((v % 1) * 864e5)) : dt;
+                dt.ticks = this.getTicks(dt);
+
+                return dt
             },
 
             addHours: function (d, v) {
