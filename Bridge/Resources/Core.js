@@ -1508,7 +1508,7 @@
                 return a < b ? -1 : (a > b ? 1 : 0);
             } else if (Bridge.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
-                    return Bridge.compare(a.ticks, b.ticks);
+                    return Bridge.compare(System.DateTime.getTicks(a), System.DateTime.getTicks(b));
                 }
 
                 return Bridge.compare(a.valueOf(), b.valueOf());
@@ -1570,7 +1570,7 @@
                 return a === b;
             } else if (Bridge.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
-                    return a.ticks.equals(b.ticks);
+                    return System.DateTime.getTicks(a).equals(System.DateTime.getTicks(b));
                 }
 
                 return a.valueOf() === b.valueOf();
