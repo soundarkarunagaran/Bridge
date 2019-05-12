@@ -27,7 +27,7 @@
 
             getDefaultValue: function () {
                 if (this.$default === null) {
-                    this.$default = this.create(1, 1, 1, 0, 0, 0, 0, 0);
+                    this.$default = this.getMinValue();
                 }
 
                 return this.$default;
