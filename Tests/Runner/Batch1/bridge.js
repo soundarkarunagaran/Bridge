@@ -44608,6 +44608,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = System.IO.FileStream.ReadBytesAsync(this.name);
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -45851,6 +45852,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = this.stream.EnsureBufferAsync();
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -45862,6 +45864,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 3: {
                                         $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
                                         $step = 4;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody);
                                         return;
                                     }

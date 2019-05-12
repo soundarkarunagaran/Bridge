@@ -2133,6 +2133,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 1: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -2169,6 +2170,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 5: {
                                             $task2 = System.Threading.Tasks.Task.delay(1);
                                             $step = 6;
+                                            if ($task2.isCompleted()) continue;
                                             $task2.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -2211,6 +2213,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 10: {
                                             $task3 = System.Threading.Tasks.Task.delay(1);
                                             $step = 11;
+                                            if ($task3.isCompleted()) continue;
                                             $task3.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -2325,6 +2328,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 2: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 3;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -2714,6 +2718,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1189.FooLong();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -2724,6 +2729,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
 
                                         $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1189.FooDecimal();
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -2759,6 +2765,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -2797,6 +2804,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -4248,6 +4256,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.TestIntResult();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -4285,6 +4294,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.TestClassResult();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -4324,6 +4334,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.TestStructResult();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -4364,6 +4375,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.fromResult(10, System.Int32);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -4404,6 +4416,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.fromResult(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.DataClass(), $t.Value = 11, $t), Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.DataClass);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -4444,6 +4457,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.fromResult(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.DataStruct(), $t.Value = 12, $t), Bridge.ClientTest.Batch3.BridgeIssues.Bridge1305.DataStruct);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -8202,6 +8216,7 @@ Bridge.$N1391Result =                     r;
                                     });
                                     $task1 = bar();
                                     $step = 1;
+                                    if ($task1.isCompleted()) continue;
                                     $task1.continueWith($asyncBody, true);
                                     return;
                                 }
@@ -8530,6 +8545,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -8574,6 +8590,7 @@ Bridge.$N1391Result =                     r;
                                     done = Bridge.Test.NUnit.Assert.Async();
                                     $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1641.Test();
                                     $step = 1;
+                                    if ($task1.isCompleted()) continue;
                                     $task1.continueWith($asyncBody, true);
                                     return;
                                 }
@@ -11598,6 +11615,7 @@ Bridge.$N1391Result =                     r;
                                                         case 0: {
                                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                                             $step = 1;
+                                                            if ($task1.isCompleted()) continue;
                                                             $task1.continueWith($asyncBody, true);
                                                             return;
                                                         }
@@ -11618,6 +11636,7 @@ Bridge.$N1391Result =                     r;
 
                                     $task1 = task;
                                     $step = 1;
+                                    if ($task1.isCompleted()) continue;
                                     $task1.continueWith($asyncBody, true);
                                     return;
                                 }
@@ -14240,6 +14259,7 @@ Bridge.$N1391Result =                     r;
                                             //await to force state-machine generation
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -14319,6 +14339,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2081.TestMethod();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -17731,6 +17752,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 3;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -18020,6 +18042,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2462.ValidateAsync();
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -18066,6 +18089,7 @@ Bridge.$N1391Result =                     r;
 
                                             $task1 = System.Threading.Tasks.Task.fromResult(result, System.Collections.Generic.List$1(System.String));
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -18117,6 +18141,7 @@ Bridge.$N1391Result =                     r;
 
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2462.TestAsync();
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -18333,6 +18358,7 @@ Bridge.$N1391Result =                     r;
                                         case 1: {
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2481.bug6_m();
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -18347,6 +18373,7 @@ Bridge.$N1391Result =                     r;
 
                                             $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2481.bug6_m();
                                             $step = 3;
+                                            if ($task2.isCompleted()) continue;
                                             $task2.continueWith($asyncBody);
                                             return;
                                         }
@@ -18417,6 +18444,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2481.bug6();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -18696,6 +18724,7 @@ Bridge.$N1391Result =                     r;
 
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -18746,6 +18775,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2502.Test();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -18859,6 +18889,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2523.Class1.ReturnObject(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2523.Class2());
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -18893,6 +18924,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2523.Class1Workaround.ReturnObject(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2523.Class2());
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -18936,6 +18968,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = (class2 != null ? class2.ReturnObject2() : null);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -18983,6 +19016,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = (class2 != null ? class2.ReturnObject2() : null);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -19160,6 +19194,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -19219,6 +19254,7 @@ Bridge.$N1391Result =                     r;
                                             action();
                                         });
                                         $step = 3;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -19665,6 +19701,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20457,6 +20494,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task2 = c.GetStr("2");
                                         $step = 3;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20516,6 +20554,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task2 = c.ShouldNotBeInvokedAsync(System.String, "1");
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20528,6 +20567,7 @@ Bridge.$N1391Result =                     r;
                                     case 3: {
                                         $task3 = c.GetStr("2");
                                         $step = 4;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20585,6 +20625,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task2 = c.GetStr("1");
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20649,6 +20690,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task2 = c.GetStr("1");
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20661,6 +20703,7 @@ Bridge.$N1391Result =                     r;
                                     case 3: {
                                         $task3 = c.ShouldNotBeInvokedAsync(System.String, "2");
                                         $step = 4;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20725,6 +20768,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task2 = c.GetStr("3");
                                         $step = 3;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20732,6 +20776,7 @@ Bridge.$N1391Result =                     r;
                                         $taskResult2 = $task2.getAwaitedResult();
                                         $task3 = c.GetStr("2", $taskResult2);
                                         $step = 4;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20799,6 +20844,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task2 = c.GetStr("4");
                                         $step = 3;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20806,6 +20852,7 @@ Bridge.$N1391Result =                     r;
                                         $taskResult2 = $task2.getAwaitedResult();
                                         $task3 = c.GetStr("3", $taskResult2);
                                         $step = 4;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20813,6 +20860,7 @@ Bridge.$N1391Result =                     r;
                                         $taskResult3 = $task3.getAwaitedResult();
                                         $task4 = c.GetStr("2", $taskResult3);
                                         $step = 5;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20875,6 +20923,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task2 = c.GetStr("4");
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20882,6 +20931,7 @@ Bridge.$N1391Result =                     r;
                                         $taskResult2 = $task2.getAwaitedResult();
                                         $task3 = c.GetStr("3", $taskResult2);
                                         $step = 3;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20889,6 +20939,7 @@ Bridge.$N1391Result =                     r;
                                         $taskResult3 = $task3.getAwaitedResult();
                                         $task4 = c.GetStr("2", $taskResult3);
                                         $step = 4;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20977,6 +21028,7 @@ Bridge.$N1391Result =                     r;
                                     case 4: {
                                         $task3 = c.GetStr("3_2");
                                         $step = 5;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20989,6 +21041,7 @@ Bridge.$N1391Result =                     r;
                                     case 6: {
                                         $task4 = c.GetStr("3", $taskResult2);
                                         $step = 7;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -20996,6 +21049,7 @@ Bridge.$N1391Result =                     r;
                                         $taskResult4 = $task4.getAwaitedResult();
                                         $task5 = c.GetStr("2", $taskResult4);
                                         $step = 8;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21072,6 +21126,7 @@ Bridge.$N1391Result =                     r;
                                     case 3: {
                                         $task3 = c.GetStr("2");
                                         $step = 4;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21089,6 +21144,7 @@ Bridge.$N1391Result =                     r;
                                     case 6: {
                                         $task4 = c.ShouldNotBeInvokedAsync(System.String, "3");
                                         $step = 7;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21139,6 +21195,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task2 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21155,6 +21212,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task3 = c.GetStr("2");
                                         $step = 3;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21167,6 +21225,7 @@ Bridge.$N1391Result =                     r;
                                     case 4: {
                                         $task4 = c.ShouldNotBeInvokedAsync(System.String, "3");
                                         $step = 5;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21222,6 +21281,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21238,6 +21298,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", true);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21254,6 +21315,7 @@ Bridge.$N1391Result =                     r;
                                     case 4: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 5;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21266,6 +21328,7 @@ Bridge.$N1391Result =                     r;
                                     case 6: {
                                         $task6 = c.ShouldNotBeInvokedAsync(System.Boolean, "4");
                                         $step = 7;
+                                        if ($task6.isCompleted()) continue;
                                         $task6.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21324,6 +21387,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21340,6 +21404,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", true);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21361,6 +21426,7 @@ Bridge.$N1391Result =                     r;
                                     case 5: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 6;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21414,6 +21480,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21430,6 +21497,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", false);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21451,6 +21519,7 @@ Bridge.$N1391Result =                     r;
                                     case 5: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 6;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21515,6 +21584,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task4 = c.GetBool("1", true);
                                         $step = 2;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21536,6 +21606,7 @@ Bridge.$N1391Result =                     r;
                                     case 4: {
                                         $task5 = c.GetBool("2", true);
                                         $step = 5;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21557,6 +21628,7 @@ Bridge.$N1391Result =                     r;
                                     case 7: {
                                         $task6 = c.GetBool("3", true);
                                         $step = 8;
+                                        if ($task6.isCompleted()) continue;
                                         $task6.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21612,6 +21684,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", false);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21628,6 +21701,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", true);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21644,6 +21718,7 @@ Bridge.$N1391Result =                     r;
                                     case 4: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 5;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21656,6 +21731,7 @@ Bridge.$N1391Result =                     r;
                                     case 6: {
                                         $task6 = c.ShouldNotBeInvokedAsync(System.Boolean, "4");
                                         $step = 7;
+                                        if ($task6.isCompleted()) continue;
                                         $task6.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21714,6 +21790,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", false);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21730,6 +21807,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", false);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21751,6 +21829,7 @@ Bridge.$N1391Result =                     r;
                                     case 5: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 6;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21804,6 +21883,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21820,6 +21900,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", false);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21841,6 +21922,7 @@ Bridge.$N1391Result =                     r;
                                     case 5: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 6;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21905,6 +21987,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task4 = c.GetBool("1", false);
                                         $step = 2;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21926,6 +22009,7 @@ Bridge.$N1391Result =                     r;
                                     case 4: {
                                         $task5 = c.GetBool("2", false);
                                         $step = 5;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -21947,6 +22031,7 @@ Bridge.$N1391Result =                     r;
                                     case 7: {
                                         $task6 = c.GetBool("3", false);
                                         $step = 8;
+                                        if ($task6.isCompleted()) continue;
                                         $task6.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22000,6 +22085,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22016,6 +22102,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", false);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22037,6 +22124,7 @@ Bridge.$N1391Result =                     r;
                                     case 5: {
                                         $task5 = c.GetBool("3", true);
                                         $step = 6;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22090,6 +22178,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task3 = c.GetBool("1", true);
                                         $step = 1;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22106,6 +22195,7 @@ Bridge.$N1391Result =                     r;
                                     case 2: {
                                         $task4 = c.GetBool("2", true);
                                         $step = 3;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22127,6 +22217,7 @@ Bridge.$N1391Result =                     r;
                                     case 5: {
                                         $task5 = c.GetBool("3", false);
                                         $step = 6;
+                                        if ($task5.isCompleted()) continue;
                                         $task5.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22182,6 +22273,7 @@ Bridge.$N1391Result =                     r;
                                         this.tracker.append(tag);
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -22220,6 +22312,7 @@ Bridge.$N1391Result =                     r;
                                     case 0: {
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -22263,6 +22356,7 @@ Bridge.$N1391Result =                     r;
                                         this.tracker.append(tag);
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -22596,6 +22690,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -22634,6 +22729,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -22674,6 +22770,7 @@ Bridge.$N1391Result =                     r;
                                         longResult = System.Int64(0);
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2720.TestLong();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22714,6 +22811,7 @@ Bridge.$N1391Result =                     r;
                                         decimalResult = System.Decimal(0);
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2720.TestDecimal();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22931,6 +23029,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2763.GetList();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -22968,6 +23067,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2763.f1(new (System.Collections.Generic.List$1(System.Object)).ctor());
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -23044,6 +23144,7 @@ Bridge.$N1391Result =                     r;
                             case 0: {
                                 $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2763.A();
                                 $step = 1;
+                                if ($task1.isCompleted()) continue;
                                 $task1.continueWith($asyncBody);
                                 return;
                             }
@@ -23196,6 +23297,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -23545,6 +23647,7 @@ Bridge.$N1391Result =                     r;
                                         case 1: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -23565,6 +23668,7 @@ Bridge.$N1391Result =                     r;
                                         case 4: {
                                             $task2 = System.Threading.Tasks.Task.delay(1);
                                             $step = 5;
+                                            if ($task2.isCompleted()) continue;
                                             $task2.continueWith($asyncBody);
                                             return;
                                         }
@@ -23624,6 +23728,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2847.Test1();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -24474,6 +24579,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2918.P();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -24536,6 +24642,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2918.GetInstance();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -24642,6 +24749,7 @@ Bridge.$N1391Result =                     r;
                                         a = 3;
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2931._3();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -26374,6 +26482,7 @@ Bridge.$N1391Result =                     r;
                                     case 1: {
                                         $task1 = sr.ReadToEndAsync();
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -29560,6 +29669,7 @@ Bridge.$N1391Result =                     r;
                                         t2 = Bridge.cast(t, System.Threading.Tasks.Task$1(System.Int32));
                                         $task1 = t2;
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -30147,6 +30257,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = System.Threading.Tasks.Task.delay(1000);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -30235,6 +30346,7 @@ Bridge.$N1391Result =                     r;
                                         // wait for second click
                                         $task1 = this.source.task;
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30245,6 +30357,7 @@ Bridge.$N1391Result =                     r;
                                         // do some finishing
                                         $task2 = this.Method4();
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody);
                                         return;
                                     }
@@ -30288,6 +30401,7 @@ Bridge.$N1391Result =                     r;
                                         //do some finishing
                                         $task1 = this.Method3();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30328,6 +30442,7 @@ Bridge.$N1391Result =                     r;
                                         // call whatever
                                         $task1 = this.Method5();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30372,6 +30487,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = this.Method5();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30456,6 +30572,7 @@ Bridge.$N1391Result =                     r;
                                         // wait for second click
                                         $task1 = this.source.task;
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30466,6 +30583,7 @@ Bridge.$N1391Result =                     r;
                                         // do some finishing
                                         $task2 = this.Method4();
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody);
                                         return;
                                     }
@@ -30509,6 +30627,7 @@ Bridge.$N1391Result =                     r;
                                         //do some finishing
                                         $task1 = this.Method3();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30549,6 +30668,7 @@ Bridge.$N1391Result =                     r;
                                         // call whatever
                                         $task1 = this.Method5();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -30591,6 +30711,7 @@ Bridge.$N1391Result =                     r;
                                         iStoreValue = this.iTestData;
                                         $task1 = this.Method5();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -35230,6 +35351,7 @@ Bridge.$N1391Result =                     r;
 
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -35279,6 +35401,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3743.TestAsync();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -36526,6 +36649,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = deleg();
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -36595,6 +36719,7 @@ Bridge.$N1391Result =                     r;
                                         Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.ready = false;
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.TestAsync(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.Test);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -36606,6 +36731,7 @@ Bridge.$N1391Result =                     r;
                                         Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.ready = false;
                                         $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.TestAsync($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.f1);
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -36647,6 +36773,7 @@ Bridge.$N1391Result =                     r;
                             case 0: {
                                 $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3836.Test();
                                 $step = 1;
+                                if ($task1.isCompleted()) continue;
                                 $task1.continueWith($asyncBody);
                                 return;
                             }
@@ -36742,6 +36869,83 @@ Bridge.$N1391Result =                     r;
         props: {
             Id: null,
             data: 0
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3951", {
+        statics: {
+            methods: {
+                TestAwaitFinished: function () {
+                    var count = System.Array.init(1, 0, System.Int32);
+                    var t = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3951.TightLoop(count);
+                    Bridge.Test.NUnit.Assert.AreEqual(10000, count[System.Array.index(0, count)]);
+                },
+                TightLoop: function (count) {
+                    var $step = 0,
+                        $task1, 
+                        $jumpFromFinally, 
+                        $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                        $returnValue, 
+                        finished, 
+                        i, 
+                        $async_e, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    $step = System.Array.min([0,1,2,3,4,5], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            finished = System.Threading.Tasks.Task.fromResult(null, System.String);
+                                            i = 0;
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            if ( i < 10000 ) {
+                                                $step = 2;
+                                                continue;
+                                            }
+                                            $step = 5;
+                                            continue;
+                                        }
+                                        case 2: {
+                                            $task1 = finished;
+                                            $step = 3;
+                                            if ($task1.isCompleted()) continue;
+                                            $task1.continueWith($asyncBody);
+                                            return;
+                                        }
+                                        case 3: {
+                                            $task1.getAwaitedResult();
+                                            count[System.Array.index(0, count)] = (count[System.Array.index(0, count)] + 1) | 0;
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 4: {
+                                            i = (i + 1) | 0;
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 5: {
+                                            $tcs.setResult(null);
+                                            return;
+                                        }
+                                        default: {
+                                            $tcs.setResult(null);
+                                            return;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                $tcs.setException($async_e);
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                    return $tcs.task;
+                }
+            }
         }
     });
 
@@ -37213,6 +37417,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.DoSomethingAsync();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -37261,6 +37466,7 @@ Bridge.$N1391Result =                     r;
                                             i = 0;
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.InitPage();
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -37284,6 +37490,7 @@ Bridge.$N1391Result =                     r;
                                         case 4: {
                                             $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.NextPage();
                                             $step = 5;
+                                            if ($task2.isCompleted()) continue;
                                             $task2.continueWith($asyncBody);
                                             return;
                                         }
@@ -37298,6 +37505,7 @@ Bridge.$N1391Result =                     r;
                                             i = 0;
                                             $task3 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.InitPage();
                                             $step = 7;
+                                            if ($task3.isCompleted()) continue;
                                             $task3.continueWith($asyncBody);
                                             return;
                                         }
@@ -37357,6 +37565,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(0);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -37396,6 +37605,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(0);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -40182,6 +40392,7 @@ Bridge.$N1391Result =                     r;
                                         c = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge690A();
                                         $task1 = c.Start();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -40217,6 +40428,7 @@ Bridge.$N1391Result =                     r;
                                         done = Bridge.Test.NUnit.Assert.Async();
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge690B.Start();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -40266,6 +40478,7 @@ Bridge.$N1391Result =                     r;
                                     case 0: {
                                         $task1 = System.Threading.Tasks.Task.delay(100);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -40305,6 +40518,7 @@ Bridge.$N1391Result =                     r;
                                     case 0: {
                                         $task1 = this.AsyncSum(2, 3);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -40357,6 +40571,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(100);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -40396,6 +40611,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge690B.AsyncSum(19, 23);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -42050,6 +42266,7 @@ Bridge.$N1391Result =                     r;
 
                                             $task1 = task;
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -42108,6 +42325,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge830.TestMethod("", false);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42118,6 +42336,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge830.TestMethod("", true);
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42708,6 +42927,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -42752,6 +42972,7 @@ Bridge.$N1391Result =                     r;
                                         sum = 0;
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge906.myfunc();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42773,6 +42994,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge906.myfunc();
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42813,6 +43035,7 @@ Bridge.$N1391Result =                     r;
                                         sum = 0;
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge906.myfunc();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42836,6 +43059,7 @@ Bridge.$N1391Result =                     r;
 
                                         $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge906.myfunc();
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42899,6 +43123,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -42938,6 +43163,7 @@ Bridge.$N1391Result =                     r;
                                         result = 0;
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge912.myfunc();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -42997,6 +43223,7 @@ Bridge.$N1391Result =                     r;
                                         a = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge918();
                                         $task1 = a.Test();
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -43036,6 +43263,7 @@ Bridge.$N1391Result =                     r;
                                     case 0: {
                                         $task1 = System.Threading.Tasks.Task.delay(1);
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -43106,6 +43334,7 @@ Bridge.$N1391Result =                     r;
                                         case 1: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -43189,6 +43418,7 @@ Bridge.$N1391Result =                     r;
                                         case 1: {
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge929.Test();
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
@@ -43245,6 +43475,7 @@ Bridge.$N1391Result =                     r;
                                         case 1: {
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -43312,6 +43543,7 @@ Bridge.$N1391Result =                     r;
                                         case 0: {
                                             $task1 = System.Threading.Tasks.Task.fromResult(1, System.Int32);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -43355,6 +43587,7 @@ Bridge.$N1391Result =                     r;
                                             res = true;
                                             $task1 = System.Threading.Tasks.Task.delay(1);
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody);
                                             return;
                                         }
@@ -43370,6 +43603,7 @@ Bridge.$N1391Result =                     r;
                                         case 2: {
                                             $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge930.Test();
                                             $step = 3;
+                                            if ($task2.isCompleted()) continue;
                                             $task2.continueWith($asyncBody);
                                             return;
                                         }
@@ -43381,6 +43615,7 @@ Bridge.$N1391Result =                     r;
                                         case 4: {
                                             $task3 = System.Threading.Tasks.Task.delay(1);
                                             $step = 5;
+                                            if ($task3.isCompleted()) continue;
                                             $task3.continueWith($asyncBody);
                                             return;
                                         }
@@ -43426,6 +43661,7 @@ Bridge.$N1391Result =                     r;
                                         case 1: {
                                             $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge930.Test1();
                                             $step = 2;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
