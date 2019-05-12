@@ -50,14 +50,15 @@
             getMaxValue: function () {
                 if (this.$max === null) {
                     this.$max = this.create$2(this.MaxTicks, 0);
-                    this.$max.ticks = this.MaxTicks;
                 }
 
                 return this.$max;
             },
 
+            // Return the TimezoneOffset in Ticks
             $getTzOffset: function (d) {
-                return d.getTimezoneOffset() * 60 * 1000;
+                // 60 seconds * 1000 milliseconds * 10000
+                return System.Int64(d.getTimezoneOffset()).mul(600000000);
             },
 
             // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
@@ -65,11 +66,7 @@
                 d.kind = (d.kind !== undefined) ? d.kind : 0
 
                 if (d.ticks === undefined) {
-                    if (d.kind === 1) {
-                        d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$minOffset);
-                    } else {
-                        d.ticks = System.Int64(d.getTime() - this.$getTzOffset(d)).mul(10000).add(this.$minOffset);
-                    }
+                    d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$minOffset);
                 }
 
                 return d.ticks;
@@ -79,10 +76,6 @@
                 var d1,
                     ticks = this.getTicks(d);
 
-                if (d.kind !== 2) {
-                    ticks = d.ticks.sub(System.Int64(this.$getTzOffset(d)).mul(10000));
-                }
-
                 d1 = this.create$2(ticks, 2);
 
                 // Check if Ticks are out of range
@@ -90,8 +83,7 @@
                     if (throwOnOverflow && throwOnOverflow === true) {
                         throw new System.ArgumentException.$ctor1("Specified argument was out of the range of valid values.");
                     } else {
-                        ticks = ticks.add(System.Int64(this.$getTzOffset(d1)).mul(10000));
-                        d1 = this.create$2(ticks, 2);
+                        d1 = this.create$2(ticks.add(this.$getTzOffset(d1)), 2);
                     }
                 }
 
@@ -104,14 +96,14 @@
 
                 // Assuming d is Local time, so adjust to UTC
                 if (d.kind !== 1) {
-                    ticks = ticks.add(System.Int64(this.$getTzOffset(d)).mul(10000));
+                    ticks = ticks.add(this.$getTzOffset(d));
                 }
 
                 d1 = this.create$2(ticks, 1);
 
                 // Check if Ticks are out of range
                 if (ticks.gt(this.MaxTicks) || ticks.lt(0)) {
-                    ticks = ticks.sub(System.Int64(this.$getTzOffset(d1)).mul(10000));
+                    ticks = ticks.sub(this.$getTzOffset(d1));
                     d1 = this.create$2(ticks, 1);
                 }
 
@@ -128,20 +120,18 @@
                 millisecond = (millisecond !== undefined) ? millisecond : 0;
                 kind = (kind !== undefined) ? kind : 0;
 
-                var d,
-                    ticks;
-
-                d = new Date(year, month - 1, day, hour, minute, second, millisecond);
-                d.setFullYear(year);
-
-                ticks = this.getTicks(d);
+                var d;
 
                 if (kind === 1) {
-                    d = new Date(d.getTime() - this.$getTzOffset(d))
+                    d = new Date(Date.UTC(year, month - 1, day, hour, minute, second, millisecond));
+                    d.setUTCFullYear(year);
+                } else {
+                    d = new Date(year, month - 1, day, hour, minute, second, millisecond);
+                    d.setFullYear(year);
                 }
 
                 d.kind = kind;
-                d.ticks = ticks;
+                d.ticks = this.getTicks(d);
 
                 return d;
             },
@@ -149,31 +139,20 @@
             create$1: function (date, kind) {
                 kind = (kind !== undefined) ? kind : 0;
 
-                var d;
-
                 if (kind === 1) {
-                    d = this.create(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds(), kind);
+                    return this.create(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds(), kind);
                 } else {
-                    d = this.create(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), kind);
+                    return this.create(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), kind);
                 }
-
-                d.ticks = this.getTicks(d)
-
-                return d;
             },
 
             create$2: function (ticks, kind) {
                 ticks = System.Int64.is64Bit(ticks) ? ticks : System.Int64(ticks);
-                kind = (kind !== undefined) ? kind : 0
 
                 var d = new Date(ticks.sub(this.$minOffset).div(10000).toNumber());
 
-                if (kind !== 1) {
-                    d = new Date(d.getTime() + this.$getTzOffset(d));
-                }
-
                 d.ticks = ticks;
-                d.kind = kind;
+                d.kind = (kind !== undefined) ? kind : 0;
 
                 return d;
             },
@@ -990,13 +969,13 @@
 
                 if (kind === 2) {
                     if (adjust === true) {
-                        d = new Date(d.getTime() - this.$getTzOffset(d));
-                        d.kind = kind;
+                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
                     } else if (offset !== 0) {
-                        d = new Date(d.getTime() - this.$getTzOffset(d));
+                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
                         d = this.addMilliseconds(d, -offset);
-                        d.kind = kind;
                     }
+
+                    d.kind = kind;
                 }
 
                 return d;
@@ -1083,9 +1062,10 @@
                     day = d.getDate();
 
                 dt.setDate(1);
-                dt.setMonth(dt.getMonth() + v * 1);
+                dt.setMonth(dt.getMonth() + v);
                 dt.setDate(Math.min(day, this.getDaysInMonth(dt.getFullYear(), dt.getMonth() + 1)));
                 dt.kind = (d.kind !== undefined) ? d.kind : 0;
+                dt.ticks = this.getTicks(dt);
 
                 return dt;
             },
@@ -1112,15 +1092,15 @@
             },
 
             addHours: function (d, v) {
-                return this.addMilliseconds(d, Math.round(v * 36e5));
+                return this.addMilliseconds(d, v * 36e5);
             },
 
             addMinutes: function (d, v) {
-                return this.addMilliseconds(d, Math.round(v * 6e4));
+                return this.addMilliseconds(d, v * 6e4);
             },
 
             addSeconds: function (d, v) {
-                return this.addMilliseconds(d, Math.round(v * 1e3));
+                return this.addMilliseconds(d, v * 1e3);
             },
 
             addMilliseconds: function (d, v) {
