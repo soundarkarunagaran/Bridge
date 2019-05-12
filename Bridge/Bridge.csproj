@@ -1586,7 +1586,6 @@
     <Content Include="Resources\.generated\System\Void.js" />
     <Content Include="Resources\ArraySegment.js" />
     <Content Include="Resources\Bool.js" />
-    <Content Include="Resources\DateTimeHelpers.js" />
     <Content Include="Resources\Diagnostics.js" />
     <Content Include="Resources\Convert.js" />
     <Content Include="Resources\Enum.js" />
