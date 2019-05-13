@@ -1,6 +1,4 @@
-﻿using Bridge;
-
-namespace System.Text.RegularExpressions
+﻿namespace System.Text.RegularExpressions
 {
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     public sealed class Regex
@@ -270,9 +268,9 @@ namespace System.Text.RegularExpressions
         #endregion Static members
     }
 
-    [External]
-    [Name("RegExp")]
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method | ConventionMember.Property, Notation = Bridge.Notation.CamelCase)]
+    [Bridge.External]
+    [Bridge.Name("RegExp")]
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method | Bridge.ConventionMember.Property, Notation = Bridge.Notation.CamelCase)]
     internal class RegExp
     {
         public extern RegExp(string pattern);
@@ -311,9 +309,9 @@ namespace System.Text.RegularExpressions
         public extern bool Test(string s);
     }
 
-    [External]
-    [Name("RegexMatch")]
-    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method | ConventionMember.Property, Notation = Bridge.Notation.CamelCase)]
+    [Bridge.External]
+    [Bridge.Name("RegexMatch")]
+    [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method | Bridge.ConventionMember.Property, Notation = Bridge.Notation.CamelCase)]
     internal class RegexMatch
     {
         public int Index { get; set; }
