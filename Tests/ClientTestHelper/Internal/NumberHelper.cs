@@ -82,14 +82,14 @@ namespace Bridge.ClientTestHelper
             Assert.AreEqual(expected.ToString(), actual.ToString(), message + " representation");
         }
 
-        public static void AssertDoubleWithEpsilon8(double expected, double actual)
+        public static void AssertDoubleWithEpsilon8(double expected, double actual, string description = null)
         {
             var se = expected.ToString();
             var sa = actual.ToString();
 
             if (sa == se)
             {
-                Assert.True(true, "Actual:" + actual + " vs Expected:" + expected);
+                Assert.True(true, description ?? "Actual:" + actual + " vs Expected:" + expected);
                 return;
             }
 
@@ -99,7 +99,7 @@ namespace Bridge.ClientTestHelper
                 diff = -diff;
             }
 
-            Assert.True(diff < 1e-8, "Expected " + expected + " but was " + actual);
+            Assert.True(diff < 1e-8, description ?? "Expected " + expected + " but was " + actual);
         }
 
         public static void AssertDoubleTryParse(bool r, double expected, string s, string message)
