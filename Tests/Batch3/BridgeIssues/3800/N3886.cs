@@ -1,19 +1,67 @@
 using Bridge.Test.NUnit;
 using System;
-using System.Reflection;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The tests here consists in ensuring that templates combined with object
+    /// initializer syntax works right in different (but identical,
+    /// technically) scenarios.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3886 - {0}")]
     public class Bridge3886
     {
-        public class TestNoTpl
+        /// <summary>
+        /// Bare minimum set up to reproduce the issue.
+        /// </summary>
+        public class TestBare
         {
-            public TimeSpan One;
-            public TimeSpan Two;
-            public TimeSpan Three;
+            public int A
+            {
+                get;
+                [Template("{this}.A = {value}")]
+                set;
+            }
+
+            public string B
+            {
+                get;
+                [Template("{this}.B = {value}")]
+                set;
+            }
         }
 
+        /// <summary>
+        /// Simpler approach than the reported one, still enough to reproduce
+        /// the issue.
+        /// </summary>
+        public class TestSimpler
+        {
+            public TimeSpan One
+            {
+                get;
+                [Template("{this}.One = Bridge.toString({value})")]
+                set;
+            }
+
+            public TimeSpan Two
+            {
+                get;
+                [Template("{this}.Two = Bridge.toString({value})")]
+                set;
+            }
+
+            public TimeSpan Three
+            {
+                get;
+                [Template("{this}.Three = Bridge.toString({value})")]
+                set;
+            }
+        }
+
+        /// <summary>
+        /// Originally provided scenario to reproduce the issue.
+        /// </summary>
         public class Test
         {
             public TimeSpan One
@@ -41,74 +89,42 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             }
         }
 
-        public class TestSimpler
-        {
-            public TimeSpan One
-            {
-                get;
-                [Template("{this}.One = Bridge.toString({value})")]
-                set;
-            }
-
-            public TimeSpan Two
-            {
-                get;
-                [Template("{this}.Two = Bridge.toString({value})")]
-                set;
-            }
-
-            public TimeSpan Three
-            {
-                get;
-                [Template("{this}.Three = Bridge.toString({value})")]
-                set;
-            }
-        }
-
+        /// <summary>
+        /// Tests the different scenarios in order of complexity.
+        /// </summary>
         [Test]
         public static void TestTemplateObjectInitializer()
         {
-            var test = new TestNoTpl()
+            var bare = new TestBare()
+            {
+                A = 5,
+                B = "test"
+            };
+
+            Assert.AreEqual(5, bare.A, "Object initializer syntax works with template/bare 1/2.");
+            Assert.AreEqual("test", bare.B, "Object initializer syntax works with template/bare 2/2.");
+
+            var simpler = new TestSimpler()
             {
                 One = TimeSpan.FromDays(1),
                 Two = TimeSpan.FromDays(2),
                 Three = TimeSpan.FromDays(3)
             };
 
-            Assert.True(TimeSpan.FromDays(1) == test.One);
-            Assert.True(TimeSpan.FromDays(2) == test.Two);
-            Assert.True(TimeSpan.FromDays(3) == test.Three);
+            Assert.AreEqual("1.00:00:00", simpler.One, "Object initializer syntax works with template/simple 1/3.");
+            Assert.AreEqual("2.00:00:00", simpler.Two, "Object initializer syntax works with template/simple 2/3.");
+            Assert.AreEqual("3.00:00:00", simpler.Three, "Object initializer syntax works with template/simple 3/3.");
 
-            var test1 = new Test()
+            var original = new Test()
             {
                 One = TimeSpan.FromDays(1),
                 Two = TimeSpan.FromDays(2),
                 Three = TimeSpan.FromDays(3)
             };
 
-            Assert.True(TimeSpan.FromDays(1) == test1.One);
-            Assert.True(TimeSpan.FromDays(2) == test1.Two);
-            Assert.True(TimeSpan.FromDays(3) == test1.Three);
-
-            var test2 = new Test();
-            test2.One = TimeSpan.FromDays(1);
-            test2.Two = TimeSpan.FromDays(2);
-            test2.Three = TimeSpan.FromDays(3);
-
-            Assert.True(TimeSpan.FromDays(1) == test2.One);
-            Assert.True(TimeSpan.FromDays(2) == test2.Two);
-            Assert.True(TimeSpan.FromDays(3) == test2.Three);
-
-            var test3 = new TestSimpler()
-            {
-                One = TimeSpan.FromDays(1),
-                Two = TimeSpan.FromDays(2),
-                Three = TimeSpan.FromDays(3)
-            };
-
-            Assert.AreEqual("1.00:00:00", test3.One);
-            Assert.AreEqual("2.00:00:00", test3.Two);
-            Assert.AreEqual("3.00:00:00", test3.Three);
+            Assert.True(TimeSpan.FromDays(1) == original.One, "Object initializer syntax works with template/elaborate 1/3.");
+            Assert.True(TimeSpan.FromDays(2) == original.Two, "Object initializer syntax works with template/elaborate 2/3.");
+            Assert.True(TimeSpan.FromDays(3) == original.Three, "Object initializer syntax works with template/elaborate 3/3.");
         }
     }
 }
