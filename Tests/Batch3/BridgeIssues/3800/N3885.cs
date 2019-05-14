@@ -140,17 +140,17 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
 
                 foreach (var i in test)
                 {
-                    Assert.True((object)i is int);
+                    Assert.True((object)i is int, "The resolved type is int.");
                 }
 
                 foreach (var i in (IEnumerable<string>)test)
                 {
-                    Assert.True((object)i is string);
+                    Assert.True((object)i is string, "The resolved type is string.");
                 }
 
                 foreach (var i in ((IEnumerable<string>)test).Select(d => d))
                 {
-                    Assert.True((object)i is string);
+                    Assert.True((object)i is string, "The resolved type is string.");
                 }
             }
 
@@ -158,11 +158,11 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 IEnumerable<string> test = new StringTest(1);
                 foreach (var i in test)
                 {
-                    Assert.True((object)i is string);
+                    Assert.True((object)i is string, "The resolved type is string.");
                 }
                 foreach (var i in test.Select(d => d))
                 {
-                    Assert.True((object)i is string);
+                    Assert.True((object)i is string, "The resolved type is string.");
                 }
             }
         }
