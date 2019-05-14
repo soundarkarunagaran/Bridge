@@ -450,7 +450,7 @@ namespace Bridge.Translator
                 wrapper = new BlockStatement();
                 wrapper.Statements.Add(new VariableDeclarationStatement(varStat != null ? varStat.Type.Clone() : AstType.Null, name, expression.Clone() as Expression));
             }
-            
+
             var tryCatchStatement = new TryCatchStatement();
             if (wrapper != null)
             {
@@ -723,7 +723,7 @@ namespace Bridge.Translator
 
         private AssignmentExpression BuildMemberReferenceReplacement(BinaryOperatorType opType, MemberReferenceExpression memberExpr, MemberResolveResult member_rr, Expression target, Expression addExpr = null)
         {
-            bool isSimple = (member_rr != null && 
+            bool isSimple = (member_rr != null &&
                            (member_rr.TargetResult is ThisResolveResult ||
                             member_rr.TargetResult is LocalResolveResult ||
                             member_rr.TargetResult is TypeResolveResult ||
@@ -922,7 +922,7 @@ namespace Bridge.Translator
         }
 
         private static BinaryOperatorType ToBinaryOp(AssignmentOperatorType op)
-        {           
+        {
             BinaryOperatorType opType;
             switch (op)
             {

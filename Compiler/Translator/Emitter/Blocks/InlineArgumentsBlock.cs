@@ -853,7 +853,6 @@ namespace Bridge.Translator
                             if (!Emitter.NamedTempVariables.ContainsKey(keyExpr))
                             {
                                 Emitter.NamedTempVariables[keyExpr] = this.GetTempVarName();
-                                //throw new EmitterException(exprs[0], "Primitive expression is required");
                             }
 
                             var tmpVarName = Emitter.NamedTempVariables[keyExpr];
