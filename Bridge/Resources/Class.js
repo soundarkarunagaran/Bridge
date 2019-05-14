@@ -88,20 +88,20 @@
                                 aliases.push({ alias: alias, descriptor: descriptor });
                             } else {
                                 var m;
-								
-								if (scope.hasOwnProperty(name) || !prototype) {
-									m = scope[name];
-									
-									if (m === undefined && prototype) {
-										m = prototype[name];
-									}
-								} else {
-									m = prototype[name];
-									
-									if (m === undefined) {
-										m = scope[name];
-									}
-								}
+
+                                if (scope.hasOwnProperty(name) || !prototype) {
+                                    m = scope[name];
+
+                                    if (m === undefined && prototype) {
+                                        m = prototype[name];
+                                    }
+                                } else {
+                                    m = prototype[name];
+
+                                    if (m === undefined) {
+                                        m = scope[name];
+                                    }
+                                }
 
                                 if (!Bridge.isFunction(m)) {
                                     descriptor = {
