@@ -1,12 +1,19 @@
-using Bridge.Html5;
 using Bridge.Test.NUnit;
 using System;
+using System.Globalization;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The tests here ensures decimal separator character obeys current
+    /// culture between string conversions.
+    /// </summary>
     [TestFixture(TestNameFormat = "#3934 - {0}")]
     public class Bridge3934
     {
+        /// <summary>
+        /// Calls individual batches for each type to be tested.
+        /// </summary>
         [Test]
         public static void TestConvert()
         {
@@ -15,97 +22,181 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             TestDecimal();
         }
 
+        /// <summary>
+        /// Tests single precision floating-point conversion with culture set as parameter or as current culture.
+        /// Will trigger a failed assertion if an exception is thrown during either conversion test.
+        /// </summary>
         public static void TestFloat()
         {
-            var oldCulture = System.Globalization.CultureInfo.CurrentCulture;
+            var oldCulture = CultureInfo.CurrentCulture;
 
-            try
+            float back;
+            float input = 7.5f;
+            string str;
+
+            var convtype = "float";
+
+            // WARNING: GetCultures() here is a stub and corresponds to
+            //   .NET's GetCultures(CultureTypes.AllCultures)
+            foreach (var culture in CultureInfo.GetCultures())
             {
-                float back;
-                float input = 7.5f;
-                System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-                string str = input.ToString();
-                back = Convert.ToSingle(str);
-                Assert.AreEqual(input, back, "Convert back to float using InvariantCulture");
+                var cultureDesc = "\"" + culture.EnglishName + "\" (" + culture.Name + ")";
+                try
+                {
+                    str = input.ToString(culture);
+                    back = Convert.ToSingle(str, culture);
+                    Assert.AreEqual(input, back,
+                        "Decimal separator retained between " + convtype +
+                        "-string conversion in specified " +
+                        cultureDesc + ".");
+                }
+                catch (Exception exc)
+                {
+                    Assert.Fail("Exception thrown while converting between " +
+                        convtype + "-string if specified culture is " +
+                        cultureDesc + " in conversion calls: " + exc.Message);
+                }
 
-                System.Globalization.CultureInfo norwegian = System.Globalization.CultureInfo.GetCultureInfo("nb-NO");
-                str = input.ToString(norwegian);
-                back = Convert.ToSingle(str, norwegian);
-                Assert.AreEqual(input, back, "Convert back to float using Norwegian");
+                try
+                {
+                    CultureInfo.CurrentCulture = culture;
 
-
-                System.Globalization.CultureInfo.CurrentCulture = norwegian;
-
-                str = input.ToString();
-                back = Convert.ToSingle(str);
-                Assert.AreEqual(input, back, "Convert back to float using Norwegian as CurrentCulture");
+                    str = input.ToString();
+                    back = Convert.ToSingle(str);
+                    Assert.AreEqual(input, back,
+                        "Decimal separator retained between " + convtype + "-string conversion in " +
+                        cultureDesc + " when set as current culture.");
+                }
+                catch (Exception exc)
+                {
+                    Assert.Fail("Exception thrown while converting between " +
+                        convtype +
+                        "-string when in conversion call if current culture set to " +
+                        cultureDesc + ": " + exc.Message);
+                }
+                finally
+                {
+                    CultureInfo.CurrentCulture = oldCulture;
+                }
             }
-            finally
-            {
-                System.Globalization.CultureInfo.CurrentCulture = oldCulture;
-            }            
         }
 
+        /// <summary>
+        /// Tests double precision float-point conversion with culture set as parameter or as current culture.
+        /// Will trigger a failed assertion if an exception is thrown during either conversion test.
+        /// </summary>
         public static void TestDouble()
         {
-            var oldCulture = System.Globalization.CultureInfo.CurrentCulture;
+            var oldCulture = CultureInfo.CurrentCulture;
 
-            try
+            double back;
+            double input = 7.5;
+            string str;
+
+            var convtype = "double";
+
+            // WARNING: GetCultures() here is a stub and corresponds to
+            //   .NET's GetCultures(CultureTypes.AllCultures)
+            foreach (var culture in CultureInfo.GetCultures())
             {
-                double back;
-                double input = 7.5;
-                System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-                string str = input.ToString();
-                back = Convert.ToDouble(str);
-                Assert.AreEqual(input, back, "Convert back to double using InvariantCulture");
+                var cultureDesc = "\"" + culture.EnglishName + "\" (" + culture.Name + ")";
+                try
+                {
+                    str = input.ToString(culture);
+                    back = Convert.ToDouble(str, culture);
+                    Assert.AreEqual(input, back,
+                        "Decimal separator retained between " + convtype +
+                        "-string conversion in specified " +
+                        cultureDesc + ".");
+                }
+                catch (Exception exc)
+                {
+                    Assert.Fail("Exception thrown while converting between " +
+                        convtype + "-string if specified culture is " +
+                        cultureDesc + " in conversion calls: " + exc.Message);
+                }
 
-                System.Globalization.CultureInfo norwegian = System.Globalization.CultureInfo.GetCultureInfo("nb-NO");
-                str = input.ToString(norwegian);
-                back = Convert.ToDouble(str, norwegian);
-                Assert.AreEqual(input, back, "Convert back to double using Norwegian");
+                try
+                {
+                    CultureInfo.CurrentCulture = culture;
 
-
-                System.Globalization.CultureInfo.CurrentCulture = norwegian;
-
-                str = input.ToString();
-                back = Convert.ToDouble(str);
-                Assert.AreEqual(input, back, "Convert back to double using Norwegian as CurrentCulture");
+                    str = input.ToString();
+                    back = Convert.ToDouble(str);
+                    Assert.AreEqual(input, back,
+                        "Decimal separator retained between " + convtype + "-string conversion in " +
+                        cultureDesc + " when set as current culture.");
+                }
+                catch (Exception exc)
+                {
+                    Assert.Fail("Exception thrown while converting between " +
+                        convtype +
+                        "-string when in conversion call if current culture set to " +
+                        cultureDesc + ": " + exc.Message);
+                }
+                finally
+                {
+                    CultureInfo.CurrentCulture = oldCulture;
+                }
             }
-            finally
-            {
-                System.Globalization.CultureInfo.CurrentCulture = oldCulture;
-            }            
         }
 
+        /// <summary>
+        /// Tests decimal conversion with culture set as parameter or as current culture.
+        /// Will trigger a failed assertion if an exception is thrown during either conversion test.
+        /// </summary>
         public static void TestDecimal()
         {
-            var oldCulture = System.Globalization.CultureInfo.CurrentCulture;
+            var oldCulture = CultureInfo.CurrentCulture;
 
-            try
+            decimal back;
+            decimal input = 7.5m;
+            string str;
+
+            var convtype = "decimal";
+
+            // WARNING: GetCultures() here is a stub and corresponds to
+            //   .NET's GetCultures(CultureTypes.AllCultures)
+            foreach (var culture in CultureInfo.GetCultures())
             {
-                decimal back;
-                decimal input = 7.5m;
-                System.Globalization.CultureInfo.CurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
-                string str = input.ToString();
-                back = Convert.ToDecimal(str);
-                Assert.AreEqual(input, back, "Convert back to decimal using InvariantCulture");
+                var cultureDesc = "\"" + culture.EnglishName + "\" (" + culture.Name + ")";
+                try
+                {
+                    str = input.ToString(culture);
+                    back = Convert.ToDecimal(str, culture);
+                    Assert.AreEqual(input, back,
+                        "Decimal separator retained between " + convtype +
+                        "-string conversion in specified " +
+                        cultureDesc + ".");
+                }
+                catch (Exception exc)
+                {
+                    Assert.Fail("Exception thrown while converting between " +
+                        convtype + "-string if specified culture is " +
+                        cultureDesc + " in conversion calls: " + exc.Message);
+                }
 
-                System.Globalization.CultureInfo norwegian = System.Globalization.CultureInfo.GetCultureInfo("nb-NO");
-                str = input.ToString(norwegian);
-                back = Convert.ToDecimal(str, norwegian);
-                Assert.AreEqual(input, back, "Convert back to decimal using Norwegian");
+                try
+                {
+                    CultureInfo.CurrentCulture = culture;
 
-
-                System.Globalization.CultureInfo.CurrentCulture = norwegian;
-
-                str = input.ToString();
-                back = Convert.ToDecimal(str);
-                Assert.AreEqual(input, back, "Convert back to decimal using Norwegian as CurrentCulture");
+                    str = input.ToString();
+                    back = Convert.ToDecimal(str);
+                    Assert.AreEqual(input, back,
+                        "Decimal separator retained between " + convtype + "-string conversion in " +
+                        cultureDesc + " when set as current culture.");
+                }
+                catch (Exception exc)
+                {
+                    Assert.Fail("Exception thrown while converting between " +
+                        convtype +
+                        "-string when in conversion call if current culture set to " +
+                        cultureDesc + ": " + exc.Message);
+                }
+                finally
+                {
+                    CultureInfo.CurrentCulture = oldCulture;
+                }
             }
-            finally
-            {
-                System.Globalization.CultureInfo.CurrentCulture = oldCulture;
-            }            
         }
     }
 }
