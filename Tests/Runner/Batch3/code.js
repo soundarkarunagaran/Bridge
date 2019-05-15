@@ -17600,7 +17600,230 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405");
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405", {
+        statics: {
+            methods: {
+                TestDelayWithCancelation: function () {
+                    var $step = 0,
+                        $task1, 
+                        $jumpFromFinally, 
+                        $returnValue, 
+                        done, 
+                        source, 
+                        t, 
+                        ae, 
+                        $async_e, 
+                        $async_e1, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    $step = System.Array.min([0,1,2,3,4], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            done = Bridge.Test.NUnit.Assert.Async();
+                                            source = new System.Threading.CancellationTokenSource();
+
+                                            t = System.Threading.Tasks.Task.run(function () {
+                                                var $step = 0,
+                                                    $task1, 
+                                                    $jumpFromFinally, 
+                                                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                                                    $returnValue, 
+                                                    $async_e, 
+                                                    $asyncBody = Bridge.fn.bind(this, function () {
+                                                        try {
+                                                            for (;;) {
+                                                                $step = System.Array.min([0,1], $step);
+                                                                switch ($step) {
+                                                                    case 0: {
+                                                                        // Support required for .Delay with Token
+                                                                        $task1 = System.Threading.Tasks.Task.delay(100, source.token);
+                                                                        $step = 1;
+                                                                        $task1.continueWith($asyncBody);
+                                                                        return;
+                                                                    }
+                                                                    case 1: {
+                                                                        $task1.getAwaitedResult();
+                                                                        $tcs.setResult(42);
+                                                                        return;
+                                                                    }
+                                                                    default: {
+                                                                        $tcs.setResult(null);
+                                                                        return;
+                                                                    }
+                                                                }
+                                                            }
+                                                        } catch($async_e1) {
+                                                            $async_e = System.Exception.create($async_e1);
+                                                            $tcs.setException($async_e);
+                                                        }
+                                                    }, arguments);
+
+                                                $asyncBody();
+                                                return $tcs.task;
+                                            });
+
+                                            source.cancel();
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            // Support required for .Wait
+                                            $task1 = t.wait();
+                                            $step = 2;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 2: {
+                                            $task1.getAwaitedResult();
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 3: {
+                                            Bridge.Test.NUnit.Assert.True(Bridge.is(ae.InnerException, System.Threading.Tasks.TaskCanceledException));
+                                            $async_e = null;
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 4: {
+                                            Bridge.Test.NUnit.Assert.AreEqual(System.Threading.Tasks.TaskStatus.canceled, t.status);
+
+                                            source.dispose();
+                                            done();
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                if ( $step >= 1 && $step <= 2 ) {
+                                    if (Bridge.is($async_e, System.AggregateException)) {
+                                        ae = $async_e;
+                                        $step = 3;
+                                        $asyncBody();
+                                        return;
+                                    }
+                                }
+                                throw $async_e;
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                },
+                TestDelayWithCancelation2: function () {
+                    var $step = 0,
+                        $task1, 
+                        $taskResult1, 
+                        $jumpFromFinally, 
+                        $returnValue, 
+                        done, 
+                        source, 
+                        t, 
+                        $async_e, 
+                        $async_e1, 
+                        $asyncBody = Bridge.fn.bind(this, function () {
+                            try {
+                                for (;;) {
+                                    $step = System.Array.min([0,1,2,3,4], $step);
+                                    switch ($step) {
+                                        case 0: {
+                                            done = Bridge.Test.NUnit.Assert.Async();
+                                            source = new System.Threading.CancellationTokenSource();
+
+                                            t = System.Threading.Tasks.Task.run(function () {
+                                                var $step = 0,
+                                                    $task1, 
+                                                    $jumpFromFinally, 
+                                                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                                                    $returnValue, 
+                                                    $async_e, 
+                                                    $asyncBody = Bridge.fn.bind(this, function () {
+                                                        try {
+                                                            for (;;) {
+                                                                $step = System.Array.min([0,1], $step);
+                                                                switch ($step) {
+                                                                    case 0: {
+                                                                        // Support required for .Delay with Token
+                                                                        $task1 = System.Threading.Tasks.Task.delay(100, source.token);
+                                                                        $step = 1;
+                                                                        $task1.continueWith($asyncBody);
+                                                                        return;
+                                                                    }
+                                                                    case 1: {
+                                                                        $task1.getAwaitedResult();
+                                                                        $tcs.setResult(42);
+                                                                        return;
+                                                                    }
+                                                                    default: {
+                                                                        $tcs.setResult(null);
+                                                                        return;
+                                                                    }
+                                                                }
+                                                            }
+                                                        } catch($async_e1) {
+                                                            $async_e = System.Exception.create($async_e1);
+                                                            $tcs.setException($async_e);
+                                                        }
+                                                    }, arguments);
+
+                                                $asyncBody();
+                                                return $tcs.task;
+                                            });
+                                            $step = 1;
+                                            continue;
+                                        }
+                                        case 1: {
+                                            $task1 = t.waitt(200);
+                                            $step = 2;
+                                            $task1.continueWith($asyncBody, true);
+                                            return;
+                                        }
+                                        case 2: {
+                                            $taskResult1 = $task1.getAwaitedResult();
+                                            source.cancel();
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 3: {
+                                            Bridge.Test.NUnit.Assert.Fail("Should not be an exception");
+                                            $async_e = null;
+                                            $step = 4;
+                                            continue;
+                                        }
+                                        case 4: {
+                                            Bridge.Test.NUnit.Assert.AreEqual(System.Threading.Tasks.TaskStatus.ranToCompletion, t.status);
+                                            Bridge.Test.NUnit.Assert.AreEqual(42, t.getResult());
+
+                                            source.dispose();
+                                            done();
+                                            return;
+                                        }
+                                        default: {
+                                            return;
+                                        }
+                                    }
+                                }
+                            } catch($async_e1) {
+                                $async_e = System.Exception.create($async_e1);
+                                if ( $step >= 1 && $step <= 2 ) {
+                                    if (Bridge.is($async_e, System.AggregateException)) {
+                                        $step = 3;
+                                        $asyncBody();
+                                        return;
+                                    }
+                                }
+                                throw $async_e;
+                            }
+                        }, arguments);
+
+                    $asyncBody();
+                }
+            }
+        }
+    });
 
     /**
      * This test consists in running async tasks and calling the task's Wait()

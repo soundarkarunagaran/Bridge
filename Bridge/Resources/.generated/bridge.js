@@ -21840,13 +21840,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                         if (Bridge.is(result, System.Threading.Tasks.Task)) {
                             result.continueWith(function () {
-                                if (result.isCanceled()) {
-                                    tcs.setCanceled();
-                                } else if (result.isFaulted()) {
-                                    tcs.setException(result.exception);
+                                if (result.isFaulted() || result.isCanceled()) {
+                                    tcs.setException(result.exception.innerExceptions.Count > 0 ? result.exception.innerExceptions.getItem(0) : result.exception);
                                 } else {
                                     tcs.setResult(result.getAwaitedResult());
-                                }                                
+                                }                                                           
                             });
                         } else {
                             tcs.setResult(result);
@@ -21936,8 +21934,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                 tcs.trySetResult(t);
                                 break;
                             case System.Threading.Tasks.TaskStatus.canceled:
-                                tcs.trySetCanceled();
-                                break;
+                            /*    tcs.trySetCanceled();
+                                break;*/
                             case System.Threading.Tasks.TaskStatus.faulted:
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
@@ -22028,6 +22026,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
         },
 
+        getException: function () {
+            return this.isCanceled() ? null : this.exception;
+        },
+
         waitt: function (timeout, token) {
             var ms = timeout,
                 tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -22080,10 +22082,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             this.continueWith(function () {
                 if (!complete) {
                     complete = true;
-                    if (me.isFaulted()) {
+                    if (me.isFaulted() || me.isCanceled()) {
                         tcs.setException(me.exception);
-                    } else if (me.isCanceled()) {
-                        tcs.setCanceled();
                     } else {
                         tcs.setResult();
                     }  
@@ -22168,7 +22168,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             this.exception = error;
-            this.status = System.Threading.Tasks.TaskStatus.faulted;
+            this.status = this.exception.hasTaskCanceledException && this.exception.hasTaskCanceledException() ? System.Threading.Tasks.TaskStatus.canceled : System.Threading.Tasks.TaskStatus.faulted;
             this.runCallbacks();
 
             return true;
@@ -22179,6 +22179,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return false;
             }
 
+            this.exception = error || new System.AggregateException(null, [new System.Threading.Tasks.TaskCanceledException.$ctor3(this)]);
             this.status = System.Threading.Tasks.TaskStatus.canceled;
             this.runCallbacks();
 
@@ -22202,12 +22203,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
-
                     if (this.exception && this.exception.innerExceptions) {
                         throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                     }
 
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
@@ -22293,7 +22293,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 exception = [exception];
             }
 
-            return this.task.fail(new System.AggregateException(null, exception));
+            exception = new System.AggregateException(null, exception);
+
+            if (exception.hasTaskCanceledException()) {
+                return this.task.cancel(exception);
+            }
+
+            return this.task.fail(exception);
         }
     });
 
@@ -47927,6 +47933,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             return back;
+        },
+
+        hasTaskCanceledException: function () {
+            for (var i = 0; i < this.innerExceptions.Count; i++) {
+                var e = this.innerExceptions.getItem(i);
+                if (Bridge.is(e, System.Threading.Tasks.TaskCanceledException) || (Bridge.is(e, System.AggregateException) && e.hasTaskCanceledException())) {
+                    return true;
+                }
+            }
+            return false;
         },
 
         flatten: function () {

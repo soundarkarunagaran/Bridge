@@ -606,6 +606,8 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#2393 - TestLambdaInLiteral", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2393.TestLambdaInLiteral);
             QUnit.test("#2399 - TestSqrt", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2399.TestSqrt);
             QUnit.test("#2401 - TestArrayInitializer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2401.TestArrayInitializer);
+            QUnit.test("#2405 - TestDelayWithCancelation", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2405.TestDelayWithCancelation);
+            QUnit.test("#2405 - TestDelayWithCancelation2", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2405.TestDelayWithCancelation2);
             QUnit.test("#2406 - TestTaskWait", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2406.TestTaskWait);
             QUnit.test("#2406 - TestTaskWaitWithDelay", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2406.TestTaskWaitWithDelay);
             QUnit.test("#2406 - TestTaskWaitDelayInlineFn", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2406.TestTaskWaitDelayInlineFn);
@@ -10736,6 +10738,20 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2405", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405)],
         $kind: "nested class",
+        statics: {
+            methods: {
+                TestDelayWithCancelation: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2405, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDelayWithCancelation()", $t.Line = "12", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405.TestDelayWithCancelation();
+                },
+                TestDelayWithCancelation2: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2405, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDelayWithCancelation2()", $t.Line = "45", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405.TestDelayWithCancelation2();
+                }
+            }
+        },
         fields: {
             context: null
         },
