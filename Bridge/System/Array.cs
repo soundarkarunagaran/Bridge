@@ -119,8 +119,6 @@ namespace System
         [Bridge.Template("System.Array.trueForAll({array}, {match})")]
         public static extern bool TrueForAll<T>(T[] array, Predicate<T> match);
 
-        public extern Array Concat(params object[] items);
-
         /// <summary>
         /// The indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.
         /// </summary>
