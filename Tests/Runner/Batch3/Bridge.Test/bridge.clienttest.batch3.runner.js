@@ -10733,23 +10733,6 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
         }
     });
 
-    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2405", {
-        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405)],
-        $kind: "nested class",
-        fields: {
-            context: null
-        },
-        methods: {
-            GetContext: function () {
-                var $t;
-                if (this.context == null) {
-                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405", $t.File = "Batch3\\BridgeIssues\\2400\\N2405.cs", $t);
-                }
-                return this.context;
-            }
-        }
-    });
-
     Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge2406", {
         inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2406)],
         $kind: "nested class",

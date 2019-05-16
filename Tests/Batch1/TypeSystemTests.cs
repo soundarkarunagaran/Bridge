@@ -120,5 +120,26 @@ namespace Bridge.ClientTest
             Assert.False(typeof(int).IsAssignableFrom(typeof(E1)), "#31");
             Assert.True(typeof(object).IsAssignableFrom(typeof(E1)), "#32");
         }
+
+        public void IsGetTypeCodeWorks()
+        {
+            Assert.AreEqual(TypeCode.Empty, Type.GetTypeCode(null));
+            Assert.AreEqual(TypeCode.Boolean, Type.GetTypeCode(true.GetType()));
+            Assert.AreEqual(TypeCode.Byte, Type.GetTypeCode(((byte)1).GetType()));
+            Assert.AreEqual(TypeCode.Char, Type.GetTypeCode('a'.GetType()));
+            Assert.AreEqual(TypeCode.DateTime, Type.GetTypeCode(DateTime.Now.GetType()));
+            Assert.AreEqual(TypeCode.Decimal, Type.GetTypeCode((1m).GetType()));
+            Assert.AreEqual(TypeCode.Double, Type.GetTypeCode((1.0).GetType()));
+            Assert.AreEqual(TypeCode.Int16, Type.GetTypeCode(((Int16)1).GetType()));
+            Assert.AreEqual(TypeCode.Int32, Type.GetTypeCode(1.GetType()));
+            Assert.AreEqual(TypeCode.Int64, Type.GetTypeCode(((Int64)1).GetType()));
+            Assert.AreEqual(TypeCode.SByte, Type.GetTypeCode(((SByte)1).GetType()));
+            Assert.AreEqual(TypeCode.Single, Type.GetTypeCode(((float)1).GetType()));
+            Assert.AreEqual(TypeCode.String, Type.GetTypeCode("".GetType()));
+            Assert.AreEqual(TypeCode.UInt16, Type.GetTypeCode(((UInt16)1).GetType()));
+            Assert.AreEqual(TypeCode.UInt32, Type.GetTypeCode(((UInt32)1).GetType()));
+            Assert.AreEqual(TypeCode.UInt64, Type.GetTypeCode(((UInt64)1).GetType()));
+            Assert.AreEqual(TypeCode.Object, Type.GetTypeCode(this.GetType()));
+        }
     }
 }
