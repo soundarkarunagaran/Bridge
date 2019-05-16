@@ -17600,8 +17600,6 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405");
-
     /**
      * This test consists in running async tasks and calling the task's Wait()
      method to wait for the tast execution to finish. At each step, a string

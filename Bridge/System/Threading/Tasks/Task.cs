@@ -6,7 +6,7 @@ namespace System.Threading.Tasks
     [Bridge.Convention(Member = Bridge.ConventionMember.Field | Bridge.ConventionMember.Method, Notation = Bridge.Notation.CamelCase)]
     [Bridge.External]
     [Bridge.Reflectable]
-    public class Task : IDisposable, Bridge.IBridgeClass
+    public class Task : IDisposable, Bridge.IBridgeClass, IAsyncResult
     {
         public extern Task(Action action);
 
@@ -35,6 +35,16 @@ namespace System.Threading.Tasks
 
         [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern TaskStatus Status
+        {
+            get;
+        }
+
+        public object AsyncState
+        {
+            get;
+        }
+
+        public bool CompletedSynchronously
         {
             get;
         }

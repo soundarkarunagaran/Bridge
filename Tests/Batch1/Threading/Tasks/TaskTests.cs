@@ -16,6 +16,15 @@ namespace Bridge.ClientTest.Threading
                 yield return a;
         }
 
+        [Test]
+        public void IAsyncResultWorks()
+        {
+            Task res = new Task(s => { }, "state1");
+            Assert.False(res.IsCompleted);
+            Assert.AreEqual("state1", res.AsyncState);
+            Assert.False(res.CompletedSynchronously);
+        }
+
         [Test(ExpectedCount = 2)]
         public void TaskCompletionSourceTypePropertiesAreCorrect()
         {

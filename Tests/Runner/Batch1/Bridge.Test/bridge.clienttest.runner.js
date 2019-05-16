@@ -3415,6 +3415,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Promise - CompletingPromiseCanBeAwaited", Bridge.Test.Runtime.BridgeClientTestRunner.PromiseTests.CompletingPromiseCanBeAwaited);
             QUnit.test("Promise - FailingPromiseCanBeAwaited", Bridge.Test.Runtime.BridgeClientTestRunner.PromiseTests.FailingPromiseCanBeAwaited);
             QUnit.test("Promise - TaskFromPromiseWithProgressWithoutResultFactoryWorksWhenPromiseProgressesAndCompletes", Bridge.Test.Runtime.BridgeClientTestRunner.PromiseTests.TaskFromPromiseWithProgressWithoutResultFactoryWorksWhenPromiseProgressesAndCompletes);
+            QUnit.test("Tasks - IAsyncResultWorks", Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests.IAsyncResultWorks);
             QUnit.test("Tasks - TaskCompletionSourceTypePropertiesAreCorrect", Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests.TaskCompletionSourceTypePropertiesAreCorrect);
             QUnit.test("Tasks - TaskTypePropertiesAreCorrect", Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests.TaskTypePropertiesAreCorrect);
             QUnit.test("Tasks - TaskCompletionSourceWorksWhenSettingResult", Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests.TaskCompletionSourceWorksWhenSettingResult);
@@ -24693,229 +24694,234 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
         $kind: "nested class",
         statics: {
             methods: {
+                IAsyncResultWorks: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "IAsyncResultWorks()", $t.Line = "19", $t));
+                    t.Fixture.IAsyncResultWorks();
+                },
                 TaskCompletionSourceTypePropertiesAreCorrect: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceTypePropertiesAreCorrect()", $t.Line = "19", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceTypePropertiesAreCorrect()", $t.Line = "28", $t));
                     t.Fixture.TaskCompletionSourceTypePropertiesAreCorrect();
                 },
                 TaskTypePropertiesAreCorrect: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 5, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskTypePropertiesAreCorrect()", $t.Line = "27", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 5, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskTypePropertiesAreCorrect()", $t.Line = "36", $t));
                     t.Fixture.TaskTypePropertiesAreCorrect();
                 },
                 TaskCompletionSourceWorksWhenSettingResult: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenSettingResult()", $t.Line = "41", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenSettingResult()", $t.Line = "50", $t));
                     t.Fixture.TaskCompletionSourceWorksWhenSettingResult();
                 },
                 TaskCompletionSourceWorksWhenSettingASingleException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenSettingASingleException()", $t.Line = "78", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenSettingASingleException()", $t.Line = "87", $t));
                     t.Fixture.TaskCompletionSourceWorksWhenSettingASingleException();
                 },
                 TaskCompletionSourceWorksWhenSettingTwoExceptions: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 14, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenSettingTwoExceptions()", $t.Line = "125", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 14, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenSettingTwoExceptions()", $t.Line = "134", $t));
                     t.Fixture.TaskCompletionSourceWorksWhenSettingTwoExceptions();
                 },
                 TaskCompletionSourceWorksWhenCancelling: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenCancelling()", $t.Line = "173", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TaskCompletionSourceWorksWhenCancelling()", $t.Line = "182", $t));
                     t.Fixture.TaskCompletionSourceWorksWhenCancelling();
                 },
                 CancelledTaskThrowsTaskCanceledExceptionWhenAwaited: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CancelledTaskThrowsTaskCanceledExceptionWhenAwaited()", $t.Line = "215", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CancelledTaskThrowsTaskCanceledExceptionWhenAwaited()", $t.Line = "224", $t));
                     t.Fixture.CancelledTaskThrowsTaskCanceledExceptionWhenAwaited();
                 },
                 CancelledTaskThrowsAggregateExceptionWithTaskCanceledExceptionWhenResultIsAccessed: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CancelledTaskThrowsAggregateExceptionWithTaskCanceledExceptionWhenResultIsAccessed()", $t.Line = "250", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CancelledTaskThrowsAggregateExceptionWithTaskCanceledExceptionWhenResultIsAccessed()", $t.Line = "259", $t));
                     t.Fixture.CancelledTaskThrowsAggregateExceptionWithTaskCanceledExceptionWhenResultIsAccessed();
                 },
                 SetResultFailsWhenTheTaskIsCompleted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetResultFailsWhenTheTaskIsCompleted()", $t.Line = "271", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetResultFailsWhenTheTaskIsCompleted()", $t.Line = "280", $t));
                     t.Fixture.SetResultFailsWhenTheTaskIsCompleted();
                 },
                 SetCanceledFailsWhenTheTaskIsCompleted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetCanceledFailsWhenTheTaskIsCompleted()", $t.Line = "279", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetCanceledFailsWhenTheTaskIsCompleted()", $t.Line = "288", $t));
                     t.Fixture.SetCanceledFailsWhenTheTaskIsCompleted();
                 },
                 SetExceptionFailsWhenTheTaskIsCompleted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetExceptionFailsWhenTheTaskIsCompleted()", $t.Line = "287", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 1, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SetExceptionFailsWhenTheTaskIsCompleted()", $t.Line = "296", $t));
                     t.Fixture.SetExceptionFailsWhenTheTaskIsCompleted();
                 },
                 CompletedTaskHasCorrectIsXProperties: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CompletedTaskHasCorrectIsXProperties()", $t.Line = "296", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CompletedTaskHasCorrectIsXProperties()", $t.Line = "305", $t));
                     t.Fixture.CompletedTaskHasCorrectIsXProperties();
                 },
                 CancelledTaskHasCorrectIsXProperties: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CancelledTaskHasCorrectIsXProperties()", $t.Line = "306", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "CancelledTaskHasCorrectIsXProperties()", $t.Line = "315", $t));
                     t.Fixture.CancelledTaskHasCorrectIsXProperties();
                 },
                 FaultedTaskHasCorrectIsXProperties: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FaultedTaskHasCorrectIsXProperties()", $t.Line = "316", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FaultedTaskHasCorrectIsXProperties()", $t.Line = "325", $t));
                     t.Fixture.FaultedTaskHasCorrectIsXProperties();
                 },
                 TrySetResultReturnsFalseWhenTheTaskIsCompleted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TrySetResultReturnsFalseWhenTheTaskIsCompleted()", $t.Line = "326", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TrySetResultReturnsFalseWhenTheTaskIsCompleted()", $t.Line = "335", $t));
                     t.Fixture.TrySetResultReturnsFalseWhenTheTaskIsCompleted();
                 },
                 TrySetCanceledReturnsFalseWhenTheTaskIsCompleted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TrySetCanceledReturnsFalseWhenTheTaskIsCompleted()", $t.Line = "334", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TrySetCanceledReturnsFalseWhenTheTaskIsCompleted()", $t.Line = "343", $t));
                     t.Fixture.TrySetCanceledReturnsFalseWhenTheTaskIsCompleted();
                 },
                 TrySetExceptionReturnsFalseWhenTheTaskIsCompleted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TrySetExceptionReturnsFalseWhenTheTaskIsCompleted()", $t.Line = "342", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 2, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TrySetExceptionReturnsFalseWhenTheTaskIsCompleted()", $t.Line = "351", $t));
                     t.Fixture.TrySetExceptionReturnsFalseWhenTheTaskIsCompleted();
                 },
                 ContinueWithForNonGenericTaskWorkWithNoResultAndNoException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithForNonGenericTaskWorkWithNoResultAndNoException()", $t.Line = "351", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithForNonGenericTaskWorkWithNoResultAndNoException()", $t.Line = "360", $t));
                     t.Fixture.ContinueWithForNonGenericTaskWorkWithNoResultAndNoException();
                 },
                 ContinueWithWhenCallbackThrowsAnException: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 6, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithWhenCallbackThrowsAnException()", $t.Line = "393", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 6, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithWhenCallbackThrowsAnException()", $t.Line = "402", $t));
                     t.Fixture.ContinueWithWhenCallbackThrowsAnException();
                 },
                 ExceptionInTaskBodyAppearsInTheExceptionMemberForNonGenericTask: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ExceptionInTaskBodyAppearsInTheExceptionMemberForNonGenericTask()", $t.Line = "431", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ExceptionInTaskBodyAppearsInTheExceptionMemberForNonGenericTask()", $t.Line = "440", $t));
                     t.Fixture.ExceptionInTaskBodyAppearsInTheExceptionMemberForNonGenericTask();
                 },
                 ContinueWithForNonGenericTaskCanReturnAValue: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 11, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithForNonGenericTaskCanReturnAValue()", $t.Line = "472", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 11, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithForNonGenericTaskCanReturnAValue()", $t.Line = "481", $t));
                     t.Fixture.ContinueWithForNonGenericTaskCanReturnAValue();
                 },
                 ContinueWithWithNoReturnValueForGenericTaskWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithWithNoReturnValueForGenericTaskWorks()", $t.Line = "517", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithWithNoReturnValueForGenericTaskWorks()", $t.Line = "526", $t));
                     t.Fixture.ContinueWithWithNoReturnValueForGenericTaskWorks();
                 },
                 ContinueWithForGenericTaskCanReturnAValue: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 11, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithForGenericTaskCanReturnAValue()", $t.Line = "559", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 11, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ContinueWithForGenericTaskCanReturnAValue()", $t.Line = "568", $t));
                     t.Fixture.ContinueWithForGenericTaskCanReturnAValue();
                 },
                 DelayWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 6, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "DelayWorks()", $t.Line = "604", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 6, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "DelayWorks()", $t.Line = "613", $t));
                     t.Fixture.DelayWorks();
                 },
                 FromResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FromResultWorks()", $t.Line = "637", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 3, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "FromResultWorks()", $t.Line = "646", $t));
                     t.Fixture.FromResultWorks();
                 },
                 RunWithoutResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 6, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RunWithoutResultWorks()", $t.Line = "646", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 6, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RunWithoutResultWorks()", $t.Line = "655", $t));
                     t.Fixture.RunWithoutResultWorks();
                 },
                 RunWithResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 7, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RunWithResultWorks()", $t.Line = "677", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 7, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RunWithResultWorks()", $t.Line = "686", $t));
                     t.Fixture.RunWithResultWorks();
                 },
                 RunWorksWhenBodyThrows: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 7, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RunWorksWhenBodyThrows()", $t.Line = "710", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 7, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "RunWorksWhenBodyThrows()", $t.Line = "719", $t));
                     t.Fixture.RunWorksWhenBodyThrows();
                 },
                 WhenAllParamArrayWithResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 13, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllParamArrayWithResultWorks()", $t.Line = "743", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 13, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllParamArrayWithResultWorks()", $t.Line = "752", $t));
                     t.Fixture.WhenAllParamArrayWithResultWorks();
                 },
                 WhenAllEnumerableWithResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 13, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllEnumerableWithResultWorks()", $t.Line = "800", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 13, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllEnumerableWithResultWorks()", $t.Line = "809", $t));
                     t.Fixture.WhenAllEnumerableWithResultWorks();
                 },
                 WhenAllParamArrayWithoutResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllParamArrayWithoutResultWorks()", $t.Line = "857", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllParamArrayWithoutResultWorks()", $t.Line = "866", $t));
                     t.Fixture.WhenAllParamArrayWithoutResultWorks();
                 },
                 WhenAllEnumerableWithoutResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllEnumerableWithoutResultWorks()", $t.Line = "913", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllEnumerableWithoutResultWorks()", $t.Line = "922", $t));
                     t.Fixture.WhenAllEnumerableWithoutResultWorks();
                 },
                 WhenAllShouldHaveAnErrorIfAnyIncludedTaskFaulted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 17, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllShouldHaveAnErrorIfAnyIncludedTaskFaulted()", $t.Line = "969", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 17, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllShouldHaveAnErrorIfAnyIncludedTaskFaulted()", $t.Line = "978", $t));
                     t.Fixture.WhenAllShouldHaveAnErrorIfAnyIncludedTaskFaulted();
                 },
                 WhenAllShouldBeCancelledIfNoTaskWasFaultedButSomeWasCancelled: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllShouldBeCancelledIfNoTaskWasFaultedButSomeWasCancelled()", $t.Line = "1039", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 12, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAllShouldBeCancelledIfNoTaskWasFaultedButSomeWasCancelled()", $t.Line = "1048", $t));
                     t.Fixture.WhenAllShouldBeCancelledIfNoTaskWasFaultedButSomeWasCancelled();
                 },
                 WhenAnyParamArrayWithResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyParamArrayWithResultWorks()", $t.Line = "1094", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyParamArrayWithResultWorks()", $t.Line = "1103", $t));
                     t.Fixture.WhenAnyParamArrayWithResultWorks();
                 },
                 WhenAnyEnumerableWithResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyEnumerableWithResultWorks()", $t.Line = "1142", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 10, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyEnumerableWithResultWorks()", $t.Line = "1151", $t));
                     t.Fixture.WhenAnyEnumerableWithResultWorks();
                 },
                 WhenAnyParamArrayWithoutResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyParamArrayWithoutResultWorks()", $t.Line = "1189", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyParamArrayWithoutResultWorks()", $t.Line = "1198", $t));
                     t.Fixture.WhenAnyParamArrayWithoutResultWorks();
                 },
                 WhenAnyEnumerableWithoutResultWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyEnumerableWithoutResultWorks()", $t.Line = "1236", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyEnumerableWithoutResultWorks()", $t.Line = "1245", $t));
                     t.Fixture.WhenAnyEnumerableWithoutResultWorks();
                 },
                 WhenAnyFaultsIfTheFirstTaskFaulted: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyFaultsIfTheFirstTaskFaulted()", $t.Line = "1283", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyFaultsIfTheFirstTaskFaulted()", $t.Line = "1292", $t));
                     t.Fixture.WhenAnyFaultsIfTheFirstTaskFaulted();
                 },
                 WhenAnyIsCancelledIfTheFirstTaskWasCancelled: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyIsCancelledIfTheFirstTaskWasCancelled()", $t.Line = "1331", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "WhenAnyIsCancelledIfTheFirstTaskWasCancelled()", $t.Line = "1340", $t));
                     t.Fixture.WhenAnyIsCancelledIfTheFirstTaskWasCancelled();
                 },
                 ConstructorWithOnlyActionWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 7, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithOnlyActionWorks()", $t.Line = "1376", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 7, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithOnlyActionWorks()", $t.Line = "1385", $t));
                     t.Fixture.ConstructorWithOnlyActionWorks();
                 },
                 ConstructorWithActionAndStateWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithActionAndStateWorks()", $t.Line = "1415", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithActionAndStateWorks()", $t.Line = "1424", $t));
                     t.Fixture.ConstructorWithActionAndStateWorks();
                 },
                 ExceptionInManuallyCreatedTaskIsStoredOnTheTask: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ExceptionInManuallyCreatedTaskIsStoredOnTheTask()", $t.Line = "1457", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ExceptionInManuallyCreatedTaskIsStoredOnTheTask()", $t.Line = "1466", $t));
                     t.Fixture.ExceptionInManuallyCreatedTaskIsStoredOnTheTask();
                 },
                 ConstructorWithOnlyFunctionWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithOnlyFunctionWorks()", $t.Line = "1499", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 8, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithOnlyFunctionWorks()", $t.Line = "1508", $t));
                     t.Fixture.ConstructorWithOnlyFunctionWorks();
                 },
                 ConstructorWithFunctionAndStateWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithFunctionAndStateWorks()", $t.Line = "1541", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Threading.TaskTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.TaskTests, 9, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ConstructorWithFunctionAndStateWorks()", $t.Line = "1550", $t));
                     t.Fixture.ConstructorWithFunctionAndStateWorks();
                 }
             }
