@@ -17600,8 +17600,6 @@ Bridge.$N1391Result =                     r;
         }
     });
 
-    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405");
-
     /**
      * This test consists in running async tasks and calling the task's Wait()
      method to wait for the tast execution to finish. At each step, a string
@@ -37307,6 +37305,31 @@ Bridge.$N1391Result =                     r;
             Id: null,
             data: 0
         }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3958", {
+        statics: {
+            methods: {
+                TestEnumStringOptional: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual("euclidean", Bridge.unbox(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3958.GetOptions("euclidean")));
+                    Bridge.Test.NUnit.Assert.AreEqual("euclidean", Bridge.unbox(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3958.GetOptions()));
+                },
+                GetOptions: function (metric) {
+                    if (metric === void 0) { metric = "euclidean"; }
+                    return Bridge.box(metric, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3958.MetricOptions, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3958.MetricOptions));
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3958.MetricOptions", {
+        $kind: "nested enum",
+        statics: {
+            fields: {
+                euclidean: "euclidean"
+            }
+        },
+        $utype: System.String
     });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge407", {
