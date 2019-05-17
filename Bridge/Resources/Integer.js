@@ -1,4 +1,4 @@
-    
+
     Bridge.define("Bridge.Int", {
         inherits: [System.IComparable, System.IFormattable],
         statics: {

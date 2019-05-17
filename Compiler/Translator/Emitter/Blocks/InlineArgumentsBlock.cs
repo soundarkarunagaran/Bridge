@@ -797,7 +797,7 @@ namespace Bridge.Translator
                             {
                                 tmpVarName = Emitter.NamedTempVariables[keyExpr];
                             }
-                            
+
                             Write(tmpVarName);
                             isSimple = true;
                         }

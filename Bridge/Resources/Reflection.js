@@ -436,9 +436,9 @@
 
             if (Bridge.Reflection.isInterface(baseType) && System.Array.contains(Bridge.Reflection.getInterfaces(type), baseType)) {
                 return true;
-            }           
+            }
 
-            if (baseType.$elementType && baseType.$isArray && type.$elementType && type.$isArray) {                
+            if (baseType.$elementType && baseType.$isArray && type.$elementType && type.$isArray) {
                 if (Bridge.Reflection.isValueType(baseType.$elementType) !== Bridge.Reflection.isValueType(type.$elementType)) {
                     return false;
                 }

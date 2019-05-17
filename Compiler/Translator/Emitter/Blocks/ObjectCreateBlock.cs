@@ -208,7 +208,7 @@ namespace Bridge.Translator
                             this.WriteDot();
                             var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName();
                             this.Write(name);
-                        }                        
+                        }
                     }
 
                     if (applyCtor)

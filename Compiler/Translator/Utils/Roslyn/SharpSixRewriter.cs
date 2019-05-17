@@ -669,7 +669,7 @@ namespace Bridge.Translator
                 toAwait = true;
             }
 
-            if (method != null && method.ReturnsByRef && (node.Parent is AssignmentExpressionSyntax aes && aes.Left == node || 
+            if (method != null && method.ReturnsByRef && (node.Parent is AssignmentExpressionSyntax aes && aes.Left == node ||
                 node.Parent is MemberAccessExpressionSyntax ||
                 node.Parent is ArgumentSyntax arg && arg.RefKindKeyword.Kind() != SyntaxKind.RefKeyword ||
                 node.Parent is EqualsValueClauseSyntax && node.Parent.Parent is VariableDeclaratorSyntax && node.Parent.Parent.Parent is VariableDeclarationSyntax vs && vs.Type.IsVar))
@@ -1454,7 +1454,7 @@ namespace Bridge.Translator
                 return SyntaxHelper.ToStatementBody(node);
             }
 
-            this.IndexInstance = oldIndex;            
+            this.IndexInstance = oldIndex;
 
             return node;
         }

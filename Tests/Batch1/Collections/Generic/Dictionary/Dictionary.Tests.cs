@@ -34,7 +34,7 @@ namespace Bridge.ClientTest.Collections.Generic.Dictionary
                 int i = 0;
                 foreach (object obj in collection)
                     Assert.AreEqual(array[i++], obj);
-            }           
+            }
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace Bridge.ClientTest.Collections.Generic.Dictionary
                 Func<IDictionary<int, int>, IDictionary<int, int>> dictionarySelector = (Func<IDictionary<int, int>, IDictionary<int, int>>)item[2];
 
                 TestCopyConstructor(size, keyValueSelector, dictionarySelector);
-            }            
+            }
         }
 
         public static IEnumerable<object[]> CopyConstructorInt32Data
@@ -178,7 +178,7 @@ namespace Bridge.ClientTest.Collections.Generic.Dictionary
                 IEqualityComparer<int> comparer = (IEqualityComparer<int>)item[3];
 
                 TestCopyConstructor(size, keyValueSelector, dictionarySelector, comparer);
-            }            
+            }
         }
 
         public static IEnumerable<object[]> CopyConstructorInt32ComparerData

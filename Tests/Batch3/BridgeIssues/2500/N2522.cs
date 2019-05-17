@@ -12,7 +12,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
     public class Bridge2522
     {
         /// <summary>
-        /// Just ensures 
+        /// Just ensures
         /// </summary>
         [Test]
         public static void TestIsPrimitive()

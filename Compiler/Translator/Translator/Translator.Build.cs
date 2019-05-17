@@ -83,7 +83,7 @@ namespace Bridge.Translator
                         if (File.Exists(projectAssembly))
                         {
                             referencesPathes.Add(projectAssembly);
-                        }                        
+                        }
                     }
                 }
 

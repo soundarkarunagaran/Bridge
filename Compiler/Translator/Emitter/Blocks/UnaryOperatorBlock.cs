@@ -91,14 +91,14 @@ namespace Bridge.Translator
             int count = this.Emitter.Writers.Count;
 
             if (resolveOperator is ConstantResolveResult crr)
-            {               
+            {
                 object constantValue = crr.ConstantValue;
 
                 if (unaryOperatorExpression.Operator == UnaryOperatorType.Minus && SyntaxHelper.IsNumeric(constantValue.GetType()) && Convert.ToDouble(constantValue) == 0)
                 {
                     this.Write("-");
                 }
-                
+
                 this.WriteScript(constantValue);
                 return;
             }

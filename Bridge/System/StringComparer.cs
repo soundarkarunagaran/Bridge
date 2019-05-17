@@ -144,7 +144,7 @@ namespace System
             return obj.GetHashCode();
         }
 
-        // Equals method for the comparer itself. 
+        // Equals method for the comparer itself.
         public override bool Equals(Object obj)
         {
             OrdinalComparer comparer = obj as OrdinalComparer;

@@ -30,7 +30,7 @@
         onCloseHandler: function(event) {
             var reason,
                 success = false;
-            
+
             // See http://tools.ietf.org/html/rfc6455#section-7.4.1
             if (event.code == 1000) {
                 reason = "Status code: " + event.code + ". Normal closure, meaning that the purpose for which the connection was established has been fulfilled.";
@@ -88,7 +88,7 @@
                             e.message = self.closeInfo.reason;
                         }
                         tcs.setException(System.Exception.create(e));
-                    }, 10);                    
+                    }, 10);
                 };
 
                 this.socket.binaryType = "arraybuffer";

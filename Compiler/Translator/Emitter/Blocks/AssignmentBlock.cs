@@ -580,7 +580,7 @@ namespace Bridge.Translator
                             break;
 
                         case AssignmentOperatorType.ExclusiveOr:
-                            if (!isBool) { 
+                            if (!isBool) {
                                 this.Write("^");
                             }
                             break;
@@ -691,7 +691,7 @@ namespace Bridge.Translator
                 {
                     this.Write("!!(");
                 }
-                
+
                 assignmentExpression.Left.AcceptVisitor(this.Emitter);
 
                 string op = null;

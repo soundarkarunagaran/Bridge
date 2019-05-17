@@ -7,7 +7,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
             methods: {
                 Test1: function () {
                     var blable = "";
-                    /* 
+                    /*
                        vBoubli (@"/faaa");
                     */
 

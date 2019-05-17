@@ -4,7 +4,7 @@ using System;
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
     /// <summary>
-    /// Ensures Math.Sign works with infinity 
+    /// Ensures Math.Sign works with infinity
     /// </summary>
     [TestFixture(TestNameFormat = "#3900 - {0}")]
     public class Bridge3900

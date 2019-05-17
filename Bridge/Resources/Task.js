@@ -49,13 +49,13 @@
                         if (!cancelCallback) {
                             cancelCallback = true;
                             clearTimeout(clear);
-                            
+
                             tcs.setCanceled();
                         }
                     };
                 }
 
-                var ms = delay; 
+                var ms = delay;
                 if (Bridge.is(delay, System.TimeSpan)) {
                     ms = delay.getTotalMilliseconds();
                 }
@@ -64,7 +64,7 @@
                     if (!cancelCallback) {
                         cancelCallback = true;
                         tcs.setResult(state);
-                    }                    
+                    }
                 }, ms);
 
                 if (token && token.getIsCancellationRequested()) {
@@ -98,11 +98,11 @@
                                     tcs.setException(result.exception);
                                 } else {
                                     tcs.setResult(result.getAwaitedResult());
-                                }                                
+                                }
                             });
                         } else {
                             tcs.setResult(result);
-                        }                        
+                        }
                     } catch (e) {
                         tcs.setException(System.Exception.create(e));
                     }
@@ -338,11 +338,11 @@
                         tcs.setCanceled();
                     } else {
                         tcs.setResult();
-                    }  
+                    }
                 }
             })
 
-            return tcs.task;         
+            return tcs.task;
         },
 
         continueWith: function (continuationAction, raise) {

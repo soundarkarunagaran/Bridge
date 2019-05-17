@@ -913,7 +913,7 @@ namespace Bridge.Translator
 
                             typeInfo.Dependencies.Add(dependency);
                         }
-                    }                    
+                    }
                 }
             }
         }

@@ -87,7 +87,7 @@
             }
         },
 
-        IEEERemainder: function (x, y) { 
+        IEEERemainder: function (x, y) {
             var regularMod = x % y;
             if (isNaN(regularMod)) {
                 return Number.NaN;

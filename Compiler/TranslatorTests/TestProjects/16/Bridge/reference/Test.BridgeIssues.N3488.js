@@ -3,7 +3,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
 
     require(["Test", "Test", "Test"], function (Test, lib2, lib3) {
         /** @namespace Test.BridgeIssues.N3488 */
-    
+
         /**
          * The output here must be something like:
          require(["Test", "Test", "Test"], function (Test, lib2, lib3) {
