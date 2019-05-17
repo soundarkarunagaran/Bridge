@@ -21,11 +21,11 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          */
         main: function Main (args) {
             var $step = 0,
-                $task1,
-                $jumpFromFinally,
-                $tcs = new System.Threading.Tasks.TaskCompletionSource(),
-                $returnValue,
-                $async_e,
+                $task1, 
+                $jumpFromFinally, 
+                $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
+                $returnValue, 
+                $async_e, 
                 $asyncBody = Bridge.fn.bind(this, function () {
                     try {
                         for (;;) {

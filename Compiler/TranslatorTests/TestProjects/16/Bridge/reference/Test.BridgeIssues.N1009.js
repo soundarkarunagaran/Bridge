@@ -1,4 +1,4 @@
-/*
+/* 
    A custom comment
 */
 
@@ -10,6 +10,6 @@ Bridge.assembly("TestProject", function ($asm, globals) {
     });
 });
 
-/*
+/* 
    A custom comment
 */

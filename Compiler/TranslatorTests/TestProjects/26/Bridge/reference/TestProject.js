@@ -20,8 +20,8 @@ Bridge.assembly("TestProject", function ($asm, globals) {
          */
         main: function Main () {
             var $step = 0,
-                $task1,
-                $jumpFromFinally,
+                $task1, 
+                $jumpFromFinally, 
                 $asyncBody = Bridge.fn.bind(this, function () {
                     for (;;) {
                         $step = System.Array.min([0,1], $step);

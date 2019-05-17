@@ -3,7 +3,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
 
     require(["Module1"], function (Mod1) {
         /** @namespace Test.BridgeIssues.N3815 */
-
+    
         /**
          * #3815 Ensures multiple ModuleDependency attributes works.
          *

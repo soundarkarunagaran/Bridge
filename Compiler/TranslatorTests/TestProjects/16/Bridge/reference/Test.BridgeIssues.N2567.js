@@ -24,7 +24,7 @@ if (true)
 
 System.Linq.Enumerable.from("", System.Char).any(function (ch) {
     // Singleline comment Top
-    /*
+    /* 
       Multipleline comment Top
     */
     var singlelineInjectTop = 1;
@@ -65,7 +65,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
 
         System.Linq.Enumerable.from("", System.Char).any(function (ch) {
                 // Singleline comment Before
-                /*
+                /* 
                   Multipleline comment Before
                 */
                 var singlelineInjectBefore = 1;
@@ -226,7 +226,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
 
                     System.Linq.Enumerable.from("", System.Char).any(function (ch) {
                             // Singleline comment After
-                            /*
+                            /* 
                               Multipleline comment After
                             */
                             var singlelineInjectAfter = 1;
@@ -270,7 +270,7 @@ if (true)
 
 System.Linq.Enumerable.from("", System.Char).any(function (ch) {
     // Singleline comment Bottom
-    /*
+    /* 
       Multipleline comment Bottom
     */
     var singlelineInjectBottom = 1;
