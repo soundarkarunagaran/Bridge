@@ -2,9 +2,9 @@
         inherits: [System.IO.TextReader],
         statics: {
             fields: {
-                Null: null,
                 DefaultFileStreamBufferSize: 0,
-                MinBufferSize: 0
+                MinBufferSize: 0,
+                Null: null
             },
             props: {
                 DefaultBufferSize: {
@@ -15,9 +15,9 @@
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.StreamReader.NullStreamReader();
                     this.DefaultFileStreamBufferSize = 4096;
                     this.MinBufferSize = 128;
+                    this.Null = new System.IO.StreamReader.NullStreamReader();
                 }
             }
         },

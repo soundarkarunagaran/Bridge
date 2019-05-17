@@ -192,7 +192,7 @@
                 var node = this.head;
                 if (node != null) {
                     do {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = node.item;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = node.item;
                         node = node.next;
                     } while (!Bridge.referenceEquals(node, this.head));
                 }
@@ -236,7 +236,7 @@
                     try {
                         if (node != null) {
                             do {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = node.item;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = node.item;
                                 node = node.next;
                             } while (!Bridge.referenceEquals(node, this.head));
                         }

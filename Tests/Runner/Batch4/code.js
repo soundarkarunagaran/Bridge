@@ -116,7 +116,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
                 // #1563
                 var x = 0;
                 var d1 = function () {
-                    Bridge.identity(x, (x = (x + 1) | 0));
+                    Bridge.identity(x, ((x = (x + 1) | 0)));
                 };
                 var d2 = d1;
                 d1();
@@ -780,7 +780,7 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
             AutoEventBackingFieldsAreClonedWhenValueTypeIsCopied_SPI_1612: function () {
                 var count = 0;
                 var a = function () {
-                    Bridge.identity(count, (count = (count + 1) | 0));
+                    Bridge.identity(count, ((count = (count + 1) | 0)));
                 };
                 var s1 = new Bridge.ClientTest.Batch4.UserDefinedStructTests.MS1();
                 s1.addE(a);

@@ -140,7 +140,7 @@
 
                     var count = System.Array.getCount(this.list, T);
                     for (var i = 0; i < count; i = (i + 1) | 0) {
-                        objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.list, i, T);
+                        objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = System.Array.getItem(this.list, i, T);
                     }
                 }
             },

@@ -214,12 +214,14 @@ Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual("Double", Bridge.Reflection.getTypeName(System.Double), (message || "") + " type");
                     Bridge.Test.NUnit.Assert.AreEqual(Bridge.toString(expected), System.Double.format(actual), (message || "") + " representation");
                 },
-                AssertDoubleWithEpsilon8: function (expected, actual) {
+                AssertDoubleWithEpsilon8: function (expected, actual, description) {
+                    var $t, $t1;
+                    if (description === void 0) { description = null; }
                     var se = System.Double.format(expected);
                     var sa = System.Double.format(actual);
 
                     if (Bridge.referenceEquals(sa, se)) {
-                        Bridge.Test.NUnit.Assert.True(true, "Actual:" + System.Double.format(actual) + " vs Expected:" + System.Double.format(expected));
+                        Bridge.Test.NUnit.Assert.True(true, ($t = description, $t != null ? $t : "Actual:" + System.Double.format(actual) + " vs Expected:" + System.Double.format(expected)));
                         return;
                     }
 
@@ -228,7 +230,7 @@ Bridge.assembly("Bridge.ClientTestHelper", function ($asm, globals) {
                         diff = -diff;
                     }
 
-                    Bridge.Test.NUnit.Assert.True(diff < 1E-08, "Expected " + System.Double.format(expected) + " but was " + System.Double.format(actual));
+                    Bridge.Test.NUnit.Assert.True(diff < 1E-08, ($t1 = description, $t1 != null ? $t1 : "Expected " + System.Double.format(expected) + " but was " + System.Double.format(actual)));
                 },
                 AssertDoubleTryParse: function (r, expected, s, message) {
                     var actual = { };

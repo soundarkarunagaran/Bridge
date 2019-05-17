@@ -3781,7 +3781,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Environment - GetLogicalDrivesEmpty", Bridge.Test.Runtime.BridgeClientTestRunner.EnvironmentTests.GetLogicalDrivesEmpty);
             QUnit.test("Environment - SetEnvironmentVariableTwoParametersWorks", Bridge.Test.Runtime.BridgeClientTestRunner.EnvironmentTests.SetEnvironmentVariableTwoParametersWorks);
             QUnit.test("Environment - SetEnvironmentVariableThreeParametersWorks", Bridge.Test.Runtime.BridgeClientTestRunner.EnvironmentTests.SetEnvironmentVariableThreeParametersWorks);
-            QUnit.module("СultureInfo");
+            QUnit.module("\u0421ultureInfo");
             QUnit.test("TypePropertiesAreCorrect", Bridge.Test.Runtime.BridgeClientTestRunner.CultureInfoTests.TypePropertiesAreCorrect);
             QUnit.test("ConstructorWorks_N2583", Bridge.Test.Runtime.BridgeClientTestRunner.CultureInfoTests.ConstructorWorks_N2583);
             QUnit.test("GetCultureInfoWorks_N2583", Bridge.Test.Runtime.BridgeClientTestRunner.CultureInfoTests.GetCultureInfoWorks_N2583);
@@ -15766,42 +15766,42 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 },
                 SignWithDecimalWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SignWithDecimalWorks()", $t.Line = "731", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SignWithDecimalWorks()", $t.Line = "737", $t));
                     t.Fixture.SignWithDecimalWorks();
                 },
                 SignWithDoubleWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SignWithDoubleWorks()", $t.Line = "739", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SignWithDoubleWorks()", $t.Line = "745", $t));
                     t.Fixture.SignWithDoubleWorks();
                 },
                 SignWithFloatWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SignWithFloatWorks()", $t.Line = "787", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SignWithFloatWorks()", $t.Line = "793", $t));
                     t.Fixture.SignWithFloatWorks();
                 },
                 SinWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SinWorks()", $t.Line = "795", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SinWorks()", $t.Line = "801", $t));
                     t.Fixture.SinWorks();
                 },
                 SqrtWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SqrtWorks()", $t.Line = "801", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "SqrtWorks()", $t.Line = "807", $t));
                     t.Fixture.SqrtWorks();
                 },
                 TanWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TanWorks()", $t.Line = "807", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TanWorks()", $t.Line = "813", $t));
                     t.Fixture.TanWorks();
                 },
                 TruncateWithDoubleWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TruncateWithDoubleWorks()", $t.Line = "813", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TruncateWithDoubleWorks()", $t.Line = "819", $t));
                     t.Fixture.TruncateWithDoubleWorks();
                 },
                 TruncateWithDecimalWorks: function (assert) {
                     var $t;
-                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TruncateWithDecimalWorks()", $t.Line = "820", $t));
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.MathTests).BeforeTest(true, assert, Bridge.Test.Runtime.BridgeClientTestRunner.MathTests, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TruncateWithDecimalWorks()", $t.Line = "826", $t));
                     t.Fixture.TruncateWithDecimalWorks();
                 }
             }

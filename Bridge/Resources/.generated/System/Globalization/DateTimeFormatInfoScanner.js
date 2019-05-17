@@ -51,19 +51,19 @@
                 init: function () {
                     this.MonthPostfixChar = 57344;
                     this.IgnorableSymbolChar = 57345;
-                    this.CJKYearSuff = "年";
-                    this.CJKMonthSuff = "月";
-                    this.CJKDaySuff = "日";
-                    this.KoreanYearSuff = "년";
-                    this.KoreanMonthSuff = "월";
-                    this.KoreanDaySuff = "일";
-                    this.KoreanHourSuff = "시";
-                    this.KoreanMinuteSuff = "분";
-                    this.KoreanSecondSuff = "초";
-                    this.CJKHourSuff = "時";
-                    this.ChineseHourSuff = "时";
-                    this.CJKMinuteSuff = "分";
-                    this.CJKSecondSuff = "秒";
+                    this.CJKYearSuff = "\u5e74";
+                    this.CJKMonthSuff = "\u6708";
+                    this.CJKDaySuff = "\u65e5";
+                    this.KoreanYearSuff = "\ub144";
+                    this.KoreanMonthSuff = "\uc6d4";
+                    this.KoreanDaySuff = "\uc77c";
+                    this.KoreanHourSuff = "\uc2dc";
+                    this.KoreanMinuteSuff = "\ubd84";
+                    this.KoreanSecondSuff = "\ucd08";
+                    this.CJKHourSuff = "\u6642";
+                    this.ChineseHourSuff = "\u65f6";
+                    this.CJKMinuteSuff = "\u5206";
+                    this.CJKSecondSuff = "\u79d2";
                 }
             },
             methods: {

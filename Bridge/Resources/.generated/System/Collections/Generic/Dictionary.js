@@ -365,7 +365,9 @@
                     if (this.isSimpleKey) {
                         this.simpleBuckets = { };
                     }
-                    System.Array.fill(this.entries, System.Collections.Generic.Dictionary$2.Entry(TKey,TValue).getDefaultValue, 0, this.count);
+                    System.Array.fill(this.entries, function () {
+                        return Bridge.getDefaultValue(System.Collections.Generic.Dictionary$2.Entry(TKey,TValue));
+                    }, 0, this.count);
                     this.freeList = -1;
                     this.count = 0;
                     this.freeCount = 0;
@@ -409,7 +411,7 @@
                 var entries = this.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
                     }
                 }
             },
@@ -445,7 +447,7 @@
                     var entries = this.entries;
                     for (var i = 0; i < this.count; i = (i + 1) | 0) {
                         if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                            dictEntryArray[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
+                            dictEntryArray[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
                         }
                     }
                 } else {
@@ -459,7 +461,7 @@
                         var entries1 = this.entries;
                         for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
                             if (entries1[System.Array.index(i1, entries1)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries1[System.Array.index(i1, entries1)].key, entries1[System.Array.index(i1, entries1)].value);
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries1[System.Array.index(i1, entries1)].key, entries1[System.Array.index(i1, entries1)].value);
                             }
                         }
                     } catch ($e1) {

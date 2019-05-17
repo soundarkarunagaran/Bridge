@@ -2,13 +2,13 @@
         inherits: function () { return [System.ICloneable,System.IComparable$1(System.Version),System.IEquatable$1(System.Version)]; },
         statics: {
             fields: {
-                separatorsArray: 0,
-                ZERO_CHAR_VALUE: 0
+                ZERO_CHAR_VALUE: 0,
+                separatorsArray: 0
             },
             ctors: {
                 init: function () {
-                    this.separatorsArray = 46;
                     this.ZERO_CHAR_VALUE = 48;
+                    this.separatorsArray = 46;
                 }
             },
             methods: {

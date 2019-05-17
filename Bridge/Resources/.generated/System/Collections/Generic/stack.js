@@ -71,7 +71,9 @@
         },
         methods: {
             Clear: function () {
-                System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size);
+                System.Array.fill(this._array, function () {
+                    return Bridge.getDefaultValue(T);
+                }, 0, this._size);
                 this._size = 0;
                 this._version = (this._version + 1) | 0;
             },
@@ -79,7 +81,7 @@
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
+                while (Bridge.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(count, this._array)] == null) {
                             return true;
@@ -107,7 +109,7 @@
                     var srcIndex = 0;
                     var dstIndex = (arrayIndex + this._size) | 0;
                     for (var i = 0; i < this._size; i = (i + 1) | 0) {
-                        array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0)), this._array)];
+                        array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, ((srcIndex = (srcIndex + 1) | 0))), this._array)];
                     }
                 } else {
                     System.Array.copy(this._array, 0, array, arrayIndex, this._size);
@@ -156,7 +158,9 @@
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, this._size, Bridge.getDefaultValue(T), T);
+                    System.Array.resize(localArray, this._size, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     this._array = localArray.v;
                     this._version = (this._version + 1) | 0;
                 }
@@ -179,10 +183,12 @@
             Push: function (item) {
                 if (this._size === this._array.length) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T), T);
+                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), function () {
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     this._array = localArray.v;
                 }
-                this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;
+                this._array[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._array)] = item;
                 this._version = (this._version + 1) | 0;
             },
             ToArray: function () {

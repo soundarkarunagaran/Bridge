@@ -15,10 +15,10 @@
                 init: function () {
                     this.Empty = new System.Guid();
                     this.error1 = "Byte array for GUID must be exactly {0} bytes long";
-                    this.Valid = new System.Text.RegularExpressions.Regex.ctor("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", 1);
-                    this.Split = new System.Text.RegularExpressions.Regex.ctor("^(.{8})(.{4})(.{4})(.{4})(.{12})$");
-                    this.NonFormat = new System.Text.RegularExpressions.Regex.ctor("^[{(]?([0-9a-f]{8})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{12})[)}]?$", 1);
-                    this.Replace = new System.Text.RegularExpressions.Regex.ctor("-");
+                    this.Valid = new RegExp("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", "i");
+                    this.Split = new RegExp("^(.{8})(.{4})(.{4})(.{4})(.{12})$");
+                    this.NonFormat = new RegExp("^[{(]?([0-9a-f]{8})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{12})[)}]?$", "i");
+                    this.Replace = new RegExp("-", "g");
                     this.Rnd = new System.Random.ctor();
                 }
             },
@@ -244,13 +244,13 @@
                 }
 
                 if (System.String.isNullOrEmpty(format)) {
-                    var m = System.Guid.NonFormat.match(input);
+                    var m = System.Guid.NonFormat.exec(input);
 
-                    if (m.getSuccess()) {
+                    if (m != null) {
                         var list = new (System.Collections.Generic.List$1(System.String)).ctor();
-                        for (var i = 1; i <= m.getGroups().getCount(); i = (i + 1) | 0) {
-                            if (m.getGroups().get(i).getSuccess()) {
-                                list.add(m.getGroups().get(i).getValue());
+                        for (var i = 1; i <= m.length; i = (i + 1) | 0) {
+                            if (m[i] != null) {
+                                list.add(m[i]);
                             }
                         }
 
@@ -262,13 +262,13 @@
                     var p = false;
 
                     if (Bridge.referenceEquals(format, "N")) {
-                        var m1 = System.Guid.Split.match(input);
+                        var m1 = System.Guid.Split.exec(input);
 
-                        if (m1.getSuccess()) {
+                        if (m1 != null) {
                             var list1 = new (System.Collections.Generic.List$1(System.String)).ctor();
-                            for (var i1 = 1; i1 <= m1.getGroups().getCount(); i1 = (i1 + 1) | 0) {
-                                if (m1.getGroups().get(i1).getSuccess()) {
-                                    list1.add(m1.getGroups().get(i1).getValue());
+                            for (var i1 = 1; i1 <= m1.length; i1 = (i1 + 1) | 0) {
+                                if (m1[i1] != null) {
+                                    list1.add(m1[i1]);
                                 }
                             }
 
@@ -286,7 +286,7 @@
                         p = true;
                     }
 
-                    if (p && System.Guid.Valid.isMatch(input)) {
+                    if (p && System.Guid.Valid.test(input)) {
                         r = input.toLowerCase();
                     }
                 }
@@ -318,7 +318,7 @@
                 switch (format) {
                     case "n": 
                     case "N": 
-                        return System.Guid.Replace.replace(s, "");
+                        return s.replace(System.Guid.Replace, "");
                     case "b": 
                     case "B": 
                         return String.fromCharCode(123) + (s || "") + String.fromCharCode(125);
@@ -334,7 +334,7 @@
                     return;
                 }
 
-                s = System.Guid.Replace.replace(s, "");
+                s = s.replace(System.Guid.Replace, "");
 
                 var r = System.Array.init(8, 0, System.Byte);
 

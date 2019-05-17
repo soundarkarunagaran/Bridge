@@ -2,13 +2,14 @@
         statics: {
             fields: {
                 HashPrime: 0,
+                MaxPrimeArrayLength: 0,
                 RandomSeed: 0,
-                primes: null,
-                MaxPrimeArrayLength: 0
+                primes: null
             },
             ctors: {
                 init: function () {
                     this.HashPrime = 101;
+                    this.MaxPrimeArrayLength = 2146435069;
                     this.RandomSeed = System.Guid.NewGuid().getHashCode();
                     this.primes = System.Array.init([
                         3, 
@@ -84,7 +85,6 @@
                         5999471, 
                         7199369
                     ], System.Int32);
-                    this.MaxPrimeArrayLength = 2146435069;
                 }
             },
             methods: {

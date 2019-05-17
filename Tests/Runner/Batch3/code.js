@@ -251,12 +251,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1003$1", function (T) { return {
         methods: {
             Test1: function (list) {
-                return System.Linq.Enumerable.from(list).select(function (item) {
+                return System.Linq.Enumerable.from(list, T).select(function (item) {
                         return Bridge.cast(item, T);
                     }).ToArray(T);
             },
             Test2: function (T1, list) {
-                return System.Linq.Enumerable.from(list).select(function (item) {
+                return System.Linq.Enumerable.from(list, T1).select(function (item) {
                         return Bridge.cast(item, T1);
                     }).ToArray(T1);
             }
@@ -998,7 +998,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(($t1 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t1, $t1)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1, ($t2 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t2, $t2))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1, (($t2 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t2, $t2)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1);
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((($t3 = (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 + 1) | 0, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Prop1 = $t3, $t3))));
@@ -1027,7 +1027,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(($t1 = (app.getItem(0) + 1) | 0, app.setItem(0, $t1), $t1)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, app.getItem(0));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(app.getItem(0), ($t2 = (app.getItem(0) + 1) | 0, app.setItem(0, $t2), $t2))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(app.getItem(0), (($t2 = (app.getItem(0) + 1) | 0, app.setItem(0, $t2), $t2)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, app.getItem(0));
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((($t3 = (app.getItem(0) + 1) | 0, app.setItem(0, $t3), $t3))));
@@ -1055,7 +1055,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(($t1 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t1), $t1)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, dict.getItem(0));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(dict.getItem(0), ($t2 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t2), $t2))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(dict.getItem(0), (($t2 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t2), $t2)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, dict.getItem(0));
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((($t3 = (dict.getItem(0) + 1) | 0, dict.setItem(0, $t3), $t3))));
@@ -1082,7 +1082,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method((i1 = (i1 + 1) | 0)));
                     Bridge.Test.NUnit.Assert.AreEqual(4, i1);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(i1, (i1 = (i1 + 1) | 0))));
+                    Bridge.Test.NUnit.Assert.AreEqual(4, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(Bridge.identity(i1, ((i1 = (i1 + 1) | 0)))));
                     Bridge.Test.NUnit.Assert.AreEqual(5, i1);
 
                     Bridge.Test.NUnit.Assert.AreEqual(6, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1041.Bridge1041Integer.Method(((i1 = (i1 + 1) | 0))));
@@ -1284,12 +1284,12 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
             methods: {
                 TestIsDigitFromLinq: function () {
                     Bridge.Test.NUnit.Assert.True(System.Char.isDigit(49));
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from("1").any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f1));
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from("1", System.Char).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f1));
 
                     var s = "s1*";
-                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(s).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f1), "String IsDigit");
-                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(s).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f2), "String IsLetter");
-                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(s).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f3), "String IsLetterOrDigit");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(s, System.Char).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f1), "String IsDigit");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(s, System.Char).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f2), "String IsLetter");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(s, System.Char).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1061.f3), "String IsLetterOrDigit");
                 }
             }
         }
@@ -2443,7 +2443,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     result[System.Array.index(0, result)] = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.ObjectA(), $t.FieldA = null, $t);
                     result[System.Array.index(1, result)] = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.ObjectA(), $t.FieldA = 2, $t);
 
-                    var query = System.Linq.Enumerable.from(result).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.f1).groupBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.f2);
+                    var query = System.Linq.Enumerable.from(result, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.ObjectA).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.f1).groupBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1171.f2);
                     Bridge.Test.NUnit.Assert.AreEqual(1, query.count());
 
                     $t = Bridge.getEnumerator(query);
@@ -2514,7 +2514,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     Bridge.Test.NUnit.Assert.AreEqual("Item, Item", values.join(", "));
                 },
                 GetItemValues: function (TValue, items) {
-                    return System.Linq.Enumerable.from(items).select(function (item) {
+                    return System.Linq.Enumerable.from(items, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1176.Item$1(TValue)).select(function (item) {
                             return Bridge.ClientTest.Batch3.BridgeIssues.Bridge1176.Item$1(TValue).op_Implicit(item);
                         }).ToArray(System.String);
                 }
@@ -3465,7 +3465,7 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
             methods: {
                 IsReservedWord: function (word) {
                     {
-                        return System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1256.reservedWords).contains(word);
+                        return System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1256.reservedWords, System.String).contains(word);
                     }
                 },
                 TestFields: function (o) {
@@ -3961,19 +3961,19 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
         statics: {
             methods: {
                 TestArrayToEnumerable: function () {
-                    var $t;
+                    var $t, $t1;
                     var arr = System.Array.init([1, 2, 3], System.Int32);
-                    var x = System.Array.toEnumerable(System.Linq.Enumerable.from(arr).ToArray(System.Int32));
+                    var x = System.Array.toEnumerable(($t = System.Int32, System.Linq.Enumerable.from(arr, $t).ToArray($t)));
                     var index = 0;
-                    $t = Bridge.getEnumerator(x);
+                    $t1 = Bridge.getEnumerator(x);
                     try {
-                        while ($t.moveNext()) {
-                            var i = $t.Current;
-                            Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), arr)], Bridge.unbox(i));
+                        while ($t1.moveNext()) {
+                            var i = $t1.Current;
+                            Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), arr)], Bridge.unbox(i));
                         }
                     } finally {
-                        if (Bridge.is($t, System.IDisposable)) {
-                            $t.System$IDisposable$Dispose();
+                        if (Bridge.is($t1, System.IDisposable)) {
+                            $t1.System$IDisposable$Dispose();
                         }
                     }
                 }
@@ -6575,9 +6575,9 @@ Bridge.assembly("Bridge.ClientTest.Batch3", function ($asm, globals) {
                     var list = app.getItem(["1", "2", "3", "4", "5"]);
 
                     Bridge.Test.NUnit.Assert.NotNull(list);
-                    Bridge.Test.NUnit.Assert.AreEqual(5, System.Linq.Enumerable.from(list).count());
-                    Bridge.Test.NUnit.Assert.AreEqual("1", System.Linq.Enumerable.from(list).first());
-                    Bridge.Test.NUnit.Assert.AreEqual("5", System.Linq.Enumerable.from(list).last());
+                    Bridge.Test.NUnit.Assert.AreEqual(5, System.Linq.Enumerable.from(list, System.String).count());
+                    Bridge.Test.NUnit.Assert.AreEqual("1", System.Linq.Enumerable.from(list, System.String).first());
+                    Bridge.Test.NUnit.Assert.AreEqual("5", System.Linq.Enumerable.from(list, System.String).last());
                 }
             }
         },
@@ -7282,7 +7282,7 @@ Bridge.$N1391Result =                     r;
                 $int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int);
                 Bridge.Test.NUnit.Assert.AreEqual(4, $int.ToInt(), "4");
                 Bridge.Test.NUnit.Assert.AreEqual(5, ((($int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int)))).ToInt(), "++4");
-                Bridge.Test.NUnit.Assert.AreEqual(5, (Bridge.identity($int, ($int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int)))).ToInt(), "5++");
+                Bridge.Test.NUnit.Assert.AreEqual(5, (Bridge.identity($int, (($int = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1480.IntWrapper.op_Increment($int))))).ToInt(), "5++");
                 Bridge.Test.NUnit.Assert.AreEqual(6, ($int).ToInt(), "6");
             }
         }
@@ -8091,13 +8091,13 @@ Bridge.$N1391Result =                     r;
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1527", {
         statics: {
             fields: {
-                hello: null,
-                SomeLiteral: null
+                SomeLiteral: null,
+                hello: null
             },
             ctors: {
                 init: function () {
-                    this.hello = "test";
                     this.SomeLiteral = "this.hello";
+                    this.hello = "test";
                 }
             },
             methods: {
@@ -8332,7 +8332,7 @@ Bridge.$N1391Result =                     r;
                     var a = System.Array.init([1, 2, 3], System.Int32);
 
                     Bridge.Test.NUnit.Assert.Throws$2(System.IndexOutOfRangeException, function () {
-                        var v = a[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), a)];
+                        var v = a[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), a)];
                     });
 
                     Bridge.Test.NUnit.Assert.AreEqual(1, a[System.Array.index(((index = (index + 1) | 0)), a)]);
@@ -8356,7 +8356,7 @@ Bridge.$N1391Result =                     r;
                     ]], System.Int32, 2, 3);
 
                     Bridge.Test.NUnit.Assert.Throws$2(System.IndexOutOfRangeException, function () {
-                        var v = a.get([1, Bridge.identity(index, (index = (index + 1) | 0))]);
+                        var v = a.get([1, Bridge.identity(index, ((index = (index + 1) | 0)))]);
                     });
 
                     Bridge.Test.NUnit.Assert.AreEqual(11, a.get([1, ((index = (index + 1) | 0))]));
@@ -8456,7 +8456,8 @@ Bridge.$N1391Result =                     r;
                 return null;
             },
             GetEnumerator: function () {
-                return Bridge.cast(System.Linq.Enumerable.from(this._items).toList(T).GetEnumerator().$clone(), System.Collections.Generic.IEnumerator$1(T));
+                var $t;
+                return Bridge.cast(($t = T, System.Linq.Enumerable.from(this._items, $t).toList($t)).GetEnumerator().$clone(), System.Collections.Generic.IEnumerator$1(T));
             }
         }
     }; });
@@ -8613,16 +8614,16 @@ Bridge.$N1391Result =                     r;
             Test: function () {
                 var values = System.Array.init([Bridge.getDefaultValue(U)], U);
 
-                var v1 = System.Linq.Enumerable.from(values).select(function (value) {
+                var v1 = System.Linq.Enumerable.from(values, U).select(function (value) {
                         return System.String.concat(value, " ") + (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1653_Extensions.GetSomething(U, value) || "");
                     });
-                var v2 = System.Linq.Enumerable.from(values).select(function (value) {
+                var v2 = System.Linq.Enumerable.from(values, U).select(function (value) {
                         return System.String.concat(value, " ") + (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1653_Extensions.GetSomething(U, value) || "");
                     });
-                var v3 = System.Linq.Enumerable.from(values).select(function (value) {
+                var v3 = System.Linq.Enumerable.from(values, U).select(function (value) {
                         return System.String.concat(value, " ") + (Bridge.ClientTest.Batch3.BridgeIssues.Bridge1653_Extensions.GetSomething1(U, value) || "");
                     });
-                var v4 = System.Linq.Enumerable.from(values).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1653.Table$2.f1);
+                var v4 = System.Linq.Enumerable.from(values, U).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1653.Table$2.f1);
             }
         }
     }; });
@@ -9042,7 +9043,7 @@ Bridge.$N1391Result =                     r;
                 try {
                     while ($t.moveNext()) {
                         var item = Bridge.cast($t.Current, System.Int32);
-                        Bridge.Test.NUnit.Assert.AreEqual(Bridge.identity(i, (i = (i + 1) | 0)), item);
+                        Bridge.Test.NUnit.Assert.AreEqual(Bridge.identity(i, ((i = (i + 1) | 0))), item);
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
@@ -9454,7 +9455,8 @@ Bridge.$N1391Result =                     r;
 
     Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735, {
         f1: function (source) {
-            Bridge.cast(source, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735.Container).Value = (Bridge.cast(source, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735.Container).Value + 1) | 0;
+            var $t;
+            ($t = Bridge.cast(source, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1735.Container)).Value = ($t.Value + 1) | 0;
         }
     });
 
@@ -9795,7 +9797,7 @@ Bridge.$N1391Result =                     r;
         methods: {
             TestSumForEmpty: function () {
                 var decimalList = new (System.Collections.Generic.List$1(System.Decimal)).ctor();
-                var decimalSum = System.Linq.Enumerable.from(decimalList).sum(System.Decimal.Zero);
+                var decimalSum = System.Linq.Enumerable.from(decimalList, System.Decimal).sum(System.Decimal.Zero);
                 var lessThanOne = decimalSum.lt(System.Decimal(1));
 
                 Bridge.Test.NUnit.Assert.True(Bridge.is(decimalSum, System.Decimal), "is decimal");
@@ -10732,7 +10734,7 @@ Bridge.$N1391Result =                     r;
             },
             TestAddStaticMethod: function () {
                 var callbacks = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813();
-                callbacks.Add([Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813.instance_callback]);
+                callbacks.Add([(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813.instance_callback)]);
                 Bridge.Test.NUnit.Assert.AreEqual(1, callbacks.list.Count);
                 Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(callbacks.list.getItem(0), Bridge.ClientTest.Batch3.BridgeIssues.Bridge1813.instance_callback));
             }
@@ -11105,7 +11107,7 @@ Bridge.$N1391Result =                     r;
                 try {
                     while ($t.moveNext()) {
                         var o = Bridge.ClientTest.Batch3.BridgeIssues.Bridge1846.Obj.op_Implicit($t.Current);
-                        Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), arr)], o.s);
+                        Bridge.Test.NUnit.Assert.AreEqual(arr[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), arr)], o.s);
                     }
                 } finally {
                     if (Bridge.is($t, System.IDisposable)) {
@@ -11671,29 +11673,29 @@ Bridge.$N1391Result =                     r;
                 x.add(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA(), $t.DecimalNumber = System.Decimal(1), $t.LongNumber = System.Int64(2), $t));
                 x.add(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA(), $t.DecimalNumber = System.Decimal(5), $t.LongNumber = System.Int64(6), $t));
 
-                var c = System.Linq.Enumerable.from(x).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f1, System.Int64.Zero);
+                var c = System.Linq.Enumerable.from(x, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f1, System.Int64.Zero);
                 Bridge.Test.NUnit.Assert.AreEqual(System.Int64(8), c);
 
-                var b = System.Linq.Enumerable.from(x).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f2, System.Decimal.Zero);
+                var b = System.Linq.Enumerable.from(x, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f2, System.Decimal.Zero);
                 Bridge.Test.NUnit.Assert.AreEqual(System.Decimal(6.0), b);
 
                 var e1 = Bridge.as(x, System.Collections.Generic.IEnumerable$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA));
 
-                var c1 = System.Linq.Enumerable.from(e1).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f1, System.Int64.Zero);
+                var c1 = System.Linq.Enumerable.from(e1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f1, System.Int64.Zero);
                 Bridge.Test.NUnit.Assert.AreEqual(System.Int64(8), c1);
 
-                var b1 = System.Linq.Enumerable.from(e1).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f2, System.Decimal.Zero);
+                var b1 = System.Linq.Enumerable.from(e1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.classA).sum($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge1878.f2, System.Decimal.Zero);
                 Bridge.Test.NUnit.Assert.AreEqual(System.Decimal(6.0), b1);
 
                 var y = new (System.Collections.Generic.List$1(System.Decimal)).ctor();
                 y.add(System.Decimal(7));
                 y.add(System.Decimal(8));
 
-                var a = System.Linq.Enumerable.from(y).sum(System.Decimal.Zero);
+                var a = System.Linq.Enumerable.from(y, System.Decimal).sum(System.Decimal.Zero);
                 Bridge.Test.NUnit.Assert.AreEqual(System.Decimal(15.0), a);
 
                 var y1 = Bridge.as(y, System.Collections.Generic.IEnumerable$1(System.Decimal));
-                var a1 = System.Linq.Enumerable.from(y1).sum(System.Decimal.Zero);
+                var a1 = System.Linq.Enumerable.from(y1, System.Decimal).sum(System.Decimal.Zero);
                 Bridge.Test.NUnit.Assert.AreEqual(System.Decimal(15.0), a1);
             }
         }
@@ -12054,7 +12056,7 @@ Bridge.$N1391Result =                     r;
                 Bridge.Test.NUnit.Assert.AreEqual(385941503, v2.v);
 
                 var v3 = { };
-                var b3 = System.UInt32.tryParse("0x1700fffА", v3, radix);
+                var b3 = System.UInt32.tryParse("0x1700fff\u0410", v3, radix);
                 Bridge.Test.NUnit.Assert.False(b3, "b3: " + v3.v);
 
                 var v4 = { };
@@ -12362,8 +12364,8 @@ Bridge.$N1391Result =                     r;
             TestExtensionMethodOfBaseClassLinqCase: function () {
                 var values = System.Array.init([0, 1, 2], System.Int32);
 
-                var max1 = System.Linq.Enumerable.from(values).select(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1911.GetValue1).max();
-                var max2 = System.Linq.Enumerable.from(System.Linq.Enumerable.from(values).select(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1911.GetValue2)).max();
+                var max1 = System.Linq.Enumerable.from(values, System.Int32).select(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1911.GetValue1).max();
+                var max2 = System.Linq.Enumerable.from(System.Linq.Enumerable.from(values, System.Int32).select(Bridge.ClientTest.Batch3.BridgeIssues.Bridge1911.GetValue2), System.Object).max();
 
                 Bridge.Test.NUnit.Assert.AreEqual(2, max1);
                 Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.unbox(max2));
@@ -13125,7 +13127,7 @@ Bridge.$N1391Result =                     r;
                     items.ForEach(actionSet);
                     items.ForEach(actionCall);
 
-                    return System.Linq.Enumerable.from(items).select(function (c) {
+                    return System.Linq.Enumerable.from(items, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2019.ISome$1(T)).select(function (c) {
                             return c["Bridge$ClientTest$Batch3$BridgeIssues$Bridge2019$ISome$1$" + Bridge.getTypeAlias(T) + "$SomeProp"];
                         }).sum();
                 }
@@ -13915,12 +13917,13 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         methods: {
             TestFixed: function () {
+                var $t;
                 var types = System.Array.init([Bridge.box(7, System.Int32), Bridge.box(7, System.Byte), Bridge.box(7, System.UInt32), System.Int64(7), System.UInt64(7), Bridge.box(7, System.Int16), Bridge.box(8, System.UInt16), Bridge.box(9, System.SByte), Bridge.box(3.0, System.Double, System.Double.format, System.Double.getHashCode), Bridge.box(3.0, System.Single, System.Single.format, System.Single.getHashCode), Bridge.box(97, System.Char, String.fromCharCode, System.Char.getHashCode), System.Decimal(7.0), new $asm.$AnonymousType$15(3), $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2077.Bridge1347.f1(new (System.Collections.Generic.List$1(System.Int32)).ctor())], System.Object);
 
                 var expected = System.Array.init(["System.Int32", "System.Byte", "System.UInt32", "System.Int64", "System.UInt64", "System.Int16", "System.UInt16", "System.SByte", "System.Double", "System.Single", "System.Char", "System.Decimal", "$AnonymousType$15", "System.Collections.Generic.List`1[[System.Int32, mscorlib]]"], System.String);
 
 
-                var actual = System.Linq.Enumerable.from(types).toList(System.Object).ConvertAll(System.String, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2077.Bridge1347.f2).ToArray();
+                var actual = ($t = System.Object, System.Linq.Enumerable.from(types, $t).toList($t)).ConvertAll(System.String, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2077.Bridge1347.f2).ToArray();
 
                 for (var i = 0; i < actual.length; i = (i + 1) | 0) {
                     Bridge.Test.NUnit.Assert.AreEqual(expected[System.Array.index(i, expected)], actual[System.Array.index(i, actual)], "#" + i);
@@ -14080,7 +14083,7 @@ Bridge.$N1391Result =                     r;
                             return p;
                         }, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2079Parsers.f1));
                     }, function (head, tail) {
-                        return Bridge.cast(System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2079Parsers.ToEnumerable(TValue1, head)).concat(tail), System.Collections.Generic.IEnumerable$1(TValue1));
+                        return Bridge.cast(System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2079Parsers.ToEnumerable(TValue1, head), TValue1).concat(tail), System.Collections.Generic.IEnumerable$1(TValue1));
                     });
                 },
                 SelectMany: function (TValue, TIntermediate, TValue2, parser, selector, projector) {
@@ -14349,21 +14352,21 @@ Bridge.$N1391Result =                     r;
                 TestObjectLiteralReflection: function () {
                     var $t;
                     var ol = { };
-                    var props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(ol), 16, 28)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
+                    var props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(ol), 16, 28), System.Reflection.PropertyInfo).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
                     Bridge.Test.NUnit.Assert.AreEqual(0, props.length);
 
                     var obj = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.T();
-                    props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(obj), 16, 28)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
+                    props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(obj), 16, 28), System.Reflection.PropertyInfo).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
                     Bridge.Test.NUnit.Assert.AreEqual(1, props.length);
                     Bridge.Test.NUnit.Assert.AreEqual("ShouldSeeThis", props[System.Array.index(0, props)]);
 
                     var ol1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.OL1.ctor();
-                    props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(ol1), 16, 28)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
+                    props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(ol1), 16, 28), System.Reflection.PropertyInfo).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
                     Bridge.Test.NUnit.Assert.AreEqual(1, props.length);
                     Bridge.Test.NUnit.Assert.AreEqual("ShouldSeeThis1", props[System.Array.index(0, props)]);
 
                     var ol2 = ($t = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.OL2.ctor(), $t.ShouldSeeThis2 = 2, $t);
-                    props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(ol2), 16, 28)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
+                    props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.getType(ol2), 16, 28), System.Reflection.PropertyInfo).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2088.f1).ToArray(System.String);
                     Bridge.Test.NUnit.Assert.AreEqual(2, props.length);
                     Bridge.Test.NUnit.Assert.AreEqual("ShouldSeeThis2", props[System.Array.index(0, props)]);
                     Bridge.Test.NUnit.Assert.AreEqual("ShouldSeeThis1", props[System.Array.index(1, props)]);
@@ -14937,7 +14940,7 @@ Bridge.$N1391Result =                     r;
                         2.5
                     ], System.Double);
                     var numbers2 = System.Array.init([2.2, 2.2], System.Double);
-                    var numbers = System.Linq.Enumerable.from(numbers1).except(numbers2).ToArray(System.Double);
+                    var numbers = System.Linq.Enumerable.from(numbers1, System.Double).except(numbers2).ToArray(System.Double);
 
                     Bridge.Test.NUnit.Assert.AreEqual(5, numbers.length);
                     Bridge.Test.NUnit.Assert.False(System.Array.contains(numbers, 2.2, System.Double));
@@ -14947,7 +14950,7 @@ Bridge.$N1391Result =                     r;
                     var numbers3 = System.Array.init([2.2], System.Double);
                     var numbers4 = System.Array.init([2.2], System.Double);
                     var count3 = 0;
-                    $t = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers3).except(numbers4));
+                    $t = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers3, System.Double).except(numbers4));
                     try {
                         while ($t.moveNext()) {
                             var item = $t.Current;
@@ -14963,7 +14966,7 @@ Bridge.$N1391Result =                     r;
                     var numbers5 = System.Array.init([2.0], System.Double);
                     var numbers6 = System.Array.init([2.2], System.Double);
                     var count5 = 0;
-                    $t1 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers5).except(numbers6));
+                    $t1 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers5, System.Double).except(numbers6));
                     try {
                         while ($t1.moveNext()) {
                             var item1 = $t1.Current;
@@ -14980,7 +14983,7 @@ Bridge.$N1391Result =                     r;
                     var numbers7 = System.Array.init([], System.Double);
                     var numbers8 = System.Array.init([2.0], System.Double);
                     var count7 = 0;
-                    $t2 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers7).except(numbers8));
+                    $t2 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers7, System.Double).except(numbers8));
                     try {
                         while ($t2.moveNext()) {
                             var item2 = $t2.Current;
@@ -14997,7 +15000,7 @@ Bridge.$N1391Result =                     r;
                     var numbers9 = System.Array.init([7.0], System.Double);
                     var numbers10 = System.Array.init([], System.Double);
                     var count9 = 0;
-                    $t3 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers9).except(numbers10));
+                    $t3 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers9, System.Double).except(numbers10));
                     try {
                         while ($t3.moveNext()) {
                             var item3 = $t3.Current;
@@ -15014,7 +15017,7 @@ Bridge.$N1391Result =                     r;
                     var numbers11 = System.Array.init([], System.Double);
                     var numbers12 = System.Array.init([], System.Double);
                     var count11 = 0;
-                    $t4 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers11).except(numbers12));
+                    $t4 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers11, System.Double).except(numbers12));
                     try {
                         while ($t4.moveNext()) {
                             var item4 = $t4.Current;
@@ -15053,7 +15056,7 @@ Bridge.$N1391Result =                     r;
                         2.4, 
                         2.7
                     ], System.Double);
-                    var numbers = System.Linq.Enumerable.from(numbers1).intersect(numbers2).ToArray(System.Double);
+                    var numbers = System.Linq.Enumerable.from(numbers1, System.Double).intersect(numbers2).ToArray(System.Double);
 
                     Bridge.Test.NUnit.Assert.AreEqual(2, numbers.length);
                     Bridge.Test.NUnit.Assert.AreEqual(2.2, numbers[System.Array.index(0, numbers)]);
@@ -15062,7 +15065,7 @@ Bridge.$N1391Result =                     r;
                     var numbers3 = System.Array.init([2.2], System.Double);
                     var numbers4 = System.Array.init([2.4], System.Double);
                     var count3 = 0;
-                    $t = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers3).intersect(numbers4));
+                    $t = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers3, System.Double).intersect(numbers4));
                     try {
                         while ($t.moveNext()) {
                             var item = $t.Current;
@@ -15078,7 +15081,7 @@ Bridge.$N1391Result =                     r;
                     var numbers5 = System.Array.init([2.0], System.Double);
                     var numbers6 = System.Array.init([2.0], System.Double);
                     var count5 = 0;
-                    $t1 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers5).intersect(numbers6));
+                    $t1 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers5, System.Double).intersect(numbers6));
                     try {
                         while ($t1.moveNext()) {
                             var item1 = $t1.Current;
@@ -15095,7 +15098,7 @@ Bridge.$N1391Result =                     r;
                     var numbers7 = System.Array.init([], System.Double);
                     var numbers8 = System.Array.init([2.0], System.Double);
                     var count7 = 0;
-                    $t2 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers7).intersect(numbers8));
+                    $t2 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers7, System.Double).intersect(numbers8));
                     try {
                         while ($t2.moveNext()) {
                             var item2 = $t2.Current;
@@ -15112,7 +15115,7 @@ Bridge.$N1391Result =                     r;
                     var numbers9 = System.Array.init([7.0], System.Double);
                     var numbers10 = System.Array.init([], System.Double);
                     var count9 = 0;
-                    $t3 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers9).intersect(numbers10));
+                    $t3 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers9, System.Double).intersect(numbers10));
                     try {
                         while ($t3.moveNext()) {
                             var item3 = $t3.Current;
@@ -15129,7 +15132,7 @@ Bridge.$N1391Result =                     r;
                     var numbers11 = System.Array.init([], System.Double);
                     var numbers12 = System.Array.init([], System.Double);
                     var count11 = 0;
-                    $t4 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers11).intersect(numbers12));
+                    $t4 = Bridge.getEnumerator(System.Linq.Enumerable.from(numbers11, System.Double).intersect(numbers12));
                     try {
                         while ($t4.moveNext()) {
                             var item4 = $t4.Current;
@@ -15198,8 +15201,9 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestBaseTypeForGenericDefinition: function () {
+                    var $t;
                     var derivedType = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2160.Derived$1;
-                    var args = System.Linq.Enumerable.from(Bridge.Reflection.getGenericArguments(derivedType)).ToArray(System.Type);
+                    var args = ($t = System.Type, System.Linq.Enumerable.from(Bridge.Reflection.getGenericArguments(derivedType), $t).ToArray($t));
                     Bridge.Test.NUnit.Assert.AreEqual(1, args.length);
                     Bridge.Test.NUnit.Assert.AreEqual("V", Bridge.Reflection.getTypeName(args[System.Array.index(0, args)]));
                     Bridge.Test.NUnit.Assert.True((args[System.Array.index(0, args)].$isTypeParameter || false));
@@ -17230,7 +17234,7 @@ Bridge.$N1391Result =                     r;
             methods: {
                 TestLinqGrouping: function () {
                     var $t;
-                    var query = System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plants.Flowers).groupBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.f1);
+                    var query = System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plants.Flowers, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plant).groupBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.f1);
 
                     $t = Bridge.getEnumerator(query);
                     try {
@@ -17246,14 +17250,14 @@ Bridge.$N1391Result =                     r;
                     }
                 },
                 TestLinqLookup: function () {
-                    var query = System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plants.Flowers).toLookup($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.f1);
+                    var query = System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plants.Flowers, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plant).toLookup($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.f1);
 
                     Bridge.Test.NUnit.Assert.True(Bridge.is(query, System.Linq.Lookup$2));
                     Bridge.Test.NUnit.Assert.True(Bridge.is(query, System.Linq.ILookup$2));
                     Bridge.Test.NUnit.Assert.AreEqual(2, query.get("Shade").count());
                 },
                 TestLinqOrderedEnumerable: function () {
-                    var query = System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plants.Flowers).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.f2);
+                    var query = System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plants.Flowers, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.Plant).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2355.f2);
 
                     Bridge.Test.NUnit.Assert.True(Bridge.is(query, System.Linq.OrderedEnumerable$1));
                     Bridge.Test.NUnit.Assert.True(Bridge.is(query, System.Linq.IOrderedEnumerable$1));
@@ -17554,7 +17558,7 @@ Bridge.$N1391Result =                     r;
 
     Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2393.c2, {
         f1: function (x_) {
-            var o1 = System.Linq.Enumerable.from(this.a1).firstOrDefault(function (i_) {
+            var o1 = System.Linq.Enumerable.from(this.a1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2393.c1).firstOrDefault(function (i_) {
                     return Bridge.referenceEquals(i_.p1, x_.p3);
                 }, null);
         }
@@ -17599,8 +17603,6 @@ Bridge.$N1391Result =                     r;
             }
         }
     });
-
-    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge2405");
 
     /**
      * This test consists in running async tasks and calling the task's Wait()
@@ -18026,34 +18028,34 @@ Bridge.$N1391Result =                     r;
                 TestNaNCompareForDouble: function () {
                     var vals = System.Array.init([4, 3, Number.NaN, 0, 1, 2, 1], System.Double);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, System.Linq.Enumerable.from(vals).max());
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals).min());
+                    Bridge.Test.NUnit.Assert.AreEqual(4, System.Linq.Enumerable.from(vals, System.Double).max());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals, System.Double).min());
 
                     vals = System.Array.init([4, 3, Number.POSITIVE_INFINITY, Number.NaN, Number.NEGATIVE_INFINITY, 0, 1, 2, 1], System.Double);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals).max());
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals).min());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals, System.Double).max());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals, System.Double).min());
 
                     vals = System.Array.init([4, 3, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, 0, 1, 2, 1], System.Double);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals).max());
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.NEGATIVE_INFINITY, System.Linq.Enumerable.from(vals).min());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals, System.Double).max());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.NEGATIVE_INFINITY, System.Linq.Enumerable.from(vals, System.Double).min());
                 },
                 TestNaNCompareForFloat: function () {
                     var vals = System.Array.init([4, 3, Number.NaN, 0, 1, 2, 1], System.Single);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(4, System.Linq.Enumerable.from(vals).max());
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals).min());
+                    Bridge.Test.NUnit.Assert.AreEqual(4, System.Linq.Enumerable.from(vals, System.Float).max());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals, System.Float).min());
 
                     vals = System.Array.init([4, 3, Number.POSITIVE_INFINITY, Number.NaN, Number.NEGATIVE_INFINITY, 0, 1, 2, 1], System.Single);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals).max());
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals).min());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals, System.Float).max());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.NaN, System.Linq.Enumerable.from(vals, System.Float).min());
 
                     vals = System.Array.init([4, 3, Number.POSITIVE_INFINITY, Number.NEGATIVE_INFINITY, 0, 1, 2, 1], System.Single);
 
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals).max());
-                    Bridge.Test.NUnit.Assert.AreEqual(Number.NEGATIVE_INFINITY, System.Linq.Enumerable.from(vals).min());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.POSITIVE_INFINITY, System.Linq.Enumerable.from(vals, System.Float).max());
+                    Bridge.Test.NUnit.Assert.AreEqual(Number.NEGATIVE_INFINITY, System.Linq.Enumerable.from(vals, System.Float).min());
                 }
             }
         }
@@ -19458,7 +19460,7 @@ Bridge.$N1391Result =                     r;
                     var a1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558EnumExtensions.GetAttribute(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.DisplayAttribute, Bridge.box(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status.Item1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status, System.Enum.toStringFn(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status)));
                     Bridge.Test.NUnit.Assert.AreEqual("tst", a1.Name);
 
-                    var a2 = Bridge.cast(System.Linq.Enumerable.from(System.Attribute.getCustomAttributes(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status, 4, 284, System.Enum.toString(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status.Item1)), Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.DisplayAttribute, false)).firstOrDefault(null, null), Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.DisplayAttribute);
+                    var a2 = Bridge.cast(System.Linq.Enumerable.from(System.Attribute.getCustomAttributes(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status, 4, 284, System.Enum.toString(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status, Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.Status.Item1)), Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.DisplayAttribute, false), System.Object).firstOrDefault(null, null), Bridge.ClientTest.Batch3.BridgeIssues.Bridge2558.DisplayAttribute);
 
                     Bridge.Test.NUnit.Assert.AreEqual("tst", a2.Name);
                 }
@@ -19494,7 +19496,7 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 GetAttribute: function (T, value) {
-                    return Bridge.as(System.Linq.Enumerable.from(System.Attribute.getCustomAttributes(Bridge.Reflection.getMembers(Bridge.getType(value), 4, 284, System.Enum.toString(Bridge.getType(value), value)), T, false)).firstOrDefault(null, null), T);
+                    return Bridge.as(System.Linq.Enumerable.from(System.Attribute.getCustomAttributes(Bridge.Reflection.getMembers(Bridge.getType(value), 4, 284, System.Enum.toString(Bridge.getType(value), value)), T, false), System.Object).firstOrDefault(null, null), T);
                 }
             }
         }
@@ -19571,7 +19573,7 @@ Bridge.$N1391Result =                     r;
                                     }
                                     case 2: {
                                         action = function () {
-                                            Bridge.identity(counter, (counter = (counter + 1) | 0));
+                                            Bridge.identity(counter, ((counter = (counter + 1) | 0)));
                                         };
                                         $task1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge2565.RunTest(function () {
                                             action();
@@ -19845,7 +19847,7 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestBrowsableAttribute: function () {
-                    var props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.Properties, 16, 28)).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.f1);
+                    var props = System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.Properties, 16, 28), System.Reflection.PropertyInfo).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2600.f1);
 
                     Bridge.Test.NUnit.Assert.AreEqual(1, props.count(), "Found one match of the BrowsableAttribute in the checked class.");
                     Bridge.Test.NUnit.Assert.AreEqual("Prop1", props.first().n, "Matching property with BrowsableAttribute is the 'Prop1' one.");
@@ -20742,7 +20744,7 @@ Bridge.$N1391Result =                     r;
                         var k = { v : 1 };
                         var a = (function ($me, k) {
                             return function () {
-                                Bridge.identity(k.v, (k.v = (k.v + 1) | 0));
+                                Bridge.identity(k.v, ((k.v = (k.v + 1) | 0)));
                             };
                         })(this, k);
                         a();
@@ -24444,12 +24446,12 @@ Bridge.$N1391Result =                     r;
             },
             methods: {
                 TestCreateDelegate: function () {
-                    Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run"), null)(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.ctor(), "Hello", "World");
+                    (Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run"), null))(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.ctor(), "Hello", "World");
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.a, "Hello"));
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.b, "World"));
 
                     var c = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.$ctor1(5);
-                    Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run1"), null)(c, "Hello1", "World1", 9);
+                    (Bridge.Reflection.createDelegate(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898, 8, 284, "Run1"), null))(c, "Hello1", "World1", 9);
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.a, "Hello1"));
                     Bridge.Test.NUnit.Assert.True(Bridge.referenceEquals(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2898.b, "World1"));
                     Bridge.Test.NUnit.Assert.True(c.x === 9);
@@ -24585,7 +24587,7 @@ Bridge.$N1391Result =                     r;
                 TestDelegateRemoving: function () {
                     var x = 5;
                     var a = function () {
-                        Bridge.identity(x, (x = (x - 1) | 0));
+                        Bridge.identity(x, ((x = (x - 1) | 0)));
                     };
                     var combo = (Bridge.fn.combine(a, a));
                     (Bridge.fn.remove(combo, a))();
@@ -24665,7 +24667,7 @@ Bridge.$N1391Result =                     r;
         },
         methods: {
             addRegister: function (value) {
-                if (Bridge.staticEquals(this.register, null) || System.Linq.Enumerable.from(Bridge.fn.getInvocationList(this.register)).any() === false) {
+                if (Bridge.staticEquals(this.register, null) || System.Linq.Enumerable.from(Bridge.fn.getInvocationList(this.register), Function).any() === false) {
                     this.register = Bridge.fn.combine(this.register, value);
                 }
             },
@@ -25185,9 +25187,9 @@ Bridge.$N1391Result =                     r;
                     var str = System.Array.convertAll(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.A, 4, 56), $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.f1).join(", ");
 
                     Bridge.Test.NUnit.Assert.AreEqual("A, B, C", str);
-                    Bridge.Test.NUnit.Assert.AreEqual("B", Bridge.toString(Bridge.Reflection.midel(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.C, 16, 56)).first().g, null)()));
-                    Bridge.Test.NUnit.Assert.AreEqual("B", Bridge.toString(Bridge.Reflection.midel(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.C, 16, 56)).first().g, null)(null)));
-                    Bridge.Test.NUnit.Assert.AreEqual("C", Bridge.toString(Bridge.Reflection.midel(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.C, 8, 56)).first(), null)(null)));
+                    Bridge.Test.NUnit.Assert.AreEqual("B", Bridge.toString(Bridge.Reflection.midel(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.C, 16, 56), System.Reflection.PropertyInfo).first().g, null)()));
+                    Bridge.Test.NUnit.Assert.AreEqual("B", Bridge.toString(Bridge.Reflection.midel(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.C, 16, 56), System.Reflection.PropertyInfo).first().g, null)(null)));
+                    Bridge.Test.NUnit.Assert.AreEqual("C", Bridge.toString(Bridge.Reflection.midel(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge2940.C, 8, 56), System.Reflection.MethodInfo).first(), null)(null)));
                 }
             }
         }
@@ -27188,7 +27190,7 @@ Bridge.$N1391Result =                     r;
                  */
                 TestObjectLiteralReflectionCtor: function () {
                     var date = System.DateTime.getNow();
-                    var p = Bridge.Reflection.invokeCI(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3240.Person, 1, 28)).first(), [date]);
+                    var p = Bridge.Reflection.invokeCI(System.Linq.Enumerable.from(Bridge.Reflection.getMembers(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3240.Person, 1, 28), System.Reflection.ConstructorInfo).first(), [date]);
 
                     Bridge.Test.NUnit.Assert.AreEqual(date, p.Value);
                 }
@@ -27445,7 +27447,7 @@ Bridge.$N1391Result =                     r;
                     // bridgedotnet /Bridge#3245
                     // Check if, once binding with a valid cast, the list remains.
                     var bAsEnumerableA = Bridge.cast(listB, System.Collections.Generic.IEnumerable$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3244.A));
-                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(bAsEnumerableA).count(), "List supports casting to parent types (#3245)");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(bAsEnumerableA, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3244.A).count(), "List supports casting to parent types (#3245)");
                 }
             }
         }
@@ -28224,7 +28226,7 @@ Bridge.$N1391Result =                     r;
                     var dt2 = System.DateTime.addMinutes(dt1, -10);
                     times.add(dt2);
 
-                    times = System.Linq.Enumerable.from(times).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307.f1).toList(System.DateTime);
+                    times = System.Linq.Enumerable.from(times, System.DateTime).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3307.f1).toList(System.DateTime);
 
                     Bridge.Test.NUnit.Assert.True(System.DateTime.gt(dt1, dt2), "The initial date is effectively after the rewound date.");
                     Bridge.Test.NUnit.Assert.True(System.DateTime.lt(times.getItem(0), times.getItem(1)), "Result is ordered correctly.");
@@ -28571,7 +28573,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t.moveNext()) {
                             var attr = $t.Current;
-                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.VerifyAttributeNode(Bridge.identity(index, (index = (index + 1) | 0)), attr);
+                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3331.VerifyAttributeNode(Bridge.identity(index, ((index = (index + 1) | 0))), attr);
                         }
                     } finally {
                         if (Bridge.is($t, System.IDisposable)) {
@@ -28892,13 +28894,13 @@ Bridge.$N1391Result =                     r;
                     dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$add(System.UInt64(40), "Forty");
                     dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$add(System.UInt64(30), "Thirty");
 
-                    Bridge.Test.NUnit.Assert.True(System.UInt64(10).equals(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys).min()), "Min key is 10.");
+                    Bridge.Test.NUnit.Assert.True(System.UInt64(10).equals(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys, System.UInt64).min()), "Min key is 10.");
                     Bridge.Test.NUnit.Assert.AreEqual("Ten", dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$getItem(System.UInt64(10)), "Key index 10 has the expected value, 'Ten'.");
-                    Bridge.Test.NUnit.Assert.AreEqual("Ten", dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$getItem(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys).min()), "Value from min key matches the expected 'Ten'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Ten", dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$getItem(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys, System.UInt64).min()), "Value from min key matches the expected 'Ten'.");
 
-                    Bridge.Test.NUnit.Assert.True(System.UInt64(40).equals(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys).max()), "Max key is 40.");
+                    Bridge.Test.NUnit.Assert.True(System.UInt64(40).equals(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys, System.UInt64).max()), "Max key is 40.");
                     Bridge.Test.NUnit.Assert.AreEqual("Forty", dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$getItem(System.UInt64(40)), "Key index 40 has the expected value, 'Forty'.");
-                    Bridge.Test.NUnit.Assert.AreEqual("Forty", dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$getItem(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys).max()), "Value from max key matches the expected 'Forty'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Forty", dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$getItem(System.Linq.Enumerable.from(dic.System$Collections$Generic$IDictionary$2$System$UInt64$System$String$Keys, System.UInt64).max()), "Value from max key matches the expected 'Forty'.");
                 }
             }
         }
@@ -30957,7 +30959,7 @@ Bridge.$N1391Result =                     r;
                                         // Expected: iStoreValue == iTestData
                                         Bridge.Test.NUnit.Assert.AreEqual(iStoreValue, this.iTestData, "Data did not get corrupt with the async-await calls (." + this.chkCount + "/3).");
 
-                                        if (Bridge.identity(this.chkCount, (this.chkCount = (this.chkCount + 1) | 0)) >= 3) {
+                                        if (Bridge.identity(this.chkCount, ((this.chkCount = (this.chkCount + 1) | 0))) >= 3) {
                                             this.done();
                                         }
 
@@ -31012,10 +31014,10 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestOrderByComparer: function () {
-                    Bridge.Test.NUnit.Assert.AreEqual("a - A - b - B", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String)).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderBy 'A-a-b-B' results in 'a-A-b-B'.");
-                    Bridge.Test.NUnit.Assert.AreEqual("a - A - b - B", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String)).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f2).thenBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderBy.ThenBy 'A-a-b-B' results in 'a-A-b-B'.");
-                    Bridge.Test.NUnit.Assert.AreEqual("B - b - A - a", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String)).orderByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderByDescending 'A-a-b-B' results in 'B-b-A-a'.");
-                    Bridge.Test.NUnit.Assert.AreEqual("B - b - A - a", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String)).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f2).thenByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderBy.ThenByDescending 'A-a-b-B' results in 'B-b-A-a'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a - A - b - B", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String), System.String).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderBy 'A-a-b-B' results in 'a-A-b-B'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a - A - b - B", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String), System.String).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f2).thenBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderBy.ThenBy 'A-a-b-B' results in 'a-A-b-B'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("B - b - A - a", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String), System.String).orderByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderByDescending 'A-a-b-B' results in 'B-b-A-a'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("B - b - A - a", Bridge.toArray(System.Linq.Enumerable.from(System.Array.init(["A", "a", "b", "B"], System.String), System.String).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f2).thenByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3477.f1)).join(" - "), "OrderBy.ThenByDescending 'A-a-b-B' results in 'B-b-A-a'.");
                 }
             }
         }
@@ -31520,16 +31522,16 @@ Bridge.$N1391Result =                     r;
                     superDict.add(guid3, x3);
 
                     var keys = superDict.Keys;
-                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(keys).count(), "Can fetch key count from dictionary.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(keys).contains(guid1), "Can fetch key matching first Guid value.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(keys).contains(guid2), "Can fetch key matching second Guid value.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(keys).contains(guid3), "Can fetch key matching third Guid value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(keys, System.Guid).count(), "Can fetch key count from dictionary.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(keys, System.Guid).contains(guid1), "Can fetch key matching first Guid value.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(keys, System.Guid).contains(guid2), "Can fetch key matching second Guid value.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(keys, System.Guid).contains(guid3), "Can fetch key matching third Guid value.");
 
                     var values = superDict.Values;
-                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(values).count(), "Can fetch value count from dictionary.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(values).contains(x1), "Can fetch value matching first string value.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(values).contains(x2), "Can fetch value matching second string value.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(values).contains(x3), "Can fetch value matching third string value.");
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(values, System.String).count(), "Can fetch value count from dictionary.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(values, System.String).contains(x1), "Can fetch value matching first string value.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(values, System.String).contains(x2), "Can fetch value matching second string value.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(values, System.String).contains(x3), "Can fetch value matching third string value.");
                 },
                 /**
                  * This expands and generalizes the test by making dictionaries with
@@ -32430,7 +32432,7 @@ Bridge.$N1391Result =                     r;
 
                     testProbe = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3567.f1;
 
-                    var matches = System.Linq.Enumerable.from(list).select(testProbe).ToArray(System.Int32);
+                    var matches = System.Linq.Enumerable.from(list, System.Int32).select(testProbe).ToArray(System.Int32);
 
                     Bridge.Test.NUnit.Assert.True(matches.length === 3 && matches[System.Array.index(0, matches)] === 2 && matches[System.Array.index(1, matches)] === 3 && matches[System.Array.index(2, matches)] === 4, "Linq-select-triggered local function works.");
 
@@ -32448,7 +32450,7 @@ Bridge.$N1391Result =                     r;
                         return s > max ? "" : strings[System.Array.index(s, strings)];
                     };
 
-                    var ordered = System.Linq.Enumerable.from(stringPool).orderBy(function (p) {
+                    var ordered = System.Linq.Enumerable.from(stringPool, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3567.StringNum).orderBy(function (p) {
                             return p.Value > max;
                         }).thenBy(function (p) {
                         return strProbe(p.Value);
@@ -33188,7 +33190,7 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestCustomListImplementation: function () {
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3599.SortedList$2(System.Int32,System.Int32)).ctor()).count(), "Sorted list implementation works.");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3599.SortedList$2(System.Int32,System.Int32)).ctor(), System.Collections.Generic.KeyValuePair$2(System.Int32,System.Int32)).count(), "Sorted list implementation works.");
                 }
             }
         }
@@ -33361,7 +33363,7 @@ Bridge.$N1391Result =                     r;
                     if (count > 1) {
                         comparer = this.Comparer; // obtain default if this is null.
 
-                        keys = System.Linq.Enumerable.from(dictionary).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3599.SortedList$2.f1, comparer).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3599.SortedList$2.f1).ToArray(TK);
+                        keys = System.Linq.Enumerable.from(dictionary, System.Collections.Generic.KeyValuePair$2(TK,TV)).orderBy($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3599.SortedList$2.f1, comparer).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3599.SortedList$2.f1).ToArray(TK);
 
                         for (var i = 1; i !== keys.length; i = (i + 1) | 0) {
                             if (comparer[Bridge.geti(comparer, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(TK) + "$compare", "System$Collections$Generic$IComparer$1$compare")](keys[System.Array.index(((i - 1) | 0), keys)], keys[System.Array.index(i, keys)]) === 0) {
@@ -34519,7 +34521,7 @@ Bridge.$N1391Result =                     r;
                 TestConversion: function () {
                     var good = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
                     var bad = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.A.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
-                    Bridge.Test.NUnit.Assert.True(0 === System.Linq.Enumerable.from(good).count() && System.Linq.Enumerable.from(good).count() === System.Linq.Enumerable.from(bad).count(), "Implicit casting works (original test case, array elements dropped).");
+                    Bridge.Test.NUnit.Assert.True(0 === System.Linq.Enumerable.from(good, System.Object).count() && System.Linq.Enumerable.from(good, System.Object).count() === System.Linq.Enumerable.from(bad, System.Object).count(), "Implicit casting works (original test case, array elements dropped).");
 
                     var good_b = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
                     var bad_b = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3628.B.op_Implicit(System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32), Bridge.box(3, System.Int32), Bridge.box(4, System.Int32), Bridge.box(5, System.Int32)], System.Object));
@@ -34845,11 +34847,12 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNestedUsing: function () {
+                    var $t;
                     var a = System.Array.init(["1", "2", "3"], System.String);
                     var b = System.Array.init(["4", "5", "6"], System.String);
                     var fn = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678.f1;
                     var result = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3678Extensions.Zipper(System.String, System.String, System.String, a, b, fn);
-                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", System.Linq.Enumerable.from(result).ToArray(System.String).join("."), "Nested usings in a yield resumable method produces valid javascript code.");
+                    Bridge.Test.NUnit.Assert.AreEqual("14.25.36", ($t = System.String, System.Linq.Enumerable.from(result, $t).ToArray($t)).join("."), "Nested usings in a yield resumable method produces valid javascript code.");
                 }
             }
         }
@@ -35359,7 +35362,7 @@ Bridge.$N1391Result =                     r;
                     var list = new (System.Collections.Generic.List$1(System.ValueTuple$2(System.Guid,System.Int32))).ctor();
                     list.add(new (System.ValueTuple$2(System.Guid,System.Int32)).$ctor1(System.Guid.NewGuid(), 123));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(123, System.Linq.Enumerable.from(list).first().Item2, "Generics with ValueTuple Enumerables works.");
+                    Bridge.Test.NUnit.Assert.AreEqual(123, System.Linq.Enumerable.from(list, System.ValueTuple$2(System.Guid,System.Int32)).first().Item2, "Generics with ValueTuple Enumerables works.");
                 }
             }
         }
@@ -35715,18 +35718,18 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestGnericParameterValueTuple: function () {
-                    var $t;
+                    var $t, $t1;
                     var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.Test();
 
-                    Bridge.Test.NUnit.Assert.AreEqual("a1", System.Linq.Enumerable.from(test).first().Item1, "Linq.First() wokrs.");
-                    Bridge.Test.NUnit.Assert.NotNull(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1), "Linq.Select() works.");
-                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(System.Linq.Enumerable.from(test).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1).first()), "Linq.Select().First() works.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f2), "Linq.Any(key) works.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f3), "Linq.Any(value) works.");
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test).all($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f4), "Linq.All() works.");
-                    Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).skip(1).first().Item1, "Linq.Skip() works.");
-                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = System.Linq.Enumerable.from(test).ToArray(System.ValueTuple$2(System.String,System.String)))[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
-                    Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f5).first().Item1, "Linq.Where() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).first().Item1, "Linq.First() wokrs.");
+                    Bridge.Test.NUnit.Assert.NotNull(System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1), "Linq.Select() works.");
+                    Bridge.Test.NUnit.Assert.NotNull(Bridge.unbox(System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f1).first()), "Linq.Select().First() works.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f2), "Linq.Any(key) works.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).any($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f3), "Linq.Any(value) works.");
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).all($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f4), "Linq.All() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).skip(1).first().Item1, "Linq.Skip() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a1", ($t = ($t1 = System.ValueTuple$2(System.String,System.String), System.Linq.Enumerable.from(test, $t1).ToArray($t1)))[System.Array.index(0, $t)].Item1, "Linq.ToArray() works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("a2", System.Linq.Enumerable.from(test, System.ValueTuple$2(System.String,System.String)).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3754.f5).first().Item1, "Linq.Where() works.");
                 }
             }
         }
@@ -35968,13 +35971,13 @@ Bridge.$N1391Result =                     r;
 
                     // Again, used to fail in 17.4.0.
                     var lst = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f3(new (System.Collections.Generic.List$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A)).ctor());
-                    var lstFail = System.Linq.Enumerable.from(lst).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f4).toList(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A);
+                    var lstFail = System.Linq.Enumerable.from(lst, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f4).toList(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A);
 
                     Bridge.Test.NUnit.Assert.AreEqual(1, lstFail.Count, "Non-empty list: (new List<A> {new A {P = \"22\"} }).Select(z => {return B.Helper(z);}).ToList()");
                     Bridge.Test.NUnit.Assert.AreEqual("22", lstFail.getItem(0).P, "Produces expected value: (new List<A> {new A {P = \"22\"} }).Select(z => {return B.Helper(z);}).ToList()");
 
                     // And workaround with the same functionality
-                    var lstWorkaround = System.Linq.Enumerable.from(lst).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f4).toList(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A);
+                    var lstWorkaround = System.Linq.Enumerable.from(lst, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762.Bridge.f4).toList(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3762_A);
 
                     Bridge.Test.NUnit.Assert.AreEqual(1, lstWorkaround.Count, "Workaround non-empty list: lst.Select<A,A>(z => {return B.Helper(z);}).ToList()");
                     Bridge.Test.NUnit.Assert.AreEqual("22", lstFail.getItem(0).P, "Workaround produces expected value: lst.Select<A,A>(z => {return B.Helper(z);}).ToList()");
@@ -36096,7 +36099,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.Null(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Ext.Boo(System.Nullable$1(System.Int32), y1), "Ext.Boo(y1), where y1 == null, results in null.");
 
                     var a = new (System.Collections.Generic.List$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Model)).ctor();
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(a).orderByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.f1).count(), "Linq Order() works in empty list.");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(a, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.Model).orderByDescending($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3785.f1).count(), "Linq Order() works in empty list.");
                 }
             }
         }
@@ -36204,9 +36207,9 @@ Bridge.$N1391Result =                     r;
                 TestLINQ: function () {
                     var col = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1(System.Int32))().f1(System.Array.init([""], System.String));
 
-                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(col).count(), "Instantiating c1 works.");
-                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(System.Linq.Enumerable.from(col).first()), "Elements of c1 are of c2's specified type.");
-                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(col).first().m1, "Value of c1 instance's element from subclass is correct.");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(col, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1.c2(System.Int32)).count(), "Instantiating c1 works.");
+                    Bridge.Test.NUnit.Assert.True(Bridge.hasValue(System.Linq.Enumerable.from(col, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1.c2(System.Int32)).first()), "Elements of c1 are of c2's specified type.");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(col, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1.c2(System.Int32)).first().m1, "Value of c1 instance's element from subclass is correct.");
                 }
             }
         }
@@ -36216,7 +36219,7 @@ Bridge.$N1391Result =                     r;
         $kind: "nested class",
         methods: {
             f1: function (coll1) {
-                var coll2 = System.Linq.Enumerable.from(coll1).select(function (item_) {
+                var coll2 = System.Linq.Enumerable.from(coll1, System.String).select(function (item_) {
                         var $t;
                         return ($t = new (Bridge.ClientTest.Batch3.BridgeIssues.Bridge3789.c1$1.c2(T2))(), $t.m1 = 1, $t);
                     });
@@ -37232,24 +37235,25 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestToArray: function () {
+                    var $t, $t1, $t2, $t3, $t4, $t5, $t6, $t7, $t8, $t9;
                     var bytes = System.Array.init([1, 2, 3, 4], System.Byte);
-                    Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(bytes).ToArray(System.Byte))), "Byte array type from linq's ToArray() is 'Byte[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(($t1 = System.Byte, System.Linq.Enumerable.from(bytes, $t1).ToArray($t1)))), "Byte array type from linq's ToArray() is 'Byte[]'.");
                     Bridge.Test.NUnit.Assert.AreEqual("Byte[]", Bridge.Reflection.getTypeName(Bridge.getType(bytes)), "Byte array's type is 'Byte[]'.");
 
                     var ints = System.Array.init([1, 2, 3, 4], System.Int32);
-                    Bridge.Test.NUnit.Assert.AreEqual("Int32[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(ints).ToArray(System.Int32))), "Int array type from linq's ToArray() is 'Int32[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Int32[]", Bridge.Reflection.getTypeName(Bridge.getType(($t3 = System.Int32, System.Linq.Enumerable.from(ints, $t3).ToArray($t3)))), "Int array type from linq's ToArray() is 'Int32[]'.");
                     Bridge.Test.NUnit.Assert.AreEqual("Int32[]", Bridge.Reflection.getTypeName(Bridge.getType(ints)), "Int array's type is 'Int32[]'.");
 
                     var strings = System.Array.init(["1", "2", "3", "4"], System.String);
-                    Bridge.Test.NUnit.Assert.AreEqual("String[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(strings).ToArray(System.String))), "String array type from linq's ToArray() is 'String[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("String[]", Bridge.Reflection.getTypeName(Bridge.getType(($t5 = System.String, System.Linq.Enumerable.from(strings, $t5).ToArray($t5)))), "String array type from linq's ToArray() is 'String[]'.");
                     Bridge.Test.NUnit.Assert.AreEqual("String[]", Bridge.Reflection.getTypeName(Bridge.getType(strings)), "String array's type is 'String[]'.");
 
                     var floats = System.Array.init([1, 2, 3, 4], System.Single);
-                    Bridge.Test.NUnit.Assert.AreEqual("Single[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(floats).ToArray(System.Single))), "Float array type from linq's ToArray() is 'Single[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Single[]", Bridge.Reflection.getTypeName(Bridge.getType(($t7 = System.Single, System.Linq.Enumerable.from(floats, $t7).ToArray($t7)))), "Float array type from linq's ToArray() is 'Single[]'.");
                     Bridge.Test.NUnit.Assert.AreEqual("Single[]", Bridge.Reflection.getTypeName(Bridge.getType(floats)), "Single array's type is 'Single[]'.");
 
                     var doubles = System.Array.init([1.8, 2.2, 3.6, 4.1], System.Double);
-                    Bridge.Test.NUnit.Assert.AreEqual("Double[]", Bridge.Reflection.getTypeName(Bridge.getType(System.Linq.Enumerable.from(doubles).ToArray(System.Double))), "Double array type from linq's ToArray() is 'Double[]'.");
+                    Bridge.Test.NUnit.Assert.AreEqual("Double[]", Bridge.Reflection.getTypeName(Bridge.getType(($t9 = System.Double, System.Linq.Enumerable.from(doubles, $t9).ToArray($t9)))), "Double array type from linq's ToArray() is 'Double[]'.");
                     Bridge.Test.NUnit.Assert.AreEqual("Double[]", Bridge.Reflection.getTypeName(Bridge.getType(doubles)), "Double array's type is 'Double[]'.");
                 }
             }
@@ -37301,6 +37305,1474 @@ Bridge.$N1391Result =                     r;
         $kind: "nested interface",
         $variance: [1]
     }; });
+
+    /**
+     * The test here ensures a javascript-created number will have its
+     bridge-interfaced helpers when cast.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3883
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3883", {
+        statics: {
+            methods: {
+                /**
+                 * Creates a int64 fitting (yet, too big for int32) constant from
+                 javascript side and cast it into long and checks whether it gets
+                 the required Bridge extensions working.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3883
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3883
+                 * @return  {void}
+                 */
+                TestPlain64: function () {
+                    var ul = 9223372036854775808;
+                    var l = System.Int64.clip64(ul);
+
+                    Bridge.Test.NUnit.Assert.True(l.equals(System.Int64.MinValue), "Native cast into long works.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here ensures linq implementation of IEnumerable resolves to
+     the right call given its underlying involved type.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885", {
+        statics: {
+            methods: {
+                /**
+                 * Tests the string variation by checking whether the resolved type
+                 is the correct one (string!).
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885
+                 * @return  {void}
+                 */
+                TestLinqEnumerationOnString: function () {
+                    var $t, $t1, $t2, $t3, $t4;
+                    {
+                        var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest(1);
+
+                        $t = Bridge.getEnumerator(test);
+                        try {
+                            while ($t.moveNext()) {
+                                var i = $t.Current;
+                                Bridge.Test.NUnit.Assert.True(Bridge.is(Bridge.box(i, System.Int32), System.Int32), "The resolved type is int.");
+                            }
+                        } finally {
+                            if (Bridge.is($t, System.IDisposable)) {
+                                $t.System$IDisposable$Dispose();
+                            }
+                        }
+
+                        $t1 = Bridge.getEnumerator(Bridge.cast(test, System.Collections.Generic.IEnumerable$1(System.String)), System.String);
+                        try {
+                            while ($t1.moveNext()) {
+                                var i1 = $t1.Current;
+                                Bridge.Test.NUnit.Assert.True(Bridge.is(i1, System.String), "The resolved type is string.");
+                            }
+                        } finally {
+                            if (Bridge.is($t1, System.IDisposable)) {
+                                $t1.System$IDisposable$Dispose();
+                            }
+                        }
+
+                        $t2 = Bridge.getEnumerator(System.Linq.Enumerable.from(Bridge.cast(test, System.Collections.Generic.IEnumerable$1(System.String)), System.String).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.f1));
+                        try {
+                            while ($t2.moveNext()) {
+                                var i2 = $t2.Current;
+                                Bridge.Test.NUnit.Assert.True(Bridge.is(i2, System.String), "The resolved type is string.");
+                            }
+                        } finally {
+                            if (Bridge.is($t2, System.IDisposable)) {
+                                $t2.System$IDisposable$Dispose();
+                            }
+                        }
+                    }
+
+                    {
+                        var test1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest(1);
+                        $t3 = Bridge.getEnumerator(test1, System.String);
+                        try {
+                            while ($t3.moveNext()) {
+                                var i3 = $t3.Current;
+                                Bridge.Test.NUnit.Assert.True(Bridge.is(i3, System.String), "The resolved type is string.");
+                            }
+                        } finally {
+                            if (Bridge.is($t3, System.IDisposable)) {
+                                $t3.System$IDisposable$Dispose();
+                            }
+                        }
+                        $t4 = Bridge.getEnumerator(System.Linq.Enumerable.from(test1, System.String).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.f1));
+                        try {
+                            while ($t4.moveNext()) {
+                                var i4 = $t4.Current;
+                                Bridge.Test.NUnit.Assert.True(Bridge.is(i4, System.String), "The resolved type is string.");
+                            }
+                        } finally {
+                            if (Bridge.is($t4, System.IDisposable)) {
+                                $t4.System$IDisposable$Dispose();
+                            }
+                        }
+                    }
+                },
+                /**
+                 * The original format of the test, counting whether the iteration
+                 amount is congruent with the step.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885
+                 * @return  {void}
+                 */
+                TestLinqEnumerationOnDouble: function () {
+                    var $t, $t1, $t2, $t3, $t4;
+                    {
+                        var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest(1);
+
+                        var count = 0;
+                        $t = Bridge.getEnumerator(test);
+                        try {
+                            while ($t.moveNext()) {
+                                var i = $t.Current;
+                                count = (count + 1) | 0;
+                            }
+                        } finally {
+                            if (Bridge.is($t, System.IDisposable)) {
+                                $t.System$IDisposable$Dispose();
+                            }
+                        }
+
+                        Bridge.Test.NUnit.Assert.AreEqual(2, count, "0 - 1 in steps of 1 results in two iterations.");
+
+                        count = 0;
+                        $t1 = Bridge.getEnumerator(Bridge.cast(test, System.Collections.Generic.IEnumerable$1(System.Double)), System.Double);
+                        try {
+                            while ($t1.moveNext()) {
+                                var i1 = $t1.Current;
+                                count = (count + 1) | 0;
+                            }
+                        } finally {
+                            if (Bridge.is($t1, System.IDisposable)) {
+                                $t1.System$IDisposable$Dispose();
+                            }
+                        }
+                        Bridge.Test.NUnit.Assert.AreEqual(11, count, "0 - 1 in steps of 0.1 results in eleven iterations.");
+
+                        count = 0;
+                        $t2 = Bridge.getEnumerator(System.Linq.Enumerable.from(Bridge.cast(test, System.Collections.Generic.IEnumerable$1(System.Double)), System.Double).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.f1));
+                        try {
+                            while ($t2.moveNext()) {
+                                var i2 = $t2.Current;
+                                count = (count + 1) | 0;
+                            }
+                        } finally {
+                            if (Bridge.is($t2, System.IDisposable)) {
+                                $t2.System$IDisposable$Dispose();
+                            }
+                        }
+                        Bridge.Test.NUnit.Assert.AreEqual(11, count, "0 - 1 in steps of 0.1 results in eleven iterations.");
+                    }
+
+                    {
+                        var test1 = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest(1);
+                        var count1 = 0;
+
+                        $t3 = Bridge.getEnumerator(test1, System.Double);
+                        try {
+                            while ($t3.moveNext()) {
+                                var i3 = $t3.Current;
+                                count1 = (count1 + 1) | 0;
+                            }
+                        } finally {
+                            if (Bridge.is($t3, System.IDisposable)) {
+                                $t3.System$IDisposable$Dispose();
+                            }
+                        }
+                        Bridge.Test.NUnit.Assert.AreEqual(11, count1, "0 - 1 in steps of 0.1 results in eleven iterations.");
+
+                        count1 = 0;
+                        $t4 = Bridge.getEnumerator(System.Linq.Enumerable.from(test1, System.Double).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.f1));
+                        try {
+                            while ($t4.moveNext()) {
+                                var i4 = $t4.Current;
+                                count1 = (count1 + 1) | 0;
+                            }
+                        } finally {
+                            if (Bridge.is($t4, System.IDisposable)) {
+                                $t4.System$IDisposable$Dispose();
+                            }
+                        }
+                        Bridge.Test.NUnit.Assert.AreEqual(11, count1, "0 - 1 in steps of 0.1 results in eleven iterations.");
+
+                    }
+                }
+            }
+        }
+    });
+
+    Bridge.ns("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885", $asm.$);
+
+    Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885, {
+        f1: function (d) {
+            return d;
+        }
+    });
+
+    /**
+     * This is the exact same scenario as reported in the issue.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest
+     * @implements  System.Collections.Generic.IEnumerable$1
+     * @implements  System.Collections.Generic.IEnumerable$1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest", {
+        inherits: [System.Collections.Generic.IEnumerable$1(System.Int32),System.Collections.Generic.IEnumerable$1(System.Double)],
+        $kind: "nested class",
+        props: {
+            Max: 0
+        },
+        alias: [
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Int32$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
+            "System$Collections$Generic$IEnumerable$1$System$Double$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"
+        ],
+        ctors: {
+            ctor: function (max) {
+                this.$initialize();
+                this.Max = max;
+            }
+        },
+        methods: {
+            GetEnumerator: function () {
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest.IntEnumerator(this);
+            },
+            System$Collections$Generic$IEnumerable$1$System$Double$GetEnumerator: function () {
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest.DoubleEnumerator(this);
+            },
+            System$Collections$IEnumerable$GetEnumerator: function () {
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest.IntEnumerator(this);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest.DoubleEnumerator", {
+        inherits: [System.Collections.Generic.IEnumerator$1(System.Double)],
+        $kind: "nested class",
+        fields: {
+            _max: 0
+        },
+        props: {
+            Current: 0,
+            System$Collections$IEnumerator$Current: {
+                get: function () {
+                    return Bridge.box(this.Current, System.Double, System.Double.format, System.Double.getHashCode);
+                }
+            }
+        },
+        alias: [
+            "Current", ["System$Collections$Generic$IEnumerator$1$System$Double$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+            "Dispose", "System$IDisposable$Dispose",
+            "reset", "System$Collections$IEnumerator$reset",
+            "moveNext", "System$Collections$IEnumerator$moveNext"
+        ],
+        ctors: {
+            ctor: function (test) {
+                this.$initialize();
+                this._max = test.Max;
+                this.Current = -0.1;
+            }
+        },
+        methods: {
+            Dispose: function () { },
+            reset: function () {
+                this.Current = -0.1;
+            },
+            moveNext: function () {
+                var $t;
+                return (($t = this.Current + 0.1, this.Current = $t, $t)) <= this._max;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.DoubleTest.IntEnumerator", {
+        inherits: [System.Collections.Generic.IEnumerator$1(System.Int32)],
+        $kind: "nested class",
+        fields: {
+            _max: 0
+        },
+        props: {
+            Current: 0,
+            System$Collections$IEnumerator$Current: {
+                get: function () {
+                    return Bridge.box(this.Current, System.Int32);
+                }
+            }
+        },
+        alias: [
+            "Current", ["System$Collections$Generic$IEnumerator$1$System$Int32$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+            "Dispose", "System$IDisposable$Dispose",
+            "reset", "System$Collections$IEnumerator$reset",
+            "moveNext", "System$Collections$IEnumerator$moveNext"
+        ],
+        ctors: {
+            ctor: function (test) {
+                this.$initialize();
+                this._max = test.Max;
+                this.Current = -1;
+            }
+        },
+        methods: {
+            Dispose: function () { },
+            reset: function () {
+                this.Current = -1;
+            },
+            moveNext: function () {
+                var $t;
+                return (($t = (this.Current + 1) | 0, this.Current = $t, $t)) <= this._max;
+            }
+        }
+    });
+
+    /**
+     * Slightly changed scenario involving string instead.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest
+     * @implements  System.Collections.Generic.IEnumerable$1
+     * @implements  System.Collections.Generic.IEnumerable$1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest", {
+        inherits: [System.Collections.Generic.IEnumerable$1(System.Int32),System.Collections.Generic.IEnumerable$1(System.String)],
+        $kind: "nested class",
+        props: {
+            Max: 0
+        },
+        alias: [
+            "GetEnumerator", ["System$Collections$Generic$IEnumerable$1$System$Int32$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"],
+            "System$Collections$Generic$IEnumerable$1$System$String$GetEnumerator", "System$Collections$Generic$IEnumerable$1$GetEnumerator"
+        ],
+        ctors: {
+            ctor: function (max) {
+                this.$initialize();
+                this.Max = max;
+            }
+        },
+        methods: {
+            GetEnumerator: function () {
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest.IntEnumerator(this);
+            },
+            System$Collections$Generic$IEnumerable$1$System$String$GetEnumerator: function () {
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest.StringEnumerator(this);
+            },
+            System$Collections$IEnumerable$GetEnumerator: function () {
+                return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest.IntEnumerator(this);
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest.IntEnumerator", {
+        inherits: [System.Collections.Generic.IEnumerator$1(System.Int32)],
+        $kind: "nested class",
+        fields: {
+            _max: 0
+        },
+        props: {
+            Current: 0,
+            System$Collections$IEnumerator$Current: {
+                get: function () {
+                    return Bridge.box(this.Current, System.Int32);
+                }
+            }
+        },
+        alias: [
+            "Current", ["System$Collections$Generic$IEnumerator$1$System$Int32$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+            "Dispose", "System$IDisposable$Dispose",
+            "reset", "System$Collections$IEnumerator$reset",
+            "moveNext", "System$Collections$IEnumerator$moveNext"
+        ],
+        ctors: {
+            ctor: function (test) {
+                this.$initialize();
+                this._max = test.Max;
+                this.Current = -1;
+            }
+        },
+        methods: {
+            Dispose: function () { },
+            reset: function () {
+                this.Current = -1;
+            },
+            moveNext: function () {
+                var $t;
+                return (($t = (this.Current + 1) | 0, this.Current = $t, $t)) <= this._max;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3885.StringTest.StringEnumerator", {
+        inherits: [System.Collections.Generic.IEnumerator$1(System.String)],
+        $kind: "nested class",
+        fields: {
+            _max: 0,
+            _index: 0
+        },
+        props: {
+            Current: null,
+            System$Collections$IEnumerator$Current: {
+                get: function () {
+                    return this.Current;
+                }
+            }
+        },
+        alias: [
+            "Current", ["System$Collections$Generic$IEnumerator$1$System$String$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1"],
+            "Dispose", "System$IDisposable$Dispose",
+            "reset", "System$Collections$IEnumerator$reset",
+            "moveNext", "System$Collections$IEnumerator$moveNext"
+        ],
+        ctors: {
+            ctor: function (test) {
+                this.$initialize();
+                this._max = test.Max;
+                this._index = -1;
+                this.Current = "";
+            }
+        },
+        methods: {
+            Dispose: function () { },
+            reset: function () {
+                this.Current = "";
+                this._index = -1;
+            },
+            moveNext: function () {
+                this.Current = "s" + ((this._index = (this._index + 1) | 0));
+                return this._index < this._max;
+            }
+        }
+    });
+
+    /**
+     * The tests here consists in ensuring that templates combined with object
+     initializer syntax works right in different (but identical,
+     technically) scenarios.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886", {
+        statics: {
+            methods: {
+                /**
+                 * Tests the different scenarios in order of complexity.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886
+                 * @return  {void}
+                 */
+                TestTemplateObjectInitializer: function () {
+                    var $t;
+                    var bare = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestBare(), $t.A = 5, $t.B = "test", $t);
+
+                    Bridge.Test.NUnit.Assert.AreEqual(5, bare.A, "Object initializer syntax works with template/bare 1/2.");
+                    Bridge.Test.NUnit.Assert.AreEqual("test", bare.B, "Object initializer syntax works with template/bare 2/2.");
+
+                    var simpler = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestSimpler(), $t.One = Bridge.toString(System.TimeSpan.fromDays(1)), $t.Two = Bridge.toString(System.TimeSpan.fromDays(2)), $t.Three = Bridge.toString(System.TimeSpan.fromDays(3)), $t);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("1.00:00:00", simpler.One, "Object initializer syntax works with template/simple 1/3.");
+                    Bridge.Test.NUnit.Assert.AreEqual("2.00:00:00", simpler.Two, "Object initializer syntax works with template/simple 2/3.");
+                    Bridge.Test.NUnit.Assert.AreEqual("3.00:00:00", simpler.Three, "Object initializer syntax works with template/simple 3/3.");
+
+                    var original = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.Test(), $t.One = Bridge.toString(System.TimeSpan.fromDays(1)), $t.Two = Bridge.toString(System.TimeSpan.fromDays(2)), $t.Three = Bridge.toString(System.TimeSpan.fromDays(3)), $t);
+
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(1), System.TimeSpan.parse(original.One)), "Object initializer syntax works with template/elaborate 1/3.");
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(2), System.TimeSpan.parse(original.Two)), "Object initializer syntax works with template/elaborate 2/3.");
+                    Bridge.Test.NUnit.Assert.True(System.TimeSpan.eq(System.TimeSpan.fromDays(3), System.TimeSpan.parse(original.Three)), "Object initializer syntax works with template/elaborate 3/3.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Originally provided scenario to reproduce the issue.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.Test
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.Test", {
+        $kind: "nested class"
+    });
+
+    /**
+     * Bare minimum set up to reproduce the issue.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestBare
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestBare", {
+        $kind: "nested class",
+        props: {
+            A: 0,
+            B: null
+        }
+    });
+
+    /**
+     * Simpler approach than the reported one, still enough to reproduce
+     the issue.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestSimpler
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886.TestSimpler", {
+        $kind: "nested class",
+        props: {
+            One: null,
+            Two: null,
+            Three: null
+        },
+        ctors: {
+            init: function () {
+                this.One = new System.TimeSpan();
+                this.Two = new System.TimeSpan();
+                this.Three = new System.TimeSpan();
+            }
+        }
+    });
+
+    /**
+     * The test here consists on ensuring the [Name] attribute can be used
+     also in class constructor methods.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3893
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3893", {
+        statics: {
+            methods: {
+                /**
+                 * Draft the external implementation of the class and make a reference
+                 to it, ensuring the expected code is generated.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3893
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3893
+                 * @return  {void}
+                 */
+                TestCtorName: function () {
+                    var Bridge3893_TestClass = function () {
+                            this.prop = 1;
+                    };
+                    Bridge3893_TestClass.ctor_1 = function () {
+                            this.prop = 2;
+                    };
+
+                    var c1 = new Bridge3893_TestClass();
+                    Bridge.Test.NUnit.Assert.AreEqual(1, c1.prop, "Bridge-named external class' constructor works.");
+
+                    var c2 = new Bridge3893_TestClass.ctor_1("");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, c2.prop, "User-named external class' constructor works.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The test here ensures a '-0.0' literal is treated as negative.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3898
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3898", {
+        statics: {
+            methods: {
+                /**
+                 * Ensures the zero literal is negative by the math 1/0 being negative
+                 infinity.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3898
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3898
+                 * @return  {void}
+                 */
+                TestNegativeZero: function () {
+                    var negativezero = -0.0;
+                    Bridge.Test.NUnit.Assert.True((1 / negativezero === Number.NEGATIVE_INFINITY), "1/(-0) is -\u221e.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here ensures several Math.IEEERemainder() results are
+     correct.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3899
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3899", {
+        statics: {
+            methods: {
+                /**
+                 * Tests in two batches, one using Math.Round to approximate the
+                 output, and another using NumberHelper like the original
+                 IEEERemainder tests in Batch1 project.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3899
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3899
+                 * @return  {void}
+                 */
+                TestIEEERemainder: function () {
+                    // Originally as drawn by Vladimir, descriptions added by Fabricio
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(3, 2), 1, 6), "Math.IEEERemainder(3, 2) == -1");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, Bridge.Math.round(Bridge.Math.IEEERemainder(4, 2), 1, 6), "Math.IEEERemainder(4, 2) == 0");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Math.round(Bridge.Math.IEEERemainder(10, 3), 1, 6), "Math.IEEERemainder(10, 3) == 1");
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(11, 3), 1, 6), "Math.IEEERemainder(11, 3) == -1");
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(27, 4), 1, 6), "Math.IEEERemainder(27, 4) == -1");
+                    Bridge.Test.NUnit.Assert.AreEqual(-2, Bridge.Math.round(Bridge.Math.IEEERemainder(28, 5), 1, 6), "Math.IEEERemainder(28, 5) == -2");
+                    Bridge.Test.NUnit.Assert.AreEqual(1.8, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, 4), 1, 6), "Math.IEEERemainder(17.8, 4) == 1.8");
+                    Bridge.Test.NUnit.Assert.AreEqual(1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, 4.1), 1, 6), "Math.IEEERemainder(17.8, 4.1) == 1.4");
+                    Bridge.Test.NUnit.Assert.AreEqual(0.1, Bridge.Math.round(Bridge.Math.IEEERemainder(-16.3, 4.1), 1, 6), "Math.IEEERemainder(-16.3, 4.1) == 0.1");
+                    Bridge.Test.NUnit.Assert.AreEqual(1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, -4.1), 1, 6), "Math.IEEERemainder(17.8, -4.1) == 1.4");
+                    Bridge.Test.NUnit.Assert.AreEqual(-1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(-17.8, -4.1), 1, 6), "Math.IEEERemainder(-17.8, -4.1) == -1.4");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Math.round(Bridge.Math.IEEERemainder(-3, 2), 1, 6), "Math.IEEERemainder(-3, 2) == 1");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Math.round(Bridge.Math.IEEERemainder(5, 2), 1, 6), "Math.IEEERemainder(5, 2) == 1");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, Bridge.Math.round(Bridge.Math.IEEERemainder(2, Number.NEGATIVE_INFINITY), 1, 6), "Math.IEEERemainder(2, Double.NegativeInfinity) == 2");
+                    Bridge.Test.NUnit.Assert.AreEqual(-4.3, Bridge.Math.round(Bridge.Math.IEEERemainder(-4.3, Number.NEGATIVE_INFINITY), 1, 6), "Math.IEEERemainder(-4.3, Double.NegativeInfinity) == -4.3");
+
+                    // Tests in Batch1.Math.IEEERemainderWorks()
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(3, 2), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(0, Bridge.Math.round(Bridge.Math.IEEERemainder(4, 2), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(1, Bridge.Math.round(Bridge.Math.IEEERemainder(10, 3), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(11, 3), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(-1, Bridge.Math.round(Bridge.Math.IEEERemainder(27, 4), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(-2, Bridge.Math.round(Bridge.Math.IEEERemainder(28, 5), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(1.8, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, 4), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, 4.1), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(0.1, Bridge.Math.round(Bridge.Math.IEEERemainder(-16.3, 4.1), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(17.8, -4.1), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(-1.4, Bridge.Math.round(Bridge.Math.IEEERemainder(-17.8, -4.1), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(1, Bridge.Math.round(Bridge.Math.IEEERemainder(-3, 2), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(1, Bridge.Math.round(Bridge.Math.IEEERemainder(5, 2), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(2, Bridge.Math.round(Bridge.Math.IEEERemainder(2, Number.NEGATIVE_INFINITY), 1, 6));
+                    Bridge.ClientTestHelper.NumberHelper.AssertDoubleWithEpsilon8(-4.3, Bridge.Math.round(Bridge.Math.IEEERemainder(-4.3, Number.NEGATIVE_INFINITY), 1, 6));
+                }
+            }
+        }
+    });
+
+    /**
+     * Ensures Math.Sign works with infinity
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3900
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3900", {
+        statics: {
+            methods: {
+                /**
+                 * Checks whether the result matches native .NET.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3900
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3900
+                 * @return  {void}
+                 */
+                TestInfinitySign: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Int.sign(Number.POSITIVE_INFINITY), "Math.Sign(Double.PositiveInfinity) is 1");
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Int.sign(Number.NEGATIVE_INFINITY), "Math.Sign(Double.NegativeInfinity) is -1");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, Bridge.Int.sign(Number.POSITIVE_INFINITY), "Math.Sign(float.PositiveInfinity) is 1");
+                    Bridge.Test.NUnit.Assert.AreEqual(-1, Bridge.Int.sign(Number.NEGATIVE_INFINITY), "Math.Sign(float.NegativeInfinity) is -1");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here ensures conversion to hex values using ToString('X')
+     format (or 'x') works for negative values on different non-floating
+     point types.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3901
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3901", {
+        statics: {
+            methods: {
+                /**
+                 * Tests the hex number conversion for different types on their
+                 negative values.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3901
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3901
+                 * @return  {void}
+                 */
+                TestToHexString: function () {
+                    var b = -1;
+                    Bridge.Test.NUnit.Assert.AreEqual("FF", System.SByte.format(b, "X"), "Negative signed byte to string format 'X' works.");
+
+                    var i16 = -1;
+                    Bridge.Test.NUnit.Assert.AreEqual("FFFF", System.Int16.format(i16, "X"), "Negative Int16 to string format 'X' works.");
+
+                    var i32 = -1;
+                    Bridge.Test.NUnit.Assert.AreEqual("FFFFFFFF", System.Int32.format(i32, "X"), "Negative Int32 to string format 'X' works.");
+
+                    var i64 = System.Int64(-1);
+                    Bridge.Test.NUnit.Assert.AreEqual("FFFFFFFFFFFFFFFF", i64.toString("X"), "Negative Int32 to string format 'X' works.");
+
+                    var i = -423433;
+                    Bridge.Test.NUnit.Assert.AreEqual("fff989f7", System.Int32.format(i, "x"), "Negative int to string format 'x' works.");
+                    Bridge.Test.NUnit.Assert.AreEqual("FFF989F7", System.Int32.format(i, "X"), "Negative int to string format 'X' works, and matches Int32 length.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here consists in ensuring unicode escaped characters matches
+     their integer equivalents/cast as in native .NET.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3902
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3902", {
+        statics: {
+            methods: {
+                /**
+                 * Tests some char escapes against their expected integer values.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3902
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3902
+                 * @return  {void}
+                 */
+                TestUnicodeEscapes: function () {
+                    var s = "\ud8a1\ud8a2\ue681";
+                    Bridge.Test.NUnit.Assert.AreEqual(55457, s.charCodeAt(0), "Unicode U+D8A1 matches integer 55457.");
+                    Bridge.Test.NUnit.Assert.AreEqual(55458, s.charCodeAt(1), "Unicode U+D8A2 matches integer 55458.");
+                    Bridge.Test.NUnit.Assert.AreEqual(59009, s.charCodeAt(2), "Unicode U+E681 matches integer 59007.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here consists in ensuring the XOR result involving boolean
+     values is sane and matches native .NET's.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3903
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3903", {
+        statics: {
+            methods: {
+                /**
+                 * Simply define some boolean values and subject them to XOR tests
+                 with the "^" (circumflex) operator.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3903
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3903
+                 * @return  {void}
+                 */
+                TestBooleanXor: function () {
+                    var t = true;
+                    var f = false;
+                    var a = t != f;
+                    var b = t;
+                    b = b != t;
+
+                    Bridge.Test.NUnit.Assert.True(a === true, "true ^ false evaluates to true.");
+                    Bridge.Test.NUnit.Assert.True(b === false, "true ^= true gets assigned to false.");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here consists in ensuring array checks involving 'object'
+     works as in native .NET.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904", {
+        statics: {
+            methods: {
+                /**
+                 * Tests several scenarios including some that were failing in Bridge
+                 17.7.0.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+                 * @return  {void}
+                 */
+                TestArrayCovariance: function () {
+                    var ao1 = System.Array.init(1, 0, System.Int32);
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(ao1, System.Array.type(System.Object)), "(object => int[1]) is not object[]");
+
+                    var ao = System.Array.init([System.Array.init(1, 0, System.Int32)], System.Array.type(System.Int32));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(ao, System.Array.type(System.Object)), "(int[][] => int[1]) is object[]");
+
+                    var a = System.Array.init([System.Array.init([System.Array.init(1, 0, System.Int32)], System.Array.type(System.Int32))], System.Array.type(System.Array.type(System.Int32)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, System.Array.type(System.Object)), "(int[][][] => int[][] => int[1]) is object[]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, System.Array.type(System.Array.type(System.Object))), "(int[][][] => int[][] => int[1]) is object[][]");
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(a, System.Array.type(System.Array.type(System.Array.type(System.Object)))), "(int[][][] => int[][] => int[1]) is not object[][][]");
+
+                    var b = System.Array.init([System.Array.init(["hi"], System.String)], System.Array.type(System.String));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Array.type(System.String))), "(object => string[][] => string[] => \"hi\") is string[][]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Object)), "(object => string[][] => string[] => \"hi\") is object[]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Array.type(System.Object))), "(object => string[][] => string[] => \"hi\") is object[][]");
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(b, System.Array.type(System.Array.type(System.Array.type(System.Object)))), "(object => string[][] => string[] => \"hi\") is not object[][][]");
+                },
+                /**
+                 * Tests involving classes and inheritance.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+                 * @return  {void}
+                 */
+                TestArrayCovariance2: function () {
+                    var i2 = System.Array.init(1, null, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c2);
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(i2, System.Array.type(System.Object)), "(c2[] => c2[1]) is object[]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(i2, System.Array.type(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c1)), "(c2[] => c2[1]) is c1[], where c2:c1");
+
+                    var ao = System.Array.init(1, function (){
+                        return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1();
+                    }, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1);
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(ao, System.Array.type(System.Object)), "(object => s1[1]) is object[]");
+
+                    ao = System.Array.init(1, null, System.String);
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(ao, System.Array.type(System.Object)), "(object => string[1]) is object[]");
+
+                    ao = System.Array.init(1, 0, System.Int32);
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(ao, System.Array.type(System.Object)), "(object => int[1]) is object[]");
+
+                    Bridge.Test.NUnit.Assert.False(Bridge.Reflection.isAssignableFrom(System.Array.type(System.Object), System.Array.type(System.Int32)), "object[] is not assignable from int[]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.Reflection.isAssignableFrom(System.Array.type(System.Object), System.Array.type(System.Array.type(System.Int32))), "object[] is assignable from int[][]");
+                },
+                /**
+                 * Tests in the format originally reported.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904
+                 * @return  {void}
+                 */
+                TestArrayCovarianceReported: function () {
+                    var a = System.Array.init([System.Array.init([System.Array.init(1, 0, System.Int32)], System.Array.type(System.Int32))], System.Array.type(System.Array.type(System.Int32)));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, System.Array.type(System.Object)), "(object => int[][][] => int[][] => int[1]) is object[]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(a, System.Array.type(System.Array.type(System.Object))), "(object => int[][][] => int[][] => int[1]) is object[][]");
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(a, System.Array.type(System.Array.type(System.Array.type(System.Object)))), "(object => int[][][] => int[][] => int[1]) is not object[][][]");
+
+                    var b = System.Array.init([System.Array.init(["hi"], System.String)], System.Array.type(System.String));
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Array.type(System.String))), "(object => string[][] => string[] => \"hi\") is string[][]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Object)), "(object => string[][] => string[] => \"hi\") is object[]");
+                    Bridge.Test.NUnit.Assert.True(Bridge.is(b, System.Array.type(System.Array.type(System.Object))), "(object => string[][] => string[] => \"hi\") is objectg[][]");
+                    Bridge.Test.NUnit.Assert.False(Bridge.is(b, System.Array.type(System.Array.type(System.Array.type(System.Object)))), "(object => string[][] => string[] => \"hi\") is not object[]][][]");
+                }
+            }
+        }
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c1", {
+        $kind: "nested class"
+    });
+
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1", {
+        $kind: "nested struct",
+        statics: {
+            methods: {
+                getDefaultValue: function () { return new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.s1(); }
+            }
+        },
+        methods: {
+            $clone: function (to) { return this; }
+        }
+    });
+
+    /**
+     * The tests here ensures the ++ postfix operator is not double-evaluated
+     in the involved scenario.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3905
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3905", {
+        statics: {
+            methods: {
+                /**
+                 * Tests whether the increment does not stack, resulting in the
+                 specified values from the same code run in native .NET.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3905
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3905
+                 * @return  {void}
+                 */
+                TestArrayIncrement: function () {
+                    var $t;
+                    var a = System.Array.init([3, 8], System.Int32);
+                    var i = 0;
+                    a[System.Array.index(($t = Bridge.identity(i, ((i = (i + 1) | 0)))), a)] = (a[System.Array.index($t, a)] + 1) | 0;
+                    Bridge.Test.NUnit.Assert.AreEqual(1, i, "i was incremented by 1 in a[i++]++;");
+                    Bridge.Test.NUnit.Assert.AreEqual(4, a[System.Array.index(0, a)], "a[0] was incremented by 1 in a[i++]++;");
+                    Bridge.Test.NUnit.Assert.AreEqual(8, a[System.Array.index(1, a)], "a[1] was not incremented at all in a[i++]++;");
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here consists in ensuring the += operator would behave
+     congruently with native .NET.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906", {
+        statics: {
+            methods: {
+                /**
+                 * Tests the issue by queueing the same class in two instances into
+                 the queue, then dequeuing it once and in the same line mixing up a
+                 reference to the dequeued instance, a reference to one of its
+                 properties and += operator.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906
+                 * @return  {void}
+                 */
+                TestAssigmentIncrement: function () {
+                    var $t;
+                    var q = new (System.Collections.Generic.Queue$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X)).ctor();
+                    q.Enqueue(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X());
+                    q.Enqueue(new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X());
+                    ($t = q.Dequeue()).v = ($t.v + 7) | 0;
+                    Bridge.Test.NUnit.Assert.AreEqual(1, q.Count, "Queue size is correct when mixing up .Dequeue() with property reference and += operator.");
+                }
+            }
+        }
+    });
+
+    /**
+     * A class exposing an integer without default value, to be incremented.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3906.X", {
+        $kind: "nested class",
+        fields: {
+            v: 0
+        }
+    });
+
+    /**
+     * The test here ensures the specific scenario involved is congruent with
+     what happens in native .NET.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907", {
+        statics: {
+            methods: {
+                /**
+                 * Tests by calling the interface-implemented method from the latter
+                 class.
+                 Consists in declaring a variable as the main interface, but
+                 instantiating the complexer class in it, yet calling the method
+                 guaranteed by the direct interface.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907
+                 * @return  {void}
+                 */
+                TestInterfaceToString: function () {
+                    var i = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.B();
+
+                    Bridge.Test.NUnit.Assert.AreEqual("A", i.Bridge$ClientTest$Batch3$BridgeIssues$Bridge3907$I$ToString(), "Calling Interface.method() from class classB:classA,Interface, where classA implements the method, works.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Interface requiring an unecessary declaration, which ultimately
+     triggers the related issue.
+     *
+     * @abstract
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.I
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.I", {
+        $kind: "nested interface"
+    });
+
+    /**
+     * The tests here ensures the performance between resize and allocation
+     for primitive and reference types are within an acceptable threshold of
+     50ms or 1.5 times.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930", {
+        statics: {
+            fields: {
+                iterations: 0,
+                samples: 0
+            },
+            ctors: {
+                init: function () {
+                    this.iterations = 1000;
+                    this.samples = 10000;
+                }
+            },
+            methods: {
+                /**
+                 * Coordinate the calls to the allocation/resize tests and checks
+                 whether they are within the expected threshold.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930
+                 * @return  {void}
+                 */
+                TestGenericArrayAllocPerformance: function () {
+                    var tialloc = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(false, false); // int alloc
+                    var tiresiz = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(false, true); // int resize
+                    Bridge.Test.NUnit.Assert.True(((tialloc.sub(System.Int64(50))).lt(tiresiz)) || (System.Int64.toNumber(tialloc) < (System.Int64.toNumber(tiresiz) * 1.5)), "The performance ratio alloc:resize for int is within an acceptable threshold (" + tialloc + ":" + tiresiz + ").");
+
+                    var tsalloc = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(true, false); // string alloc
+                    var tsresiz = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(true, true); // string resize
+                    Bridge.Test.NUnit.Assert.True(((tsalloc.sub(System.Int64(50))).lt(tsresiz)) || (System.Int64.toNumber(tsalloc) < (System.Int64.toNumber(tsresiz) * 1.5)), "The performance ratio alloc:resize for string is within an acceptable threshold (" + tsalloc + ":" + tsresiz + ").");
+                },
+                /**
+                 * Coordinates the allocation given the reftype or resize conditions
+                 to switch the test performed.
+                 *
+                 * @static
+                 * @private
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930
+                 * @param   {boolean}         reftype    
+                 * @param   {boolean}         resize
+                 * @return  {System.Int64}               A delay of at least 1, in milliseconds.
+                 */
+                probePerformance: function (reftype, resize) {
+                    var sw = new System.Diagnostics.Stopwatch();
+                    sw.start();
+                    for (var i = 0; i < Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.iterations; i = (i + 1) | 0) {
+                        if (reftype) {
+                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.Alloc(System.String, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.samples, resize);
+                        } else {
+                            Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.Alloc(System.Int32, Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.samples, resize);
+                        }
+                    }
+                    sw.stop();
+                    return sw.milliseconds().gt(System.Int64(1)) ? sw.milliseconds() : System.Int64(1);
+                },
+                Alloc: function (T, len, resize) {
+                    if (resize) {
+                        var a = { v : System.Array.init(0, function (){
+                            return Bridge.getDefaultValue(T);
+                        }, T) };
+                        System.Array.resize(a, len, function () {
+                            return Bridge.getDefaultValue(T);
+                        }, T);
+                        return a.v;
+                    }
+                    return System.Array.init(len, function (){
+                        return Bridge.getDefaultValue(T);
+                    }, T);
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here ensures decimal separator character obeys current
+     culture between string conversions.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934", {
+        statics: {
+            methods: {
+                /**
+                 * Calls individual batches for each type to be tested.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @return  {void}
+                 */
+                TestConvert: function () {
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934.TestFloat();
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934.TestDouble();
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934.TestDecimal();
+                },
+                /**
+                 * Tests single precision floating-point conversion with culture set as parameter or as current culture.
+                 Will trigger a failed assertion if an exception is thrown during either conversion test.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @return  {void}
+                 */
+                TestFloat: function () {
+                    var $t;
+                    var oldCulture = System.Globalization.CultureInfo.getCurrentCulture();
+
+                    var back;
+                    var input = 7.5;
+                    var str;
+
+                    var convtype = "float";
+
+                    // WARNING: GetCultures() here is a stub and corresponds to
+                    //   .NET's GetCultures(CultureTypes.AllCultures)
+                    $t = Bridge.getEnumerator(System.Globalization.CultureInfo.getCultures());
+                    try {
+                        while ($t.moveNext()) {
+                            var culture = $t.Current;
+                            var cultureDesc = "\"" + (culture.englishName || "") + "\" (" + (culture.name || "") + ")";
+                            try {
+                                str = System.Single.format(input, "G", culture);
+                                back = System.Convert.toSingle(str, culture);
+                                Bridge.Test.NUnit.Assert.AreEqual(input, back, "Decimal separator retained between " + (convtype || "") + "-string conversion in specified " + (cultureDesc || "") + ".");
+                            } catch (exc) {
+                                exc = System.Exception.create(exc);
+                                Bridge.Test.NUnit.Assert.Fail("Exception thrown while converting between " + (convtype || "") + "-string if specified culture is " + (cultureDesc || "") + " in conversion calls: " + (exc.Message || ""));
+                            }
+
+                            try {
+                                System.Globalization.CultureInfo.setCurrentCulture(culture);
+
+                                str = System.Single.format(input);
+                                back = System.Convert.toSingle(str);
+                                Bridge.Test.NUnit.Assert.AreEqual(input, back, "Decimal separator retained between " + (convtype || "") + "-string conversion in " + (cultureDesc || "") + " when set as current culture.");
+                            } catch (exc1) {
+                                exc1 = System.Exception.create(exc1);
+                                Bridge.Test.NUnit.Assert.Fail("Exception thrown while converting between " + (convtype || "") + "-string when in conversion call if current culture set to " + (cultureDesc || "") + ": " + (exc1.Message || ""));
+                            } finally {
+                                System.Globalization.CultureInfo.setCurrentCulture(oldCulture);
+                            }
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$Dispose();
+                        }
+                    }
+                },
+                /**
+                 * Tests double precision float-point conversion with culture set as parameter or as current culture.
+                 Will trigger a failed assertion if an exception is thrown during either conversion test.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @return  {void}
+                 */
+                TestDouble: function () {
+                    var $t;
+                    var oldCulture = System.Globalization.CultureInfo.getCurrentCulture();
+
+                    var back;
+                    var input = 7.5;
+                    var str;
+
+                    var convtype = "double";
+
+                    // WARNING: GetCultures() here is a stub and corresponds to
+                    //   .NET's GetCultures(CultureTypes.AllCultures)
+                    $t = Bridge.getEnumerator(System.Globalization.CultureInfo.getCultures());
+                    try {
+                        while ($t.moveNext()) {
+                            var culture = $t.Current;
+                            var cultureDesc = "\"" + (culture.englishName || "") + "\" (" + (culture.name || "") + ")";
+                            try {
+                                str = System.Double.format(input, "G", culture);
+                                back = System.Convert.toDouble(str, culture);
+                                Bridge.Test.NUnit.Assert.AreEqual(input, back, "Decimal separator retained between " + (convtype || "") + "-string conversion in specified " + (cultureDesc || "") + ".");
+                            } catch (exc) {
+                                exc = System.Exception.create(exc);
+                                Bridge.Test.NUnit.Assert.Fail("Exception thrown while converting between " + (convtype || "") + "-string if specified culture is " + (cultureDesc || "") + " in conversion calls: " + (exc.Message || ""));
+                            }
+
+                            try {
+                                System.Globalization.CultureInfo.setCurrentCulture(culture);
+
+                                str = System.Double.format(input);
+                                back = System.Convert.toDouble(str);
+                                Bridge.Test.NUnit.Assert.AreEqual(input, back, "Decimal separator retained between " + (convtype || "") + "-string conversion in " + (cultureDesc || "") + " when set as current culture.");
+                            } catch (exc1) {
+                                exc1 = System.Exception.create(exc1);
+                                Bridge.Test.NUnit.Assert.Fail("Exception thrown while converting between " + (convtype || "") + "-string when in conversion call if current culture set to " + (cultureDesc || "") + ": " + (exc1.Message || ""));
+                            } finally {
+                                System.Globalization.CultureInfo.setCurrentCulture(oldCulture);
+                            }
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$Dispose();
+                        }
+                    }
+                },
+                /**
+                 * Tests decimal conversion with culture set as parameter or as current culture.
+                 Will trigger a failed assertion if an exception is thrown during either conversion test.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3934
+                 * @return  {void}
+                 */
+                TestDecimal: function () {
+                    var $t;
+                    var oldCulture = System.Globalization.CultureInfo.getCurrentCulture();
+
+                    var back;
+                    var input = System.Decimal(7.5);
+                    var str;
+
+                    var convtype = "decimal";
+
+                    // WARNING: GetCultures() here is a stub and corresponds to
+                    //   .NET's GetCultures(CultureTypes.AllCultures)
+                    $t = Bridge.getEnumerator(System.Globalization.CultureInfo.getCultures());
+                    try {
+                        while ($t.moveNext()) {
+                            var culture = $t.Current;
+                            var cultureDesc = "\"" + (culture.englishName || "") + "\" (" + (culture.name || "") + ")";
+                            try {
+                                str = Bridge.Int.format(input, "G", culture);
+                                back = System.Convert.toDecimal(str, culture);
+                                Bridge.Test.NUnit.Assert.AreEqual(input, back, "Decimal separator retained between " + (convtype || "") + "-string conversion in specified " + (cultureDesc || "") + ".");
+                            } catch (exc) {
+                                exc = System.Exception.create(exc);
+                                Bridge.Test.NUnit.Assert.Fail("Exception thrown while converting between " + (convtype || "") + "-string if specified culture is " + (cultureDesc || "") + " in conversion calls: " + (exc.Message || ""));
+                            }
+
+                            try {
+                                System.Globalization.CultureInfo.setCurrentCulture(culture);
+
+                                str = input.toString();
+                                back = System.Convert.toDecimal(str);
+                                Bridge.Test.NUnit.Assert.AreEqual(input, back, "Decimal separator retained between " + (convtype || "") + "-string conversion in " + (cultureDesc || "") + " when set as current culture.");
+                            } catch (exc1) {
+                                exc1 = System.Exception.create(exc1);
+                                Bridge.Test.NUnit.Assert.Fail("Exception thrown while converting between " + (convtype || "") + "-string when in conversion call if current culture set to " + (cultureDesc || "") + ": " + (exc1.Message || ""));
+                            } finally {
+                                System.Globalization.CultureInfo.setCurrentCulture(oldCulture);
+                            }
+                        }
+                    } finally {
+                        if (Bridge.is($t, System.IDisposable)) {
+                            $t.System$IDisposable$Dispose();
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    /**
+     * The tests here consists in ensuring non-nullable types receives their
+     default values whenever assigned 'null' from reflection's SetValue().
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939", {
+        statics: {
+            methods: {
+                /**
+                 * Tests by just inline-binding null to the variables and then
+                 checking the result against the type's default() value.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939
+                 * @return  {void}
+                 */
+                TestReflectionSetValue: function () {
+                    var test = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939.Test();
+
+                    Bridge.Reflection.midel(Bridge.Reflection.getMembers(Bridge.getType(test), 16, 284, "Int32Prop").s, test)(null);
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.getDefaultValue(System.Int32), test.Int32Prop, "Int32 property gets default(int) when assigned \"null\" with reflection.");
+                    Bridge.Reflection.midel(Bridge.Reflection.getMembers(Bridge.getType(test), 16, 284, "Int64Prop").s, test)(null);
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.getDefaultValue(System.Int64), test.Int64Prop, "Int64 property gets default(long) when assigned \"null\" with reflection.");
+                    Bridge.Reflection.midel(Bridge.Reflection.getMembers(Bridge.getType(test), 16, 284, "SingleProp").s, test)(null);
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.getDefaultValue(System.Single), test.SingleProp, "Single property gets default(float) when assigned \"null\" with reflection.");
+                    Bridge.Reflection.midel(Bridge.Reflection.getMembers(Bridge.getType(test), 16, 284, "DoubleProp").s, test)(null);
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.getDefaultValue(System.Double), test.DoubleProp, "Double property gets default(double) when assigned \"null\" with reflection.");
+                    Bridge.Reflection.midel(Bridge.Reflection.getMembers(Bridge.getType(test), 16, 284, "DecimalProp").s, test)(null);
+                    Bridge.Test.NUnit.Assert.AreEqual(Bridge.getDefaultValue(System.Decimal), test.DecimalProp, "Decimal property gets default(decimal) when assigned \"null\" with reflection.");
+                }
+            }
+        }
+    });
+
+    /**
+     * Defines a class with different types of non-nullable variables
+     through properties and fields.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939.Test
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939.Test", {
+        $kind: "nested class",
+        fields: {
+            Int32Field: 0,
+            Int64Field: System.Int64(0),
+            SingleField: 0,
+            DoubleField: 0,
+            DecimalField: System.Decimal(0.0)
+        },
+        props: {
+            Int32Prop: 0,
+            Int64Prop: System.Int64(0),
+            SingleProp: 0,
+            DoubleProp: 0,
+            DecimalProp: System.Decimal(0.0)
+        },
+        ctors: {
+            init: function () {
+                this.Int32Field = 2;
+                this.Int64Field = System.Int64(4);
+                this.SingleField = 5.2;
+                this.DoubleField = 6.1999998092651367;
+                this.DecimalField = System.Decimal(7.2);
+                this.Int32Prop = 1;
+                this.Int64Prop = System.Int64(3);
+                this.SingleProp = 5.1;
+                this.DoubleProp = 6.0999999046325684;
+                this.DecimalProp = System.Decimal(7.1);
+            }
+        }
+    });
+
+    /**
+     * This test ensures initialization of static const members works
+     correctly.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943", {
+        statics: {
+            methods: {
+                /**
+                 * Check whether the property matches the value it is derifved from.
+                 *
+                 * @static
+                 * @public
+                 * @this Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943
+                 * @memberof Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943
+                 * @return  {void}
+                 */
+                TestStaticInitialization: function () {
+                    Bridge.Test.NUnit.Assert.AreEqual("A", Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2.p2.p1, "Value is correctly initialized.");
+                }
+            }
+        }
+    });
+
+    /**
+     * A class implementing the indirect property that used not to have
+     the correct value.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c1
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c1", {
+        $kind: "nested class",
+        props: {
+            p1: null
+        }
+    });
+
+    /**
+     * Class implementing members that references the c1 class above.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2", {
+        $kind: "nested class",
+        statics: {
+            fields: {
+                Z1: null,
+                _s: null
+            },
+            props: {
+                p2: {
+                    get: function () {
+                        return Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2._s;
+                    }
+                }
+            },
+            ctors: {
+                init: function () {
+                    this.Z1 = "A";
+                    this._s = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2._init();
+                }
+            },
+            methods: {
+                _init: function () {
+                    var $t;
+                    var o1 = ($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c1(), $t.p1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3943.c2.Z1, $t);
+
+                    return o1;
+                }
+            }
+        },
+        props: {
+            p3: null
+        }
+    });
 
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge395", {
         props: {
@@ -37559,13 +39031,13 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestUseCase: function () {
-                    var list = System.Linq.Enumerable.from(System.Array.init([new $asm.$AnonymousType$21("", "")], $asm.$AnonymousType$21)).skip(1).toList(System.Object);
+                    var list = System.Linq.Enumerable.from(System.Array.init([new $asm.$AnonymousType$21("", "")], $asm.$AnonymousType$21), System.Object).skip(1).toList(System.Object);
                     list.add(new $asm.$AnonymousType$21("Ruth", "Babe"));
                     list.add(new $asm.$AnonymousType$21("Johnson", "Walter"));
                     list.add(new $asm.$AnonymousType$21("Cobb", "Ty"));
                     list.add(new $asm.$AnonymousType$21("Schmidt", "Mike"));
 
-                    var query = System.Linq.Enumerable.from(list).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge485.f1).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge485.f2);
+                    var query = System.Linq.Enumerable.from(list, System.Object).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge485.f1).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge485.f2);
 
                     var s = JSON.stringify(query.toList(System.Object));
 
@@ -37843,7 +39315,7 @@ Bridge.$N1391Result =                     r;
                                             continue;
                                         }
                                         case 3: {
-                                            result = (result || "") + ((System.String.format("A({0})", [Bridge.box(Bridge.identity(i, (i = (i + 1) | 0)), System.Int32)])) || "");
+                                            result = (result || "") + ((System.String.format("A({0})", [Bridge.box(Bridge.identity(i, ((i = (i + 1) | 0))), System.Int32)])) || "");
                                         }
                                         case 4: {
                                             $task2 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.NextPage();
@@ -37880,7 +39352,7 @@ Bridge.$N1391Result =                     r;
                                             continue;
                                         }
                                         case 9: {
-                                            result = (result || "") + ((System.String.format("B({0})", [Bridge.box(Bridge.identity(i, (i = (i + 1) | 0)), System.Int32)])) || "");
+                                            result = (result || "") + ((System.String.format("B({0})", [Bridge.box(Bridge.identity(i, ((i = (i + 1) | 0))), System.Int32)])) || "");
                                         }
                                         case 10: {
                                             np1 = Bridge.ClientTest.Batch3.BridgeIssues.Bridge508.NextPage1();
@@ -38779,7 +40251,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t.moveNext()) {
                             var itm = { v : $t.Current };
-                            handlers[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), handlers)] = (function ($me, itm) {
+                            handlers[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), handlers)] = (function ($me, itm) {
                                 return function () {
                                     result = (result || "") + (itm.v || "");
                                 };
@@ -38812,7 +40284,7 @@ Bridge.$N1391Result =                     r;
                     try {
                         while ($t2.moveNext()) {
                             var itm1 = { v : $t2.Current };
-                            handlers[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), handlers)] = (function ($me, itm1) {
+                            handlers[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), handlers)] = (function ($me, itm1) {
                                 return function () {
                                     result = (result || "") + (itm1.v || "");
                                 };
@@ -38847,7 +40319,7 @@ Bridge.$N1391Result =                     r;
 
                     for (var j = 0; j < keys.length; j = (j + 1) | 0) {
                         var itm = { v : keys[System.Array.index(j, keys)] };
-                        handlers[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), handlers)] = (function ($me, itm) {
+                        handlers[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), handlers)] = (function ($me, itm) {
                             return function () {
                                 result = (result || "") + (itm.v || "");
                             };
@@ -39486,12 +40958,12 @@ Bridge.$N1391Result =                     r;
         methods: {
             Get: function () {
                 var items = System.Array.init(["a"], System.String);
-                var mappedItemsWithoutInstanceMemberAccess = System.Linq.Enumerable.from(items).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge597A.f1).ToArray(System.String);
+                var mappedItemsWithoutInstanceMemberAccess = System.Linq.Enumerable.from(items, System.String).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge597A.f1).ToArray(System.String);
                 return mappedItemsWithoutInstanceMemberAccess[System.Array.index(0, mappedItemsWithoutInstanceMemberAccess)];
             },
             GetWithMember: function () {
                 var items = System.Array.init(["a"], System.String);
-                var mappedItemsWithInstanceMemberAccess = System.Linq.Enumerable.from(items).select(Bridge.fn.bind(this, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge597A.f2)).ToArray(System.String);
+                var mappedItemsWithInstanceMemberAccess = System.Linq.Enumerable.from(items, System.String).select(Bridge.fn.bind(this, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge597A.f2)).ToArray(System.String);
                 return mappedItemsWithInstanceMemberAccess[System.Array.index(0, mappedItemsWithInstanceMemberAccess)];
             }
         }
@@ -39906,22 +41378,23 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestUseCase: function () {
+                    var $t, $t1;
                     var list = System.Array.init([1, 2, 3], System.Int32);
 
-                    var d1 = System.Linq.Enumerable.from(list).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, null, System.Int32, System.Int32);
+                    var d1 = ($t = System.Int32, System.Linq.Enumerable.from(list, $t).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, null, System.Int32, $t));
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(d1), "Bridge625 d1");
 
-                    var d2 = System.Linq.Enumerable.from(list).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, null, System.Int32, System.Int32, new Bridge.ClientTest.Batch3.BridgeIssues.Bridge625A());
+                    var d2 = ($t1 = System.Int32, System.Linq.Enumerable.from(list, $t1).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, null, System.Int32, $t1, new Bridge.ClientTest.Batch3.BridgeIssues.Bridge625A()));
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(d2), "Bridge625 d2");
 
-                    var d3 = System.Linq.Enumerable.from(list).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f2, System.Int32, System.Int32);
+                    var d3 = System.Linq.Enumerable.from(list, System.Int32).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f2, System.Int32, System.Int32);
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(d3), "Bridge625 d3");
 
-                    var d4 = System.Linq.Enumerable.from(list).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f2, System.Int32, System.Int32, new Bridge.ClientTest.Batch3.BridgeIssues.Bridge625A());
+                    var d4 = System.Linq.Enumerable.from(list, System.Int32).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f1, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f2, System.Int32, System.Int32, new Bridge.ClientTest.Batch3.BridgeIssues.Bridge625A());
                     Bridge.Test.NUnit.Assert.True(Bridge.hasValue(d4), "Bridge625 d4");
 
                     var content = new (System.Collections.Generic.Dictionary$2(System.DateTime,System.Array.type(System.Double))).ctor();
-                    var dict1 = System.Linq.Enumerable.from(content).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f3).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f4, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f5, System.DateTime, System.Array.type(System.Double));
+                    var dict1 = System.Linq.Enumerable.from(content, System.Collections.Generic.KeyValuePair$2(System.DateTime,System.Array.type(System.Double))).where($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f3).toDictionary($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f4, $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge625.f5, System.DateTime, System.Array.type(System.Double));
                     Bridge.Test.NUnit.Assert.AreEqual(0, dict1.Count);
                 }
             }
@@ -41464,7 +42937,7 @@ Bridge.$N1391Result =                     r;
                     while (i < 20) {
                         while (i < 10) {
                             while (i < 5) {
-                                if (System.Linq.Enumerable.from(testList).any(function (x) {
+                                if (System.Linq.Enumerable.from(testList, System.Int32).any(function (x) {
                                         return x === i;
                                     })) {
                                     return "ThirdLoop";
@@ -41472,7 +42945,7 @@ Bridge.$N1391Result =                     r;
                                 i = (i + 1) | 0;
                             }
 
-                            if (System.Linq.Enumerable.from(testList).any(function (x) {
+                            if (System.Linq.Enumerable.from(testList, System.Int32).any(function (x) {
                                     return x === i;
                                 })) {
                                 return "SecondLoop";
@@ -41480,7 +42953,7 @@ Bridge.$N1391Result =                     r;
                             i = (i + 1) | 0;
                         }
 
-                        if (System.Linq.Enumerable.from(testList).any(function (x) {
+                        if (System.Linq.Enumerable.from(testList, System.Int32).any(function (x) {
                                 return x === i;
                             })) {
                             return "FirstLoop";
@@ -41549,7 +43022,7 @@ Bridge.$N1391Result =                     r;
                         System.Decimal(7.0)
                     ], System.Decimal);
                     var c4 = new (System.Collections.Generic.Dictionary$2(System.String,System.Decimal)).ctor();
-                    var asset4 = ($t = System.Linq.Enumerable.from(data4).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge722.f1).last(), c4.setItem("path", $t), $t);
+                    var asset4 = ($t = System.Linq.Enumerable.from(data4, System.Decimal).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge722.f1).last(), c4.setItem("path", $t), $t);
                     Bridge.Test.NUnit.Assert.AreDeepEqual(System.Decimal(7.0), asset4, "Bridge722 asset4");
                     Bridge.Test.NUnit.Assert.AreDeepEqual(System.Decimal(7.0), c4.getItem("path"), "Bridge722 c4");
                 }
@@ -41739,7 +43212,7 @@ Bridge.$N1391Result =                     r;
                     }
 
                     var values = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge751.f1(new (System.Collections.Generic.List$1(System.Int32)).ctor());
-                    var v1 = System.Linq.Enumerable.from(values).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge751.f2);
+                    var v1 = System.Linq.Enumerable.from(values, System.Int32).count($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge751.f2);
 
                     Bridge.Test.NUnit.Assert.AreEqual(1, v1, "Bridge751");
                 }
@@ -42899,7 +44372,7 @@ Bridge.$N1391Result =                     r;
     Bridge.apply($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge861, {
         f1: function (data) {
             var $t1;
-            Bridge.identity(data.MyId, ($t1 = (data.MyId + 1) | 0, data.MyId = $t1, $t1));
+            Bridge.identity(data.MyId, (($t1 = (data.MyId + 1) | 0, data.MyId = $t1, $t1)));
         },
         f2: function (data) {
             data.MyId = 0;
@@ -43145,17 +44618,17 @@ Bridge.$N1391Result =                     r;
                     }, arguments));
                 },
                 TestMakeEnumerable: function () {
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Object)).count(), "MakeEnumerable object 0");
-                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Object, [Bridge.box(1, System.Int32), Bridge.box(2.0, System.Double, System.Double.format, System.Double.getHashCode)])).count(), "MakeEnumerable object 2");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Object), System.Object).count(), "MakeEnumerable object 0");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Object, [Bridge.box(1, System.Int32), Bridge.box(2.0, System.Double, System.Double.format, System.Double.getHashCode)]), System.Object).count(), "MakeEnumerable object 2");
 
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.String)).count(), "MakeEnumerable string 0");
-                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.String, ["a", "b", "c"])).count(), "MakeEnumerable string 3");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.String), System.String).count(), "MakeEnumerable string 0");
+                    Bridge.Test.NUnit.Assert.AreEqual(3, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.String, ["a", "b", "c"]), System.String).count(), "MakeEnumerable string 3");
 
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.IEnumerable$1(System.Object))).count(), "MakeEnumerable IEnumerable<object> 0");
-                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.IEnumerable$1(System.Object), [System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32)], System.Object)])).count(), "MakeEnumerable IEnumerable<object> 1");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.IEnumerable$1(System.Object)), System.Collections.Generic.IEnumerable$1(System.Object)).count(), "MakeEnumerable IEnumerable<object> 0");
+                    Bridge.Test.NUnit.Assert.AreEqual(1, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.IEnumerable$1(System.Object), [System.Array.init([Bridge.box(1, System.Int32), Bridge.box(2, System.Int32)], System.Object)]), System.Collections.Generic.IEnumerable$1(System.Object)).count(), "MakeEnumerable IEnumerable<object> 1");
 
-                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Object)))).count(), "MakeEnumerable List<List<object>> 0");
-                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32)), [new (System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32))).ctor(), new (System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32))).ctor()])).count(), "MakeEnumerable List<List<object>> 2");
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Object))), System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Object))).count(), "MakeEnumerable List<List<object>> 0");
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(Bridge.ClientTest.Batch3.BridgeIssues.Bridge889.MakeEnumerable(System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32)), [new (System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32))).ctor(), new (System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32))).ctor()]), System.Collections.Generic.List$1(System.Collections.Generic.List$1(System.Int32))).count(), "MakeEnumerable List<List<object>> 2");
                 }
             }
         }
@@ -43636,8 +45109,8 @@ Bridge.$N1391Result =                     r;
                         System.Decimal(3.0)
                     ], System.Decimal);
 
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(a).average(System.Decimal.Zero).equalsT(System.Decimal(2)));
-                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(a).sum(System.Decimal.Zero).equalsT(System.Decimal(6)));
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(a, System.Decimal).average(System.Decimal.Zero).equalsT(System.Decimal(2)));
+                    Bridge.Test.NUnit.Assert.True(System.Linq.Enumerable.from(a, System.Decimal).sum(System.Decimal.Zero).equalsT(System.Decimal(6)));
                 }
             }
         }
@@ -44199,14 +45672,14 @@ Bridge.$N1391Result =                     r;
                     var f1 = $asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999.f2;
 
                     var f2 = function () {
-                        return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([4, 5, 6], System.Int32)).select(function (value) {
+                        return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([4, 5, 6], System.Int32), System.Int32).select(function (value) {
                                     return ((value + offset) | 0);
                                 })).join(", ");
                     };
 
                     var f3 = function () {
                         var f4 = function () {
-                            return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([7, 8, 9], System.Int32)).select(function (value) {
+                            return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([7, 8, 9], System.Int32), System.Int32).select(function (value) {
                                         return ((value + offset) | 0);
                                     })).join(", ");
                         };
@@ -44242,11 +45715,11 @@ Bridge.$N1391Result =                     r;
             return value;
         },
         f2: function () {
-            return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([1, 2, 3], System.Int32)).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999.f1)).join(", ");
+            return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([1, 2, 3], System.Int32), System.Int32).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999.f1)).join(", ");
         },
         f3: function () {
             var offset2 = 2;
-            return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([4, 5, 6], System.Int32)).select(function (value) {
+            return Bridge.toArray(System.Linq.Enumerable.from(System.Array.init([4, 5, 6], System.Int32), System.Int32).select(function (value) {
                         return ((value + offset2) | 0);
                     })).join(", ");
         }
@@ -44256,12 +45729,12 @@ Bridge.$N1391Result =                     r;
         statics: {
             methods: {
                 TestNestedLambdasToLiftingInForeach: function () {
-                    var one = System.Linq.Enumerable.from(new (System.Collections.Generic.List$1(System.Int32)).$ctor1(System.Array.init([1], System.Int32))).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999_1.f1);
+                    var one = System.Linq.Enumerable.from(new (System.Collections.Generic.List$1(System.Int32)).$ctor1(System.Array.init([1], System.Int32)), System.Int32).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999_1.f1);
 
                     var sum = 0;
 
                     one.forEach(function (el) {
-                        var list = System.Linq.Enumerable.from(new (System.Collections.Generic.List$1(System.Int32)).$ctor1(System.Array.init([3, 5], System.Int32))).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999_1.f1);
+                        var list = System.Linq.Enumerable.from(new (System.Collections.Generic.List$1(System.Int32)).$ctor1(System.Array.init([3, 5], System.Int32)), System.Int32).select($asm.$.Bridge.ClientTest.Batch3.BridgeIssues.Bridge999_1.f1);
 
                         list.forEach(function (el2) {
                             sum = (sum + el2) | 0;
@@ -45111,7 +46584,7 @@ Bridge.$N1391Result =                     r;
                     var count = 0;
 
                     for (var i = 0; i < 10; i = (i + 1) | 0) {
-                        if (!System.Linq.Enumerable.from(testList).any(function (x) {
+                        if (!System.Linq.Enumerable.from(testList, System.Int32).any(function (x) {
                                 return x === i;
                             })) {
                             continue;
@@ -45151,11 +46624,11 @@ Bridge.$N1391Result =                     r;
                     var comparer = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge470();
 
                     // EqualityComparer's methods do not handle null values intentionally
-                    Bridge.Test.NUnit.Assert.AreEqual(true, System.Linq.Enumerable.from(test1).contains(a, comparer), "test1 Contains a");
-                    Bridge.Test.NUnit.Assert.AreEqual(true, System.Linq.Enumerable.from(test1).contains(b, comparer), "test1 Contains b");
-                    Bridge.Test.NUnit.Assert.AreEqual(true, System.Linq.Enumerable.from(test1).contains(c, comparer), "test1 Contains c");
-                    Bridge.Test.NUnit.Assert.AreEqual(false, System.Linq.Enumerable.from(test1).contains(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge470(), $t.Data = 4, $t), comparer), "test1 Contains 4");
-                    Bridge.Test.NUnit.Assert.AreEqual(false, System.Linq.Enumerable.from(test1).contains(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge470(), $t.Data = 5, $t), comparer), "test1 Contains 5");
+                    Bridge.Test.NUnit.Assert.AreEqual(true, System.Linq.Enumerable.from(test1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge470).contains(a, comparer), "test1 Contains a");
+                    Bridge.Test.NUnit.Assert.AreEqual(true, System.Linq.Enumerable.from(test1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge470).contains(b, comparer), "test1 Contains b");
+                    Bridge.Test.NUnit.Assert.AreEqual(true, System.Linq.Enumerable.from(test1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge470).contains(c, comparer), "test1 Contains c");
+                    Bridge.Test.NUnit.Assert.AreEqual(false, System.Linq.Enumerable.from(test1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge470).contains(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge470(), $t.Data = 4, $t), comparer), "test1 Contains 4");
+                    Bridge.Test.NUnit.Assert.AreEqual(false, System.Linq.Enumerable.from(test1, Bridge.ClientTest.Batch3.BridgeIssues.Bridge470).contains(($t = new Bridge.ClientTest.Batch3.BridgeIssues.Bridge470(), $t.Data = 5, $t), comparer), "test1 Contains 5");
                 },
                 N499: function () {
                     var v1 = new System.Version.ctor();
@@ -45380,7 +46853,7 @@ Bridge.$N1391Result =                     r;
                         30
                     ], System.Int32);
                     var i = 0;
-                    data[System.Array.index(($t = Bridge.identity(i, (i = (i + 1) | 0))), data)] = (data[System.Array.index($t, data)] + 1) | 0;
+                    data[System.Array.index(($t = Bridge.identity(i, ((i = (i + 1) | 0)))), data)] = (data[System.Array.index($t, data)] + 1) | 0;
 
                     Bridge.Test.NUnit.Assert.AreEqual(11, data[System.Array.index(0, data)]);
                     Bridge.Test.NUnit.Assert.AreEqual(20, data[System.Array.index(1, data)]);
@@ -47845,6 +49318,29 @@ Bridge.$N1391Result =                     r;
         alias: ["SomeProperty", ["Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$System$String$SomeProperty", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3876$IAbstr$1$SomeProperty"]]
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c2", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3904.c1],
+        $kind: "nested class"
+    });
+
+    /**
+     * Class implementing the above interface's method.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.A
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.I
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.A", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.I],
+        $kind: "nested class",
+        alias: ["toString", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3907$I$ToString"],
+        methods: {
+            toString: function () {
+                return "A";
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436First],
         methods: {
@@ -48425,6 +49921,22 @@ Bridge.$N1391Result =                     r;
         alias: ["Name", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3729$Interface1$Name"]
     });
 
+    /**
+     * Class inheriting from the class implementing the interface above,
+     and also specifying it implements the same interface as the class
+     it inherits from.
+     *
+     * @public
+     * @class Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.B
+     * @augments Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.A
+     * @implements  Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.I
+     */
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.B", {
+        inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.A,Bridge.ClientTest.Batch3.BridgeIssues.Bridge3907.I],
+        $kind: "nested class",
+        alias: ["toString", "Bridge$ClientTest$Batch3$BridgeIssues$Bridge3907$I$ToString"]
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Third", {
         inherits: [Bridge.ClientTest.Batch3.BridgeIssues.Bridge436Second],
         methods: {
@@ -48649,7 +50161,9 @@ Bridge.$N1391Result =                     r;
     $m("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795.PropertyViewItem3", function () { return {"td":$n[2].Bridge3795,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"ov":true,"a":2,"n":"ReadOnly","t":16,"rt":$n[1].Boolean,"g":{"ov":true,"a":2,"n":"get_ReadOnly","t":8,"rt":$n[1].Boolean,"fg":"ReadOnly","box":function ($v) { return Bridge.box($v, System.Boolean, System.Boolean.toString);}},"s":{"ov":true,"a":2,"n":"set_ReadOnly","t":8,"p":[$n[1].Boolean],"rt":$n[1].Void,"fs":"ReadOnly"},"fn":"ReadOnly"},{"a":1,"backing":true,"n":"<ReadOnly>k__BackingField","t":4,"rt":$n[1].Boolean,"sn":"ReadOnly","box":function ($v) { return Bridge.box($v, System.Boolean, System.Boolean.toString);}}]}; }, $n);
     $m("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795.RootViewItem4", function () { return {"td":$n[2].Bridge3795,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"v":true,"a":2,"n":"ReadOnly","t":16,"rt":$n[1].Boolean,"g":{"v":true,"a":2,"n":"get_ReadOnly","t":8,"rt":$n[1].Boolean,"fg":"ReadOnly","box":function ($v) { return Bridge.box($v, System.Boolean, System.Boolean.toString);}},"s":{"v":true,"a":2,"n":"set_ReadOnly","t":8,"p":[$n[1].Boolean],"rt":$n[1].Void,"fs":"ReadOnly"},"fn":"ReadOnly"},{"a":1,"backing":true,"n":"<ReadOnly>k__BackingField","t":4,"rt":$n[1].Boolean,"sn":"ReadOnly","box":function ($v) { return Bridge.box($v, System.Boolean, System.Boolean.toString);}}]}; }, $n);
     $m("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795.PropertyViewItem4", function () { return {"td":$n[2].Bridge3795,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"at":[new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3795.DynamicPropertyAttribute()],"ov":true,"a":2,"n":"ReadOnly","t":16,"rt":$n[1].Boolean,"g":{"ov":true,"a":2,"n":"get_ReadOnly","t":8,"rt":$n[1].Boolean,"fg":"ReadOnly","box":function ($v) { return Bridge.box($v, System.Boolean, System.Boolean.toString);}},"s":{"ov":true,"a":2,"n":"set_ReadOnly","t":8,"p":[$n[1].Boolean],"rt":$n[1].Void,"fs":"ReadOnly"},"fn":"ReadOnly"},{"a":1,"backing":true,"n":"<ReadOnly>k__BackingField","t":4,"rt":$n[1].Boolean,"sn":"ReadOnly","box":function ($v) { return Bridge.box($v, System.Boolean, System.Boolean.toString);}}]}; }, $n);
+    $m("Bridge3893_TestClass", function () { return {"td":$n[2].Bridge3893,"att":1048578,"a":2,"m":[{"a":2,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":".ctor","t":1,"p":[$n[1].String],"pi":[{"n":"str","pt":$n[1].String,"ps":0}],"sn":"ctor_1"},{"a":2,"n":"prop","t":4,"rt":$n[1].Int32,"sn":"prop","box":function ($v) { return Bridge.box($v, System.Int32);}}]}; }, $n);
     $m("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3867.MyModel", function () { return {"td":$n[2].Bridge3867,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Prop","t":16,"rt":$n[1].Int32,"g":{"a":2,"n":"get_Prop","t":8,"rt":$n[1].Int32,"fg":"Prop","box":function ($v) { return Bridge.box($v, System.Int32);}},"s":{"a":2,"n":"set_Prop","t":8,"p":[$n[1].Int32],"rt":$n[1].Void,"fs":"Prop"},"fn":"Prop"},{"a":1,"backing":true,"n":"<Prop>k__BackingField","t":4,"rt":$n[1].Int32,"sn":"Prop","box":function ($v) { return Bridge.box($v, System.Int32);}}]}; }, $n);
+    $m("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3939.Test", function () { return {"td":$n[2].Bridge3939,"att":1048578,"a":2,"m":[{"a":2,"isSynthetic":true,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"DecimalProp","t":16,"rt":$n[1].Decimal,"g":{"a":2,"n":"get_DecimalProp","t":8,"rt":$n[1].Decimal,"fg":"DecimalProp"},"s":{"a":2,"n":"set_DecimalProp","t":8,"p":[$n[1].Decimal],"rt":$n[1].Void,"fs":"DecimalProp"},"fn":"DecimalProp"},{"a":2,"n":"DoubleProp","t":16,"rt":$n[1].Double,"g":{"a":2,"n":"get_DoubleProp","t":8,"rt":$n[1].Double,"fg":"DoubleProp","box":function ($v) { return Bridge.box($v, System.Double, System.Double.format, System.Double.getHashCode);}},"s":{"a":2,"n":"set_DoubleProp","t":8,"p":[$n[1].Double],"rt":$n[1].Void,"fs":"DoubleProp"},"fn":"DoubleProp"},{"a":2,"n":"Int32Prop","t":16,"rt":$n[1].Int32,"g":{"a":2,"n":"get_Int32Prop","t":8,"rt":$n[1].Int32,"fg":"Int32Prop","box":function ($v) { return Bridge.box($v, System.Int32);}},"s":{"a":2,"n":"set_Int32Prop","t":8,"p":[$n[1].Int32],"rt":$n[1].Void,"fs":"Int32Prop"},"fn":"Int32Prop"},{"a":2,"n":"Int64Prop","t":16,"rt":$n[1].Int64,"g":{"a":2,"n":"get_Int64Prop","t":8,"rt":$n[1].Int64,"fg":"Int64Prop"},"s":{"a":2,"n":"set_Int64Prop","t":8,"p":[$n[1].Int64],"rt":$n[1].Void,"fs":"Int64Prop"},"fn":"Int64Prop"},{"a":2,"n":"SingleProp","t":16,"rt":$n[1].Single,"g":{"a":2,"n":"get_SingleProp","t":8,"rt":$n[1].Single,"fg":"SingleProp","box":function ($v) { return Bridge.box($v, System.Single, System.Single.format, System.Single.getHashCode);}},"s":{"a":2,"n":"set_SingleProp","t":8,"p":[$n[1].Single],"rt":$n[1].Void,"fs":"SingleProp"},"fn":"SingleProp"},{"a":2,"n":"DecimalField","t":4,"rt":$n[1].Decimal,"sn":"DecimalField"},{"a":2,"n":"DoubleField","t":4,"rt":$n[1].Double,"sn":"DoubleField","box":function ($v) { return Bridge.box($v, System.Double, System.Double.format, System.Double.getHashCode);}},{"a":2,"n":"Int32Field","t":4,"rt":$n[1].Int32,"sn":"Int32Field","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":2,"n":"Int64Field","t":4,"rt":$n[1].Int64,"sn":"Int64Field"},{"a":2,"n":"SingleField","t":4,"rt":$n[1].Single,"sn":"SingleField","box":function ($v) { return Bridge.box($v, System.Single, System.Single.format, System.Single.getHashCode);}},{"a":1,"n":"__Property__Initializer__DecimalProp","t":4,"rt":$n[1].Decimal,"sn":"__Property__Initializer__DecimalProp"},{"a":1,"n":"__Property__Initializer__DoubleProp","t":4,"rt":$n[1].Double,"sn":"__Property__Initializer__DoubleProp","box":function ($v) { return Bridge.box($v, System.Double, System.Double.format, System.Double.getHashCode);}},{"a":1,"n":"__Property__Initializer__Int32Prop","t":4,"rt":$n[1].Int32,"sn":"__Property__Initializer__Int32Prop","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":1,"n":"__Property__Initializer__Int64Prop","t":4,"rt":$n[1].Int64,"sn":"__Property__Initializer__Int64Prop"},{"a":1,"n":"__Property__Initializer__SingleProp","t":4,"rt":$n[1].Single,"sn":"__Property__Initializer__SingleProp","box":function ($v) { return Bridge.box($v, System.Single, System.Single.format, System.Single.getHashCode);}},{"a":1,"backing":true,"n":"<DecimalProp>k__BackingField","t":4,"rt":$n[1].Decimal,"sn":"DecimalProp"},{"a":1,"backing":true,"n":"<DoubleProp>k__BackingField","t":4,"rt":$n[1].Double,"sn":"DoubleProp","box":function ($v) { return Bridge.box($v, System.Double, System.Double.format, System.Double.getHashCode);}},{"a":1,"backing":true,"n":"<Int32Prop>k__BackingField","t":4,"rt":$n[1].Int32,"sn":"Int32Prop","box":function ($v) { return Bridge.box($v, System.Int32);}},{"a":1,"backing":true,"n":"<Int64Prop>k__BackingField","t":4,"rt":$n[1].Int64,"sn":"Int64Prop"},{"a":1,"backing":true,"n":"<SingleProp>k__BackingField","t":4,"rt":$n[1].Single,"sn":"SingleProp","box":function ($v) { return Bridge.box($v, System.Single, System.Single.format, System.Single.getHashCode);}}]}; }, $n);
     $m("System.Console", function () { return {"att":1048833,"a":2,"m":[{"a":2,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":"Clear","is":true,"t":8,"sn":"Clear","rt":$n[1].Void},{"a":2,"n":"Read","is":true,"t":8,"tpc":0,"def":function () { return prompt(); },"rt":$n[1].String},{"a":2,"n":"ReadLine","is":true,"t":8,"tpc":0,"def":function () { return prompt(); },"rt":$n[1].String},{"a":2,"n":"ReadLine","is":true,"t":8,"pi":[{"n":"text","pt":$n[1].String,"ps":0}],"tpc":0,"def":function (text) { return prompt(text); },"rt":$n[1].String,"p":[$n[1].String]},{"a":2,"n":"ReadLine","is":true,"t":8,"pi":[{"n":"text","pt":$n[1].String,"ps":0},{"n":"value","pt":$n[1].String,"ps":1}],"tpc":0,"def":function (text, value) { return prompt(text, value); },"rt":$n[1].String,"p":[$n[1].String,$n[1].String]},{"a":1,"n":"TransformChars","is":true,"t":8,"pi":[{"n":"buffer","pt":$n[1].Array.type(System.Char),"ps":0},{"n":"all","pt":$n[1].Int32,"ps":1},{"n":"index","pt":$n[1].Int32,"ps":2},{"n":"count","pt":$n[1].Int32,"ps":3}],"sn":"TransformChars","rt":$n[1].String,"p":[$n[1].Array.type(System.Char),$n[1].Int32,$n[1].Int32,$n[1].Int32]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Boolean,"ps":0}],"tpc":0,"def":function (value) { return System.Console.Write(System.Boolean.toString(value)); },"rt":$n[1].Void,"p":[$n[1].Boolean]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Char,"ps":0}],"tpc":0,"def":function (value) { return System.Console.Write(String.fromCharCode(value)); },"rt":$n[1].Void,"p":[$n[1].Char]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"buffer","pt":$n[1].Array.type(System.Char),"ps":0}],"tpc":0,"def":function (buffer) { return System.Console.Write(System.Console.TransformChars(buffer, 1)); },"rt":$n[1].Void,"p":[$n[1].Array.type(System.Char)]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Decimal,"ps":0}],"tpc":0,"def":function (value) { return System.Console.Write(value.toString("G")); },"rt":$n[1].Void,"p":[$n[1].Decimal]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Double,"ps":0}],"tpc":0,"def":function (value) { return System.Console.Write(System.Double.format(value)); },"rt":$n[1].Void,"p":[$n[1].Double]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Int32,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].Int32]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Int64,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].Int64]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Object,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].Object]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Single,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].Single]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].String,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].String]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].UInt32,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].UInt32]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].UInt64,"ps":0}],"sn":"Write","rt":$n[1].Void,"p":[$n[1].UInt64]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1}],"tpc":0,"def":function (format, arg0) { return System.Console.Write(System.String.format(format, arg0)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg","ip":true,"pt":$n[1].Array.type(System.Object),"ps":1}],"tpc":0,"def":function (format, arg) { return System.Console.Write(System.String.format(format, arg)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Array.type(System.Object)]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"buffer","pt":$n[1].Array.type(System.Char),"ps":0},{"n":"index","pt":$n[1].Int32,"ps":1},{"n":"count","pt":$n[1].Int32,"ps":2}],"tpc":0,"def":function (buffer, index, count) { return System.Console.Write(System.Console.TransformChars(buffer, 0, index, count)); },"rt":$n[1].Void,"p":[$n[1].Array.type(System.Char),$n[1].Int32,$n[1].Int32]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1},{"n":"arg1","pt":$n[1].Object,"ps":2}],"tpc":0,"def":function (format, arg0, arg1) { return System.Console.Write(System.String.format(format, arg0, arg1)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object,$n[1].Object]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1},{"n":"arg1","pt":$n[1].Object,"ps":2},{"n":"arg2","pt":$n[1].Object,"ps":3}],"tpc":0,"def":function (format, arg0, arg1, arg2) { return System.Console.Write(System.String.format(format, arg0, arg1, arg2)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object,$n[1].Object,$n[1].Object]},{"a":2,"n":"Write","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1},{"n":"arg1","pt":$n[1].Object,"ps":2},{"n":"arg2","pt":$n[1].Object,"ps":3},{"n":"arg3","pt":$n[1].Object,"ps":4}],"tpc":0,"def":function (format, arg0, arg1, arg2, arg3) { return System.Console.Write(System.String.format(format, [arg0, arg1, arg2, arg3])); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object,$n[1].Object,$n[1].Object,$n[1].Object]},{"a":2,"n":"WriteLine","is":true,"t":8,"sn":"WriteLine","rt":$n[1].Void},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Boolean,"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(System.Boolean.toString(value)); },"rt":$n[1].Void,"p":[$n[1].Boolean]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Char,"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(String.fromCharCode(value)); },"rt":$n[1].Void,"p":[$n[1].Char]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"buffer","pt":$n[1].Array.type(System.Char),"ps":0}],"tpc":0,"def":function (buffer) { return System.Console.WriteLine(System.Console.TransformChars(buffer, 1)); },"rt":$n[1].Void,"p":[$n[1].Array.type(System.Char)]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Decimal,"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(value.toString("G")); },"rt":$n[1].Void,"p":[$n[1].Decimal]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Double,"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(System.Double.format(value)); },"rt":$n[1].Void,"p":[$n[1].Double]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Int32,"ps":0}],"sn":"WriteLine","rt":$n[1].Void,"p":[$n[1].Int32]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Int64,"ps":0}],"sn":"WriteLine","rt":$n[1].Void,"p":[$n[1].Int64]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Nullable$1(System.Decimal),"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(value && value.toString("G")); },"rt":$n[1].Void,"p":[$n[1].Nullable$1(System.Decimal)]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Object,"ps":0}],"sn":"WriteLine","rt":$n[1].Void,"p":[$n[1].Object]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Single,"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(System.Single.format(value)); },"rt":$n[1].Void,"p":[$n[1].Single]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].String,"ps":0}],"sn":"WriteLine","rt":$n[1].Void,"p":[$n[1].String]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].Type,"ps":0}],"tpc":0,"def":function (value) { return System.Console.WriteLine(Bridge.getTypeName(value)); },"rt":$n[1].Void,"p":[$n[1].Type]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].UInt32,"ps":0}],"sn":"WriteLine","rt":$n[1].Void,"p":[$n[1].UInt32]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"value","pt":$n[1].UInt64,"ps":0}],"sn":"WriteLine","rt":$n[1].Void,"p":[$n[1].UInt64]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1}],"tpc":0,"def":function (format, arg0) { return System.Console.WriteLine(System.String.format(format, arg0)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg","ip":true,"pt":$n[1].Array.type(System.Object),"ps":1}],"tpc":0,"def":function (format, arg) { return System.Console.WriteLine(System.String.format(format, arg)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Array.type(System.Object)]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"buffer","pt":$n[1].Array.type(System.Char),"ps":0},{"n":"index","pt":$n[1].Int32,"ps":1},{"n":"count","pt":$n[1].Int32,"ps":2}],"tpc":0,"def":function (buffer, index, count) { return System.Console.WriteLine(System.Console.TransformChars(buffer, 0, index, count)); },"rt":$n[1].Void,"p":[$n[1].Array.type(System.Char),$n[1].Int32,$n[1].Int32]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1},{"n":"arg1","pt":$n[1].Object,"ps":2}],"tpc":0,"def":function (format, arg0, arg1) { return System.Console.WriteLine(System.String.format(format, arg0, arg1)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object,$n[1].Object]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1},{"n":"arg1","pt":$n[1].Object,"ps":2},{"n":"arg2","pt":$n[1].Object,"ps":3}],"tpc":0,"def":function (format, arg0, arg1, arg2) { return System.Console.WriteLine(System.String.format(format, arg0, arg1, arg2)); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object,$n[1].Object,$n[1].Object]},{"a":2,"n":"WriteLine","is":true,"t":8,"pi":[{"n":"format","pt":$n[1].String,"ps":0},{"n":"arg0","pt":$n[1].Object,"ps":1},{"n":"arg1","pt":$n[1].Object,"ps":2},{"n":"arg2","pt":$n[1].Object,"ps":3},{"n":"arg3","pt":$n[1].Object,"ps":4}],"tpc":0,"def":function (format, arg0, arg1, arg2, arg3) { return System.Console.WriteLine(System.String.format(format, [arg0, arg1, arg2, arg3])); },"rt":$n[1].Void,"p":[$n[1].String,$n[1].Object,$n[1].Object,$n[1].Object,$n[1].Object]}]}; }, $n);
     $asm.attr= [new Bridge.ClientTest.Batch3.BridgeIssues.Bridge3273.MyAssemblyAttribute()];
 });

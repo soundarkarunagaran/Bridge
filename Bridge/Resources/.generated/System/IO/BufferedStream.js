@@ -340,7 +340,7 @@
                     return -1;
                 }
 
-                var b = this._buffer[System.Array.index(Bridge.identity(this._readPos, (this._readPos = (this._readPos + 1) | 0)), this._buffer)];
+                var b = this._buffer[System.Array.index(Bridge.identity(this._readPos, ((this._readPos = (this._readPos + 1) | 0))), this._buffer)];
                 return b;
             },
             WriteToBuffer: function (array, offset, count) {
@@ -453,7 +453,7 @@
                     this.FlushWrite();
                 }
 
-                this._buffer[System.Array.index(Bridge.identity(this._writePos, (this._writePos = (this._writePos + 1) | 0)), this._buffer)] = value;
+                this._buffer[System.Array.index(Bridge.identity(this._writePos, ((this._writePos = (this._writePos + 1) | 0))), this._buffer)] = value;
 
             },
             Seek: function (offset, origin) {
