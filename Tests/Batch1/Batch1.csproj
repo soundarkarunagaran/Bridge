@@ -70,6 +70,7 @@
     <Compile Include="Collections\Generic\SortedSet\SortedSet.Generic.Tests.cs" />
     <Compile Include="Collections\Generic\StackTests.cs" />
     <Compile Include="Collections\Native\Constants.cs" />
+    <Compile Include="Convert\ConvertTest.cs" />
     <Compile Include="CSharp7\TestBinaryLiterals.cs" />
     <Compile Include="CSharp7\TestCaseLabelPattern.cs" />
     <Compile Include="CSharp7\TestDefaultLiteralExpression.cs" />
