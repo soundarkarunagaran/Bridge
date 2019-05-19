@@ -325,10 +325,6 @@ namespace Bridge.ClientTest.ConvertTests
                 return Convert.ChangeType(obj, typeof(UInt32));
             else if (type == typeof(UInt64))
                 return Convert.ChangeType(obj, typeof(UInt64));
-            else if (type == typeof(IntPtr))
-                return Convert.ChangeType(obj, typeof(IntPtr));
-            else if (type == typeof(UIntPtr))
-                return Convert.ChangeType(obj, typeof(UIntPtr));
             else if (type == typeof(Char))
                 return Convert.ChangeType(obj, typeof(Char));
             else if (type == typeof(Double))

@@ -866,6 +866,10 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
             QUnit.test("Convert.FromBase64 - InvalidInput", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertFromBase64Tests.InvalidInput);
             QUnit.test("Convert.FromBase64 - InvalidCharactersInInput", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertFromBase64Tests.InvalidCharactersInInput);
             QUnit.test("Convert.FromBase64 - FromBase64StringWorks", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertFromBase64Tests.FromBase64StringWorks);
+            QUnit.test("Convert.ToDouble - TestBase", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest.TestBase);
+            QUnit.test("Convert.ToDouble - TestTemperature", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest.TestTemperature);
+            QUnit.test("Convert.ToDouble - ChangeTypeTest", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest.ChangeTypeTest);
+            QUnit.test("Convert.ToDouble - ChangeTypeIdentity", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest.ChangeTypeIdentity);
             QUnit.test("Convert.ToBase64CharArray - ValidOffsetIn", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertToBase64CharArrayTests.ValidOffsetIn);
             QUnit.test("Convert.ToBase64CharArray - ShortInputArray", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertToBase64CharArrayTests.ShortInputArray);
             QUnit.test("Convert.ToBase64CharArray - ValidOffsetOut", Bridge.Test.Runtime.BridgeClientTestRunner.ConvertToBase64CharArrayTests.ValidOffsetOut);
@@ -7157,6 +7161,47 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest", function ($asm, globals) {
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.ConvertTests.ConvertFromBase64Tests", $t.File = "Batch1\\Convert\\ConvertFromBase64Tests.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.ConvertTests.ConvertTest)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestBase: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.ConvertTests.ConvertTest).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestBase()", $t.Line = "207", $t));
+                    Bridge.ClientTest.ConvertTests.ConvertTest.TestBase();
+                },
+                TestTemperature: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.ConvertTests.ConvertTest).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestTemperature()", $t.Line = "221", $t));
+                    Bridge.ClientTest.ConvertTests.ConvertTest.TestTemperature();
+                },
+                ChangeTypeTest: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.ConvertTests.ConvertTest).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ChangeTypeTest()", $t.Line = "245", $t));
+                    Bridge.ClientTest.ConvertTests.ConvertTest.ChangeTypeTest();
+                },
+                ChangeTypeIdentity: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.ConvertTests.ConvertTest).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestRunner.ConvertTest, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "ChangeTypeIdentity()", $t.Line = "294", $t));
+                    Bridge.ClientTest.ConvertTests.ConvertTest.ChangeTypeIdentity();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch1", $t.ClassName = "Bridge.ClientTest.ConvertTests.ConvertTest", $t.File = "Batch1\\Convert\\ConvertTest.cs", $t);
                 }
                 return this.context;
             }

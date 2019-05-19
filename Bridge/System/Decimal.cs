@@ -296,10 +296,10 @@ namespace System
         [CLSCompliant(false)]
         public static extern uint ToUInt32(decimal value);
 
-        [Bridge.Template("System.Decimal.toInt({value})")]
+        [Bridge.Template("System.Decimal.toInt({value}, System.Int64)")]
         public static extern long ToInt64(decimal value);
 
-        [Bridge.Template("System.Decimal.toInt({value})")]
+        [Bridge.Template("System.Decimal.toInt({value}, System.UInt64)")]
         [CLSCompliant(false)]
         public static extern ulong ToUInt64(decimal value);
 
