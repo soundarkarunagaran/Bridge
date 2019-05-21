@@ -5,10 +5,18 @@ using Bridge.Test.NUnit;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
+    /// <summary>
+    /// The tests here consists in ensuring the exception thrown when an async
+    /// task is cancelled at run-time.
+    /// </summary>
     [Category(Constants.MODULE_ISSUES)]
     [TestFixture(TestNameFormat = "#2405 - {0}")]
     public class Bridge2405
     {
+        /// <summary>
+        /// Tests by calling an async task, cancelling it, then checking the
+        /// thrown exception in the end.
+        /// </summary>
         [Test]
         public static void TestDelayWithCancelation()
         {
@@ -32,15 +40,19 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             }
             catch (AggregateException ae)
             {
-                Assert.True(ae.InnerException is TaskCanceledException);
+                Assert.True(ae.InnerException is TaskCanceledException, "Canceled task's exception is TaskCanceledException.");
             }
 
-            Assert.AreEqual(TaskStatus.Canceled, t.Status);
+            Assert.AreEqual(TaskStatus.Canceled, t.Status, "Canceled task has the 'Canceled' status.");
 
             source.Dispose();
             done();
         }
 
+        /// <summary>
+        /// Ensures exception won't be thrown if the cancellation is attempted
+        /// after the async task has completed.
+        /// </summary>
         [Test]
         public static void TestDelayWithCancelation2()
         {
@@ -65,8 +77,8 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 Assert.Fail("Should not be an exception");
             }
 
-            Assert.AreEqual(TaskStatus.RanToCompletion, t.Status);
-            Assert.AreEqual(42, t.Result);
+            Assert.AreEqual(TaskStatus.RanToCompletion, t.Status, "Late-canceled task's status is 'RanToCompletion'.");
+            Assert.AreEqual(42, t.Result, "Late-canceled task result matches the expected value bound at the task's end.");
 
             source.Dispose();
             done();
