@@ -31,6 +31,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
 
                                             $task1 = f1();
                                             $step = 1;
+                                            if ($task1.isCompleted()) continue;
                                             $task1.continueWith($asyncBody, true);
                                             return;
                                         }
