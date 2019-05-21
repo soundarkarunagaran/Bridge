@@ -210,12 +210,12 @@ namespace Bridge.ClientTest.ConvertTests
             Double d = -2.345;
             int i = (int)Convert.ChangeType(d, typeof(int));
 
-            Assert.AreEqual(-2, i);
+            Assert.AreEqual(-2, i, "Double -2.345 ChangeType(int) truncated as -2.");
 
             string s = "12/12/98";
             DateTime dt = (DateTime)Convert.ChangeType(s, typeof(DateTime));
 
-            Assert.AreEqual(new DateTime(1998, 12, 12), dt);
+            Assert.AreEqual(new DateTime(1998, 12, 12), dt, "String date ChangeType(DateTime) works.");
         }
 
         [Test]
@@ -226,20 +226,32 @@ namespace Bridge.ClientTest.ConvertTests
                              typeof(Int64), typeof(Byte), typeof(UInt16),
                              typeof(UInt32), typeof(UInt64), typeof(Decimal),
                              typeof(Single), typeof(Double), typeof(String) };
-            CultureInfo provider = System.Globalization.CultureInfo.CurrentCulture;
+            CultureInfo provider = CultureInfo.CurrentCulture;
 
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[0], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[1], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[2], provider));
-            Assert.True(5L == (long)Convert.ChangeType(cool, targetTypes[3], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[4], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[5], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[6], provider));
-            Assert.True(5UL == (ulong)Convert.ChangeType(cool, targetTypes[7], provider));
-            Assert.True(5m == (decimal)Convert.ChangeType(cool, targetTypes[8], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[9], provider));
-            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[10], provider));
-            Assert.AreEqual("5.00°C", Convert.ChangeType(cool, targetTypes[11], provider));
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[0], provider),
+                "Type change between " + targetTypes[0].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[1], provider),
+                "Type change between " + targetTypes[1].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[2], provider),
+                "Type change between " + targetTypes[2].ToString() + " and Temperature works.");
+            Assert.True(5L == (long)Convert.ChangeType(cool, targetTypes[3], provider),
+                "Type change between " + targetTypes[3].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[4], provider),
+                "Type change between " + targetTypes[4].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[5], provider),
+                "Type change between " + targetTypes[5].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[6], provider),
+                "Type change between " + targetTypes[6].ToString() + " and Temperature works.");
+            Assert.True(5UL == (ulong)Convert.ChangeType(cool, targetTypes[7], provider),
+                "Type change between " + targetTypes[7].ToString() + " and Temperature works.");
+            Assert.True(5m == (decimal)Convert.ChangeType(cool, targetTypes[8], provider),
+                "Type change between " + targetTypes[8].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[9], provider),
+                "Type change between " + targetTypes[9].ToString() + " and Temperature works.");
+            Assert.AreEqual(5, Convert.ChangeType(cool, targetTypes[10], provider),
+                "Type change between " + targetTypes[10].ToString() + " and Temperature works.");
+            Assert.AreEqual("5.00°C", Convert.ChangeType(cool, targetTypes[11], provider),
+                "Type change between " + targetTypes[11].ToString() + " and Temperature works.");
         }
 
         [Test]
@@ -247,7 +259,7 @@ namespace Bridge.ClientTest.ConvertTests
         {
             var testValue = 0;
             bool expectedValue = false;
-            Assert.AreEqual(expectedValue, Convert.ChangeType(testValue, TypeCode.Boolean));
+            Assert.AreEqual(expectedValue, Convert.ChangeType(testValue, TypeCode.Boolean), "Convert.ChangeType works between bool and int.");
         }
 
         public static IEnumerable<object[]> DefaultToTypeValues()
@@ -298,7 +310,7 @@ namespace Bridge.ClientTest.ConvertTests
             {
                 object testValue = item[0];
                 object copy = GetBoxedCopy(testValue);
-                Assert.AreEqual(testValue, copy);
+                Assert.AreEqual(testValue, copy, "Type identity change works.");
             }
 
             
