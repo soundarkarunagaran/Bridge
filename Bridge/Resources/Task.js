@@ -199,8 +199,6 @@
                                 tcs.trySetResult(t);
                                 break;
                             case System.Threading.Tasks.TaskStatus.canceled:
-                            /*    tcs.trySetCanceled();
-                                break;*/
                             case System.Threading.Tasks.TaskStatus.faulted:
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
