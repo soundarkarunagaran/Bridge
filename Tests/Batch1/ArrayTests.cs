@@ -95,6 +95,14 @@ namespace Bridge.ClientTest
             }
 
             [Test]
+            public void LongLengthWorks()
+            {
+                Assert.AreEqual((long)0, new int[0].LongLength);
+                Assert.AreEqual((long)1, new[] { "x" }.LongLength);
+                Assert.AreEqual((long)2, new[] { "x", "y" }.LongLength);
+            }
+
+            [Test]
             public void RankIsOne()
             {
                 Assert.AreEqual(1, new int[0].Rank);
@@ -667,6 +675,19 @@ namespace Bridge.ClientTest
 
                 var arr3 = new[] { 9, 8, 7, 6 };
                 Array.Copy(arr1, 3, arr3, 2, 1);
+                Assert.AreEqual(new[] { 9, 8, 4, 6 }, arr3);
+            }
+
+            [Test]
+            public void CopyWithDifferentArraysLongWorks()
+            {
+                var arr1 = new[] { 1, 2, 3, 4 };
+                var arr2 = new[] { 9, 8, 7, 6 };
+                Array.Copy(arr1, arr2, (long)2);
+                Assert.AreEqual(new[] { 1, 2, 7, 6 }, arr2);
+
+                var arr3 = new[] { 9, 8, 7, 6 };
+                Array.Copy(arr1, (long)3, arr3, (long)2, (long)1);
                 Assert.AreEqual(new[] { 9, 8, 4, 6 }, arr3);
             }
 
