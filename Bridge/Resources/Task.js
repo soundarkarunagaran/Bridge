@@ -1,16 +1,29 @@
     Bridge.define("System.Threading.Tasks.Task", {
-        inherits: [System.IDisposable],
+        inherits: [System.IDisposable, System.IAsyncResult],
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$Dispose"
-            ]
+                "dispose", "System$IDisposable$Dispose",
+                "AsyncState", "System$IAsyncResult$AsyncState",
+                "CompletedSynchronously", "System$IAsyncResult$CompletedSynchronously",
+                "IsCompleted", "System$IAsyncResult$IsCompleted"
+            ],
+
+            properties: {
+                IsCompleted: {
+                    get: function () {
+                        return this.isCompleted();
+                    }
+                }
+            }
         },
 
         ctor: function (action, state) {
             this.$initialize();
             this.action = action;
             this.state = state;
+            this.AsyncState = state;
+            this.CompletedSynchronously = false;
             this.exception = null;
             this.status = System.Threading.Tasks.TaskStatus.created;
             this.callbacks = [];
@@ -508,9 +521,9 @@
     });
 
     Bridge.define("System.Threading.Tasks.TaskCompletionSource", {
-        ctor: function () {
+        ctor: function (state) {
             this.$initialize();
-            this.task = new System.Threading.Tasks.Task();
+            this.task = new System.Threading.Tasks.Task(null, state);
             this.task.status = System.Threading.Tasks.TaskStatus.running;
         },
 
