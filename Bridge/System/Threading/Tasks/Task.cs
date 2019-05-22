@@ -47,7 +47,7 @@ namespace System.Threading.Tasks
             get;
         }
 
-        public bool CompletedSynchronously
+        bool IAsyncResult.CompletedSynchronously
         {
             get;
         }
