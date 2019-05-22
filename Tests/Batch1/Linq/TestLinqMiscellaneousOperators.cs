@@ -15,7 +15,7 @@ namespace Bridge.ClientTest.Linq
             int[] numbersA = { 4, 1, 3 };
             int[] numbersB = { 2, 3, 5 };
 
-            var concatNumbers = numbersA.Concat(numbersB);
+            var concatNumbers = numbersA.Concat(numbersB).ToArray();
             Assert.AreDeepEqual(new[] { 4, 1, 3, 2, 3, 5 }, concatNumbers, "Concat() numbers");
 
             // TEST

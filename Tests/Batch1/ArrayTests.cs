@@ -193,8 +193,8 @@ namespace Bridge.ClientTest
             public void ConcatWorks()
             {
                 var arr = new[] { "a", "b" };
-                Assert.AreDeepEqual(new[] { "a", "b", "c" }, arr.Concat("c"));
-                Assert.AreDeepEqual(new[] { "a", "b", "c", "d" }, arr.Concat("c", "d"));
+                Assert.AreDeepEqual(new[] { "a", "b", "c" }, arr.Concat(new[] { "c" }).ToArray());
+                Assert.AreDeepEqual(new[] { "a", "b", "c", "d" }, arr.Concat(new[] { "c", "d" }).ToArray());
                 Assert.AreDeepEqual(new[] { "a", "b" }, arr);
             }
 
