@@ -7234,6 +7234,21 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1468", {
+        statics: {
+            methods: {
+                TestArrayConcat: function () {
+                    var array = System.Linq.Enumerable.from(System.Array.init(["h"], System.String), System.String).concat(System.Array.init(["h"], System.String));
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.Linq.Enumerable.from(array, System.String).count());
+
+                    var stringEnumerable = System.Linq.Enumerable.from(System.Array.init(["_"], System.String), System.String).concat(System.Array.init(["h"], System.String));
+                    var stringArray = stringEnumerable.ToArray(System.String);
+                    Bridge.Test.NUnit.Assert.AreEqual(2, stringArray.length);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge1472", {
         statics: {
             fields: {
