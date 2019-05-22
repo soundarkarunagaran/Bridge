@@ -97,9 +97,12 @@ namespace Bridge.ClientTest
             [Test]
             public void LongLengthWorks()
             {
-                Assert.AreEqual((long)0, new int[0].LongLength);
-                Assert.AreEqual((long)1, new[] { "x" }.LongLength);
-                Assert.AreEqual((long)2, new[] { "x", "y" }.LongLength);
+                Assert.AreEqual((long)0, new int[0].LongLength, "0 cast into long matches empty array's LongLength.");
+                Assert.AreEqual((long)1, new[] { "x" }.LongLength, "1 cast into long matches 1 element big array's LongLength.");
+                Assert.AreEqual((long)2, new[] { "x", "y" }.LongLength, "2 cast into long matches 2 elements big array's LongLength.");
+                Assert.AreEqual(0L, new int[0].LongLength, "Int64 0 matches empty array's LongLength.");
+                Assert.AreEqual(1L, new[] { "x" }.LongLength, "Int64 1 matches 1 element big array's LongLength.");
+                Assert.AreEqual(2L, new[] { "x", "y" }.LongLength, "Int64 2 matches 2 elements big array's LongLength.");
             }
 
             [Test]
@@ -684,11 +687,11 @@ namespace Bridge.ClientTest
                 var arr1 = new[] { 1, 2, 3, 4 };
                 var arr2 = new[] { 9, 8, 7, 6 };
                 Array.Copy(arr1, arr2, (long)2);
-                Assert.AreEqual(new[] { 1, 2, 7, 6 }, arr2);
+                Assert.AreEqual(new[] { 1, 2, 7, 6 }, arr2, "Array.Copy({1,2,3,4}, {9,8,7,6}, (long)2) results in {1,2,7,6}.");
 
                 var arr3 = new[] { 9, 8, 7, 6 };
                 Array.Copy(arr1, (long)3, arr3, (long)2, (long)1);
-                Assert.AreEqual(new[] { 9, 8, 4, 6 }, arr3);
+                Assert.AreEqual(new[] { 9, 8, 4, 6 }, arr3, "Array.Copy({1,2,3,4}, (long)3, {9,8,7,6}, (long)2, (long)1) results in {9,8,4,6}.");
             }
 
             [Test]
