@@ -6726,6 +6726,83 @@ Bridge.define("System.ValueType", {
         $flags: true
     });
 
+    // @source TypeCode.js
+
+    Bridge.define("System.TypeCode", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                Empty: 0,
+                Object: 1,
+                DBNull: 2,
+                Boolean: 3,
+                Char: 4,
+                SByte: 5,
+                Byte: 6,
+                Int16: 7,
+                UInt16: 8,
+                Int32: 9,
+                UInt32: 10,
+                Int64: 11,
+                UInt64: 12,
+                Single: 13,
+                Double: 14,
+                Decimal: 15,
+                DateTime: 16,
+                String: 18
+            }
+        }
+    });
+
+    // @source TypeCodeValues.js
+
+    Bridge.define("System.TypeCodeValues", {
+        statics: {
+            fields: {
+                Empty: null,
+                Object: null,
+                DBNull: null,
+                Boolean: null,
+                Char: null,
+                SByte: null,
+                Byte: null,
+                Int16: null,
+                UInt16: null,
+                Int32: null,
+                UInt32: null,
+                Int64: null,
+                UInt64: null,
+                Single: null,
+                Double: null,
+                Decimal: null,
+                DateTime: null,
+                String: null
+            },
+            ctors: {
+                init: function () {
+                    this.Empty = "0";
+                    this.Object = "1";
+                    this.DBNull = "2";
+                    this.Boolean = "3";
+                    this.Char = "4";
+                    this.SByte = "5";
+                    this.Byte = "6";
+                    this.Int16 = "7";
+                    this.UInt16 = "8";
+                    this.Int32 = "9";
+                    this.UInt32 = "10";
+                    this.Int64 = "11";
+                    this.UInt64 = "12";
+                    this.Single = "13";
+                    this.Double = "14";
+                    this.Decimal = "15";
+                    this.DateTime = "16";
+                    this.String = "18";
+                }
+            }
+        }
+    });
+
     // @source Type.js
 
 Bridge.define("System.Type", {
@@ -6733,6 +6810,58 @@ Bridge.define("System.Type", {
     statics: {
         $is: function (instance) {
             return instance && instance.constructor === Function;
+        },
+
+        getTypeCode: function (t) {
+            if (t == null) {
+                return System.TypeCode.Empty;
+            }
+            if (t === System.Double) {
+                return System.TypeCode.Double;
+            }
+            if (t === System.Single) {
+                return System.TypeCode.Single;
+            }
+            if (t === System.Decimal) {
+                return System.TypeCode.Decimal;
+            }
+            if (t === System.Byte) {
+                return System.TypeCode.Byte;
+            }
+            if (t === System.SByte) {
+                return System.TypeCode.SByte;
+            }
+            if (t === System.UInt16) {
+                return System.TypeCode.UInt16;
+            }
+            if (t === System.Int16) {
+                return System.TypeCode.Int16;
+            }
+            if (t === System.UInt32) {
+                return System.TypeCode.UInt32;
+            }
+            if (t === System.Int32) {
+                return System.TypeCode.Int32;
+            }
+            if (t === System.UInt64) {
+                return System.TypeCode.UInt64;
+            }
+            if (t === System.Int64) {
+                return System.TypeCode.Int64;
+            }
+            if (t === System.Boolean) {
+                return System.TypeCode.Boolean;
+            }
+            if (t === System.Char) {
+                return System.TypeCode.Char;
+            }
+            if (t === System.DateTime) {
+                return System.TypeCode.DateTime;
+            }
+            if (t === System.String) {
+                return System.TypeCode.String;
+            }
+            return System.TypeCode.Object;
         }
     }
 });
@@ -13054,6 +13183,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             return arr || result;
+        },
+        getLongLength: function (array) {
+            return System.Int64(array.length);
         }
     };
 
@@ -21916,18 +22048,31 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
     // @source Task.js
 
     Bridge.define("System.Threading.Tasks.Task", {
-        inherits: [System.IDisposable],
+        inherits: [System.IDisposable, System.IAsyncResult],
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$Dispose"
-            ]
+                "dispose", "System$IDisposable$Dispose",
+                "AsyncState", "System$IAsyncResult$AsyncState",
+                "CompletedSynchronously", "System$IAsyncResult$CompletedSynchronously",
+                "IsCompleted", "System$IAsyncResult$IsCompleted"
+            ],
+
+            properties: {
+                IsCompleted: {
+                    get: function () {
+                        return this.isCompleted();
+                    }
+                }
+            }
         },
 
         ctor: function (action, state) {
             this.$initialize();
             this.action = action;
             this.state = state;
+            this.AsyncState = state;
+            this.CompletedSynchronously = false;
             this.exception = null;
             this.status = System.Threading.Tasks.TaskStatus.created;
             this.callbacks = [];
@@ -22009,10 +22154,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                         if (Bridge.is(result, System.Threading.Tasks.Task)) {
                             result.continueWith(function () {
-                                if (result.isCanceled()) {
-                                    tcs.setCanceled();
-                                } else if (result.isFaulted()) {
-                                    tcs.setException(result.exception);
+                                if (result.isFaulted() || result.isCanceled()) {
+                                    tcs.setException(result.exception.innerExceptions.Count > 0 ? result.exception.innerExceptions.getItem(0) : result.exception);
                                 } else {
                                     tcs.setResult(result.getAwaitedResult());
                                 }
@@ -22105,8 +22248,6 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                 tcs.trySetResult(t);
                                 break;
                             case System.Threading.Tasks.TaskStatus.canceled:
-                                tcs.trySetCanceled();
-                                break;
                             case System.Threading.Tasks.TaskStatus.faulted:
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
@@ -22197,6 +22338,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
         },
 
+        getException: function () {
+            return this.isCanceled() ? null : this.exception;
+        },
+
         waitt: function (timeout, token) {
             var ms = timeout,
                 tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -22249,10 +22394,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             this.continueWith(function () {
                 if (!complete) {
                     complete = true;
-                    if (me.isFaulted()) {
+                    if (me.isFaulted() || me.isCanceled()) {
                         tcs.setException(me.exception);
-                    } else if (me.isCanceled()) {
-                        tcs.setCanceled();
                     } else {
                         tcs.setResult();
                     }
@@ -22337,7 +22480,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             this.exception = error;
-            this.status = System.Threading.Tasks.TaskStatus.faulted;
+            this.status = this.exception.hasTaskCanceledException && this.exception.hasTaskCanceledException() ? System.Threading.Tasks.TaskStatus.canceled : System.Threading.Tasks.TaskStatus.faulted;
             this.runCallbacks();
 
             return true;
@@ -22348,6 +22491,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return false;
             }
 
+            this.exception = error || new System.AggregateException(null, [new System.Threading.Tasks.TaskCanceledException.$ctor3(this)]);
             this.status = System.Threading.Tasks.TaskStatus.canceled;
             this.runCallbacks();
 
@@ -22371,12 +22515,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
-
                     if (this.exception && this.exception.innerExceptions) {
                         throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                     }
 
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
@@ -22425,9 +22568,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
     });
 
     Bridge.define("System.Threading.Tasks.TaskCompletionSource", {
-        ctor: function () {
+        ctor: function (state) {
             this.$initialize();
-            this.task = new System.Threading.Tasks.Task();
+            this.task = new System.Threading.Tasks.Task(null, state);
             this.task.status = System.Threading.Tasks.TaskStatus.running;
         },
 
@@ -22462,7 +22605,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 exception = [exception];
             }
 
-            return this.task.fail(new System.AggregateException(null, exception));
+            exception = new System.AggregateException(null, exception);
+
+            if (exception.hasTaskCanceledException()) {
+                return this.task.cancel(exception);
+            }
+
+            return this.task.fail(exception);
         }
     });
 
@@ -22942,6 +23091,28 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             DateTime: 16,
             String: 18
         },
+
+        convertTypes: [
+            null,
+            System.Object,
+            null,
+            System.Boolean,
+            System.Char,
+            System.SByte,
+            System.Byte,
+            System.Int16,
+            System.UInt16,
+            System.Int32,
+            System.UInt32,
+            System.Int64,
+            System.UInt64,
+            System.Single,
+            System.Double,
+            System.Decimal,
+            System.DateTime,
+            System.Object,
+            System.String
+        ],
 
         toBoolean: function (value, formatProvider) {
             value = Bridge.unbox(value, true);
@@ -23612,9 +23783,192 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return bytes;
         },
 
-        convertToType: function (typeCode, value, formatProvider) {
-            //TODO: #822 IConvertible
-            throw new System.NotSupportedException.$ctor1("IConvertible interface is not supported.");
+        getTypeCode: function (t) {
+            if (t == null) {
+                return System.TypeCode.Object;
+            }
+            if (t === System.Double) {
+                return System.TypeCode.Double;
+            }
+            if (t === System.Single) {
+                return System.TypeCode.Single;
+            }
+            if (t === System.Decimal) {
+                return System.TypeCode.Decimal;
+            }
+            if (t === System.Byte) {
+                return System.TypeCode.Byte;
+            }
+            if (t === System.SByte) {
+                return System.TypeCode.SByte;
+            }
+            if (t === System.UInt16) {
+                return System.TypeCode.UInt16;
+            }
+            if (t === System.Int16) {
+                return System.TypeCode.Int16;
+            }
+            if (t === System.UInt32) {
+                return System.TypeCode.UInt32;
+            }
+            if (t === System.Int32) {
+                return System.TypeCode.Int32;
+            }
+            if (t === System.UInt64) {
+                return System.TypeCode.UInt64;
+            }
+            if (t === System.Int64) {
+                return System.TypeCode.Int64;
+            }
+            if (t === System.Boolean) {
+                return System.TypeCode.Boolean;
+            }
+            if (t === System.Char) {
+                return System.TypeCode.Char;
+            }
+            if (t === System.DateTime) {
+                return System.TypeCode.DateTime;
+            }
+            if (t === System.String) {
+                return System.TypeCode.String;
+            }
+            return System.TypeCode.Object;
+        },
+
+        changeConversionType: function (value, conversionType, provider) {
+            if (conversionType == null) {
+                throw new System.ArgumentNullException.$ctor1("conversionType");
+            }
+
+            if (value == null) {
+                if (Bridge.Reflection.isValueType(conversionType)) {
+                    throw new System.InvalidCastException.$ctor1("Null object cannot be converted to a value type.");
+                }
+                return null;
+            }
+
+            var fromTypeCode = scope.convert.getTypeCode(Bridge.getType(value)),
+                ic = Bridge.as(value, System.IConvertible);
+
+            if (ic == null && fromTypeCode == System.TypeCode.Object) {
+                if (Bridge.referenceEquals(Bridge.getType(value), conversionType)) {
+                    return value;
+                }
+                throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
+            }
+
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Boolean, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toBoolean(value, provider) : ic.System$IConvertible$ToBoolean(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Char, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toChar(value, provider, fromTypeCode) : ic.System$IConvertible$ToChar(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.SByte, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toSByte(value, provider, fromTypeCode) : ic.System$IConvertible$ToSByte(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Byte, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toByte(value, provider) : ic.System$IConvertible$ToByte(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int16, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toInt16(value, provider) : ic.System$IConvertible$ToInt16(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt16, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toUInt16(value, provider) : ic.System$IConvertible$ToUInt16(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int32, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toInt32(value, provider) : ic.System$IConvertible$ToInt32(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt32, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toUInt32(value, provider) : ic.System$IConvertible$ToUInt32(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int64, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toInt64(value, provider) : ic.System$IConvertible$ToInt64(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt64, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toUInt64(value, provider) : ic.System$IConvertible$ToUInt64(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Single, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toSingle(value, provider) : ic.System$IConvertible$ToSingle(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Double, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toDouble(value, provider) : ic.System$IConvertible$ToDouble(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Decimal, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toDecimal(value, provider) : ic.System$IConvertible$ToDecimal(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.DateTime, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toDateTime(value, provider) : ic.System$IConvertible$ToDateTime(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.String, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toString(value, provider, fromTypeCode) : ic.System$IConvertible$ToString(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Object, scope.convert.convertTypes)])) {
+                return value;
+            }
+
+            if (ic == null) {
+                throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
+            }
+
+            return ic.System$IConvertible$ToType(conversionType, provider);
+        },
+
+        changeType: function (value, typeCode, formatProvider) {
+            if (Bridge.isFunction(typeCode)) {
+                return scope.convert.changeConversionType(value, typeCode, formatProvider);
+            }
+
+            if (value == null && (typeCode === System.TypeCode.Empty || typeCode === System.TypeCode.String || typeCode === System.TypeCode.Object)) {
+                return null;
+            }
+
+            var fromTypeCode = scope.convert.getTypeCode(Bridge.getType(value)),
+                v = Bridge.as(value, System.IConvertible);
+
+            if (v == null && fromTypeCode == System.TypeCode.Object) {
+                throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
+            }
+
+            switch (typeCode) {
+                case System.TypeCode.Boolean:
+                    return v == null ? scope.convert.toBoolean(value, formatProvider) : v.System$IConvertible$ToBoolean(provider);
+                case System.TypeCode.Char:
+                    return v == null ? scope.convert.toChar(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToChar(provider);
+                case System.TypeCode.SByte:
+                    return v == null ? scope.convert.toSByte(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToSByte(provider);
+                case System.TypeCode.Byte:
+                    return v == null ? scope.convert.toByte(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToByte(provider);
+                case System.TypeCode.Int16:
+                    return v == null ? scope.convert.toInt16(value, formatProvider) : v.System$IConvertible$ToInt16(provider);
+                case System.TypeCode.UInt16:
+                    return v == null ? scope.convert.toUInt16(value, formatProvider) : v.System$IConvertible$ToUInt16(provider);
+                case System.TypeCode.Int32:
+                    return v == null ? scope.convert.toInt32(value, formatProvider) : v.System$IConvertible$ToInt32(provider);
+                case System.TypeCode.UInt32:
+                    return v == null ? scope.convert.toUInt32(value, formatProvider) : v.System$IConvertible$ToUInt32(provider);
+                case System.TypeCode.Int64:
+                    return v == null ? scope.convert.toInt64(value, formatProvider) : v.System$IConvertible$ToInt64(provider);
+                case System.TypeCode.UInt64:
+                    return v == null ? scope.convert.toUInt64(value, formatProvider) : v.System$IConvertible$ToUInt64(provider);
+                case System.TypeCode.Single:
+                    return v == null ? scope.convert.toSingle(value, formatProvider) : v.System$IConvertible$ToSingle(provider);
+                case System.TypeCode.Double:
+                    return v == null ? scope.convert.toDouble(value, formatProvider) : v.System$IConvertible$ToDouble(provider);
+                case System.TypeCode.Decimal:
+                    return v == null ? scope.convert.toDecimal(value, formatProvider) : v.System$IConvertible$ToDecimal(provider);
+                case System.TypeCode.DateTime:
+                    return v == null ? scope.convert.toDateTime(value, formatProvider) : v.System$IConvertible$ToDateTime(provider);
+                case System.TypeCode.String:
+                    return v == null ? scope.convert.toString(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToString(provider);
+                case System.TypeCode.Object:
+                    return value;
+                case System.TypeCode.DBNull:
+                    throw new System.InvalidCastException.$ctor1("Cannot convert DBNull values");
+                case System.TypeCode.Empty:
+                    throw new System.InvalidCastException.$ctor1("Cannot convert Empty values");
+                default:
+                    throw new System.ArgumentException.$ctor1("Unknown type code");
+            }
         }
     };
 
@@ -44974,6 +45328,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = System.IO.FileStream.ReadBytesAsync(this.name);
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -46217,6 +46572,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = this.stream.EnsureBufferAsync();
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -46228,6 +46584,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 3: {
                                         $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
                                         $step = 4;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody);
                                         return;
                                     }
@@ -48115,6 +48472,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             return back;
+        },
+
+        hasTaskCanceledException: function () {
+            for (var i = 0; i < this.innerExceptions.Count; i++) {
+                var e = this.innerExceptions.getItem(i);
+                if (Bridge.is(e, System.Threading.Tasks.TaskCanceledException) || (Bridge.is(e, System.AggregateException) && e.hasTaskCanceledException())) {
+                    return true;
+                }
+            }
+            return false;
         },
 
         flatten: function () {
