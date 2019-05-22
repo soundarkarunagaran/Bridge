@@ -15,6 +15,13 @@ namespace System
             get;
         }
 
+        public long LongLength
+        {
+            [Bridge.Template("System.Array.getLongLength({this})")]
+            get;
+        }
+        
+
         /// <summary>
         /// Gets a value indicating whether the System.Array has a fixed size.
         /// </summary>
@@ -225,6 +232,12 @@ namespace System
 
         [Bridge.Template("System.Array.copy({src}, 0, {dst}, 0, {len})")]
         public static extern void Copy(Array src, Array dst, int len);
+
+        [Bridge.Template("System.Array.copy({src}, {spos}.toNumber(), {dst}, {dpos}.toNumber(), {len}.toNumber())")]
+        public static extern void Copy(Array src, long spos, Array dst, long dpos, long len);
+
+        [Bridge.Template("System.Array.copy({src}, 0, {dst}, 0, {len}.toNumber())")]
+        public static extern void Copy(Array src, Array dst, long len);
 
         [Bridge.Template("System.Array.copy({this}, 0, {array}, {index}, {this}.length)")]
         public extern void CopyTo(Array array, int index);
