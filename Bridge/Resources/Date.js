@@ -91,20 +91,14 @@
             },
 
             toUniversalTime: function (d) {
-                var ticks = this.getTicks(d),
-                    d1;
+                var d1,
+                    ticks = this.getTicks(d),
 
-                // Assuming d is Local time, so adjust to UTC
-                if (d.kind !== 1) {
-                    ticks = ticks.add(this.$getTzOffset(d));
-                }
-
-                d1 = this.create$2(ticks, 1);
+                    d1 = this.create$2(ticks, 1);
 
                 // Check if Ticks are out of range
                 if (ticks.gt(this.MaxTicks) || ticks.lt(0)) {
-                    ticks = ticks.sub(this.$getTzOffset(d1));
-                    d1 = this.create$2(ticks, 1);
+                    d1 = this.create$2(ticks.add(this.$getTzOffset(d1)), 1);
                 }
 
                 return d1;

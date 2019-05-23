@@ -1535,7 +1535,7 @@
                 return a < b ? -1 : (a > b ? 1 : 0);
             } else if (Bridge.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
-                    return Bridge.compare(a.ticks, b.ticks);
+                    return Bridge.compare(System.DateTime.getTicks(a), System.DateTime.getTicks(b));
                 }
 
                 return Bridge.compare(a.valueOf(), b.valueOf());
@@ -1597,7 +1597,7 @@
                 return a === b;
             } else if (Bridge.isDate(a)) {
                 if (a.kind !== undefined && a.ticks !== undefined) {
-                    return a.ticks.equals(b.ticks);
+                    return System.DateTime.getTicks(a).equals(System.DateTime.getTicks(b));
                 }
 
                 return a.valueOf() === b.valueOf();
@@ -9557,7 +9557,7 @@ Bridge.define("System.Type", {
 
             getDefaultValue: function () {
                 if (this.$default === null) {
-                    this.$default = this.create(1, 1, 1, 0, 0, 0, 0, 0);
+                    this.$default = this.getMinValue();
                 }
 
                 return this.$default;
@@ -9580,14 +9580,15 @@ Bridge.define("System.Type", {
             getMaxValue: function () {
                 if (this.$max === null) {
                     this.$max = this.create$2(this.MaxTicks, 0);
-                    this.$max.ticks = this.MaxTicks;
                 }
 
                 return this.$max;
             },
 
+            // Return the TimezoneOffset in Ticks
             $getTzOffset: function (d) {
-                return d.getTimezoneOffset() * 60 * 1000;
+                // 60 seconds * 1000 milliseconds * 10000
+                return System.Int64(d.getTimezoneOffset()).mul(600000000);
             },
 
             // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
@@ -9595,11 +9596,7 @@ Bridge.define("System.Type", {
                 d.kind = (d.kind !== undefined) ? d.kind : 0
 
                 if (d.ticks === undefined) {
-                    if (d.kind === 1) {
-                        d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$minOffset);
-                    } else {
-                        d.ticks = System.Int64(d.getTime() - this.$getTzOffset(d)).mul(10000).add(this.$minOffset);
-                    }
+                    d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$minOffset);
                 }
 
                 return d.ticks;
@@ -9609,10 +9606,6 @@ Bridge.define("System.Type", {
                 var d1,
                     ticks = this.getTicks(d);
 
-                if (d.kind !== 2) {
-                    ticks = d.ticks.sub(System.Int64(this.$getTzOffset(d)).mul(10000));
-                }
-
                 d1 = this.create$2(ticks, 2);
 
                 // Check if Ticks are out of range
@@ -9620,8 +9613,7 @@ Bridge.define("System.Type", {
                     if (throwOnOverflow && throwOnOverflow === true) {
                         throw new System.ArgumentException.$ctor1("Specified argument was out of the range of valid values.");
                     } else {
-                        ticks = ticks.add(System.Int64(this.$getTzOffset(d1)).mul(10000));
-                        d1 = this.create$2(ticks, 2);
+                        d1 = this.create$2(ticks.add(this.$getTzOffset(d1)), 2);
                     }
                 }
 
@@ -9629,20 +9621,14 @@ Bridge.define("System.Type", {
             },
 
             toUniversalTime: function (d) {
-                var ticks = this.getTicks(d),
-                    d1;
+                var d1,
+                    ticks = this.getTicks(d),
 
-                // Assuming d is Local time, so adjust to UTC
-                if (d.kind !== 1) {
-                    ticks = ticks.add(System.Int64(this.$getTzOffset(d)).mul(10000));
-                }
-
-                d1 = this.create$2(ticks, 1);
+                    d1 = this.create$2(ticks, 1);
 
                 // Check if Ticks are out of range
                 if (ticks.gt(this.MaxTicks) || ticks.lt(0)) {
-                    ticks = ticks.sub(System.Int64(this.$getTzOffset(d1)).mul(10000));
-                    d1 = this.create$2(ticks, 1);
+                    d1 = this.create$2(ticks.add(this.$getTzOffset(d1)), 1);
                 }
 
                 return d1;
@@ -9658,20 +9644,18 @@ Bridge.define("System.Type", {
                 millisecond = (millisecond !== undefined) ? millisecond : 0;
                 kind = (kind !== undefined) ? kind : 0;
 
-                var d,
-                    ticks;
-
-                d = new Date(year, month - 1, day, hour, minute, second, millisecond);
-                d.setFullYear(year);
-
-                ticks = this.getTicks(d);
+                var d;
 
                 if (kind === 1) {
-                    d = new Date(d.getTime() - this.$getTzOffset(d))
+                    d = new Date(Date.UTC(year, month - 1, day, hour, minute, second, millisecond));
+                    d.setUTCFullYear(year);
+                } else {
+                    d = new Date(year, month - 1, day, hour, minute, second, millisecond);
+                    d.setFullYear(year);
                 }
 
                 d.kind = kind;
-                d.ticks = ticks;
+                d.ticks = this.getTicks(d);
 
                 return d;
             },
@@ -9679,31 +9663,20 @@ Bridge.define("System.Type", {
             create$1: function (date, kind) {
                 kind = (kind !== undefined) ? kind : 0;
 
-                var d;
-
                 if (kind === 1) {
-                    d = this.create(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds(), kind);
+                    return this.create(date.getUTCFullYear(), date.getUTCMonth() + 1, date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds(), date.getUTCMilliseconds(), kind);
                 } else {
-                    d = this.create(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), kind);
+                    return this.create(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), kind);
                 }
-
-                d.ticks = this.getTicks(d)
-
-                return d;
             },
 
             create$2: function (ticks, kind) {
                 ticks = System.Int64.is64Bit(ticks) ? ticks : System.Int64(ticks);
-                kind = (kind !== undefined) ? kind : 0
 
                 var d = new Date(ticks.sub(this.$minOffset).div(10000).toNumber());
 
-                if (kind !== 1) {
-                    d = new Date(d.getTime() + this.$getTzOffset(d));
-                }
-
                 d.ticks = ticks;
-                d.kind = kind;
+                d.kind = (kind !== undefined) ? kind : 0;
 
                 return d;
             },
@@ -9794,7 +9767,7 @@ Bridge.define("System.Type", {
             format: function (d, f, p) {
                 var me = this,
                     kind = d.kind || 0,
-                    isUtc = (kind === 1),
+                    isUtc = (kind === 1 || ["u", "r", "R"].indexOf(f) > -1),
                     df = (p || System.Globalization.CultureInfo.getCurrentCulture()).getFormat(System.Globalization.DateTimeFormatInfo),
                     year = isUtc ? d.getUTCFullYear() : d.getFullYear(),
                     month = isUtc ? d.getUTCMonth() : d.getMonth(),
@@ -10520,13 +10493,13 @@ Bridge.define("System.Type", {
 
                 if (kind === 2) {
                     if (adjust === true) {
-                        d = new Date(d.getTime() - this.$getTzOffset(d));
-                        d.kind = kind;
+                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
                     } else if (offset !== 0) {
-                        d = new Date(d.getTime() - this.$getTzOffset(d));
+                        d = new Date(d.getTime() - d.getTimezoneOffset() * 60 * 1000);
                         d = this.addMilliseconds(d, -offset);
-                        d.kind = kind;
                     }
+
+                    d.kind = kind;
                 }
 
                 return d;
@@ -10613,32 +10586,45 @@ Bridge.define("System.Type", {
                     day = d.getDate();
 
                 dt.setDate(1);
-                dt.setMonth(dt.getMonth() + v * 1);
+                dt.setMonth(dt.getMonth() + v);
                 dt.setDate(Math.min(day, this.getDaysInMonth(dt.getFullYear(), dt.getMonth() + 1)));
                 dt.kind = (d.kind !== undefined) ? d.kind : 0;
+                dt.ticks = this.getTicks(dt);
 
                 return dt;
             },
 
             addDays: function (d, v) {
-                var d1 = new Date(d.getTime());
+                var kind = (d.kind !== undefined) ? d.kind : 0,
+                    h = d.getUTCHours(),
+                    m = d.getUTCMinutes(),
+                    s = d.getUTCSeconds(),
+                    ms = d.getUTCMilliseconds(),
+                    dt = new Date(d.getTime());
 
-                d1.setDate(d1.getDate() + Math.floor(v));
-                d1.kind = (d.kind !== undefined) ? d.kind : 0;
+                dt.setUTCDate(d.getUTCDate() + v);
+                dt.setUTCHours(h);
+                dt.setUTCMinutes(m);
+                dt.setUTCSeconds(s);
+                dt.setUTCMilliseconds(ms);
 
-                return v % 1 !== 0 ? this.addMilliseconds(d1, Math.round((v % 1) * 864e5)) : d1;
+                dt.kind = kind;
+                dt = v % 1 !== 0 ? this.addMilliseconds(dt, Math.round((v % 1) * 864e5)) : dt;
+                dt.ticks = this.getTicks(dt);
+
+                return dt
             },
 
             addHours: function (d, v) {
-                return this.addMilliseconds(d, Math.round(v * 36e5));
+                return this.addMilliseconds(d, v * 36e5);
             },
 
             addMinutes: function (d, v) {
-                return this.addMilliseconds(d, Math.round(v * 6e4));
+                return this.addMilliseconds(d, v * 6e4);
             },
 
             addSeconds: function (d, v) {
-                return this.addMilliseconds(d, Math.round(v * 1e3));
+                return this.addMilliseconds(d, v * 1e3);
             },
 
             addMilliseconds: function (d, v) {
