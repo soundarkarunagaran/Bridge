@@ -22093,6 +22093,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return tcs.task;         
         },
 
+        continue: function (continuationAction) {
+            if (this.isCompleted()) {
+                System.Threading.Tasks.Task.queue.push(continuationAction);
+                System.Threading.Tasks.Task.runQueue();
+            } else {
+                this.callbacks.push(continuationAction);
+            }
+        },
+
         continueWith: function (continuationAction, raise) {
             var tcs = new System.Threading.Tasks.TaskCompletionSource(),
                 me = this,
@@ -44786,7 +44795,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = System.IO.FileStream.ReadBytesAsync(this.name);
                                         $step = 2;
-                                        $task1.continueWith($asyncBody);
+                                        $task1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
@@ -46029,7 +46038,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = this.stream.EnsureBufferAsync();
                                         $step = 2;
-                                        $task1.continueWith($asyncBody);
+                                        $task1.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
@@ -46040,7 +46049,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 3: {
                                         $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
                                         $step = 4;
-                                        $task2.continueWith($asyncBody);
+                                        $task2.continue($asyncBody);
                                         return;
                                     }
                                     case 4: {
