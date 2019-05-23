@@ -130,6 +130,7 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
             QUnit.test("#3885 - TestLinqEnumerationOnString", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3885.TestLinqEnumerationOnString);
             QUnit.test("#3885 - TestLinqEnumerationOnDouble", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3885.TestLinqEnumerationOnDouble);
             QUnit.test("#3886 - TestTemplateObjectInitializer", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3886.TestTemplateObjectInitializer);
+            QUnit.test("#3887 - TestDecimalToString", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3887.TestDecimalToString);
             QUnit.test("#3893 - TestCtorName", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3893.TestCtorName);
             QUnit.test("#3898 - TestNegativeZero", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3898.TestNegativeZero);
             QUnit.test("#3899 - TestIEEERemainder", Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3899.TestIEEERemainder);
@@ -19131,6 +19132,32 @@ Bridge.assembly("Bridge.Test.Bridge.ClientTest.Batch3", function ($asm, globals)
                 var $t;
                 if (this.context == null) {
                     this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3886", $t.File = "Batch3\\BridgeIssues\\3800\\N3886.cs", $t);
+                }
+                return this.context;
+            }
+        }
+    });
+
+    Bridge.define("Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3887", {
+        inherits: [Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3887)],
+        $kind: "nested class",
+        statics: {
+            methods: {
+                TestDecimalToString: function (assert) {
+                    var $t;
+                    var t = Bridge.Test.Runtime.TestFixture$1(Bridge.ClientTest.Batch3.BridgeIssues.Bridge3887).BeforeTest(false, assert, Bridge.Test.Runtime.BridgeClientTestBatch3Runner.Bridge3887, void 0, ($t = new Bridge.Test.Runtime.TestContext(), $t.Method = "TestDecimalToString()", $t.Line = "9", $t));
+                    Bridge.ClientTest.Batch3.BridgeIssues.Bridge3887.TestDecimalToString();
+                }
+            }
+        },
+        fields: {
+            context: null
+        },
+        methods: {
+            GetContext: function () {
+                var $t;
+                if (this.context == null) {
+                    this.context = ($t = new Bridge.Test.Runtime.FixtureContext(), $t.Project = "Batch3", $t.ClassName = "Bridge.ClientTest.Batch3.BridgeIssues.Bridge3887", $t.File = "Batch3\\BridgeIssues\\3800\\N3887.cs", $t);
                 }
                 return this.context;
             }

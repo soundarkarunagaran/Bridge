@@ -8977,7 +8977,8 @@ Bridge.define("System.Type", {
         if (typeof v === "string") {
             provider = provider || System.Globalization.CultureInfo.getCurrentCulture();
 
-            var nfInfo = provider && provider.getFormat(System.Globalization.NumberFormatInfo);
+            var nfInfo = provider && provider.getFormat(System.Globalization.NumberFormatInfo),
+                dot;
 
             if (nfInfo && nfInfo.numberDecimalSeparator !== ".") {
                 v = v.replace(nfInfo.numberDecimalSeparator, ".");
@@ -8988,6 +8989,10 @@ Bridge.define("System.Type", {
             }
 
             v = v.replace(/\s/g, "");
+
+            if (!this.$precision && (dot = v.indexOf('.')) >= 0) {
+                this.$precision = v.length - dot - 1;
+            }
         }
 
         if (T && T.precision && typeof v === "number") {

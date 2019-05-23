@@ -541,8 +541,8 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
                 var x = System.Decimal(0);
 
                 // #1578
-                Bridge.Test.NUnit.Assert.AreEqual(System.Int64([0,-5]), System.Decimal.toInt(x.sub(System.Decimal(21474836480.9)), System.Int64));
-                Bridge.Test.NUnit.Assert.AreEqual(System.Int64([-10,4]), System.Decimal.toInt(x.add(System.Decimal(21474836470.9)), System.Int64));
+                Bridge.Test.NUnit.Assert.AreEqual(System.Int64([0,-5]), System.Decimal.toInt(x.sub(System.Decimal(21474836480.9, 1)), System.Int64));
+                Bridge.Test.NUnit.Assert.AreEqual(System.Int64([-10,4]), System.Decimal.toInt(x.add(System.Decimal(21474836470.9, 1)), System.Int64));
             },
             DecimalToULong_SPI_1584_1585: function () {
                 var x = System.Decimal(0);
@@ -550,13 +550,13 @@ Bridge.assembly("Bridge.ClientTest.Batch4", function ($asm, globals) {
                 // #1584
                 var u3 = System.UInt64(0);
                 Bridge.ClientTest.Batch4.TestHelper.Safe(function () {
-                    u3 = System.Decimal.toInt(x.sub(System.Decimal(0.9)), System.UInt64);
+                    u3 = System.Decimal.toInt(x.sub(System.Decimal(0.9, 1)), System.UInt64);
                 });
                 Bridge.Test.NUnit.Assert.AreEqual(System.UInt64(0), u3);
 
                 var u4 = System.UInt64(0);
                 Bridge.ClientTest.Batch4.TestHelper.Safe(function () {
-                    u4 = System.Decimal.toInt(x.add(System.Decimal(42949672950.9)), System.UInt64);
+                    u4 = System.Decimal.toInt(x.add(System.Decimal(42949672950.9, 1)), System.UInt64);
                 });
                 Bridge.Test.NUnit.Assert.AreEqual(System.UInt64([-10,9]), u4);
 
