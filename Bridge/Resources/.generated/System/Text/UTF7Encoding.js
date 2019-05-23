@@ -73,7 +73,7 @@
                     var b = _base64ToArrayBuffer(s);
                     var r = System.Array.init(0, 0, System.Char);
                     for (var i = 0; i < b.length; ) {
-                        r.push(((b[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), b)] << 8 | b[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), b)]) & 65535));
+                        r.push(((b[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), b)] << 8 | b[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), b)]) & 65535));
                     }
                     return System.String.fromCharArray(r);
                 };
@@ -117,8 +117,8 @@
             var bi = 0;
             for (var i = 0; i < str.length; i = (i + 1) | 0) {
                 var c = str.charCodeAt(i);
-                b[System.Array.index(Bridge.identity(bi, (bi = (bi + 1) | 0)), b)] = (c >> 8);
-                b[System.Array.index(Bridge.identity(bi, (bi = (bi + 1) | 0)), b)] = (c & 255);
+                b[System.Array.index(Bridge.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c >> 8);
+                b[System.Array.index(Bridge.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c & 255);
             }
             var base64Str = System.Convert.toBase64String(b, null, null, null);
             return base64Str.replace(/=+$/, "");

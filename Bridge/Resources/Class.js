@@ -87,10 +87,20 @@
                                 Object.defineProperty(obj, alias, descriptor);
                                 aliases.push({ alias: alias, descriptor: descriptor });
                             } else {
-                                var m = scope[name];
+                                var m;
 
-                                if (m === undefined && prototype) {
+                                if (scope.hasOwnProperty(name) || !prototype) {
+                                    m = scope[name];
+
+                                    if (m === undefined && prototype) {
+                                        m = prototype[name];
+                                    }
+                                } else {
                                     m = prototype[name];
+
+                                    if (m === undefined) {
+                                        m = scope[name];
+                                    }
                                 }
 
                                 if (!Bridge.isFunction(m)) {

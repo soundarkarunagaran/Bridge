@@ -2685,7 +2685,7 @@
 
             if (prop.$module) {
                 Class.$module = prop.$module;
-            }            
+            }
 
             if (prop.$metadata) {
                 Class.$metadata = prop.$metadata;
@@ -15767,18 +15767,18 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                 var rotation = System.Collections.Generic.SortedSet$1(T).RotationNeeded(parent, current, sibling);
                                 var newGrandParent = null;
                                 switch (rotation) {
-                                    case System.Collections.Generic.TreeRotation.RightRotation: 
+                                    case System.Collections.Generic.TreeRotation.RightRotation:
                                         sibling.Left.IsRed = false;
                                         newGrandParent = System.Collections.Generic.SortedSet$1(T).RotateRight(parent);
                                         break;
-                                    case System.Collections.Generic.TreeRotation.LeftRotation: 
+                                    case System.Collections.Generic.TreeRotation.LeftRotation:
                                         sibling.Right.IsRed = false;
                                         newGrandParent = System.Collections.Generic.SortedSet$1(T).RotateLeft(parent);
                                         break;
-                                    case System.Collections.Generic.TreeRotation.RightLeftRotation: 
+                                    case System.Collections.Generic.TreeRotation.RightLeftRotation:
                                         newGrandParent = System.Collections.Generic.SortedSet$1(T).RotateRightLeft(parent);
                                         break;
-                                    case System.Collections.Generic.TreeRotation.LeftRightRotation: 
+                                    case System.Collections.Generic.TreeRotation.LeftRightRotation:
                                         newGrandParent = System.Collections.Generic.SortedSet$1(T).RotateLeftRight(parent);
                                         break;
                                 }
@@ -16598,7 +16598,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                         if ( e.moveNext() ) {
                                                 $step = 2;
                                                 continue;
-                                            } 
+                                            }
                                             $step = 4;
                                             continue;
                                     }
@@ -16608,7 +16608,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                             return true;
                                     }
                                     case 3: {
-                                        
+
                                             $step = 1;
                                             continue;
                                     }
@@ -35512,77 +35512,77 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     this.HashPrime = 101;
                     this.RandomSeed = System.Guid.NewGuid().getHashCode();
                     this.primes = System.Array.init([
-                        3, 
-                        7, 
-                        11, 
-                        17, 
-                        23, 
-                        29, 
-                        37, 
-                        47, 
-                        59, 
-                        71, 
-                        89, 
-                        107, 
-                        131, 
-                        163, 
-                        197, 
-                        239, 
-                        293, 
-                        353, 
-                        431, 
-                        521, 
-                        631, 
-                        761, 
-                        919, 
-                        1103, 
-                        1327, 
-                        1597, 
-                        1931, 
-                        2333, 
-                        2801, 
-                        3371, 
-                        4049, 
-                        4861, 
-                        5839, 
-                        7013, 
-                        8419, 
-                        10103, 
-                        12143, 
-                        14591, 
-                        17519, 
-                        21023, 
-                        25229, 
-                        30293, 
-                        36353, 
-                        43627, 
-                        52361, 
-                        62851, 
-                        75431, 
-                        90523, 
-                        108631, 
-                        130363, 
-                        156437, 
-                        187751, 
-                        225307, 
-                        270371, 
-                        324449, 
-                        389357, 
-                        467237, 
-                        560689, 
-                        672827, 
-                        807403, 
-                        968897, 
-                        1162687, 
-                        1395263, 
-                        1674319, 
-                        2009191, 
-                        2411033, 
-                        2893249, 
-                        3471899, 
-                        4166287, 
-                        4999559, 
-                        5999471, 
+                        3,
+                        7,
+                        11,
+                        17,
+                        23,
+                        29,
+                        37,
+                        47,
+                        59,
+                        71,
+                        89,
+                        107,
+                        131,
+                        163,
+                        197,
+                        239,
+                        293,
+                        353,
+                        431,
+                        521,
+                        631,
+                        761,
+                        919,
+                        1103,
+                        1327,
+                        1597,
+                        1931,
+                        2333,
+                        2801,
+                        3371,
+                        4049,
+                        4861,
+                        5839,
+                        7013,
+                        8419,
+                        10103,
+                        12143,
+                        14591,
+                        17519,
+                        21023,
+                        25229,
+                        30293,
+                        36353,
+                        43627,
+                        52361,
+                        62851,
+                        75431,
+                        90523,
+                        108631,
+                        130363,
+                        156437,
+                        187751,
+                        225307,
+                        270371,
+                        324449,
+                        389357,
+                        467237,
+                        560689,
+                        672827,
+                        807403,
+                        968897,
+                        1162687,
+                        1395263,
+                        1674319,
+                        2009191,
+                        2411033,
+                        2893249,
+                        3471899,
+                        4166287,
+                        4999559,
+                        5999471,
                         7199369
                     ], System.Int32);
                     this.MaxPrimeArrayLength = 2146435069;
@@ -37994,16 +37994,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 s = list.join("-");
 
                 switch (format) {
-                    case "n": 
-                    case "N": 
+                    case "n":
+                    case "N":
                         return System.Guid.Replace.replace(s, "");
-                    case "b": 
-                    case "B": 
+                    case "b":
+                    case "B":
                         return String.fromCharCode(123) + (s || "") + String.fromCharCode(125);
-                    case "p": 
-                    case "P": 
+                    case "p":
+                    case "P":
                         return String.fromCharCode(40) + (s || "") + String.fromCharCode(41);
-                    default: 
+                    default:
                         return s;
                 }
             },
@@ -39464,20 +39464,20 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                 var k = (8 - size) | 0;
                 switch (k) {
-                    case 1: 
+                    case 1:
                         return System.ValueTuple.CombineHashCodes(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
-                    case 2: 
+                    case 2:
                         return System.ValueTuple.CombineHashCodes$1(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t6Comparer.getHashCode2(this.Item6), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
-                    case 3: 
+                    case 3:
                         return System.ValueTuple.CombineHashCodes$2(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t5Comparer.getHashCode2(this.Item5), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t6Comparer.getHashCode2(this.Item6), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
-                    case 4: 
+                    case 4:
                         return System.ValueTuple.CombineHashCodes$3(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t4Comparer.getHashCode2(this.Item4), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t5Comparer.getHashCode2(this.Item5), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t6Comparer.getHashCode2(this.Item6), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
-                    case 5: 
+                    case 5:
                         return System.ValueTuple.CombineHashCodes$4(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t3Comparer.getHashCode2(this.Item3), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t4Comparer.getHashCode2(this.Item4), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t5Comparer.getHashCode2(this.Item5), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t6Comparer.getHashCode2(this.Item6), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
-                    case 6: 
+                    case 6:
                         return System.ValueTuple.CombineHashCodes$5(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t2Comparer.getHashCode2(this.Item2), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t3Comparer.getHashCode2(this.Item3), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t4Comparer.getHashCode2(this.Item4), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t5Comparer.getHashCode2(this.Item5), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t6Comparer.getHashCode2(this.Item6), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
-                    case 7: 
-                    case 8: 
+                    case 7:
+                    case 8:
                         return System.ValueTuple.CombineHashCodes$6(System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t1Comparer.getHashCode2(this.Item1), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t2Comparer.getHashCode2(this.Item2), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t3Comparer.getHashCode2(this.Item3), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t4Comparer.getHashCode2(this.Item4), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t5Comparer.getHashCode2(this.Item5), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t6Comparer.getHashCode2(this.Item6), System.ValueTuple$8(T1,T2,T3,T4,T5,T6,T7,TRest).s_t7Comparer.getHashCode2(this.Item7), Bridge.getHashCode(rest));
                 }
 
@@ -39502,20 +39502,20 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                 var k = (8 - size) | 0;
                 switch (k) {
-                    case 1: 
+                    case 1:
                         return System.ValueTuple.CombineHashCodes(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
-                    case 2: 
+                    case 2:
                         return System.ValueTuple.CombineHashCodes$1(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item6), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
-                    case 3: 
+                    case 3:
                         return System.ValueTuple.CombineHashCodes$2(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item5), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item6), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
-                    case 4: 
+                    case 4:
                         return System.ValueTuple.CombineHashCodes$3(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item4), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item5), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item6), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
-                    case 5: 
+                    case 5:
                         return System.ValueTuple.CombineHashCodes$4(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item3), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item4), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item5), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item6), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
-                    case 6: 
+                    case 6:
                         return System.ValueTuple.CombineHashCodes$5(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item2), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item3), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item4), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item5), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item6), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
-                    case 7: 
-                    case 8: 
+                    case 7:
+                    case 8:
                         return System.ValueTuple.CombineHashCodes$6(comparer.System$Collections$IEqualityComparer$getHashCode(this.Item1), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item2), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item3), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item4), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item5), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item6), comparer.System$Collections$IEqualityComparer$getHashCode(this.Item7), rest.System$ITupleInternal$GetHashCode(comparer));
                 }
 
@@ -39977,11 +39977,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     throw new System.ArgumentOutOfRangeException.$ctor4("firstDayOfWeek", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(System.DayOfWeek.Sunday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek)), Bridge.box(System.DayOfWeek.Saturday, System.DayOfWeek, System.Enum.toStringFn(System.DayOfWeek))));
                 }
                 switch (rule) {
-                    case 0: 
+                    case 0:
                         return (this.GetFirstDayWeekOfYear(time, firstDayOfWeek));
-                    case 1: 
+                    case 1:
                         return (this.GetWeekOfYearFullDays(time, firstDayOfWeek, 7));
-                    case 2: 
+                    case 2:
                         return (this.GetWeekOfYearFullDays(time, firstDayOfWeek, 4));
                 }
                 throw new System.ArgumentOutOfRangeException.$ctor4("rule", System.SR.Format$1("Valid values are between {0} and {1}, inclusive.", Bridge.box(0, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule)), Bridge.box(2, System.Globalization.CalendarWeekRule, System.Enum.toStringFn(System.Globalization.CalendarWeekRule))));
@@ -40357,8 +40357,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                             if (index === ((array[System.Array.index(i, array)].length - 1) | 0)) {
                                 switch (array[System.Array.index(i, array)].charCodeAt(index)) {
-                                    case 26376: 
-                                    case 50900: 
+                                    case 26376:
+                                    case 50900:
                                         return (false);
                                 }
                             }
@@ -40471,10 +40471,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var chCount = { };
 
                     switch (ch) {
-                        case 39: 
+                        case 39:
                             i = this.AddDateWords(pattern, ((i + 1) | 0), null);
                             break;
-                        case 77: 
+                        case 77:
                             i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 77, i, chCount);
                             if (chCount.v >= 4) {
                                 if (i < pattern.length && pattern.charCodeAt(i) === 39) {
@@ -40483,27 +40483,27 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             }
                             this._ymdFlags |= System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundMonthPatternFlag;
                             break;
-                        case 121: 
+                        case 121:
                             i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 121, i, chCount);
                             this._ymdFlags |= System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundYearPatternFlag;
                             break;
-                        case 100: 
+                        case 100:
                             i = System.Globalization.DateTimeFormatInfoScanner.ScanRepeatChar(pattern, 100, i, chCount);
                             if (chCount.v <= 2) {
                                 this._ymdFlags |= System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundDayPatternFlag;
                             }
                             break;
-                        case 92: 
+                        case 92:
                             i = (i + 2) | 0;
                             break;
-                        case 46: 
+                        case 46:
                             if (this._ymdFlags === System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundYMDPatternFlag) {
                                 this.AddIgnorableSymbols(".");
                                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
                             }
                             i = (i + 1) | 0;
                             break;
-                        default: 
+                        default:
                             if (this._ymdFlags === System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.FoundYMDPatternFlag && !System.Char.isWhiteSpace(String.fromCharCode(ch))) {
                                 this._ymdFlags = System.Globalization.DateTimeFormatInfoScanner.FoundDatePattern.None;
                             }
@@ -42780,12 +42780,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             EnsureBufferAsync: function () {
                 var $step = 0,
-                    $task1, 
-                    $taskResult1, 
-                    $jumpFromFinally, 
-                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
-                    $async_e, 
+                    $task1,
+                    $taskResult1,
+                    $jumpFromFinally,
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(),
+                    $returnValue,
+                    $async_e,
                     $asyncBody = Bridge.fn.bind(this, function () {
                         try {
                             for (;;) {
@@ -42795,7 +42795,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                         if (this._buffer == null) {
                                             $step = 1;
                                             continue;
-                                        } 
+                                        }
                                         $step = 3;
                                         continue;
                                     }
@@ -43256,7 +43256,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     throw new System.ArgumentOutOfRangeException.$ctor4("offset", "ArgumentOutOfRange_StreamLength");
                 }
                 switch (loc) {
-                    case 0: 
+                    case 0:
                         {
                             var tempPosition = ((this._origin + System.Int64.clip32(offset)) | 0);
                             if (offset.lt(System.Int64(0)) || tempPosition < this._origin) {
@@ -43265,7 +43265,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             this._position = tempPosition;
                             break;
                         }
-                    case 1: 
+                    case 1:
                         {
                             var tempPosition1 = ((this._position + System.Int64.clip32(offset)) | 0);
                             if (System.Int64(this._position).add(offset).lt(System.Int64(this._origin)) || tempPosition1 < this._origin) {
@@ -43274,7 +43274,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             this._position = tempPosition1;
                             break;
                         }
-                    case 2: 
+                    case 2:
                         {
                             var tempPosition2 = ((this._length + System.Int64.clip32(offset)) | 0);
                             if (System.Int64(this._length).add(offset).lt(System.Int64(this._origin)) || tempPosition2 < this._origin) {
@@ -43283,7 +43283,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             this._position = tempPosition2;
                             break;
                         }
-                    default: 
+                    default:
                         throw new System.ArgumentException.$ctor1("Argument_InvalidSeekOrigin");
                 }
 
@@ -44022,13 +44022,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             ReadToEndAsync: function () {
                 var $step = 0,
-                    $task1, 
-                    $task2, 
-                    $taskResult2, 
-                    $jumpFromFinally, 
-                    $tcs = new System.Threading.Tasks.TaskCompletionSource(), 
-                    $returnValue, 
-                    $async_e, 
+                    $task1,
+                    $task2,
+                    $taskResult2,
+                    $jumpFromFinally,
+                    $tcs = new System.Threading.Tasks.TaskCompletionSource(),
+                    $returnValue,
+                    $async_e,
                     $asyncBody = Bridge.fn.bind(this, function () {
                         try {
                             for (;;) {
@@ -44038,7 +44038,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                         if (Bridge.is(this.stream, System.IO.FileStream)) {
                                             $step = 1;
                                             continue;
-                                        } 
+                                        }
                                         $step = 3;
                                         continue;
                                     }
@@ -44533,7 +44533,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
                     this.Write$3(chars, 0, ((vLen + nlLen) | 0));
                 }
-                /* 
+                /*
                 Write(value);  // We could call Write(String) on StreamWriter...
                 WriteLine();
                 */
@@ -46327,34 +46327,34 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 },
                 GetEncoding: function (codepage) {
                     switch (codepage) {
-                        case 1200: 
+                        case 1200:
                             return System.Text.Encoding.Unicode;
-                        case 20127: 
+                        case 20127:
                             return System.Text.Encoding.ASCII;
-                        case 1201: 
+                        case 1201:
                             return System.Text.Encoding.BigEndianUnicode;
-                        case 65000: 
+                        case 65000:
                             return System.Text.Encoding.UTF7;
-                        case 65001: 
+                        case 65001:
                             return System.Text.Encoding.UTF8;
-                        case 12000: 
+                        case 12000:
                             return System.Text.Encoding.UTF32;
                     }
                     throw new System.NotSupportedException.ctor();
                 },
                 GetEncoding$1: function (codepage) {
                     switch (codepage) {
-                        case "utf-16": 
+                        case "utf-16":
                             return System.Text.Encoding.Unicode;
-                        case "us-ascii": 
+                        case "us-ascii":
                             return System.Text.Encoding.ASCII;
-                        case "utf-16BE": 
+                        case "utf-16BE":
                             return System.Text.Encoding.BigEndianUnicode;
-                        case "utf-7": 
+                        case "utf-7":
                             return System.Text.Encoding.UTF7;
-                        case "utf-8": 
+                        case "utf-8":
                             return System.Text.Encoding.UTF8;
-                        case "utf-32": 
+                        case "utf-32":
                             return System.Text.Encoding.UTF32;
                     }
                     throw new System.NotSupportedException.ctor();
@@ -48067,17 +48067,17 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             toString$1: function (fieldCount) {
                 var sb;
                 switch (fieldCount) {
-                    case 0: 
+                    case 0:
                         return ("");
-                    case 1: 
+                    case 1:
                         return (Bridge.toString(this._Major));
-                    case 2: 
+                    case 2:
                         sb = new System.Text.StringBuilder();
                         System.Version.appendPositiveNumber(this._Major, sb);
                         sb.append(String.fromCharCode(46));
                         System.Version.appendPositiveNumber(this._Minor, sb);
                         return sb.toString();
-                    default: 
+                    default:
                         if (this._Build === -1) {
                             throw new System.ArgumentException.$ctor3("Build should be > 0 if fieldCount > 2", "fieldCount");
                         }
@@ -48162,13 +48162,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             getVersionParseException: function () {
                 switch (this.m_failure) {
-                    case System.Version.ParseFailureKind.ArgumentNullException: 
+                    case System.Version.ParseFailureKind.ArgumentNullException:
                         return new System.ArgumentNullException.$ctor1(this.m_argumentName);
-                    case System.Version.ParseFailureKind.ArgumentException: 
+                    case System.Version.ParseFailureKind.ArgumentException:
                         return new System.ArgumentException.$ctor1("VersionString");
-                    case System.Version.ParseFailureKind.ArgumentOutOfRangeException: 
+                    case System.Version.ParseFailureKind.ArgumentOutOfRangeException:
                         return new System.ArgumentOutOfRangeException.$ctor4(this.m_exceptionArgument, "Cannot be < 0");
-                    case System.Version.ParseFailureKind.FormatException: 
+                    case System.Version.ParseFailureKind.FormatException:
                         try {
                             System.Int32.parse(this.m_exceptionArgument);
                         } catch ($e1) {
@@ -48185,7 +48185,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             }
                         }
                         return new System.FormatException.$ctor1("InvalidString");
-                    default: 
+                    default:
                         return new System.ArgumentException.$ctor1("VersionString");
                 }
             },

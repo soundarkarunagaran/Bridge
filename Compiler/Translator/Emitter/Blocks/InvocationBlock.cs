@@ -676,7 +676,7 @@ namespace Bridge.Translator
                         }
                     }
                     else
-                    {                        
+                    {
                         if (method != null && method.Attributes.Any(a => a.AttributeType.FullName == "Bridge.WrapRestAttribute"))
                         {
                             isWrapRest = true;
@@ -695,7 +695,7 @@ namespace Bridge.Translator
 
                         new ExpressionListBlock(this.Emitter, argsExpressions, paramsArg, invocationExpression, openPos).Emit();
                     }
-                    
+
 
                     if (isWrapRest)
                     {
@@ -708,7 +708,7 @@ namespace Bridge.Translator
                     {
                         this.Emitter.Comma = false;
                         this.WriteCloseParentheses();
-                    }                    
+                    }
                 }
             }
 

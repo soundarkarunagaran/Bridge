@@ -779,7 +779,7 @@ namespace Bridge.Translator
                         }
                         else if (modifier == "tmp")
                         {
-                            var tmpVarName = this.GetTempVarName();
+                            string tmpVarName = null;
                             var nameExpr = exprs[0] as PrimitiveExpression;
 
                             if (nameExpr == null)
@@ -789,7 +789,15 @@ namespace Bridge.Translator
 
                             var keyExpr = string.IsNullOrWhiteSpace(nameExpr.LiteralValue) ? nameExpr.Value.ToString() : nameExpr.LiteralValue;
 
-                            Emitter.NamedTempVariables[keyExpr] = tmpVarName;
+                            if (!Emitter.NamedTempVariables.ContainsKey(keyExpr))
+                            {
+                                tmpVarName = this.GetTempVarName();
+                                Emitter.NamedTempVariables[keyExpr] = tmpVarName;
+                            } else
+                            {
+                                tmpVarName = Emitter.NamedTempVariables[keyExpr];
+                            }
+
                             Write(tmpVarName);
                             isSimple = true;
                         }
@@ -844,7 +852,7 @@ namespace Bridge.Translator
 
                             if (!Emitter.NamedTempVariables.ContainsKey(keyExpr))
                             {
-                                throw new EmitterException(exprs[0], "Primitive expression is required");
+                                Emitter.NamedTempVariables[keyExpr] = this.GetTempVarName();
                             }
 
                             var tmpVarName = Emitter.NamedTempVariables[keyExpr];
@@ -1304,7 +1312,18 @@ namespace Bridge.Translator
             {
                 if (modifier == "defaultFn")
                 {
-                    this.Write(BridgeTypes.ToJsName((AstType)def, this.Emitter) + "." + JS.Funcs.GETDEFAULTVALUE);
+                    this.WriteFunction();
+                    this.WriteOpenCloseParentheses(true);
+                    this.BeginBlock();
+                    this.WriteReturn(true);
+
+                    this.Write(JS.Funcs.BRIDGE_GETDEFAULTVALUE + "(");
+                    this.Write(BridgeTypes.ToJsName((AstType)def, this.Emitter));
+                    this.Write(")");
+
+                    this.WriteSemiColon();
+                    this.WriteNewLine();
+                    this.EndBlock();
                 }
                 else
                 {
@@ -1315,7 +1334,20 @@ namespace Bridge.Translator
             {
                 if (modifier == "defaultFn")
                 {
-                    this.Write(BridgeTypes.ToJsName((IType)def, this.Emitter) + "." + JS.Funcs.GETDEFAULTVALUE);
+                    this.WriteFunction();
+                    this.WriteOpenCloseParentheses(true);
+                    this.BeginBlock();
+                    this.WriteReturn(true);
+
+                    this.Write(JS.Funcs.BRIDGE_GETDEFAULTVALUE + "(");
+
+                    this.Write(BridgeTypes.ToJsName((IType)def, this.Emitter));
+
+                    this.Write(")");
+
+                    this.WriteSemiColon();
+                    this.WriteNewLine();
+                    this.EndBlock();
                 }
                 else
                 {
@@ -1324,7 +1356,15 @@ namespace Bridge.Translator
             }
             else if (def is RawValue)
             {
+                this.WriteFunction();
+                this.WriteOpenCloseParentheses(true);
+                this.BeginBlock();
+                this.WriteReturn(true);
                 this.Write(def.ToString());
+
+                this.WriteSemiColon();
+                this.WriteNewLine();
+                this.EndBlock();
             }
             else
             {

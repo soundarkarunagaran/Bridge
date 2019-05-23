@@ -812,6 +812,15 @@
 
             var name = obj.$$name || Bridge.getTypeName(obj);
 
+            if (type.$typeArguments && !type.$isGenericTypeDefinition) {
+                name = type.$genericTypeDefinition.$$name;
+
+                for (var i = 0; i < type.$typeArguments.length; i++) {
+                    var ta = type.$typeArguments[i];
+                    name += "$" + Bridge.getTypeAlias(ta);
+                }
+            }
+
             alias = name.replace(/[\.\(\)\,\+]/g, "$");
 
             if (type.$module) {
@@ -2341,10 +2350,20 @@
                                 Object.defineProperty(obj, alias, descriptor);
                                 aliases.push({ alias: alias, descriptor: descriptor });
                             } else {
-                                var m = scope[name];
+                                var m;
 
-                                if (m === undefined && prototype) {
+                                if (scope.hasOwnProperty(name) || !prototype) {
+                                    m = scope[name];
+
+                                    if (m === undefined && prototype) {
+                                        m = prototype[name];
+                                    }
+                                } else {
                                     m = prototype[name];
+
+                                    if (m === undefined) {
+                                        m = scope[name];
+                                    }
                                 }
 
                                 if (!Bridge.isFunction(m)) {
@@ -3934,6 +3953,14 @@
                 return true;
             }
 
+            if (baseType.$elementType && baseType.$isArray && type.$elementType && type.$isArray) {
+                if (Bridge.Reflection.isValueType(baseType.$elementType) !== Bridge.Reflection.isValueType(type.$elementType)) {
+                    return false;
+                }
+
+                return baseType.$rank === type.$rank && Bridge.Reflection.isAssignableFrom(baseType.$elementType, type.$elementType);
+            }
+
             var inheritors = type.$$inherits,
                 i,
                 r;
@@ -4449,11 +4476,24 @@
             method = function () {
                 var args = [],
                     params = mi.pi || [],
+                    v,
                     p;
+
+                if (!params.length && mi.p && mi.p.length) {
+                    params = mi.p.map(function (t) {
+                        return {pt: t};
+                    });
+                }
 
                 for (var i = 0; i < arguments.length; i++) {
                     p = params[i] || params[params.length - 1];
-                    args[i] = p && p.pt === System.Object ? arguments[i] : Bridge.unbox(arguments[i]);
+                    v = arguments[i];
+
+                    args[i] = p && p.pt === System.Object ? v : Bridge.unbox(arguments[i]);
+
+                    if (v == null && p && Bridge.Reflection.isValueType(p.pt)) {
+                        args[i] = Bridge.getDefaultValue(p.pt);
+                    }
                 }
 
                 var v = orig.apply(this, args);
@@ -4492,7 +4532,13 @@
             obj = fi.is ? fi.td : obj;
 
             if (arguments.length === 3) {
-                obj[fi.sn] = arguments[2];
+                var v = arguments[2];
+
+                if (v == null && Bridge.Reflection.isValueType(fi.rt)) {
+                    v = Bridge.getDefaultValue(fi.rt);
+                }
+
+                obj[fi.sn] = v;
             } else {
                 return fi.box ? fi.box(obj[fi.sn]) : obj[fi.sn];
             }
@@ -5160,7 +5206,15 @@ Bridge.define("System.ValueType", {
         },
 
         xor: function (a, b) {
-            return Bridge.hasValue$1(a, b) ? a ^ b : null;
+            if (Bridge.hasValue$1(a, b)) {
+                if (Bridge.isBoolean(a) && Bridge.isBoolean(b)) {
+                    return a != b;
+                }
+
+                return a ^ b;
+            }
+
+            return null;
         },
 
         gt: function (a, b) {
@@ -6672,6 +6726,83 @@ Bridge.define("System.ValueType", {
         $flags: true
     });
 
+    // @source TypeCode.js
+
+    Bridge.define("System.TypeCode", {
+        $kind: "enum",
+        statics: {
+            fields: {
+                Empty: 0,
+                Object: 1,
+                DBNull: 2,
+                Boolean: 3,
+                Char: 4,
+                SByte: 5,
+                Byte: 6,
+                Int16: 7,
+                UInt16: 8,
+                Int32: 9,
+                UInt32: 10,
+                Int64: 11,
+                UInt64: 12,
+                Single: 13,
+                Double: 14,
+                Decimal: 15,
+                DateTime: 16,
+                String: 18
+            }
+        }
+    });
+
+    // @source TypeCodeValues.js
+
+    Bridge.define("System.TypeCodeValues", {
+        statics: {
+            fields: {
+                Empty: null,
+                Object: null,
+                DBNull: null,
+                Boolean: null,
+                Char: null,
+                SByte: null,
+                Byte: null,
+                Int16: null,
+                UInt16: null,
+                Int32: null,
+                UInt32: null,
+                Int64: null,
+                UInt64: null,
+                Single: null,
+                Double: null,
+                Decimal: null,
+                DateTime: null,
+                String: null
+            },
+            ctors: {
+                init: function () {
+                    this.Empty = "0";
+                    this.Object = "1";
+                    this.DBNull = "2";
+                    this.Boolean = "3";
+                    this.Char = "4";
+                    this.SByte = "5";
+                    this.Byte = "6";
+                    this.Int16 = "7";
+                    this.UInt16 = "8";
+                    this.Int32 = "9";
+                    this.UInt32 = "10";
+                    this.Int64 = "11";
+                    this.UInt64 = "12";
+                    this.Single = "13";
+                    this.Double = "14";
+                    this.Decimal = "15";
+                    this.DateTime = "16";
+                    this.String = "18";
+                }
+            }
+        }
+    });
+
     // @source Type.js
 
 Bridge.define("System.Type", {
@@ -6679,6 +6810,58 @@ Bridge.define("System.Type", {
     statics: {
         $is: function (instance) {
             return instance && instance.constructor === Function;
+        },
+
+        getTypeCode: function (t) {
+            if (t == null) {
+                return System.TypeCode.Empty;
+            }
+            if (t === System.Double) {
+                return System.TypeCode.Double;
+            }
+            if (t === System.Single) {
+                return System.TypeCode.Single;
+            }
+            if (t === System.Decimal) {
+                return System.TypeCode.Decimal;
+            }
+            if (t === System.Byte) {
+                return System.TypeCode.Byte;
+            }
+            if (t === System.SByte) {
+                return System.TypeCode.SByte;
+            }
+            if (t === System.UInt16) {
+                return System.TypeCode.UInt16;
+            }
+            if (t === System.Int16) {
+                return System.TypeCode.Int16;
+            }
+            if (t === System.UInt32) {
+                return System.TypeCode.UInt32;
+            }
+            if (t === System.Int32) {
+                return System.TypeCode.Int32;
+            }
+            if (t === System.UInt64) {
+                return System.TypeCode.UInt64;
+            }
+            if (t === System.Int64) {
+                return System.TypeCode.Int64;
+            }
+            if (t === System.Boolean) {
+                return System.TypeCode.Boolean;
+            }
+            if (t === System.Char) {
+                return System.TypeCode.Char;
+            }
+            if (t === System.DateTime) {
+                return System.TypeCode.DateTime;
+            }
+            if (t === System.String) {
+                return System.TypeCode.String;
+            }
+            return System.TypeCode.Object;
         }
     }
 });
@@ -6770,6 +6953,34 @@ Bridge.define("System.Type", {
                 var y = Math.exp(2 * x);
 
                 return (y - 1) / (y + 1);
+            }
+        },
+
+        IEEERemainder: function (x, y) {
+            var regularMod = x % y;
+            if (isNaN(regularMod)) {
+                return Number.NaN;
+            }
+            if (regularMod === 0) {
+                if (x < 0) {
+                    return -0;
+                }
+            }
+            var alternativeResult;
+            alternativeResult = regularMod - (Math.abs(y) * Bridge.Int.sign(x));
+            if (Math.abs(alternativeResult) === Math.abs(regularMod)) {
+                var divisionResult = x / y;
+                var roundedResult = Bridge.Math.round(divisionResult, 0, 6);
+                if (Math.abs(roundedResult) > Math.abs(divisionResult)) {
+                    return alternativeResult;
+                } else {
+                    return regularMod;
+                }
+            }
+            if (Math.abs(alternativeResult) < Math.abs(regularMod)) {
+                return alternativeResult;
+            } else {
+                return regularMod;
             }
         }
     };
@@ -6875,56 +7086,6 @@ Bridge.define("System.Type", {
 
     // @source Integer.js
 
-    (function () {
-        var createIntType = function (name, min, max, precision) {
-            var type = Bridge.define(name, {
-                inherits: [System.IComparable, System.IFormattable],
-
-                statics: {
-                    $number: true,
-                    min: min,
-                    max: max,
-                    precision: precision,
-
-                    $is: function (instance) {
-                        return typeof (instance) === "number" && Math.floor(instance, 0) === instance && instance >= min && instance <= max;
-                    },
-                    getDefaultValue: function () {
-                        return 0;
-                    },
-                    parse: function (s, radix) {
-                        return Bridge.Int.parseInt(s, min, max, radix);
-                    },
-                    tryParse: function (s, result, radix) {
-                        return Bridge.Int.tryParseInt(s, result, min, max, radix);
-                    },
-                    format: function (number, format, provider) {
-                        return Bridge.Int.format(number, format, provider, type);
-                    },
-                    equals: function (v1, v2) {
-                        if (Bridge.is(v1, type) && Bridge.is(v2, type)) {
-                            return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
-                        }
-
-                        return false;
-                    },
-                    equalsT: function (v1, v2) {
-                        return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
-                    }
-                }
-            });
-
-            type.$kind = "";
-            Bridge.Class.addExtend(type, [System.IComparable$1(type), System.IEquatable$1(type)]);
-        };
-
-        createIntType("System.Byte", 0, 255, 3);
-        createIntType("System.SByte", -128, 127, 3);
-        createIntType("System.Int16", -32768, 32767, 5);
-        createIntType("System.UInt16", 0, 65535, 5);
-        createIntType("System.Int32", -2147483648, 2147483647, 10);
-        createIntType("System.UInt32", 0, 4294967295, 10);
-    })();
 
     Bridge.define("Bridge.Int", {
         inherits: [System.IComparable, System.IFormattable],
@@ -6942,7 +7103,7 @@ Bridge.define("System.Type", {
                 return 0;
             },
 
-            format: function (number, format, provider, T) {
+            format: function (number, format, provider, T, toUnsign) {
                 var nf = (provider || System.Globalization.CultureInfo.getCurrentCulture()).getFormat(System.Globalization.NumberFormatInfo),
                     decimalSeparator = nf.numberDecimalSeparator,
                     groupSeparator = nf.numberGroupSeparator,
@@ -7061,7 +7222,17 @@ Bridge.define("System.Type", {
 
                             return this.defaultFormat(number * 100, 1, precision, precision, nf, false, "percent");
                         case "X":
-                            var result = isDecimal ? number.round().value.toHex().substr(2) : (isLong ? number.toString(16) : Math.round(number).toString(16));
+                            var result;
+
+                            if (isDecimal) {
+                                result = number.round().value.toHex().substr(2);
+                            } else if (isLong) {
+                                var uvalue = toUnsign ? toUnsign(number) : number;
+                                result = uvalue.toString(16);
+                            } else {
+                                var uvalue = toUnsign ? toUnsign(Math.round(number)) : Math.round(number) >>> 0;
+                                result = uvalue.toString(16);
+                            }
 
                             if (match[1] === "X") {
                                 result = result.toUpperCase();
@@ -7732,6 +7903,14 @@ Bridge.define("System.Type", {
             },
 
             sign: function (x) {
+                if (x === Number.POSITIVE_INFINITY) {
+                    return 1;
+                }
+
+                if (x === Number.NEGATIVE_INFINITY) {
+                    return -1;
+                }
+
                 return Bridge.isNumber(x) ? (x === 0 ? 0 : (x < 0 ? -1 : 1)) : null;
             },
 
@@ -7772,6 +7951,58 @@ Bridge.define("System.Type", {
 
     Bridge.Int.$kind = "";
     Bridge.Class.addExtend(Bridge.Int, [System.IComparable$1(Bridge.Int), System.IEquatable$1(Bridge.Int)]);
+
+    (function () {
+        var createIntType = function (name, min, max, precision, toUnsign) {
+            var type = Bridge.define(name, {
+                inherits: [System.IComparable, System.IFormattable],
+
+                statics: {
+                    $number: true,
+                    toUnsign: toUnsign,
+                    min: min,
+                    max: max,
+                    precision: precision,
+
+                    $is: function (instance) {
+                        return typeof (instance) === "number" && Math.floor(instance, 0) === instance && instance >= min && instance <= max;
+                    },
+                    getDefaultValue: function () {
+                        return 0;
+                    },
+                    parse: function (s, radix) {
+                        return Bridge.Int.parseInt(s, min, max, radix);
+                    },
+                    tryParse: function (s, result, radix) {
+                        return Bridge.Int.tryParseInt(s, result, min, max, radix);
+                    },
+                    format: function (number, format, provider) {
+                        return Bridge.Int.format(number, format, provider, type, toUnsign);
+                    },
+                    equals: function (v1, v2) {
+                        if (Bridge.is(v1, type) && Bridge.is(v2, type)) {
+                            return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
+                        }
+
+                        return false;
+                    },
+                    equalsT: function (v1, v2) {
+                        return Bridge.unbox(v1, true) === Bridge.unbox(v2, true);
+                    }
+                }
+            });
+
+            type.$kind = "";
+            Bridge.Class.addExtend(type, [System.IComparable$1(type), System.IEquatable$1(type)]);
+        };
+
+        createIntType("System.Byte", 0, 255, 3);
+        createIntType("System.SByte", -128, 127, 3, Bridge.Int.clipu8);
+        createIntType("System.Int16", -32768, 32767, 5, Bridge.Int.clipu16);
+        createIntType("System.UInt16", 0, 65535, 5);
+        createIntType("System.Int32", -2147483648, 2147483647, 10, Bridge.Int.clipu32);
+        createIntType("System.UInt32", 0, 4294967295, 10);
+    })();
 
     // @source Double.js
 
@@ -8076,11 +8307,11 @@ Bridge.define("System.Type", {
             return this.value.toString(format);
         }
 
-        return Bridge.Int.format(this, format, provider);
+        return Bridge.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.format = function (format, provider) {
-        return Bridge.Int.format(this, format, provider);
+        return Bridge.Int.format(this, format, provider, System.Int64, System.Int64.clipu64);
     };
 
     System.Int64.prototype.isNegative = function () {
@@ -8447,34 +8678,42 @@ Bridge.define("System.Type", {
     };
 
     System.Int64.clip8 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? Bridge.Int.sxb(x.value.low & 0xff) : (Bridge.Int.isInfinite(x) ? System.SByte.min : null);
     };
 
     System.Int64.clipu8 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low & 0xff : (Bridge.Int.isInfinite(x) ? System.Byte.min : null);
     };
 
     System.Int64.clip16 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? Bridge.Int.sxs(x.value.low & 0xffff) : (Bridge.Int.isInfinite(x) ? System.Int16.min : null);
     };
 
     System.Int64.clipu16 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low & 0xffff : (Bridge.Int.isInfinite(x) ? System.UInt16.min : null);
     };
 
     System.Int64.clip32 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low | 0 : (Bridge.Int.isInfinite(x) ? System.Int32.min : null);
     };
 
     System.Int64.clipu32 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? x.value.low >>> 0 : (Bridge.Int.isInfinite(x) ? System.UInt32.min : null);
     };
 
     System.Int64.clip64 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.UInt64(x);
         return x ? new System.Int64(x.value.toSigned()) : (Bridge.Int.isInfinite(x) ? System.Int64.MinValue : null);
     };
 
     System.Int64.clipu64 = function (x) {
+        x = (x == null || System.Int64.is64Bit(x)) ? x : new System.Int64(x);
         return x ? new System.UInt64(x.value.toUnsigned()) : (Bridge.Int.isInfinite(x) ? System.UInt64.MinValue : null);
     };
 
@@ -11816,6 +12055,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             arr.length = length;
             var isFn = Bridge.isFunction(defvalue);
 
+            if (isFn) {
+                var v = defvalue();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    defvalue = v;
+                }
+            }
+
             for (var k = 0; k < length; k++) {
                 arr[k] = isFn ? defvalue() : defvalue;
             }
@@ -11867,6 +12115,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             var arr = new Array(length),
                 isFn = addFn !== true && Bridge.isFunction(value);
 
+            if (isFn) {
+                var v = value();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    value = v;
+                }
+            }
+
             for (var i = 0; i < length; i++) {
                 arr[i] = isFn ? value() : value;
             }
@@ -11914,6 +12171,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var et = Bridge.getType(obj).$elementType;
 
                 if (et) {
+
+                    if (Bridge.Reflection.isValueType(et) !== Bridge.Reflection.isValueType(type.$elementType)) {
+                        return false;
+                    }
+
                     return System.Array.getRank(obj) === type.$rank && Bridge.Reflection.isAssignableFrom(type.$elementType, et);
                 }
 
@@ -11936,7 +12198,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return true;
             }
 
-            return !!System.Array._typedArrays[String.prototype.slice.call(Object.prototype.toString.call(obj), 8, -1)];
+            var isTypedArray = !!System.Array._typedArrays[String.prototype.slice.call(Object.prototype.toString.call(obj), 8, -1)];
+
+            if (isTypedArray && !!System.Array._typedArrays[type.name]) {
+                return obj instanceof type;
+            }
+
+            return isTypedArray;
         },
 
         clone: function (arr) {
@@ -12089,6 +12357,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             var isFn = Bridge.isFunction(val);
+
+            if (isFn) {
+                var v = val();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    val = v;
+                }
+            }
 
             while (--count >= 0) {
                 dst[index + count] = isFn ? val() : val;
@@ -12336,6 +12613,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             var oldSize = 0,
                 isFn = Bridge.isFunction(val),
                 ref = arr.v;
+
+            if (isFn) {
+                var v = val();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    val = v;
+                }
+            }
 
             if (!ref) {
                 ref = System.Array.init(new Array(newSize), T);
@@ -12897,6 +13183,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             return arr || result;
+        },
+        getLongLength: function (array) {
+            return System.Int64(array.length);
         }
     };
 
@@ -14761,21 +15050,21 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.Collections.Generic.IDictionary$2(TKey,TValue),System.Collections.IDictionary,System.Collections.Generic.IReadOnlyDictionary$2(TKey,TValue)],
         statics: {
             fields: {
-                emptyKeys: null,
-                emptyValues: null,
                 _defaultCapacity: 0,
-                MaxArrayLength: 0
+                MaxArrayLength: 0,
+                emptyKeys: null,
+                emptyValues: null
             },
             ctors: {
                 init: function () {
+                    this._defaultCapacity = 4;
+                    this.MaxArrayLength = 2146435071;
                     this.emptyKeys = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TKey);
                     }, TKey);
                     this.emptyValues = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TValue);
                     }, TValue);
-                    this._defaultCapacity = 4;
-                    this.MaxArrayLength = 2146435071;
                 }
             },
             methods: {
@@ -15127,8 +15416,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             clear: function () {
                 this.version = (this.version + 1) | 0;
-                System.Array.fill(this.keys, Bridge.getDefaultValue(TKey), 0, this._size);
-                System.Array.fill(this.values, Bridge.getDefaultValue(TValue), 0, this._size);
+                System.Array.fill(this.keys, function () {
+                    return Bridge.getDefaultValue(TKey);
+                }, 0, this._size);
+                System.Array.fill(this.values, function () {
+                    return Bridge.getDefaultValue(TValue);
+                }, 0, this._size);
                 this._size = 0;
             },
             containsKey: function (key) {
@@ -16502,7 +16795,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (index >= count) {
                         return false;
                     } else {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = node.Item;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = node.Item;
                         return true;
                     }
                 });
@@ -16539,7 +16832,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                     try {
                         this.InOrderTreeWalk(function (node) {
-                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = node.Item;
+                            objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = node.Item;
                             return true;
                         });
                     } catch ($e1) {
@@ -16700,14 +16993,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     while (!mineEnded && !theirsEnded) {
                         var comp = ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = mine.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = mine.Current;
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             mineEnded = !mine.moveNext();
                             theirsEnded = !theirs.moveNext();
                         } else {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             theirsEnded = !theirs.moveNext();
                         }
                     }
@@ -16715,7 +17008,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (!mineEnded || !theirsEnded) {
                         var remaining = (mineEnded ? theirs : mine);
                         do {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = remaining.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = remaining.Current;
                         } while (remaining.moveNext());
                     }
 
@@ -16764,7 +17057,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         if (comp < 0) {
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             mineEnded = !mine.moveNext();
                             theirsEnded = !theirs.moveNext();
                         } else {
@@ -18037,7 +18330,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var node = this.head;
                 if (node != null) {
                     do {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = node.item;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = node.item;
                         node = node.next;
                     } while (!Bridge.referenceEquals(node, this.head));
                 }
@@ -18081,7 +18374,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     try {
                         if (node != null) {
                             do {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = node.item;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = node.item;
                                 node = node.next;
                             } while (!Bridge.referenceEquals(node, this.head));
                         }
@@ -18781,7 +19074,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (this.isSimpleKey) {
                         this.simpleBuckets = { };
                     }
-                    System.Array.fill(this.entries, System.Collections.Generic.Dictionary$2.Entry(TKey,TValue).getDefaultValue, 0, this.count);
+                    System.Array.fill(this.entries, function () {
+                        return Bridge.getDefaultValue(System.Collections.Generic.Dictionary$2.Entry(TKey,TValue));
+                    }, 0, this.count);
                     this.freeList = -1;
                     this.count = 0;
                     this.freeCount = 0;
@@ -18825,7 +19120,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var entries = this.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
                     }
                 }
             },
@@ -18861,7 +19156,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var entries = this.entries;
                     for (var i = 0; i < this.count; i = (i + 1) | 0) {
                         if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                            dictEntryArray[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
+                            dictEntryArray[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(entries[System.Array.index(i, entries)].key, entries[System.Array.index(i, entries)].value);
                         }
                     }
                 } else {
@@ -18875,7 +19170,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         var entries1 = this.entries;
                         for (var i1 = 0; i1 < count; i1 = (i1 + 1) | 0) {
                             if (entries1[System.Array.index(i1, entries1)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries1[System.Array.index(i1, entries1)].key, entries1[System.Array.index(i1, entries1)].value);
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(entries1[System.Array.index(i1, entries1)].key, entries1[System.Array.index(i1, entries1)].value);
                             }
                         }
                     } catch ($e1) {
@@ -19332,7 +19627,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var entries = this.dictionary.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = entries[System.Array.index(i, entries)].key;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].key;
                     }
                 }
             },
@@ -19371,7 +19666,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
                             if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = entries[System.Array.index(i, entries)].key;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].key;
                             }
                         }
                     } catch ($e1) {
@@ -19577,7 +19872,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var entries = this.dictionary.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = entries[System.Array.index(i, entries)].value;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].value;
                     }
                 }
             },
@@ -19616,7 +19911,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
                             if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = entries[System.Array.index(i, entries)].value;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].value;
                             }
                         }
                     } catch ($e1) {
@@ -19970,7 +20265,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         try {
                             while ($t.moveNext()) {
                                 var item = $t.Current;
-                                dictEntryArray[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
+                                dictEntryArray[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), dictEntryArray)] = new System.Collections.DictionaryEntry.$ctor1(item.key, item.value);
                             }
                         } finally {
                             if (Bridge.is($t, System.IDisposable)) {
@@ -19988,7 +20283,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             try {
                                 while ($t1.moveNext()) {
                                     var item1 = $t1.Current;
-                                    objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
+                                    objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = new (System.Collections.Generic.KeyValuePair$2(TKey,TValue)).$ctor1(item1.key, item1.value);
                                 }
                             } finally {
                                 if (Bridge.is($t1, System.IDisposable)) {
@@ -20329,7 +20624,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             try {
                                 while ($t.moveNext()) {
                                     var item = $t.Current;
-                                    objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = item;
+                                    objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = item;
                                 }
                             } finally {
                                 if (Bridge.is($t, System.IDisposable)) {
@@ -21052,7 +21347,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._size === this._items.length) {
                     this.EnsureCapacity(((this._size + 1) | 0));
                 }
-                this._items[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._items)] = item;
+                this._items[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._items)] = item;
                 this._version = (this._version + 1) | 0;
             },
             System$Collections$IList$add: function (item) {
@@ -21100,7 +21395,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             clear: function () {
                 if (this._size > 0) {
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), 0, this._size);
+                    System.Array.fill(this._items, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, 0, this._size);
                     this._size = 0;
                 }
                 this._version = (this._version + 1) | 0;
@@ -21408,7 +21705,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var en = Bridge.getEnumerator(collection, T);
                     try {
                         while (en.System$Collections$IEnumerator$moveNext()) {
-                            this.insert(Bridge.identity(index, (index = (index + 1) | 0)), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                            this.insert(Bridge.identity(index, ((index = (index + 1) | 0))), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                         }
                     }
                     finally {
@@ -21490,11 +21787,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
 
                     if (current < this._size) {
-                        this._items[System.Array.index(Bridge.identity(freeIndex, (freeIndex = (freeIndex + 1) | 0)), this._items)] = this._items[System.Array.index(Bridge.identity(current, (current = (current + 1) | 0)), this._items)];
+                        this._items[System.Array.index(Bridge.identity(freeIndex, ((freeIndex = (freeIndex + 1) | 0))), this._items)] = this._items[System.Array.index(Bridge.identity(current, ((current = (current + 1) | 0))), this._items)];
                     }
                 }
 
-                System.Array.fill(this._items, Bridge.getDefaultValue(T), freeIndex, ((this._size - freeIndex) | 0));
+                System.Array.fill(this._items, function () {
+                    return Bridge.getDefaultValue(T);
+                }, freeIndex, ((this._size - freeIndex) | 0));
                 var result = (this._size - freeIndex) | 0;
                 this._size = freeIndex;
                 this._version = (this._version + 1) | 0;
@@ -21530,7 +21829,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (index < this._size) {
                         System.Array.copy(this._items, ((index + count) | 0), this._items, index, ((this._size - index) | 0));
                     }
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), this._size, count);
+                    System.Array.fill(this._items, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, this._size, count);
                     this._version = (this._version + 1) | 0;
                 }
             },
@@ -21747,18 +22048,31 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
     // @source Task.js
 
     Bridge.define("System.Threading.Tasks.Task", {
-        inherits: [System.IDisposable],
+        inherits: [System.IDisposable, System.IAsyncResult],
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$Dispose"
-            ]
+                "dispose", "System$IDisposable$Dispose",
+                "AsyncState", "System$IAsyncResult$AsyncState",
+                "CompletedSynchronously", "System$IAsyncResult$CompletedSynchronously",
+                "IsCompleted", "System$IAsyncResult$IsCompleted"
+            ],
+
+            properties: {
+                IsCompleted: {
+                    get: function () {
+                        return this.isCompleted();
+                    }
+                }
+            }
         },
 
         ctor: function (action, state) {
             this.$initialize();
             this.action = action;
             this.state = state;
+            this.AsyncState = state;
+            this.CompletedSynchronously = false;
             this.exception = null;
             this.status = System.Threading.Tasks.TaskStatus.created;
             this.callbacks = [];
@@ -21797,13 +22111,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         if (!cancelCallback) {
                             cancelCallback = true;
                             clearTimeout(clear);
-                            
+
                             tcs.setCanceled();
                         }
                     };
                 }
 
-                var ms = delay; 
+                var ms = delay;
                 if (Bridge.is(delay, System.TimeSpan)) {
                     ms = delay.getTotalMilliseconds();
                 }
@@ -21812,7 +22126,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (!cancelCallback) {
                         cancelCallback = true;
                         tcs.setResult(state);
-                    }                    
+                    }
                 }, ms);
 
                 if (token && token.getIsCancellationRequested()) {
@@ -21840,17 +22154,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                         if (Bridge.is(result, System.Threading.Tasks.Task)) {
                             result.continueWith(function () {
-                                if (result.isCanceled()) {
-                                    tcs.setCanceled();
-                                } else if (result.isFaulted()) {
-                                    tcs.setException(result.exception);
+                                if (result.isFaulted() || result.isCanceled()) {
+                                    tcs.setException(result.exception.innerExceptions.Count > 0 ? result.exception.innerExceptions.getItem(0) : result.exception);
                                 } else {
                                     tcs.setResult(result.getAwaitedResult());
-                                }                                
+                                }
                             });
                         } else {
                             tcs.setResult(result);
-                        }                        
+                        }
                     } catch (e) {
                         tcs.setException(System.Exception.create(e));
                     }
@@ -21936,8 +22248,6 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                 tcs.trySetResult(t);
                                 break;
                             case System.Threading.Tasks.TaskStatus.canceled:
-                                tcs.trySetCanceled();
-                                break;
                             case System.Threading.Tasks.TaskStatus.faulted:
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
@@ -22028,6 +22338,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
         },
 
+        getException: function () {
+            return this.isCanceled() ? null : this.exception;
+        },
+
         waitt: function (timeout, token) {
             var ms = timeout,
                 tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -22080,17 +22394,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             this.continueWith(function () {
                 if (!complete) {
                     complete = true;
-                    if (me.isFaulted()) {
+                    if (me.isFaulted() || me.isCanceled()) {
                         tcs.setException(me.exception);
-                    } else if (me.isCanceled()) {
-                        tcs.setCanceled();
                     } else {
                         tcs.setResult();
-                    }  
+                    }
                 }
             })
 
-            return tcs.task;         
+            return tcs.task;
         },
 
         continueWith: function (continuationAction, raise) {
@@ -22168,7 +22480,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             this.exception = error;
-            this.status = System.Threading.Tasks.TaskStatus.faulted;
+            this.status = this.exception.hasTaskCanceledException && this.exception.hasTaskCanceledException() ? System.Threading.Tasks.TaskStatus.canceled : System.Threading.Tasks.TaskStatus.faulted;
             this.runCallbacks();
 
             return true;
@@ -22179,6 +22491,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 return false;
             }
 
+            this.exception = error || new System.AggregateException(null, [new System.Threading.Tasks.TaskCanceledException.$ctor3(this)]);
             this.status = System.Threading.Tasks.TaskStatus.canceled;
             this.runCallbacks();
 
@@ -22202,12 +22515,11 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
-
                     if (this.exception && this.exception.innerExceptions) {
                         throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                     }
 
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
@@ -22256,9 +22568,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
     });
 
     Bridge.define("System.Threading.Tasks.TaskCompletionSource", {
-        ctor: function () {
+        ctor: function (state) {
             this.$initialize();
-            this.task = new System.Threading.Tasks.Task();
+            this.task = new System.Threading.Tasks.Task(null, state);
             this.task.status = System.Threading.Tasks.TaskStatus.running;
         },
 
@@ -22293,7 +22605,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 exception = [exception];
             }
 
-            return this.task.fail(new System.AggregateException(null, exception));
+            exception = new System.AggregateException(null, exception);
+
+            if (exception.hasTaskCanceledException()) {
+                return this.task.cancel(exception);
+            }
+
+            return this.task.fail(exception);
         }
     });
 
@@ -22773,6 +23091,28 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             DateTime: 16,
             String: 18
         },
+
+        convertTypes: [
+            null,
+            System.Object,
+            null,
+            System.Boolean,
+            System.Char,
+            System.SByte,
+            System.Byte,
+            System.Int16,
+            System.UInt16,
+            System.Int32,
+            System.UInt32,
+            System.Int64,
+            System.UInt64,
+            System.Single,
+            System.Double,
+            System.Decimal,
+            System.DateTime,
+            System.Object,
+            System.String
+        ],
 
         toBoolean: function (value, formatProvider) {
             value = Bridge.unbox(value, true);
@@ -23443,9 +23783,192 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return bytes;
         },
 
-        convertToType: function (typeCode, value, formatProvider) {
-            //TODO: #822 IConvertible
-            throw new System.NotSupportedException.$ctor1("IConvertible interface is not supported.");
+        getTypeCode: function (t) {
+            if (t == null) {
+                return System.TypeCode.Object;
+            }
+            if (t === System.Double) {
+                return System.TypeCode.Double;
+            }
+            if (t === System.Single) {
+                return System.TypeCode.Single;
+            }
+            if (t === System.Decimal) {
+                return System.TypeCode.Decimal;
+            }
+            if (t === System.Byte) {
+                return System.TypeCode.Byte;
+            }
+            if (t === System.SByte) {
+                return System.TypeCode.SByte;
+            }
+            if (t === System.UInt16) {
+                return System.TypeCode.UInt16;
+            }
+            if (t === System.Int16) {
+                return System.TypeCode.Int16;
+            }
+            if (t === System.UInt32) {
+                return System.TypeCode.UInt32;
+            }
+            if (t === System.Int32) {
+                return System.TypeCode.Int32;
+            }
+            if (t === System.UInt64) {
+                return System.TypeCode.UInt64;
+            }
+            if (t === System.Int64) {
+                return System.TypeCode.Int64;
+            }
+            if (t === System.Boolean) {
+                return System.TypeCode.Boolean;
+            }
+            if (t === System.Char) {
+                return System.TypeCode.Char;
+            }
+            if (t === System.DateTime) {
+                return System.TypeCode.DateTime;
+            }
+            if (t === System.String) {
+                return System.TypeCode.String;
+            }
+            return System.TypeCode.Object;
+        },
+
+        changeConversionType: function (value, conversionType, provider) {
+            if (conversionType == null) {
+                throw new System.ArgumentNullException.$ctor1("conversionType");
+            }
+
+            if (value == null) {
+                if (Bridge.Reflection.isValueType(conversionType)) {
+                    throw new System.InvalidCastException.$ctor1("Null object cannot be converted to a value type.");
+                }
+                return null;
+            }
+
+            var fromTypeCode = scope.convert.getTypeCode(Bridge.getType(value)),
+                ic = Bridge.as(value, System.IConvertible);
+
+            if (ic == null && fromTypeCode == System.TypeCode.Object) {
+                if (Bridge.referenceEquals(Bridge.getType(value), conversionType)) {
+                    return value;
+                }
+                throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
+            }
+
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Boolean, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toBoolean(value, provider) : ic.System$IConvertible$ToBoolean(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Char, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toChar(value, provider, fromTypeCode) : ic.System$IConvertible$ToChar(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.SByte, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toSByte(value, provider, fromTypeCode) : ic.System$IConvertible$ToSByte(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Byte, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toByte(value, provider) : ic.System$IConvertible$ToByte(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int16, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toInt16(value, provider) : ic.System$IConvertible$ToInt16(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt16, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toUInt16(value, provider) : ic.System$IConvertible$ToUInt16(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int32, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toInt32(value, provider) : ic.System$IConvertible$ToInt32(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt32, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toUInt32(value, provider) : ic.System$IConvertible$ToUInt32(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Int64, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toInt64(value, provider) : ic.System$IConvertible$ToInt64(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.UInt64, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toUInt64(value, provider) : ic.System$IConvertible$ToUInt64(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Single, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toSingle(value, provider) : ic.System$IConvertible$ToSingle(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Double, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toDouble(value, provider) : ic.System$IConvertible$ToDouble(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Decimal, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toDecimal(value, provider) : ic.System$IConvertible$ToDecimal(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.DateTime, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toDateTime(value, provider) : ic.System$IConvertible$ToDateTime(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.String, scope.convert.convertTypes)])) {
+                return ic == null ? scope.convert.toString(value, provider, fromTypeCode) : ic.System$IConvertible$ToString(provider);
+            }
+            if (Bridge.referenceEquals(conversionType, scope.convert.convertTypes[System.Array.index(System.TypeCode.Object, scope.convert.convertTypes)])) {
+                return value;
+            }
+
+            if (ic == null) {
+                throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
+            }
+
+            return ic.System$IConvertible$ToType(conversionType, provider);
+        },
+
+        changeType: function (value, typeCode, formatProvider) {
+            if (Bridge.isFunction(typeCode)) {
+                return scope.convert.changeConversionType(value, typeCode, formatProvider);
+            }
+
+            if (value == null && (typeCode === System.TypeCode.Empty || typeCode === System.TypeCode.String || typeCode === System.TypeCode.Object)) {
+                return null;
+            }
+
+            var fromTypeCode = scope.convert.getTypeCode(Bridge.getType(value)),
+                v = Bridge.as(value, System.IConvertible);
+
+            if (v == null && fromTypeCode == System.TypeCode.Object) {
+                throw new System.InvalidCastException.$ctor1("Cannot convert to IConvertible");
+            }
+
+            switch (typeCode) {
+                case System.TypeCode.Boolean:
+                    return v == null ? scope.convert.toBoolean(value, formatProvider) : v.System$IConvertible$ToBoolean(provider);
+                case System.TypeCode.Char:
+                    return v == null ? scope.convert.toChar(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToChar(provider);
+                case System.TypeCode.SByte:
+                    return v == null ? scope.convert.toSByte(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToSByte(provider);
+                case System.TypeCode.Byte:
+                    return v == null ? scope.convert.toByte(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToByte(provider);
+                case System.TypeCode.Int16:
+                    return v == null ? scope.convert.toInt16(value, formatProvider) : v.System$IConvertible$ToInt16(provider);
+                case System.TypeCode.UInt16:
+                    return v == null ? scope.convert.toUInt16(value, formatProvider) : v.System$IConvertible$ToUInt16(provider);
+                case System.TypeCode.Int32:
+                    return v == null ? scope.convert.toInt32(value, formatProvider) : v.System$IConvertible$ToInt32(provider);
+                case System.TypeCode.UInt32:
+                    return v == null ? scope.convert.toUInt32(value, formatProvider) : v.System$IConvertible$ToUInt32(provider);
+                case System.TypeCode.Int64:
+                    return v == null ? scope.convert.toInt64(value, formatProvider) : v.System$IConvertible$ToInt64(provider);
+                case System.TypeCode.UInt64:
+                    return v == null ? scope.convert.toUInt64(value, formatProvider) : v.System$IConvertible$ToUInt64(provider);
+                case System.TypeCode.Single:
+                    return v == null ? scope.convert.toSingle(value, formatProvider) : v.System$IConvertible$ToSingle(provider);
+                case System.TypeCode.Double:
+                    return v == null ? scope.convert.toDouble(value, formatProvider) : v.System$IConvertible$ToDouble(provider);
+                case System.TypeCode.Decimal:
+                    return v == null ? scope.convert.toDecimal(value, formatProvider) : v.System$IConvertible$ToDecimal(provider);
+                case System.TypeCode.DateTime:
+                    return v == null ? scope.convert.toDateTime(value, formatProvider) : v.System$IConvertible$ToDateTime(provider);
+                case System.TypeCode.String:
+                    return v == null ? scope.convert.toString(value, formatProvider, fromTypeCode) : v.System$IConvertible$ToString(provider);
+                case System.TypeCode.Object:
+                    return value;
+                case System.TypeCode.DBNull:
+                    throw new System.InvalidCastException.$ctor1("Cannot convert DBNull values");
+                case System.TypeCode.Empty:
+                    throw new System.InvalidCastException.$ctor1("Cannot convert Empty values");
+                default:
+                    throw new System.ArgumentException.$ctor1("Unknown type code");
+            }
         }
     };
 
@@ -23710,20 +24233,23 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
 
                     if (isFloating) {
+                        var nfInfo = (formatProvider || System.Globalization.CultureInfo.getCurrentCulture()).getFormat(System.Globalization.NumberFormatInfo),
+                            point = nfInfo.numberDecimalSeparator;
+
                         if (typeCode === typeCodes.Decimal) {
-                            if (!/^[+-]?(\d+|\d+.|\d*\.\d+)$/.test(value)) {
+                            if (!new RegExp("^[+-]?(\\d+|\\d+.|\\d*\\" + point +"\\d+)$").test(value)) {
                                 if (!/^[+-]?[0-9]+$/.test(value)) {
                                     throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                                 }
                             }
 
-                            value = System.Decimal(value, formatProvider);
+                            value = new System.Decimal(value, formatProvider);
                         } else {
-                            if (!/^[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$/.test(value)) {
+                            if (!new RegExp("^[-+]?[0-9]*\\" + point +"?[0-9]+([eE][-+]?[0-9]+)?$").test(value)) {
                                 throw new System.FormatException.$ctor1("Input string was not in a correct format.");
                             }
 
-                            value = parseFloat(value);
+                            value = Bridge.Int.parseFloat(value, formatProvider);
                         }
                     } else {
                         if (!/^[+-]?[0-9]+$/.test(value)) {
@@ -24330,7 +24856,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         onCloseHandler: function(event) {
             var reason,
                 success = false;
-            
+
             // See http://tools.ietf.org/html/rfc6455#section-7.4.1
             if (event.code == 1000) {
                 reason = "Status code: " + event.code + ". Normal closure, meaning that the purpose for which the connection was established has been fulfilled.";
@@ -24388,7 +24914,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             e.message = self.closeInfo.reason;
                         }
                         tcs.setException(System.Exception.create(e));
-                    }, 10);                    
+                    }, 10);
                 };
 
                 this.socket.binaryType = "arraybuffer";
@@ -25182,7 +25708,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         return emptyEnumerable;
     };
 
-    Enumerable.from = function (obj) {
+    Enumerable.from = function (obj, T) {
         if (obj == null) {
             return Enumerable.empty();
         }
@@ -25208,7 +25734,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             return new Enumerable(function () {
                 var enumerator;
                 return new IEnumerator(
-                    function () { enumerator = Bridge.getEnumerator(ienum); },
+                    function () { enumerator = Bridge.getEnumerator(ienum, T); },
                     function () {
                         var ok = enumerator.moveNext();
                         return ok ? this.yieldReturn(enumerator.Current) : false;
@@ -26323,7 +26849,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 function () {
                     enumerator = source.GetEnumerator();
                     keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
-                    
+
                     Enumerable.from(second).forEach(function (key) {
                         if (key == null) {
                             hasNull = true;
@@ -34956,7 +35482,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var index = startIndex;
 
                     for (i = 0; i < chArrayLength; i = (i + 3) | 0) {
-                        var b = value[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), value)];
+                        var b = value[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), value)];
                         chArray[System.Array.index(i, chArray)] = System.BitConverter.getHexValue(((Bridge.Int.div(b, 16)) | 0));
                         chArray[System.Array.index(((i + 1) | 0), chArray)] = System.BitConverter.getHexValue(b % 16);
                         chArray[System.Array.index(((i + 2) | 0), chArray)] = 45;
@@ -35205,7 +35731,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var i = 0;
                 var j = 0;
                 while (((bytes.length - j) | 0) >= 4) {
-                    this.m_array[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), this.m_array)] = (bytes[System.Array.index(j, bytes)] & 255) | ((bytes[System.Array.index(((j + 1) | 0), bytes)] & 255) << 8) | ((bytes[System.Array.index(((j + 2) | 0), bytes)] & 255) << 16) | ((bytes[System.Array.index(((j + 3) | 0), bytes)] & 255) << 24);
+                    this.m_array[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), this.m_array)] = (bytes[System.Array.index(j, bytes)] & 255) | ((bytes[System.Array.index(((j + 1) | 0), bytes)] & 255) << 8) | ((bytes[System.Array.index(((j + 2) | 0), bytes)] & 255) << 16) | ((bytes[System.Array.index(((j + 3) | 0), bytes)] & 255) << 24);
                     j = (j + 4) | 0;
                 }
 
@@ -35596,7 +36122,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 ToArray: function (T, source) {
                     var count = { };
                     var results = { v : Bridge.Collections.EnumerableHelpers.ToArray$1(T, source, count) };
-                    System.Array.resize(results, count.v, Bridge.getDefaultValue(T), T);
+                    System.Array.resize(results, count.v, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     return results.v;
                 },
                 ToArray$1: function (T, source, length) {
@@ -35619,10 +36147,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                         newLength = MaxArrayLength <= count ? ((count + 1) | 0) : MaxArrayLength;
                                     }
 
-                                    System.Array.resize(arr, newLength, Bridge.getDefaultValue(T), T);
+                                    System.Array.resize(arr, newLength, function () {
+                                        return Bridge.getDefaultValue(T);
+                                    }, T);
                                 }
 
-                                arr.v[System.Array.index(Bridge.identity(count, (count = (count + 1) | 0)), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
+                                arr.v[System.Array.index(Bridge.identity(count, ((count = (count + 1) | 0))), arr.v)] = en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")];
                             }
 
                             length.v = count;
@@ -36878,10 +37408,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             Clear: function () {
                 if (this._head < this._tail) {
-                    System.Array.fill(this._array, Bridge.getDefaultValue(T), this._head, this._size);
+                    System.Array.fill(this._array, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, this._head, this._size);
                 } else {
-                    System.Array.fill(this._array, Bridge.getDefaultValue(T), this._head, ((this._array.length - this._head) | 0));
-                    System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._tail);
+                    System.Array.fill(this._array, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, this._head, ((this._array.length - this._head) | 0));
+                    System.Array.fill(this._array, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, 0, this._tail);
                 }
 
                 this._head = 0;
@@ -36936,7 +37472,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
+                while (Bridge.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(index, this._array)] == null) {
                             return true;
@@ -37238,7 +37774,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         },
         methods: {
             Clear: function () {
-                System.Array.fill(this._array, Bridge.getDefaultValue(T), 0, this._size);
+                System.Array.fill(this._array, function () {
+                    return Bridge.getDefaultValue(T);
+                }, 0, this._size);
                 this._size = 0;
                 this._version = (this._version + 1) | 0;
             },
@@ -37246,7 +37784,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var count = this._size;
 
                 var c = System.Collections.Generic.EqualityComparer$1(T).def;
-                while (Bridge.identity(count, (count = (count - 1) | 0)) > 0) {
+                while (Bridge.identity(count, ((count = (count - 1) | 0))) > 0) {
                     if (item == null) {
                         if (this._array[System.Array.index(count, this._array)] == null) {
                             return true;
@@ -37274,7 +37812,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var srcIndex = 0;
                     var dstIndex = (arrayIndex + this._size) | 0;
                     for (var i = 0; i < this._size; i = (i + 1) | 0) {
-                        array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, (srcIndex = (srcIndex + 1) | 0)), this._array)];
+                        array[System.Array.index(((dstIndex = (dstIndex - 1) | 0)), array)] = this._array[System.Array.index(Bridge.identity(srcIndex, ((srcIndex = (srcIndex + 1) | 0))), this._array)];
                     }
                 } else {
                     System.Array.copy(this._array, 0, array, arrayIndex, this._size);
@@ -37323,7 +37861,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 var threshold = Bridge.Int.clip32(this._array.length * 0.9);
                 if (this._size < threshold) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, this._size, Bridge.getDefaultValue(T), T);
+                    System.Array.resize(localArray, this._size, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     this._array = localArray.v;
                     this._version = (this._version + 1) | 0;
                 }
@@ -37346,10 +37886,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             Push: function (item) {
                 if (this._size === this._array.length) {
                     var localArray = { v : this._array };
-                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), Bridge.getDefaultValue(T), T);
+                    System.Array.resize(localArray, (this._array.length === 0) ? System.Collections.Generic.Stack$1(T).DefaultCapacity : Bridge.Int.mul(2, this._array.length), function () {
+                        return Bridge.getDefaultValue(T);
+                    }, T);
                     this._array = localArray.v;
                 }
-                this._array[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._array)] = item;
+                this._array[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._array)] = item;
                 this._version = (this._version + 1) | 0;
             },
             ToArray: function () {
@@ -37487,13 +38029,14 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         statics: {
             fields: {
                 HashPrime: 0,
+                MaxPrimeArrayLength: 0,
                 RandomSeed: 0,
-                primes: null,
-                MaxPrimeArrayLength: 0
+                primes: null
             },
             ctors: {
                 init: function () {
                     this.HashPrime = 101;
+                    this.MaxPrimeArrayLength = 2146435069;
                     this.RandomSeed = System.Guid.NewGuid().getHashCode();
                     this.primes = System.Array.init([
                         3, 
@@ -37569,7 +38112,6 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         5999471, 
                         7199369
                     ], System.Int32);
-                    this.MaxPrimeArrayLength = 2146435069;
                 }
             },
             methods: {
@@ -37826,7 +38368,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var count = System.Array.getCount(this.items, T);
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
-                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.items, i, T);
+                            objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = System.Array.getItem(this.items, i, T);
                         }
                     } catch ($e1) {
                         $e1 = System.Exception.create($e1);
@@ -38081,7 +38623,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
 
                     var count = System.Array.getCount(this.list, T);
                     for (var i = 0; i < count; i = (i + 1) | 0) {
-                        objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = System.Array.getItem(this.list, i, T);
+                        objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = System.Array.getItem(this.list, i, T);
                     }
                 }
             },
@@ -39677,10 +40219,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 init: function () {
                     this.Empty = new System.Guid();
                     this.error1 = "Byte array for GUID must be exactly {0} bytes long";
-                    this.Valid = new System.Text.RegularExpressions.Regex.ctor("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", 1);
-                    this.Split = new System.Text.RegularExpressions.Regex.ctor("^(.{8})(.{4})(.{4})(.{4})(.{12})$");
-                    this.NonFormat = new System.Text.RegularExpressions.Regex.ctor("^[{(]?([0-9a-f]{8})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{12})[)}]?$", 1);
-                    this.Replace = new System.Text.RegularExpressions.Regex.ctor("-");
+                    this.Valid = new RegExp("^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$", "i");
+                    this.Split = new RegExp("^(.{8})(.{4})(.{4})(.{4})(.{12})$");
+                    this.NonFormat = new RegExp("^[{(]?([0-9a-f]{8})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{4})-?([0-9a-f]{12})[)}]?$", "i");
+                    this.Replace = new RegExp("-", "g");
                     this.Rnd = new System.Random.ctor();
                 }
             },
@@ -39906,13 +40448,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 }
 
                 if (System.String.isNullOrEmpty(format)) {
-                    var m = System.Guid.NonFormat.match(input);
+                    var m = System.Guid.NonFormat.exec(input);
 
-                    if (m.getSuccess()) {
+                    if (m != null) {
                         var list = new (System.Collections.Generic.List$1(System.String)).ctor();
-                        for (var i = 1; i <= m.getGroups().getCount(); i = (i + 1) | 0) {
-                            if (m.getGroups().get(i).getSuccess()) {
-                                list.add(m.getGroups().get(i).getValue());
+                        for (var i = 1; i <= m.length; i = (i + 1) | 0) {
+                            if (m[i] != null) {
+                                list.add(m[i]);
                             }
                         }
 
@@ -39924,13 +40466,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var p = false;
 
                     if (Bridge.referenceEquals(format, "N")) {
-                        var m1 = System.Guid.Split.match(input);
+                        var m1 = System.Guid.Split.exec(input);
 
-                        if (m1.getSuccess()) {
+                        if (m1 != null) {
                             var list1 = new (System.Collections.Generic.List$1(System.String)).ctor();
-                            for (var i1 = 1; i1 <= m1.getGroups().getCount(); i1 = (i1 + 1) | 0) {
-                                if (m1.getGroups().get(i1).getSuccess()) {
-                                    list1.add(m1.getGroups().get(i1).getValue());
+                            for (var i1 = 1; i1 <= m1.length; i1 = (i1 + 1) | 0) {
+                                if (m1[i1] != null) {
+                                    list1.add(m1[i1]);
                                 }
                             }
 
@@ -39948,7 +40490,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         p = true;
                     }
 
-                    if (p && System.Guid.Valid.isMatch(input)) {
+                    if (p && System.Guid.Valid.test(input)) {
                         r = input.toLowerCase();
                     }
                 }
@@ -39980,7 +40522,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 switch (format) {
                     case "n": 
                     case "N": 
-                        return System.Guid.Replace.replace(s, "");
+                        return s.replace(System.Guid.Replace, "");
                     case "b": 
                     case "B": 
                         return String.fromCharCode(123) + (s || "") + String.fromCharCode(125);
@@ -39996,7 +40538,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return;
                 }
 
-                s = System.Guid.Replace.replace(s, "");
+                s = s.replace(System.Guid.Replace, "");
 
                 var r = System.Array.init(8, 0, System.Byte);
 
@@ -42240,19 +42782,19 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 init: function () {
                     this.MonthPostfixChar = 57344;
                     this.IgnorableSymbolChar = 57345;
-                    this.CJKYearSuff = "年";
-                    this.CJKMonthSuff = "月";
-                    this.CJKDaySuff = "日";
-                    this.KoreanYearSuff = "년";
-                    this.KoreanMonthSuff = "월";
-                    this.KoreanDaySuff = "일";
-                    this.KoreanHourSuff = "시";
-                    this.KoreanMinuteSuff = "분";
-                    this.KoreanSecondSuff = "초";
-                    this.CJKHourSuff = "時";
-                    this.ChineseHourSuff = "时";
-                    this.CJKMinuteSuff = "分";
-                    this.CJKSecondSuff = "秒";
+                    this.CJKYearSuff = "\u5e74";
+                    this.CJKMonthSuff = "\u6708";
+                    this.CJKDaySuff = "\u65e5";
+                    this.KoreanYearSuff = "\ub144";
+                    this.KoreanMonthSuff = "\uc6d4";
+                    this.KoreanDaySuff = "\uc77c";
+                    this.KoreanHourSuff = "\uc2dc";
+                    this.KoreanMinuteSuff = "\ubd84";
+                    this.KoreanSecondSuff = "\ucd08";
+                    this.CJKHourSuff = "\u6642";
+                    this.ChineseHourSuff = "\u65f6";
+                    this.CJKMinuteSuff = "\u5206";
+                    this.CJKSecondSuff = "\u79d2";
                 }
             },
             methods: {
@@ -43421,13 +43963,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                LargeByteBufferSize: 0
+                LargeByteBufferSize: 0,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.BinaryWriter.ctor();
                     this.LargeByteBufferSize = 256;
+                    this.Null = new System.IO.BinaryWriter.ctor();
                 }
             }
         },
@@ -43638,13 +44180,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                _DefaultCopyBufferSize: 0
+                _DefaultCopyBufferSize: 0,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.Stream.NullStream();
                     this._DefaultCopyBufferSize = 81920;
+                    this.Null = new System.IO.Stream.NullStream();
                 }
             },
             methods: {
@@ -44197,7 +44739,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return -1;
                 }
 
-                var b = this._buffer[System.Array.index(Bridge.identity(this._readPos, (this._readPos = (this._readPos + 1) | 0)), this._buffer)];
+                var b = this._buffer[System.Array.index(Bridge.identity(this._readPos, ((this._readPos = (this._readPos + 1) | 0))), this._buffer)];
                 return b;
             },
             WriteToBuffer: function (array, offset, count) {
@@ -44310,7 +44852,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     this.FlushWrite();
                 }
 
-                this._buffer[System.Array.index(Bridge.identity(this._writePos, (this._writePos = (this._writePos + 1) | 0)), this._buffer)] = value;
+                this._buffer[System.Array.index(Bridge.identity(this._writePos, ((this._writePos = (this._writePos + 1) | 0))), this._buffer)] = value;
 
             },
             Seek: function (offset, origin) {
@@ -44786,6 +45328,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = System.IO.FileStream.ReadBytesAsync(this.name);
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -45229,7 +45772,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     return -1;
                 }
 
-                return this._buffer[System.Array.index(Bridge.identity(this._position, (this._position = (this._position + 1) | 0)), this._buffer)];
+                return this._buffer[System.Array.index(Bridge.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)];
             },
             Seek: function (offset, loc) {
                 if (!this._isOpen) {
@@ -45367,7 +45910,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     }
                     this._length = newLength;
                 }
-                this._buffer[System.Array.index(Bridge.identity(this._position, (this._position = (this._position + 1) | 0)), this._buffer)] = value;
+                this._buffer[System.Array.index(Bridge.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)] = value;
 
             },
             WriteTo: function (stream) {
@@ -45702,7 +46245,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     if (ch === -1) {
                         break;
                     }
-                    buffer[System.Array.index(((index + Bridge.identity(n, (n = (n + 1) | 0))) | 0), buffer)] = ch & 65535;
+                    buffer[System.Array.index(((index + Bridge.identity(n, ((n = (n + 1) | 0)))) | 0), buffer)] = ch & 65535;
                 } while (n < count);
                 return n;
             },
@@ -45756,9 +46299,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IO.TextReader],
         statics: {
             fields: {
-                Null: null,
                 DefaultFileStreamBufferSize: 0,
-                MinBufferSize: 0
+                MinBufferSize: 0,
+                Null: null
             },
             props: {
                 DefaultBufferSize: {
@@ -45769,9 +46312,9 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.StreamReader.NullStreamReader();
                     this.DefaultFileStreamBufferSize = 4096;
                     this.MinBufferSize = 128;
+                    this.Null = new System.IO.StreamReader.NullStreamReader();
                 }
             }
         },
@@ -46029,6 +46572,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 1: {
                                         $task1 = this.stream.EnsureBufferAsync();
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -46040,6 +46584,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                     case 3: {
                                         $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
                                         $step = 4;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody);
                                         return;
                                     }
@@ -46307,13 +46852,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                InitialNewLine: null
+                InitialNewLine: null,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.TextWriter.NullTextWriter();
                     this.InitialNewLine = "\r\n";
+                    this.Null = new System.IO.TextWriter.NullTextWriter();
                 }
             },
             methods: {
@@ -46879,7 +47424,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 if (this._pos === this._length) {
                     return -1;
                 }
-                return this._s.charCodeAt(Bridge.identity(this._pos, (this._pos = (this._pos + 1) | 0)));
+                return this._s.charCodeAt(Bridge.identity(this._pos, ((this._pos = (this._pos + 1) | 0))));
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {
@@ -47273,15 +47818,15 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: [System.Reflection.ICustomAttributeProvider,System.Runtime.Serialization.ISerializable],
         statics: {
             fields: {
+                DefaultLookup: 0,
                 FilterTypeName: null,
-                FilterTypeNameIgnoreCase: null,
-                DefaultLookup: 0
+                FilterTypeNameIgnoreCase: null
             },
             ctors: {
                 init: function () {
+                    this.DefaultLookup = 28;
                     this.FilterTypeName = System.Reflection.Module.FilterTypeNameImpl;
                     this.FilterTypeNameIgnoreCase = System.Reflection.Module.FilterTypeNameIgnoreCaseImpl;
-                    this.DefaultLookup = 28;
                 }
             },
             methods: {
@@ -47469,7 +48014,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {
-                        ret[System.Array.index(Bridge.identity(cnt, (cnt = (cnt + 1) | 0)), ret)] = c[System.Array.index(i1, c)];
+                        ret[System.Array.index(Bridge.identity(cnt, ((cnt = (cnt + 1) | 0))), ret)] = c[System.Array.index(i1, c)];
                     }
                 }
                 return ret;
@@ -47927,6 +48472,16 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             }
 
             return back;
+        },
+
+        hasTaskCanceledException: function () {
+            for (var i = 0; i < this.innerExceptions.Count; i++) {
+                var e = this.innerExceptions.getItem(i);
+                if (Bridge.is(e, System.Threading.Tasks.TaskCanceledException) || (Bridge.is(e, System.AggregateException) && e.hasTaskCanceledException())) {
+                    return true;
+                }
+            }
+            return false;
         },
 
         flatten: function () {
@@ -48646,7 +49201,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
+                        outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -48759,8 +49314,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var b = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
+                    var a = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     var point = ((a << 8) | b) & 65535;
                     if (!this.bigEndian) {
@@ -48932,7 +49487,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                             throw new System.ArgumentException.$ctor1("bytes");
                         }
 
-                        outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = ch;
+                        outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = ch;
                     } else {
                         outputBytes.push(ch);
                     }
@@ -48993,10 +49548,10 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                         return null;
                     }
 
-                    var a = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var b = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var c = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
-                    var d = bytes[System.Array.index(Bridge.identity(position, (position = (position + 1) | 0)), bytes)];
+                    var a = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var b = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var c = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
+                    var d = bytes[System.Array.index(Bridge.identity(position, ((position = (position + 1) | 0))), bytes)];
 
                     if (this.bigEndian) {
                         var tmp = b;
@@ -49141,7 +49696,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     var b = _base64ToArrayBuffer(s);
                     var r = System.Array.init(0, 0, System.Char);
                     for (var i = 0; i < b.length; ) {
-                        r.push(((b[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), b)] << 8 | b[System.Array.index(Bridge.identity(i, (i = (i + 1) | 0)), b)]) & 65535));
+                        r.push(((b[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), b)] << 8 | b[System.Array.index(Bridge.identity(i, ((i = (i + 1) | 0))), b)]) & 65535));
                     }
                     return System.String.fromCharArray(r);
                 };
@@ -49185,8 +49740,8 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
             var bi = 0;
             for (var i = 0; i < str.length; i = (i + 1) | 0) {
                 var c = str.charCodeAt(i);
-                b[System.Array.index(Bridge.identity(bi, (bi = (bi + 1) | 0)), b)] = (c >> 8);
-                b[System.Array.index(Bridge.identity(bi, (bi = (bi + 1) | 0)), b)] = (c & 255);
+                b[System.Array.index(Bridge.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c >> 8);
+                b[System.Array.index(Bridge.identity(bi, ((bi = (bi + 1) | 0))), b)] = (c & 255);
             }
             var base64Str = System.Convert.toBase64String(b, null, null, null);
             return base64Str.replace(/=+$/, "");
@@ -49263,7 +49818,7 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                                 throw new System.ArgumentException.$ctor1("bytes");
                             }
 
-                            outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = code;
+                            outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = code;
                         } else {
                             outputBytes.push(code);
                         }
@@ -49673,13 +50228,13 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
         inherits: function () { return [System.ICloneable,System.IComparable$1(System.Version),System.IEquatable$1(System.Version)]; },
         statics: {
             fields: {
-                separatorsArray: 0,
-                ZERO_CHAR_VALUE: 0
+                ZERO_CHAR_VALUE: 0,
+                separatorsArray: 0
             },
             ctors: {
                 init: function () {
-                    this.separatorsArray = 46;
                     this.ZERO_CHAR_VALUE = 48;
+                    this.separatorsArray = 46;
                 }
             },
             methods: {

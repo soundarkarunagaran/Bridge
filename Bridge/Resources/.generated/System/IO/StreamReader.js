@@ -2,9 +2,9 @@
         inherits: [System.IO.TextReader],
         statics: {
             fields: {
-                Null: null,
                 DefaultFileStreamBufferSize: 0,
-                MinBufferSize: 0
+                MinBufferSize: 0,
+                Null: null
             },
             props: {
                 DefaultBufferSize: {
@@ -15,9 +15,9 @@
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.StreamReader.NullStreamReader();
                     this.DefaultFileStreamBufferSize = 4096;
                     this.MinBufferSize = 128;
+                    this.Null = new System.IO.StreamReader.NullStreamReader();
                 }
             }
         },
@@ -275,6 +275,7 @@
                                     case 1: {
                                         $task1 = this.stream.EnsureBufferAsync();
                                         $step = 2;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody);
                                         return;
                                     }
@@ -286,6 +287,7 @@
                                     case 3: {
                                         $task2 = System.IO.TextReader.prototype.ReadToEndAsync.call(this);
                                         $step = 4;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody);
                                         return;
                                     }

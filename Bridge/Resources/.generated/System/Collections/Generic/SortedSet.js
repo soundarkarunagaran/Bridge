@@ -691,7 +691,7 @@
                     if (index >= count) {
                         return false;
                     } else {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = node.Item;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = node.Item;
                         return true;
                     }
                 });
@@ -728,7 +728,7 @@
 
                     try {
                         this.InOrderTreeWalk(function (node) {
-                            objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = node.Item;
+                            objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = node.Item;
                             return true;
                         });
                     } catch ($e1) {
@@ -889,14 +889,14 @@
                     while (!mineEnded && !theirsEnded) {
                         var comp = ($t = this.Comparer)[Bridge.geti($t, "System$Collections$Generic$IComparer$1$" + Bridge.getTypeAlias(T) + "$compare", "System$Collections$Generic$IComparer$1$compare")](mine.Current, theirs.Current);
                         if (comp < 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = mine.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = mine.Current;
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             mineEnded = !mine.moveNext();
                             theirsEnded = !theirs.moveNext();
                         } else {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             theirsEnded = !theirs.moveNext();
                         }
                     }
@@ -904,7 +904,7 @@
                     if (!mineEnded || !theirsEnded) {
                         var remaining = (mineEnded ? theirs : mine);
                         do {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = remaining.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = remaining.Current;
                         } while (remaining.moveNext());
                     }
 
@@ -953,7 +953,7 @@
                         if (comp < 0) {
                             mineEnded = !mine.moveNext();
                         } else if (comp === 0) {
-                            merged[System.Array.index(Bridge.identity(c, (c = (c + 1) | 0)), merged)] = theirs.Current;
+                            merged[System.Array.index(Bridge.identity(c, ((c = (c + 1) | 0))), merged)] = theirs.Current;
                             mineEnded = !mine.moveNext();
                             theirsEnded = !theirs.moveNext();
                         } else {

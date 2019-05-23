@@ -1,7 +1,7 @@
 ﻿using Bridge;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-
 
 namespace Test.BridgeIssues.N697
 {
@@ -48,8 +48,23 @@ namespace Test.BridgeIssues.N697
             // don't get it if you call DOM.Div(null, "Item1", "Item2"), so we don't want it in most cases here either - to achieve this, we prepare an arguments
             // array and pass that to React.createElement in an "apply" call. Similar techniques are used in the stateful component.
             Array createElementArgs = new object[] { reactStatelessRenderFunction, ComponentHelpers<TProps>.WrapProps(props) };
+
             if (children != null)
-                createElementArgs = createElementArgs.Concat(children);
+            {
+                var tempList = new List<object>();
+                foreach (var entry in createElementArgs)
+                {
+                    tempList.Add(entry);
+                }
+
+                foreach (var entry in children)
+                {
+                    tempList.Add(entry);
+                }
+
+                createElementArgs = tempList.ToArray();
+            }
+
             _reactElement = Script.Write<ReactElement>("React.createElement.apply(null, createElementArgs)");
         }
 

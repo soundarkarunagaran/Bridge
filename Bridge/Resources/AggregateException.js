@@ -39,6 +39,16 @@
             return back;
         },
 
+        hasTaskCanceledException: function () {
+            for (var i = 0; i < this.innerExceptions.Count; i++) {
+                var e = this.innerExceptions.getItem(i);
+                if (Bridge.is(e, System.Threading.Tasks.TaskCanceledException) || (Bridge.is(e, System.AggregateException) && e.hasTaskCanceledException())) {
+                    return true;
+                }
+            }
+            return false;
+        },
+
         flatten: function () {
             // Initialize a collection to contain the flattened exceptions.
             var flattenedExceptions = new(System.Collections.Generic.List$1(System.Exception))();

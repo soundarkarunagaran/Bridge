@@ -15,6 +15,13 @@ namespace System
             get;
         }
 
+        public long LongLength
+        {
+            [Bridge.Template("System.Array.getLongLength({this})")]
+            get;
+        }
+        
+
         /// <summary>
         /// Gets a value indicating whether the System.Array has a fixed size.
         /// </summary>
@@ -118,8 +125,6 @@ namespace System
 
         [Bridge.Template("System.Array.trueForAll({array}, {match})")]
         public static extern bool TrueForAll<T>(T[] array, Predicate<T> match);
-
-        public extern Array Concat(params object[] items);
 
         /// <summary>
         /// The indexOf() method returns the first index at which a given element can be found in the array, or -1 if it is not present.
@@ -225,6 +230,12 @@ namespace System
 
         [Bridge.Template("System.Array.copy({src}, 0, {dst}, 0, {len})")]
         public static extern void Copy(Array src, Array dst, int len);
+
+        [Bridge.Template("System.Array.copy({src}, {spos}.toNumber(), {dst}, {dpos}.toNumber(), {len}.toNumber())")]
+        public static extern void Copy(Array src, long spos, Array dst, long dpos, long len);
+
+        [Bridge.Template("System.Array.copy({src}, 0, {dst}, 0, {len}.toNumber())")]
+        public static extern void Copy(Array src, Array dst, long len);
 
         [Bridge.Template("System.Array.copy({this}, 0, {array}, {index}, {this}.length)")]
         public extern void CopyTo(Array array, int index);

@@ -18,7 +18,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         } else if (typeof module === 'object' && module.exports) {
             module.exports = factory();
         } else {
-            root.N3208_TestModule = factory();
+            root["N3208_TestModule"] = factory();
         }
     }(this, function () {
         var N3208_TestModule = { };

@@ -10,6 +10,7 @@ namespace System.Threading.Tasks
     public class TaskCompletionSource<TResult>
     {
         public extern TaskCompletionSource();
+        public extern TaskCompletionSource(object state);
 
         [Bridge.Convention(Bridge.Notation.CamelCase)]
         public extern Task<TResult> Task

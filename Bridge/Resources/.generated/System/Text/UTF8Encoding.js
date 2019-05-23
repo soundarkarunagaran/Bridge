@@ -45,7 +45,7 @@
                                 throw new System.ArgumentException.$ctor1("bytes");
                             }
 
-                            outputBytes[System.Array.index(Bridge.identity(outputIndex, (outputIndex = (outputIndex + 1) | 0)), outputBytes)] = code;
+                            outputBytes[System.Array.index(Bridge.identity(outputIndex, ((outputIndex = (outputIndex + 1) | 0))), outputBytes)] = code;
                         } else {
                             outputBytes.push(code);
                         }

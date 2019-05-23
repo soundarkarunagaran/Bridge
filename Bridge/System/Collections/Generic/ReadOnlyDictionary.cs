@@ -8,7 +8,7 @@ namespace System.Collections.ObjectModel
 {
     public class ReadOnlyDictionary<TKey, TValue> : IDictionary<TKey, TValue>, IDictionary, IReadOnlyDictionary<TKey, TValue>
     {
-        private readonly IDictionary<TKey, TValue> m_dictionary; 
+        private readonly IDictionary<TKey, TValue> m_dictionary;
         private const string NotSupported_ReadOnlyCollection = "Collection is read-only.";
 
         [NonSerialized]
@@ -649,7 +649,7 @@ namespace System.Collections.ObjectModel
                 */
 
                 //
-                // We can't cast array of value type to object[], so we don't support 
+                // We can't cast array of value type to object[], so we don't support
                 // widening of primitive types here.
                 //
                 object[] objects = array as object[];

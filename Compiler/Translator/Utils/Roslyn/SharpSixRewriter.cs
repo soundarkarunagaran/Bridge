@@ -5,7 +5,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Symbols;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Globalization;
@@ -139,7 +138,6 @@ namespace Bridge.Translator
             return new CSharpParseOptions(LanguageVersion.CSharp7, Microsoft.CodeAnalysis.DocumentationMode.None, SourceCodeKind.Regular, translator.DefineConstants);
         }
 
-        private static ConcurrentDictionary<ReferenceInfo, MetadataReference> referencesDict = new ConcurrentDictionary<ReferenceInfo, MetadataReference>();
         private CSharpCompilation CreateCompilation()
         {
             var compilationOptions = new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary);
@@ -151,7 +149,7 @@ namespace Bridge.Translator
             var i = 0;
             foreach (var r in this.translator.References)
             {
-                references[i++] = referencesDict.GetOrAdd(new ReferenceInfo(r.MainModule.FullyQualifiedName), a => MetadataReference.CreateFromFile(a.FilePath, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global"))));
+                references[i++] = MetadataReference.CreateFromFile(r.MainModule.FullyQualifiedName, new MetadataReferenceProperties(MetadataImageKind.Assembly, ImmutableArray.Create("global")));
             }
 
             return CSharpCompilation.Create(GetAssemblyName(), syntaxTrees, references, compilationOptions);
@@ -669,7 +667,7 @@ namespace Bridge.Translator
                 toAwait = true;
             }
 
-            if (method != null && method.ReturnsByRef && (node.Parent is AssignmentExpressionSyntax aes && aes.Left == node || 
+            if (method != null && method.ReturnsByRef && (node.Parent is AssignmentExpressionSyntax aes && aes.Left == node ||
                 node.Parent is MemberAccessExpressionSyntax ||
                 node.Parent is ArgumentSyntax arg && arg.RefKindKeyword.Kind() != SyntaxKind.RefKeyword ||
                 node.Parent is EqualsValueClauseSyntax && node.Parent.Parent is VariableDeclaratorSyntax && node.Parent.Parent.Parent is VariableDeclarationSyntax vs && vs.Type.IsVar))
@@ -1454,7 +1452,7 @@ namespace Bridge.Translator
                 return SyntaxHelper.ToStatementBody(node);
             }
 
-            this.IndexInstance = oldIndex;            
+            this.IndexInstance = oldIndex;
 
             return node;
         }

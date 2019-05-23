@@ -96,8 +96,8 @@ namespace Bridge.Translator
             {
                 if (info.Fields.Count > 0)
                 {
-                    var hasProperties = this.WriteObject(JS.Fields.FIELDS, info.Fields, "this.{0} = {1};", "this[{0}] = {1};");
-                    if (hasProperties)
+                    var hasFields = this.WriteObject(JS.Fields.FIELDS, info.Fields.Where(f => f.IsConst).Concat(info.Fields.Where(f => !f.IsConst)).ToList(), "this.{0} = {1};", "this[{0}] = {1};");
+                    if (hasFields)
                     {
                         this.Emitter.Comma = true;
                         this.WasEmitted = true;

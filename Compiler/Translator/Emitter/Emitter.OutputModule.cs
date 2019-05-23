@@ -225,13 +225,13 @@ namespace Bridge.Translator
             this.WriteIndent(moduleOutput, 2);
             this.WriteNewLine(moduleOutput, "} else {");
             this.WriteIndent(moduleOutput, 3);
-            moduleOutput.Append("root." + module.Name + " = factory(");
+            moduleOutput.Append("root[" + this.ToJavaScript(module.OriginalName) + "] = factory(");
 
             if (enabledDependecies.Count > 0)
             {
                 enabledDependecies.Each(md =>
                 {
-                    moduleOutput.Append("root." + md.DependencyName + ", ");
+                    moduleOutput.Append("root[" + this.ToJavaScript(md.DependencyName) + "], ");
                 });
                 moduleOutput.Remove(moduleOutput.Length - 2, 2); // remove trailing comma
             }

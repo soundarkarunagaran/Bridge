@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Bridge.ClientTest.Batch3.BridgeIssues
 {
-    
+
     /// <summary>
     /// The test here consists in ensuring SortedList usage is compatible
     /// with Microsoft documentation on the class, and that the getter

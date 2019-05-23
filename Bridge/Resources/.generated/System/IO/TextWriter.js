@@ -2,13 +2,13 @@
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                InitialNewLine: null
+                InitialNewLine: null,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.TextWriter.NullTextWriter();
                     this.InitialNewLine = "\r\n";
+                    this.Null = new System.IO.TextWriter.NullTextWriter();
                 }
             },
             methods: {

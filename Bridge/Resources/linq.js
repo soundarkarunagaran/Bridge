@@ -312,7 +312,7 @@
         return emptyEnumerable;
     };
 
-    Enumerable.from = function (obj) {
+    Enumerable.from = function (obj, T) {
         if (obj == null) {
             return Enumerable.empty();
         }
@@ -338,7 +338,7 @@
             return new Enumerable(function () {
                 var enumerator;
                 return new IEnumerator(
-                    function () { enumerator = Bridge.getEnumerator(ienum); },
+                    function () { enumerator = Bridge.getEnumerator(ienum, T); },
                     function () {
                         var ok = enumerator.moveNext();
                         return ok ? this.yieldReturn(enumerator.Current) : false;
@@ -1453,7 +1453,7 @@
                 function () {
                     enumerator = source.GetEnumerator();
                     keys = new (System.Collections.Generic.Dictionary$2(System.Object, System.Object)).$ctor3(comparer);
-                    
+
                     Enumerable.from(second).forEach(function (key) {
                         if (key == null) {
                             hasNull = true;

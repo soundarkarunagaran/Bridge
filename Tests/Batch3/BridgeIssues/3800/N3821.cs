@@ -15,7 +15,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         {
             var done = Assert.Async();
             try
-            {               
+            {
                 var sc = new System.Net.WebSockets.ClientWebSocket();
                 await sc.ConnectAsync(new Uri("wss://NotExistServer/NotExist"), System.Threading.CancellationToken.None);
                 Assert.Fail("ConnectAsync() to an invalid address didn't throw an exception.");

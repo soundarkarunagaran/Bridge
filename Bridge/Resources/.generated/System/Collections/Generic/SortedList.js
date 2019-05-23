@@ -2,21 +2,21 @@
         inherits: [System.Collections.Generic.IDictionary$2(TKey,TValue),System.Collections.IDictionary,System.Collections.Generic.IReadOnlyDictionary$2(TKey,TValue)],
         statics: {
             fields: {
-                emptyKeys: null,
-                emptyValues: null,
                 _defaultCapacity: 0,
-                MaxArrayLength: 0
+                MaxArrayLength: 0,
+                emptyKeys: null,
+                emptyValues: null
             },
             ctors: {
                 init: function () {
+                    this._defaultCapacity = 4;
+                    this.MaxArrayLength = 2146435071;
                     this.emptyKeys = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TKey);
                     }, TKey);
                     this.emptyValues = System.Array.init(0, function (){
                         return Bridge.getDefaultValue(TValue);
                     }, TValue);
-                    this._defaultCapacity = 4;
-                    this.MaxArrayLength = 2146435071;
                 }
             },
             methods: {
@@ -368,8 +368,12 @@
             },
             clear: function () {
                 this.version = (this.version + 1) | 0;
-                System.Array.fill(this.keys, Bridge.getDefaultValue(TKey), 0, this._size);
-                System.Array.fill(this.values, Bridge.getDefaultValue(TValue), 0, this._size);
+                System.Array.fill(this.keys, function () {
+                    return Bridge.getDefaultValue(TKey);
+                }, 0, this._size);
+                System.Array.fill(this.values, function () {
+                    return Bridge.getDefaultValue(TValue);
+                }, 0, this._size);
                 this._size = 0;
             },
             containsKey: function (key) {

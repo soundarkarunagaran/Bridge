@@ -193,7 +193,7 @@
                 if (this._size === this._items.length) {
                     this.EnsureCapacity(((this._size + 1) | 0));
                 }
-                this._items[System.Array.index(Bridge.identity(this._size, (this._size = (this._size + 1) | 0)), this._items)] = item;
+                this._items[System.Array.index(Bridge.identity(this._size, ((this._size = (this._size + 1) | 0))), this._items)] = item;
                 this._version = (this._version + 1) | 0;
             },
             System$Collections$IList$add: function (item) {
@@ -241,7 +241,9 @@
             },
             clear: function () {
                 if (this._size > 0) {
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), 0, this._size);
+                    System.Array.fill(this._items, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, 0, this._size);
                     this._size = 0;
                 }
                 this._version = (this._version + 1) | 0;
@@ -549,7 +551,7 @@
                     var en = Bridge.getEnumerator(collection, T);
                     try {
                         while (en.System$Collections$IEnumerator$moveNext()) {
-                            this.insert(Bridge.identity(index, (index = (index + 1) | 0)), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
+                            this.insert(Bridge.identity(index, ((index = (index + 1) | 0))), en[Bridge.geti(en, "System$Collections$Generic$IEnumerator$1$" + Bridge.getTypeAlias(T) + "$Current$1", "System$Collections$Generic$IEnumerator$1$Current$1")]);
                         }
                     }
                     finally {
@@ -631,11 +633,13 @@
                     }
 
                     if (current < this._size) {
-                        this._items[System.Array.index(Bridge.identity(freeIndex, (freeIndex = (freeIndex + 1) | 0)), this._items)] = this._items[System.Array.index(Bridge.identity(current, (current = (current + 1) | 0)), this._items)];
+                        this._items[System.Array.index(Bridge.identity(freeIndex, ((freeIndex = (freeIndex + 1) | 0))), this._items)] = this._items[System.Array.index(Bridge.identity(current, ((current = (current + 1) | 0))), this._items)];
                     }
                 }
 
-                System.Array.fill(this._items, Bridge.getDefaultValue(T), freeIndex, ((this._size - freeIndex) | 0));
+                System.Array.fill(this._items, function () {
+                    return Bridge.getDefaultValue(T);
+                }, freeIndex, ((this._size - freeIndex) | 0));
                 var result = (this._size - freeIndex) | 0;
                 this._size = freeIndex;
                 this._version = (this._version + 1) | 0;
@@ -671,7 +675,9 @@
                     if (index < this._size) {
                         System.Array.copy(this._items, ((index + count) | 0), this._items, index, ((this._size - index) | 0));
                     }
-                    System.Array.fill(this._items, Bridge.getDefaultValue(T), this._size, count);
+                    System.Array.fill(this._items, function () {
+                        return Bridge.getDefaultValue(T);
+                    }, this._size, count);
                     this._version = (this._version + 1) | 0;
                 }
             },

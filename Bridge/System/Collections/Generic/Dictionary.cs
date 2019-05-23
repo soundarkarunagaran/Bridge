@@ -319,7 +319,7 @@ namespace System.Collections.Generic
                     {
                         ThrowHelper.ThrowArgumentException(ExceptionResource.Argument_AddingDuplicate);
                     }
-                    
+
                     entries[GetBucket(this.simpleBuckets, key)].value = value;
                     version++;
                     return;
@@ -394,7 +394,7 @@ namespace System.Collections.Generic
             buckets[targetBucket] = index;
             version++;
         }
-        
+
         private void Resize()
         {
             Resize(HashHelpers.ExpandPrime(count), false);
@@ -435,7 +435,7 @@ namespace System.Collections.Generic
                         int bucket = newEntries[i].hashCode % newSize;
                         newEntries[i].next = newBuckets[bucket];
                         newBuckets[bucket] = i;
-                    }                    
+                    }
                 }
             }
             buckets = newBuckets;

@@ -60,7 +60,7 @@
                     if (ch === -1) {
                         break;
                     }
-                    buffer[System.Array.index(((index + Bridge.identity(n, (n = (n + 1) | 0))) | 0), buffer)] = ch & 65535;
+                    buffer[System.Array.index(((index + Bridge.identity(n, ((n = (n + 1) | 0)))) | 0), buffer)] = ch & 65535;
                 } while (n < count);
                 return n;
             },

@@ -2,13 +2,13 @@
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                _DefaultCopyBufferSize: 0
+                _DefaultCopyBufferSize: 0,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.Stream.NullStream();
                     this._DefaultCopyBufferSize = 81920;
+                    this.Null = new System.IO.Stream.NullStream();
                 }
             },
             methods: {

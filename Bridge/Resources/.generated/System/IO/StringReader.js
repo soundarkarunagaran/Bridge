@@ -42,7 +42,7 @@
                 if (this._pos === this._length) {
                     return -1;
                 }
-                return this._s.charCodeAt(Bridge.identity(this._pos, (this._pos = (this._pos + 1) | 0)));
+                return this._s.charCodeAt(Bridge.identity(this._pos, ((this._pos = (this._pos + 1) | 0))));
             },
             Read$1: function (buffer, index, count) {
                 if (buffer == null) {

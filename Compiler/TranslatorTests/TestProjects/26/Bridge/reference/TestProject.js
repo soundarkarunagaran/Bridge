@@ -29,6 +29,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                             case 0: {
                                 $task1 = System.Threading.Tasks.Task.delay(1000);
                                 $step = 1;
+                                if ($task1.isCompleted()) continue;
                                 $task1.continueWith($asyncBody, true);
                                 return;
                             }

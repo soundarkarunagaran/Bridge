@@ -22,7 +22,7 @@ if (true)
 if (true)
     console.log('Top4');
 
-System.Linq.Enumerable.from("").any(function (ch) {
+System.Linq.Enumerable.from("", System.Char).any(function (ch) {
     // Singleline comment Top
     /* 
       Multipleline comment Top
@@ -63,7 +63,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         if (true)
             console.log('Before4');
 
-        System.Linq.Enumerable.from("").any(function (ch) {
+        System.Linq.Enumerable.from("", System.Char).any(function (ch) {
                 // Singleline comment Before
                 /* 
                   Multipleline comment Before
@@ -224,7 +224,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                     if (true)
                         console.log('After4');
 
-                    System.Linq.Enumerable.from("").any(function (ch) {
+                    System.Linq.Enumerable.from("", System.Char).any(function (ch) {
                             // Singleline comment After
                             /* 
                               Multipleline comment After
@@ -268,7 +268,7 @@ if (true)
 if (true)
     console.log('Bottom4');
 
-System.Linq.Enumerable.from("").any(function (ch) {
+System.Linq.Enumerable.from("", System.Char).any(function (ch) {
     // Singleline comment Bottom
     /* 
       Multipleline comment Bottom

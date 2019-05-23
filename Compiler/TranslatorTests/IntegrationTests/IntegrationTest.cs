@@ -117,6 +117,9 @@ namespace Bridge.Translator.Tests
         [TestCase("30", false, true, TestName = "IntegrationTest 30 - Async entry point - Task<int> Main()")]
         [TestCase("31", false, true, TestName = "IntegrationTest 31 - Async entry point - Task<int> Main(string[])")]
         [TestCase("32", false, true, TestName = "IntegrationTest 32 - New csproj compilation")]
+        [TestCase("33", false, true, TestName = "IntegrationTest 33 - Issue #3894 - Referenced Project")]
+        [TestCase("34", false, true, TestName = "IntegrationTest 34 - Issue #3894 - Referencing Project")]
+        [TestCase("35", false, true, TestName = "IntegrationTest 35 - Issues - with UseTypedArray setting")]
         public void Test(string folder, bool isToBuild, bool useSpecialFileCompare, string markedContentFiles = null)
         {
             var logDir = Path.GetDirectoryName(Helpers.FileHelper.GetExecutingAssemblyPath());
@@ -195,6 +198,11 @@ namespace Bridge.Translator.Tests
                     {
                         specialFiles.Add(filename, CompareMode.Presence);
                     }
+                }
+
+                if (folder == "34")
+                {
+                    specialFiles.Add("A.js", CompareMode.Presence);
                 }
             }
 

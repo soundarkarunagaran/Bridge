@@ -200,11 +200,15 @@ namespace Bridge.Translator
                         this.Write(customCtor);
                     }
 
-                    if (!isTypeParam && !this.Emitter.Validator.IsExternalType(type) && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
+                    if (!isTypeParam && type.Methods.Count(m => m.IsConstructor && !m.IsStatic) > (type.IsValueType || isObjectLiteral ? 0 : 1))
                     {
-                        this.WriteDot();
-                        var name = OverloadsCollection.Create(this.Emitter, ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member).GetOverloadName();
-                        this.Write(name);
+                        var member = ((InvocationResolveResult)this.Emitter.Resolver.ResolveNode(objectCreateExpression, this.Emitter)).Member;
+                        if (!this.Emitter.Validator.IsExternalType(type) || member.Attributes.Any(a => a.AttributeType.FullName == "Bridge.NameAttribute"))
+                        {
+                            this.WriteDot();
+                            var name = OverloadsCollection.Create(this.Emitter, member).GetOverloadName();
+                            this.Write(name);
+                        }
                     }
 
                     if (applyCtor)
@@ -252,6 +256,7 @@ namespace Bridge.Translator
 
             if (inlineCode != null)
             {
+                this.WriteComma();
                 this.Write(inlineCode);
             }
             else if (item is NamedExpression)

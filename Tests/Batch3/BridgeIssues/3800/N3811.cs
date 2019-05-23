@@ -19,7 +19,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         }
 
         /// <summary>
-        /// Checks whether the 
+        /// Checks whether the
         /// </summary>
         [Test]
         public static void TestLongMinValue()

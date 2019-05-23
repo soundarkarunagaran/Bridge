@@ -2,13 +2,13 @@
         inherits: [System.IDisposable],
         statics: {
             fields: {
-                Null: null,
-                LargeByteBufferSize: 0
+                LargeByteBufferSize: 0,
+                Null: null
             },
             ctors: {
                 init: function () {
-                    this.Null = new System.IO.BinaryWriter.ctor();
                     this.LargeByteBufferSize = 256;
+                    this.Null = new System.IO.BinaryWriter.ctor();
                 }
             }
         },

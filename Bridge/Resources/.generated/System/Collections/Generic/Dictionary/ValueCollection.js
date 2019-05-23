@@ -74,7 +74,7 @@
                 var entries = this.dictionary.entries;
                 for (var i = 0; i < count; i = (i + 1) | 0) {
                     if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                        array[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), array)] = entries[System.Array.index(i, entries)].value;
+                        array[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), array)] = entries[System.Array.index(i, entries)].value;
                     }
                 }
             },
@@ -113,7 +113,7 @@
                     try {
                         for (var i = 0; i < count; i = (i + 1) | 0) {
                             if (entries[System.Array.index(i, entries)].hashCode >= 0) {
-                                objects[System.Array.index(Bridge.identity(index, (index = (index + 1) | 0)), objects)] = entries[System.Array.index(i, entries)].value;
+                                objects[System.Array.index(Bridge.identity(index, ((index = (index + 1) | 0))), objects)] = entries[System.Array.index(i, entries)].value;
                             }
                         }
                     } catch ($e1) {

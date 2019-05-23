@@ -55,7 +55,7 @@ namespace Bridge.Translator
                     variance = MetadataUtils.IsJsGeneric(itypeDef, this.Emitter) &&
                         itypeDef.TypeParameters != null &&
                         itypeDef.TypeParameters.Any(typeParameter => typeParameter.Variance != VarianceModifier.Invariant);
-                }                
+                }
 
                 if ((externalInterface && !nativeImplementation || variance) && !(targetrr is ThisResolveResult || targetrr is TypeResolveResult || targetrr is LocalResolveResult || isField))
                 {

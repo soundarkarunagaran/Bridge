@@ -691,7 +691,7 @@ namespace Bridge.Translator
                         break;
 
                     case BinaryOperatorType.ExclusiveOr:
-                        this.Write(rootSpecial ? JS.Funcs.Math.XOR : "^");
+                        this.Write(rootSpecial ? JS.Funcs.Math.XOR : (isBool ? "!=" : "^"));
                         break;
 
                     case BinaryOperatorType.GreaterThan:

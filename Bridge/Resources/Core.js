@@ -794,6 +794,15 @@
 
             var name = obj.$$name || Bridge.getTypeName(obj);
 
+            if (type.$typeArguments && !type.$isGenericTypeDefinition) {
+                name = type.$genericTypeDefinition.$$name;
+
+                for (var i = 0; i < type.$typeArguments.length; i++) {
+                    var ta = type.$typeArguments[i];
+                    name += "$" + Bridge.getTypeAlias(ta);
+                }
+            }
+
             alias = name.replace(/[\.\(\)\,\+]/g, "$");
 
             if (type.$module) {

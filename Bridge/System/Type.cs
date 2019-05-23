@@ -422,5 +422,7 @@ namespace System
             [Bridge.Template("Bridge.Reflection.isPrimitive({this})")]
             get;
         }
+
+        public extern static TypeCode GetTypeCode(Type type);
     }
 }

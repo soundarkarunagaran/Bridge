@@ -127,6 +127,15 @@
             arr.length = length;
             var isFn = Bridge.isFunction(defvalue);
 
+            if (isFn) {
+                var v = defvalue();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    defvalue = v;
+                }
+            }
+
             for (var k = 0; k < length; k++) {
                 arr[k] = isFn ? defvalue() : defvalue;
             }
@@ -178,6 +187,15 @@
             var arr = new Array(length),
                 isFn = addFn !== true && Bridge.isFunction(value);
 
+            if (isFn) {
+                var v = value();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    value = v;
+                }
+            }
+
             for (var i = 0; i < length; i++) {
                 arr[i] = isFn ? value() : value;
             }
@@ -225,6 +243,11 @@
                 var et = Bridge.getType(obj).$elementType;
 
                 if (et) {
+
+                    if (Bridge.Reflection.isValueType(et) !== Bridge.Reflection.isValueType(type.$elementType)) {
+                        return false;
+                    }
+
                     return System.Array.getRank(obj) === type.$rank && Bridge.Reflection.isAssignableFrom(type.$elementType, et);
                 }
 
@@ -247,7 +270,13 @@
                 return true;
             }
 
-            return !!System.Array._typedArrays[String.prototype.slice.call(Object.prototype.toString.call(obj), 8, -1)];
+            var isTypedArray = !!System.Array._typedArrays[String.prototype.slice.call(Object.prototype.toString.call(obj), 8, -1)];
+
+            if (isTypedArray && !!System.Array._typedArrays[type.name]) {
+                return obj instanceof type;
+            }
+
+            return isTypedArray;
         },
 
         clone: function (arr) {
@@ -400,6 +429,15 @@
             }
 
             var isFn = Bridge.isFunction(val);
+
+            if (isFn) {
+                var v = val();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    val = v;
+                }
+            }
 
             while (--count >= 0) {
                 dst[index + count] = isFn ? val() : val;
@@ -647,6 +685,15 @@
             var oldSize = 0,
                 isFn = Bridge.isFunction(val),
                 ref = arr.v;
+
+            if (isFn) {
+                var v = val();
+
+                if (!v || (!v.$kind && typeof v !== "object")) {
+                    isFn = false;
+                    val = v;
+                }
+            }
 
             if (!ref) {
                 ref = System.Array.init(new Array(newSize), T);
@@ -1208,6 +1255,9 @@
             }
 
             return arr || result;
+        },
+        getLongLength: function (array) {
+            return System.Int64(array.length);
         }
     };
 

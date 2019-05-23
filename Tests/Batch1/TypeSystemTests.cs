@@ -120,5 +120,27 @@ namespace Bridge.ClientTest
             Assert.False(typeof(int).IsAssignableFrom(typeof(E1)), "#31");
             Assert.True(typeof(object).IsAssignableFrom(typeof(E1)), "#32");
         }
+
+        [Test]
+        public void IsGetTypeCodeWorks()
+        {
+            Assert.AreEqual(TypeCode.Empty, Type.GetTypeCode(null), "'null' is TypeCode.Empty.");
+            Assert.AreEqual(TypeCode.Boolean, Type.GetTypeCode(true.GetType()), "'true' is TypeCode.Boolean.");
+            Assert.AreEqual(TypeCode.Byte, Type.GetTypeCode(((byte)1).GetType()), "'((byte)1)' is TypeCode.Byte.");
+            Assert.AreEqual(TypeCode.Char, Type.GetTypeCode('a'.GetType()), "''a'' is TypeCode.Char.");
+            Assert.AreEqual(TypeCode.DateTime, Type.GetTypeCode(DateTime.Now.GetType()), "'DateTime.Now' is TypeCode.DateTime.");
+            Assert.AreEqual(TypeCode.Decimal, Type.GetTypeCode((1m).GetType()), "'1m' is TypeCode.Decimal.");
+            Assert.AreEqual(TypeCode.Double, Type.GetTypeCode((1.0).GetType()), "'1.0' is TypeCode.Double.");
+            Assert.AreEqual(TypeCode.Int16, Type.GetTypeCode(((Int16)1).GetType()), "'(Int16)1' is TypeCode.Int16.");
+            Assert.AreEqual(TypeCode.Int32, Type.GetTypeCode(1.GetType()), "'1' is TypeCode.Int32.");
+            Assert.AreEqual(TypeCode.Int64, Type.GetTypeCode(((Int64)1).GetType()), "'(Int64)1' is TypeCode.Int64.");
+            Assert.AreEqual(TypeCode.SByte, Type.GetTypeCode(((SByte)1).GetType()), "'(SByte)1' is TypeCode.SByte.");
+            Assert.AreEqual(TypeCode.Single, Type.GetTypeCode(((float)1).GetType()), "'(float)1' is TypeCode.Single.");
+            Assert.AreEqual(TypeCode.String, Type.GetTypeCode("".GetType()), "'\"\"' is TypeCode.String.");
+            Assert.AreEqual(TypeCode.UInt16, Type.GetTypeCode(((UInt16)1).GetType()), "'(UInt16)1' is TypeCode.UInt16.");
+            Assert.AreEqual(TypeCode.UInt32, Type.GetTypeCode(((UInt32)1).GetType()), "'(UInt32)1' is TypeCode.UInt32.");
+            Assert.AreEqual(TypeCode.UInt64, Type.GetTypeCode(((UInt64)1).GetType()), "'(UInt64)1' is TypeCode.UInt64.");
+            Assert.AreEqual(TypeCode.Object, Type.GetTypeCode(this.GetType()), "'this' is TypeCode.Object.");
+        }
     }
 }

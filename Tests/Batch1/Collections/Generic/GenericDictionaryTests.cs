@@ -576,7 +576,7 @@ namespace Bridge.ClientTest.Collections.Generic
             el = en.Current;
             Assert.AreEqual(2, el.Key, "Enumerable second key");
             Assert.AreEqual("b", el.Value, "Enumerable second value");
-            Assert.False(en.MoveNext(), "Enumerable MoveNext false");            
+            Assert.False(en.MoveNext(), "Enumerable MoveNext false");
 
 
             // ICollection<T>

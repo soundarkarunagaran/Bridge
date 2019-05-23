@@ -1,16 +1,29 @@
     Bridge.define("System.Threading.Tasks.Task", {
-        inherits: [System.IDisposable],
+        inherits: [System.IDisposable, System.IAsyncResult],
 
         config: {
             alias: [
-                "dispose", "System$IDisposable$Dispose"
-            ]
+                "dispose", "System$IDisposable$Dispose",
+                "AsyncState", "System$IAsyncResult$AsyncState",
+                "CompletedSynchronously", "System$IAsyncResult$CompletedSynchronously",
+                "IsCompleted", "System$IAsyncResult$IsCompleted"
+            ],
+
+            properties: {
+                IsCompleted: {
+                    get: function () {
+                        return this.isCompleted();
+                    }
+                }
+            }
         },
 
         ctor: function (action, state) {
             this.$initialize();
             this.action = action;
             this.state = state;
+            this.AsyncState = state;
+            this.CompletedSynchronously = false;
             this.exception = null;
             this.status = System.Threading.Tasks.TaskStatus.created;
             this.callbacks = [];
@@ -49,13 +62,13 @@
                         if (!cancelCallback) {
                             cancelCallback = true;
                             clearTimeout(clear);
-                            
+
                             tcs.setCanceled();
                         }
                     };
                 }
 
-                var ms = delay; 
+                var ms = delay;
                 if (Bridge.is(delay, System.TimeSpan)) {
                     ms = delay.getTotalMilliseconds();
                 }
@@ -64,7 +77,7 @@
                     if (!cancelCallback) {
                         cancelCallback = true;
                         tcs.setResult(state);
-                    }                    
+                    }
                 }, ms);
 
                 if (token && token.getIsCancellationRequested()) {
@@ -92,17 +105,15 @@
 
                         if (Bridge.is(result, System.Threading.Tasks.Task)) {
                             result.continueWith(function () {
-                                if (result.isCanceled()) {
-                                    tcs.setCanceled();
-                                } else if (result.isFaulted()) {
-                                    tcs.setException(result.exception);
+                                if (result.isFaulted() || result.isCanceled()) {
+                                    tcs.setException(result.exception.innerExceptions.Count > 0 ? result.exception.innerExceptions.getItem(0) : result.exception);
                                 } else {
                                     tcs.setResult(result.getAwaitedResult());
-                                }                                
+                                }
                             });
                         } else {
                             tcs.setResult(result);
-                        }                        
+                        }
                     } catch (e) {
                         tcs.setException(System.Exception.create(e));
                     }
@@ -188,8 +199,6 @@
                                 tcs.trySetResult(t);
                                 break;
                             case System.Threading.Tasks.TaskStatus.canceled:
-                                tcs.trySetCanceled();
-                                break;
                             case System.Threading.Tasks.TaskStatus.faulted:
                                 tcs.trySetException(t.exception.innerExceptions);
                                 break;
@@ -280,6 +289,10 @@
             }
         },
 
+        getException: function () {
+            return this.isCanceled() ? null : this.exception;
+        },
+
         waitt: function (timeout, token) {
             var ms = timeout,
                 tcs = new System.Threading.Tasks.TaskCompletionSource(),
@@ -332,17 +345,15 @@
             this.continueWith(function () {
                 if (!complete) {
                     complete = true;
-                    if (me.isFaulted()) {
+                    if (me.isFaulted() || me.isCanceled()) {
                         tcs.setException(me.exception);
-                    } else if (me.isCanceled()) {
-                        tcs.setCanceled();
                     } else {
                         tcs.setResult();
-                    }  
+                    }
                 }
             })
 
-            return tcs.task;         
+            return tcs.task;
         },
 
         continueWith: function (continuationAction, raise) {
@@ -420,7 +431,7 @@
             }
 
             this.exception = error;
-            this.status = System.Threading.Tasks.TaskStatus.faulted;
+            this.status = this.exception.hasTaskCanceledException && this.exception.hasTaskCanceledException() ? System.Threading.Tasks.TaskStatus.canceled : System.Threading.Tasks.TaskStatus.faulted;
             this.runCallbacks();
 
             return true;
@@ -431,6 +442,7 @@
                 return false;
             }
 
+            this.exception = error || new System.AggregateException(null, [new System.Threading.Tasks.TaskCanceledException.$ctor3(this)]);
             this.status = System.Threading.Tasks.TaskStatus.canceled;
             this.runCallbacks();
 
@@ -454,12 +466,11 @@
                 case System.Threading.Tasks.TaskStatus.ranToCompletion:
                     return this.result;
                 case System.Threading.Tasks.TaskStatus.canceled:
-                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
-
                     if (this.exception && this.exception.innerExceptions) {
                         throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
                     }
 
+                    var ex = new System.Threading.Tasks.TaskCanceledException.$ctor3(this);
                     throw awaiting ? ex : new System.AggregateException(null, [ex]);
                 case System.Threading.Tasks.TaskStatus.faulted:
                     throw awaiting ? (this.exception.innerExceptions.Count > 0 ? this.exception.innerExceptions.getItem(0) : null) : this.exception;
@@ -508,9 +519,9 @@
     });
 
     Bridge.define("System.Threading.Tasks.TaskCompletionSource", {
-        ctor: function () {
+        ctor: function (state) {
             this.$initialize();
-            this.task = new System.Threading.Tasks.Task();
+            this.task = new System.Threading.Tasks.Task(null, state);
             this.task.status = System.Threading.Tasks.TaskStatus.running;
         },
 
@@ -545,7 +556,13 @@
                 exception = [exception];
             }
 
-            return this.task.fail(new System.AggregateException(null, exception));
+            exception = new System.AggregateException(null, exception);
+
+            if (exception.hasTaskCanceledException()) {
+                return this.task.cancel(exception);
+            }
+
+            return this.task.fail(exception);
         }
     });
 

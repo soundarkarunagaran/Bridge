@@ -59,7 +59,7 @@ namespace Bridge.Translator
                                     var ti = model.GetTypeInfo(declarationPattern.Type);
                                     var isValueType = ti.Type != null ? ti.Type.IsValueType : false;
                                     typesInfo[declarationPattern.Type.ToString()] = isValueType;
-                                }                                
+                                }
 
                                 var locals = updatedStatements.ContainsKey(beforeStatement) ? updatedStatements[beforeStatement] : new List<LocalDeclarationStatementSyntax>();
 
@@ -205,7 +205,7 @@ namespace Bridge.Translator
                                         SyntaxKind.SimpleAssignmentExpression,
                                         SyntaxFactory.IdentifierName(designation.Identifier.ValueText),
                                         SyntaxFactory.BinaryExpression(SyntaxKind.AsExpression, pattern.Expression, declarationPattern.Type)
-                                    )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));                                   
+                                    )), SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression));
                                 }
 
                                 updatedPatterns[pattern] = newExpr.NormalizeWhitespace();

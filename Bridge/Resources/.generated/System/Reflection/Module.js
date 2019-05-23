@@ -2,15 +2,15 @@
         inherits: [System.Reflection.ICustomAttributeProvider,System.Runtime.Serialization.ISerializable],
         statics: {
             fields: {
+                DefaultLookup: 0,
                 FilterTypeName: null,
-                FilterTypeNameIgnoreCase: null,
-                DefaultLookup: 0
+                FilterTypeNameIgnoreCase: null
             },
             ctors: {
                 init: function () {
+                    this.DefaultLookup = 28;
                     this.FilterTypeName = System.Reflection.Module.FilterTypeNameImpl;
                     this.FilterTypeNameIgnoreCase = System.Reflection.Module.FilterTypeNameIgnoreCaseImpl;
-                    this.DefaultLookup = 28;
                 }
             },
             methods: {
@@ -198,7 +198,7 @@
                 cnt = 0;
                 for (var i1 = 0; i1 < c.length; i1 = (i1 + 1) | 0) {
                     if (c[System.Array.index(i1, c)] != null) {
-                        ret[System.Array.index(Bridge.identity(cnt, (cnt = (cnt + 1) | 0)), ret)] = c[System.Array.index(i1, c)];
+                        ret[System.Array.index(Bridge.identity(cnt, ((cnt = (cnt + 1) | 0))), ret)] = c[System.Array.index(i1, c)];
                     }
                 }
                 return ret;

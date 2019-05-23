@@ -253,7 +253,7 @@ namespace System
         [Bridge.Template("Bridge.Math.round({d}, {digits}, {method})")]
         public static extern double Round(double d, int digits, MidpointRounding method);
 
-        [Bridge.Template("{x} - ({y} * Math.round({x} / {y}))")]
+        [Bridge.Template("Bridge.Math.IEEERemainder({x}, {y})")]
         public static extern double IEEERemainder(double x, double y);
 
         public static extern double Exp(double x);

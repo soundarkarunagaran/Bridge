@@ -143,6 +143,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                     case 0: {
                                         $task1 = Bridge.loadModule({amd: ["Module2217_AMD"]}, function () { Module2217_AMD = arguments[0]; });
                                         $step = 1;
+                                        if ($task1.isCompleted()) continue;
                                         $task1.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -150,6 +151,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task1.getAwaitedResult();
                                         $task2 = Bridge.loadModule({cjs: ["Module2217_CommonJS"]}, function () { Module2217_CommonJS = arguments[0]; });
                                         $step = 2;
+                                        if ($task2.isCompleted()) continue;
                                         $task2.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -157,6 +159,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task2.getAwaitedResult();
                                         $task3 = Bridge.loadModule({cjs: ["Module2217_ES6"]}, function () { Module2217_ES6 = arguments[0]; });
                                         $step = 3;
+                                        if ($task3.isCompleted()) continue;
                                         $task3.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -164,6 +167,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task3.getAwaitedResult();
                                         $task4 = Bridge.loadModule({amd: ["Module2217_UMD"]}, function () { Module2217_UMD = arguments[0]; });
                                         $step = 4;
+                                        if ($task4.isCompleted()) continue;
                                         $task4.continueWith($asyncBody, true);
                                         return;
                                     }
@@ -207,7 +211,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
         } else if (typeof module === 'object' && module.exports) {
             module.exports = factory();
         } else {
-            root.Module2217_UMD = factory();
+            root["Module2217_UMD"] = factory();
         }
     }(this, function () {
         var Module2217_UMD = { };

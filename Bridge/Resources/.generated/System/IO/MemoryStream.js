@@ -306,7 +306,7 @@
                     return -1;
                 }
 
-                return this._buffer[System.Array.index(Bridge.identity(this._position, (this._position = (this._position + 1) | 0)), this._buffer)];
+                return this._buffer[System.Array.index(Bridge.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)];
             },
             Seek: function (offset, loc) {
                 if (!this._isOpen) {
@@ -444,7 +444,7 @@
                     }
                     this._length = newLength;
                 }
-                this._buffer[System.Array.index(Bridge.identity(this._position, (this._position = (this._position + 1) | 0)), this._buffer)] = value;
+                this._buffer[System.Array.index(Bridge.identity(this._position, ((this._position = (this._position + 1) | 0))), this._buffer)] = value;
 
             },
             WriteTo: function (stream) {

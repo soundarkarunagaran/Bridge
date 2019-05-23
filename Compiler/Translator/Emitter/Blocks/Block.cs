@@ -285,7 +285,7 @@ namespace Bridge.Translator
                         this.EndBlock();
                         this.Write("));");
                         this.WriteNewLine();
-                    }                    
+                    }
                 }
 
                 this.Emitter.WrapRestCounter = this.OldWrapRestCounter;

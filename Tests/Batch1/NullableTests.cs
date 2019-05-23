@@ -571,13 +571,13 @@ namespace Bridge.ClientTest
         {
             bool? a = true, b = true, c = false, d = false, e = null, f = null;
             // #1568 Should be strict equal
-            Assert.AreEqual(0, a ^ b);
-            Assert.AreEqual(1, a ^ c);
+            Assert.AreEqual(false, a ^ b);
+            Assert.AreEqual(true, a ^ c);
 
             Assert.AreEqual(null, a ^ e);
             // #1568 Should be strict equal
-            Assert.AreEqual(1, c ^ a);
-            Assert.AreEqual(0, c ^ d);
+            Assert.AreEqual(true, c ^ a);
+            Assert.AreEqual(false, c ^ d);
 
             Assert.AreEqual(null, c ^ e);
             Assert.AreEqual(null, e ^ a);

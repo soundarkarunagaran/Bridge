@@ -726,6 +726,12 @@ namespace Bridge.ClientTest
             NumberHelper.AssertDoubleWithEpsilon8(Math.IEEERemainder(-16.3, 4.1), 0.0999999999999979);
             NumberHelper.AssertDoubleWithEpsilon8(Math.IEEERemainder(17.8, -4.1), 1.4);
             NumberHelper.AssertDoubleWithEpsilon8(Math.IEEERemainder(-17.8, -4.1), -1.4);
+
+            // Issue #3899
+            NumberHelper.AssertDoubleWithEpsilon8(1, Math.IEEERemainder(-3, 2));
+            NumberHelper.AssertDoubleWithEpsilon8(1, Math.IEEERemainder(5, 2));
+            NumberHelper.AssertDoubleWithEpsilon8(2, Math.IEEERemainder(2, Double.NegativeInfinity));
+            NumberHelper.AssertDoubleWithEpsilon8(-4.3, Math.IEEERemainder(-4.3, Double.NegativeInfinity));
         }
 
         [Test]

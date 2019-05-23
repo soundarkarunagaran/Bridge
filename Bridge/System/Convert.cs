@@ -565,6 +565,11 @@ namespace System
 
         #endregion FromBase64CharArray
 
+        public static extern Object ChangeType(Object value, Type conversionType);
+        public static extern Object ChangeType(Object value, Type conversionType, IFormatProvider provider);
+        public static extern Object ChangeType(Object value, TypeCode typeCode);
+        public static extern Object ChangeType(Object value, TypeCode typeCode, IFormatProvider provider);
+
         //A typeof operation is fairly expensive (does a system call), so we'll cache these here
         //statically.  These are exactly lined up with the TypeCode, eg. ConvertType[TypeCode.Int16]
         //will give you the type of an Int16.
