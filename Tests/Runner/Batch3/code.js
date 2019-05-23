@@ -39340,6 +39340,48 @@ Bridge.$N1391Result =                     r;
         $utype: System.String
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3964", {
+        statics: {
+            methods: {
+                TestIndexOfAny: function () {
+                    var test = System.Array.init([100, 72], System.Char);
+                    var msg = "Hello, World!";
+
+                    Bridge.Test.NUnit.Assert.AreEqual(0, System.String.indexOfAny(msg, test));
+
+                    var chars = System.Array.init([
+                        97, 
+                        101, 
+                        105, 
+                        111, 
+                        117, 
+                        121, 
+                        65, 
+                        69, 
+                        73, 
+                        79, 
+                        85, 
+                        89
+                    ], System.Char);
+                    var s = "The long and winding road...";
+                    Bridge.Test.NUnit.Assert.AreEqual(2, System.String.indexOfAny(s, chars));
+
+                    var str = "Now is the time for all good men to come to the aid of their party.";
+                    var target = "is";
+                    var anyOf = System.String.toCharArray(target, 0, target.length);
+                    var start = (Bridge.Int.div(str.length, 2)) | 0;
+                    Bridge.Test.NUnit.Assert.AreEqual(49, System.String.indexOfAny(str, anyOf, start));
+
+                    target = "aid";
+                    anyOf = System.String.toCharArray(target, 0, target.length);
+                    start = (Bridge.Int.div((((str.length - 1) | 0)), 3)) | 0;
+                    var count = (Bridge.Int.div((((str.length - 1) | 0)), 4)) | 0;
+                    Bridge.Test.NUnit.Assert.AreEqual(27, System.String.indexOfAny(str, anyOf, start, count));
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge407", {
         $kind: "struct",
         statics: {

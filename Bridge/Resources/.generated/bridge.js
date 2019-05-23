@@ -13702,14 +13702,12 @@ if (typeof window !== 'undefined' && window.performance && window.performance.no
                     throw new System.ArgumentOutOfRangeException.$ctor4("length", "Index and length must refer to a location within the string");
                 }
 
-                var s = str.substr(startIndex, length);
+                length = startIndex + length;
+                anyOf = String.fromCharCode.apply(null, anyOf);
 
-                for (var i = 0; i < anyOf.length; i++) {
-                    var c = String.fromCharCode(anyOf[i]),
-                        index = s.indexOf(c);
-
-                    if (index > -1) {
-                        return index + startIndex;
+                for (var i = startIndex; i < length; i++) {
+                    if (anyOf.indexOf(str.charAt(i)) >= 0) {
+                        return i;
                     }
                 }
 
