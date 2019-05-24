@@ -39340,6 +39340,25 @@ Bridge.$N1391Result =                     r;
         $utype: System.String
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3969", {
+        statics: {
+            methods: {
+                TestCharIndexer: function () {
+                    var testarr = System.Array.init(255, null, System.String);
+                    testarr[System.Array.index(42, testarr)] = "works";
+                    testarr[System.Array.index(104, testarr)] = "also works";
+                    testarr[System.Array.index(104, testarr)] = "wait what?";
+
+                    Bridge.Test.NUnit.Assert.AreEqual("works", testarr[System.Array.index(42, testarr)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("works", testarr[System.Array.index(42, testarr)]);
+
+                    Bridge.Test.NUnit.Assert.AreEqual("wait what?", testarr[System.Array.index(104, testarr)]);
+                    Bridge.Test.NUnit.Assert.AreEqual("wait what?", testarr[System.Array.index(104, testarr)]);
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge407", {
         $kind: "struct",
         statics: {
