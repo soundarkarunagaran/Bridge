@@ -1377,7 +1377,7 @@ namespace Bridge.Translator
 
             var primitive = index as PrimitiveExpression;
 
-            if (primitive != null && primitive.Value != null &&
+            if (!isArray && primitive != null && primitive.Value != null &&
                 Regex.Match(primitive.Value.ToString(), "^[_$a-z][_$a-z0-9]*$", RegexOptions.IgnoreCase).Success)
             {
                 if (this.isRefArg)
