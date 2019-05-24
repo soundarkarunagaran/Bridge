@@ -144,7 +144,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task1 = Bridge.loadModule({amd: ["Module2217_AMD"]}, function () { Module2217_AMD = arguments[0]; });
                                         $step = 1;
                                         if ($task1.isCompleted()) continue;
-                                        $task1.continueWith($asyncBody, true);
+                                        $task1.continue($asyncBody);
                                         return;
                                     }
                                     case 1: {
@@ -152,7 +152,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task2 = Bridge.loadModule({cjs: ["Module2217_CommonJS"]}, function () { Module2217_CommonJS = arguments[0]; });
                                         $step = 2;
                                         if ($task2.isCompleted()) continue;
-                                        $task2.continueWith($asyncBody, true);
+                                        $task2.continue($asyncBody);
                                         return;
                                     }
                                     case 2: {
@@ -160,7 +160,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task3 = Bridge.loadModule({cjs: ["Module2217_ES6"]}, function () { Module2217_ES6 = arguments[0]; });
                                         $step = 3;
                                         if ($task3.isCompleted()) continue;
-                                        $task3.continueWith($asyncBody, true);
+                                        $task3.continue($asyncBody);
                                         return;
                                     }
                                     case 3: {
@@ -168,7 +168,7 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                                         $task4 = Bridge.loadModule({amd: ["Module2217_UMD"]}, function () { Module2217_UMD = arguments[0]; });
                                         $step = 4;
                                         if ($task4.isCompleted()) continue;
-                                        $task4.continueWith($asyncBody, true);
+                                        $task4.continue($asyncBody);
                                         return;
                                     }
                                     case 4: {
