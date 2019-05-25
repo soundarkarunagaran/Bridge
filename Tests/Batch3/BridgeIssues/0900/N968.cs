@@ -20,13 +20,13 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         public static void TestDecimalParsesCorrectValues()
         {
             decimal d1 = decimal.Parse("123e1");
-            Assert.AreEqual(123e1m, d1, "123e1");
+            Assert.True(123e1m == d1, "123e1");
 
             decimal d2 = decimal.Parse("123e+1");
-            Assert.AreEqual(123e+1m, d2, "123e+1");
+            Assert.True(123e+1m == d2, "123e+1");
 
             decimal d3 = decimal.Parse("123e-1");
-            Assert.AreEqual(123e-1m, d3, "123e-1");
+            Assert.True(123e-1m == d3, "123e-1");
         }
     }
 }

@@ -136,6 +136,12 @@ namespace Bridge.ClientTestHelper
             Assert.AreEqual(expected.ToString(), actual.ToString(), message + " representation");
         }
 
+        public static void AssertRealDecimal(decimal expected, decimal actual, string message = null)
+        {
+            Assert.AreEqual("Decimal", actual.GetType().Name, message + " type");
+            Assert.AreEqual(expected.ToString(), actual.ToString(), message + " representation");
+        }
+
         public static void AssertLong(object expected, object actual, string message = "")
         {
             Assert.AreEqual("System.Int64", actual.GetType().FullName, message + " type");

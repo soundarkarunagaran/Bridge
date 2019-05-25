@@ -37,12 +37,12 @@ Bridge.assembly("TestProject", function ($asm, globals) {
                 CheckInlineExpression: function () {
                     var s = "AnotherSome";
                     var i = 20;
-                    var d = System.Decimal(10.5);
+                    var d = System.Decimal(10.5, 1);
                 },
                 CheckInlineCalls: function () {
                     var s = Test.BridgeIssues.N447.Math447.GetSum$2(Test.BridgeIssues.N447.N447.Another, "Some");
                     var i = Test.BridgeIssues.N447.Math447.GetSum$1(Test.BridgeIssues.N447.N447.Five, 15);
-                    var d = Test.BridgeIssues.N447.Math447.GetSum(Test.BridgeIssues.N447.N447.Ten, System.Decimal(0.5));
+                    var d = Test.BridgeIssues.N447.Math447.GetSum(Test.BridgeIssues.N447.N447.Ten, System.Decimal(0.5, 1));
                 }
             }
         }

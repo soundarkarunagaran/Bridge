@@ -117,7 +117,7 @@ namespace Bridge.ClientTest
                 { HasDotNetDiff, 0.000000000000004m, 443534569034876.12345678901235m, 9436905724146.297872340425532m, 0.12345678901235m },
                 { NoDotNetDiff, null, 4435345690348766678656790453m, 17m, 14m },
                 { NoDotNetDiff, null, 17.2345324m, 4435345690348766678656790453m, 17.2345324m },
-                { HasDotNetDiff, 0.0000000000001m, -943456769034871.4234m, 47.00000000003455m, -43.8823070185248m },
+                { HasDotNetDiff, 0.0000000000001m, -943456769034871.4234m, 47.00000000003455m, -43.88230701852480m },
                 { NoDotNetDiff, null, 6999545690348766678656790453m, -13m, decimal.One },
                 { NoDotNetDiff, null, 11m, -6435345690348766678656790453m, 11m },
                 { NoDotNetDiff, null, DecimalMathTests.MaxValue, DecimalMathTests.MaxValue, 0m },

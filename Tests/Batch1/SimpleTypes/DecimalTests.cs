@@ -1327,7 +1327,7 @@ namespace Bridge.ClientTest.SimpleTypes
             // #1588
             Assert.AreEqual("0", (decimal.Parse("-0")).ToString(), "(new Decimal(\"-0\")).ToString() == \"0\" FAILED");
 
-            Assert.AreEqual("0", ((decimal.Parse("0.3")) - (decimal.Parse("0.1")) * 3).ToString(), "(new Decimal(\"0.3\")).sub((new Decimal(\"0.1\")).mul(3)).toString() == \"0\" FAILED");
+            Assert.AreEqual("0.0", ((decimal.Parse("0.3")) - (decimal.Parse("0.1")) * 3).ToString(), "(new Decimal(\"0.3\")).sub((new Decimal(\"0.1\")).mul(3)).toString() == \"0\" FAILED");
             Assert.AreEqual("10000000000000000000000000000", ((decimal.Parse("9999999999999999999999999999")) + decimal.Parse("1")).ToString(), "(new Decimal(\"9999999999999999999999999999\")).add(\"1\").toString() == \"10000000000000000000000000000\" FAILED");
             Assert.AreEqual("-10000000000000000000000000000", (((decimal.Parse("-9999999999999999999999999999")) - decimal.Parse("1"))).ToString(), "(new Decimal(\"-9999999999999999999999999999\")).sub(\"1\").toString() == \"-10000000000000000000000000000\" FAILED");
             Assert.AreEqual("2", (decimal.Round(decimal.Parse("1.5"), 0, MidpointRounding.ToEven)).ToString(), "(Decimal.round(new Decimal(\"1.5\"), 0, Decimal.MidpointRounding.ToEven)).toString() == \"2\" FAILED");
@@ -1890,10 +1890,10 @@ namespace Bridge.ClientTest.SimpleTypes
             Assert.AreEqual("-12.1", (decimal.Parse("-12.1") % decimal.Parse("254.9")).ToString(), "-12.1 % 254.9");
             Assert.AreEqual("12.1", (decimal.Parse("12.1") % decimal.Parse("-254.9")).ToString(), "12.1 % -254.9");
             Assert.AreEqual("-12.1", (decimal.Parse("-12.1") % decimal.Parse("-254.9")).ToString(), "-12.1 % -254.9");
-            Assert.AreEqual("0", (decimal.Parse("254.9") % decimal.Parse("254.9")).ToString(), "12.1 % 12.1");
-            Assert.AreEqual("0", (decimal.Parse("-254.9") % decimal.Parse("254.9")).ToString(), "-12.1 % 12.1");
-            Assert.AreEqual("0", (decimal.Parse("254.9") % decimal.Parse("-254.9")).ToString(), "12.1 % -12.1");
-            Assert.AreEqual("0", (decimal.Parse("-254.9") % decimal.Parse("-254.9")).ToString(), "-12.1 % -12.1");
+            Assert.AreEqual("0.0", (decimal.Parse("254.9") % decimal.Parse("254.9")).ToString(), "12.1 % 12.1");
+            Assert.AreEqual("0.0", (decimal.Parse("-254.9") % decimal.Parse("254.9")).ToString(), "-12.1 % 12.1");
+            Assert.AreEqual("0.0", (decimal.Parse("254.9") % decimal.Parse("-254.9")).ToString(), "12.1 % -12.1");
+            Assert.AreEqual("0.0", (decimal.Parse("-254.9") % decimal.Parse("-254.9")).ToString(), "-12.1 % -12.1");
 
             Assert.AreEqual("0", decimal.Truncate(decimal.Parse(".9")).ToString(), "(new Decimal(\".9\").trunc() == \"0\" FAILED");
             Assert.AreEqual("0", decimal.Truncate(decimal.Parse(".999")).ToString(), "(new Decimal(\".999\").trunc() == \"0\" FAILED");

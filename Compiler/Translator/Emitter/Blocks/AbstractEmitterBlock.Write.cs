@@ -187,9 +187,18 @@ namespace Bridge.Translator
             {
                 s = emitter.ToJavaScript((int)(char)value);
             }
-            else if (value is decimal)
+            else if (value is decimal d)
             {
-                s = JS.Types.SYSTEM_DECIMAL + "(" + AbstractEmitterBlock.DecimalConstant((decimal)value, emitter) + ")";
+                var tmp = d.ToString(CultureInfo.InvariantCulture);
+                s = JS.Types.SYSTEM_DECIMAL + "(" + AbstractEmitterBlock.DecimalConstant(d, emitter);
+
+                int dot;
+                if ((dot = tmp.IndexOf(".")) >= 0)
+                {
+                    s += ", " + tmp.Substring(dot + 1).Length;
+                }
+
+                s += ")";
             }
             else if (value is long)
             {

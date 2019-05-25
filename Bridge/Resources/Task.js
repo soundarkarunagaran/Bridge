@@ -356,6 +356,15 @@
             return tcs.task;
         },
 
+        continue: function (continuationAction) {
+            if (this.isCompleted()) {
+                System.Threading.Tasks.Task.queue.push(continuationAction);
+                System.Threading.Tasks.Task.runQueue();
+            } else {
+                this.callbacks.push(continuationAction);
+            }
+        },
+
         continueWith: function (continuationAction, raise) {
             var tcs = new System.Threading.Tasks.TaskCompletionSource(),
                 me = this,

@@ -288,7 +288,7 @@ namespace Bridge.Translator
                                             {
                                                 string enumStringName = this.Emitter.GetEntityName(member);
                                                 this.WriteScript(enumStringName);
-                                            } else { 
+                                            } else {
                                                 this.WriteScript(prm.ConstantValue);
                                             }
                                         }

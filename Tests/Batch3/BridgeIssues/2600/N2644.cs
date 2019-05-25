@@ -64,7 +64,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             decimal decimal1 = 10;
             decimal decimal2 = 20;
             decimal1 = Math.Max(decimal1, decimal2);
-            NumberHelper.AssertNumber(20.0m, decimal1, "decimal");
+            NumberHelper.AssertNumber(20m, decimal1, "decimal");
         }
 
         [Test]
@@ -123,7 +123,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             decimal decimal1 = 10;
             decimal decimal2 = 20;
             decimal2 = Math.Min(decimal1, decimal2);
-            NumberHelper.AssertNumber(10.0m, decimal2, "decimal");
+            NumberHelper.AssertNumber(10m, decimal2, "decimal");
         }
     }
 }

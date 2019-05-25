@@ -65,7 +65,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
                 await Task.Delay(100, source.Token);
 
                 return 42;
-            });            
+            });
 
             try
             {

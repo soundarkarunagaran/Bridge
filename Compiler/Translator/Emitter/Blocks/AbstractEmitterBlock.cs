@@ -227,14 +227,7 @@ namespace Bridge.Translator
             this.Write(" continue;");
             this.WriteNewLine();
 
-            if (this.Emitter.AsyncBlock.IsTaskReturn)
-            {
-                this.Write(JS.Vars.ASYNC_TASK + index + "." + JS.Funcs.CONTINUE_WITH + "(" + JS.Funcs.ASYNC_BODY + ");");
-            }
-            else
-            {
-                this.Write(JS.Vars.ASYNC_TASK + index + "." + JS.Funcs.CONTINUE_WITH + "(" + JS.Funcs.ASYNC_BODY + ", true);");
-            }
+            this.Write(JS.Vars.ASYNC_TASK + index + "." + JS.Funcs.CONTINUE_WITH + "(" + JS.Funcs.ASYNC_BODY + ");");
 
             this.WriteNewLine();
 
