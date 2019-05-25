@@ -9584,7 +9584,6 @@ Bridge.define("System.Type", {
 
     // @source Date.js
 
-
     Bridge.define("System.DateTime", {
         inherits: function () { return [System.IComparable, System.IComparable$1(System.DateTime), System.IEquatable$1(System.DateTime), System.IFormattable]; },
         $kind: "struct",
@@ -10846,6 +10845,7 @@ Bridge.define("System.Type", {
             }
         }
     });
+
     // @source TimeSpan.js
 
     Bridge.define("System.TimeSpan", {
