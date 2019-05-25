@@ -8,22 +8,56 @@
             $clone: function (to) { return this; }
         },
         statics: {
+            $minTicks: null,
+            $maxTicks: null,
+            $minOffset: null,
+            $maxOffset: null,
+            $default: null,
+            $min: null,
+            $max: null,
+
             TicksPerDay: System.Int64("864000000000"),
 
             DaysTo1970: 719162,
             YearDaysByMonth: [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
 
-            MinTicks: System.Int64("0"),
-            MaxTicks: System.Int64("3652059").mul(System.Int64("864000000000")).sub(1),
+            getMinTicks: function() {
+                if (this.$minTicks === null) {
+                    this.$minTicks = System.Int64("0");
+                }
+
+                return this.$minTicks;
+            },
+
+            getMaxTicks: function () {
+                if (this.$maxTicks === null) {
+                    this.$maxTicks = System.Int64("3652059").mul(System.Int64("864000000000")).sub(1);
+                }
+
+                return this.$maxTicks;
+            },
 
             // Difference in Ticks from 1-Jan-0001 to 1-Jan-1970 at UTC
-            $minOffset: System.Int64("621355968000000000"),
+            $getMinOffset: function () {
+                if (this.$minOffset === null) {
+                    this.$minOffset = System.Int64("621355968000000000");
+                }
+
+                return this.$minOffset;
+            },
+
+            // Difference in Ticks between 1970-01-01 and 1 nanosecond before 10000-01-01 UTC
+            $getMaxOffset: function () {
+                if (this.$maxOffset === null) {
+                    this.$maxOffset = this.getMaxTicks().sub(this.$getMinOffset());
+                }
+
+                return this.$maxOffset;
+            },
 
             $is: function (instance) {
                 return Bridge.isDate(instance);
             },
-
-            $default: null,
 
             getDefaultValue: function () {
                 if (this.$default === null) {
@@ -33,23 +67,41 @@
                 return this.$default;
             },
 
-            $min: null,
-
             // UTC Min Value
             getMinValue: function () {
                 if (this.$min === null) {
-                    this.$min = this.create$2(0, 0);
+                    var d = new Date(0);
+
+                    d.setFullYear(1);
+                    d.setHours(0);
+                    d.setMinutes(0);
+                    d.setSeconds(0);
+                    d.setMilliseconds(0);
+
+                    d.ticks = this.getMinTicks();
+
+                    this.$min = d;
                 }
 
                 return this.$min;
             },
 
-            $max: null,
-
             // UTC Max Value
             getMaxValue: function () {
                 if (this.$max === null) {
-                    this.$max = this.create$2(this.MaxTicks, 0);
+                    var d = new Date(0)
+
+                    d.setFullYear(9999);
+                    d.setMonth(11);
+                    d.setDate(31);
+                    d.setHours(23);
+                    d.setMinutes(59);
+                    d.setSeconds(59);
+                    d.setMilliseconds(999);
+
+                    d.ticks = this.getMaxTicks();
+
+                    this.$max = d;
                 }
 
                 return this.$max;
@@ -64,7 +116,7 @@
             // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
             getTicks: function (d) {
                 if (d.ticks === undefined) {
-                    d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$minOffset).sub(this.$getTzOffset(d));
+                    d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$getMinOffset()).sub(this.$getTzOffset(d));
                 }
 
                 return d.ticks;
@@ -77,7 +129,7 @@
                 d1 = this.create$2(ticks, 2);
 
                 // Check if Ticks are out of range
-                if (ticks.gt(this.MaxTicks) || ticks.lt(0)) {
+                if (ticks.gt(this.getMaxTicks()) || ticks.lt(0)) {
                     if (throwOnOverflow && throwOnOverflow === true) {
                         throw new System.ArgumentException.$ctor1("Specified argument was out of the range of valid values.");
                     } else {
@@ -95,7 +147,7 @@
                     d1 = this.create$2(ticks, 1);
 
                 // Check if Ticks are out of range
-                if (ticks.gt(this.MaxTicks) || ticks.lt(0)) {
+                if (ticks.gt(this.getMaxTicks()) || ticks.lt(0)) {
                     d1 = this.create$2(ticks.add(this.$getTzOffset(d1)), 1);
                 }
 
@@ -130,9 +182,9 @@
             create$2: function (ticks, kind) {
                 ticks = System.Int64.is64Bit(ticks) ? ticks : System.Int64(ticks);
 
-                var d = new Date(ticks.sub(this.$minOffset).div(10000).toNumber());
+                var d = new Date(ticks.sub(this.$getMinOffset()).div(10000).toNumber());
 
-                d.ticks = this.getTicks(d);
+                d.ticks = ticks;
                 d.kind = (kind !== undefined) ? kind : 0;
 
                 return d;
@@ -165,7 +217,10 @@
             },
 
             specifyKind: function (d, kind) {
-                return this.create$2(this.getTicks(d), kind);
+                d = new Date(d.getTime());
+                d.kind = kind;
+
+                return d; 
             },
 
             $FileTimeOffset: System.Int64("584388").mul(System.Int64("864000000000")),
@@ -1085,15 +1140,25 @@
             },
 
             addMilliseconds: function (d, v) {
-                v = System.Int64.is64Bit(v) ? v : System.Int64(v);
+                var dt = new Date(d.getTime());
+                dt.setMilliseconds(dt.getMilliseconds() + v)
+                dt.ticks = this.getTicks(dt);
+                dt.kind = (d.kind !== undefined) ? d.kind : 0;
 
-                return this.addTicks(d, v.mul(10000));
+                return dt;
             },
 
             addTicks: function (d, v) {
                 v = System.Int64.is64Bit(v) ? v : System.Int64(v);
 
-                return this.create$2(this.getTicks(d).add(v), d.kind);
+                var dt = new Date(d.getTime()),
+                    ticks = this.getTicks(d).add(v);
+
+                dt.setMilliseconds(dt.getMilliseconds() + v.div(10000).toNumber())
+                dt.ticks = ticks;
+                dt.kind = (d.kind !== undefined) ? d.kind : 0;
+
+                return dt;
             },
 
             add: function (d, value) {
