@@ -20,7 +20,6 @@ namespace System
             [Bridge.Template("System.Array.getLongLength({this})")]
             get;
         }
-        
 
         /// <summary>
         /// Gets a value indicating whether the System.Array has a fixed size.

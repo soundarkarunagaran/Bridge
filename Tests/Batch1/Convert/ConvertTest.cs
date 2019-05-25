@@ -312,8 +312,6 @@ namespace Bridge.ClientTest.ConvertTests
                 object copy = GetBoxedCopy(testValue);
                 Assert.AreEqual(testValue, copy, "Type identity change works.");
             }
-
-            
         }
 
         public static object GetBoxedCopy(object obj)

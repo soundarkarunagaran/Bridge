@@ -33,7 +33,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             Assert.AreEqual("0.310", (d1 + d2).ToString(), "Sum of 2 and 3 digits long decimal numbers results in a 3-digit value.");
 
             d1 = 0.06m;
-            d2 = d1 / 4; // we don't care about the result here, we're checking if trailing zeroes are being cropped off the number. 
+            d2 = d1 / 4; // we don't care about the result here, we're checking if trailing zeroes are being cropped off the number.
             Assert.AreEqual("0.060", (d2 * 4).ToString(), "Multiplication of a 3-digitlong decimal numbers result in a 3-digit value.");
         }
     }
