@@ -39478,6 +39478,16 @@ Bridge.$N1391Result =                     r;
         }
     });
 
+    Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge3970", {
+        statics: {
+            methods: {
+                TestNamespaceAndClassSameName: function () {
+                    Bridge.Test.NUnit.Assert.NotNull(NameBridge3970.App.Run(), "The scenario can be translated correctly.");
+                }
+            }
+        }
+    });
+
     Bridge.define("Bridge.ClientTest.Batch3.BridgeIssues.Bridge407", {
         $kind: "struct",
         statics: {
@@ -47797,6 +47807,74 @@ Bridge.$N1391Result =                     r;
             }
         }
     });
+
+    Bridge.define("NameBridge3970.App", {
+        statics: {
+            methods: {
+                Run: function () {
+                    return NameBridge3970.SpecialList$1(NameBridge3970.CategorySetGroup).Empty.Update($asm.$.NameBridge3970.App.f3);
+                }
+            }
+        }
+    });
+
+    Bridge.ns("NameBridge3970.App", $asm.$);
+
+    Bridge.apply($asm.$.NameBridge3970.App, {
+        f1: function (_) {
+            return _.CategorySets;
+        },
+        f2: function (cs) {
+            return cs;
+        },
+        f3: function (pcs) {
+            return pcs.With(NameBridge3970.SpecialList$1(NameBridge3970.CategorySet), $asm.$.NameBridge3970.App.f1, pcs.CategorySets.Update($asm.$.NameBridge3970.App.f2));
+        }
+    });
+
+    Bridge.define("NameBridge3970.Category");
+
+    Bridge.define("NameBridge3970.CategorySet", {
+        props: {
+            Categories: null
+        },
+        methods: {
+            With: function (TProp, propIdentifier, newValue) {
+                return this;
+            }
+        }
+    });
+
+    Bridge.define("NameBridge3970.CategorySetGroup", {
+        props: {
+            CategorySets: null
+        },
+        methods: {
+            With: function (TProp, propIdentifier, newValue) {
+                return this;
+            }
+        }
+    });
+
+    Bridge.define("NameBridge3970.NameBridge3970");
+
+    Bridge.define("NameBridge3970.SpecialList$1", function (T) { return {
+        statics: {
+            props: {
+                Empty: null
+            },
+            ctors: {
+                init: function () {
+                    this.Empty = new (NameBridge3970.SpecialList$1(T))();
+                }
+            }
+        },
+        methods: {
+            Update: function (updater) {
+                return this;
+            }
+        }
+    }; });
 
     Bridge.define("Other.Util", {
         statics: {
