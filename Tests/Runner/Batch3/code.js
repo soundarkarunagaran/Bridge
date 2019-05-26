@@ -7619,12 +7619,30 @@ Bridge.$N1391Result =                     r;
                 for (var i = 1; i < 1000; i = (i + 1) | 0) {
                     p = Bridge.global.performance.now();
                     if (!this.HasNoFraction(p)) {
-                        Bridge.Test.NUnit.Assert.True(true, "Did " + i + " attempt(s) to check performance.now() returns float");
+                        Bridge.Test.NUnit.Assert.True(true, "Returned float from performance.now() in " + i + "/1000 attempts.");
                         return;
                     }
                 }
 
-                Bridge.Test.NUnit.Assert.Fail("performance.now() did 1000 attemps to check if it returns float");
+                /* 
+                  Firefox 60+ would never return a float from performance.now.
+                  According to
+                  https://developer.mozilla.org/en-US/docs/Web/API/Performance/now:
+                    "The timestamp is not actually high-resolution. To mitigate
+                     security threats such as Spectre, browsers currently round
+                     the results to varying degrees.
+                  >>>(Firefox started rounding to 1 millisecond in Firefox 60.)
+                     Some browsers may also slightly randomize the timestamp. The
+                     precision may improve again in future releases; browser
+                     developers are still investigating these timing attacks and
+                     how best to mitigate them."
+                */
+                if (Bridge.Browser.firefoxVersion >= 60) {
+                    Bridge.Test.NUnit.Assert.True(true, "Firefox 60+ has performance.now() return exact 1ms-step values.");
+                    return;
+                } else {
+                    Bridge.Test.NUnit.Assert.Fail("Not returned float from performance.now() in 1000 attemps.");
+                }
             },
             HasNoFraction: function (n) {
                 return n % 1 === 0;
