@@ -89,15 +89,7 @@
             // UTC Max Value
             getMaxValue: function () {
                 if (this.$max === null) {
-                    var d = new Date(0)
-
-                    d.setFullYear(9999);
-                    d.setMonth(11);
-                    d.setDate(31);
-                    d.setHours(23);
-                    d.setMinutes(59);
-                    d.setSeconds(59);
-                    d.setMilliseconds(999);
+                    var d = new Date(9999, 11, 31, 23, 59, 59, 999);
 
                     d.ticks = this.getMaxTicks();
 
@@ -167,7 +159,18 @@
 
             // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
             getTicks: function (d) {
-                return System.Int64(d.getTime()).mul(10000).add(this.$getMinOffset());
+                if (d.ticks) {
+                    return d.ticks;
+                }
+
+                var kind = (d.kind !== undefined) ? d.kind : 0;
+
+                if (kind === 1) {
+                    return System.Int64(d.getTime()).mul(10000).add(this.$getMinOffset());
+                } else {
+                    return System.Int64(d.getTime()).mul(10000).add(this.$getMinOffset()).sub(this.$getTzOffset(d));
+                }
+
             },
 
             create: function (year, month, day, hour, minute, second, millisecond, kind) {
@@ -207,20 +210,19 @@
             },
 
             getToday: function () {
-                var d = new Date();
+                var d = this.getNow()
 
                 d.setHours(0);
                 d.setMinutes(0);
                 d.setSeconds(0);
                 d.setMilliseconds(0);
 
-                d.kind = 2;
-
                 return d;
             },
 
             getNow: function () {
                 var d = new Date();
+
                 d.kind = 2;
 
                 return d;
@@ -228,10 +230,10 @@
 
             getUtcNow: function () {
                 var d = new Date();
-                var dt = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds()));
-                dt.kind = 1;
 
-                return dt;
+                d.kind = 1;
+
+                return d;
             },
 
             getTimeOfDay: function (d) {
@@ -1173,8 +1175,8 @@
             addMilliseconds: function (d, v) {
                 var dt = new Date(d.getTime());
                 dt.setMilliseconds(dt.getMilliseconds() + v)
-                dt.ticks = this.getTicks(dt);
                 dt.kind = (d.kind !== undefined) ? d.kind : 0;
+                dt.ticks = this.getTicks(dt);
 
                 return dt;
             },
@@ -1258,7 +1260,9 @@
             },
 
             getHour: function (d) {
-                return d.getHours();
+                var kind = (d.kind !== undefined) ? d.kind : 0;
+
+                return kind === 1 ? d.getUTCHours() : d.getHours();
             },
 
             getMinute: function (d) {
