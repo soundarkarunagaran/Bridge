@@ -574,6 +574,7 @@ namespace Bridge.Translator
             }
             var isParam = parameter != null && !SyntaxHelper.IsAnonymous(parameter.Type);
             var parent = isParam && parameter.IsParams ? (InvocationExpressionSyntax)node.Parent.Parent : null;
+            var pos = node.Expression.GetLocation().SourceSpan.Start;
             node = (ArgumentSyntax)base.VisitArgument(node);
 
             if (isParam)
@@ -602,7 +603,7 @@ namespace Bridge.Translator
                         SyntaxHelper.GenerateTypeSyntax(
                             pType,
                             this.semanticModel,
-                            node.Expression.GetLocation().SourceSpan.Start,
+                            pos,
                             this
                         ),
                         expr
