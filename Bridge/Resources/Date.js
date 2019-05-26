@@ -21,7 +21,7 @@
             DaysTo1970: 719162,
             YearDaysByMonth: [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
 
-            getMinTicks: function() {
+            getMinTicks: function () {
                 if (this.$minTicks === null) {
                     this.$minTicks = System.Int64("0");
                 }
@@ -46,7 +46,7 @@
                 return this.$minOffset;
             },
 
-            // Difference in Ticks between 1970-01-01 and 1 nanosecond before 10000-01-01 UTC
+            // Difference in Ticks between 1970-01-01 and 100 nanoseconds before 10000-01-01 UTC
             $getMaxOffset: function () {
                 if (this.$maxOffset === null) {
                     this.$maxOffset = this.getMaxTicks().sub(this.$getMinOffset());
@@ -113,23 +113,24 @@
                 return System.Int64(d.getTimezoneOffset()).mul(600000000);
             },
 
-            // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
-            getTicks: function (d) {
-                if (d.ticks === undefined) {
-                    d.ticks = System.Int64(d.getTime()).mul(10000).add(this.$getMinOffset()).sub(this.$getTzOffset(d));
+            toLocalTime: function (d, throwOnOverflow) {
+                var kind = (d.kind !== undefined) ? d.kind : 0,
+                    d1;
+
+                if (kind !== 1) {
+                    d1 = new Date(d.getTime());
+                    d1.kind = 2;
+
+                    return d1;
                 }
 
-                return d.ticks;
-            },
+                d1 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
 
-            toLocalTime: function (d, throwOnOverflow) {
-                var d1,
-                    ticks = this.getTicks(d);
-
-                d1 = this.create$2(ticks, 2);
+                d1.kind = 2;
+                d1.ticks = this.getTicks(d1);
 
                 // Check if Ticks are out of range
-                if (ticks.gt(this.getMaxTicks()) || ticks.lt(0)) {
+                if (d1.ticks.gt(this.getMaxTicks()) || d1.ticks.lt(0)) {
                     if (throwOnOverflow && throwOnOverflow === true) {
                         throw new System.ArgumentException.$ctor1("Specified argument was out of the range of valid values.");
                     } else {
@@ -141,17 +142,32 @@
             },
 
             toUniversalTime: function (d) {
-                var d1,
-                    ticks = this.getTicks(d),
+                var kind = (d.kind !== undefined) ? d.kind : 0,
+                    d1;
 
-                    d1 = this.create$2(ticks, 1);
+                if (kind === 1) {
+                    d1 = new Date(d.getTime());
+                    d1.kind = 1;
+
+                    return d1;
+                }
+
+                d1 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()));
+
+                d1.kind = 1;
+                d1.ticks = this.getTicks(d1);
 
                 // Check if Ticks are out of range
-                if (ticks.gt(this.getMaxTicks()) || ticks.lt(0)) {
+                if (d1.ticks.gt(this.getMaxTicks()) || d1.ticks.lt(0)) {
                     d1 = this.create$2(ticks.add(this.$getTzOffset(d1)), 1);
                 }
 
                 return d1;
+            },
+
+            // Get the number of ticks since 0001-01-01T00:00:00.0000000 UTC
+            getTicks: function (d) {
+                return System.Int64(d.getTime()).mul(10000).add(this.$getMinOffset());
             },
 
             create: function (year, month, day, hour, minute, second, millisecond, kind) {
@@ -164,19 +180,19 @@
                 millisecond = (millisecond !== undefined) ? millisecond : 0;
                 kind = (kind !== undefined) ? kind : 0;
 
-                var d = new Date(year, month - 1, day, hour, minute, second, millisecond);
-                d.setFullYear(year);
+                var d;
+
+                if (kind === 1) {
+                    d = new Date(Date.UTC(year, month - 1, day, hour, minute, second, millisecond));
+                    d.setUTCFullYear(year);
+                } else {
+                    d = new Date(year, month - 1, day, hour, minute, second, millisecond);
+                    d.setFullYear(year);
+                }
 
                 d.kind = kind;
-                d.ticks = this.getTicks(d);
 
                 return d;
-            },
-
-            create$1: function (date, kind) {
-                kind = (kind !== undefined) ? kind : 0;
-
-                return this.create(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), kind);
             },
 
             create$2: function (ticks, kind) {
@@ -184,8 +200,8 @@
 
                 var d = new Date(ticks.sub(this.$getMinOffset()).div(10000).toNumber());
 
-                d.ticks = ticks;
                 d.kind = (kind !== undefined) ? kind : 0;
+                d.ticks = ticks;
 
                 return d;
             },
@@ -193,21 +209,35 @@
             getToday: function () {
                 var d = new Date();
 
-                return this.create(d.getFullYear(), d.getMonth() + 1, d.getDate(), 0, 0, 0, 0, 2);
+                d.setHours(0);
+                d.setMinutes(0);
+                d.setSeconds(0);
+                d.setMilliseconds(0);
+
+                d.kind = 2;
+
+                return d;
             },
 
             getNow: function () {
-                return this.create$1(new Date(), 2);
+                var d = new Date();
+                d.kind = 2;
+
+                return d;
             },
 
             getUtcNow: function () {
-                return this.create$1(new Date(), 1);
+                var d = new Date();
+                var dt = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds()));
+                dt.kind = 1;
+
+                return dt;
             },
 
             getTimeOfDay: function (d) {
-                var d1 = this.getDate(d);
+                var dt = this.getDate(d);
 
-                return new System.TimeSpan((d - d1) * 10000);
+                return new System.TimeSpan((d - dt) * 10000);
             },
 
             getKind: function (d) {
@@ -220,7 +250,7 @@
                 d = new Date(d.getTime());
                 d.kind = kind;
 
-                return d; 
+                return d;
             },
 
             $FileTimeOffset: System.Int64("584388").mul(System.Int64("864000000000")),
@@ -525,7 +555,7 @@
                 d = Date.parse(value);
 
                 if (!isNaN(d)) {
-                    return this.create$1(new Date(d), 0);
+                    return new Date(d);
                 } else if (!silent) {
                     throw new System.FormatException.$ctor1("String does not contain a valid string representation of a date and time.");
                 }
@@ -1001,7 +1031,8 @@
                     }
                 }
 
-                var d = this.create(year, month, date, hh, mm, ss, ff, kind);
+                var d = new Date(year, month - 1, date, hh, mm, ss, ff);
+                d.kind = kind;
 
                 if (kind === 2) {
                     if (adjust === true) {
