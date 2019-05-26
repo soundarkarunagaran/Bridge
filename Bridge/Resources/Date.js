@@ -117,7 +117,7 @@
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     d1;
 
-                if (kind !== 1) {
+                if (kind === 2) {
                     d1 = new Date(d.getTime());
                     d1.kind = 2;
 
