@@ -498,7 +498,7 @@ namespace Bridge.ClientTest.SimpleTypes
         public void GetDayWorks()
         {
             var dt = new DateTime(2011, 7, 12, 13, 42, 56, 345);
-            Assert.AreEqual(2, dt.DayOfWeek);
+            Assert.AreEqual(DayOfWeek.Tuesday, dt.DayOfWeek);
         }
 
         // Not C# API
