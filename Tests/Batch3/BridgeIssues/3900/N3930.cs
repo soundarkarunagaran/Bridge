@@ -25,19 +25,34 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         [Test]
         public static void TestGenericArrayAllocPerformance()
         {
+            var thresms = 50;
+            var threstimes = 1.5;
+
+            // Firefox requires a much more "relaxed" threshold. It was not
+            // much affected by the issue, but the timings go wild depending
+            // on the performance of the tested system.
+            if (Browser.FirefoxVersion > 0)
+            {
+                thresms = 200;
+
+                // Locally on a 4790K, it does not hit 2x ratio, but in the
+                // saucelabs hosts, it can go as high as 4.5x!
+                threstimes = 5;
+            }
+
             var tialloc = probePerformance(false, false); // int alloc
             var tiresiz = probePerformance(false, true); // int resize
             Assert.True(
-                ((tialloc - 50) < tiresiz) ||
-                (tialloc < (tiresiz * 1.5)),
+                ((tialloc - thresms) < tiresiz) ||
+                (tialloc < (tiresiz * threstimes)),
                 "The performance ratio alloc:resize for int is within an acceptable threshold (" + tialloc + ":" + tiresiz + ")."
             );
 
             var tsalloc = probePerformance(true, false); // string alloc
             var tsresiz = probePerformance(true, true); // string resize
             Assert.True(
-                ((tsalloc - 50) < tsresiz) ||
-                (tsalloc < (tsresiz * 1.5)),
+                ((tsalloc - thresms) < tsresiz) ||
+                (tsalloc < (tsresiz * threstimes)),
                 "The performance ratio alloc:resize for string is within an acceptable threshold (" + tsalloc + ":" + tsresiz + ")."
             );
         }
