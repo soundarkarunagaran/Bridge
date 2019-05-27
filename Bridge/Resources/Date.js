@@ -73,11 +73,7 @@
                     var d = new Date(0);
 
                     d.setFullYear(1);
-                    d.setHours(0);
-                    d.setMinutes(0);
-                    d.setSeconds(0);
-                    d.setMilliseconds(0);
-
+                    d.kind = 0;
                     d.ticks = this.getMinTicks();
 
                     this.$min = d;
@@ -91,6 +87,7 @@
                 if (this.$max === null) {
                     var d = new Date(9999, 11, 31, 23, 59, 59, 999);
 
+                    d.kind = 0;
                     d.ticks = this.getMaxTicks();
 
                     this.$max = d;
@@ -107,11 +104,13 @@
 
             toLocalTime: function (d, throwOnOverflow) {
                 var kind = (d.kind !== undefined) ? d.kind : 0,
+                    ticks = this.getTicks(d),
                     d1;
 
                 if (kind === 2) {
                     d1 = new Date(d.getTime());
                     d1.kind = 2;
+                    d1.ticks = ticks;
 
                     return d1;
                 }
@@ -119,7 +118,7 @@
                 d1 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
 
                 d1.kind = 2;
-                d1.ticks = this.getTicks(d1);
+                d1.ticks = ticks;
 
                 // Check if Ticks are out of range
                 if (d1.ticks.gt(this.getMaxTicks()) || d1.ticks.lt(0)) {
@@ -135,11 +134,13 @@
 
             toUniversalTime: function (d) {
                 var kind = (d.kind !== undefined) ? d.kind : 0,
+                    ticks = this.getTicks(d),
                     d1;
 
                 if (kind === 1) {
                     d1 = new Date(d.getTime());
                     d1.kind = 1;
+                    d1.ticks = ticks;
 
                     return d1;
                 }
@@ -147,7 +148,7 @@
                 d1 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()));
 
                 d1.kind = 1;
-                d1.ticks = this.getTicks(d1);
+                d1.ticks = ticks;
 
                 // Check if Ticks are out of range
                 if (d1.ticks.gt(this.getMaxTicks()) || d1.ticks.lt(0)) {
@@ -194,6 +195,7 @@
                 }
 
                 d.kind = kind;
+                d.ticks = this.getTicks(d);
 
                 return d;
             },
@@ -201,7 +203,15 @@
             create$2: function (ticks, kind) {
                 ticks = System.Int64.is64Bit(ticks) ? ticks : System.Int64(ticks);
 
-                var d = new Date(ticks.sub(this.$getMinOffset()).div(10000).toNumber());
+                var d;
+
+                if (ticks.lt(this.TicksPerDay)) {
+                    d = new Date(0);
+                    d.setMilliseconds(d.getMilliseconds() + this.$getTzOffset(d).div(10000).toNumber());
+                    d.setFullYear(1);
+                } else {
+                    d = new Date(ticks.sub(this.$getMinOffset()).div(10000).toNumber());
+                }
 
                 d.kind = (kind !== undefined) ? kind : 0;
                 d.ticks = ticks;
@@ -249,10 +259,11 @@
             },
 
             specifyKind: function (d, kind) {
-                d = new Date(d.getTime());
-                d.kind = kind;
+                var dt = new Date(d.getTime());
+                dt.kind = kind;
+                dt.ticks = d.ticks !== undefined ? d.ticks : this.getTicks(dt);
 
-                return d;
+                return dt;
             },
 
             $FileTimeOffset: System.Int64("584388").mul(System.Int64("864000000000")),
@@ -1266,7 +1277,9 @@
             },
 
             getMinute: function (d) {
-                return d.getMinutes();
+                var kind = (d.kind !== undefined) ? d.kind : 0;
+
+                return kind === 1 ? d.getUTCMinutes() : d.getMinutes();
             },
 
             getSecond: function (d) {
