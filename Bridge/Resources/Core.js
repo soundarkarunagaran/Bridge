@@ -676,7 +676,8 @@
             }
 
             if (Bridge.isDate(value)) {
-                return value.valueOf() & 0xFFFFFFFF;
+                var val = value.ticks !== undefined ? value.ticks : System.DateTime.getTicks(val);
+                return val.toNumber() & 0xFFFFFFFF;
             }
 
             if (value === Number.POSITIVE_INFINITY) {
