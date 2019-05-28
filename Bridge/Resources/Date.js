@@ -120,7 +120,7 @@
                     return d1;
                 }
 
-                d1 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+                d1 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()));
 
                 d1.kind = 2;
                 d1.ticks = ticks;
@@ -1123,19 +1123,13 @@
             },
 
             dateAddSubTimeSpan: function (d, t, direction) {
-                if (Bridge.hasValue$1(d, t)) {
-                    var ticks = t.getTicks().mul(direction),
-                        dt = new Date(d.getTime());
+                var ticks = t.getTicks().mul(direction),
+                    dt = new Date(d.getTime() + ticks.div(10000).toNumber());
 
-                    dt.setMilliseconds(dt.getMilliseconds() + ticks.div(10000).toNumber());
+                dt.kind = d.kind;
+                dt.ticks = this.getTicks(dt);
 
-                    dt.kind = d.kind;
-                    dt.ticks = this.getTicks(dt);
-
-                    return dt;
-                }
-
-                return null;
+                return dt;
             },
 
             subdt: function (d, t) {

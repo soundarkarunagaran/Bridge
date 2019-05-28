@@ -10710,19 +10710,14 @@ Bridge.define("System.Type", {
             },
 
             dateAddSubTimeSpan: function (d, t, direction) {
-                if (Bridge.hasValue$1(d, t)) {
-                    var ticks = t.getTicks().mul(direction),
-                        dt = new Date(d.getTime());
+                var ms = (d.getMilliseconds() + t.getTicks().mul(direction).div(10000).toNumber()),
+                    dt;
 
-                    dt.setMilliseconds(dt.getMilliseconds() + ticks.div(10000).toNumber());
+                dt = new Date(ms);
+                dt.kind = d.kind;
+                dt.ticks = this.getTicks(dt);
 
-                    dt.kind = d.kind;
-                    dt.ticks = this.getTicks(dt);
-
-                    return dt;
-                }
-
-                return null;
+                return dt;
             },
 
             subdt: function (d, t) {
