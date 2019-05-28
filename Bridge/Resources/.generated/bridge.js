@@ -9659,11 +9659,13 @@ Bridge.define("System.Type", {
                 if (this.$min === null) {
                     var d = new Date(0);
 
-                    d.setMilliseconds(0);
-                    d.setSeconds(0);
-                    d.setMinutes(0);
-                    d.setHours(0);
                     d.setFullYear(1);
+                    d.setMonth(0);
+                    d.setDate(0);
+                    d.setHours(0);
+                    d.setMinutes(0);
+                    d.setSeconds(0);
+                    d.setMilliseconds(0);
 
                     d.kind = 0;
                     d.ticks = this.getMinTicks();
@@ -9707,7 +9709,7 @@ Bridge.define("System.Type", {
                     return d1;
                 }
 
-                d1 = new Date(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds(), d.getMilliseconds());
+                d1 = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds()));
 
                 d1.kind = 2;
                 d1.ticks = ticks;
@@ -10710,10 +10712,9 @@ Bridge.define("System.Type", {
             },
 
             dateAddSubTimeSpan: function (d, t, direction) {
-                var ms = (d.getMilliseconds() + t.getTicks().mul(direction).div(10000).toNumber()),
-                    dt;
+                var ticks = t.getTicks().mul(direction),
+                    dt = new Date(d.getTime() + ticks.div(10000).toNumber());
 
-                dt = new Date(ms);
                 dt.kind = d.kind;
                 dt.ticks = this.getTicks(dt);
 
@@ -10861,8 +10862,8 @@ Bridge.define("System.Type", {
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     ticks = this.getTicks(d);
 
-                if (kind === 1 && d.getTimezoneOffset() < 0 && ticks.lt(this.TicksPerDay)) {
-                    return d.getFullYear();
+                if (ticks.lt(this.TicksPerDay)) {
+                    return 1;
                 }
 
                 return kind === 1 ? d.getUTCFullYear() : d.getFullYear();
@@ -10872,8 +10873,8 @@ Bridge.define("System.Type", {
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     ticks = this.getTicks(d);
 
-                if (kind === 1 && d.getTimezoneOffset() < 0 && ticks.lt(this.TicksPerDay)) {
-                    return d.getMonth() + 1;
+                if (ticks.lt(this.TicksPerDay)) {
+                    return 1;
                 }
 
                 return kind === 1 ? d.getUTCMonth() + 1 : d.getMonth() + 1;
@@ -10883,8 +10884,8 @@ Bridge.define("System.Type", {
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     ticks = this.getTicks(d);
 
-                if (kind === 1 && d.getTimezoneOffset() < 0 && ticks.lt(this.TicksPerDay)) {
-                    return d.getDate();
+                if (ticks.lt(this.TicksPerDay)) {
+                    return 1;
                 }
 
                 return kind === 1 ? d.getUTCDate() : d.getDate();
