@@ -1273,8 +1273,8 @@
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     ticks = this.getTicks(d);
 
-                if (kind === 1 && d.getTimezoneOffset() < 0 && ticks.lt(this.TicksPerDay)) {
-                    return d.getFullYear();
+                if (ticks.lt(this.TicksPerDay)) {
+                    return 1;
                 }
 
                 return kind === 1 ? d.getUTCFullYear() : d.getFullYear();
@@ -1284,8 +1284,8 @@
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     ticks = this.getTicks(d);
 
-                if (kind === 1 && d.getTimezoneOffset() < 0 && ticks.lt(this.TicksPerDay)) {
-                    return d.getMonth() + 1;
+                if (ticks.lt(this.TicksPerDay)) {
+                    return 1;
                 }
 
                 return kind === 1 ? d.getUTCMonth() + 1 : d.getMonth() + 1;
@@ -1295,8 +1295,8 @@
                 var kind = (d.kind !== undefined) ? d.kind : 0,
                     ticks = this.getTicks(d);
 
-                if (kind === 1 && d.getTimezoneOffset() < 0 && ticks.lt(this.TicksPerDay)) {
-                    return d.getDate();
+                if (ticks.lt(this.TicksPerDay)) {
+                    return 1;
                 }
 
                 return kind === 1 ? d.getUTCDate() : d.getDate();
