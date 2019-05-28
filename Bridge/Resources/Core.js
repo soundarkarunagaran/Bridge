@@ -676,7 +676,8 @@
             }
 
             if (Bridge.isDate(value)) {
-                var val = value.ticks !== undefined ? value.ticks : System.DateTime.getTicks(val);
+                var val = value.ticks !== undefined ? value.ticks : System.DateTime.getTicks(value);
+
                 return val.toNumber() & 0xFFFFFFFF;
             }
 
