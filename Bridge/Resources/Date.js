@@ -72,11 +72,13 @@
                 if (this.$min === null) {
                     var d = new Date(0);
 
-                    d.setMilliseconds(0);
-                    d.setSeconds(0);
-                    d.setMinutes(0);
-                    d.setHours(0);
                     d.setFullYear(1);
+                    d.setMonth(0);
+                    d.setDate(0);
+                    d.setHours(0);
+                    d.setMinutes(0);
+                    d.setSeconds(0);
+                    d.setMilliseconds(0);
 
                     d.kind = 0;
                     d.ticks = this.getMinTicks();
