@@ -7616,10 +7616,11 @@ Bridge.$N1391Result =                     r;
         methods: {
             TestPreformanceNowIsDouble: function () {
                 var p;
-                for (var i = 1; i < 1000; i = (i + 1) | 0) {
+                var attempts = 10000;
+                for (var i = 1; i < attempts; i = (i + 1) | 0) {
                     p = Bridge.global.performance.now();
                     if (!this.HasNoFraction(p)) {
-                        Bridge.Test.NUnit.Assert.True(true, "Returned float from performance.now() in " + i + "/1000 attempts.");
+                        Bridge.Test.NUnit.Assert.True(true, "Returned float from performance.now() in " + i + "/" + attempts + " attempts.");
                         return;
                     }
                 }
@@ -7641,7 +7642,7 @@ Bridge.$N1391Result =                     r;
                     Bridge.Test.NUnit.Assert.True(true, "Firefox 60+ has performance.now() return exact 1ms-step values.");
                     return;
                 } else {
-                    Bridge.Test.NUnit.Assert.Fail("Not returned float from performance.now() in 1000 attemps.");
+                    Bridge.Test.NUnit.Assert.Fail("Not returned float from performance.now() in " + attempts + " attempts.");
                 }
             },
             HasNoFraction: function (n) {
@@ -38846,13 +38847,27 @@ Bridge.$N1391Result =                     r;
                  * @return  {void}
                  */
                 TestGenericArrayAllocPerformance: function () {
+                    var thresms = 50;
+                    var threstimes = 1.5;
+
+                    // Firefox requires a much more "relaxed" threshold. It was not
+                    // much affected by the issue, but the timings go wild depending
+                    // on the performance of the tested system.
+                    if (Bridge.Browser.firefoxVersion > 0) {
+                        thresms = 200;
+
+                        // Locally on a 4790K, it does not hit 2x ratio, but in the
+                        // saucelabs hosts, it can go as high as 4.5x!
+                        threstimes = 5;
+                    }
+
                     var tialloc = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(false, false); // int alloc
                     var tiresiz = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(false, true); // int resize
-                    Bridge.Test.NUnit.Assert.True(((tialloc.sub(System.Int64(50))).lt(tiresiz)) || (System.Int64.toNumber(tialloc) < (System.Int64.toNumber(tiresiz) * 1.5)), "The performance ratio alloc:resize for int is within an acceptable threshold (" + tialloc + ":" + tiresiz + ").");
+                    Bridge.Test.NUnit.Assert.True(((tialloc.sub(System.Int64(thresms))).lt(tiresiz)) || (System.Int64.toNumber(tialloc) < (System.Int64.toNumber(tiresiz) * threstimes)), "The performance ratio alloc:resize for int is within an acceptable threshold (" + tialloc + ":" + tiresiz + ").");
 
                     var tsalloc = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(true, false); // string alloc
                     var tsresiz = Bridge.ClientTest.Batch3.BridgeIssues.Bridge3930.probePerformance(true, true); // string resize
-                    Bridge.Test.NUnit.Assert.True(((tsalloc.sub(System.Int64(50))).lt(tsresiz)) || (System.Int64.toNumber(tsalloc) < (System.Int64.toNumber(tsresiz) * 1.5)), "The performance ratio alloc:resize for string is within an acceptable threshold (" + tsalloc + ":" + tsresiz + ").");
+                    Bridge.Test.NUnit.Assert.True(((tsalloc.sub(System.Int64(thresms))).lt(tsresiz)) || (System.Int64.toNumber(tsalloc) < (System.Int64.toNumber(tsresiz) * threstimes)), "The performance ratio alloc:resize for string is within an acceptable threshold (" + tsalloc + ":" + tsresiz + ").");
                 },
                 /**
                  * Coordinates the allocation given the reftype or resize conditions

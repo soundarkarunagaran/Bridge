@@ -10,12 +10,13 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
         public void TestPreformanceNowIsDouble()
         {
             double p;
-            for (int i = 1; i < 1000; i++)
+            int attempts = 10000;
+            for (int i = 1; i < attempts; i++)
             {
                 p = Bridge.Html5.Global.Performance.Now();
                 if (!HasNoFraction(p))
                 {
-                    Assert.True(true, "Returned float from performance.now() in " + i + "/1000 attempts.");
+                    Assert.True(true, "Returned float from performance.now() in " + i + "/" + attempts + " attempts.");
                     return;
                 }
             }
@@ -40,7 +41,7 @@ namespace Bridge.ClientTest.Batch3.BridgeIssues
             }
             else
             {
-                Assert.Fail("Not returned float from performance.now() in 1000 attemps.");
+                Assert.Fail("Not returned float from performance.now() in " + attempts + " attempts.");
             }
         }
 
