@@ -10742,13 +10742,27 @@ Bridge.define("System.Type", {
             },
 
             addDays: function (d, v) {
-                var dt = new Date(d.getTime());
+                var kind = (d.kind !== undefined) ? d.kind : 0,
+                    dt = new Date(d.getTime());
 
-                dt.setHours(dt.getHours() + (24 * v));
-                dt.kind = (d.kind !== undefined) ? d.kind : 0;
+                if (kind === 1) {
+                    dt.setUTCDate(dt.getUTCDate() + (Math.floor(v) * 1));
+
+                    if (v % 1 !== 0) {
+                        dt.setUTCMilliseconds(dt.getUTCMilliseconds() + Math.round((v % 1) * 864e5));
+                    }
+                } else {
+                    dt.setDate(dt.getDate() + (Math.floor(v) * 1));
+
+                    if (v % 1 !== 0) {
+                        dt.setMilliseconds(dt.getMilliseconds() + Math.round((v % 1) * 864e5));
+                    }
+                }
+
+                dt.kind = kind;
                 dt.ticks = this.getTicks(dt);
 
-                return dt
+                return dt;
             },
 
             addHours: function (d, v) {
