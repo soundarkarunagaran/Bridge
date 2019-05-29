@@ -1304,7 +1304,7 @@
         },
 
         isDate: function (obj) {
-            return obj instanceof Date;
+            return obj instanceof Date || Object.prototype.toString.call(obj) === "[object Date]";
         },
 
         isNull: function (value) {
