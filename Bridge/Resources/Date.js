@@ -1154,21 +1154,10 @@
             },
 
             addDays: function (d, v) {
-                var kind = (d.kind !== undefined) ? d.kind : 0,
-                    h = d.getUTCHours(),
-                    m = d.getUTCMinutes(),
-                    s = d.getUTCSeconds(),
-                    ms = d.getUTCMilliseconds(),
-                    dt = new Date(d.getTime());
+                var dt = new Date(d.getTime());
 
-                dt.setUTCDate(d.getUTCDate() + v);
-                dt.setUTCHours(h);
-                dt.setUTCMinutes(m);
-                dt.setUTCSeconds(s);
-                dt.setUTCMilliseconds(ms);
-
-                dt.kind = kind;
-                dt = v % 1 !== 0 ? this.addMilliseconds(dt, Math.round((v % 1) * 864e5)) : dt;
+                dt.setHours(dt.getHours() + (24 * v));
+                dt.kind = (d.kind !== undefined) ? d.kind : 0;
                 dt.ticks = this.getTicks(dt);
 
                 return dt
