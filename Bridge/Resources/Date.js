@@ -67,19 +67,11 @@
                 return this.$default;
             },
 
-            // UTC Min Value
             getMinValue: function () {
                 if (this.$min === null) {
-                    var d = new Date(0);
-
+                    var d = new Date(1, 0, 1, 0, 0, 0, 0);
+                    
                     d.setFullYear(1);
-                    d.setMonth(0);
-                    d.setDate(0);
-                    d.setHours(0);
-                    d.setMinutes(0);
-                    d.setSeconds(0);
-                    d.setMilliseconds(0);
-
                     d.kind = 0;
                     d.ticks = this.getMinTicks();
 
@@ -89,7 +81,6 @@
                 return this.$min;
             },
 
-            // UTC Max Value
             getMaxValue: function () {
                 if (this.$max === null) {
                     var d = new Date(9999, 11, 31, 23, 59, 59, 999);
@@ -103,7 +94,6 @@
                 return this.$max;
             },
 
-            // Return the TimezoneOffset in Ticks
             $getTzOffset: function (d) {
                 // 60 seconds * 1000 milliseconds * 10000
                 return System.Int64(d.getTimezoneOffset()).mul(600000000);
